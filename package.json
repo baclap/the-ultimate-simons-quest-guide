@@ -1,0 +1,26 @@
+{
+  "name": "cv2-map",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pixel-perfect Castlevania II map extraction tools.",
+  "type": "commonjs",
+  "bin": {
+    "cv2map": "src/index.js"
+  },
+  "scripts": {
+    "verify-rom": "node src/index.js verify-rom --rom roms/cv2.nes",
+    "extract-chr": "node src/index.js extract-chr --rom roms/cv2.nes --out out/chr --scale 1",
+    "manifest": "node src/index.js manifest --out out/manifest.json",
+    "render-all": "node src/index.js render-all --rom roms/cv2.nes --out out --scale 1",
+    "mesen:smoke": "node src/index.js mesen-capture --rom roms/cv2.nes --script tools/mesen/smoke-capture.lua --out out/mesen-smoke --timeout 10",
+    "mesen:memtypes": "node src/index.js mesen-capture --rom roms/cv2.nes --script tools/mesen/discover-memtypes.lua --out out/mesen-memtypes --timeout 10",
+    "capture:jova": "node src/index.js mesen-capture-screen --rom roms/cv2.nes --name jova-day --location Jova --variant day --access outdoor --out out/captures/jova-day --timeout 60 --start-presses 240:20,2000:20,3500:20 --capture-frame 5000",
+    "render:jova-capture": "node src/index.js render-ppu-capture --capture out/captures/jova-day --out out/captures/jova-day/background.png",
+    "decode:title-transfer": "node src/index.js decode-transfer --rom roms/cv2.nes --bank 4 --address 0x8000 --mirroring vertical --out out/decoder/title-transfer.bin",
+    "replay:jova-buffer-trace": "node src/index.js replay-ppu-buffer-trace --trace out/mesen-buffer-trace/ppu-buffer-writes.tsv --mirroring vertical --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/mesen-buffer-trace/replayed-nametables.bin",
+    "render:jova-native": "node src/index.js render-jova-native --rom roms/cv2.nes --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-native-nametables.bin"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,12 @@
+node_modules/
+.DS_Store
+
+# Local ROMs are copyrighted artifacts and should never be committed.
+roms/*
+!roms/.gitkeep
+
+# Generated artifacts.
+out/*
+!out/.gitkeep
+
+# Machine-readable reference data belongs in data/ and should be committed.

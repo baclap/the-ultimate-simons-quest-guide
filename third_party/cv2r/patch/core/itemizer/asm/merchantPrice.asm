@@ -1,0 +1,14 @@
+PHP
+
+JSR $<%= isChecked %>
+LDA $600C
+CMP #$1
+BNE NORMAL
+LDA #$99
+BNE DONE
+
+NORMAL LDA $<%= saleTable %>,Y
+
+DONE
+PLP
+RTS
