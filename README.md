@@ -53,8 +53,8 @@ Current background-loader findings are documented in `docs/background-decoder-no
 
 The intended path is:
 
-1. generalize the Jova edge-row selection that is currently captured as a calibrated descriptor
-2. identify the remaining room pointer tables and compressed/background layout formats
+1. identify the remaining room pointer tables and compressed/background layout formats
+2. apply the row-streaming decoder to a second representative screen
 3. render one known town and one known overworld screen directly from ROM data
 4. verify against representative emulator screenshots
 5. expand to full composites and overlay data from `out/manifest.json`

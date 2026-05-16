@@ -37,7 +37,7 @@ The local ROM copy is also ignored:
 - The Jova gameplay background is built through the NMI PPU update buffer, not only through a full-screen transfer stream.
 - Replaying the traced Jova `$0700` buffer reproduces nametable page 0 and its mirror exactly against the Mesen capture.
 - The stable Jova block layout comes from PRG bank `2:$8497`; tile definitions come from PRG bank `4:$8461`; attributes come from PRG bank `4:$841E`.
-- The first ROM-native Jova checkpoint reproduces captured nametable page 0 and its mirror exactly. Its remaining screen-specific part is the scroll/ring-buffer edge-row selection for rows `0-3` and `28-29`.
+- The first ROM-native Jova checkpoint reproduces captured nametable page 0 and its mirror exactly. Rows `0-3` and `28-29` now come from the traced row-streaming algorithm instead of a hard-coded edge-tile descriptor.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
 
 ## Strategy
@@ -58,7 +58,7 @@ Work items:
    - Start from `cv2r` actor pointers and palette patch offsets.
    - Trace object set/area/submap usage in `disassembly/cv2.asm`.
    - Identify the loader routine that turns `objset`, `area`, and `submap` into room/background data.
-   - Generalize the Jova edge-row selection currently represented by the calibrated native descriptor.
+   - Apply the Jova row-streaming decoder to another representative screen to separate shared renderer logic from town-specific state.
 
 2. Decode room data.
    - Determine whether data is raw nametable, metatile, or compressed command stream.

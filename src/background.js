@@ -20,17 +20,13 @@ const JOVA_NATIVE_DESCRIPTOR = {
   tileSetAddress: 0x841d,
   widthBlocks: 8,
   heightBlocks: 8,
-  edgeRows: {
-    0: [[0x18, 0], [0x12, 2], [0x29, 2], [0x02, 2], [0x26, 2], [0x15, 2], [0x20, 2], [0x13, 2]],
-    1: [[0x18, 0], [0x10, 0], [0x29, 3], [0x02, 3], [0x26, 3], [0x15, 3], [0x20, 3], [0x11, 0]],
-    2: [[0x18, 0], [0x10, 0], [0x14, 0], [0x1b, 0], [0x04, 0], [0x26, 0], [0x2b, 0], [0x11, 0]],
-    3: [[0x18, 0], [0x12, 1], [0x14, 1], [0x29, 1], [0x02, 1], [0x26, 1], [0x20, 3], [0x13, 1]],
-    28: [[0x18, 0], [0x10, 0], [0x1b, 0], [0x04, 0], [0x26, 0], [0x15, 0], [0x14, 0], [0x11, 0]],
-    29: [[0x18, 0], [0x12, 1], [0x29, 1], [0x02, 1], [0x26, 1], [0x15, 1], [0x14, 1], [0x13, 1]]
-  },
-  edgeAttributeRows: {
-    0: [0xaa, 0x66, 0x55, 0x50, 0x04, 0x55, 0x55, 0x99],
-    7: [0xaa, 0x56, 0x55, 0x50, 0x55, 0x55, 0x55, 0x59]
+  rowsPerLayoutSection: 7,
+  rowStream: {
+    startWorldRow: 0x1c,
+    rowCount: 6,
+    columnGroup: 0,
+    columnCount: 8,
+    hiddenAttributeHighNibbles: [0x0a, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05]
   }
 };
 
@@ -265,50 +261,130 @@ function copyNametablePage(nametables, sourcePage, targetPage) {
   nametables.copy(nametables, targetStart, sourceStart, sourceStart + NAMETABLE_PAGE_SIZE);
 }
 
-function renderNativeBlock(nametables, rom, info, descriptor, tileBaseAddress, blockIndex, blockRow, blockColumn) {
-  for (let tileRow = 0; tileRow < 4; tileRow += 1) {
-    const nametableRow = blockRow * 4 + tileRow;
-    if (nametableRow >= 30) {
-      continue;
-    }
+function readNativeLayoutPointer(rom, info, descriptor, section, columnGroup) {
+  const pointersPerSection = readPrgByte(rom, info, descriptor.layoutHeaderAddress);
+  const pointerIndex = section * pointersPerSection + columnGroup;
+  return readPrgWord(rom, info, descriptor.layoutHeaderAddress + 2 + pointerIndex * 2);
+}
 
-    for (let tileColumn = 0; tileColumn < 4; tileColumn += 1) {
-      const nametableColumn = blockColumn * 4 + tileColumn;
+function nativeBlockAttribute(rom, info, descriptor, blockIndex) {
+  return readPrgByte(rom, info, descriptor.tileSetAddress + 1 + blockIndex, { bank: descriptor.tileBank });
+}
+
+function nativePaletteBits(attributeByte, tileRow, tileColumn) {
+  const quadrant = (tileRow >= 2 ? 2 : 0) + (tileColumn >= 2 ? 1 : 0);
+  return (attributeByte >> (quadrant * 2)) & 0x03;
+}
+
+function writeNativeTileRow(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, blockIndex, tileRow, nametableRow, blockColumn) {
+  const attributeByte = nativeBlockAttribute(rom, info, descriptor, blockIndex);
+  for (let tileColumn = 0; tileColumn < 4; tileColumn += 1) {
+    const nametableColumn = blockColumn * 4 + tileColumn;
+    if (nametableRow < 30) {
       nametables[nametableRow * 32 + nametableColumn] = readPrgByte(
         rom,
         info,
         tileBaseAddress + blockIndex * 16 + tileRow * 4 + tileColumn,
         { bank: descriptor.tileBank }
       );
+      paletteBits[nametableRow][nametableColumn] = nativePaletteBits(attributeByte, tileRow, tileColumn);
     }
   }
 }
 
-function renderNativeEdgeRow(nametables, rom, info, descriptor, tileBaseAddress, nametableRow, chunks) {
-  if (nametableRow < 0 || nametableRow >= 30) {
-    throw new Error(`edge tile row ${nametableRow} is outside the visible nametable tile area`);
+function renderNativeBlock(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, blockIndex, blockRow, blockColumn) {
+  for (let tileRow = 0; tileRow < 4; tileRow += 1) {
+    const nametableRow = blockRow * 4 + tileRow;
+    writeNativeTileRow(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, blockIndex, tileRow, nametableRow, blockColumn);
+  }
+}
+
+function nativeRowStreamState(descriptor, worldRow) {
+  let layoutRow = worldRow >> 2;
+  let section = 0;
+  while (layoutRow >= descriptor.rowsPerLayoutSection) {
+    layoutRow -= descriptor.rowsPerLayoutSection;
+    section += 1;
   }
 
-  chunks.forEach(([blockIndex, tileRow], blockColumn) => {
-    if (blockColumn >= 8) {
-      throw new Error(`edge tile row ${nametableRow} has too many 4-tile chunks`);
-    }
-    for (let tileColumn = 0; tileColumn < 4; tileColumn += 1) {
-      nametables[nametableRow * 32 + blockColumn * 4 + tileColumn] = readPrgByte(
+  return {
+    section,
+    layoutRow,
+    tileRow: worldRow & 0x03,
+    nametableRow: ((worldRow % 30) + 30) % 30
+  };
+}
+
+function renderNativeRowStream(nametables, paletteBits, rom, info, descriptor, tileBaseAddress) {
+  const renderedRows = [];
+  const stream = descriptor.rowStream;
+  for (let offset = 0; offset < stream.rowCount; offset += 1) {
+    const worldRow = stream.startWorldRow + offset;
+    const rowState = nativeRowStreamState(descriptor, worldRow);
+    const layoutAddress = readNativeLayoutPointer(rom, info, descriptor, rowState.section, stream.columnGroup);
+
+    for (let blockColumn = 0; blockColumn < stream.columnCount; blockColumn += 1) {
+      const blockIndex = readPrgByte(
         rom,
         info,
-        tileBaseAddress + blockIndex * 16 + tileRow * 4 + tileColumn,
-        { bank: descriptor.tileBank }
+        layoutAddress + rowState.layoutRow * descriptor.widthBlocks + blockColumn,
+        { bank: descriptor.layoutBank }
+      );
+      writeNativeTileRow(
+        nametables,
+        paletteBits,
+        rom,
+        info,
+        descriptor,
+        tileBaseAddress,
+        blockIndex,
+        rowState.tileRow,
+        rowState.nametableRow,
+        blockColumn
       );
     }
-  });
+
+    renderedRows.push({
+      worldRow,
+      nametableRow: rowState.nametableRow,
+      section: rowState.section,
+      layoutRow: rowState.layoutRow,
+      tileRow: rowState.tileRow,
+      layoutAddress: `0x${toHex(layoutAddress)}`
+    });
+  }
+  return renderedRows;
+}
+
+function assembleNativeAttributes(nametables, paletteBits, descriptor) {
+  for (let attributeRow = 0; attributeRow < 8; attributeRow += 1) {
+    for (let attributeColumn = 0; attributeColumn < 8; attributeColumn += 1) {
+      const y = attributeRow * 4;
+      const x = attributeColumn * 4;
+      const topLeft = paletteBits[y]?.[x] ?? 0;
+      const topRight = paletteBits[y]?.[x + 2] ?? 0;
+      const bottomLeft = paletteBits[y + 2]?.[x] ?? 0;
+      const bottomRight = paletteBits[y + 2]?.[x + 2] ?? 0;
+      nametables[NAMETABLE_TILE_BYTES + attributeRow * 8 + attributeColumn] =
+        topLeft | (topRight << 2) | (bottomLeft << 4) | (bottomRight << 6);
+    }
+  }
+
+  const hiddenHighNibbles = descriptor.rowStream?.hiddenAttributeHighNibbles;
+  if (hiddenHighNibbles) {
+    hiddenHighNibbles.forEach((highNibble, attributeColumn) => {
+      const offset = NAMETABLE_TILE_BYTES + 7 * 8 + attributeColumn;
+      nametables[offset] = ((highNibble & 0x0f) << 4) | (nametables[offset] & 0x0f);
+    });
+  }
 }
 
 function renderJovaNativeNametables(rom, info, opts = {}) {
   const descriptor = opts.descriptor || JOVA_NATIVE_DESCRIPTOR;
   const nametables = Buffer.alloc(NAMETABLE_SIZE, opts.fill ?? 0);
+  const paletteBits = Array.from({ length: 30 }, () => Array(32).fill(0));
   const layoutPointerAddress = descriptor.layoutHeaderAddress + 2 + descriptor.layoutPointerIndex * 2;
-  const layoutAddress = readPrgWord(rom, info, layoutPointerAddress);
+  const layoutAddress = readNativeLayoutPointer(rom, info, descriptor, 0, descriptor.layoutPointerIndex);
 
   if (opts.strict !== false && layoutAddress !== descriptor.expectedLayoutAddress) {
     throw new Error(
@@ -330,32 +406,13 @@ function renderJovaNativeNametables(rom, info, opts = {}) {
         { bank: descriptor.layoutBank }
       );
       layoutRow.push(blockIndex);
-      renderNativeBlock(nametables, rom, info, descriptor, tileBaseAddress, blockIndex, blockRow, blockColumn);
-
-      nametables[NAMETABLE_TILE_BYTES + blockRow * 8 + blockColumn] = readPrgByte(
-        rom,
-        info,
-        descriptor.tileSetAddress + 1 + blockIndex,
-        { bank: descriptor.tileBank }
-      );
+      renderNativeBlock(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, blockIndex, blockRow, blockColumn);
     }
     layoutBytes.push(layoutRow);
   }
 
-  for (const [rowText, chunks] of Object.entries(descriptor.edgeRows)) {
-    renderNativeEdgeRow(nametables, rom, info, descriptor, tileBaseAddress, Number.parseInt(rowText, 10), chunks);
-  }
-
-  for (const [rowText, values] of Object.entries(descriptor.edgeAttributeRows)) {
-    const attributeRow = Number.parseInt(rowText, 10);
-    if (attributeRow < 0 || attributeRow >= 8) {
-      throw new Error(`edge attribute row ${attributeRow} is outside the nametable attribute area`);
-    }
-    values.forEach((value, column) => {
-      assertByte(value, 'edge attribute byte');
-      nametables[NAMETABLE_TILE_BYTES + attributeRow * 8 + column] = value;
-    });
-  }
+  const streamedRows = renderNativeRowStream(nametables, paletteBits, rom, info, descriptor, tileBaseAddress);
+  assembleNativeAttributes(nametables, paletteBits, descriptor);
 
   const mirroring = opts.mirroring || 'vertical';
   if (mirroring === 'vertical') {
@@ -378,8 +435,8 @@ function renderJovaNativeNametables(rom, info, opts = {}) {
       tileSetOffset: `0x${toHex(tileSetOffset, 2)}`,
       tileBaseAddress: `0x${toHex(tileBaseAddress)}`,
       mirroring,
-      calibratedEdgeRows: Object.keys(descriptor.edgeRows).map(Number).sort((a, b) => a - b),
-      calibratedAttributeRows: Object.keys(descriptor.edgeAttributeRows).map(Number).sort((a, b) => a - b),
+      streamedRows,
+      hiddenAttributeHighNibbles: descriptor.rowStream?.hiddenAttributeHighNibbles,
       layoutBytes
     }
   };

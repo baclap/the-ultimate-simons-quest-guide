@@ -145,7 +145,29 @@ The main 8x8 block layout at bank `2:$8497` is:
 
 Each block index selects 16 tile bytes from bank `4:$8461 + index * 16`, arranged as a 4x4 tile block. The matching attribute byte is `bank4[$841E + index]`.
 
-That base layout reproduces the stable middle of page 0. Rows `0-3` and `28-29`, plus attribute rows `0` and `7`, are still represented by a calibrated edge-row descriptor derived from the traced fixed-bank renderer. These edge rows are ROM-native tile reads, not copied nametable bytes, but the row selection is still screen-specific. Generalizing that scroll/ring-buffer edge selection is the next renderer problem.
+That base layout reproduces the stable middle of page 0. Rows `0-3` and `28-29` are now calculated through the row-streaming rules observed in the fixed-bank renderer instead of a hard-coded tile descriptor.
+
+The relevant row-stream rules are:
+
+- `$EAA6` maps a world tile row to `section`, `layoutRow`, and `tileRow`.
+- `tileRow = worldRow & 3`.
+- `layoutRow = floor(worldRow / 4) % 7`.
+- `section = floor(floor(worldRow / 4) / 7)`.
+- `$E804` selects the layout pointer as `header + 2 + 2 * (header[0] * section + columnGroup)`.
+- `$EB35` maps the streamed row to a nametable row with `worldRow % 30`.
+
+For the current Jova fixture, the streamed rows are:
+
+```text
+world 28 -> nametable 28, section 1, layout row 0, tile row 0, layout $83B7
+world 29 -> nametable 29, section 1, layout row 0, tile row 1, layout $83B7
+world 30 -> nametable 00, section 1, layout row 0, tile row 2, layout $83B7
+world 31 -> nametable 01, section 1, layout row 0, tile row 3, layout $83B7
+world 32 -> nametable 02, section 1, layout row 1, tile row 0, layout $83B7
+world 33 -> nametable 03, section 1, layout row 1, tile row 1, layout $83B7
+```
+
+Attributes are assembled from per-tile palette quadrant bits rather than copied as whole block bytes. Attribute row `0` falls out of the streamed rows naturally. Attribute row `7` includes the non-visible conceptual tile rows `30-31`; the exact captured high nibbles for that hidden half are still represented as `hiddenAttributeHighNibbles`. Those bits preserve byte-exact nametable comparison but do not affect visible 240-pixel rendering for the current scroll.
 
 Current comparison against `out/captures/jova-day/ppu-2000-2fff-nametables.bin`:
 
