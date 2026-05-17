@@ -61,11 +61,16 @@ still target a single `layoutSection` for validation slices, but atlas entries
 can set `renderAllSections` to draw every row of the header. The resulting
 metadata records `layoutSections`, `layoutGrid`, and per-cell pointer addresses.
 
+For towns, section height is not the same as the full 8-block nametable
+descriptor height. `rowsPerLayoutSection=7` is used for layout-space
+composition, while `heightBlocks=8` remains available for exact viewport
+reconstruction with row-streamed hidden/wrapped rows.
+
 Examples from the exterior atlas:
 
 | Location | Header grid | Rendered size |
 | --- | ---: | ---: |
-| Jova | `4x2` | `1024x512` |
+| Jova | `4x2` | `1024x448` |
 | Dora Woods - Part 2 | `2x2` | `512x448` |
 | Castlevania | `4x4` | `1024x896` |
 

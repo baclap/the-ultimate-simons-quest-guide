@@ -41,16 +41,16 @@
       <div class="section-head">
         <p class="eyebrow">Before and after</p>
         <h2>Jova exposes the missing second row</h2>
-        <p>The old atlas path drew section 0 only. The new renderer reads the header as <code>4x2</code> and stacks both rows into one layout-space image.</p>
+        <p>The old atlas path drew section 0 only. The renderer now reads the header as <code>4x2</code> and uses the town row-stream section height of seven block rows.</p>
       </div>
       <div class="compare two-up">
         <figure>
           <img src="assets/layouts/jova-top-row.png" alt="Jova top row only render">
-          <figcaption>Previous: section 0 only, 1024x256</figcaption>
+          <figcaption>Section 0 only, 1024x224</figcaption>
         </figure>
         <figure>
           <img src="assets/layouts/jova-full-grid.png" alt="Jova full layout grid render">
-          <figcaption>Current: sections 0 and 1, 1024x512</figcaption>
+          <figcaption>Current: sections 0 and 1, 1024x448</figcaption>
         </figure>
       </div>
     </section>

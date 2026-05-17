@@ -102,7 +102,8 @@ function normalizeLayoutTemplate(raw, id) {
     paletteAddress: parseInteger(raw.paletteAddress, `templates.${id}.paletteAddress`),
     paletteLength: parseInteger(raw.paletteLength, `templates.${id}.paletteLength`),
     widthBlocks: parseInteger(raw.widthBlocks, `templates.${id}.widthBlocks`),
-    heightBlocks: parseInteger(raw.heightBlocks, `templates.${id}.heightBlocks`)
+    heightBlocks: parseInteger(raw.heightBlocks, `templates.${id}.heightBlocks`),
+    rowsPerLayoutSection: parseInteger(raw.rowsPerLayoutSection, `templates.${id}.rowsPerLayoutSection`)
   };
 }
 
@@ -126,6 +127,7 @@ function normalizeLayoutSegment(raw) {
     columnGroups: parseIntegerArray(raw.columnGroups || [], `${raw.id}.columnGroups`),
     widthBlocks: parseInteger(raw.widthBlocks, `${raw.id}.widthBlocks`),
     heightBlocks: parseInteger(raw.heightBlocks, `${raw.id}.heightBlocks`),
+    rowsPerLayoutSection: parseInteger(raw.rowsPerLayoutSection, `${raw.id}.rowsPerLayoutSection`),
     bgPatternBase: parseInteger(raw.bgPatternBase, `${raw.id}.bgPatternBase`) ?? 0,
     validationWindows: (raw.validationWindows || []).map(normalizeValidationWindow)
   };
@@ -333,7 +335,8 @@ function descriptorFromLayoutSegment(rom, info, segment, opts = {}) {
       paletteAddress: requireInteger(valueFromSegmentTemplate(segment, template, 'paletteAddress'), `${segment.id}.paletteAddress`),
       paletteLength: valueFromSegmentTemplate(segment, template, 'paletteLength'),
       widthBlocks: requireInteger(valueFromSegmentTemplate(segment, template, 'widthBlocks'), `${segment.id}.widthBlocks`),
-      heightBlocks: requireInteger(valueFromSegmentTemplate(segment, template, 'heightBlocks'), `${segment.id}.heightBlocks`)
+      heightBlocks: requireInteger(valueFromSegmentTemplate(segment, template, 'heightBlocks'), `${segment.id}.heightBlocks`),
+      rowsPerLayoutSection: valueFromSegmentTemplate(segment, template, 'rowsPerLayoutSection')
     }
   };
 }
@@ -465,15 +468,23 @@ function renderLayoutSegment(rom, info, segment, opts = {}) {
   }
 
   const groupWidthBlocks = segment.widthBlocks || descriptor.widthBlocks;
-  const heightBlocks = segment.heightBlocks || descriptor.heightBlocks;
+  const nametableHeightBlocks = segment.heightBlocks || descriptor.heightBlocks;
+  const sectionHeightBlocks = segment.rowsPerLayoutSection ||
+    descriptor.rowsPerLayoutSection ||
+    nametableHeightBlocks;
   if (groupWidthBlocks !== descriptor.widthBlocks) {
     throw new Error(
       `layout segment "${segment.id}" widthBlocks ${groupWidthBlocks} must currently match descriptor widthBlocks ${descriptor.widthBlocks}`
     );
   }
+  if (sectionHeightBlocks > nametableHeightBlocks) {
+    throw new Error(
+      `layout segment "${segment.id}" section height ${sectionHeightBlocks} cannot exceed descriptor heightBlocks ${nametableHeightBlocks}`
+    );
+  }
 
   const widthBlocks = groupWidthBlocks * columnGroups.length;
-  const renderedHeightBlocks = heightBlocks * layoutSections.length;
+  const renderedHeightBlocks = sectionHeightBlocks * layoutSections.length;
   const width = widthBlocks * BLOCK_SIZE;
   const height = renderedHeightBlocks * BLOCK_SIZE;
   const rgba = Buffer.alloc(width * height * 4);
@@ -496,7 +507,7 @@ function renderLayoutSegment(rom, info, segment, opts = {}) {
     columnGroups.forEach((columnGroup, columnIndex) => {
       const pointer = layoutPointerInfo(rom, info, descriptor, layoutSection, columnGroup);
       const layoutBytes = [];
-      for (let blockRow = 0; blockRow < heightBlocks; blockRow += 1) {
+      for (let blockRow = 0; blockRow < sectionHeightBlocks; blockRow += 1) {
         const row = [];
         for (let blockColumn = 0; blockColumn < groupWidthBlocks; blockColumn += 1) {
           const blockIndex = readBlockIndex(rom, info, descriptor, pointer.layoutAddress, blockRow, blockColumn);
@@ -507,7 +518,7 @@ function renderLayoutSegment(rom, info, segment, opts = {}) {
             descriptor,
             blockIndex,
             columnIndex * groupWidthBlocks + blockColumn,
-            sectionIndex * heightBlocks + blockRow
+            sectionIndex * sectionHeightBlocks + blockRow
           );
         }
         layoutBytes.push(row);
@@ -520,9 +531,9 @@ function renderLayoutSegment(rom, info, segment, opts = {}) {
         columnGroup,
         columnIndex,
         x: columnIndex * groupWidthBlocks * BLOCK_SIZE,
-        y: sectionIndex * heightBlocks * BLOCK_SIZE,
+        y: sectionIndex * sectionHeightBlocks * BLOCK_SIZE,
         width: groupWidthBlocks * BLOCK_SIZE,
-        height: heightBlocks * BLOCK_SIZE,
+        height: sectionHeightBlocks * BLOCK_SIZE,
         pointersPerSection: pointer.pointersPerSection,
         layoutPointerIndex: pointer.pointerIndex,
         layoutPointerAddress: `0x${toHex(pointer.pointerAddress)}`,
@@ -563,7 +574,8 @@ function renderLayoutSegment(rom, info, segment, opts = {}) {
       blockSize: BLOCK_SIZE,
       widthBlocks,
       heightBlocks: renderedHeightBlocks,
-      sectionHeightBlocks: heightBlocks,
+      sectionHeightBlocks,
+      nametableHeightBlocks,
       groupWidthBlocks,
       width,
       height,

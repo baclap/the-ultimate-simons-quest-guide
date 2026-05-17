@@ -42,7 +42,8 @@ window.EXTERIOR_ATLAS = {
       "paletteAddress": "0x9EA2",
       "paletteStrategy": "town-layout-palette-table",
       "widthBlocks": 8,
-      "heightBlocks": 8
+      "heightBlocks": 8,
+      "rowsPerLayoutSection": 7
     },
     {
       "id": "mansion-door-day",
@@ -177,11 +178,12 @@ window.EXTERIOR_ATLAS = {
         "palettePointerAddress": "0x88C1",
         "paletteStrategy": "bank-7-town-layout-palette-table",
         "widthBlocks": 8,
-        "heightBlocks": 8
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
       },
       "output": "images/obj00-area00-sub00-jova.png",
       "width": 1024,
-      "height": 512,
+      "height": 448,
       "layoutSections": [
         0,
         1
@@ -252,7 +254,7 @@ window.EXTERIOR_ATLAS = {
           "x": 0,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFA88",
           "layoutAddress": "0x8497"
         },
@@ -265,7 +267,7 @@ window.EXTERIOR_ATLAS = {
           "x": 256,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFA8A",
           "layoutAddress": "0x85AF"
         },
@@ -278,7 +280,7 @@ window.EXTERIOR_ATLAS = {
           "x": 512,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFA8C",
           "layoutAddress": "0x8577"
         },
@@ -291,7 +293,7 @@ window.EXTERIOR_ATLAS = {
           "x": 768,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFA8E",
           "layoutAddress": "0x8507"
         },
@@ -302,9 +304,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 0,
           "columnIndex": 0,
           "x": 0,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFA90",
           "layoutAddress": "0x83B7"
         },
@@ -315,9 +317,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 1,
           "columnIndex": 1,
           "x": 256,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFA92",
           "layoutAddress": "0x82D7"
         },
@@ -328,9 +330,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 2,
           "columnIndex": 2,
           "x": 512,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFA94",
           "layoutAddress": "0x861F"
         },
@@ -341,9 +343,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 3,
           "columnIndex": 3,
           "x": 768,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFA96",
           "layoutAddress": "0x845F"
         }
@@ -405,11 +407,12 @@ window.EXTERIOR_ATLAS = {
         "palettePointerAddress": "0x88BD",
         "paletteStrategy": "bank-7-town-layout-palette-table",
         "widthBlocks": 8,
-        "heightBlocks": 8
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
       },
       "output": "images/obj00-area01-sub00-veros.png",
       "width": 1024,
-      "height": 256,
+      "height": 224,
       "layoutSections": [
         0
       ],
@@ -480,7 +483,7 @@ window.EXTERIOR_ATLAS = {
           "x": 0,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x86FA",
           "layoutAddress": "0x8347"
         },
@@ -493,7 +496,7 @@ window.EXTERIOR_ATLAS = {
           "x": 256,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x86FC",
           "layoutAddress": "0x8577"
         },
@@ -506,7 +509,7 @@ window.EXTERIOR_ATLAS = {
           "x": 512,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x86FE",
           "layoutAddress": "0x85E7"
         },
@@ -519,7 +522,7 @@ window.EXTERIOR_ATLAS = {
           "x": 768,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x8700",
           "layoutAddress": "0x837F"
         }
@@ -581,11 +584,12 @@ window.EXTERIOR_ATLAS = {
         "palettePointerAddress": "0x88BF",
         "paletteStrategy": "bank-7-town-layout-palette-table",
         "widthBlocks": 8,
-        "heightBlocks": 8
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
       },
       "output": "images/obj00-area02-sub00-aljiba.png",
       "width": 1024,
-      "height": 512,
+      "height": 448,
       "layoutSections": [
         0,
         1
@@ -656,7 +660,7 @@ window.EXTERIOR_ATLAS = {
           "x": 0,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB7A",
           "layoutAddress": "0x853F"
         },
@@ -669,7 +673,7 @@ window.EXTERIOR_ATLAS = {
           "x": 256,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB7C",
           "layoutAddress": "0x85AF"
         },
@@ -682,7 +686,7 @@ window.EXTERIOR_ATLAS = {
           "x": 512,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB7E",
           "layoutAddress": "0x85E7"
         },
@@ -695,7 +699,7 @@ window.EXTERIOR_ATLAS = {
           "x": 768,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB80",
           "layoutAddress": "0x8507"
         },
@@ -706,9 +710,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 0,
           "columnIndex": 0,
           "x": 0,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB82",
           "layoutAddress": "0x8347"
         },
@@ -719,9 +723,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 1,
           "columnIndex": 1,
           "x": 256,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB84",
           "layoutAddress": "0x830F"
         },
@@ -732,9 +736,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 2,
           "columnIndex": 2,
           "x": 512,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB86",
           "layoutAddress": "0x85AF"
         },
@@ -745,9 +749,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 3,
           "columnIndex": 3,
           "x": 768,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB88",
           "layoutAddress": "0x845F"
         }
@@ -809,11 +813,12 @@ window.EXTERIOR_ATLAS = {
         "palettePointerAddress": "0x88C3",
         "paletteStrategy": "bank-7-town-layout-palette-table",
         "widthBlocks": 8,
-        "heightBlocks": 8
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
       },
       "output": "images/obj00-area03-sub00-alba.png",
       "width": 1024,
-      "height": 768,
+      "height": 672,
       "layoutSections": [
         0,
         1,
@@ -885,7 +890,7 @@ window.EXTERIOR_ATLAS = {
           "x": 0,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAA2",
           "layoutAddress": "0x853F"
         },
@@ -898,7 +903,7 @@ window.EXTERIOR_ATLAS = {
           "x": 256,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAA4",
           "layoutAddress": "0x8427"
         },
@@ -911,7 +916,7 @@ window.EXTERIOR_ATLAS = {
           "x": 512,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAA6",
           "layoutAddress": "0x8577"
         },
@@ -924,7 +929,7 @@ window.EXTERIOR_ATLAS = {
           "x": 768,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAA8",
           "layoutAddress": "0x8507"
         },
@@ -935,9 +940,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 0,
           "columnIndex": 0,
           "x": 0,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAAA",
           "layoutAddress": "0x8497"
         },
@@ -948,9 +953,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 1,
           "columnIndex": 1,
           "x": 256,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAAC",
           "layoutAddress": "0x85AF"
         },
@@ -961,9 +966,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 2,
           "columnIndex": 2,
           "x": 512,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAAE",
           "layoutAddress": "0x85E7"
         },
@@ -974,9 +979,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 3,
           "columnIndex": 3,
           "x": 768,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAB0",
           "layoutAddress": "0x84CF"
         },
@@ -987,9 +992,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 0,
           "columnIndex": 0,
           "x": 0,
-          "y": 512,
+          "y": 448,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAB2",
           "layoutAddress": "0x83B7"
         },
@@ -1000,9 +1005,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 1,
           "columnIndex": 1,
           "x": 256,
-          "y": 512,
+          "y": 448,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAB4",
           "layoutAddress": "0x85E7"
         },
@@ -1013,9 +1018,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 2,
           "columnIndex": 2,
           "x": 512,
-          "y": 512,
+          "y": 448,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAB6",
           "layoutAddress": "0x861F"
         },
@@ -1026,9 +1031,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 3,
           "columnIndex": 3,
           "x": 768,
-          "y": 512,
+          "y": 448,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFAB8",
           "layoutAddress": "0x845F"
         }
@@ -1090,11 +1095,12 @@ window.EXTERIOR_ATLAS = {
         "palettePointerAddress": "0x88C5",
         "paletteStrategy": "bank-7-town-layout-palette-table",
         "widthBlocks": 8,
-        "heightBlocks": 8
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
       },
       "output": "images/obj00-area04-sub00-ondol.png",
       "width": 1024,
-      "height": 768,
+      "height": 672,
       "layoutSections": [
         0,
         1,
@@ -1167,7 +1173,7 @@ window.EXTERIOR_ATLAS = {
           "x": 0,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x870C",
           "layoutAddress": "0x853F"
         },
@@ -1180,7 +1186,7 @@ window.EXTERIOR_ATLAS = {
           "x": 256,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x870E",
           "layoutAddress": "0x85E7"
         },
@@ -1193,7 +1199,7 @@ window.EXTERIOR_ATLAS = {
           "x": 512,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x8710",
           "layoutAddress": "0x85AF"
         },
@@ -1206,7 +1212,7 @@ window.EXTERIOR_ATLAS = {
           "x": 768,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x8712",
           "layoutAddress": "0x8507"
         },
@@ -1217,9 +1223,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 0,
           "columnIndex": 0,
           "x": 0,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x8714",
           "layoutAddress": "0x8497"
         },
@@ -1230,9 +1236,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 1,
           "columnIndex": 1,
           "x": 256,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x8716",
           "layoutAddress": "0x83EF"
         },
@@ -1243,9 +1249,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 2,
           "columnIndex": 2,
           "x": 512,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x8718",
           "layoutAddress": "0x861F"
         },
@@ -1256,9 +1262,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 3,
           "columnIndex": 3,
           "x": 768,
-          "y": 256,
+          "y": 224,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x871A",
           "layoutAddress": "0x84CF"
         },
@@ -1269,9 +1275,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 0,
           "columnIndex": 0,
           "x": 0,
-          "y": 512,
+          "y": 448,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x871C",
           "layoutAddress": "0x83B7"
         },
@@ -1282,9 +1288,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 1,
           "columnIndex": 1,
           "x": 256,
-          "y": 512,
+          "y": 448,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x871E",
           "layoutAddress": "0x85AF"
         },
@@ -1295,9 +1301,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 2,
           "columnIndex": 2,
           "x": 512,
-          "y": 512,
+          "y": 448,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x8720",
           "layoutAddress": "0x830F"
         },
@@ -1308,9 +1314,9 @@ window.EXTERIOR_ATLAS = {
           "columnGroup": 3,
           "columnIndex": 3,
           "x": 768,
-          "y": 512,
+          "y": 448,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0x8722",
           "layoutAddress": "0x845F"
         }
@@ -1372,11 +1378,12 @@ window.EXTERIOR_ATLAS = {
         "palettePointerAddress": "0x88BB",
         "paletteStrategy": "bank-7-town-layout-palette-table",
         "widthBlocks": 8,
-        "heightBlocks": 8
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
       },
       "output": "images/obj00-area05-sub00-doina.png",
       "width": 1024,
-      "height": 256,
+      "height": 224,
       "layoutSections": [
         0
       ],
@@ -1446,7 +1453,7 @@ window.EXTERIOR_ATLAS = {
           "x": 0,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB68",
           "layoutAddress": "0x8347"
         },
@@ -1459,7 +1466,7 @@ window.EXTERIOR_ATLAS = {
           "x": 256,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB6A",
           "layoutAddress": "0x861F"
         },
@@ -1472,7 +1479,7 @@ window.EXTERIOR_ATLAS = {
           "x": 512,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB6C",
           "layoutAddress": "0x8577"
         },
@@ -1485,7 +1492,7 @@ window.EXTERIOR_ATLAS = {
           "x": 768,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB6E",
           "layoutAddress": "0x837F"
         }
@@ -1547,11 +1554,12 @@ window.EXTERIOR_ATLAS = {
         "palettePointerAddress": "0x88C7",
         "paletteStrategy": "bank-7-town-layout-palette-table",
         "widthBlocks": 8,
-        "heightBlocks": 8
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
       },
       "output": "images/obj00-area06-sub00-yomi.png",
       "width": 1024,
-      "height": 256,
+      "height": 224,
       "layoutSections": [
         0
       ],
@@ -1621,7 +1629,7 @@ window.EXTERIOR_ATLAS = {
           "x": 0,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB94",
           "layoutAddress": "0x8347"
         },
@@ -1634,7 +1642,7 @@ window.EXTERIOR_ATLAS = {
           "x": 256,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB96",
           "layoutAddress": "0x861F"
         },
@@ -1647,7 +1655,7 @@ window.EXTERIOR_ATLAS = {
           "x": 512,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB98",
           "layoutAddress": "0x85AF"
         },
@@ -1660,7 +1668,7 @@ window.EXTERIOR_ATLAS = {
           "x": 768,
           "y": 0,
           "width": 256,
-          "height": 256,
+          "height": 224,
           "layoutPointerAddress": "0xFB9A",
           "layoutAddress": "0x837F"
         }

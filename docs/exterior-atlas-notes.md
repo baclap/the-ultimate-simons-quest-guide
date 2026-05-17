@@ -94,12 +94,17 @@ v0 originally rendered section `0` only. The current renderer walks every
 section in the header for atlas output while still allowing narrow validation
 segments to request one section explicitly.
 
+Town descriptors keep `heightBlocks=8` for exact nametable/viewport
+reconstruction, but layout-space composition uses `rowsPerLayoutSection=7`.
+That avoids stitching in the hidden/wrapped bottom block row that the runtime
+row-streaming code uses for scrolling.
+
 Representative multi-section entries:
 
 | Location | Grid | Output |
 | --- | ---: | ---: |
-| Jova | `4x2` | `1024x512` |
-| Alba | `4x3` | `1024x768` |
+| Jova | `4x2` | `1024x448` |
+| Alba | `4x3` | `1024x672` |
 | Dora Woods - Part 2 | `2x2` | `512x448` |
 | Dabi's Path - Part 1 | `2x2` | `512x448` |
 | Castlevania | `4x4` | `1024x896` |

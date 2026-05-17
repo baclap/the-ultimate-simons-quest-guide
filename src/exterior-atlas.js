@@ -30,7 +30,8 @@ const TEMPLATE_BY_OBJSET = {
     paletteAddress: 0x9ea2,
     paletteStrategy: 'town-layout-palette-table',
     widthBlocks: 8,
-    heightBlocks: 8
+    heightBlocks: 8,
+    rowsPerLayoutSection: 7
   },
   1: {
     id: 'mansion-door-day',
@@ -288,7 +289,8 @@ function buildSegmentForCandidate(loc, screenRecord, template) {
         paletteBank: 4,
         paletteAddress: template.paletteAddress,
         widthBlocks: template.widthBlocks,
-        heightBlocks: template.heightBlocks
+        heightBlocks: template.heightBlocks,
+        rowsPerLayoutSection: template.rowsPerLayoutSection
       }
     }
   };
@@ -316,7 +318,8 @@ function publicTemplate(template) {
     palettePointerAddress: hex(template.palettePointerAddress, 4),
     paletteStrategy: template.paletteStrategy,
     widthBlocks: template.widthBlocks,
-    heightBlocks: template.heightBlocks
+    heightBlocks: template.heightBlocks,
+    rowsPerLayoutSection: template.rowsPerLayoutSection
   };
 }
 

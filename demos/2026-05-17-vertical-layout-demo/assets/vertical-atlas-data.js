@@ -9,7 +9,7 @@ window.VERTICAL_ATLAS = {
     {
       "name": "Jova",
       "width": 1024,
-      "height": 512,
+      "height": 448,
       "sectionCount": 2,
       "layoutCellCount": 8,
       "layoutGrid": {
@@ -23,7 +23,7 @@ window.VERTICAL_ATLAS = {
     {
       "name": "Aljiba",
       "width": 1024,
-      "height": 512,
+      "height": 448,
       "sectionCount": 2,
       "layoutCellCount": 8,
       "layoutGrid": {
@@ -37,7 +37,7 @@ window.VERTICAL_ATLAS = {
     {
       "name": "Alba",
       "width": 1024,
-      "height": 768,
+      "height": 672,
       "sectionCount": 3,
       "layoutCellCount": 12,
       "layoutGrid": {
@@ -51,7 +51,7 @@ window.VERTICAL_ATLAS = {
     {
       "name": "Ondol",
       "width": 1024,
-      "height": 768,
+      "height": 672,
       "sectionCount": 3,
       "layoutCellCount": 12,
       "layoutGrid": {
