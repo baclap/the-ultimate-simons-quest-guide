@@ -14,6 +14,7 @@ The current vertical slice includes:
 - renders descriptor-backed ROM-native Jova town and Jova Woods nametable checkpoints directly from PRG layout/tile data
 - renders validated ROM-native background PNGs from descriptor nametables, CHR banks, and ROM palette bytes
 - organizes ROM-native screens into a route-ordered viewport catalog with validated/inferred status
+- renders a continuous Jova Woods layout-space segment from adjacent ROM layout column groups
 
 ## ROM Setup
 
@@ -76,6 +77,10 @@ demos/2026-05-17-regional-demo/index.html
 The next milestone is expanding descriptor derivation from the decoded background pointer tables. The vendored `cv2r` source gives us strong anchors for locations, actors, doors, palette offsets, and bank layout, but it does not already contain a complete background renderer. Mesen is available as a representative calibration oracle, including Jova and Jova Woods fixtures that round-trip to 0-pixel composite diffs.
 
 Current background-loader findings are documented in `docs/background-decoder-notes.md`, and the committed descriptor schema is documented in `docs/background-descriptor-schema.md`. Region rendering notes live in `docs/regional-renderer-notes.md`. The important checkpoint is that `npm run inspect:jova-background` and `npm run inspect:jova-woods-background` derive the layout header and tile-set pointers used by the validated descriptors. `npm run render:jova-native` verifies Jova town page 0, `npm run render:jova-right-native` verifies the right-side page, and `npm run render:jova-woods-native` verifies the first overworld checkpoint from a save-state capture. The `render:*native-png` commands turn those same ROM-native backgrounds into PNGs for demos and future map output. `npm run render:region:jova-to-veros` creates a route-ordered viewport catalog from validated descriptors plus inferred manifest-context candidates; it is not a continuous map stitch yet.
+
+`npm run render:segment:jova-woods` is the current continuous-layout milestone:
+it renders a 1024x224 Jova Woods day segment from layout header `2:$A23E` and
+column groups `0..3`. See `docs/layout-segment-renderer-notes.md`.
 
 The intended path is:
 

@@ -13,6 +13,7 @@ const { diffImages, renderPpuCapture } = require('./ppu');
 const { readPng, writePng } = require('./png');
 const { renderNativeBackgroundImage } = require('./native-image');
 const { loadRegion, renderRegionPng } = require('./regions');
+const { loadLayoutSegment, renderLayoutSegmentPng } = require('./layout-segments');
 const {
   applyPpuWritesToNametables,
   compareNametables,
@@ -76,6 +77,7 @@ function usage() {
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-native-nametables.bin',
     '  node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-day --state out/captures/jova-day/state.json --compare-png out/captures/jova-day/background.png --out out/decoder/jova-native-background.png',
     '  node src/index.js render-region-png --rom roms/cv2.nes --region jova-to-veros-day --out out/regions/jova-to-veros-day.png',
+    '  node src/index.js render-layout-segment-png --rom roms/cv2.nes --segment jova-woods-day --out out/layout-segments/jova-woods-day.png',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --descriptor-file data/background-descriptors.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
     '',
@@ -93,6 +95,7 @@ function usage() {
     '  render-background-native  Render a descriptor-backed ROM-native nametable checkpoint.',
     '  render-background-native-png  Render a descriptor-backed ROM-native background PNG.',
     '  render-region-png  Render a route-ordered ROM-native viewport catalog PNG.',
+    '  render-layout-segment-png  Render a continuous ROM-native layout-space segment PNG.',
     '  render-jova-native  Alias for render-background-native --descriptor jova-day.',
     '  render-jova-woods-native  Alias for render-background-native --descriptor jova-woods-day.'
   ].join('\n');
@@ -483,6 +486,33 @@ function renderRegionPngCommand(args) {
   printJson(result);
 }
 
+function renderLayoutSegmentPngCommand(args) {
+  const romPath = required(args, 'rom');
+  const segmentId = required(args, 'segment');
+  const output = args.out
+    ? path.resolve(String(args.out))
+    : path.resolve(path.join('out', 'layout-segments', `${segmentId}.png`));
+  const segment = loadLayoutSegment(segmentId, {
+    filePath: args['segment-file'] ? String(args['segment-file']) : undefined
+  });
+  const { buffer, info } = readRom(romPath);
+  const result = {
+    rom: describeRom(info),
+    segment: renderLayoutSegmentPng(buffer, info, segment, output, {
+      descriptorFile: args['descriptor-file'] ? String(args['descriptor-file']) : undefined
+    })
+  };
+
+  if (args['metadata-out']) {
+    const metadataOutput = path.resolve(String(args['metadata-out']));
+    fs.mkdirSync(path.dirname(metadataOutput), { recursive: true });
+    fs.writeFileSync(metadataOutput, `${JSON.stringify(result.segment.metadata, null, 2)}\n`);
+    result.segment.metadataOutput = metadataOutput;
+  }
+
+  printJson(result);
+}
+
 function renderJovaNativeCommand(args) {
   renderNativeBackgroundCommand(args, renderJovaNativeNametables, 0);
 }
@@ -562,6 +592,11 @@ function main() {
 
   if (command === 'render-region-png') {
     renderRegionPngCommand(args);
+    return;
+  }
+
+  if (command === 'render-layout-segment-png') {
+    renderLayoutSegmentPngCommand(args);
     return;
   }
 

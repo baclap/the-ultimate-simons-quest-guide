@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "segments": [
+    {
+      "id": "jova-woods-day",
+      "label": "Jova Woods continuous layout, day",
+      "summary": "A continuous 4-column-group Jova Woods segment rendered directly from ROM layout pointers. This is larger than one TV viewport and is not assembled from emulator screenshots.",
+      "descriptor": "jova-woods-day",
+      "layoutSection": 0,
+      "columnGroups": [0, 1, 2, 3],
+      "validationWindows": [
+        {
+          "id": "jova-woods-validated-column",
+          "label": "Validated Jova Woods source column",
+          "status": "validated",
+          "validation": "Column group 0 is the layout source for the existing 0-diff Jova Woods viewport fixture.",
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224
+        }
+      ]
+    }
+  ]
+}
