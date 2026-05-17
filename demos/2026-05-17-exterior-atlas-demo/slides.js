@@ -85,6 +85,7 @@
       <div><strong>${atlas.summary.candidates}</strong><span>inventory entries</span></div>
       <div><strong>${validated}</strong><span>validated-template renders</span></div>
       <div><strong>${inferred}</strong><span>inferred-template renders</span></div>
+      <div><strong>${atlas.summary.multiSectionLayouts}</strong><span>multi-section layouts</span></div>
     `;
 
     const maxCount = Math.max(...Object.values(atlas.summary.byCategory));
@@ -138,6 +139,7 @@
             <span>${candidate.objsetHex}</span>
             <span>${candidate.areaHex}/${candidate.submapHex}</span>
             <span>${candidate.width}x${candidate.height}</span>
+            <span>${candidate.layoutGrid.columns}x${candidate.layoutGrid.rows} grid</span>
             <span>${candidate.columnGroupCount} groups</span>
           </div>
         </div>

@@ -15,3 +15,7 @@ The atlas manifest distinguishes validated-template renders from
 inferred-template renders. The latter are ROM-native layout renders, but their
 CHR/palette template choices still need representative emulator validation
 before they should be treated as final pixel-perfect map output.
+
+The embedded atlas assets have been refreshed after the vertical-layout
+milestone. Multi-section entries now render all layout rows instead of only
+section `0`.

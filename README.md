@@ -16,6 +16,7 @@ The current vertical slice includes:
 - organizes ROM-native screens into a route-ordered viewport catalog with validated/inferred status
 - renders a continuous Jova Woods layout-space segment from adjacent ROM layout column groups
 - renders an exterior atlas of 55 town, route, mansion-door, mountain, and castle exterior candidates from ROM layout data
+- decodes layout headers as column-group by vertical-section grids and renders 13 multi-section atlas entries larger than one viewport row
 
 ## ROM Setup
 
@@ -80,11 +81,12 @@ demos/2026-05-17-regional-demo/index.html
 demos/2026-05-17-layout-segment-demo/index.html
 demos/2026-05-17-jova-to-veros-route-demo/index.html
 demos/2026-05-17-exterior-atlas-demo/index.html
+demos/2026-05-17-vertical-layout-demo/index.html
 ```
 
 ## Next Milestone
 
-The next milestone is expanding continuous layout rendering from one proven segment toward connected outdoor areas. The vendored `cv2r` source gives us strong anchors for locations, actors, doors, palette offsets, and bank layout, but it does not already contain a complete background renderer. Mesen is available as a representative calibration oracle, including Jova and Jova Woods fixtures that round-trip to 0-pixel composite diffs.
+The next milestone is validating the new multi-section atlas output against representative emulator save states, then using those fixtures to isolate remaining palette and mansion-template issues. The vendored `cv2r` source gives us strong anchors for locations, actors, doors, palette offsets, and bank layout, but it does not already contain a complete background renderer. Mesen is available as a representative calibration oracle, including Jova and Jova Woods fixtures that round-trip to 0-pixel composite diffs.
 
 Current background-loader findings are documented in `docs/background-decoder-notes.md`, and the committed descriptor schema is documented in `docs/background-descriptor-schema.md`. Region rendering notes live in `docs/regional-renderer-notes.md`. The important checkpoint is that `npm run inspect:jova-background` and `npm run inspect:jova-woods-background` derive the layout header and tile-set pointers used by the validated descriptors. `npm run render:jova-native` verifies Jova town page 0, `npm run render:jova-right-native` verifies the right-side page, and `npm run render:jova-woods-native` verifies the first overworld checkpoint from a save-state capture. The `render:*native-png` commands turn those same ROM-native backgrounds into PNGs for demos and future map output. `npm run render:region:jova-to-veros` creates a route-ordered viewport catalog from validated descriptors plus inferred manifest-context candidates; it is not a continuous map stitch yet.
 
@@ -100,14 +102,17 @@ segments.
 `npm run render:atlas:exterior` expands from route rendering into atlas coverage.
 It enumerates 55 exterior candidates from the vendored `cv2r` metadata, resolves
 their ROM screen records and layout headers, and writes a manifest plus PNGs
-under `out/exterior-atlas/`. See `docs/exterior-atlas-notes.md` for the
-inventory rules, confidence split, template assumptions, and special
-screen-record handling.
+under `out/exterior-atlas/`. Layout headers are decoded as two-dimensional
+grids, so entries like Jova, Dora Woods - Part 2, and Castlevania render as
+full layout-space segments rather than first-row-only strips. See
+`docs/exterior-atlas-notes.md` for the inventory rules, confidence split,
+template assumptions, vertical grid coverage, and special screen-record
+handling.
 
 The intended path is:
 
-1. turn exterior atlas entries into topology-aware route/world coordinates
-2. attach viewport-sized validation windows to inferred template families without using those captures as source art
-3. identify remaining descriptor fields not fully encoded yet: per-location palette selection, page selection, row streaming, and CHR-bank choice
-4. expand descriptor coverage to day/night outdoor variants and fixed-palette interiors
+1. attach viewport-sized validation windows to multi-section layouts such as Jova and Dora Woods - Part 2
+2. decode remaining per-location palette selection, including day/night outdoor variants
+3. fix the separate mansion-door/interior template family
+4. turn exterior atlas entries into topology-aware route/world coordinates
 5. connect validated segments into full composites and overlay data

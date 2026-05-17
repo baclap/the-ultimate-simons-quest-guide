@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Castlevania II Vertical Layout Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="deck-nav">
+    <div>
+      <strong>CV2 Map Demo</strong>
+      <span>Vertical layout milestone</span>
+    </div>
+    <nav aria-label="Slide controls">
+      <button type="button" id="previous-slide" aria-label="Previous slide">&lt;</button>
+      <span><span id="slide-number">1</span>/<span id="slide-total">5</span></span>
+      <button type="button" id="next-slide" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide hero" id="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>Vertical map sections are now decoded</h1>
+        <p class="lede">The renderer now treats each layout header as a grid: horizontal column groups by vertical sections. Atlas entries can render the whole layout space instead of only the first row.</p>
+        <div class="stats">
+          <div><strong id="rendered-count">55</strong><span>atlas entries rendered</span></div>
+          <div><strong id="vertical-count">13</strong><span>multi-section layouts</span></div>
+          <div><strong id="error-count">0</strong><span>render errors</span></div>
+        </div>
+      </div>
+      <figure class="hero-art">
+        <img src="assets/layouts/jova-full-grid.png" alt="Full Jova layout grid rendered from ROM data">
+        <figcaption>Jova, full 4x2 layout grid</figcaption>
+      </figure>
+    </section>
+
+    <section class="slide" id="jova">
+      <div class="section-head">
+        <p class="eyebrow">Before and after</p>
+        <h2>Jova exposes the missing second row</h2>
+        <p>The old atlas path drew section 0 only. The new renderer reads the header as <code>4x2</code> and stacks both rows into one layout-space image.</p>
+      </div>
+      <div class="compare two-up">
+        <figure>
+          <img src="assets/layouts/jova-top-row.png" alt="Jova top row only render">
+          <figcaption>Previous: section 0 only, 1024x256</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/layouts/jova-full-grid.png" alt="Jova full layout grid render">
+          <figcaption>Current: sections 0 and 1, 1024x512</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" id="dora">
+      <div class="section-head">
+        <p class="eyebrow">Outdoor verticality</p>
+        <h2>Dora Woods Part 2 now includes the lower section</h2>
+        <p>This is the kind of screen that made the atlas gap visible: a staircase continues down into a second layout row. The full-grid render captures that lower walkable space.</p>
+      </div>
+      <div class="compare two-up">
+        <figure>
+          <img src="assets/layouts/dora-top-row.png" alt="Dora Woods Part 2 top row only render">
+          <figcaption>Previous: top row, 512x224</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/layouts/dora-full-grid.png" alt="Dora Woods Part 2 full grid render">
+          <figcaption>Current: full 2x2 grid, 512x448</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide split" id="coverage">
+      <div class="copy">
+        <p class="eyebrow">Atlas impact</p>
+        <h2>Thirteen entries are larger than one viewport row</h2>
+        <p>The atlas manifest now records the grid dimensions, rendered sections, pointer cells, and per-cell layout addresses. That metadata is useful for PNG output today and for a future canvas renderer later.</p>
+        <div id="vertical-list" class="vertical-list"></div>
+      </div>
+      <figure class="tall-preview">
+        <img src="assets/layouts/dabi-full-grid.png" alt="Dabi's Path Part 1 full vertical layout render">
+        <figcaption>Dabi's Path Part 1, full 2x2 layout grid</figcaption>
+      </figure>
+    </section>
+
+    <section class="slide" id="next">
+      <div class="section-head">
+        <p class="eyebrow">Next work</p>
+        <h2>The remaining gaps are now cleaner to isolate</h2>
+      </div>
+      <div class="next-grid">
+        <div>
+          <strong>Validate vertical samples</strong>
+          <span>Use save states for Jova, Dora Woods, and another vertical outdoor area to line up emulator views with the full layout grid.</span>
+        </div>
+        <div>
+          <strong>Decode palette selection</strong>
+          <span>Dabi's Path and other special-looking areas still need per-location palette derivation instead of object-set fallbacks.</span>
+        </div>
+        <div>
+          <strong>Fix mansion templates</strong>
+          <span>Mansion doors remain deliberately marked inferred; their scrambled output points to a separate CHR/tile-format issue.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/vertical-atlas-data.js"></script>
+  <script src="slides.js"></script>
+</body>
+</html>

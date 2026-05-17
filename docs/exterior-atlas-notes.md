@@ -46,7 +46,8 @@ Current coverage:
 | Castlevania exterior | 1 |
 | **Total** | **55** |
 
-All 55 candidates render a PNG in the current pass.
+All 55 candidates render a PNG in the current pass. Thirteen candidates have
+multi-section layout headers and now render taller than one viewport row.
 
 ## Confidence
 
@@ -81,6 +82,28 @@ These assumptions are deliberately preserved in generated metadata so a future
 PNG renderer, web canvas renderer, or regression suite can see exactly which
 parts are proven and which parts are pending validation.
 
+## Layout Grids
+
+Layout headers begin with two bytes that define the segment grid:
+
+- byte `0`: horizontal column-group count
+- byte `1`: vertical section count
+
+Each pointer cell after those two bytes selects one layout block matrix. Atlas
+v0 originally rendered section `0` only. The current renderer walks every
+section in the header for atlas output while still allowing narrow validation
+segments to request one section explicitly.
+
+Representative multi-section entries:
+
+| Location | Grid | Output |
+| --- | ---: | ---: |
+| Jova | `4x2` | `1024x512` |
+| Alba | `4x3` | `1024x768` |
+| Dora Woods - Part 2 | `2x2` | `512x448` |
+| Dabi's Path - Part 1 | `2x2` | `512x448` |
+| Castlevania | `4x4` | `1024x896` |
+
 ## Special Screen Records
 
 Five exterior candidates use special marker bytes as their first screen-record
@@ -104,6 +127,9 @@ Atlas v0 is not yet the final map image.
 - Inferred templates need representative emulator validation.
 - Some palette choices are object-set fallbacks rather than fully decoded
   per-location palette selection.
+- Mansion-door renders are still inferred and visibly wrong; they likely need a
+  separate CHR/tile template investigation rather than only a palette change.
 
-The next milestone should turn these atlas entries into a topology-aware world
-graph, then render day and night exterior variants from the same manifest data.
+The next milestone should attach viewport-sized save-state validation windows
+to representative multi-section layouts, then use those fixtures to isolate
+palette selection and mansion-template fixes.

@@ -10,6 +10,7 @@
     "renderer": "rom-native-layout-segment",
     "notes": [
       "Atlas v0 renders layout-space segments directly from ROM layout pointers, metatiles, CHR banks, and palette bytes.",
+      "Layout headers are decoded as column-group by vertical-section grids; atlas rendering covers every section in the header.",
       "Validated template confidence means at least one representative screen in that object set has exact emulator fixture parity.",
       "Inferred template confidence means the table paths resolve and render, but CHR/palette selection still needs representative fixture validation."
     ]
@@ -180,8 +181,18 @@
       },
       "output": "images/obj00-area00-sub00-jova.png",
       "width": 1024,
-      "height": 256,
-      "layoutSection": 0,
+      "height": 512,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 2,
+        "totalPointers": 8,
+        "renderedColumns": 4,
+        "renderedRows": 2
+      },
       "columnGroups": [
         0,
         1,
@@ -189,6 +200,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 2,
+      "layoutCellCount": 8,
       "derivation": {
         "runtimeContext": {
           "objset": 0,
@@ -232,27 +245,107 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFA88",
           "layoutAddress": "0x8497"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFA8A",
           "layoutAddress": "0x85AF"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFA8C",
           "layoutAddress": "0x8577"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFA8E",
           "layoutAddress": "0x8507"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFA90",
+          "layoutAddress": "0x83B7"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFA92",
+          "layoutAddress": "0x82D7"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFA94",
+          "layoutAddress": "0x861F"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFA96",
+          "layoutAddress": "0x845F"
         }
       ]
     },
@@ -317,7 +410,16 @@
       "output": "images/obj00-area01-sub00-veros.png",
       "width": 1024,
       "height": 256,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -325,6 +427,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 0,
@@ -369,25 +473,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0x86FA",
           "layoutAddress": "0x8347"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0x86FC",
           "layoutAddress": "0x8577"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0x86FE",
           "layoutAddress": "0x85E7"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0x8700",
           "layoutAddress": "0x837F"
         }
@@ -453,8 +585,18 @@
       },
       "output": "images/obj00-area02-sub00-aljiba.png",
       "width": 1024,
-      "height": 256,
-      "layoutSection": 0,
+      "height": 512,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 2,
+        "totalPointers": 8,
+        "renderedColumns": 4,
+        "renderedRows": 2
+      },
       "columnGroups": [
         0,
         1,
@@ -462,6 +604,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 2,
+      "layoutCellCount": 8,
       "derivation": {
         "runtimeContext": {
           "objset": 0,
@@ -505,27 +649,107 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB7A",
           "layoutAddress": "0x853F"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB7C",
           "layoutAddress": "0x85AF"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB7E",
           "layoutAddress": "0x85E7"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB80",
           "layoutAddress": "0x8507"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFB82",
+          "layoutAddress": "0x8347"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFB84",
+          "layoutAddress": "0x830F"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFB86",
+          "layoutAddress": "0x85AF"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFB88",
+          "layoutAddress": "0x845F"
         }
       ]
     },
@@ -589,8 +813,19 @@
       },
       "output": "images/obj00-area03-sub00-alba.png",
       "width": 1024,
-      "height": 256,
-      "layoutSection": 0,
+      "height": 768,
+      "layoutSections": [
+        0,
+        1,
+        2
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 3,
+        "totalPointers": 12,
+        "renderedColumns": 4,
+        "renderedRows": 3
+      },
       "columnGroups": [
         0,
         1,
@@ -598,6 +833,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 3,
+      "layoutCellCount": 12,
       "derivation": {
         "runtimeContext": {
           "objset": 0,
@@ -641,27 +878,159 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFAA2",
           "layoutAddress": "0x853F"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFAA4",
           "layoutAddress": "0x8427"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFAA6",
           "layoutAddress": "0x8577"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFAA8",
           "layoutAddress": "0x8507"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFAAA",
+          "layoutAddress": "0x8497"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFAAC",
+          "layoutAddress": "0x85AF"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFAAE",
+          "layoutAddress": "0x85E7"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFAB0",
+          "layoutAddress": "0x84CF"
+        },
+        {
+          "index": 8,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 512,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFAB2",
+          "layoutAddress": "0x83B7"
+        },
+        {
+          "index": 9,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 512,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFAB4",
+          "layoutAddress": "0x85E7"
+        },
+        {
+          "index": 10,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 512,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFAB6",
+          "layoutAddress": "0x861F"
+        },
+        {
+          "index": 11,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 512,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0xFAB8",
+          "layoutAddress": "0x845F"
         }
       ]
     },
@@ -725,8 +1094,19 @@
       },
       "output": "images/obj00-area04-sub00-ondol.png",
       "width": 1024,
-      "height": 256,
-      "layoutSection": 0,
+      "height": 768,
+      "layoutSections": [
+        0,
+        1,
+        2
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 3,
+        "totalPointers": 12,
+        "renderedColumns": 4,
+        "renderedRows": 3
+      },
       "columnGroups": [
         0,
         1,
@@ -734,6 +1114,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 3,
+      "layoutCellCount": 12,
       "derivation": {
         "runtimeContext": {
           "objset": 0,
@@ -778,27 +1160,159 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0x870C",
           "layoutAddress": "0x853F"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0x870E",
           "layoutAddress": "0x85E7"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0x8710",
           "layoutAddress": "0x85AF"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0x8712",
           "layoutAddress": "0x8507"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0x8714",
+          "layoutAddress": "0x8497"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0x8716",
+          "layoutAddress": "0x83EF"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0x8718",
+          "layoutAddress": "0x861F"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 256,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0x871A",
+          "layoutAddress": "0x84CF"
+        },
+        {
+          "index": 8,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 512,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0x871C",
+          "layoutAddress": "0x83B7"
+        },
+        {
+          "index": 9,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 512,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0x871E",
+          "layoutAddress": "0x85AF"
+        },
+        {
+          "index": 10,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 512,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0x8720",
+          "layoutAddress": "0x830F"
+        },
+        {
+          "index": 11,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 512,
+          "width": 256,
+          "height": 256,
+          "layoutPointerAddress": "0x8722",
+          "layoutAddress": "0x845F"
         }
       ]
     },
@@ -863,7 +1377,16 @@
       "output": "images/obj00-area05-sub00-doina.png",
       "width": 1024,
       "height": 256,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -871,6 +1394,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 0,
@@ -914,25 +1439,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB68",
           "layoutAddress": "0x8347"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB6A",
           "layoutAddress": "0x861F"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB6C",
           "layoutAddress": "0x8577"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB6E",
           "layoutAddress": "0x837F"
         }
@@ -999,7 +1552,16 @@
       "output": "images/obj00-area06-sub00-yomi.png",
       "width": 1024,
       "height": 256,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -1007,6 +1569,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 0,
@@ -1050,25 +1614,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB94",
           "layoutAddress": "0x8347"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB96",
           "layoutAddress": "0x861F"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB98",
           "layoutAddress": "0x85AF"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 256,
           "layoutPointerAddress": "0xFB9A",
           "layoutAddress": "0x837F"
         }
@@ -1134,11 +1726,22 @@
       "output": "images/obj01-area00-sub00-laruba-mansion-door.png",
       "width": 256,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0
       ],
       "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
       "derivation": {
         "runtimeContext": {
           "objset": 1,
@@ -1183,7 +1786,14 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0x87D1",
           "layoutAddress": "0x87E7"
         }
@@ -1249,11 +1859,22 @@
       "output": "images/obj01-area01-sub00-berkeley-mansion-door.png",
       "width": 256,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0
       ],
       "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
       "derivation": {
         "runtimeContext": {
           "objset": 1,
@@ -1298,7 +1919,14 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0x87D1",
           "layoutAddress": "0x87E7"
         }
@@ -1364,11 +1992,22 @@
       "output": "images/obj01-area02-sub00-rover-mansion-door.png",
       "width": 256,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0
       ],
       "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
       "derivation": {
         "runtimeContext": {
           "objset": 1,
@@ -1413,7 +2052,14 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0x87D7",
           "layoutAddress": "0x881F"
         }
@@ -1479,11 +2125,22 @@
       "output": "images/obj01-area03-sub00-brahm-mansion-door.png",
       "width": 256,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0
       ],
       "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
       "derivation": {
         "runtimeContext": {
           "objset": 1,
@@ -1528,7 +2185,14 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0x87D1",
           "layoutAddress": "0x87E7"
         }
@@ -1594,11 +2258,22 @@
       "output": "images/obj01-area04-sub00-bodley-mansion-door.png",
       "width": 256,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0
       ],
       "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
       "derivation": {
         "runtimeContext": {
           "objset": 1,
@@ -1643,7 +2318,14 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0x87D1",
           "layoutAddress": "0x87E7"
         }
@@ -1709,7 +2391,16 @@
       "output": "images/obj02-area00-sub00-jova-woods.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -1717,6 +2408,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -1761,25 +2454,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA240",
           "layoutAddress": "0xA4DA"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA242",
           "layoutAddress": "0x9F89"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA244",
           "layoutAddress": "0xA3FA"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA246",
           "layoutAddress": "0xA4A2"
         }
@@ -1845,7 +2566,16 @@
       "output": "images/obj02-area00-sub01-jova-veros-bridge.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -1853,6 +2583,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -1897,25 +2629,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA252",
           "layoutAddress": "0xF8E7"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA254",
           "layoutAddress": "0xF98F"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA256",
           "layoutAddress": "0xF98F"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA258",
           "layoutAddress": "0xF91F"
         }
@@ -1981,12 +2741,23 @@
       "output": "images/obj02-area00-sub02-veros-woods-part-1.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -2031,13 +2802,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA264",
           "layoutAddress": "0xA432"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA266",
           "layoutAddress": "0xA46A"
         }
@@ -2102,13 +2887,25 @@
       },
       "output": "images/obj02-area00-sub03-veros-woods-part-2.png",
       "width": 512,
-      "height": 224,
-      "layoutSection": 0,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 2,
+        "totalPointers": 4,
+        "renderedColumns": 2,
+        "renderedRows": 2
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 2,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -2153,15 +2950,55 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA26E",
           "layoutAddress": "0xA2E2"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA270",
           "layoutAddress": "0xA38A"
+        },
+        {
+          "index": 2,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA272",
+          "layoutAddress": "0xA31A"
+        },
+        {
+          "index": 3,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA274",
+          "layoutAddress": "0xA352"
         }
       ]
     },
@@ -2225,12 +3062,23 @@
       "output": "images/obj02-area01-sub00-denis-woods-part-1.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -2275,13 +3123,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2C8",
           "layoutAddress": "0xA3C2"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2CA",
           "layoutAddress": "0xA4A2"
         }
@@ -2347,12 +3209,23 @@
       "output": "images/obj02-area02-sub00-aljiba-woods-part-3.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -2397,13 +3270,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA794",
           "layoutAddress": "0xABC4"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA796",
           "layoutAddress": "0xAC6C"
         }
@@ -2468,13 +3355,25 @@
       },
       "output": "images/obj02-area03-sub00-dabi-s-path-part-1.png",
       "width": 512,
-      "height": 224,
-      "layoutSection": 0,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 2,
+        "totalPointers": 4,
+        "renderedColumns": 2,
+        "renderedRows": 2
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 2,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -2519,15 +3418,55 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA760",
           "layoutAddress": "0xA79C"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA762",
           "layoutAddress": "0xA7D4"
+        },
+        {
+          "index": 2,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA764",
+          "layoutAddress": "0xA95C"
+        },
+        {
+          "index": 3,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA766",
+          "layoutAddress": "0xA994"
         }
       ]
     },
@@ -2591,12 +3530,23 @@
       "output": "images/obj02-area03-sub01-dabi-s-path-part-2.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -2641,13 +3591,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA76E",
           "layoutAddress": "0xA80C"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA770",
           "layoutAddress": "0xA844"
         }
@@ -2713,12 +3677,23 @@
       "output": "images/obj02-area03-sub02-aljiba-woods-part-1.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -2763,13 +3738,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA740",
           "layoutAddress": "0xAD14"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA742",
           "layoutAddress": "0x9F89"
         }
@@ -2834,13 +3823,25 @@
       },
       "output": "images/obj02-area03-sub03-aljiba-woods-part-2.png",
       "width": 512,
-      "height": 224,
-      "layoutSection": 0,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 2,
+        "totalPointers": 4,
+        "renderedColumns": 2,
+        "renderedRows": 2
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 2,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -2885,15 +3886,55 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA74A",
           "layoutAddress": "0xAA74"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA74C",
           "layoutAddress": "0x9F89"
+        },
+        {
+          "index": 2,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA74E",
+          "layoutAddress": "0xAAAC"
+        },
+        {
+          "index": 3,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA750",
+          "layoutAddress": "0xAAE4"
         }
       ]
     },
@@ -2957,13 +3998,24 @@
       "output": "images/obj02-area04-sub00-denis-woods-part-2.png",
       "width": 768,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 3,
+        "rows": 1,
+        "totalPointers": 3,
+        "renderedColumns": 3,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
         2
       ],
       "columnGroupCount": 3,
+      "sectionCount": 1,
+      "layoutCellCount": 3,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -3008,19 +4060,40 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA732",
           "layoutAddress": "0xAC6C"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA734",
           "layoutAddress": "0xABFC"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA736",
           "layoutAddress": "0xACDC"
         }
@@ -3086,12 +4159,23 @@
       "output": "images/obj02-area04-sub01-denis-woods-part-3.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -3136,13 +4220,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA78A",
           "layoutAddress": "0xACA4"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA78C",
           "layoutAddress": "0xAB1C"
         }
@@ -3208,7 +4306,16 @@
       "output": "images/obj02-area05-sub00-yuba-lake-path.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -3216,6 +4323,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -3260,25 +4369,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA778",
           "layoutAddress": "0xA87C"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA77A",
           "layoutAddress": "0xA8B4"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA77C",
           "layoutAddress": "0xA8EC"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA77E",
           "layoutAddress": "0xA924"
         }
@@ -3343,12 +4480,24 @@
       },
       "output": "images/obj02-area05-sub01-yuba-lake.png",
       "width": 256,
-      "height": 224,
-      "layoutSection": 0,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 2,
+        "totalPointers": 2,
+        "renderedColumns": 1,
+        "renderedRows": 2
+      },
       "columnGroups": [
         0
       ],
       "columnGroupCount": 1,
+      "sectionCount": 2,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -3393,9 +4542,29 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA758",
           "layoutAddress": "0xF8AF"
+        },
+        {
+          "index": 1,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA75A",
+          "layoutAddress": "0xA9CC"
         }
       ]
     },
@@ -3459,12 +4628,23 @@
       "output": "images/obj02-area06-sub00-dead-river-to-brahm.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -3509,13 +4689,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2B4",
           "layoutAddress": "0xF877"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2B6",
           "layoutAddress": "0xF83F"
         }
@@ -3581,12 +4775,23 @@
       "output": "images/obj02-area07-sub00-dead-river-part-2.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -3631,13 +4836,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2B4",
           "layoutAddress": "0xF877"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2B6",
           "layoutAddress": "0xF83F"
         }
@@ -3703,12 +4922,23 @@
       "output": "images/obj02-area07-sub01-dead-river-part-1.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -3753,13 +4983,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2BE",
           "layoutAddress": "0xF83F"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2C0",
           "layoutAddress": "0xF877"
         }
@@ -3825,7 +5069,16 @@
       "output": "images/obj02-area07-sub02-belasco-marsh.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -3833,6 +5086,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -3877,25 +5132,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA22E",
           "layoutAddress": "0xA582"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA230",
           "layoutAddress": "0xA5BA"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA232",
           "layoutAddress": "0xA3FA"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA234",
           "layoutAddress": "0xA4DA"
         }
@@ -3961,7 +5244,16 @@
       "output": "images/obj02-area08-sub00-north-bridge.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -3969,6 +5261,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -4013,25 +5307,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA27C",
           "layoutAddress": "0xF8E7"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA27E",
           "layoutAddress": "0xF9C7"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA280",
           "layoutAddress": "0xF9C7"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA282",
           "layoutAddress": "0xF91F"
         }
@@ -4097,12 +5419,23 @@
       "output": "images/obj02-area08-sub01-dora-woods-part-1.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -4147,13 +5480,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA28E",
           "layoutAddress": "0xA4A2"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA290",
           "layoutAddress": "0xA5BA"
         }
@@ -4218,13 +5565,25 @@
       },
       "output": "images/obj02-area08-sub02-dora-woods-part-2.png",
       "width": 512,
-      "height": 224,
-      "layoutSection": 0,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 2,
+        "totalPointers": 4,
+        "renderedColumns": 2,
+        "renderedRows": 2
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 2,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -4269,15 +5628,55 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA298",
           "layoutAddress": "0xA2E2"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA29A",
           "layoutAddress": "0xA38A"
+        },
+        {
+          "index": 2,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA29C",
+          "layoutAddress": "0xA31A"
+        },
+        {
+          "index": 3,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA29E",
+          "layoutAddress": "0xA352"
         }
       ]
     },
@@ -4341,12 +5740,23 @@
       "output": "images/obj02-area09-sub00-dora-woods-part-3.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -4391,13 +5801,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA224",
           "layoutAddress": "0xA3C2"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA226",
           "layoutAddress": "0xA4DA"
         }
@@ -4463,7 +5887,16 @@
       "output": "images/obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -4471,6 +5904,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -4515,25 +5950,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2D2",
           "layoutAddress": "0xF8E7"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2D4",
           "layoutAddress": "0xF957"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2D6",
           "layoutAddress": "0xF957"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2D8",
           "layoutAddress": "0xF91F"
         }
@@ -4599,7 +6062,16 @@
       "output": "images/obj02-area09-sub02-bordia-mountains-dead-end-swamp.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -4607,6 +6079,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 2,
@@ -4651,25 +6125,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2A2",
           "layoutAddress": "0xA5F2"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2A4",
           "layoutAddress": "0xA62A"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2A6",
           "layoutAddress": "0xA62A"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xA2A8",
           "layoutAddress": "0xA662"
         }
@@ -4735,7 +6237,16 @@
       "output": "images/obj03-area00-sub00-camilla-cemetery.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -4743,6 +6254,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 3,
@@ -4787,25 +6300,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB3F1",
           "layoutAddress": "0xB447"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB3F3",
           "layoutAddress": "0xB47F"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB3F5",
           "layoutAddress": "0xB4B7"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB3F7",
           "layoutAddress": "0xB447"
         }
@@ -4871,7 +6412,16 @@
       "output": "images/obj03-area00-sub01-joma-marsh-part-1.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -4879,6 +6429,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 3,
@@ -4923,25 +6475,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB403",
           "layoutAddress": "0xB2CA"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB405",
           "layoutAddress": "0xB6E7"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB407",
           "layoutAddress": "0xB302"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB409",
           "layoutAddress": "0xB6AF"
         }
@@ -5007,7 +6587,16 @@
       "output": "images/obj03-area01-sub00-storigoi-graveyard-blob-boost.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -5015,6 +6604,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 3,
@@ -5059,25 +6650,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB415",
           "layoutAddress": "0xB4EF"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB417",
           "layoutAddress": "0xB527"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB419",
           "layoutAddress": "0xB55F"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB41B",
           "layoutAddress": "0xB597"
         }
@@ -5142,13 +6761,25 @@
       },
       "output": "images/obj03-area02-sub00-sadam-woods-part-2.png",
       "width": 512,
-      "height": 224,
-      "layoutSection": 0,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 2,
+        "totalPointers": 4,
+        "renderedColumns": 2,
+        "renderedRows": 2
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 2,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 3,
@@ -5193,15 +6824,55 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB427",
           "layoutAddress": "0xB71F"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB429",
           "layoutAddress": "0xB63F"
+        },
+        {
+          "index": 2,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB42B",
+          "layoutAddress": "0xB607"
+        },
+        {
+          "index": 3,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB42D",
+          "layoutAddress": "0xB5CF"
         }
       ]
     },
@@ -5265,12 +6936,23 @@
       "output": "images/obj03-area02-sub01-sadam-woods-part-1.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 3,
@@ -5315,13 +6997,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB435",
           "layoutAddress": "0xB677"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB437",
           "layoutAddress": "0xB757"
         }
@@ -5387,7 +7083,16 @@
       "output": "images/obj03-area03-sub00-joma-marsh-part-2.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -5395,6 +7100,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 3,
@@ -5439,25 +7146,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB804",
           "layoutAddress": "0xB2CA"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB806",
           "layoutAddress": "0xB302"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB808",
           "layoutAddress": "0xBB66"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB80A",
           "layoutAddress": "0xBB2E"
         }
@@ -5523,7 +7258,16 @@
       "output": "images/obj03-area03-sub01-joma-marsh-part-3-fire-and-skulls.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -5531,6 +7275,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 3,
@@ -5575,25 +7321,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB816",
           "layoutAddress": "0xB33A"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB818",
           "layoutAddress": "0xBB9E"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB81A",
           "layoutAddress": "0xBBD6"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB81C",
           "layoutAddress": "0xBC0E"
         }
@@ -5658,8 +7432,19 @@
       },
       "output": "images/obj03-area03-sub02-debious-woods-part-3.png",
       "width": 1024,
-      "height": 224,
-      "layoutSection": 0,
+      "height": 672,
+      "layoutSections": [
+        0,
+        1,
+        2
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 3,
+        "totalPointers": 12,
+        "renderedColumns": 4,
+        "renderedRows": 3
+      },
       "columnGroups": [
         0,
         1,
@@ -5667,6 +7452,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 3,
+      "layoutCellCount": 12,
       "derivation": {
         "runtimeContext": {
           "objset": 3,
@@ -5711,27 +7498,159 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB830",
           "layoutAddress": "0xB856"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB832",
           "layoutAddress": "0xB88E"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB834",
           "layoutAddress": "0xB8C6"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB836",
           "layoutAddress": "0xB8FE"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB838",
+          "layoutAddress": "0xB936"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB83A",
+          "layoutAddress": "0xB96E"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB83C",
+          "layoutAddress": "0xB9A6"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB83E",
+          "layoutAddress": "0xB9DE"
+        },
+        {
+          "index": 8,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB840",
+          "layoutAddress": "0xBA16"
+        },
+        {
+          "index": 9,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB842",
+          "layoutAddress": "0xBA4E"
+        },
+        {
+          "index": 10,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB844",
+          "layoutAddress": "0xBA86"
+        },
+        {
+          "index": 11,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB846",
+          "layoutAddress": "0xBABE"
         }
       ]
     },
@@ -5794,12 +7713,24 @@
       },
       "output": "images/obj03-area03-sub03-debious-woods-part-2.png",
       "width": 256,
-      "height": 224,
-      "layoutSection": 0,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 2,
+        "totalPointers": 2,
+        "renderedColumns": 1,
+        "renderedRows": 2
+      },
       "columnGroups": [
         0
       ],
       "columnGroupCount": 1,
+      "sectionCount": 2,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 3,
@@ -5844,9 +7775,29 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB828",
           "layoutAddress": "0xF8AF"
+        },
+        {
+          "index": 1,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB82A",
+          "layoutAddress": "0xBAF6"
         }
       ]
     },
@@ -5910,11 +7861,22 @@
       "output": "images/obj03-area03-sub04-debious-woods-part-1.png",
       "width": 256,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0
       ],
       "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
       "derivation": {
         "runtimeContext": {
           "objset": 3,
@@ -5959,7 +7921,14 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB852",
           "layoutAddress": "0xF877"
         }
@@ -6025,12 +7994,23 @@
       "output": "images/obj03-area04-sub00-sadam-woods-part-3.png",
       "width": 512,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1
       ],
       "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
       "derivation": {
         "runtimeContext": {
           "objset": 3,
@@ -6075,13 +8055,27 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB43F",
           "layoutAddress": "0xB33A"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xB441",
           "layoutAddress": "0xB78F"
         }
@@ -6147,7 +8141,16 @@
       "output": "images/obj04-area00-sub00-vrad-mountain-part-2-diamond-dude.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -6155,6 +8158,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 4,
@@ -6199,25 +8204,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF48",
           "layoutAddress": "0xB0C0"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF4A",
           "layoutAddress": "0xB050"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF4C",
           "layoutAddress": "0xB088"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF4E",
           "layoutAddress": "0xB018"
         }
@@ -6283,7 +8316,16 @@
       "output": "images/obj04-area00-sub01-vrad-mountain-part-1.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -6291,6 +8333,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 4,
@@ -6335,25 +8379,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF5A",
           "layoutAddress": "0xF877"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF5C",
           "layoutAddress": "0xF83F"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF5E",
           "layoutAddress": "0xF83F"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF60",
           "layoutAddress": "0xF877"
         }
@@ -6419,11 +8491,22 @@
       "output": "images/obj04-area01-sub00-deborah-cliff-in-tornado.png",
       "width": 256,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0
       ],
       "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
       "derivation": {
         "runtimeContext": {
           "objset": 4,
@@ -6468,7 +8551,14 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF6C",
           "layoutAddress": "0xB210"
         }
@@ -6534,7 +8624,16 @@
       "output": "images/obj04-area01-sub01-jam-wasteland-deborah-cliff.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -6542,6 +8641,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 4,
@@ -6586,25 +8687,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF36",
           "layoutAddress": "0xAF70"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF38",
           "layoutAddress": "0xAFA8"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF3A",
           "layoutAddress": "0xAFE0"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF3C",
           "layoutAddress": "0xB018"
         }
@@ -6670,7 +8799,16 @@
       "output": "images/obj04-area02-sub00-wicked-ditch.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -6678,6 +8816,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 4,
@@ -6722,25 +8862,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF00",
           "layoutAddress": "0xB018"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF02",
           "layoutAddress": "0xB050"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF04",
           "layoutAddress": "0xB0F8"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF06",
           "layoutAddress": "0xAFE0"
         }
@@ -6806,7 +8974,16 @@
       "output": "images/obj04-area03-sub00-vrad-graveyard.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -6814,6 +8991,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 4,
@@ -6858,25 +9037,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF12",
           "layoutAddress": "0xB130"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF14",
           "layoutAddress": "0xB168"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF16",
           "layoutAddress": "0xB1A0"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF18",
           "layoutAddress": "0xB1D8"
         }
@@ -6942,7 +9149,16 @@
       "output": "images/obj04-area03-sub01-castlevania-bridge.png",
       "width": 1024,
       "height": 224,
-      "layoutSection": 0,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
       "columnGroups": [
         0,
         1,
@@ -6950,6 +9166,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
       "derivation": {
         "runtimeContext": {
           "objset": 4,
@@ -6994,25 +9212,53 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF24",
           "layoutAddress": "0xB248"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF26",
           "layoutAddress": "0xF957"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF28",
           "layoutAddress": "0xF957"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xAF2A",
           "layoutAddress": "0xF91F"
         }
@@ -7077,8 +9323,20 @@
       },
       "output": "images/obj05-area00-sub00-castlevania.png",
       "width": 1024,
-      "height": 224,
-      "layoutSection": 0,
+      "height": 896,
+      "layoutSections": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 4,
+        "totalPointers": 16,
+        "renderedColumns": 4,
+        "renderedRows": 4
+      },
       "columnGroups": [
         0,
         1,
@@ -7086,6 +9344,8 @@
         3
       ],
       "columnGroupCount": 4,
+      "sectionCount": 4,
+      "layoutCellCount": 16,
       "derivation": {
         "runtimeContext": {
           "objset": 5,
@@ -7130,27 +9390,211 @@
       "columns": [
         {
           "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xBC84",
           "layoutAddress": "0xBCB2"
         },
         {
           "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xBC86",
           "layoutAddress": "0xBCEA"
         },
         {
           "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xBC88",
           "layoutAddress": "0xBD22"
         },
         {
           "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
           "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
           "layoutPointerAddress": "0xBC8A",
           "layoutAddress": "0xBD5A"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC8C",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC8E",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC90",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC92",
+          "layoutAddress": "0xBD92"
+        },
+        {
+          "index": 8,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC94",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 9,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC96",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 10,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC98",
+          "layoutAddress": "0xBDCA"
+        },
+        {
+          "index": 11,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC9A",
+          "layoutAddress": "0xBE02"
+        },
+        {
+          "index": 12,
+          "section": 3,
+          "sectionIndex": 3,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 672,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC9C",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 13,
+          "section": 3,
+          "sectionIndex": 3,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 672,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC9E",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 14,
+          "section": 3,
+          "sectionIndex": 3,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 672,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBCA0",
+          "layoutAddress": "0xBE3A"
+        },
+        {
+          "index": 15,
+          "section": 3,
+          "sectionIndex": 3,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 672,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBCA2",
+          "layoutAddress": "0xBE72"
         }
       ]
     }
@@ -7179,6 +9623,7 @@
       "validated-template": 31,
       "inferred-template": 24
     },
-    "specialScreenRecords": 5
+    "specialScreenRecords": 5,
+    "multiSectionLayouts": 13
   }
 }

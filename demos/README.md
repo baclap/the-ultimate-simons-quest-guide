@@ -14,3 +14,7 @@ Current demos:
   showing Jova Woods rendered as one larger-than-screen ROM-native map slice.
 - `2026-05-17-jova-to-veros-route-demo/`: full outdoor Jova-to-Veros route
   demo showing four ROM-native layout segments composed into one route image.
+- `2026-05-17-exterior-atlas-demo/`: broad exterior atlas demo showing 55
+  ROM-native candidate renders and their confidence metadata.
+- `2026-05-17-vertical-layout-demo/`: before/after demo for multi-section
+  layout rendering, including Jova and Dora Woods Part 2.

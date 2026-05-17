@@ -20,6 +20,7 @@ The repository now has a zero-dependency Node CLI that can:
 - render a continuous Jova Woods layout-space segment from adjacent ROM layout column groups
 - render the full outdoor Jova-to-Veros route as connected layout-space segments
 - render an exterior atlas of 55 candidates from `cv2r` metadata plus ROM layout, tile, CHR, and palette data
+- decode layout headers as two-dimensional grids and render full multi-section atlas entries
 
 Generated output is intentionally ignored by git:
 
@@ -59,6 +60,7 @@ Committed reference data is intentionally tracked:
 - The first route renderer composes `jova-to-veros-outdoor-day` into a 3072x224 outdoor route: Jova Woods, Jova-Veros Bridge, Veros Woods - Part 1, and Veros Woods - Part 2.
 - The first exterior atlas pass renders 55 exterior candidates, including towns, overworld routes, mansion doors, mountains, Castlevania Bridge, and Castlevania exterior. It records 31 validated-template renders and 24 inferred-template renders.
 - Special exterior screen-record markers `FD`/`FE` are now preserved in metadata and decoded by using byte `1` as the effective layout index for the current five known exterior cases.
+- Layout header byte `0` is the horizontal column-group count and byte `1` is the vertical section count. The atlas now renders all sections for 13 multi-section layouts, including Jova `4x2`, Dora Woods - Part 2 `2x2`, Dabi's Path - Part 1 `2x2`, and Castlevania `4x4`.
 - These verified checkpoints are now stored as reusable descriptors in `data/background-descriptors.json`.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
 
@@ -81,24 +83,28 @@ Work items:
    - Store atlas render status, screen-record bytes, layout headers, tile-set addresses, CHR banks, and palette assumptions in generated atlas manifests.
    - Keep docs close enough to the data that a future renderer can use the discoveries without replaying the same traces.
 
-2. Convert atlas entries into topology.
+2. Validate multi-section layouts.
+   - Add save-state fixtures for Jova vertical movement, Dora Woods - Part 2 stairs, and at least one additional multi-section outdoor area.
+   - Compare viewport-sized windows against the full layout-space output without using emulator captures as source art.
+
+3. Convert atlas entries into topology.
    - Use doors, sign text, route names, and observed route continuity to define adjacency/composite placement.
    - Keep the atlas images as layout-space source segments, not emulator screenshots.
 
-3. Promote inferred templates.
+4. Promote inferred templates.
    - Add representative save-state fixtures for mansion doors, objset `3`, objset `4`, and Castlevania exterior.
    - Capture both day and night descriptors for outdoor locations.
    - Keep mansion interiors as one fixed-palette descriptor unless later evidence shows otherwise.
 
-4. Decode remaining palette selection.
+5. Decode remaining palette selection.
    - Replace object-set fallback palettes with per-location palette derivation where the ROM encodes it.
    - Preserve day and night palette variants as first-class render options.
 
-5. Validate.
+6. Validate.
    - Capture deterministic emulator screenshots, PPU state, and OAM.
    - Compare generated output with pixel diffs.
 
-6. Scale out.
+7. Scale out.
    - Generate descriptors for all locations from the `cv2r` manifest and the ROM tables.
    - Generate full-map PNGs plus optional actor/door overlays.
 

@@ -47,6 +47,28 @@ The PNG is generated entirely from the ROM:
 - CHR banks `2/3`
 - day background palette at PRG bank `4:$9FC6`
 
+## Layout Header Grids
+
+The layout header's first two bytes are now decoded as grid dimensions:
+
+```text
+byte 0 = horizontal column-group count
+byte 1 = vertical section count
+```
+
+Each pointer after the header selects one layout block matrix. The renderer can
+still target a single `layoutSection` for validation slices, but atlas entries
+can set `renderAllSections` to draw every row of the header. The resulting
+metadata records `layoutSections`, `layoutGrid`, and per-cell pointer addresses.
+
+Examples from the exterior atlas:
+
+| Location | Header grid | Rendered size |
+| --- | ---: | ---: |
+| Jova | `4x2` | `1024x512` |
+| Dora Woods - Part 2 | `2x2` | `512x448` |
+| Castlevania | `4x4` | `1024x896` |
+
 ## Interpretation
 
 This is a continuous layout-space segment, not a screenshot stitch. The renderer

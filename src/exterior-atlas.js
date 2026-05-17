@@ -234,14 +234,24 @@ function templateForLocation(rom, info, loc, screenRecord) {
   return template;
 }
 
-function columnGroupsForHeader(rom, info, derivation) {
+function layoutGridForHeader(rom, info, derivation) {
   const headerAddress = Number.parseInt(derivation.layoutHeader.address.slice(2), 16);
   const readOpts = derivation.layoutHeader.bank == null ? {} : { bank: derivation.layoutHeader.bank };
-  const pointersPerSection = readPrgByte(rom, info, headerAddress, readOpts);
-  if (!Number.isInteger(pointersPerSection) || pointersPerSection <= 0 || pointersPerSection > 8) {
-    throw new Error(`layout header ${derivation.layoutHeader.address} has unsupported pointer count ${pointersPerSection}`);
+  const columns = readPrgByte(rom, info, headerAddress, readOpts);
+  const rows = readPrgByte(rom, info, headerAddress + 1, readOpts);
+  if (!Number.isInteger(columns) || columns <= 0 || columns > 8) {
+    throw new Error(`layout header ${derivation.layoutHeader.address} has unsupported column count ${columns}`);
   }
-  return Array.from({ length: pointersPerSection }, (_, index) => index);
+  if (!Number.isInteger(rows) || rows <= 0 || rows > 8) {
+    throw new Error(`layout header ${derivation.layoutHeader.address} has unsupported row count ${rows}`);
+  }
+  return {
+    columns,
+    rows,
+    totalPointers: columns * rows,
+    columnGroups: Array.from({ length: columns }, (_, index) => index),
+    layoutSections: Array.from({ length: rows }, (_, index) => index)
+  };
 }
 
 function buildSegmentForCandidate(loc, screenRecord, template) {
@@ -260,7 +270,7 @@ function buildSegmentForCandidate(loc, screenRecord, template) {
       submap: loc.submap || 0
     },
     layoutIndexOverride: screenRecord.specialLayoutIndex,
-    layoutSection: 0,
+    renderAllSections: true,
     columnGroups: [],
     bgPatternBase: 0,
     template: template.id,
@@ -358,7 +368,8 @@ function renderCandidate(rom, info, loc, outDir) {
 
   const segment = buildSegmentForCandidate(loc, screenRecord, template);
   const derivation = deriveLayoutContext(rom, info, segment);
-  const columnGroups = columnGroupsForHeader(rom, info, derivation);
+  const layoutGrid = layoutGridForHeader(rom, info, derivation);
+  const columnGroups = layoutGrid.columnGroups;
   segment.columnGroups = columnGroups;
 
   try {
@@ -376,13 +387,29 @@ function renderCandidate(rom, info, loc, outDir) {
       output: relativeOutput,
       width: rendered.width,
       height: rendered.height,
-      layoutSection: rendered.metadata.layoutSection,
+      layoutSections: rendered.metadata.layoutSections,
+      layoutGrid: {
+        columns: layoutGrid.columns,
+        rows: layoutGrid.rows,
+        totalPointers: layoutGrid.totalPointers,
+        renderedColumns: rendered.metadata.layoutGrid.renderedColumns,
+        renderedRows: rendered.metadata.layoutGrid.renderedRows
+      },
       columnGroups,
       columnGroupCount: columnGroups.length,
+      sectionCount: layoutGrid.rows,
+      layoutCellCount: rendered.metadata.columns.length,
       derivation: publicDerivation(rendered.metadata.derivation),
       columns: rendered.metadata.columns.map((column) => ({
         index: column.index,
+        section: column.section,
+        sectionIndex: column.sectionIndex,
         columnGroup: column.columnGroup,
+        columnIndex: column.columnIndex,
+        x: column.x,
+        y: column.y,
+        width: column.width,
+        height: column.height,
         layoutPointerAddress: column.layoutPointerAddress,
         layoutAddress: column.layoutAddress
       }))
@@ -408,7 +435,8 @@ function summarize(candidates) {
     byCategory: {},
     byObjset: {},
     byConfidence: {},
-    specialScreenRecords: 0
+    specialScreenRecords: 0,
+    multiSectionLayouts: 0
   };
 
   for (const candidate of candidates) {
@@ -420,6 +448,9 @@ function summarize(candidates) {
     }
     if (candidate.screenRecord.layoutIndexSource !== 'screen-record-byte-0') {
       summary.specialScreenRecords += 1;
+    }
+    if ((candidate.sectionCount || 1) > 1) {
+      summary.multiSectionLayouts += 1;
     }
     summary.byCategory[candidate.category] = (summary.byCategory[candidate.category] || 0) + 1;
     summary.byObjset[candidate.objsetHex] = (summary.byObjset[candidate.objsetHex] || 0) + 1;
@@ -442,6 +473,7 @@ function buildExteriorAtlas(rom, info) {
       renderer: 'rom-native-layout-segment',
       notes: [
         'Atlas v0 renders layout-space segments directly from ROM layout pointers, metatiles, CHR banks, and palette bytes.',
+        'Layout headers are decoded as column-group by vertical-section grids; atlas rendering covers every section in the header.',
         'Validated template confidence means at least one representative screen in that object set has exact emulator fixture parity.',
         'Inferred template confidence means the table paths resolve and render, but CHR/palette selection still needs representative fixture validation.'
       ]
