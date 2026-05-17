@@ -12,3 +12,5 @@ Current demos:
   Jova to Veros samples with validated and inferred screen status.
 - `2026-05-17-layout-segment-demo/`: continuous layout-space segment demo
   showing Jova Woods rendered as one larger-than-screen ROM-native map slice.
+- `2026-05-17-jova-to-veros-route-demo/`: full outdoor Jova-to-Veros route
+  demo showing four ROM-native layout segments composed into one route image.

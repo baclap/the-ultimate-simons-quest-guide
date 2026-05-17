@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Castlevania II Jova to Veros Route Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="#slide-1">Castlevania II Route Renderer</a>
+    <span><span id="slide-number">1</span>/<span id="slide-total">6</span></span>
+  </header>
+
+  <main>
+    <section class="slide title-slide" id="slide-1">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Route milestone</p>
+          <h1>The outdoor Jova-to-Veros route is rendered from ROM layout data</h1>
+          <p class="lede">Four continuous segments now compose into one 3072x224 day-palette route image: Jova Woods, Jova-Veros Bridge, Veros Woods Part 1, and Veros Woods Part 2.</p>
+        </div>
+        <figure class="route-card">
+          <img src="assets/layout-routes/jova-to-veros-outdoor-day.png" alt="Full outdoor Jova to Veros route rendered from ROM layout data">
+          <figcaption>Full outdoor route strip, generated from layout pointers, metatiles, CHR banks, and ROM palette bytes.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-2">
+      <div class="content">
+        <p class="eyebrow">Full route artifact</p>
+        <h2>One route image, four connected layout-space segments</h2>
+        <div class="route-window" aria-label="Scrollable full Jova to Veros outdoor route">
+          <div class="route-stage">
+            <img src="assets/layout-routes/jova-to-veros-outdoor-day.png" alt="Full outdoor Jova to Veros route with segment overlays">
+            <div class="segment-overlay validated" style="left: 0; width: 1024px;"><span>Jova Woods</span></div>
+            <div class="segment-overlay inferred" style="left: 1024px; width: 1024px;"><span>Jova-Veros Bridge</span></div>
+            <div class="segment-overlay inferred" style="left: 2048px; width: 512px;"><span>Veros Woods 1</span></div>
+            <div class="segment-overlay special" style="left: 2560px; width: 512px;"><span>Veros Woods 2</span></div>
+          </div>
+        </div>
+        <div class="legend">
+          <span class="validated">validated source layout</span>
+          <span class="inferred">inferred layout segment</span>
+          <span class="special">special screen-record decode</span>
+          <span>3072x224 px, no emulator screenshot source art.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-3">
+      <div class="content">
+        <p class="eyebrow">Segment inventory</p>
+        <h2>The route is explicit about confidence</h2>
+        <div class="segment-grid">
+          <div class="validated"><strong>Jova Woods</strong><span>header 2:$A23E</span><span>4 groups, 1024 px</span><span>validated source layout</span></div>
+          <div class="inferred"><strong>Jova-Veros Bridge</strong><span>header 2:$A250</span><span>4 groups, 1024 px</span><span>pending emulator fixture</span></div>
+          <div class="inferred"><strong>Veros Woods - Part 1</strong><span>header 2:$A262</span><span>2 groups, 512 px</span><span>pending emulator fixture</span></div>
+          <div class="special"><strong>Veros Woods - Part 2</strong><span>header 2:$A26C</span><span>2 groups, 512 px</span><span>layout index override</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-4">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Data flow</p>
+          <h2>Each route segment resolves through the same ROM tables</h2>
+          <p>The route renderer resolves runtime context into a screen record, layout index, layout header, column-group pointers, metatile definitions, CHR banks, and palette bytes before drawing into a shared route buffer.</p>
+        </div>
+        <div class="pipeline">
+          <div><strong>Runtime context</strong><span>objset, area, submap</span></div>
+          <div><strong>Screen record</strong><span>layout index and special sequences</span></div>
+          <div><strong>Layout header</strong><span>column-group pointer table</span></div>
+          <div><strong>Pixel output</strong><span>metatiles, CHR, palette</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-5">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Special case preserved</p>
+          <h2>Veros Woods Part 2 starts with <code>FE 06 FF</code></h2>
+          <p>The raw screen record at 2:$A1A3 starts with <code>FE 06 FF</code>, so the route data records an explicit layout-index override to <code>0x06</code>. That resolves layout header 2:$A26C and keeps the discovery auditable.</p>
+        </div>
+        <div class="code-panel">
+          <div><strong>screen record</strong><span>2:$A1A3</span></div>
+          <div><strong>first bytes</strong><span>FE 06 FF 00 01 16 0B 0C</span></div>
+          <div><strong>layout index</strong><span>0x06 from segment override</span></div>
+          <div><strong>layout header</strong><span>2:$A26C</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-6">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Next demo goal</p>
+          <h2>Turn route strips into a validated world graph</h2>
+          <p>The next target is adding emulator validation windows for the inferred route pieces, decoding day/night palette variants, and connecting additional outdoor branches with the same segment metadata.</p>
+        </div>
+        <div class="callouts">
+          <div>Capture bridge and Veros Woods validation windows.</div>
+          <div>Promote inferred segments when viewport diffs pass.</div>
+          <div>Add night palette variants for outdoor route segments.</div>
+          <div>Begin stitching route metadata into a world graph.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="controls" aria-label="Slide navigation">
+    <button id="previous-slide" type="button" title="Previous slide">&lt;</button>
+    <button id="next-slide" type="button" title="Next slide">&gt;</button>
+  </nav>
+
+  <script src="slides.js"></script>
+</body>
+</html>

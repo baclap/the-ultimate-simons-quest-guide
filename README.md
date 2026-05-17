@@ -75,6 +75,7 @@ Sprint demos live under `demos/`. The current stakeholder demo is:
 demos/2026-05-17-sprint-demo/index.html
 demos/2026-05-17-regional-demo/index.html
 demos/2026-05-17-layout-segment-demo/index.html
+demos/2026-05-17-jova-to-veros-route-demo/index.html
 ```
 
 ## Next Milestone
