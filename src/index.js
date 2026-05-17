@@ -12,6 +12,7 @@ const { runMesenCapture } = require('./mesen');
 const { diffImages, renderPpuCapture } = require('./ppu');
 const { readPng, writePng } = require('./png');
 const { renderNativeBackgroundImage } = require('./native-image');
+const { loadRegion, renderRegionPng } = require('./regions');
 const {
   applyPpuWritesToNametables,
   compareNametables,
@@ -74,6 +75,7 @@ function usage() {
     '  node src/index.js inspect-background-context --rom roms/cv2.nes --objset 0x02 --area 0 --submap 0',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-native-nametables.bin',
     '  node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-day --state out/captures/jova-day/state.json --compare-png out/captures/jova-day/background.png --out out/decoder/jova-native-background.png',
+    '  node src/index.js render-region-png --rom roms/cv2.nes --region jova-to-veros-day --out out/regions/jova-to-veros-day.png',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --descriptor-file data/background-descriptors.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
     '',
@@ -90,6 +92,7 @@ function usage() {
     '  inspect-background-context  Derive background table pointers from objset/area/submap.',
     '  render-background-native  Render a descriptor-backed ROM-native nametable checkpoint.',
     '  render-background-native-png  Render a descriptor-backed ROM-native background PNG.',
+    '  render-region-png  Render a stitched ROM-native region PNG.',
     '  render-jova-native  Alias for render-background-native --descriptor jova-day.',
     '  render-jova-woods-native  Alias for render-background-native --descriptor jova-woods-day.'
   ].join('\n');
@@ -453,6 +456,33 @@ function renderBackgroundDescriptorPngCommand(args) {
   printJson(result);
 }
 
+function renderRegionPngCommand(args) {
+  const romPath = required(args, 'rom');
+  const regionId = required(args, 'region');
+  const output = args.out
+    ? path.resolve(String(args.out))
+    : path.resolve(path.join('out', 'regions', `${regionId}.png`));
+  const region = loadRegion(regionId, {
+    filePath: args['region-file'] ? String(args['region-file']) : undefined
+  });
+  const { buffer, info } = readRom(romPath);
+  const result = {
+    rom: describeRom(info),
+    region: renderRegionPng(buffer, info, region, output, {
+      columns: integerOption(args, 'columns', undefined)
+    })
+  };
+
+  if (args['metadata-out']) {
+    const metadataOutput = path.resolve(String(args['metadata-out']));
+    fs.mkdirSync(path.dirname(metadataOutput), { recursive: true });
+    fs.writeFileSync(metadataOutput, `${JSON.stringify(result.region.metadata, null, 2)}\n`);
+    result.region.metadataOutput = metadataOutput;
+  }
+
+  printJson(result);
+}
+
 function renderJovaNativeCommand(args) {
   renderNativeBackgroundCommand(args, renderJovaNativeNametables, 0);
 }
@@ -527,6 +557,11 @@ function main() {
 
   if (command === 'render-background-native-png') {
     renderBackgroundDescriptorPngCommand(args);
+    return;
+  }
+
+  if (command === 'render-region-png') {
+    renderRegionPngCommand(args);
     return;
   }
 

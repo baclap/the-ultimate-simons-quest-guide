@@ -16,6 +16,7 @@ The repository now has a zero-dependency Node CLI that can:
 - derive background layout/tile pointers from `objset`, `area`, and `submap`
 - render descriptor-backed ROM-native Jova town and Jova Woods nametable checkpoints from PRG bank `2` layout data and PRG bank `4` tile data
 - render ROM-native background PNGs from descriptor nametables, CHR banks, and ROM palette bytes
+- stitch ROM-native screens into a first regional route strip with validated and inferred status metadata
 
 Generated output is intentionally ignored by git:
 
@@ -50,6 +51,7 @@ Committed reference data is intentionally tracked:
 - The common background pointer path now derives layout headers and tile sets from `objset`, `area`, and `submap`.
 - The Jova Woods save-state fixture reproduces captured nametable page 0 and its mirror exactly from screen record `2:$A1A0`, layout header `2:$A23E`, visible layout `2:$A4DA`, and tile set `4:$8CF4`.
 - The validated Jova and Jova Woods backgrounds now render as ROM-native PNGs with 0 differing pixels against PPU-background reconstructions.
+- The first regional renderer stitches `jova-to-veros-day` from three validated screens and two inferred manifest-context candidates: Jova-Veros Bridge and Veros Woods - Part 1.
 - These verified checkpoints are now stored as reusable descriptors in `data/background-descriptors.json`.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
 

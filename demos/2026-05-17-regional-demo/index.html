@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Castlevania II Regional Renderer Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="#slide-1">Castlevania II Regional Renderer</a>
+    <span><span id="slide-number">1</span>/<span id="slide-total">6</span></span>
+  </header>
+
+  <main>
+    <section class="slide title-slide" id="slide-1">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Next demo</p>
+          <h1>From validated screens to a route slice</h1>
+          <p class="lede">The renderer now stitches ROM-native screens into a first regional strip: Jova town, Jova Woods, the bridge, and the next woods screen toward Veros.</p>
+        </div>
+        <figure class="preview-card">
+          <img src="assets/regional/jova-to-veros-day.png" alt="ROM-native Jova to Veros route strip">
+          <figcaption>Jova to Veros route, rendered from ROM data</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-2">
+      <div class="content">
+        <p class="eyebrow">Regional output</p>
+        <h2>Five screens, one stitched image</h2>
+        <div class="map-window" aria-label="Scrollable regional map strip">
+          <img src="assets/regional/jova-to-veros-day.png" alt="Jova to Veros regional strip">
+        </div>
+        <div class="legend">
+          <span class="validated">Validated</span>
+          <span class="inferred">Inferred</span>
+          <span>Drag or scroll horizontally if the strip is wider than the viewport.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-3">
+      <div class="content">
+        <p class="eyebrow">Confidence layer</p>
+        <h2>The route is split into proven and inferred slices</h2>
+        <div class="status-grid">
+          <div class="validated"><strong>Jova town left</strong><span>Descriptor-backed, 0 differing pixels.</span></div>
+          <div class="validated"><strong>Jova town right</strong><span>Descriptor-backed, 0 differing pixels.</span></div>
+          <div class="validated"><strong>Jova Woods</strong><span>Descriptor-backed, 0 differing pixels.</span></div>
+          <div class="inferred"><strong>Jova-Veros Bridge</strong><span>Derived from objset 2, area 0, submap 1.</span></div>
+          <div class="inferred"><strong>Veros Woods - Part 1</strong><span>Derived from objset 2, area 0, submap 2.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-4">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">What changed</p>
+          <h2>A region data model now sits above screen descriptors</h2>
+          <p>Region entries can reference a validated descriptor or derive a candidate descriptor from manifest context. That keeps the renderer honest about which screens are proven and which are plausible but still need emulator fixtures.</p>
+        </div>
+        <div class="pipeline">
+          <div><strong>Manifest context</strong><span>objset, area, submap</span></div>
+          <div><strong>Pointer tables</strong><span>screen record, layout header, tile set</span></div>
+          <div><strong>Template fields</strong><span>CHR banks, palette, dimensions</span></div>
+          <div><strong>Region layout</strong><span>ordered route strip</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-5">
+      <div class="content">
+        <p class="eyebrow">Current limits</p>
+        <h2>This is not the full map yet, and that is the point</h2>
+        <div class="limit-grid">
+          <div><strong>Validated coverage</strong><span>Three screens have exact fixture parity.</span></div>
+          <div><strong>Inferred coverage</strong><span>Two more screens are rendered from tables and templates, pending capture comparison.</span></div>
+          <div><strong>Adjacency</strong><span>The demo is a route strip, not a final world topology.</span></div>
+          <div><strong>Variants</strong><span>Day/night palette switching still needs broader decode work.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-6">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Next step</p>
+          <h2>Validate the inferred route, then widen the strip</h2>
+          <p>The next practical move is to add save-state fixtures for the bridge and Veros Woods, compare them, and then let the same data model grow toward Veros and beyond.</p>
+        </div>
+        <div class="callouts">
+          <div>Capture bridge and Veros Woods fixtures.</div>
+          <div>Promote inferred entries to validated when pixel parity passes.</div>
+          <div>Add the next route branch and preserve status per screen.</div>
+          <div>Introduce day/night variants once palette selection is decoded.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="controls" aria-label="Slide navigation">
+    <button id="previous-slide" type="button" title="Previous slide">&lt;</button>
+    <button id="next-slide" type="button" title="Next slide">&gt;</button>
+  </nav>
+
+  <script src="slides.js"></script>
+</body>
+</html>

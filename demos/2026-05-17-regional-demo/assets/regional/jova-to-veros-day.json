@@ -1,0 +1,169 @@
+{
+  "id": "jova-to-veros-day",
+  "label": "Jova to Veros route, day",
+  "summary": "A first stitched route slice using validated Jova/Jova Woods screens plus inferred bridge and woods candidates derived from objset/area/submap.",
+  "tileWidth": 256,
+  "tileHeight": 240,
+  "columns": 5,
+  "rows": 1,
+  "entries": [
+    {
+      "id": "jova-town-left",
+      "label": "Jova town left",
+      "status": "validated",
+      "validation": "0 differing pixels",
+      "descriptor": "jova-day",
+      "source": "descriptor",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 256,
+        "height": 240
+      },
+      "runtimeContext": {
+        "objset": 0,
+        "area": 0,
+        "submap": 0,
+        "chrBanks": [
+          0,
+          1
+        ],
+        "actorPointer": 37036
+      },
+      "layoutHeaderAddress": "0xFA86",
+      "tileSetAddress": "0x841D",
+      "paletteAddress": "0x9EA2",
+      "chrBanks": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "jova-town-right",
+      "label": "Jova town right",
+      "status": "validated",
+      "validation": "0 differing pixels",
+      "descriptor": "jova-day",
+      "source": "descriptor",
+      "position": {
+        "x": 256,
+        "y": 0,
+        "width": 256,
+        "height": 240
+      },
+      "runtimeContext": {
+        "objset": 0,
+        "area": 0,
+        "submap": 0,
+        "chrBanks": [
+          0,
+          1
+        ],
+        "actorPointer": 37036
+      },
+      "layoutHeaderAddress": "0xFA86",
+      "tileSetAddress": "0x841D",
+      "paletteAddress": "0x9EA2",
+      "chrBanks": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "jova-woods",
+      "label": "Jova Woods",
+      "status": "validated",
+      "validation": "0 differing pixels",
+      "descriptor": "jova-woods-day",
+      "source": "descriptor",
+      "position": {
+        "x": 512,
+        "y": 0,
+        "width": 256,
+        "height": 240
+      },
+      "runtimeContext": {
+        "objset": 2,
+        "area": 0,
+        "submap": 0,
+        "chrBanks": [
+          2,
+          3
+        ],
+        "actorPointer": 40932
+      },
+      "layoutHeaderAddress": "0xA23E",
+      "layoutHeaderBank": 2,
+      "tileSetAddress": "0x8CF4",
+      "paletteAddress": "0x9FC6",
+      "chrBanks": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "jova-veros-bridge",
+      "label": "Jova-Veros Bridge",
+      "status": "inferred",
+      "validation": "pending emulator fixture",
+      "descriptor": "jova-veros-bridge-candidate",
+      "template": "overworld-woods-day",
+      "source": "derived-context",
+      "position": {
+        "x": 768,
+        "y": 0,
+        "width": 256,
+        "height": 240
+      },
+      "runtimeContext": {
+        "objset": 2,
+        "area": 0,
+        "submap": 1,
+        "chrBanks": [
+          2,
+          3
+        ]
+      },
+      "layoutHeaderAddress": "0xA250",
+      "layoutHeaderBank": 2,
+      "tileSetAddress": "0x8CF4",
+      "paletteAddress": "0x9FC6",
+      "chrBanks": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "veros-woods-part-1",
+      "label": "Veros Woods - Part 1",
+      "status": "inferred",
+      "validation": "pending emulator fixture",
+      "descriptor": "veros-woods-part-1-candidate",
+      "template": "overworld-woods-day",
+      "source": "derived-context",
+      "position": {
+        "x": 1024,
+        "y": 0,
+        "width": 256,
+        "height": 240
+      },
+      "runtimeContext": {
+        "objset": 2,
+        "area": 0,
+        "submap": 2,
+        "chrBanks": [
+          2,
+          3
+        ]
+      },
+      "layoutHeaderAddress": "0xA262",
+      "layoutHeaderBank": 2,
+      "tileSetAddress": "0x8CF4",
+      "paletteAddress": "0x9FC6",
+      "chrBanks": [
+        2,
+        3
+      ]
+    }
+  ]
+}
