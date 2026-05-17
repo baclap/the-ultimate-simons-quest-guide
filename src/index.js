@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { readRom, describeRom } = require('./ines');
 const { renderChrBanks } = require('./chr');
+const { loadBackgroundDescriptor } = require('./descriptors');
 const { buildManifest, writeManifest } = require('./manifest');
 const { runMesenCapture } = require('./mesen');
 const { renderPpuCapture } = require('./ppu');
@@ -14,6 +15,7 @@ const {
   decodePpuTransferStream,
   renderJovaNativeNametables,
   renderJovaWoodsNativeNametables,
+  renderNativeBackgroundNametables,
   replayPpuBufferTrace,
   toHex
 } = require('./background');
@@ -66,8 +68,9 @@ function usage() {
     '  node src/index.js render-ppu-capture --capture out/captures/jova-day --out out/captures/jova-day/background.png',
     '  node src/index.js decode-transfer --rom roms/cv2.nes --bank 4 --address 0x8000 --mirroring vertical --out out/transfer.bin',
     '  node src/index.js replay-ppu-buffer-trace --trace out/mesen-buffer-trace/ppu-buffer-writes.tsv --mirroring vertical --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/mesen-buffer-trace/replayed-nametables.bin',
-    '  node src/index.js render-jova-native --rom roms/cv2.nes --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-native-nametables.bin',
-    '  node src/index.js render-jova-woods-native --rom roms/cv2.nes --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
+    '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-native-nametables.bin',
+    '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --descriptor-file data/background-descriptors.json',
+    '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
     '',
     'Commands:',
     '  verify-rom   Parse and verify the iNES header.',
@@ -79,8 +82,9 @@ function usage() {
     '  render-ppu-capture  Render background PNG from captured PPU artifacts.',
     '  decode-transfer  Decode the fixed-bank PPU transfer stream used by routine $C6C0.',
     '  replay-ppu-buffer-trace  Replay traced $0700 NMI PPU buffer writes into nametable bytes.',
-    '  render-jova-native  Render the first ROM-native Jova nametable checkpoint.',
-    '  render-jova-woods-native  Render the ROM-native Jova Woods nametable checkpoint.'
+    '  render-background-native  Render a descriptor-backed ROM-native nametable checkpoint.',
+    '  render-jova-native  Alias for render-background-native --descriptor jova-day.',
+    '  render-jova-woods-native  Alias for render-background-native --descriptor jova-woods-day.'
   ].join('\n');
 }
 
@@ -313,7 +317,7 @@ function renderNativeBackgroundCommand(args, renderFn, defaultVisiblePage) {
   const visiblePage = integerOption(args, 'visible-page', defaultVisiblePage);
   const { buffer, info } = readRom(romPath);
   const rendered = renderFn(buffer, info, {
-    mirroring: args.mirroring ? String(args.mirroring) : 'vertical'
+    mirroring: args.mirroring ? String(args.mirroring) : undefined
   });
 
   const result = {
@@ -328,6 +332,9 @@ function renderNativeBackgroundCommand(args, renderFn, defaultVisiblePage) {
     result.compare = compareNametables(rendered.nametables, expected);
     result.compare.expected = path.resolve(expectedPath);
     result.compare.visiblePage = visiblePage;
+    if (!result.compare.pages[visiblePage]) {
+      throw new Error(`visible page ${visiblePage} is outside compared nametable pages`);
+    }
     result.compare.visiblePageExact = result.compare.pages[visiblePage].differingBytes === 0;
     result.compare.visiblePage0Exact = result.compare.pages[0].differingBytes === 0;
   }
@@ -340,6 +347,22 @@ function renderNativeBackgroundCommand(args, renderFn, defaultVisiblePage) {
   }
 
   printJson(result);
+}
+
+function renderBackgroundDescriptorCommand(args) {
+  const descriptorId = required(args, 'descriptor');
+  const descriptor = loadBackgroundDescriptor(descriptorId, {
+    filePath: args['descriptor-file'] ? String(args['descriptor-file']) : undefined
+  });
+  const defaultVisiblePage = descriptor.defaultVisiblePage ??
+    descriptor.validation?.[0]?.visiblePage ??
+    descriptor.pages[0]?.page ??
+    0;
+
+  renderNativeBackgroundCommand(args, (rom, info, opts) => renderNativeBackgroundNametables(rom, info, {
+    ...opts,
+    descriptor
+  }), defaultVisiblePage);
 }
 
 function renderJovaNativeCommand(args) {
@@ -401,6 +424,11 @@ function main() {
 
   if (command === 'replay-ppu-buffer-trace') {
     replayPpuBufferTraceCommand(args);
+    return;
+  }
+
+  if (command === 'render-background-native') {
+    renderBackgroundDescriptorCommand(args);
     return;
   }
 

@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const { loadBackgroundDescriptor } = require('./descriptors');
 const { PRG_BANK_SIZE } = require('./ines');
 
 const SWITCHABLE_PRG_START = 0x8000;
@@ -10,61 +11,8 @@ const NAMETABLE_SIZE = 0x1000;
 const NAMETABLE_PAGE_SIZE = 0x400;
 const NAMETABLE_TILE_BYTES = 0x3c0;
 
-const JOVA_NATIVE_DESCRIPTOR = {
-  name: 'jova-day',
-  layoutHeaderAddress: 0xfa86,
-  layoutBank: 2,
-  tileBank: 4,
-  tileSetAddress: 0x841d,
-  widthBlocks: 8,
-  heightBlocks: 8,
-  rowsPerLayoutSection: 7,
-  pages: [
-    {
-      name: 'jova-left',
-      page: 0,
-      layoutSection: 0,
-      columnGroup: 0,
-      expectedLayoutAddress: 0x8497,
-      rowStream: {
-        startWorldRow: 0x1c,
-        rowCount: 6,
-        columnGroup: 0,
-        columnCount: 8,
-        hiddenAttributeHighNibbles: [0x0a, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05]
-      }
-    },
-    {
-      name: 'jova-right',
-      page: 1,
-      layoutSection: 0,
-      columnGroup: 3,
-      expectedLayoutAddress: 0x8507,
-      rowStream: {
-        startWorldRow: 0x1c,
-        rowCount: 6,
-        columnGroup: 3,
-        columnCount: 8
-      }
-    }
-  ]
-};
-
-const JOVA_WOODS_NATIVE_DESCRIPTOR = {
-  name: 'jova-woods-day',
-  layoutBank: 2,
-  tileBank: 4,
-  tileSetAddress: 0x8cf4,
-  widthBlocks: 8,
-  heightBlocks: 7,
-  pages: [
-    {
-      name: 'jova-woods-visible',
-      page: 0,
-      layoutAddress: 0xa111
-    }
-  ]
-};
+const JOVA_NATIVE_DESCRIPTOR = loadBackgroundDescriptor('jova-day');
+const JOVA_WOODS_NATIVE_DESCRIPTOR = loadBackgroundDescriptor('jova-woods-day');
 
 function assertByte(value, label) {
   if (!Number.isInteger(value) || value < 0 || value > 0xff) {
@@ -496,18 +444,26 @@ function renderNativeBackgroundNametables(rom, info, opts = {}) {
     renderNativePage(nametables, rom, info, descriptor, tileBaseAddress, pageDescriptor, opts)
   ));
 
-  const mirroring = opts.mirroring || 'vertical';
+  const mirroring = opts.mirroring || descriptor.nametableMirroring || 'vertical';
   if (mirroring === 'vertical') {
     copyNametablePage(nametables, 0, 2);
     copyNametablePage(nametables, 1, 3);
   } else if (mirroring !== 'none') {
-    throw new Error(`unsupported native Jova mirroring mode "${mirroring}"`);
+    throw new Error(`unsupported native background mirroring mode "${mirroring}"`);
   }
 
   return {
     nametables,
     descriptor: descriptor.name,
     metadata: {
+      id: descriptor.id,
+      label: descriptor.label,
+      location: descriptor.location,
+      variant: descriptor.variant,
+      access: descriptor.access,
+      paletteMode: descriptor.paletteMode,
+      renderer: descriptor.renderer,
+      runtimeContext: descriptor.runtimeContext,
       layoutHeaderAddress: descriptor.layoutHeaderAddress == null ? undefined : `0x${toHex(descriptor.layoutHeaderAddress)}`,
       layoutBank: descriptor.layoutBank,
       tileBank: descriptor.tileBank,

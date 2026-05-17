@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "descriptors": [
+    {
+      "id": "jova-day",
+      "label": "Jova town, day",
+      "location": "Jova",
+      "variant": "day",
+      "access": "outdoor",
+      "paletteMode": "day",
+      "renderer": "native-background-v1",
+      "runtimeContext": {
+        "objset": "0x00",
+        "area": "0x00",
+        "submap": "0x00",
+        "chrBanks": ["0x00", "0x01"],
+        "actorPointer": "0x90AC"
+      },
+      "layoutHeaderAddress": "0xFA86",
+      "layoutBank": 2,
+      "tileBank": 4,
+      "tileSetAddress": "0x841D",
+      "widthBlocks": 8,
+      "heightBlocks": 8,
+      "rowsPerLayoutSection": 7,
+      "nametableMirroring": "vertical",
+      "pages": [
+        {
+          "name": "jova-left",
+          "page": 0,
+          "layoutSection": 0,
+          "columnGroup": 0,
+          "expectedLayoutAddress": "0x8497",
+          "rowStream": {
+            "startWorldRow": "0x1C",
+            "rowCount": 6,
+            "columnGroup": 0,
+            "columnCount": 8,
+            "hiddenAttributeHighNibbles": ["0x0A", "0x05", "0x05", "0x05", "0x05", "0x05", "0x05", "0x05"]
+          }
+        },
+        {
+          "name": "jova-right",
+          "page": 1,
+          "layoutSection": 0,
+          "columnGroup": 3,
+          "expectedLayoutAddress": "0x8507",
+          "rowStream": {
+            "startWorldRow": "0x1C",
+            "rowCount": 6,
+            "columnGroup": 3,
+            "columnCount": 8
+          }
+        }
+      ],
+      "validation": [
+        {
+          "capture": "out/captures/jova-day/ppu-2000-2fff-nametables.bin",
+          "visiblePage": 0,
+          "exactPages": [0, 2],
+          "script": "npm run render:jova-native"
+        },
+        {
+          "capture": "out/captures/jova-right-day/ppu-2000-2fff-nametables.bin",
+          "visiblePage": 1,
+          "exactPages": [1, 3],
+          "script": "npm run render:jova-right-native"
+        }
+      ]
+    },
+    {
+      "id": "jova-woods-day",
+      "label": "Jova Woods, day",
+      "location": "Jova Woods",
+      "variant": "day",
+      "access": "outdoor",
+      "paletteMode": "day",
+      "renderer": "native-background-v1",
+      "runtimeContext": {
+        "objset": "0x02",
+        "area": "0x00",
+        "submap": "0x00",
+        "chrBanks": ["0x02", "0x03"],
+        "actorPointer": "0x9FE4"
+      },
+      "layoutBank": 2,
+      "tileBank": 4,
+      "tileSetAddress": "0x8CF4",
+      "widthBlocks": 8,
+      "heightBlocks": 7,
+      "nametableMirroring": "vertical",
+      "pages": [
+        {
+          "name": "jova-woods-visible",
+          "page": 0,
+          "layoutAddress": "0xA111"
+        }
+      ],
+      "validation": [
+        {
+          "capture": "out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin",
+          "visiblePage": 0,
+          "exactPages": [0, 2],
+          "script": "npm run render:jova-woods-native"
+        }
+      ]
+    }
+  ]
+}

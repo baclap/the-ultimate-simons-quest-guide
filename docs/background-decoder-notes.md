@@ -2,6 +2,12 @@
 
 These notes capture the current bridge between Mesen traces and the eventual ROM-native background renderer.
 
+The current committed descriptor data lives in `data/background-descriptors.json`.
+See `docs/background-descriptor-schema.md` for the machine-readable fields. The
+descriptors preserve the RAM context, ROM addresses, tile-set pointers, page
+selection, row-stream behavior, and validation captures needed to reuse these
+discoveries outside the current PNG-oriented CLI.
+
 ## Addressing
 
 The game uses MMC1 PRG banking. During the current Jova day fixture:
@@ -115,13 +121,13 @@ The trace replay now gives an exact page-0 oracle for the ROM-native decoder wor
 
 ## Jova Native Decoder Checkpoint
 
-`npm run render:jova-native` renders the first screen-specific ROM-native checkpoint:
+`npm run render:jova-native` renders the first descriptor-backed ROM-native checkpoint:
 
 ```sh
 npm run render:jova-native
 ```
 
-The renderer reads the visible Jova background from these ROM addresses:
+The `jova-day` descriptor reads the visible Jova background from these ROM addresses:
 
 - layout header: fixed bank `$FA86`
 - first layout pointer: fixed bank `$FA88-$FA89`, resolving to `$8497`
@@ -205,13 +211,13 @@ The capture identifies this runtime context:
 - actor pointer: `$3D/$3E = $9FE4`, matching Jova Woods actor data
 - tile set pointer: `$63/$64 = $8CF4`
 
-`npm run render:jova-woods-native` renders the first overworld ROM-native checkpoint:
+`npm run render:jova-woods-native` renders the first descriptor-backed overworld ROM-native checkpoint:
 
 ```sh
 npm run render:jova-woods-native
 ```
 
-The renderer reads the visible Jova Woods background from these ROM addresses:
+The `jova-woods-day` descriptor reads the visible Jova Woods background from these ROM addresses:
 
 - layout data: PRG bank `2` at `$A111`
 - tile set pointer: PRG bank `4` at `$8CF4`

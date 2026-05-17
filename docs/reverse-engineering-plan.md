@@ -13,7 +13,7 @@ The repository now has a zero-dependency Node CLI that can:
 - reconstruct a captured screen from PPU/OAM artifacts
 - decode the fixed `$C6C0` PPU transfer stream format
 - replay traced `$0700-$07FF` NMI PPU buffer updates into nametable bytes
-- render ROM-native Jova town and Jova Woods nametable checkpoints from PRG bank `2` layout data and PRG bank `4` tile data
+- render descriptor-backed ROM-native Jova town and Jova Woods nametable checkpoints from PRG bank `2` layout data and PRG bank `4` tile data
 
 Generated output is intentionally ignored by git:
 
@@ -25,6 +25,10 @@ Generated output is intentionally ignored by git:
 The local ROM copy is also ignored:
 
 - `roms/cv2.nes`
+
+Committed reference data is intentionally tracked:
+
+- `data/background-descriptors.json`
 
 ## Findings
 
@@ -42,6 +46,7 @@ The local ROM copy is also ignored:
 - The first ROM-native Jova checkpoint reproduces captured nametable page 0 and its mirror exactly. Rows `0-3` and `28-29` now come from the traced row-streaming algorithm instead of a hard-coded edge-tile descriptor.
 - The Jova right-side checkpoint reproduces captured nametable page 1 and its mirror exactly using the same row-streaming logic with column group `3`.
 - The Jova Woods save-state fixture reproduces captured nametable page 0 and its mirror exactly from direct layout `2:$A111` and tile set `4:$8CF4`.
+- These verified checkpoints are now stored as reusable descriptors in `data/background-descriptors.json`.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
 
 ## Strategy
@@ -52,34 +57,32 @@ The long-term renderer should decode the ROM's screen, tile, CHR-bank, palette, 
 
 Day/night is a first-class render variant. Outdoor town and overworld screens should eventually render both variants. Town interiors are day-only because they are inaccessible at night. Mansion interiors are accessible at night, but their interior palette is confirmed stable between day and night, so they only need one rendered interior variant.
 
-## Background Rendering Milestone
+## Descriptor Pipeline Milestone
 
-The next implementation target is a native 256x240 PNG for one known town screen and one known overworld screen.
+The current implementation target is turning verified one-off checkpoints into reusable descriptor data that can be consumed by multiple render targets.
 
 Work items:
 
-1. Locate background pointer tables.
-   - Start from `cv2r` actor pointers and palette patch offsets.
-   - Trace object set/area/submap usage in `disassembly/cv2.asm`.
-   - Identify the loader routine that turns `objset`, `area`, and `submap` into room/background data.
-   - Identify the common table path that maps `objset`, `area`, and `submap` to the verified Jova and Jova Woods descriptors.
+1. Preserve decoded checkpoints as data.
+   - Store runtime context, ROM addresses, page selection, palette mode, and validation captures in `data/background-descriptors.json`.
+   - Keep docs close enough to the data that a future renderer can use the discoveries without replaying the same traces.
 
-2. Decode room data.
-   - Determine whether data is raw nametable, metatile, or compressed command stream.
-   - Reconstruct 16x16 or 32x32 metatile definitions if present.
-   - Map room tile IDs to CHR bank and palette choices.
+2. Locate the common pointer-table path.
+   - Start from `objset`, `area`, `submap`, actor pointers, and palette patch offsets.
+   - Trace the loader routine that turns runtime context into layout header/direct layout, tile set, CHR banks, and palette choice.
+   - Use Jova town and Jova Woods as known-good endpoints for the table search.
 
-3. Render a screen.
-   - Produce a nametable-sized 256x240 background PNG.
-   - Apply attribute table palettes correctly.
-   - Keep sprites, HUD, and dynamic entities out of the base image.
+3. Expand descriptor coverage.
+   - Add representative save-state fixtures for additional towns, roads, mansions, and interiors.
+   - Capture both day and night descriptors for outdoor locations.
+   - Keep mansion interiors as one fixed-palette descriptor unless later evidence shows otherwise.
 
 4. Validate.
    - Capture deterministic emulator screenshots, PPU state, and OAM.
    - Compare generated output with pixel diffs.
 
 5. Scale out.
-   - Add all locations from `out/manifest.json`.
+   - Generate descriptors for all locations from `out/manifest.json` and the ROM tables.
    - Define adjacency/composite layout per area.
    - Generate full-map PNGs plus optional actor/door overlays.
 
