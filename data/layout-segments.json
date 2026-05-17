@@ -1,10 +1,27 @@
 {
   "schemaVersion": 1,
+  "templates": {
+    "overworld-woods-day": {
+      "variant": "day",
+      "access": "outdoor",
+      "paletteMode": "day",
+      "renderer": "native-background-v1",
+      "chrBanks": ["0x02", "0x03"],
+      "layoutBank": 2,
+      "tileBank": 4,
+      "paletteBank": 4,
+      "paletteAddress": "0x9FC6",
+      "widthBlocks": 8,
+      "heightBlocks": 7
+    }
+  },
   "segments": [
     {
       "id": "jova-woods-day",
       "label": "Jova Woods continuous layout, day",
       "summary": "A continuous 4-column-group Jova Woods segment rendered directly from ROM layout pointers. This is larger than one TV viewport and is not assembled from emulator screenshots.",
+      "status": "validated",
+      "validation": "Column group 0 is the layout source for the existing 0-diff Jova Woods viewport fixture.",
       "descriptor": "jova-woods-day",
       "layoutSection": 0,
       "columnGroups": [0, 1, 2, 3],
@@ -19,6 +36,65 @@
           "width": 256,
           "height": 224
         }
+      ]
+    },
+    {
+      "id": "jova-veros-bridge-day",
+      "label": "Jova-Veros Bridge continuous layout, day",
+      "summary": "A continuous 4-column-group bridge segment derived from objset 2, area 0, submap 1.",
+      "status": "inferred",
+      "validation": "pending emulator fixture",
+      "template": "overworld-woods-day",
+      "runtimeContext": {
+        "objset": "0x02",
+        "area": "0x00",
+        "submap": "0x01"
+      },
+      "layoutSection": 0,
+      "columnGroups": [0, 1, 2, 3]
+    },
+    {
+      "id": "veros-woods-part-1-day",
+      "label": "Veros Woods - Part 1 continuous layout, day",
+      "summary": "A continuous 2-column-group Veros Woods segment derived from objset 2, area 0, submap 2.",
+      "status": "inferred",
+      "validation": "pending emulator fixture",
+      "template": "overworld-woods-day",
+      "runtimeContext": {
+        "objset": "0x02",
+        "area": "0x00",
+        "submap": "0x02"
+      },
+      "layoutSection": 0,
+      "columnGroups": [0, 1]
+    },
+    {
+      "id": "veros-woods-part-2-day",
+      "label": "Veros Woods - Part 2 continuous layout, day",
+      "summary": "A continuous 2-column-group Veros Woods segment using the special FE 06 FF screen-record sequence to resolve layout index 0x06.",
+      "status": "special-inferred",
+      "validation": "pending emulator fixture; screen record starts with FE 06 FF, so layout index 0x06 is supplied as an explicit segment override.",
+      "template": "overworld-woods-day",
+      "runtimeContext": {
+        "objset": "0x02",
+        "area": "0x00",
+        "submap": "0x03"
+      },
+      "layoutIndexOverride": "0x06",
+      "layoutSection": 0,
+      "columnGroups": [0, 1]
+    }
+  ],
+  "routes": [
+    {
+      "id": "jova-to-veros-outdoor-day",
+      "label": "Jova to Veros outdoor route, day",
+      "summary": "The full outdoor route from Jova Woods through the bridge and Veros Woods, rendered from ROM layout data as connected layout-space segments.",
+      "segments": [
+        { "segment": "jova-woods-day", "status": "validated" },
+        { "segment": "jova-veros-bridge-day", "status": "inferred" },
+        { "segment": "veros-woods-part-1-day", "status": "inferred" },
+        { "segment": "veros-woods-part-2-day", "status": "special-inferred" }
       ]
     }
   ]

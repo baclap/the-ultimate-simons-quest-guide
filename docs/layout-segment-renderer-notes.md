@@ -63,3 +63,39 @@ space, and runtime nametable state. For map output, this segment focuses on the
 underlying map layout. Future validation should compare viewport-sized windows
 against emulator captures while keeping the full map image derived from layout
 space.
+
+## Route Composition
+
+The renderer can also compose multiple continuous layout segments into one route
+image:
+
+```sh
+npm run render:route:jova-to-veros
+```
+
+This writes:
+
+- `out/layout-routes/jova-to-veros-outdoor-day.png`
+- `out/layout-routes/jova-to-veros-outdoor-day.json`
+
+The first route is `jova-to-veros-outdoor-day`, a 3072x224 day-palette outdoor
+route from Jova Woods through Veros Woods:
+
+| Segment | Runtime context | Layout header | Column groups | Status |
+| --- | --- | ---: | --- | --- |
+| Jova Woods | `objset=2 area=0 submap=0` | `2:$A23E` | `0..3` | validated source layout |
+| Jova-Veros Bridge | `objset=2 area=0 submap=1` | `2:$A250` | `0..3` | inferred |
+| Veros Woods - Part 1 | `objset=2 area=0 submap=2` | `2:$A262` | `0..1` | inferred |
+| Veros Woods - Part 2 | `objset=2 area=0 submap=3` | `2:$A26C` | `0..1` | special inferred |
+
+The Veros Woods - Part 2 screen-record pointer resolves to `2:$A1A3`, whose
+first bytes are:
+
+```text
+FE 06 FF 00 01 16 0B 0C
+```
+
+For this milestone, the segment records `layoutIndexOverride: 0x06`, resolving
+layout header `2:$A26C`. That keeps the special-case discovery explicit in
+reference data while preserving the raw screen-record bytes in generated
+metadata.

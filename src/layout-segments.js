@@ -2,6 +2,13 @@
 
 const fs = require('fs');
 const path = require('path');
+const {
+  AREA_TABLE_POINTERS,
+  BACKGROUND_TABLE_BANK,
+  LAYOUT_TABLE_POINTERS,
+  SCREEN_RECORD_POINTERS_OFFSET,
+  TILE_SET_POINTERS
+} = require('./background-context');
 const { readPrgByte, readPrgWord, toHex } = require('./background');
 const { loadBackgroundDescriptor } = require('./descriptors');
 const { buildPatternTableFromChrBanks, readBackgroundPalette } = require('./native-image');
@@ -46,6 +53,22 @@ function parseIntegerArray(values, label) {
   });
 }
 
+function parseOptionalIntegerArray(values, label) {
+  if (values == null) {
+    return undefined;
+  }
+  return parseIntegerArray(values, label);
+}
+
+function normalizeRuntimeContext(raw = {}, label = 'runtimeContext') {
+  return {
+    ...raw,
+    objset: parseInteger(raw.objset, `${label}.objset`),
+    area: parseInteger(raw.area, `${label}.area`),
+    submap: parseInteger(raw.submap, `${label}.submap`)
+  };
+}
+
 function normalizeValidationWindow(raw, index) {
   return {
     ...raw,
@@ -56,9 +79,47 @@ function normalizeValidationWindow(raw, index) {
   };
 }
 
+function normalizeSegmentRef(raw, index) {
+  return {
+    ...raw,
+    segment: raw.segment,
+    x: parseInteger(raw.x, `segments[${index}].x`),
+    y: parseInteger(raw.y, `segments[${index}].y`)
+  };
+}
+
+function normalizeLayoutTemplate(raw, id) {
+  return {
+    ...raw,
+    id,
+    runtimeContext: normalizeRuntimeContext(raw.runtimeContext, `templates.${id}.runtimeContext`),
+    chrBanks: parseOptionalIntegerArray(raw.chrBanks, `templates.${id}.chrBanks`),
+    layoutBank: parseInteger(raw.layoutBank, `templates.${id}.layoutBank`),
+    layoutHeaderBank: parseInteger(raw.layoutHeaderBank, `templates.${id}.layoutHeaderBank`),
+    tileBank: parseInteger(raw.tileBank, `templates.${id}.tileBank`),
+    tileSetAddress: parseInteger(raw.tileSetAddress, `templates.${id}.tileSetAddress`),
+    paletteBank: parseInteger(raw.paletteBank, `templates.${id}.paletteBank`),
+    paletteAddress: parseInteger(raw.paletteAddress, `templates.${id}.paletteAddress`),
+    paletteLength: parseInteger(raw.paletteLength, `templates.${id}.paletteLength`),
+    widthBlocks: parseInteger(raw.widthBlocks, `templates.${id}.widthBlocks`),
+    heightBlocks: parseInteger(raw.heightBlocks, `templates.${id}.heightBlocks`)
+  };
+}
+
 function normalizeLayoutSegment(raw) {
   return {
     ...raw,
+    runtimeContext: normalizeRuntimeContext(raw.runtimeContext, `${raw.id}.runtimeContext`),
+    layoutHeaderAddress: parseInteger(raw.layoutHeaderAddress, `${raw.id}.layoutHeaderAddress`),
+    layoutHeaderBank: parseInteger(raw.layoutHeaderBank, `${raw.id}.layoutHeaderBank`),
+    layoutIndexOverride: parseInteger(raw.layoutIndexOverride, `${raw.id}.layoutIndexOverride`),
+    layoutBank: parseInteger(raw.layoutBank, `${raw.id}.layoutBank`),
+    tileBank: parseInteger(raw.tileBank, `${raw.id}.tileBank`),
+    tileSetAddress: parseInteger(raw.tileSetAddress, `${raw.id}.tileSetAddress`),
+    paletteBank: parseInteger(raw.paletteBank, `${raw.id}.paletteBank`),
+    paletteAddress: parseInteger(raw.paletteAddress, `${raw.id}.paletteAddress`),
+    paletteLength: parseInteger(raw.paletteLength, `${raw.id}.paletteLength`),
+    chrBanks: parseOptionalIntegerArray(raw.chrBanks, `${raw.id}.chrBanks`),
     layoutSection: parseInteger(raw.layoutSection, `${raw.id}.layoutSection`) ?? 0,
     columnGroups: parseIntegerArray(raw.columnGroups || [], `${raw.id}.columnGroups`),
     widthBlocks: parseInteger(raw.widthBlocks, `${raw.id}.widthBlocks`),
@@ -68,13 +129,26 @@ function normalizeLayoutSegment(raw) {
   };
 }
 
+function normalizeLayoutRoute(raw) {
+  return {
+    ...raw,
+    segments: (raw.segments || []).map(normalizeSegmentRef)
+  };
+}
+
 function loadLayoutSegmentFile(filePath = DEFAULT_LAYOUT_SEGMENTS_FILE) {
   const resolved = path.resolve(filePath);
   const data = JSON.parse(fs.readFileSync(resolved, 'utf8'));
+  const templates = {};
+  for (const [id, template] of Object.entries(data.templates || {})) {
+    templates[id] = normalizeLayoutTemplate(template, id);
+  }
   return {
     ...data,
     filePath: resolved,
-    segments: (data.segments || []).map(normalizeLayoutSegment)
+    templates,
+    segments: (data.segments || []).map(normalizeLayoutSegment),
+    routes: (data.routes || []).map(normalizeLayoutRoute)
   };
 }
 
@@ -86,8 +160,30 @@ function loadLayoutSegment(id, opts = {}) {
   }
   return {
     ...segment,
+    templates: file.templates,
     filePath: file.filePath
   };
+}
+
+function loadLayoutRoute(id, opts = {}) {
+  const file = loadLayoutSegmentFile(opts.filePath);
+  const route = file.routes.find((candidate) => candidate.id === id);
+  if (!route) {
+    throw new Error(`unknown layout route "${id}" in ${file.filePath}`);
+  }
+  return {
+    ...route,
+    templates: file.templates,
+    segmentCatalog: file.segments,
+    filePath: file.filePath
+  };
+}
+
+function requireInteger(value, label) {
+  if (!Number.isInteger(value)) {
+    throw new Error(`${label} is required`);
+  }
+  return value;
 }
 
 function decodePatternPixel(patterns, tileIndex, tableBase, x, y) {
@@ -108,6 +204,136 @@ function backgroundPaletteColor(palettes, paletteIndex, colorId) {
 function nativePaletteBits(attributeByte, tileRow, tileColumn) {
   const quadrant = (tileRow >= 2 ? 2 : 0) + (tileColumn >= 2 ? 1 : 0);
   return (attributeByte >> (quadrant * 2)) & 0x03;
+}
+
+function hex(value, width = 4) {
+  return `0x${toHex(value, width)}`;
+}
+
+function readBackgroundTableByte(rom, info, cpuAddress) {
+  return readPrgByte(rom, info, cpuAddress, { bank: BACKGROUND_TABLE_BANK });
+}
+
+function readBackgroundTableWord(rom, info, cpuAddress) {
+  return readPrgWord(rom, info, cpuAddress, { bank: BACKGROUND_TABLE_BANK });
+}
+
+function readByteList(rom, info, cpuAddress, count) {
+  const bytes = [];
+  for (let index = 0; index < count; index += 1) {
+    bytes.push(hex(readBackgroundTableByte(rom, info, cpuAddress + index), 2));
+  }
+  return bytes;
+}
+
+function deriveLayoutContext(rom, info, segment) {
+  const runtimeContext = segment.runtimeContext || {};
+  const objset = requireInteger(runtimeContext.objset, `${segment.id}.runtimeContext.objset`);
+  const area = requireInteger(runtimeContext.area, `${segment.id}.runtimeContext.area`);
+  const submap = runtimeContext.submap ?? 0;
+  const areaTablePointerAddress = AREA_TABLE_POINTERS + objset * 2;
+  const areaTableAddress = readBackgroundTableWord(rom, info, areaTablePointerAddress);
+  const areaRecordPointerAddress = areaTableAddress + area * 2;
+  const areaRecordAddress = readBackgroundTableWord(rom, info, areaRecordPointerAddress);
+  const screenRecordPointerAddress = areaRecordAddress + SCREEN_RECORD_POINTERS_OFFSET + submap * 2;
+  const screenRecordAddress = readBackgroundTableWord(rom, info, screenRecordPointerAddress);
+  const rawLayoutIndex = readBackgroundTableByte(rom, info, screenRecordAddress);
+  const layoutIndex = segment.layoutIndexOverride ?? rawLayoutIndex;
+  const layoutTablePointerAddress = LAYOUT_TABLE_POINTERS + objset * 2;
+  const layoutTableAddress = readBackgroundTableWord(rom, info, layoutTablePointerAddress);
+  const layoutHeaderPointerAddress = layoutTableAddress + layoutIndex * 4;
+  const layoutHeaderAddress = segment.layoutHeaderAddress ?? readBackgroundTableWord(rom, info, layoutHeaderPointerAddress);
+  const secondaryLayoutHeaderAddress = readBackgroundTableWord(rom, info, layoutHeaderPointerAddress + 2);
+  const tileSetPointerAddress = TILE_SET_POINTERS + objset * 4;
+  const tileSetAddress = segment.tileSetAddress ?? readBackgroundTableWord(rom, info, tileSetPointerAddress);
+  const auxiliaryTileAddress = readBackgroundTableWord(rom, info, tileSetPointerAddress + 2);
+
+  return {
+    runtimeContext: { objset, area, submap },
+    screenRecord: {
+      pointerAddress: hex(screenRecordPointerAddress),
+      address: hex(screenRecordAddress),
+      firstBytes: readByteList(rom, info, screenRecordAddress, 8),
+      rawLayoutIndex,
+      rawLayoutIndexHex: hex(rawLayoutIndex, 2),
+      layoutIndex,
+      layoutIndexHex: hex(layoutIndex, 2),
+      layoutIndexSource: segment.layoutIndexOverride == null ? 'screen-record-byte-0' : 'segment-override'
+    },
+    layoutTable: {
+      pointerAddress: hex(layoutTablePointerAddress),
+      address: hex(layoutTableAddress)
+    },
+    layoutHeader: {
+      pointerAddress: hex(layoutHeaderPointerAddress),
+      address: hex(layoutHeaderAddress),
+      bank: layoutHeaderAddress < 0xc000 ? BACKGROUND_TABLE_BANK : undefined,
+      secondaryAddress: hex(secondaryLayoutHeaderAddress)
+    },
+    tileSet: {
+      pointerAddress: hex(tileSetPointerAddress),
+      address: hex(tileSetAddress),
+      auxiliaryAddress: hex(auxiliaryTileAddress)
+    }
+  };
+}
+
+function valueFromSegmentTemplate(segment, template, key) {
+  return segment[key] ?? template?.[key];
+}
+
+function descriptorFromLayoutSegment(rom, info, segment, opts = {}) {
+  if (segment.descriptor) {
+    return {
+      descriptor: loadBackgroundDescriptor(segment.descriptor, {
+        filePath: opts.descriptorFile
+      }),
+      derivation: undefined
+    };
+  }
+
+  const template = segment.template ? segment.templates?.[segment.template] : undefined;
+  if (segment.template && !template) {
+    throw new Error(`layout segment "${segment.id}" references unknown template "${segment.template}"`);
+  }
+
+  const derivation = deriveLayoutContext(rom, info, segment);
+  const runtimeContext = {
+    ...(template?.runtimeContext || {}),
+    ...(segment.runtimeContext || {})
+  };
+  const chrBanks = segment.chrBanks || template?.chrBanks;
+  const layoutHeaderAddress = valueFromSegmentTemplate(segment, template, 'layoutHeaderAddress') ??
+    Number.parseInt(derivation.layoutHeader.address.slice(2), 16);
+  const tileSetAddress = valueFromSegmentTemplate(segment, template, 'tileSetAddress') ??
+    Number.parseInt(derivation.tileSet.address.slice(2), 16);
+
+  return {
+    derivation,
+    descriptor: {
+      id: `${segment.id}-derived`,
+      label: segment.label,
+      location: segment.location || segment.label,
+      variant: valueFromSegmentTemplate(segment, template, 'variant'),
+      access: valueFromSegmentTemplate(segment, template, 'access'),
+      paletteMode: valueFromSegmentTemplate(segment, template, 'paletteMode'),
+      renderer: valueFromSegmentTemplate(segment, template, 'renderer') || 'native-background-v1',
+      runtimeContext: {
+        ...runtimeContext,
+        chrBanks
+      },
+      layoutHeaderAddress,
+      layoutHeaderBank: valueFromSegmentTemplate(segment, template, 'layoutHeaderBank') ?? derivation.layoutHeader.bank,
+      layoutBank: requireInteger(valueFromSegmentTemplate(segment, template, 'layoutBank'), `${segment.id}.layoutBank`),
+      tileBank: requireInteger(valueFromSegmentTemplate(segment, template, 'tileBank'), `${segment.id}.tileBank`),
+      tileSetAddress,
+      paletteBank: valueFromSegmentTemplate(segment, template, 'paletteBank'),
+      paletteAddress: requireInteger(valueFromSegmentTemplate(segment, template, 'paletteAddress'), `${segment.id}.paletteAddress`),
+      paletteLength: valueFromSegmentTemplate(segment, template, 'paletteLength'),
+      widthBlocks: requireInteger(valueFromSegmentTemplate(segment, template, 'widthBlocks'), `${segment.id}.widthBlocks`),
+      heightBlocks: requireInteger(valueFromSegmentTemplate(segment, template, 'heightBlocks'), `${segment.id}.heightBlocks`)
+    }
+  };
 }
 
 function layoutPointerInfo(rom, info, descriptor, section, columnGroup) {
@@ -184,9 +410,7 @@ function renderBlock(rgba, renderState, descriptor, blockIndex, destBlockColumn,
 }
 
 function renderLayoutSegment(rom, info, segment, opts = {}) {
-  const descriptor = loadBackgroundDescriptor(segment.descriptor, {
-    filePath: opts.descriptorFile
-  });
+  const { descriptor, derivation } = descriptorFromLayoutSegment(rom, info, segment, opts);
   const columnGroups = segment.columnGroups;
   if (!columnGroups.length) {
     throw new Error(`layout segment "${segment.id}" must define at least one column group`);
@@ -256,6 +480,9 @@ function renderLayoutSegment(rom, info, segment, opts = {}) {
       label: segment.label,
       summary: segment.summary,
       source: 'rom-native-layout-segment',
+      status: segment.status || 'unknown',
+      validation: segment.validation,
+      template: segment.template,
       descriptor: descriptor.id,
       descriptorLabel: descriptor.label,
       variant: descriptor.variant,
@@ -283,7 +510,95 @@ function renderLayoutSegment(rom, info, segment, opts = {}) {
       paletteBytes: [...palettes].map((value) => `0x${toHex(value, 2)}`),
       chrBanks: descriptor.runtimeContext.chrBanks,
       validationWindows: segment.validationWindows,
+      derivation,
       columns
+    }
+  };
+}
+
+function copyRenderedSegment(destRgba, routeWidth, rendered, destX, destY) {
+  for (let y = 0; y < rendered.height; y += 1) {
+    const sourceStart = y * rendered.width * 4;
+    const destStart = ((destY + y) * routeWidth + destX) * 4;
+    rendered.rgba.copy(destRgba, destStart, sourceStart, sourceStart + rendered.width * 4);
+  }
+}
+
+function renderLayoutRoute(rom, info, route, opts = {}) {
+  const segmentCatalog = route.segmentCatalog || [];
+  const segmentById = new Map(segmentCatalog.map((segment) => [segment.id, segment]));
+  const gapPixels = route.gapPixels || 0;
+  const renderedSegments = [];
+  let cursorX = 0;
+  let minY = 0;
+  let maxY = 0;
+
+  for (let index = 0; index < route.segments.length; index += 1) {
+    const ref = route.segments[index];
+    const segment = segmentById.get(ref.segment);
+    if (!segment) {
+      throw new Error(`layout route "${route.id}" references unknown segment "${ref.segment}"`);
+    }
+    const rendered = renderLayoutSegment(rom, info, {
+      ...segment,
+      templates: route.templates
+    }, opts);
+    const x = ref.x ?? cursorX;
+    const y = ref.y ?? 0;
+    renderedSegments.push({
+      ref,
+      rendered,
+      x,
+      y
+    });
+    cursorX = Math.max(cursorX, x + rendered.width + gapPixels);
+    minY = Math.min(minY, y);
+    maxY = Math.max(maxY, y + rendered.height);
+  }
+
+  const width = renderedSegments.reduce((max, entry) => Math.max(max, entry.x + entry.rendered.width), 0);
+  const height = maxY - minY;
+  const rgba = Buffer.alloc(width * height * 4);
+  const segments = [];
+
+  for (const entry of renderedSegments) {
+    const destY = entry.y - minY;
+    copyRenderedSegment(rgba, width, entry.rendered, entry.x, destY);
+    segments.push({
+      id: entry.rendered.metadata.id,
+      label: entry.rendered.metadata.label,
+      status: entry.ref.status || entry.rendered.metadata.status,
+      validation: entry.ref.validation || entry.rendered.metadata.validation,
+      position: {
+        x: entry.x,
+        y: destY,
+        width: entry.rendered.width,
+        height: entry.rendered.height
+      },
+      columnGroups: entry.rendered.metadata.columnGroups,
+      layoutHeaderAddress: entry.rendered.metadata.layoutHeaderAddress,
+      layoutHeaderBank: entry.rendered.metadata.layoutHeaderBank,
+      tileSetAddress: entry.rendered.metadata.tileSetAddress,
+      paletteAddress: entry.rendered.metadata.paletteAddress,
+      runtimeContext: entry.rendered.metadata.runtimeContext,
+      derivation: entry.rendered.metadata.derivation,
+      columns: entry.rendered.metadata.columns
+    });
+  }
+
+  return {
+    width,
+    height,
+    rgba,
+    metadata: {
+      id: route.id,
+      label: route.label,
+      summary: route.summary,
+      source: 'rom-native-layout-route',
+      width,
+      height,
+      gapPixels,
+      segments
     }
   };
 }
@@ -299,10 +614,24 @@ function renderLayoutSegmentPng(rom, info, segment, output, opts = {}) {
   };
 }
 
+function renderLayoutRoutePng(rom, info, route, output, opts = {}) {
+  const rendered = renderLayoutRoute(rom, info, route, opts);
+  writePng(output, rendered.width, rendered.height, rendered.rgba);
+  return {
+    output: path.resolve(output),
+    width: rendered.width,
+    height: rendered.height,
+    metadata: rendered.metadata
+  };
+}
+
 module.exports = {
   DEFAULT_LAYOUT_SEGMENTS_FILE,
   loadLayoutSegment,
   loadLayoutSegmentFile,
+  loadLayoutRoute,
   renderLayoutSegment,
-  renderLayoutSegmentPng
+  renderLayoutSegmentPng,
+  renderLayoutRoute,
+  renderLayoutRoutePng
 };

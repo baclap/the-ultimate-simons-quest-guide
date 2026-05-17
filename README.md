@@ -50,6 +50,7 @@ npm run render:jova-right-native-png
 npm run render:jova-woods-native-png
 npm run render:region:jova-to-veros
 npm run render:segment:jova-woods
+npm run render:route:jova-to-veros
 ```
 
 You can also pass paths directly:
@@ -63,6 +64,7 @@ node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-
 node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-day --state out/captures/jova-day/state.json --out out/decoder/jova-native-background.png
 node src/index.js render-region-png --rom roms/cv2.nes --region jova-to-veros-day --out out/regions/jova-to-veros-day.png
 node src/index.js render-layout-segment-png --rom roms/cv2.nes --segment jova-woods-day --out out/layout-segments/jova-woods-day.png
+node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-veros-outdoor-day --out out/layout-routes/jova-to-veros-outdoor-day.png
 ```
 
 ## Demos
@@ -84,6 +86,11 @@ Current background-loader findings are documented in `docs/background-decoder-no
 `npm run render:segment:jova-woods` is the current continuous-layout milestone:
 it renders a 1024x224 Jova Woods day segment from layout header `2:$A23E` and
 column groups `0..3`. See `docs/layout-segment-renderer-notes.md`.
+
+`npm run render:route:jova-to-veros` extends that milestone to the full outdoor
+Jova-to-Veros route. It renders a 3072x224 route image from Jova Woods,
+Jova-Veros Bridge, Veros Woods - Part 1, and Veros Woods - Part 2 layout
+segments.
 
 The intended path is:
 

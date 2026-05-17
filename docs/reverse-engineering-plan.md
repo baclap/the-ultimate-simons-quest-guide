@@ -18,6 +18,7 @@ The repository now has a zero-dependency Node CLI that can:
 - render ROM-native background PNGs from descriptor nametables, CHR banks, and ROM palette bytes
 - organize ROM-native screens into a route-ordered viewport catalog with validated and inferred status metadata
 - render a continuous Jova Woods layout-space segment from adjacent ROM layout column groups
+- render the full outdoor Jova-to-Veros route as connected layout-space segments
 
 Generated output is intentionally ignored by git:
 
@@ -54,6 +55,7 @@ Committed reference data is intentionally tracked:
 - The validated Jova and Jova Woods backgrounds now render as ROM-native PNGs with 0 differing pixels against PPU-background reconstructions.
 - The first regional renderer catalogs `jova-to-veros-day` from three validated screens and two inferred manifest-context candidates: Jova-Veros Bridge and Veros Woods - Part 1. It is route-ordered, but not a continuous world-space stitch.
 - The first layout segment renderer renders `jova-woods-day` as a 1024x224 continuous segment from layout header `2:$A23E` and column groups `0..3`.
+- The first route renderer composes `jova-to-veros-outdoor-day` into a 3072x224 outdoor route: Jova Woods, Jova-Veros Bridge, Veros Woods - Part 1, and Veros Woods - Part 2.
 - These verified checkpoints are now stored as reusable descriptors in `data/background-descriptors.json`.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
 
