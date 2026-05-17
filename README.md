@@ -49,6 +49,7 @@ npm run render:jova-native-png
 npm run render:jova-right-native-png
 npm run render:jova-woods-native-png
 npm run render:region:jova-to-veros
+npm run render:segment:jova-woods
 ```
 
 You can also pass paths directly:
@@ -61,6 +62,7 @@ node src/index.js inspect-background-context --rom roms/cv2.nes --objset 0x02 --
 node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --visible-page 0
 node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-day --state out/captures/jova-day/state.json --out out/decoder/jova-native-background.png
 node src/index.js render-region-png --rom roms/cv2.nes --region jova-to-veros-day --out out/regions/jova-to-veros-day.png
+node src/index.js render-layout-segment-png --rom roms/cv2.nes --segment jova-woods-day --out out/layout-segments/jova-woods-day.png
 ```
 
 ## Demos
@@ -70,11 +72,12 @@ Sprint demos live under `demos/`. The current stakeholder demo is:
 ```text
 demos/2026-05-17-sprint-demo/index.html
 demos/2026-05-17-regional-demo/index.html
+demos/2026-05-17-layout-segment-demo/index.html
 ```
 
 ## Next Milestone
 
-The next milestone is expanding descriptor derivation from the decoded background pointer tables. The vendored `cv2r` source gives us strong anchors for locations, actors, doors, palette offsets, and bank layout, but it does not already contain a complete background renderer. Mesen is available as a representative calibration oracle, including Jova and Jova Woods fixtures that round-trip to 0-pixel composite diffs.
+The next milestone is expanding continuous layout rendering from one proven segment toward connected outdoor areas. The vendored `cv2r` source gives us strong anchors for locations, actors, doors, palette offsets, and bank layout, but it does not already contain a complete background renderer. Mesen is available as a representative calibration oracle, including Jova and Jova Woods fixtures that round-trip to 0-pixel composite diffs.
 
 Current background-loader findings are documented in `docs/background-decoder-notes.md`, and the committed descriptor schema is documented in `docs/background-descriptor-schema.md`. Region rendering notes live in `docs/regional-renderer-notes.md`. The important checkpoint is that `npm run inspect:jova-background` and `npm run inspect:jova-woods-background` derive the layout header and tile-set pointers used by the validated descriptors. `npm run render:jova-native` verifies Jova town page 0, `npm run render:jova-right-native` verifies the right-side page, and `npm run render:jova-woods-native` verifies the first overworld checkpoint from a save-state capture. The `render:*native-png` commands turn those same ROM-native backgrounds into PNGs for demos and future map output. `npm run render:region:jova-to-veros` creates a route-ordered viewport catalog from validated descriptors plus inferred manifest-context candidates; it is not a continuous map stitch yet.
 
@@ -84,8 +87,8 @@ column groups `0..3`. See `docs/layout-segment-renderer-notes.md`.
 
 The intended path is:
 
-1. derive descriptor candidates for more locations from `out/manifest.json`
-2. identify the remaining descriptor fields not fully encoded yet: dimensions, page selection, row streaming, CHR-bank choice, and palette mode
-3. add representative save-state fixtures for additional screen families
+1. promote additional outdoor contexts into layout segment descriptors
+2. attach viewport-sized validation windows to segment metadata without using those captures as source art
+3. identify remaining descriptor fields not fully encoded yet: dimensions, page selection, row streaming, CHR-bank choice, and palette mode
 4. expand descriptor coverage to day/night outdoor variants and fixed-palette interiors
-5. verify against representative emulator screenshots, then expand to full composites and overlay data
+5. connect validated segments into route graphs, then expand to full composites and overlay data

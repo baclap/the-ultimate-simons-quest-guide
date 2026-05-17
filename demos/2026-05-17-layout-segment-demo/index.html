@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Castlevania II Layout Segment Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="#slide-1">Castlevania II Layout Segment Renderer</a>
+    <span><span id="slide-number">1</span>/<span id="slide-total">6</span></span>
+  </header>
+
+  <main>
+    <section class="slide title-slide" id="slide-1">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Continuous layout milestone</p>
+          <h1>Jova Woods is now one ROM-native map segment</h1>
+          <p class="lede">The renderer walks adjacent layout column-group pointers and emits a single 1024x224 pixel map slice from the game data.</p>
+        </div>
+        <figure class="segment-card">
+          <img src="assets/layout-segments/jova-woods-day.png" alt="Continuous Jova Woods layout segment rendered from ROM data">
+          <figcaption>Jova Woods day segment, rendered from PRG layout bytes, CHR banks, and ROM palette data.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-2">
+      <div class="content">
+        <p class="eyebrow">The artifact</p>
+        <h2>A larger-than-screen image from layout space</h2>
+        <div class="segment-window" aria-label="Scrollable continuous Jova Woods layout segment">
+          <div class="segment-stage">
+            <img src="assets/layout-segments/jova-woods-day.png" alt="Continuous Jova Woods layout segment with validation and column overlays">
+            <div class="validation-window"><span>validated source column</span></div>
+            <div class="column-line one"><span>group 1</span></div>
+            <div class="column-line two"><span>group 2</span></div>
+            <div class="column-line three"><span>group 3</span></div>
+          </div>
+        </div>
+        <div class="legend">
+          <span class="validated">0-diff source layout</span>
+          <span class="decoded">decoded adjacent groups</span>
+          <span>1024x224 px, one shared render target.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-3">
+      <div class="content">
+        <p class="eyebrow">ROM pointers</p>
+        <h2>Four column groups come from one layout header</h2>
+        <div class="pointer-grid">
+          <div><strong>group 0</strong><span>pointer 2:$A240</span><span>layout 2:$A4DA</span></div>
+          <div><strong>group 1</strong><span>pointer 2:$A242</span><span>layout 2:$9F89</span></div>
+          <div><strong>group 2</strong><span>pointer 2:$A244</span><span>layout 2:$A3FA</span></div>
+          <div><strong>group 3</strong><span>pointer 2:$A246</span><span>layout 2:$A4A2</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-4">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Render path</p>
+          <h2>The output is built from reusable map ingredients</h2>
+          <p>The committed segment descriptor names the validated Jova Woods background descriptor, layout section 0, and column groups 0 through 3. The CLI resolves the pointers, draws each metatile block, and records the decoded block matrices as metadata.</p>
+        </div>
+        <div class="pipeline">
+          <div><strong>Layout header</strong><span>2:$A23E</span></div>
+          <div><strong>Block layouts</strong><span>PRG bank 2</span></div>
+          <div><strong>Metatiles</strong><span>PRG bank 4:$8CF4</span></div>
+          <div><strong>Graphics and palette</strong><span>CHR 2/3, palette 4:$9FC6</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-5">
+      <div class="content">
+        <p class="eyebrow">Why this matters</p>
+        <h2>This crosses the line from snapshots to map construction</h2>
+        <div class="proof-grid">
+          <div><strong>Before</strong><span>Route-ordered TV-frame samples, useful but not continuous.</span></div>
+          <div><strong>Now</strong><span>One 32-block-wide layout segment rendered into a shared pixel buffer.</span></div>
+          <div><strong>Confidence</strong><span>Column group 0 is the layout source behind the validated Jova Woods fixture.</span></div>
+          <div><strong>Reuse</strong><span>The JSON metadata is suitable for PNG output, canvas rendering, or regression tests.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-6">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Next demo goal</p>
+          <h2>Expand from one segment to connected outdoor areas</h2>
+          <p>The next practical target is to render the bridge and Veros Woods with the same segment model, then use emulator captures as viewport-sized validation windows over layout-derived images.</p>
+        </div>
+        <div class="callouts">
+          <div>Promote additional outdoor contexts into segment descriptors.</div>
+          <div>Attach viewport validation windows without using them as source art.</div>
+          <div>Decode day/night palette selection for outdoor variants.</div>
+          <div>Start connecting segments into the route graph.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="controls" aria-label="Slide navigation">
+    <button id="previous-slide" type="button" title="Previous slide">&lt;</button>
+    <button id="next-slide" type="button" title="Next slide">&gt;</button>
+  </nav>
+
+  <script src="slides.js"></script>
+</body>
+</html>

@@ -10,3 +10,5 @@ Current demos:
   background rendering slice for Jova town and Jova Woods.
 - `2026-05-17-regional-demo/`: route-ordered viewport catalog demo showing
   Jova to Veros samples with validated and inferred screen status.
+- `2026-05-17-layout-segment-demo/`: continuous layout-space segment demo
+  showing Jova Woods rendered as one larger-than-screen ROM-native map slice.

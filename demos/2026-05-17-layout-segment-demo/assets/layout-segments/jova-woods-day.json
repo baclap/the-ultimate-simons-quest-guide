@@ -1,0 +1,416 @@
+{
+  "id": "jova-woods-day",
+  "label": "Jova Woods continuous layout, day",
+  "summary": "A continuous 4-column-group Jova Woods segment rendered directly from ROM layout pointers. This is larger than one TV viewport and is not assembled from emulator screenshots.",
+  "source": "rom-native-layout-segment",
+  "descriptor": "jova-woods-day",
+  "descriptorLabel": "Jova Woods, day",
+  "variant": "day",
+  "access": "outdoor",
+  "paletteMode": "day",
+  "runtimeContext": {
+    "objset": 2,
+    "area": 0,
+    "submap": 0,
+    "chrBanks": [
+      2,
+      3
+    ],
+    "actorPointer": 40932
+  },
+  "layoutSection": 0,
+  "columnGroups": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "blockSize": 32,
+  "widthBlocks": 32,
+  "heightBlocks": 7,
+  "groupWidthBlocks": 8,
+  "width": 1024,
+  "height": 224,
+  "bgPatternBase": "0x0000",
+  "layoutHeaderAddress": "0xA23E",
+  "layoutHeaderBank": 2,
+  "layoutBank": 2,
+  "tileBank": 4,
+  "tileSetAddress": "0x8CF4",
+  "tileSetOffset": "0x46",
+  "tileBaseAddress": "0x8D3A",
+  "paletteAddress": "0x9FC6",
+  "paletteBank": 4,
+  "paletteBytes": [
+    "0x0F",
+    "0x00",
+    "0x10",
+    "0x0A",
+    "0x0F",
+    "0x16",
+    "0x1A",
+    "0x06",
+    "0x0F",
+    "0x22",
+    "0x17",
+    "0x1A",
+    "0x0F",
+    "0x11",
+    "0x20",
+    "0x15"
+  ],
+  "chrBanks": [
+    2,
+    3
+  ],
+  "validationWindows": [
+    {
+      "id": "jova-woods-validated-column",
+      "label": "Validated Jova Woods source column",
+      "status": "validated",
+      "validation": "Column group 0 is the layout source for the existing 0-diff Jova Woods viewport fixture.",
+      "x": 0,
+      "y": 0,
+      "width": 256,
+      "height": 224
+    }
+  ],
+  "columns": [
+    {
+      "index": 0,
+      "columnGroup": 0,
+      "x": 0,
+      "y": 0,
+      "width": 256,
+      "height": 224,
+      "pointersPerSection": 4,
+      "layoutPointerIndex": 0,
+      "layoutPointerAddress": "0xA240",
+      "layoutAddress": "0xA4DA",
+      "layoutBytes": [
+        [
+          0,
+          65,
+          0,
+          65,
+          0,
+          65,
+          0,
+          65
+        ],
+        [
+          65,
+          18,
+          65,
+          18,
+          65,
+          18,
+          65,
+          18
+        ],
+        [
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17
+        ],
+        [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ],
+        [
+          21,
+          21,
+          21,
+          21,
+          21,
+          21,
+          21,
+          21
+        ],
+        [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        [
+          23,
+          23,
+          23,
+          23,
+          23,
+          23,
+          23,
+          23
+        ]
+      ]
+    },
+    {
+      "index": 1,
+      "columnGroup": 1,
+      "x": 256,
+      "y": 0,
+      "width": 256,
+      "height": 224,
+      "pointersPerSection": 4,
+      "layoutPointerIndex": 1,
+      "layoutPointerAddress": "0xA242",
+      "layoutAddress": "0x9F89",
+      "layoutBytes": [
+        [
+          0,
+          65,
+          0,
+          65,
+          0,
+          65,
+          0,
+          65
+        ],
+        [
+          65,
+          18,
+          65,
+          18,
+          65,
+          18,
+          65,
+          18
+        ],
+        [
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17
+        ],
+        [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          66,
+          66
+        ],
+        [
+          21,
+          21,
+          21,
+          21,
+          22,
+          22,
+          23,
+          23
+        ],
+        [
+          20,
+          20,
+          20,
+          32,
+          23,
+          23,
+          25,
+          25
+        ],
+        [
+          23,
+          23,
+          23,
+          23,
+          25,
+          25,
+          25,
+          25
+        ]
+      ]
+    },
+    {
+      "index": 2,
+      "columnGroup": 2,
+      "x": 512,
+      "y": 0,
+      "width": 256,
+      "height": 224,
+      "pointersPerSection": 4,
+      "layoutPointerIndex": 2,
+      "layoutPointerAddress": "0xA244",
+      "layoutAddress": "0xA3FA",
+      "layoutBytes": [
+        [
+          0,
+          65,
+          0,
+          65,
+          0,
+          65,
+          0,
+          65
+        ],
+        [
+          65,
+          18,
+          65,
+          18,
+          65,
+          18,
+          65,
+          18
+        ],
+        [
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17
+        ],
+        [
+          66,
+          66,
+          66,
+          16,
+          16,
+          16,
+          16,
+          16
+        ],
+        [
+          23,
+          23,
+          23,
+          22,
+          22,
+          22,
+          21,
+          21
+        ],
+        [
+          25,
+          25,
+          25,
+          23,
+          23,
+          23,
+          20,
+          20
+        ],
+        [
+          25,
+          25,
+          25,
+          25,
+          25,
+          25,
+          23,
+          23
+        ]
+      ]
+    },
+    {
+      "index": 3,
+      "columnGroup": 3,
+      "x": 768,
+      "y": 0,
+      "width": 256,
+      "height": 224,
+      "pointersPerSection": 4,
+      "layoutPointerIndex": 3,
+      "layoutPointerAddress": "0xA246",
+      "layoutAddress": "0xA4A2",
+      "layoutBytes": [
+        [
+          0,
+          65,
+          0,
+          65,
+          0,
+          65,
+          0,
+          65
+        ],
+        [
+          65,
+          18,
+          65,
+          18,
+          65,
+          18,
+          65,
+          18
+        ],
+        [
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17
+        ],
+        [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ],
+        [
+          21,
+          21,
+          22,
+          22,
+          22,
+          22,
+          21,
+          21
+        ],
+        [
+          20,
+          32,
+          23,
+          23,
+          23,
+          23,
+          32,
+          20
+        ],
+        [
+          23,
+          23,
+          25,
+          25,
+          25,
+          25,
+          23,
+          23
+        ]
+      ]
+    }
+  ]
+}
