@@ -1,7 +1,7 @@
 {
   "id": "jova-to-veros-day",
-  "label": "Jova to Veros route, day",
-  "summary": "A first stitched route slice using validated Jova/Jova Woods screens plus inferred bridge and woods candidates derived from objset/area/submap.",
+  "label": "Jova to Veros route samples, day",
+  "summary": "A route-ordered viewport catalog using validated Jova/Jova Woods screens plus inferred bridge and woods candidates derived from objset/area/submap. This is not a continuous world-space stitch.",
   "tileWidth": 256,
   "tileHeight": 240,
   "columns": 5,

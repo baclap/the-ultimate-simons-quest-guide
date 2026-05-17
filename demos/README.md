@@ -8,5 +8,5 @@ Current demos:
 
 - `2026-05-17-sprint-demo/`: stakeholder sprint demo showing the ROM-native
   background rendering slice for Jova town and Jova Woods.
-- `2026-05-17-regional-demo/`: route-slice demo showing a stitched Jova to
-  Veros regional strip with validated and inferred screen status.
+- `2026-05-17-regional-demo/`: route-ordered viewport catalog demo showing
+  Jova to Veros samples with validated and inferred screen status.

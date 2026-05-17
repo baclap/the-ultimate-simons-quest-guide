@@ -7,4 +7,4 @@ Generated captures, extracted binaries, rendered PNGs, and other bulky artifacts
 Current files:
 
 - `background-descriptors.json`: committed ROM-native background descriptors for validated checkpoints. See `docs/background-descriptor-schema.md`.
-- `regions.json`: committed regional route descriptors that stitch validated and inferred screen renders. See `docs/regional-renderer-notes.md`.
+- `regions.json`: committed regional route descriptors that organize validated and inferred viewport renders. See `docs/regional-renderer-notes.md`.

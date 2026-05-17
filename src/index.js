@@ -92,7 +92,7 @@ function usage() {
     '  inspect-background-context  Derive background table pointers from objset/area/submap.',
     '  render-background-native  Render a descriptor-backed ROM-native nametable checkpoint.',
     '  render-background-native-png  Render a descriptor-backed ROM-native background PNG.',
-    '  render-region-png  Render a stitched ROM-native region PNG.',
+    '  render-region-png  Render a route-ordered ROM-native viewport catalog PNG.',
     '  render-jova-native  Alias for render-background-native --descriptor jova-day.',
     '  render-jova-woods-native  Alias for render-background-native --descriptor jova-woods-day.'
   ].join('\n');

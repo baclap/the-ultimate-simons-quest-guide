@@ -1,7 +1,7 @@
 # Regional Renderer Notes
 
-The regional renderer turns individual ROM-native background renders into a
-stitched route image. It is intentionally status-aware: a region can mix
+The regional renderer currently turns individual ROM-native background renders
+into a route-ordered viewport catalog. It is intentionally status-aware: a region can mix
 validated descriptor-backed screens with inferred candidates derived from
 `objset`, `area`, and `submap`.
 
@@ -9,7 +9,7 @@ validated descriptor-backed screens with inferred candidates derived from
 
 Region definitions live in `data/regions.json`.
 
-The first region is `jova-to-veros-day`, a 5-screen route strip:
+The first region is `jova-to-veros-day`, a 5-screen viewport catalog:
 
 1. Jova town left: validated descriptor screen, 0 differing pixels.
 2. Jova town right: validated descriptor screen, 0 differing pixels.
@@ -46,8 +46,13 @@ demos/2026-05-17-regional-demo/assets/regional/jova-to-veros-day.png
 
 ## Interpretation
 
-The region strip is a route slice, not final world topology. It is designed to
-show that the renderer can now move beyond isolated screens while preserving
-confidence status per screen. The next step is to capture emulator fixtures for
-the inferred bridge and Veros Woods screens, compare them, and promote them to
-validated entries when pixel parity passes.
+The current render is not a continuous map strip. Each panel is a 256x240
+viewport-sized TV-frame render, arranged in rough route order. The panels should
+not be read as proven neighboring world-space sections, and there are likely
+missing viewports or layout columns between some entries.
+
+This demo is designed to show that the renderer can now organize validated and
+inferred ROM-native viewport samples while preserving confidence status per
+screen. The next step is to decode layout section and column continuity for one
+outdoor area, render a larger-than-screen map segment from that layout space,
+and use viewport-sized emulator crops only as validation windows.

@@ -17,27 +17,27 @@
       <div class="content split">
         <div>
           <p class="eyebrow">Next demo</p>
-          <h1>From validated screens to a route slice</h1>
-          <p class="lede">The renderer now stitches ROM-native screens into a first regional strip: Jova town, Jova Woods, the bridge, and the next woods screen toward Veros.</p>
+          <h1>From validated screens to route samples</h1>
+          <p class="lede">The renderer now produces a route-ordered catalog of ROM-native viewports: Jova town, Jova Woods, the bridge, and the next woods screen toward Veros.</p>
         </div>
         <figure class="preview-card">
-          <img src="assets/regional/jova-to-veros-day.png" alt="ROM-native Jova to Veros route strip">
-          <figcaption>Jova to Veros route, rendered from ROM data</figcaption>
+          <img src="assets/regional/jova-to-veros-day.png" alt="ROM-native Jova to Veros route-ordered viewport catalog">
+          <figcaption>Jova to Veros route samples, rendered from ROM data</figcaption>
         </figure>
       </div>
     </section>
 
     <section class="slide" id="slide-2">
       <div class="content">
-        <p class="eyebrow">Regional output</p>
-        <h2>Five screens, one stitched image</h2>
-        <div class="map-window" aria-label="Scrollable regional map strip">
-          <img src="assets/regional/jova-to-veros-day.png" alt="Jova to Veros regional strip">
+        <p class="eyebrow">Viewport catalog</p>
+        <h2>Five TV-frame renders in route order</h2>
+        <div class="map-window" aria-label="Scrollable route-ordered viewport catalog">
+          <img src="assets/regional/jova-to-veros-day.png" alt="Jova to Veros route-ordered viewport catalog">
         </div>
         <div class="legend">
           <span class="validated">Validated</span>
           <span class="inferred">Inferred</span>
-          <span>Drag or scroll horizontally if the strip is wider than the viewport.</span>
+          <span>These panels are samples, not proven continuous world-space adjacency.</span>
         </div>
       </div>
     </section>
@@ -45,7 +45,7 @@
     <section class="slide" id="slide-3">
       <div class="content">
         <p class="eyebrow">Confidence layer</p>
-        <h2>The route is split into proven and inferred slices</h2>
+        <h2>The catalog is split into proven and inferred viewports</h2>
         <div class="status-grid">
           <div class="validated"><strong>Jova town left</strong><span>Descriptor-backed, 0 differing pixels.</span></div>
           <div class="validated"><strong>Jova town right</strong><span>Descriptor-backed, 0 differing pixels.</span></div>
@@ -60,14 +60,14 @@
       <div class="content split">
         <div>
           <p class="eyebrow">What changed</p>
-          <h2>A region data model now sits above screen descriptors</h2>
-          <p>Region entries can reference a validated descriptor or derive a candidate descriptor from manifest context. That keeps the renderer honest about which screens are proven and which are plausible but still need emulator fixtures.</p>
+          <h2>A catalog data model now sits above screen descriptors</h2>
+          <p>Catalog entries can reference a validated descriptor or derive a candidate descriptor from manifest context. That keeps the renderer honest about which viewports are proven and which are plausible but still need emulator fixtures.</p>
         </div>
         <div class="pipeline">
           <div><strong>Manifest context</strong><span>objset, area, submap</span></div>
           <div><strong>Pointer tables</strong><span>screen record, layout header, tile set</span></div>
           <div><strong>Template fields</strong><span>CHR banks, palette, dimensions</span></div>
-          <div><strong>Region layout</strong><span>ordered route strip</span></div>
+          <div><strong>Catalog layout</strong><span>route-ordered viewport samples</span></div>
         </div>
       </div>
     </section>
@@ -79,7 +79,7 @@
         <div class="limit-grid">
           <div><strong>Validated coverage</strong><span>Three screens have exact fixture parity.</span></div>
           <div><strong>Inferred coverage</strong><span>Two more screens are rendered from tables and templates, pending capture comparison.</span></div>
-          <div><strong>Adjacency</strong><span>The demo is a route strip, not a final world topology.</span></div>
+          <div><strong>Adjacency</strong><span>The panels should not be read as continuous neighboring map sections.</span></div>
           <div><strong>Variants</strong><span>Day/night palette switching still needs broader decode work.</span></div>
         </div>
       </div>
@@ -89,13 +89,13 @@
       <div class="content split">
         <div>
           <p class="eyebrow">Next step</p>
-          <h2>Validate the inferred route, then widen the strip</h2>
-          <p>The next practical move is to add save-state fixtures for the bridge and Veros Woods, compare them, and then let the same data model grow toward Veros and beyond.</p>
+          <h2>Next: render continuous layout space</h2>
+          <p>The next practical move is to decode how layout sections and columns connect in world coordinates, so the demo can graduate from ordered viewport samples to a true continuous map segment.</p>
         </div>
         <div class="callouts">
-          <div>Capture bridge and Veros Woods fixtures.</div>
-          <div>Promote inferred entries to validated when pixel parity passes.</div>
-          <div>Add the next route branch and preserve status per screen.</div>
+          <div>Decode layout section and column continuity for one outdoor area.</div>
+          <div>Render a larger-than-screen map segment from layout space.</div>
+          <div>Use viewport-sized emulator crops only as validation windows.</div>
           <div>Introduce day/night variants once palette selection is decoded.</div>
         </div>
       </div>
