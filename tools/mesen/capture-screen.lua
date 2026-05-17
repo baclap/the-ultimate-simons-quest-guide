@@ -36,6 +36,16 @@ local function write_file(path, data)
   file:close()
 end
 
+local function read_file(path)
+  local file = io.open(path, "rb")
+  if file == nil then
+    return nil
+  end
+  local data = file:read("*a")
+  file:close()
+  return data
+end
+
 local function dump_memory(path, start_address, length, memory_type)
   local file = io.open(path, "wb")
   if file == nil then
@@ -73,8 +83,13 @@ local capture_location = os.getenv("CV2MAP_CAPTURE_LOCATION") or ""
 local capture_variant = os.getenv("CV2MAP_CAPTURE_VARIANT") or "unknown"
 local capture_access = os.getenv("CV2MAP_CAPTURE_ACCESS") or "unknown"
 local start_presses_raw = os.getenv("CV2MAP_START_PRESSES") or ""
+local inputs_raw = os.getenv("CV2MAP_INPUTS") or ""
+local state_path = os.getenv("CV2MAP_STATE_PATH") or ""
+local settle_frames = getenv_number("CV2MAP_SETTLE_FRAMES", 30)
+local state_loaded = state_path == ""
+local state_loaded_frame = 0
 
-local function parse_start_presses(raw)
+local function parse_start_presses(raw, use_default)
   local presses = {}
   if raw ~= "" then
     for start_frame, duration in raw:gmatch("(%d+):(%d+)") do
@@ -85,7 +100,7 @@ local function parse_start_presses(raw)
     end
   end
 
-  if #presses == 0 then
+  if #presses == 0 and use_default then
     presses[1] = {
       start_frame = press_start_at,
       end_frame = press_start_at + press_start_frames
@@ -95,25 +110,88 @@ local function parse_start_presses(raw)
   return presses
 end
 
-local start_presses = parse_start_presses(start_presses_raw)
+local function parse_input_events(raw)
+  local events = {}
+  for button, start_frame, duration in raw:gmatch("([%a_]+):(%d+):(%d+)") do
+    events[#events + 1] = {
+      button = string.lower(button),
+      start_frame = tonumber(start_frame),
+      end_frame = tonumber(start_frame) + tonumber(duration)
+    }
+  end
+  return events
+end
+
+local function start_presses_to_input_events(raw)
+  local events = {}
+  for _, press in ipairs(parse_start_presses(raw, state_path == "")) do
+    events[#events + 1] = {
+      button = "start",
+      start_frame = press.start_frame,
+      end_frame = press.end_frame
+    }
+  end
+  return events
+end
+
+local input_events = parse_input_events(inputs_raw)
+if #input_events == 0 then
+  input_events = start_presses_to_input_events(start_presses_raw)
+end
+
+local function current_inputs()
+  local inputs = {}
+  for _, input in ipairs(input_events) do
+    if frames >= input.start_frame and frames < input.end_frame then
+      inputs[input.button] = true
+    end
+  end
+  return inputs
+end
 
 os.execute("mkdir -p " .. string.format("%q", out_dir))
 
-emu.addEventCallback(function()
-  local should_press_start = false
-  for _, press in ipairs(start_presses) do
-    if frames >= press.start_frame and frames < press.end_frame then
-      should_press_start = true
+if state_path ~= "" then
+  emu.addMemoryCallback(function()
+    if state_loaded then
+      return
     end
-  end
 
-  emu.setInput({ start = should_press_start }, 0)
+    local savestate = read_file(state_path)
+    if savestate == nil then
+      emu.stop(43)
+      return
+    end
+
+    if not emu.loadSavestate(savestate) then
+      emu.stop(44)
+      return
+    end
+
+    state_loaded = true
+    state_loaded_frame = frames
+  end, emu.callbackType.exec, 0xFFD0, 0xFFD0, emu.memType.nesMemory)
+end
+
+emu.addEventCallback(function()
+  emu.setInput(current_inputs(), 0)
 end, emu.eventType.inputPolled)
 
 emu.addEventCallback(function()
   frames = frames + 1
 
-  if frames < capture_frame then
+  if not state_loaded then
+    if frames > 120 then
+      emu.stop(45)
+    end
+    return
+  end
+
+  if state_path == "" and frames < capture_frame then
+    return
+  end
+
+  if state_path ~= "" and frames < state_loaded_frame + settle_frames then
     return
   end
 
@@ -134,7 +212,7 @@ emu.addEventCallback(function()
   dump_memory(out_dir .. "/oam-0000-00ff-sprites.bin", 0x0000, 0x100, emu.memType.nesSpriteRam)
 
   write_file(out_dir .. "/state.json", string.format(
-    '{"name":"%s","location":"%s","variant":"%s","access":"%s","frames":%d,"pressStartAt":%d,"pressStartFrames":%d,"startPresses":"%s","captureFrame":%d,"romName":"%s","romPath":"%s","screenWidth":%d,"screenHeight":%d,"cpu2000":%d,"cpu2001":%d,"cpu2002":%d,"ppuPalette0":%d,"ppuNametable0":%d,"ppuXScroll":%d,"ppuVideoRamAddr":%d,"ppuTmpVideoRamAddr":%d,"ppuBackgroundPatternAddr":%d,"ppuSpritePatternAddr":%d,"ppuLargeSprites":%s,"ppuSpritesEnabled":%s,"ppuSpriteMask":%s,"ppuSpriteRamAddr":%d}\n',
+    '{"name":"%s","location":"%s","variant":"%s","access":"%s","frames":%d,"pressStartAt":%d,"pressStartFrames":%d,"startPresses":"%s","inputs":"%s","statePath":"%s","stateLoadedFrame":%d,"settleFrames":%d,"captureFrame":%d,"romName":"%s","romPath":"%s","screenWidth":%d,"screenHeight":%d,"cpu2000":%d,"cpu2001":%d,"cpu2002":%d,"ppuPalette0":%d,"ppuNametable0":%d,"ppuXScroll":%d,"ppuVideoRamAddr":%d,"ppuTmpVideoRamAddr":%d,"ppuBackgroundPatternAddr":%d,"ppuSpritePatternAddr":%d,"ppuLargeSprites":%s,"ppuSpritesEnabled":%s,"ppuSpriteMask":%s,"ppuSpriteRamAddr":%d}\n',
     json_escape(capture_name),
     json_escape(capture_location),
     json_escape(capture_variant),
@@ -143,6 +221,10 @@ emu.addEventCallback(function()
     press_start_at,
     press_start_frames,
     json_escape(start_presses_raw),
+    json_escape(inputs_raw),
+    json_escape(state_path),
+    state_loaded_frame,
+    settle_frames,
     capture_frame,
     json_escape(rom.name or ""),
     json_escape(rom.path or ""),

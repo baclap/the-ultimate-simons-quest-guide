@@ -15,10 +15,16 @@
     "mesen:smoke": "node src/index.js mesen-capture --rom roms/cv2.nes --script tools/mesen/smoke-capture.lua --out out/mesen-smoke --timeout 10",
     "mesen:memtypes": "node src/index.js mesen-capture --rom roms/cv2.nes --script tools/mesen/discover-memtypes.lua --out out/mesen-memtypes --timeout 10",
     "capture:jova": "node src/index.js mesen-capture-screen --rom roms/cv2.nes --name jova-day --location Jova --variant day --access outdoor --out out/captures/jova-day --timeout 60 --start-presses 240:20,2000:20,3500:20 --capture-frame 5000",
+    "capture:jova-right": "node src/index.js mesen-capture-screen --rom roms/cv2.nes --name jova-right-day --location \"Jova right screen\" --variant day --access outdoor --out out/captures/jova-right-day --timeout 60 --inputs start:240:20,start:2000:20,start:3500:20,right:3900:1200 --capture-frame 5200",
+    "capture:jova-woods": "node src/index.js mesen-capture-screen --rom roms/cv2.nes --name jova-woods-day --location \"Jova Woods\" --variant day --access outdoor --out out/captures/jova-woods-day --timeout 30 --state out/states/jova-woods.mss --settle-frames 30",
     "render:jova-capture": "node src/index.js render-ppu-capture --capture out/captures/jova-day --out out/captures/jova-day/background.png",
+    "render:jova-right-capture": "node src/index.js render-ppu-capture --capture out/captures/jova-right-day --out out/captures/jova-right-day/background.png",
+    "render:jova-woods-capture": "node src/index.js render-ppu-capture --capture out/captures/jova-woods-day --out out/captures/jova-woods-day/background.png",
     "decode:title-transfer": "node src/index.js decode-transfer --rom roms/cv2.nes --bank 4 --address 0x8000 --mirroring vertical --out out/decoder/title-transfer.bin",
     "replay:jova-buffer-trace": "node src/index.js replay-ppu-buffer-trace --trace out/mesen-buffer-trace/ppu-buffer-writes.tsv --mirroring vertical --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/mesen-buffer-trace/replayed-nametables.bin",
-    "render:jova-native": "node src/index.js render-jova-native --rom roms/cv2.nes --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-native-nametables.bin"
+    "render:jova-native": "node src/index.js render-jova-native --rom roms/cv2.nes --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --visible-page 0 --out out/decoder/jova-native-nametables.bin",
+    "render:jova-right-native": "node src/index.js render-jova-native --rom roms/cv2.nes --compare out/captures/jova-right-day/ppu-2000-2fff-nametables.bin --visible-page 1 --out out/decoder/jova-right-native-nametables.bin",
+    "render:jova-woods-native": "node src/index.js render-jova-woods-native --rom roms/cv2.nes --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --visible-page 0 --out out/decoder/jova-woods-native-nametables.bin"
   },
   "engines": {
     "node": ">=20"

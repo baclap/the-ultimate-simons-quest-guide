@@ -13,6 +13,7 @@ const {
   compareNametables,
   decodePpuTransferStream,
   renderJovaNativeNametables,
+  renderJovaWoodsNativeNametables,
   replayPpuBufferTrace,
   toHex
 } = require('./background');
@@ -60,10 +61,13 @@ function usage() {
     '  node src/index.js render-all --rom roms/cv2.nes --out out --scale 1',
     '  node src/index.js mesen-capture --rom roms/cv2.nes --script tools/mesen/smoke-capture.lua --out out/mesen-smoke',
     '  node src/index.js mesen-capture-screen --rom roms/cv2.nes --name jova-day --location Jova --variant day --access outdoor --out out/captures/jova-day',
+    '  node src/index.js mesen-capture-screen --rom roms/cv2.nes --name jova-right-day --inputs start:240:20,start:2000:20,start:3500:20,right:3900:1200 --capture-frame 5200',
+    '  node src/index.js mesen-capture-screen --rom roms/cv2.nes --name jova-woods-day --location "Jova Woods" --variant day --access outdoor --state out/states/jova-woods.mss --settle-frames 30 --out out/captures/jova-woods-day',
     '  node src/index.js render-ppu-capture --capture out/captures/jova-day --out out/captures/jova-day/background.png',
     '  node src/index.js decode-transfer --rom roms/cv2.nes --bank 4 --address 0x8000 --mirroring vertical --out out/transfer.bin',
     '  node src/index.js replay-ppu-buffer-trace --trace out/mesen-buffer-trace/ppu-buffer-writes.tsv --mirroring vertical --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/mesen-buffer-trace/replayed-nametables.bin',
     '  node src/index.js render-jova-native --rom roms/cv2.nes --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-native-nametables.bin',
+    '  node src/index.js render-jova-woods-native --rom roms/cv2.nes --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
     '',
     'Commands:',
     '  verify-rom   Parse and verify the iNES header.',
@@ -75,7 +79,8 @@ function usage() {
     '  render-ppu-capture  Render background PNG from captured PPU artifacts.',
     '  decode-transfer  Decode the fixed-bank PPU transfer stream used by routine $C6C0.',
     '  replay-ppu-buffer-trace  Replay traced $0700 NMI PPU buffer writes into nametable bytes.',
-    '  render-jova-native  Render the first ROM-native Jova nametable checkpoint.'
+    '  render-jova-native  Render the first ROM-native Jova nametable checkpoint.',
+    '  render-jova-woods-native  Render the ROM-native Jova Woods nametable checkpoint.'
   ].join('\n');
 }
 
@@ -163,7 +168,20 @@ function mesenCapture(args) {
   const scriptPath = required(args, 'script');
   const outDir = args.out ? String(args.out) : path.join('out', 'mesen-capture');
   const timeout = numericOption(args, 'timeout', 10);
-  const result = runMesenCapture({ romPath, scriptPath, outDir, timeout });
+  const env = {};
+  if (args.inputs) {
+    env.CV2MAP_INPUTS = String(args.inputs);
+  }
+  if (args['start-presses']) {
+    env.CV2MAP_START_PRESSES = String(args['start-presses']);
+  }
+  if (args.state) {
+    env.CV2MAP_STATE_PATH = path.resolve(String(args.state));
+  }
+  if (args['settle-frames']) {
+    env.CV2MAP_SETTLE_FRAMES = String(numericOption(args, 'settle-frames', 30));
+  }
+  const result = runMesenCapture({ romPath, scriptPath, outDir, timeout, env });
   printJson(result);
 }
 
@@ -180,6 +198,9 @@ function mesenCaptureScreen(args) {
   const pressStartAt = numericOption(args, 'press-start-at', 45);
   const pressStartFrames = numericOption(args, 'press-start-frames', 12);
   const startPresses = args['start-presses'] ? String(args['start-presses']) : '';
+  const inputs = args.inputs ? String(args.inputs) : '';
+  const statePath = args.state ? path.resolve(String(args.state)) : '';
+  const settleFrames = numericOption(args, 'settle-frames', 30);
   const result = runMesenCapture({
     romPath,
     scriptPath,
@@ -193,7 +214,10 @@ function mesenCaptureScreen(args) {
       CV2MAP_CAPTURE_FRAME: String(captureFrame),
       CV2MAP_PRESS_START_AT: String(pressStartAt),
       CV2MAP_PRESS_START_FRAMES: String(pressStartFrames),
-      CV2MAP_START_PRESSES: startPresses
+      CV2MAP_START_PRESSES: startPresses,
+      CV2MAP_INPUTS: inputs,
+      CV2MAP_STATE_PATH: statePath,
+      CV2MAP_SETTLE_FRAMES: String(settleFrames)
     }
   });
   printJson(result);
@@ -284,10 +308,11 @@ function replayPpuBufferTraceCommand(args) {
   printJson(result);
 }
 
-function renderJovaNativeCommand(args) {
+function renderNativeBackgroundCommand(args, renderFn, defaultVisiblePage) {
   const romPath = required(args, 'rom');
+  const visiblePage = integerOption(args, 'visible-page', defaultVisiblePage);
   const { buffer, info } = readRom(romPath);
-  const rendered = renderJovaNativeNametables(buffer, info, {
+  const rendered = renderFn(buffer, info, {
     mirroring: args.mirroring ? String(args.mirroring) : 'vertical'
   });
 
@@ -302,6 +327,8 @@ function renderJovaNativeCommand(args) {
     const expected = fs.readFileSync(expectedPath);
     result.compare = compareNametables(rendered.nametables, expected);
     result.compare.expected = path.resolve(expectedPath);
+    result.compare.visiblePage = visiblePage;
+    result.compare.visiblePageExact = result.compare.pages[visiblePage].differingBytes === 0;
     result.compare.visiblePage0Exact = result.compare.pages[0].differingBytes === 0;
   }
 
@@ -313,6 +340,14 @@ function renderJovaNativeCommand(args) {
   }
 
   printJson(result);
+}
+
+function renderJovaNativeCommand(args) {
+  renderNativeBackgroundCommand(args, renderJovaNativeNametables, 0);
+}
+
+function renderJovaWoodsNativeCommand(args) {
+  renderNativeBackgroundCommand(args, renderJovaWoodsNativeNametables, 0);
 }
 
 function main() {
@@ -371,6 +406,11 @@ function main() {
 
   if (command === 'render-jova-native') {
     renderJovaNativeCommand(args);
+    return;
+  }
+
+  if (command === 'render-jova-woods-native') {
+    renderJovaWoodsNativeCommand(args);
     return;
   }
 

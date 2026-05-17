@@ -13,21 +13,57 @@ const NAMETABLE_TILE_BYTES = 0x3c0;
 const JOVA_NATIVE_DESCRIPTOR = {
   name: 'jova-day',
   layoutHeaderAddress: 0xfa86,
-  layoutPointerIndex: 0,
-  expectedLayoutAddress: 0x8497,
   layoutBank: 2,
   tileBank: 4,
   tileSetAddress: 0x841d,
   widthBlocks: 8,
   heightBlocks: 8,
   rowsPerLayoutSection: 7,
-  rowStream: {
-    startWorldRow: 0x1c,
-    rowCount: 6,
-    columnGroup: 0,
-    columnCount: 8,
-    hiddenAttributeHighNibbles: [0x0a, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05]
-  }
+  pages: [
+    {
+      name: 'jova-left',
+      page: 0,
+      layoutSection: 0,
+      columnGroup: 0,
+      expectedLayoutAddress: 0x8497,
+      rowStream: {
+        startWorldRow: 0x1c,
+        rowCount: 6,
+        columnGroup: 0,
+        columnCount: 8,
+        hiddenAttributeHighNibbles: [0x0a, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x05]
+      }
+    },
+    {
+      name: 'jova-right',
+      page: 1,
+      layoutSection: 0,
+      columnGroup: 3,
+      expectedLayoutAddress: 0x8507,
+      rowStream: {
+        startWorldRow: 0x1c,
+        rowCount: 6,
+        columnGroup: 3,
+        columnCount: 8
+      }
+    }
+  ]
+};
+
+const JOVA_WOODS_NATIVE_DESCRIPTOR = {
+  name: 'jova-woods-day',
+  layoutBank: 2,
+  tileBank: 4,
+  tileSetAddress: 0x8cf4,
+  widthBlocks: 8,
+  heightBlocks: 7,
+  pages: [
+    {
+      name: 'jova-woods-visible',
+      page: 0,
+      layoutAddress: 0xa111
+    }
+  ]
 };
 
 function assertByte(value, label) {
@@ -267,6 +303,18 @@ function readNativeLayoutPointer(rom, info, descriptor, section, columnGroup) {
   return readPrgWord(rom, info, descriptor.layoutHeaderAddress + 2 + pointerIndex * 2);
 }
 
+function nativeLayoutPointerInfo(rom, info, descriptor, section, columnGroup) {
+  const pointersPerSection = readPrgByte(rom, info, descriptor.layoutHeaderAddress);
+  const pointerIndex = section * pointersPerSection + columnGroup;
+  const pointerAddress = descriptor.layoutHeaderAddress + 2 + pointerIndex * 2;
+  return {
+    pointersPerSection,
+    pointerIndex,
+    pointerAddress,
+    layoutAddress: readPrgWord(rom, info, pointerAddress)
+  };
+}
+
 function nativeBlockAttribute(rom, info, descriptor, blockIndex) {
   return readPrgByte(rom, info, descriptor.tileSetAddress + 1 + blockIndex, { bank: descriptor.tileBank });
 }
@@ -276,12 +324,12 @@ function nativePaletteBits(attributeByte, tileRow, tileColumn) {
   return (attributeByte >> (quadrant * 2)) & 0x03;
 }
 
-function writeNativeTileRow(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, blockIndex, tileRow, nametableRow, blockColumn) {
+function writeNativeTileRow(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, page, blockIndex, tileRow, nametableRow, blockColumn) {
   const attributeByte = nativeBlockAttribute(rom, info, descriptor, blockIndex);
   for (let tileColumn = 0; tileColumn < 4; tileColumn += 1) {
     const nametableColumn = blockColumn * 4 + tileColumn;
     if (nametableRow < 30) {
-      nametables[nametableRow * 32 + nametableColumn] = readPrgByte(
+      nametables[page * NAMETABLE_PAGE_SIZE + nametableRow * 32 + nametableColumn] = readPrgByte(
         rom,
         info,
         tileBaseAddress + blockIndex * 16 + tileRow * 4 + tileColumn,
@@ -292,10 +340,10 @@ function writeNativeTileRow(nametables, paletteBits, rom, info, descriptor, tile
   }
 }
 
-function renderNativeBlock(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, blockIndex, blockRow, blockColumn) {
+function renderNativeBlock(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, page, blockIndex, blockRow, blockColumn) {
   for (let tileRow = 0; tileRow < 4; tileRow += 1) {
     const nametableRow = blockRow * 4 + tileRow;
-    writeNativeTileRow(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, blockIndex, tileRow, nametableRow, blockColumn);
+    writeNativeTileRow(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, page, blockIndex, tileRow, nametableRow, blockColumn);
   }
 }
 
@@ -315,9 +363,8 @@ function nativeRowStreamState(descriptor, worldRow) {
   };
 }
 
-function renderNativeRowStream(nametables, paletteBits, rom, info, descriptor, tileBaseAddress) {
+function renderNativeRowStream(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, page, stream) {
   const renderedRows = [];
-  const stream = descriptor.rowStream;
   for (let offset = 0; offset < stream.rowCount; offset += 1) {
     const worldRow = stream.startWorldRow + offset;
     const rowState = nativeRowStreamState(descriptor, worldRow);
@@ -337,6 +384,7 @@ function renderNativeRowStream(nametables, paletteBits, rom, info, descriptor, t
         info,
         descriptor,
         tileBaseAddress,
+        page,
         blockIndex,
         rowState.tileRow,
         rowState.nametableRow,
@@ -356,7 +404,7 @@ function renderNativeRowStream(nametables, paletteBits, rom, info, descriptor, t
   return renderedRows;
 }
 
-function assembleNativeAttributes(nametables, paletteBits, descriptor) {
+function assembleNativeAttributes(nametables, paletteBits, page, rowStream) {
   for (let attributeRow = 0; attributeRow < 8; attributeRow += 1) {
     for (let attributeColumn = 0; attributeColumn < 8; attributeColumn += 1) {
       const y = attributeRow * 4;
@@ -365,54 +413,88 @@ function assembleNativeAttributes(nametables, paletteBits, descriptor) {
       const topRight = paletteBits[y]?.[x + 2] ?? 0;
       const bottomLeft = paletteBits[y + 2]?.[x] ?? 0;
       const bottomRight = paletteBits[y + 2]?.[x + 2] ?? 0;
-      nametables[NAMETABLE_TILE_BYTES + attributeRow * 8 + attributeColumn] =
+      nametables[page * NAMETABLE_PAGE_SIZE + NAMETABLE_TILE_BYTES + attributeRow * 8 + attributeColumn] =
         topLeft | (topRight << 2) | (bottomLeft << 4) | (bottomRight << 6);
     }
   }
 
-  const hiddenHighNibbles = descriptor.rowStream?.hiddenAttributeHighNibbles;
+  const hiddenHighNibbles = rowStream?.hiddenAttributeHighNibbles;
   if (hiddenHighNibbles) {
     hiddenHighNibbles.forEach((highNibble, attributeColumn) => {
-      const offset = NAMETABLE_TILE_BYTES + 7 * 8 + attributeColumn;
+      const offset = page * NAMETABLE_PAGE_SIZE + NAMETABLE_TILE_BYTES + 7 * 8 + attributeColumn;
       nametables[offset] = ((highNibble & 0x0f) << 4) | (nametables[offset] & 0x0f);
     });
   }
 }
 
-function renderJovaNativeNametables(rom, info, opts = {}) {
-  const descriptor = opts.descriptor || JOVA_NATIVE_DESCRIPTOR;
-  const nametables = Buffer.alloc(NAMETABLE_SIZE, opts.fill ?? 0);
+function renderNativePage(nametables, rom, info, descriptor, tileBaseAddress, pageDescriptor, opts = {}) {
+  const page = pageDescriptor.page;
   const paletteBits = Array.from({ length: 30 }, () => Array(32).fill(0));
-  const layoutPointerAddress = descriptor.layoutHeaderAddress + 2 + descriptor.layoutPointerIndex * 2;
-  const layoutAddress = readNativeLayoutPointer(rom, info, descriptor, 0, descriptor.layoutPointerIndex);
+  const layoutSection = pageDescriptor.layoutSection ?? 0;
+  const columnGroup = pageDescriptor.columnGroup ?? 0;
+  const pointerInfo = pageDescriptor.layoutAddress == null
+    ? nativeLayoutPointerInfo(rom, info, descriptor, layoutSection, columnGroup)
+    : {
+      pointersPerSection: undefined,
+      pointerIndex: undefined,
+      pointerAddress: undefined,
+      layoutAddress: pageDescriptor.layoutAddress
+    };
 
-  if (opts.strict !== false && layoutAddress !== descriptor.expectedLayoutAddress) {
+  if (
+    opts.strict !== false &&
+    pageDescriptor.expectedLayoutAddress != null &&
+    pointerInfo.layoutAddress !== pageDescriptor.expectedLayoutAddress
+  ) {
     throw new Error(
-      `Jova layout pointer mismatch at $${toHex(layoutPointerAddress)}: expected $${toHex(descriptor.expectedLayoutAddress)}, got $${toHex(layoutAddress)}`
+      `${pageDescriptor.name} layout pointer mismatch at $${toHex(pointerInfo.pointerAddress)}: expected $${toHex(pageDescriptor.expectedLayoutAddress)}, got $${toHex(pointerInfo.layoutAddress)}`
     );
   }
 
-  const tileSetOffset = readPrgByte(rom, info, descriptor.tileSetAddress, { bank: descriptor.tileBank });
-  const tileBaseAddress = descriptor.tileSetAddress + tileSetOffset;
   const layoutBytes = [];
-
   for (let blockRow = 0; blockRow < descriptor.heightBlocks; blockRow += 1) {
     const layoutRow = [];
     for (let blockColumn = 0; blockColumn < descriptor.widthBlocks; blockColumn += 1) {
       const blockIndex = readPrgByte(
         rom,
         info,
-        layoutAddress + blockRow * descriptor.widthBlocks + blockColumn,
+        pointerInfo.layoutAddress + blockRow * descriptor.widthBlocks + blockColumn,
         { bank: descriptor.layoutBank }
       );
       layoutRow.push(blockIndex);
-      renderNativeBlock(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, blockIndex, blockRow, blockColumn);
+      renderNativeBlock(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, page, blockIndex, blockRow, blockColumn);
     }
     layoutBytes.push(layoutRow);
   }
 
-  const streamedRows = renderNativeRowStream(nametables, paletteBits, rom, info, descriptor, tileBaseAddress);
-  assembleNativeAttributes(nametables, paletteBits, descriptor);
+  const streamedRows = pageDescriptor.rowStream
+    ? renderNativeRowStream(nametables, paletteBits, rom, info, descriptor, tileBaseAddress, page, pageDescriptor.rowStream)
+    : [];
+  assembleNativeAttributes(nametables, paletteBits, page, pageDescriptor.rowStream);
+
+  return {
+    name: pageDescriptor.name,
+    page,
+    layoutSection,
+    columnGroup,
+    pointersPerSection: pointerInfo.pointersPerSection,
+    layoutPointerIndex: pointerInfo.pointerIndex,
+    layoutPointerAddress: pointerInfo.pointerAddress == null ? undefined : `0x${toHex(pointerInfo.pointerAddress)}`,
+    layoutAddress: `0x${toHex(pointerInfo.layoutAddress)}`,
+    streamedRows,
+    hiddenAttributeHighNibbles: pageDescriptor.rowStream?.hiddenAttributeHighNibbles,
+    layoutBytes
+  };
+}
+
+function renderNativeBackgroundNametables(rom, info, opts = {}) {
+  const descriptor = opts.descriptor;
+  const nametables = Buffer.alloc(NAMETABLE_SIZE, opts.fill ?? 0);
+  const tileSetOffset = readPrgByte(rom, info, descriptor.tileSetAddress, { bank: descriptor.tileBank });
+  const tileBaseAddress = descriptor.tileSetAddress + tileSetOffset;
+  const pages = (descriptor.pages || []).map((pageDescriptor) => (
+    renderNativePage(nametables, rom, info, descriptor, tileBaseAddress, pageDescriptor, opts)
+  ));
 
   const mirroring = opts.mirroring || 'vertical';
   if (mirroring === 'vertical') {
@@ -426,20 +508,30 @@ function renderJovaNativeNametables(rom, info, opts = {}) {
     nametables,
     descriptor: descriptor.name,
     metadata: {
-      layoutHeaderAddress: `0x${toHex(descriptor.layoutHeaderAddress)}`,
-      layoutPointerAddress: `0x${toHex(layoutPointerAddress)}`,
-      layoutAddress: `0x${toHex(layoutAddress)}`,
+      layoutHeaderAddress: descriptor.layoutHeaderAddress == null ? undefined : `0x${toHex(descriptor.layoutHeaderAddress)}`,
       layoutBank: descriptor.layoutBank,
       tileBank: descriptor.tileBank,
       tileSetAddress: `0x${toHex(descriptor.tileSetAddress)}`,
       tileSetOffset: `0x${toHex(tileSetOffset, 2)}`,
       tileBaseAddress: `0x${toHex(tileBaseAddress)}`,
       mirroring,
-      streamedRows,
-      hiddenAttributeHighNibbles: descriptor.rowStream?.hiddenAttributeHighNibbles,
-      layoutBytes
+      pages
     }
   };
+}
+
+function renderJovaNativeNametables(rom, info, opts = {}) {
+  return renderNativeBackgroundNametables(rom, info, {
+    ...opts,
+    descriptor: opts.descriptor || JOVA_NATIVE_DESCRIPTOR
+  });
+}
+
+function renderJovaWoodsNativeNametables(rom, info, opts = {}) {
+  return renderNativeBackgroundNametables(rom, info, {
+    ...opts,
+    descriptor: opts.descriptor || JOVA_WOODS_NATIVE_DESCRIPTOR
+  });
 }
 
 function parsePpuBufferTrace(tracePath) {
@@ -649,6 +741,7 @@ function compareNametables(actual, expected) {
 
 module.exports = {
   JOVA_NATIVE_DESCRIPTOR,
+  JOVA_WOODS_NATIVE_DESCRIPTOR,
   NAMETABLE_PAGE_SIZE,
   NAMETABLE_SIZE,
   applyPpuWritesToNametables,
@@ -660,6 +753,8 @@ module.exports = {
   readPrgByte,
   readPrgWord,
   renderJovaNativeNametables,
+  renderJovaWoodsNativeNametables,
+  renderNativeBackgroundNametables,
   replayPpuBuffer,
   replayPpuBufferTrace,
   toHex

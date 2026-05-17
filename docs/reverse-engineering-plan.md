@@ -9,16 +9,18 @@ The repository now has a zero-dependency Node CLI that can:
 - render all 16 CHR ROM banks into PNG tile sheets
 - generate a `cv2r`-derived manifest of locations, actors, and doors
 - capture deterministic Mesen fixtures with screenshot, PPU memory, CPU RAM, and OAM
+- load local Mesen `.mss` save states as representative fixture starting points
 - reconstruct a captured screen from PPU/OAM artifacts
 - decode the fixed `$C6C0` PPU transfer stream format
 - replay traced `$0700-$07FF` NMI PPU buffer updates into nametable bytes
-- render the first ROM-native Jova nametable checkpoint from PRG bank `2` layout data and PRG bank `4` tile data
+- render ROM-native Jova town and Jova Woods nametable checkpoints from PRG bank `2` layout data and PRG bank `4` tile data
 
 Generated output is intentionally ignored by git:
 
 - `out/chr/chr-bank-00.png` through `out/chr/chr-bank-0f.png`
 - `out/manifest.json`
 - `out/captures/`
+- `out/states/`
 
 The local ROM copy is also ignored:
 
@@ -38,6 +40,8 @@ The local ROM copy is also ignored:
 - Replaying the traced Jova `$0700` buffer reproduces nametable page 0 and its mirror exactly against the Mesen capture.
 - The stable Jova block layout comes from PRG bank `2:$8497`; tile definitions come from PRG bank `4:$8461`; attributes come from PRG bank `4:$841E`.
 - The first ROM-native Jova checkpoint reproduces captured nametable page 0 and its mirror exactly. Rows `0-3` and `28-29` now come from the traced row-streaming algorithm instead of a hard-coded edge-tile descriptor.
+- The Jova right-side checkpoint reproduces captured nametable page 1 and its mirror exactly using the same row-streaming logic with column group `3`.
+- The Jova Woods save-state fixture reproduces captured nametable page 0 and its mirror exactly from direct layout `2:$A111` and tile set `4:$8CF4`.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
 
 ## Strategy
@@ -58,7 +62,7 @@ Work items:
    - Start from `cv2r` actor pointers and palette patch offsets.
    - Trace object set/area/submap usage in `disassembly/cv2.asm`.
    - Identify the loader routine that turns `objset`, `area`, and `submap` into room/background data.
-   - Apply the Jova row-streaming decoder to another representative screen to separate shared renderer logic from town-specific state.
+   - Identify the common table path that maps `objset`, `area`, and `submap` to the verified Jova and Jova Woods descriptors.
 
 2. Decode room data.
    - Determine whether data is raw nametable, metatile, or compressed command stream.
@@ -92,12 +96,18 @@ The installed binary is Apple Silicon `arm64`, code-sign verification passes, an
 
 `--testRunner` automation is now confirmed. See `docs/mesen-automation.md` for the working invocation, Lua sandbox notes, and smoke-test outputs.
 
-The first screen-level capture path is also confirmed. `npm run capture:jova` writes emulator screenshot, PPU memory, CPU RAM, and OAM artifacts. `npm run render:jova-capture` reconstructs the background and sprites from those artifacts.
+The first screen-level capture path is also confirmed. `npm run capture:jova` writes emulator screenshot, PPU memory, CPU RAM, and OAM artifacts. `npm run render:jova-capture` reconstructs the background and sprites from those artifacts. Save-state-driven fixtures are now supported with `--state`; `npm run capture:jova-woods` loads `out/states/jova-woods.mss` and captures a stable overworld screen.
 
 Current Jova day results:
 
 - background-only diff: 316 pixels, about 0.51%
 - background+sprite composite diff: 0 pixels
+
+Current Jova Woods day results:
+
+- background-only diff: 306 pixels, about 0.50%
+- background+sprite composite diff: 0 pixels
+- native nametable page 0 and vertical mirror: 0 differing bytes
 
 That gives us a pixel-perfect calibration fixture while still keeping the final map renderer focused on ROM decoding instead of exhaustive emulator traversal. See `docs/capture-schema.md`.
 

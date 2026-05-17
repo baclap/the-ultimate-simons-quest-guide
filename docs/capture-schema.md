@@ -7,13 +7,18 @@ Example:
 ```sh
 npm run capture:jova
 npm run render:jova-capture
+npm run capture:jova-woods
+npm run render:jova-woods-capture
 ```
 
 Current Jova fixture:
 
 ```text
 out/captures/jova-day/
+out/captures/jova-woods-day/
 ```
+
+Save states used as local capture starting points live under `out/states/`. They are emulator artifacts and are intentionally ignored by git; commit the decoded addresses and behavior in docs/code instead of committing `.mss` files.
 
 ## Files
 
@@ -42,6 +47,10 @@ Important fields in `state.json`:
 - `variant`: render/capture variant, currently `day`, `night`, or `unknown`.
 - `access`: access class, such as `outdoor`, `interior`, or `mansion`.
 - `startPresses`: scripted input windows used to reach the state.
+- `inputs`: generic scripted input windows, encoded as `button:startFrame:duration`.
+- `statePath`: optional local `.mss` file loaded before capture.
+- `stateLoadedFrame`: frame when the `.mss` was loaded in testRunner.
+- `settleFrames`: frames waited after loading the `.mss` before capture.
 - `ppuXScroll`: PPU fine X scroll.
 - `ppuVideoRamAddr`: current internal PPU VRAM address.
 - `ppuTmpVideoRamAddr`: internal temporary PPU VRAM address used to reconstruct scroll.
@@ -71,11 +80,20 @@ differenceRatio: 0
 
 This proves the remaining background-only differences are dynamic sprite pixels rather than a background reconstruction problem.
 
+The Jova Woods save-state fixture also composites to a 0-pixel diff:
+
+```text
+npm run capture:jova-woods
+npm run render:jova-woods-capture
+background-only differingPixels: 306
+background+sprite differingPixels: 0
+```
+
 ## Next Work
 
 1. Capture representative outdoor day/night palette fixtures.
-2. Capture one non-town overworld screen and one mansion/interior-style screen.
-3. Generalize the capture script to named routes/locations.
+2. Capture one mansion/interior-style screen.
+3. Add more named save-state fixtures for representative outdoor areas.
 4. Use these emulator captures as fixtures while decoding ROM room/background data.
 
 ## Variant Model

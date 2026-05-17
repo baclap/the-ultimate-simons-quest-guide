@@ -139,3 +139,19 @@ Use Mesen for deterministic emulator oracle captures:
 The project CLI now wraps this as `mesen-capture`. Use that command for screen-level capture fixtures during map decoding.
 
 For full screen fixtures, use `mesen-capture-screen`; see `docs/capture-schema.md`.
+
+Save-state fixtures are supported for locations that are awkward to reach with scripted input alone:
+
+```sh
+node src/index.js mesen-capture-screen \
+  --rom roms/cv2.nes \
+  --name jova-woods-day \
+  --location "Jova Woods" \
+  --variant day \
+  --access outdoor \
+  --state out/states/jova-woods.mss \
+  --settle-frames 30 \
+  --out out/captures/jova-woods-day
+```
+
+Mesen's Lua API requires save-state loads from a main-CPU exec callback, so the capture scripts bootstrap the `.mss` at reset, wait the requested settle frames, and then dump the usual screenshot, CPU RAM, PPU memory, palette, and OAM artifacts. Keep `.mss` files under `out/states/`; they are local emulator artifacts, not committed source data.
