@@ -89,6 +89,17 @@ background-only differingPixels: 306
 background+sprite differingPixels: 0
 ```
 
+The Dora Woods - Part 2 save-state fixture is used to validate a per-location
+background palette:
+
+```text
+npm run capture:dora-woods-part-2
+npm run render:dora-woods-part-2-capture
+PPU background palette: 0F 00 10 0A 0F 16 1C 06 0F 22 19 1C 0F 11 20 15
+ROM source: PRG bank 4:$9FD7, selected through bank 7:$88DB
+layout crop vs captured background: 0 differing pixels at x=144, y=48
+```
+
 ## Next Work
 
 1. Capture representative outdoor day/night palette fixtures.

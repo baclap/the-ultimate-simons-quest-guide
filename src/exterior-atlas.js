@@ -19,6 +19,17 @@ const PATTERN_TABLE_CPU_ADDRESS = 0xb720;
 const OBJSET_PATTERN_OFFSET = 0x30;
 const MAP_SIZE_BY_OBJSET = [2, 4, 4, 5, 2, 2];
 const BANK_7_PALETTE_POINTER_TABLE = 0x88b0;
+const BANK_7_TOWN_PALETTE_POINTER_TABLE = 0x88bb;
+const BANK_7_EXTERIOR_PALETTE_POINTER_TABLE = 0x88d9;
+
+const PALETTE_OVERRIDES = {
+  '2:8:2': {
+    pointerAddress: BANK_7_EXTERIOR_PALETTE_POINTER_TABLE + 0x02,
+    expectedAddress: 0x9fd7,
+    source: 'fixture-validated-bank-7-exterior-palette-table',
+    note: 'Dora Woods - Part 2 save-state capture matches the layout-space render at 0 differing pixels with palette 4:$9FD7.'
+  }
+};
 
 const TEMPLATE_BY_OBJSET = {
   0: {
@@ -205,7 +216,7 @@ function readPalettePointer(rom, info, address) {
 }
 
 function townPaletteAddress(rom, info, layoutIndex) {
-  const pointerAddress = 0x88bb + layoutIndex * 2;
+  const pointerAddress = BANK_7_TOWN_PALETTE_POINTER_TABLE + layoutIndex * 2;
   const paletteAddress = readPalettePointer(rom, info, pointerAddress);
   if (paletteAddress >= 0x8000 && paletteAddress < 0xc000) {
     return {
@@ -215,6 +226,32 @@ function townPaletteAddress(rom, info, layoutIndex) {
     };
   }
   return undefined;
+}
+
+function paletteOverrideKey(loc) {
+  return `${loc.objset}:${loc.area}:${loc.submap || 0}`;
+}
+
+function paletteOverrideForLocation(rom, info, loc) {
+  const override = PALETTE_OVERRIDES[paletteOverrideKey(loc)];
+  if (!override) {
+    return undefined;
+  }
+
+  const paletteAddress = readPalettePointer(rom, info, override.pointerAddress);
+  if (override.expectedAddress != null && paletteAddress !== override.expectedAddress) {
+    throw new Error(
+      `palette override for ${loc.name} expected $${override.expectedAddress.toString(16).toUpperCase()} ` +
+      `at bank 7:$${override.pointerAddress.toString(16).toUpperCase()}, got $${paletteAddress.toString(16).toUpperCase()}`
+    );
+  }
+
+  return {
+    address: paletteAddress,
+    pointerAddress: override.pointerAddress,
+    source: override.source,
+    note: override.note
+  };
 }
 
 function templateForLocation(rom, info, loc, screenRecord) {
@@ -232,6 +269,15 @@ function templateForLocation(rom, info, loc, screenRecord) {
       template.paletteStrategy = townPalette.source;
     }
   }
+
+  const paletteOverride = paletteOverrideForLocation(rom, info, loc);
+  if (paletteOverride) {
+    template.paletteAddress = paletteOverride.address;
+    template.palettePointerAddress = paletteOverride.pointerAddress;
+    template.paletteStrategy = paletteOverride.source;
+    template.paletteNote = paletteOverride.note;
+  }
+
   return template;
 }
 
@@ -317,6 +363,7 @@ function publicTemplate(template) {
     paletteAddress: hex(template.paletteAddress, 4),
     palettePointerAddress: hex(template.palettePointerAddress, 4),
     paletteStrategy: template.paletteStrategy,
+    paletteNote: template.paletteNote,
     widthBlocks: template.widthBlocks,
     heightBlocks: template.heightBlocks,
     rowsPerLayoutSection: template.rowsPerLayoutSection
@@ -485,7 +532,9 @@ function buildExteriorAtlas(rom, info) {
       patternTableCpuAddress: hex(PATTERN_TABLE_CPU_ADDRESS, 4),
       objsetPatternOffset: hex(OBJSET_PATTERN_OFFSET, 2),
       mapSizeByObjset: MAP_SIZE_BY_OBJSET,
-      bank7PalettePointerTable: hex(BANK_7_PALETTE_POINTER_TABLE, 4)
+      bank7PalettePointerTable: hex(BANK_7_PALETTE_POINTER_TABLE, 4),
+      bank7TownPalettePointerTable: hex(BANK_7_TOWN_PALETTE_POINTER_TABLE, 4),
+      bank7ExteriorPalettePointerTable: hex(BANK_7_EXTERIOR_PALETTE_POINTER_TABLE, 4)
     },
     templates: Object.values(TEMPLATE_BY_OBJSET).map(publicTemplate),
     candidates: locations

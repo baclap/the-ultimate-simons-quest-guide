@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Castlevania II Vertical Layout Demo</title>
-  <link rel="stylesheet" href="styles.css?v=00eb18e">
+  <link rel="stylesheet" href="styles.css?v=dora-palette">
 </head>
 <body>
   <header class="deck-nav">
@@ -32,7 +32,7 @@
         </div>
       </div>
       <figure class="hero-art">
-        <img src="assets/layouts/jova-full-grid.png?v=00eb18e" alt="Full Jova layout grid rendered from ROM data">
+        <img src="assets/layouts/jova-full-grid.png?v=dora-palette" alt="Full Jova layout grid rendered from ROM data">
         <figcaption>Jova, full 4x2 layout grid</figcaption>
       </figure>
     </section>
@@ -45,11 +45,11 @@
       </div>
       <div class="compare two-up">
         <figure>
-          <img src="assets/layouts/jova-top-row.png?v=00eb18e" alt="Jova top row only render">
+          <img src="assets/layouts/jova-top-row.png?v=dora-palette" alt="Jova top row only render">
           <figcaption>Section 0 only, 1024x224</figcaption>
         </figure>
         <figure>
-          <img src="assets/layouts/jova-full-grid.png?v=00eb18e" alt="Jova full layout grid render">
+          <img src="assets/layouts/jova-full-grid.png?v=dora-palette" alt="Jova full layout grid render">
           <figcaption>Current: sections 0 and 1, 1024x448</figcaption>
         </figure>
       </div>
@@ -59,16 +59,16 @@
       <div class="section-head">
         <p class="eyebrow">Outdoor verticality</p>
         <h2>Dora Woods Part 2 now includes the lower section</h2>
-        <p>This is the kind of screen that made the atlas gap visible: a staircase continues down into a second layout row. The full-grid render captures that lower walkable space.</p>
+        <p>This is the kind of screen that made the atlas gap visible: a staircase continues down into a second layout row. The render now also uses the fixture-validated Dora palette from ROM pointer <code>7:$88DB</code>.</p>
       </div>
       <div class="compare two-up">
         <figure>
-          <img src="assets/layouts/dora-top-row.png?v=00eb18e" alt="Dora Woods Part 2 top row only render">
+          <img src="assets/layouts/dora-top-row.png?v=dora-palette" alt="Dora Woods Part 2 top row only render">
           <figcaption>Previous: top row, 512x224</figcaption>
         </figure>
         <figure>
-          <img src="assets/layouts/dora-full-grid.png?v=00eb18e" alt="Dora Woods Part 2 full grid render">
-          <figcaption>Current: full 2x2 grid, 512x448</figcaption>
+          <img src="assets/layouts/dora-full-grid.png?v=dora-palette" alt="Dora Woods Part 2 full grid render">
+          <figcaption>Current: full 2x2 grid, 512x448, palette 4:$9FD7</figcaption>
         </figure>
       </div>
     </section>
@@ -81,7 +81,7 @@
         <div id="vertical-list" class="vertical-list"></div>
       </div>
       <figure class="tall-preview">
-        <img src="assets/layouts/dabi-full-grid.png?v=00eb18e" alt="Dabi's Path Part 1 full vertical layout render">
+        <img src="assets/layouts/dabi-full-grid.png?v=dora-palette" alt="Dabi's Path Part 1 full vertical layout render">
         <figcaption>Dabi's Path Part 1, full 2x2 layout grid</figcaption>
       </figure>
     </section>
@@ -108,7 +108,7 @@
     </section>
   </main>
 
-  <script src="assets/vertical-atlas-data.js?v=00eb18e"></script>
-  <script src="slides.js?v=00eb18e"></script>
+  <script src="assets/vertical-atlas-data.js?v=dora-palette"></script>
+  <script src="slides.js?v=dora-palette"></script>
 </body>
 </html>

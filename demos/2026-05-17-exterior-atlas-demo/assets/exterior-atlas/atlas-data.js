@@ -26,7 +26,9 @@ window.EXTERIOR_ATLAS = {
       2,
       2
     ],
-    "bank7PalettePointerTable": "0x88B0"
+    "bank7PalettePointerTable": "0x88B0",
+    "bank7TownPalettePointerTable": "0x88BB",
+    "bank7ExteriorPalettePointerTable": "0x88D9"
   },
   "templates": [
     {
@@ -5566,8 +5568,10 @@ window.EXTERIOR_ATLAS = {
           "0x03"
         ],
         "paletteBank": 4,
-        "paletteAddress": "0x9FC6",
-        "paletteStrategy": "object-set-fallback",
+        "paletteAddress": "0x9FD7",
+        "palettePointerAddress": "0x88DB",
+        "paletteStrategy": "fixture-validated-bank-7-exterior-palette-table",
+        "paletteNote": "Dora Woods - Part 2 save-state capture matches the layout-space render at 0 differing pixels with palette 4:$9FD7.",
         "widthBlocks": 8,
         "heightBlocks": 7
       },

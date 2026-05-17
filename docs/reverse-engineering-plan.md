@@ -21,6 +21,7 @@ The repository now has a zero-dependency Node CLI that can:
 - render the full outdoor Jova-to-Veros route as connected layout-space segments
 - render an exterior atlas of 55 candidates from `cv2r` metadata plus ROM layout, tile, CHR, and palette data
 - decode layout headers as two-dimensional grids and render full multi-section atlas entries
+- validate Dora Woods - Part 2 against a Mesen save-state fixture and render it with its ROM palette at `4:$9FD7`
 
 Generated output is intentionally ignored by git:
 
@@ -84,7 +85,8 @@ Work items:
    - Keep docs close enough to the data that a future renderer can use the discoveries without replaying the same traces.
 
 2. Validate multi-section layouts.
-   - Add save-state fixtures for Jova vertical movement, Dora Woods - Part 2 stairs, and at least one additional multi-section outdoor area.
+   - Add save-state fixtures for Jova vertical movement and at least one additional multi-section outdoor area.
+   - Keep the Dora Woods - Part 2 fixture as the reference for the first per-location palette override.
    - Compare viewport-sized windows against the full layout-space output without using emulator captures as source art.
 
 3. Convert atlas entries into topology.

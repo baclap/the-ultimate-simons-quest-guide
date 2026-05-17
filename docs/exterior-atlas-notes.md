@@ -73,7 +73,7 @@ Current confidence split:
 | ---: | --- | --- | --- | --- |
 | `0` | Town exterior, day | `0/1` | derived from bank 7 town layout palette table, with Jova validating `4:$9EA2` | validated-template |
 | `1` | Mansion door exterior, day | `4/5` | `4:$9FE8` | inferred-template |
-| `2` | Overworld woods/routes, day | `2/3` | `4:$9FC6` | validated-template |
+| `2` | Overworld woods/routes, day | `2/3` | `4:$9FC6`, with Dora Woods - Part 2 overriding to `4:$9FD7` from bank 7 pointer `$88DB` | validated-template |
 | `3` | Cemetery/marsh/woods exterior, day | `4/5` | `4:$9FE8` | inferred-template |
 | `4` | Mountain/ditch/bridge exterior, day | `6/7` | `4:$A070` | inferred-template |
 | `5` | Castlevania exterior, day | `8/9` | `4:$A0C5` | inferred-template |
@@ -123,6 +123,23 @@ the effective layout index:
 | Sadam Woods - Part 2 | `FD 06 00` | `0x06` |
 | Dora Woods - Part 2 | `FE 0D FF` | `0x0D` |
 
+## Dora Palette Fixture
+
+`out/states/dora-woods-part-2.mss` is a local Mesen save-state fixture for
+Dora Woods - Part 2. Capturing it with `npm run capture:dora-woods-part-2`
+shows the day background palette in PPU RAM as:
+
+```text
+0F 00 10 0A 0F 16 1C 06 0F 22 19 1C 0F 11 20 15
+```
+
+Those 16 bytes are present in PRG bank `4` at `$9FD7`, and bank `7:$88DB`
+points to that palette. Rendering the full Dora Woods - Part 2 layout with
+palette `4:$9FD7`, then cropping at the captured scroll position
+`x=144, y=48`, matches the emulator background render with `0` differing
+pixels. The earlier object-set fallback palette `4:$9FC6` is still valid for
+the Jova Woods fixture, but not for this Dora screen.
+
 ## Limits
 
 Atlas v0 is not yet the final map image.
@@ -130,8 +147,8 @@ Atlas v0 is not yet the final map image.
 - It does not place all segments into world topology coordinates.
 - It does not render night palettes yet.
 - Inferred templates need representative emulator validation.
-- Some palette choices are object-set fallbacks rather than fully decoded
-  per-location palette selection.
+- Most non-town palette choices are still object-set fallbacks; Dora Woods -
+  Part 2 is the first fixture-backed per-location override.
 - Mansion-door renders are still inferred and visibly wrong; they likely need a
   separate CHR/tile template investigation rather than only a palette change.
 
