@@ -128,8 +128,8 @@ the effective layout index:
 The palette milestone decoded the game path that queues background palette
 transfers:
 
-- fixed-bank routine `7:$C7FD` derives a palette index-list pointer from
-  runtime objset/area/submap context
+- fixed-bank routine `7:$C7CF`, called by `7:$C7FD`, derives a palette
+  index-list pointer from runtime objset/area/submap context
 - bank `2:$F7C5` points to one palette index table per objset
 - each area has day and night index-list pointers, four bytes per area
 - each submap entry is two bytes: a background transfer id and an auxiliary
@@ -139,7 +139,8 @@ transfers:
 
 The atlas manifest records this selector chain under
 `template.paletteSelector` for each candidate when the selected transfer stream
-starts with a raw background palette byte (`$0F`).
+starts with a raw background palette byte (`$0F`). Runtime context aliases come
+from committed fixture evidence in `data/runtime-context-fixtures.json`.
 
 Representative day fixtures:
 
@@ -150,8 +151,9 @@ Representative day fixtures:
 | Dabi's Path | `2:3:0` / `2:3:1` | `2:$A6EB` | `$26` | `4:$A00A` |
 
 Dora Woods - Part 2 is the first evidence that a `cv2r` layout candidate tuple
-can differ from the live runtime palette selector context. The renderer keeps
-that as a documented context alias, not as a hardcoded palette-byte override.
+can differ from the live runtime palette selector context. The renderer now
+keeps that as fixture-backed context evidence, not as a hardcoded palette-byte
+override.
 
 ## Dora Palette Fixture
 
@@ -168,7 +170,8 @@ path reaches it through runtime context `2:0:3`, transfer id `$23`, and bank
 `7:$88DB`. Rendering the full Dora Woods - Part 2 layout with palette
 `4:$9FD7`, then cropping at the captured scroll position
 `x=144, y=48`, matches the emulator background render with `0` differing
-pixels.
+pixels. CPU RAM provides the alias evidence: `$30=02`, `$50=00`, `$51=83`;
+the palette routine masks `$51 & $7F`, giving submap `3`.
 
 ## Dabi Palette Fixture
 
@@ -193,8 +196,9 @@ Atlas v0 is not yet the final map image.
 - It does not render night palettes yet, although the selector table already
   exposes day and night index-list pointers.
 - Inferred templates need representative emulator validation.
-- The palette mechanism is decoded, but the mapping from every `cv2r` layout
-  candidate to the live runtime selector context is not yet fully generalized.
+- The palette mechanism is decoded, and known aliases are now data-backed, but
+  the mapping from every `cv2r` layout candidate to the live runtime selector
+  context is not yet fully generalized.
 - Mansion-door renders are still inferred and visibly wrong; they likely need a
   separate CHR/tile template investigation rather than only a palette change.
 

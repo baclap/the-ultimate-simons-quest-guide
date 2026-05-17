@@ -18,6 +18,8 @@ The current vertical slice includes:
 - renders an exterior atlas of 55 town, route, mansion-door, mountain, and castle exterior candidates from ROM layout data
 - decodes layout headers as column-group by vertical-section grids and renders 13 multi-section atlas entries larger than one viewport row
 - decodes day background palette selection through the ROM's runtime selector table at `2:$F7C5` and transfer table at `7:$C895`
+- extracts live runtime context bytes from save-state captures and stores
+  fixture-backed palette context aliases in `data/runtime-context-fixtures.json`
 
 ## ROM Setup
 
@@ -43,6 +45,7 @@ npm run capture:dora-woods-part-2
 npm run capture:dabis-path
 npm run inspect:jova-background
 npm run inspect:jova-woods-background
+npm run inspect:runtime-contexts
 npm run render:jova-capture
 npm run render:jova-woods-capture
 npm run render:dora-woods-part-2-capture
@@ -68,6 +71,7 @@ node src/index.js verify-rom --rom "/path/to/Castlevania II - Simon's Quest (USA
 node src/index.js extract-chr --rom roms/cv2.nes --out out/chr --scale 1
 node src/index.js manifest --out out/manifest.json
 node src/index.js inspect-background-context --rom roms/cv2.nes --objset 0x02 --area 0 --submap 0
+node src/index.js inspect-runtime-context --capture out/captures/dora-woods-part-2-day
 node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --visible-page 0
 node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-day --state out/captures/jova-day/state.json --out out/decoder/jova-native-background.png
 node src/index.js render-region-png --rom roms/cv2.nes --region jova-to-veros-day --out out/regions/jova-to-veros-day.png
@@ -113,10 +117,12 @@ grids, so entries like Jova, Dora Woods - Part 2, and Castlevania render as
 full layout-space segments rather than first-row-only strips. Day background
 palettes are resolved from the ROM's runtime selector path where possible; the
 manifest records selector context, index-list pointer, transfer id, transfer
-pointer, and final palette address. See
-`docs/exterior-atlas-notes.md` for the inventory rules, confidence split,
-template assumptions, vertical grid coverage, and special screen-record
-handling.
+pointer, and final palette address. Runtime palette context aliases, such as
+Dora Woods - Part 2, are now sourced from committed fixture evidence rather
+than inline palette overrides. See `docs/exterior-atlas-notes.md` and
+`docs/runtime-context-mapping-notes.md` for the inventory rules, confidence
+split, template assumptions, vertical grid coverage, special screen-record
+handling, and runtime context evidence.
 
 The intended path is:
 

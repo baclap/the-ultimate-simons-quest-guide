@@ -14,6 +14,7 @@ const {
   renderLayoutSegment
 } = require('./layout-segments');
 const { writePng } = require('./png');
+const { paletteContextAliasesFromFixtures } = require('./runtime-context');
 
 const PATTERN_TABLE_CPU_ADDRESS = 0xb720;
 const OBJSET_PATTERN_OFFSET = 0x30;
@@ -22,15 +23,7 @@ const PALETTE_INDEX_POINTERS = 0xf7c5;
 const BANK_7_TRANSFER_POINTER_TABLE = 0x8895;
 const RAW_BACKGROUND_PALETTE_SENTINEL = 0x0f;
 
-const PALETTE_CONTEXT_ALIASES = {
-  '2:8:2': {
-    objset: 2,
-    area: 0,
-    submap: 3,
-    source: 'fixture-validated-runtime-palette-context',
-    note: 'Dora Woods - Part 2 is a cv2r layout candidate at 2:8:2, but its save-state RAM shows the live palette selector context as 2:0:3, yielding transfer id $23 and palette 4:$9FD7.'
-  }
-};
+const PALETTE_CONTEXT_ALIASES = paletteContextAliasesFromFixtures();
 
 const TEMPLATE_BY_OBJSET = {
   0: {
@@ -242,6 +235,9 @@ function paletteContextForLocation(loc) {
     area: alias.area,
     submap: alias.submap || 0,
     source: alias.source,
+    fixture: alias.fixture,
+    submapRaw: alias.submapRaw,
+    submapFlags: alias.submapFlags,
     note: alias.note,
     original: {
       objset: loc.objset,
@@ -290,6 +286,9 @@ function paletteFromRuntimeSelector(rom, info, loc, variant = 'day') {
         area: context.area,
         submap: context.submap,
         source: context.source,
+        fixture: context.fixture,
+        submapRaw: context.submapRaw,
+        submapFlags: context.submapFlags,
         original: context.original
       },
       paletteIndexPointersAddress: PALETTE_INDEX_POINTERS,
@@ -588,7 +587,8 @@ function buildExteriorAtlas(rom, info) {
       objsetPatternOffset: hex(OBJSET_PATTERN_OFFSET, 2),
       mapSizeByObjset: MAP_SIZE_BY_OBJSET,
       paletteIndexPointers: hex(PALETTE_INDEX_POINTERS, 4),
-      bank7TransferPointerTable: hex(BANK_7_TRANSFER_POINTER_TABLE, 4)
+      bank7TransferPointerTable: hex(BANK_7_TRANSFER_POINTER_TABLE, 4),
+      runtimeContextFixtures: 'data/runtime-context-fixtures.json'
     },
     templates: Object.values(TEMPLATE_BY_OBJSET).map(publicTemplate),
     candidates: locations

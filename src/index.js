@@ -21,6 +21,10 @@ const {
 } = require('./layout-segments');
 const { renderExteriorAtlas } = require('./exterior-atlas');
 const {
+  inspectRuntimeContextFixtures,
+  readCaptureRuntimeContext
+} = require('./runtime-context');
+const {
   applyPpuWritesToNametables,
   compareNametables,
   decodePpuTransferStream,
@@ -80,6 +84,8 @@ function usage() {
     '  node src/index.js decode-transfer --rom roms/cv2.nes --bank 4 --address 0x8000 --mirroring vertical --out out/transfer.bin',
     '  node src/index.js replay-ppu-buffer-trace --trace out/mesen-buffer-trace/ppu-buffer-writes.tsv --mirroring vertical --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/mesen-buffer-trace/replayed-nametables.bin',
     '  node src/index.js inspect-background-context --rom roms/cv2.nes --objset 0x02 --area 0 --submap 0',
+    '  node src/index.js inspect-runtime-context --capture out/captures/jova-woods-day',
+    '  node src/index.js inspect-runtime-context --fixtures data/runtime-context-fixtures.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-native-nametables.bin',
     '  node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-day --state out/captures/jova-day/state.json --compare-png out/captures/jova-day/background.png --out out/decoder/jova-native-background.png',
     '  node src/index.js render-region-png --rom roms/cv2.nes --region jova-to-veros-day --out out/regions/jova-to-veros-day.png',
@@ -100,6 +106,7 @@ function usage() {
     '  decode-transfer  Decode the fixed-bank PPU transfer stream used by routine $C6C0.',
     '  replay-ppu-buffer-trace  Replay traced $0700 NMI PPU buffer writes into nametable bytes.',
     '  inspect-background-context  Derive background table pointers from objset/area/submap.',
+    '  inspect-runtime-context  Extract live map context bytes from capture CPU RAM or committed fixture evidence.',
     '  render-background-native  Render a descriptor-backed ROM-native nametable checkpoint.',
     '  render-background-native-png  Render a descriptor-backed ROM-native background PNG.',
     '  render-region-png  Render a route-ordered ROM-native viewport catalog PNG.',
@@ -357,6 +364,33 @@ function inspectBackgroundContextCommand(args) {
       submap
     })
   });
+}
+
+function inspectRuntimeContextCommand(args) {
+  if (args.capture) {
+    const inspected = readCaptureRuntimeContext(String(args.capture));
+    printJson({
+      capture: inspected.capture,
+      cpu: inspected.cpu,
+      state: inspected.state && {
+        name: inspected.state.name,
+        location: inspected.state.location,
+        variant: inspected.state.variant,
+        access: inspected.state.access,
+        statePath: inspected.state.statePath
+      },
+      runtimeContext: inspected.publicRuntimeContext,
+      paletteBytes: inspected.paletteBytes
+    });
+    return;
+  }
+
+  if (args.fixtures) {
+    printJson(inspectRuntimeContextFixtures(String(args.fixtures)));
+    return;
+  }
+
+  printJson(inspectRuntimeContextFixtures());
 }
 
 function renderNativeBackgroundCommand(args, renderFn, defaultVisiblePage) {
@@ -624,6 +658,11 @@ function main() {
 
   if (command === 'inspect-background-context') {
     inspectBackgroundContextCommand(args);
+    return;
+  }
+
+  if (command === 'inspect-runtime-context') {
+    inspectRuntimeContextCommand(args);
     return;
   }
 

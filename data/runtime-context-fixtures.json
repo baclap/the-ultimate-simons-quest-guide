@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "memory": {
+    "objset": "0x0030",
+    "area": "0x0050",
+    "submapRaw": "0x0051",
+    "actorPointer": "0x003D/0x003E",
+    "tileSetPointer": "0x0063/0x0064"
+  },
+  "fixtures": [
+    {
+      "id": "jova-woods-day",
+      "label": "Jova Woods, day",
+      "capture": "out/captures/jova-woods-day",
+      "status": "validated-direct-context",
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "runtimeContext": {
+        "objset": "0x02",
+        "area": "0x00",
+        "submap": "0x00",
+        "submapRaw": "0x00",
+        "submapFlags": "0x00",
+        "actorPointer": "0x9FE4",
+        "tileSetPointer": "0x8CF4"
+      },
+      "note": "Baseline objset 2 fixture where the atlas context and live runtime palette context match directly."
+    },
+    {
+      "id": "dora-woods-part-2-day",
+      "label": "Dora Woods - Part 2, day",
+      "capture": "out/captures/dora-woods-part-2-day",
+      "status": "validated-palette-context-alias",
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x08",
+        "submap": "0x02"
+      },
+      "runtimeContext": {
+        "objset": "0x02",
+        "area": "0x00",
+        "submap": "0x03",
+        "submapRaw": "0x83",
+        "submapFlags": "0x80",
+        "actorPointer": "0xA04F",
+        "tileSetPointer": "0x8CF4"
+      },
+      "note": "The Dora layout candidate is 2:8:2, but Mesen CPU RAM has $30=02, $50=00, and $51=83. The palette selector masks $51 to submap 03 and resolves transfer $23 -> 4:$9FD7."
+    },
+    {
+      "id": "dabis-path-day",
+      "label": "Dabi's Path, day",
+      "capture": "out/captures/dabis-path-day",
+      "status": "validated-direct-context",
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x03",
+        "submap": "0x00"
+      },
+      "runtimeContext": {
+        "objset": "0x02",
+        "area": "0x03",
+        "submap": "0x00",
+        "submapRaw": "0x00",
+        "submapFlags": "0x00",
+        "actorPointer": "0xA66F",
+        "tileSetPointer": "0x8CF4"
+      },
+      "note": "Dabi validates the decoded palette selector without an alias: runtime 2:3:0 resolves transfer $26 -> 4:$A00A."
+    }
+  ]
+}

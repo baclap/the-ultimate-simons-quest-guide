@@ -28,7 +28,8 @@ Save states used as local capture starting points live under `out/states/`. They
 - `ppu-3f00-3f1f-palettes.bin`: 32 bytes of PPU palette RAM.
 - `oam-0000-00ff-sprites.bin`: 256 bytes of NES primary sprite/OAM RAM.
 - `cpu-0000-07ff.bin`: 2 KB internal CPU RAM.
-- `state.json`: capture timing, ROM identity, screen size, and selected PPU state.
+- `state.json`: capture timing, ROM identity, screen size, selected PPU state,
+  and live runtime context bytes.
 
 Derived renderer outputs:
 
@@ -59,6 +60,13 @@ Important fields in `state.json`:
 - `ppuLargeSprites`: whether sprites are 8x16 instead of 8x8.
 - `ppuSpritesEnabled`: whether sprite rendering is enabled in PPUMASK.
 - `ppuSpriteRamAddr`: current OAM address.
+- `runtimeObjset`: live `$30` value used by the runtime palette selector.
+- `runtimeArea`: live `$50` value used by the runtime palette selector.
+- `runtimeSubmapRaw`: live `$51` value before flag masking.
+- `runtimeSubmap`: `runtimeSubmapRaw & 0x7F`.
+- `runtimeSubmapFlags`: `runtimeSubmapRaw & 0x80`.
+- `runtimeActorPointer`: live `$3D/$3E` actor-list pointer.
+- `runtimeTileSetPointer`: live `$63/$64` tile-set pointer.
 
 ## Current Result
 
@@ -99,6 +107,7 @@ PPU background palette: 0F 00 10 0A 0F 16 1C 06 0F 22 19 1C 0F 11 20 15
 ROM source: transfer id $23, bank 7:$88DB -> PRG bank 4:$9FD7
 Runtime selector context: 2:0:3, used for cv2r layout candidate 2:8:2
 layout crop vs captured background: 0 differing pixels at x=144, y=48
+CPU RAM evidence: $30=02, $50=00, $51=83
 ```
 
 The Dabi's Path save-state fixture validates the same selector path without a
@@ -110,6 +119,14 @@ npm run render:dabis-path-capture
 PPU background palette: 0F 00 23 03 0F 1C 04 0C 0F 01 11 05 0F 01 20 05
 ROM source: transfer id $26, bank 7:$88E1 -> PRG bank 4:$A00A
 Runtime selector context: 2:3:0
+CPU RAM evidence: $30=02, $50=03, $51=00
+```
+
+Use the runtime-context inspector to read these bytes from an existing capture:
+
+```text
+npm run inspect:runtime-contexts
+node src/index.js inspect-runtime-context --capture out/captures/dora-woods-part-2-day
 ```
 
 ## Next Work

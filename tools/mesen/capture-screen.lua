@@ -203,6 +203,13 @@ emu.addEventCallback(function()
   local ppu_video_ram_addr = full_state["ppu.videoRamAddr"] or 0
   local ppu_tmp_video_ram_addr = full_state["ppu.tmpVideoRamAddr"] or 0
   local ppu_bg_pattern_addr = full_state["ppu.control.backgroundPatternAddr"] or 0
+  local runtime_objset = emu.read(0x0030, emu.memType.nesDebug) or 0
+  local runtime_area = emu.read(0x0050, emu.memType.nesDebug) or 0
+  local runtime_submap_raw = emu.read(0x0051, emu.memType.nesDebug) or 0
+  local runtime_actor_pointer = (emu.read(0x003D, emu.memType.nesDebug) or 0) |
+    ((emu.read(0x003E, emu.memType.nesDebug) or 0) << 8)
+  local runtime_tile_set_pointer = (emu.read(0x0063, emu.memType.nesDebug) or 0) |
+    ((emu.read(0x0064, emu.memType.nesDebug) or 0) << 8)
 
   write_file(out_dir .. "/screenshot.png", screenshot)
   dump_memory(out_dir .. "/cpu-0000-07ff.bin", 0x0000, 0x0800, emu.memType.nesDebug)
@@ -212,7 +219,7 @@ emu.addEventCallback(function()
   dump_memory(out_dir .. "/oam-0000-00ff-sprites.bin", 0x0000, 0x100, emu.memType.nesSpriteRam)
 
   write_file(out_dir .. "/state.json", string.format(
-    '{"name":"%s","location":"%s","variant":"%s","access":"%s","frames":%d,"pressStartAt":%d,"pressStartFrames":%d,"startPresses":"%s","inputs":"%s","statePath":"%s","stateLoadedFrame":%d,"settleFrames":%d,"captureFrame":%d,"romName":"%s","romPath":"%s","screenWidth":%d,"screenHeight":%d,"cpu2000":%d,"cpu2001":%d,"cpu2002":%d,"ppuPalette0":%d,"ppuNametable0":%d,"ppuXScroll":%d,"ppuVideoRamAddr":%d,"ppuTmpVideoRamAddr":%d,"ppuBackgroundPatternAddr":%d,"ppuSpritePatternAddr":%d,"ppuLargeSprites":%s,"ppuSpritesEnabled":%s,"ppuSpriteMask":%s,"ppuSpriteRamAddr":%d}\n',
+    '{"name":"%s","location":"%s","variant":"%s","access":"%s","frames":%d,"pressStartAt":%d,"pressStartFrames":%d,"startPresses":"%s","inputs":"%s","statePath":"%s","stateLoadedFrame":%d,"settleFrames":%d,"captureFrame":%d,"romName":"%s","romPath":"%s","screenWidth":%d,"screenHeight":%d,"cpu2000":%d,"cpu2001":%d,"cpu2002":%d,"ppuPalette0":%d,"ppuNametable0":%d,"ppuXScroll":%d,"ppuVideoRamAddr":%d,"ppuTmpVideoRamAddr":%d,"ppuBackgroundPatternAddr":%d,"ppuSpritePatternAddr":%d,"ppuLargeSprites":%s,"ppuSpritesEnabled":%s,"ppuSpriteMask":%s,"ppuSpriteRamAddr":%d,"runtimeObjset":%d,"runtimeArea":%d,"runtimeSubmapRaw":%d,"runtimeSubmap":%d,"runtimeSubmapFlags":%d,"runtimeActorPointer":%d,"runtimeTileSetPointer":%d}\n',
     json_escape(capture_name),
     json_escape(capture_location),
     json_escape(capture_variant),
@@ -243,7 +250,14 @@ emu.addEventCallback(function()
     tostring(full_state["ppu.control.largeSprites"] or false),
     tostring(full_state["ppu.mask.spritesEnabled"] or false),
     tostring(full_state["ppu.mask.spriteMask"] or false),
-    full_state["ppu.spriteRamAddr"] or 0
+    full_state["ppu.spriteRamAddr"] or 0,
+    runtime_objset,
+    runtime_area,
+    runtime_submap_raw,
+    runtime_submap_raw & 0x7F,
+    runtime_submap_raw & 0x80,
+    runtime_actor_pointer,
+    runtime_tile_set_pointer
   ))
 
   emu.stop(0)

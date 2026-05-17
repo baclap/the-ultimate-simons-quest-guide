@@ -9,6 +9,9 @@ Current files:
 - `background-descriptors.json`: committed ROM-native background descriptors for validated checkpoints. See `docs/background-descriptor-schema.md`.
 - `regions.json`: committed regional route descriptors that organize validated and inferred viewport renders. See `docs/regional-renderer-notes.md`.
 - `layout-segments.json`: committed continuous layout-space segment and route descriptors that render larger-than-viewport map slices from ROM layout pointers.
+- `runtime-context-fixtures.json`: committed save-state-derived evidence for
+  live `$30/$50/$51` runtime context bytes, including the Dora palette-context
+  alias. See `docs/runtime-context-mapping-notes.md`.
 
 The exterior atlas is generated from `cv2r` metadata plus ROM table reads rather
 than maintained as a hand-authored `data/` JSON file. Run

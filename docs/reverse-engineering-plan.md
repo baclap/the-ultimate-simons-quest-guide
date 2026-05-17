@@ -24,6 +24,8 @@ The repository now has a zero-dependency Node CLI that can:
 - validate Dora Woods - Part 2 against a Mesen save-state fixture and render it with its ROM palette at `4:$9FD7`
 - decode the runtime background palette selector path through bank `2:$F7C5` and fixed-bank transfer table `7:$C895`
 - validate Dabi's Path through that selector path, resolving transfer id `$26` to palette `4:$A00A`
+- extract live runtime context bytes from save-state captures and store durable
+  fixture evidence in `data/runtime-context-fixtures.json`
 
 Generated output is intentionally ignored by git:
 
@@ -39,6 +41,7 @@ The local ROM copy is also ignored:
 Committed reference data is intentionally tracked:
 
 - `data/background-descriptors.json`
+- `data/runtime-context-fixtures.json`
 
 ## Findings
 
@@ -65,7 +68,10 @@ Committed reference data is intentionally tracked:
 - Special exterior screen-record markers `FD`/`FE` are now preserved in metadata and decoded by using byte `1` as the effective layout index for the current five known exterior cases.
 - Layout header byte `0` is the horizontal column-group count and byte `1` is the vertical section count. The atlas now renders all sections for 13 multi-section layouts, including Jova `4x2`, Dora Woods - Part 2 `2x2`, Dabi's Path - Part 1 `2x2`, and Castlevania `4x4`.
 - Day background palettes are now resolved from the ROM's runtime selector path where the selected transfer stream is raw palette data. The manifest records the palette index table, transfer id, transfer pointer, and final palette address.
-- Dora Woods - Part 2 exposes an important context-alias gap: its `cv2r` layout candidate is `2:8:2`, but the validated live palette selector context is `2:0:3`.
+- Dora Woods - Part 2 exposes an important context-alias gap: its `cv2r` layout candidate is `2:8:2`, but the validated live palette selector context is `2:0:3`. CPU RAM confirms this through `$30=02`, `$50=00`, `$51=83`.
+- Runtime context bytes are now tracked as `$30` object set, `$50` area, and
+  `$51` raw submap/flags. The renderer consumes fixture-backed aliases from
+  `data/runtime-context-fixtures.json`.
 - These verified checkpoints are now stored as reusable descriptors in `data/background-descriptors.json`.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
 
@@ -105,6 +111,8 @@ Work items:
 5. Generalize runtime palette contexts.
    - The selector mechanism is decoded, but aliases like Dora show that every
      `cv2r` layout tuple is not always the runtime palette tuple.
+   - Decode the transition parser around fixed-bank `7:$D0B0`, which writes
+     `$30/$50/$51` from route transition table bytes.
    - Preserve day and night palette variants as first-class render options.
    - Add representative save states to prove the remaining alias cases.
 
