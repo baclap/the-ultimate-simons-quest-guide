@@ -13,6 +13,7 @@ The repository now has a zero-dependency Node CLI that can:
 - reconstruct a captured screen from PPU/OAM artifacts
 - decode the fixed `$C6C0` PPU transfer stream format
 - replay traced `$0700-$07FF` NMI PPU buffer updates into nametable bytes
+- derive background layout/tile pointers from `objset`, `area`, and `submap`
 - render descriptor-backed ROM-native Jova town and Jova Woods nametable checkpoints from PRG bank `2` layout data and PRG bank `4` tile data
 
 Generated output is intentionally ignored by git:
@@ -45,7 +46,8 @@ Committed reference data is intentionally tracked:
 - The stable Jova block layout comes from PRG bank `2:$8497`; tile definitions come from PRG bank `4:$8461`; attributes come from PRG bank `4:$841E`.
 - The first ROM-native Jova checkpoint reproduces captured nametable page 0 and its mirror exactly. Rows `0-3` and `28-29` now come from the traced row-streaming algorithm instead of a hard-coded edge-tile descriptor.
 - The Jova right-side checkpoint reproduces captured nametable page 1 and its mirror exactly using the same row-streaming logic with column group `3`.
-- The Jova Woods save-state fixture reproduces captured nametable page 0 and its mirror exactly from direct layout `2:$A111` and tile set `4:$8CF4`.
+- The common background pointer path now derives layout headers and tile sets from `objset`, `area`, and `submap`.
+- The Jova Woods save-state fixture reproduces captured nametable page 0 and its mirror exactly from screen record `2:$A1A0`, layout header `2:$A23E`, visible layout `2:$A4DA`, and tile set `4:$8CF4`.
 - These verified checkpoints are now stored as reusable descriptors in `data/background-descriptors.json`.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
 
@@ -67,10 +69,10 @@ Work items:
    - Store runtime context, ROM addresses, page selection, palette mode, and validation captures in `data/background-descriptors.json`.
    - Keep docs close enough to the data that a future renderer can use the discoveries without replaying the same traces.
 
-2. Locate the common pointer-table path.
-   - Start from `objset`, `area`, `submap`, actor pointers, and palette patch offsets.
-   - Trace the loader routine that turns runtime context into layout header/direct layout, tile set, CHR banks, and palette choice.
-   - Use Jova town and Jova Woods as known-good endpoints for the table search.
+2. Expand descriptor derivation from decoded background pointer tables.
+   - Use `inspect-background-context` to derive layout headers and tile-set pointers for more `out/manifest.json` locations.
+   - Identify the remaining descriptor fields not fully encoded yet: dimensions, page selection, row streaming, CHR-bank choice, and palette mode.
+   - Use Jova town and Jova Woods as known-good endpoints while expanding the decoder.
 
 3. Expand descriptor coverage.
    - Add representative save-state fixtures for additional towns, roads, mansions, and interiors.

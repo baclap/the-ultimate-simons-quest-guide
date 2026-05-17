@@ -29,7 +29,7 @@ Required fields for `renderer: "native-background-v1"`:
 - `location`, `variant`, `access`: map/catalog metadata
 - `paletteMode`: currently `day`; future values should include `night` and fixed interior modes
 - `runtimeContext`: observed RAM state used to tie the descriptor back to the game
-- `layoutBank`: PRG bank containing block layout bytes
+- `layoutBank`: PRG bank containing block layout bytes and switchable layout-header tables
 - `tileBank`: PRG bank containing tile/metatile bytes and block attribute bytes
 - `tileSetAddress`: CPU address of the tile-set pointer table in `tileBank`
 - `widthBlocks`, `heightBlocks`: block grid dimensions rendered into the nametable
@@ -38,7 +38,8 @@ Required fields for `renderer: "native-background-v1"`:
 
 Optional fields:
 
-- `layoutHeaderAddress`: fixed-bank pointer table header used to resolve layouts
+- `layoutHeaderAddress`: pointer table header used to resolve layouts
+- `layoutHeaderBank`: PRG bank for `layoutHeaderAddress` when that header is below `$C000`
 - `rowsPerLayoutSection`: row-stream section height, currently `7` for Jova town
 - `validation`: known capture comparisons for this descriptor
 
@@ -51,8 +52,8 @@ Each page describes one nametable page:
 
 - `name`: stable page name
 - `page`: nametable page number, `0` through `3`
-- `layoutAddress`: direct layout CPU address, used by Jova Woods
-- `layoutSection` and `columnGroup`: inputs to `layoutHeaderAddress`, used by Jova town
+- `layoutAddress`: direct layout CPU address, used only when bypassing a layout header
+- `layoutSection` and `columnGroup`: inputs to `layoutHeaderAddress`
 - `expectedLayoutAddress`: optional guard that verifies pointer-table decoding
 - `rowStream`: optional streamed row patch used for wrapped top/bottom rows
 
@@ -67,7 +68,7 @@ Each page describes one nametable page:
 ## Current Descriptors
 
 - `jova-day`: Jova town day fixture. Covers page `0` for the starting screen and page `1` for the right-side screen. It uses fixed-bank layout header `$FA86`, PRG bank `2` layouts, and PRG bank `4:$841D` tile-set data.
-- `jova-woods-day`: Jova Woods day fixture from the local save state. It uses direct layout `2:$A111` and PRG bank `4:$8CF4` tile-set data.
+- `jova-woods-day`: Jova Woods day fixture from the local save state. It uses bank `2:$A23E` as the layout header, which resolves the visible page to layout `2:$A4DA`, and PRG bank `4:$8CF4` tile-set data.
 
 Both descriptors currently validate exact visible-page nametable parity against
 Mesen captures through `npm run render:jova-native`,

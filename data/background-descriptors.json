@@ -83,6 +83,8 @@
         "chrBanks": ["0x02", "0x03"],
         "actorPointer": "0x9FE4"
       },
+      "layoutHeaderAddress": "0xA23E",
+      "layoutHeaderBank": 2,
       "layoutBank": 2,
       "tileBank": 4,
       "tileSetAddress": "0x8CF4",
@@ -93,7 +95,9 @@
         {
           "name": "jova-woods-visible",
           "page": 0,
-          "layoutAddress": "0xA111"
+          "layoutSection": 0,
+          "columnGroup": 0,
+          "expectedLayoutAddress": "0xA4DA"
         }
       ],
       "validation": [

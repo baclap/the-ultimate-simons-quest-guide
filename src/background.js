@@ -246,20 +246,22 @@ function copyNametablePage(nametables, sourcePage, targetPage) {
 }
 
 function readNativeLayoutPointer(rom, info, descriptor, section, columnGroup) {
-  const pointersPerSection = readPrgByte(rom, info, descriptor.layoutHeaderAddress);
+  const readOpts = descriptor.layoutHeaderBank == null ? {} : { bank: descriptor.layoutHeaderBank };
+  const pointersPerSection = readPrgByte(rom, info, descriptor.layoutHeaderAddress, readOpts);
   const pointerIndex = section * pointersPerSection + columnGroup;
-  return readPrgWord(rom, info, descriptor.layoutHeaderAddress + 2 + pointerIndex * 2);
+  return readPrgWord(rom, info, descriptor.layoutHeaderAddress + 2 + pointerIndex * 2, readOpts);
 }
 
 function nativeLayoutPointerInfo(rom, info, descriptor, section, columnGroup) {
-  const pointersPerSection = readPrgByte(rom, info, descriptor.layoutHeaderAddress);
+  const readOpts = descriptor.layoutHeaderBank == null ? {} : { bank: descriptor.layoutHeaderBank };
+  const pointersPerSection = readPrgByte(rom, info, descriptor.layoutHeaderAddress, readOpts);
   const pointerIndex = section * pointersPerSection + columnGroup;
   const pointerAddress = descriptor.layoutHeaderAddress + 2 + pointerIndex * 2;
   return {
     pointersPerSection,
     pointerIndex,
     pointerAddress,
-    layoutAddress: readPrgWord(rom, info, pointerAddress)
+    layoutAddress: readPrgWord(rom, info, pointerAddress, readOpts)
   };
 }
 
@@ -465,6 +467,7 @@ function renderNativeBackgroundNametables(rom, info, opts = {}) {
       renderer: descriptor.renderer,
       runtimeContext: descriptor.runtimeContext,
       layoutHeaderAddress: descriptor.layoutHeaderAddress == null ? undefined : `0x${toHex(descriptor.layoutHeaderAddress)}`,
+      layoutHeaderBank: descriptor.layoutHeaderBank,
       layoutBank: descriptor.layoutBank,
       tileBank: descriptor.tileBank,
       tileSetAddress: `0x${toHex(descriptor.tileSetAddress)}`,

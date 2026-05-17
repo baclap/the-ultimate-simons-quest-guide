@@ -119,6 +119,35 @@ Those routines use data from multiple switchable banks:
 
 The trace replay now gives an exact page-0 oracle for the ROM-native decoder work.
 
+## Background Context Table Path
+
+`node src/index.js inspect-background-context` derives the main descriptor
+pointers from runtime context:
+
+```sh
+node src/index.js inspect-background-context --rom roms/cv2.nes --objset 0x02 --area 0 --submap 0
+```
+
+The current table path is:
+
+- fixed table `$F7AB + objset * 2` -> area-table pointer
+- area table entry `area * 2` -> area/submap record pointer
+- area/submap record entry `$09 + submap * 2` -> screen record pointer
+- screen record byte `0` -> layout index
+- fixed table `$F7FB + objset * 2` -> layout-header table pointer
+- layout-header table entry `layoutIndex * 4` -> primary and secondary layout headers
+- fixed table `$F7D1 + objset * 4` -> tile-set pointer and an auxiliary pointer
+
+Switchable addresses in these tables are read from PRG bank `2`. Tile/metatile
+definitions and block attribute bytes currently come from PRG bank `4`.
+
+Known outputs:
+
+```text
+Jova:       objset 0, area 0, submap 0 -> screen $FA3A, layout header $FA86, tile set $841D
+Jova Woods: objset 2, area 0, submap 0 -> screen $A1A0, layout header 2:$A23E, tile set $8CF4
+```
+
 ## Jova Native Decoder Checkpoint
 
 `npm run render:jova-native` renders the first descriptor-backed ROM-native checkpoint:
@@ -217,14 +246,17 @@ The capture identifies this runtime context:
 npm run render:jova-woods-native
 ```
 
-The `jova-woods-day` descriptor reads the visible Jova Woods background from these ROM addresses:
+The `jova-woods-day` descriptor now follows the table-derived layout header
+path. It reads the visible Jova Woods background from these ROM addresses:
 
-- layout data: PRG bank `2` at `$A111`
+- layout header: PRG bank `2` at `$A23E`
+- first layout pointer: PRG bank `2` at `$A240-$A241`, resolving to `$A4DA`
+- layout data: PRG bank `2` at `$A4DA`
 - tile set pointer: PRG bank `4` at `$8CF4`
 - tile data base: `$8CF4 + $46 = $8D3A`
 - attribute table: PRG bank `4` at `$8CF5`
 
-The visible 8x7 block layout at bank `2:$A111` is:
+The visible 8x7 block layout at bank `2:$A4DA` is:
 
 ```text
 00 41 00 41 00 41 00 41

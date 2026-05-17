@@ -4,6 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 const { readRom, describeRom } = require('./ines');
+const { deriveBackgroundContext } = require('./background-context');
 const { renderChrBanks } = require('./chr');
 const { loadBackgroundDescriptor } = require('./descriptors');
 const { buildManifest, writeManifest } = require('./manifest');
@@ -68,6 +69,7 @@ function usage() {
     '  node src/index.js render-ppu-capture --capture out/captures/jova-day --out out/captures/jova-day/background.png',
     '  node src/index.js decode-transfer --rom roms/cv2.nes --bank 4 --address 0x8000 --mirroring vertical --out out/transfer.bin',
     '  node src/index.js replay-ppu-buffer-trace --trace out/mesen-buffer-trace/ppu-buffer-writes.tsv --mirroring vertical --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/mesen-buffer-trace/replayed-nametables.bin',
+    '  node src/index.js inspect-background-context --rom roms/cv2.nes --objset 0x02 --area 0 --submap 0',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-native-nametables.bin',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --descriptor-file data/background-descriptors.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
@@ -82,6 +84,7 @@ function usage() {
     '  render-ppu-capture  Render background PNG from captured PPU artifacts.',
     '  decode-transfer  Decode the fixed-bank PPU transfer stream used by routine $C6C0.',
     '  replay-ppu-buffer-trace  Replay traced $0700 NMI PPU buffer writes into nametable bytes.',
+    '  inspect-background-context  Derive background table pointers from objset/area/submap.',
     '  render-background-native  Render a descriptor-backed ROM-native nametable checkpoint.',
     '  render-jova-native  Alias for render-background-native --descriptor jova-day.',
     '  render-jova-woods-native  Alias for render-background-native --descriptor jova-woods-day.'
@@ -113,6 +116,14 @@ function integerOption(args, name, fallback) {
     : Number.parseInt(value, 10);
   if (!Number.isFinite(parsed)) {
     throw new Error(`--${name} must be an integer`);
+  }
+  return parsed;
+}
+
+function requiredIntegerOption(args, name) {
+  const parsed = integerOption(args, name, undefined);
+  if (!Number.isInteger(parsed)) {
+    throw new Error(`missing required --${name}`);
   }
   return parsed;
 }
@@ -312,6 +323,22 @@ function replayPpuBufferTraceCommand(args) {
   printJson(result);
 }
 
+function inspectBackgroundContextCommand(args) {
+  const romPath = required(args, 'rom');
+  const objset = requiredIntegerOption(args, 'objset');
+  const area = requiredIntegerOption(args, 'area');
+  const submap = integerOption(args, 'submap', 0);
+  const { buffer, info } = readRom(romPath);
+  printJson({
+    rom: describeRom(info),
+    backgroundContext: deriveBackgroundContext(buffer, info, {
+      objset,
+      area,
+      submap
+    })
+  });
+}
+
 function renderNativeBackgroundCommand(args, renderFn, defaultVisiblePage) {
   const romPath = required(args, 'rom');
   const visiblePage = integerOption(args, 'visible-page', defaultVisiblePage);
@@ -424,6 +451,11 @@ function main() {
 
   if (command === 'replay-ppu-buffer-trace') {
     replayPpuBufferTraceCommand(args);
+    return;
+  }
+
+  if (command === 'inspect-background-context') {
+    inspectBackgroundContextCommand(args);
     return;
   }
 

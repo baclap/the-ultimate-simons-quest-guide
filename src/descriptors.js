@@ -109,6 +109,7 @@ function normalizeBackgroundDescriptor(raw) {
     name: raw.name || raw.id,
     runtimeContext: normalizeRuntimeContext(raw.runtimeContext),
     layoutHeaderAddress: parseInteger(raw.layoutHeaderAddress, 'layoutHeaderAddress'),
+    layoutHeaderBank: parseInteger(raw.layoutHeaderBank, 'layoutHeaderBank'),
     layoutBank: requiredInteger(raw.layoutBank, 'layoutBank'),
     tileBank: requiredInteger(raw.tileBank, 'tileBank'),
     tileSetAddress: requiredInteger(raw.tileSetAddress, 'tileSetAddress'),
