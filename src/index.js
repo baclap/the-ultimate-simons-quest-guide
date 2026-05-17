@@ -9,7 +9,9 @@ const { renderChrBanks } = require('./chr');
 const { loadBackgroundDescriptor } = require('./descriptors');
 const { buildManifest, writeManifest } = require('./manifest');
 const { runMesenCapture } = require('./mesen');
-const { renderPpuCapture } = require('./ppu');
+const { diffImages, renderPpuCapture } = require('./ppu');
+const { readPng, writePng } = require('./png');
+const { renderNativeBackgroundImage } = require('./native-image');
 const {
   applyPpuWritesToNametables,
   compareNametables,
@@ -71,6 +73,7 @@ function usage() {
     '  node src/index.js replay-ppu-buffer-trace --trace out/mesen-buffer-trace/ppu-buffer-writes.tsv --mirroring vertical --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/mesen-buffer-trace/replayed-nametables.bin',
     '  node src/index.js inspect-background-context --rom roms/cv2.nes --objset 0x02 --area 0 --submap 0',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-native-nametables.bin',
+    '  node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-day --state out/captures/jova-day/state.json --compare-png out/captures/jova-day/background.png --out out/decoder/jova-native-background.png',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --descriptor-file data/background-descriptors.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
     '',
@@ -86,6 +89,7 @@ function usage() {
     '  replay-ppu-buffer-trace  Replay traced $0700 NMI PPU buffer writes into nametable bytes.',
     '  inspect-background-context  Derive background table pointers from objset/area/submap.',
     '  render-background-native  Render a descriptor-backed ROM-native nametable checkpoint.',
+    '  render-background-native-png  Render a descriptor-backed ROM-native background PNG.',
     '  render-jova-native  Alias for render-background-native --descriptor jova-day.',
     '  render-jova-woods-native  Alias for render-background-native --descriptor jova-woods-day.'
   ].join('\n');
@@ -392,6 +396,63 @@ function renderBackgroundDescriptorCommand(args) {
   }), defaultVisiblePage);
 }
 
+function renderBackgroundDescriptorPngCommand(args) {
+  const romPath = required(args, 'rom');
+  const descriptorId = required(args, 'descriptor');
+  const descriptor = loadBackgroundDescriptor(descriptorId, {
+    filePath: args['descriptor-file'] ? String(args['descriptor-file']) : undefined
+  });
+  const visiblePage = integerOption(
+    args,
+    'visible-page',
+    descriptor.defaultVisiblePage ?? descriptor.validation?.[0]?.visiblePage ?? descriptor.pages[0]?.page ?? 0
+  );
+  const output = args.out
+    ? path.resolve(String(args.out))
+    : path.resolve(path.join('out', 'decoder', `${descriptor.id}-native-background.png`));
+  const { buffer, info } = readRom(romPath);
+  const rendered = renderNativeBackgroundImage(buffer, info, {
+    descriptor,
+    visiblePage,
+    statePath: args.state ? String(args.state) : undefined,
+    mirroring: args.mirroring ? String(args.mirroring) : undefined,
+    scrollX: integerOption(args, 'scroll-x', undefined),
+    scrollY: integerOption(args, 'scroll-y', undefined),
+    nametableIndex: integerOption(args, 'nametable-index', undefined),
+    bgPatternBase: integerOption(args, 'bg-pattern-base', undefined)
+  });
+  writePng(output, rendered.width, rendered.height, rendered.rgba);
+
+  const result = {
+    rom: describeRom(info),
+    renderer: descriptor.id,
+    output,
+    width: rendered.width,
+    height: rendered.height,
+    metadata: rendered.metadata
+  };
+
+  if (args['compare-png']) {
+    const expectedPath = path.resolve(String(args['compare-png']));
+    const expected = readPng(expectedPath);
+    const diff = diffImages(expected, rendered);
+    const diffPath = args['diff-out']
+      ? path.resolve(String(args['diff-out']))
+      : path.join(path.dirname(output), `${path.basename(output, path.extname(output))}.diff.png`);
+    writePng(diffPath, diff.width, diff.height, diff.rgba);
+    result.comparePng = {
+      expected: expectedPath,
+      output: diffPath,
+      differingPixels: diff.differingPixels,
+      totalPixels: diff.totalPixels,
+      differenceRatio: diff.differenceRatio,
+      exact: diff.differingPixels === 0
+    };
+  }
+
+  printJson(result);
+}
+
 function renderJovaNativeCommand(args) {
   renderNativeBackgroundCommand(args, renderJovaNativeNametables, 0);
 }
@@ -461,6 +522,11 @@ function main() {
 
   if (command === 'render-background-native') {
     renderBackgroundDescriptorCommand(args);
+    return;
+  }
+
+  if (command === 'render-background-native-png') {
+    renderBackgroundDescriptorPngCommand(args);
     return;
   }
 

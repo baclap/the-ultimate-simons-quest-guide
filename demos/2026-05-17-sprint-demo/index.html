@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Castlevania II Map Renderer Sprint Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="deckbar">
+    <a class="brand" href="#slide-1">Castlevania II Map Renderer</a>
+    <div class="counter"><span id="slide-number">1</span>/<span id="slide-total">7</span></div>
+  </header>
+
+  <main id="deck" class="deck">
+    <section class="slide title-slide" id="slide-1" data-title="Status">
+      <div class="content title-layout">
+        <div>
+          <p class="eyebrow">Sprint demo</p>
+          <h1>ROM-native backgrounds are now visible</h1>
+          <p class="lede">The project can render validated Simon's Quest background screens from the ROM's PRG, CHR, and palette data.</p>
+        </div>
+        <div class="screen-stack" aria-label="ROM-native render examples">
+          <img src="assets/rom-native/jova-town-left.png" alt="ROM-native Jova town left background">
+          <img src="assets/rom-native/jova-town-right.png" alt="ROM-native Jova town right background">
+          <img src="assets/rom-native/jova-woods.png" alt="ROM-native Jova Woods background">
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-2" data-title="Goal">
+      <div class="content two-column">
+        <div>
+          <p class="eyebrow">Project goal</p>
+          <h2>A pixel-perfect full-game map generated from the game artifact</h2>
+          <p>The target is not a collage of emulator screenshots. The target is a renderer that understands the ROM well enough to draw the world, variants, and overlays directly.</p>
+        </div>
+        <div class="callout-list">
+          <div><strong>Source</strong><span>NES ROM bytes, plus reverse-engineered metadata.</span></div>
+          <div><strong>Output</strong><span>PNG maps first, reusable data for canvas or web renderers later.</span></div>
+          <div><strong>Validation</strong><span>Representative emulator captures prove the decoder, without requiring exhaustive traversal.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-3" data-title="Pipeline">
+      <div class="content">
+        <p class="eyebrow">Current vertical slice</p>
+        <h2>ROM bytes now flow into a real background image</h2>
+        <div class="pipeline" aria-label="Current rendering pipeline">
+          <div><span>ROM</span><small>iNES, PRG, CHR</small></div>
+          <div><span>Context</span><small>objset, area, submap</small></div>
+          <div><span>Tables</span><small>layout and tile pointers</small></div>
+          <div><span>Nametable</span><small>tiles and attributes</small></div>
+          <div><span>PNG</span><small>CHR plus palette</small></div>
+        </div>
+        <div class="evidence-row">
+          <figure>
+            <img src="assets/chr/chr-bank-00.png" alt="Extracted CHR bank 00 tile sheet">
+            <figcaption>CHR bank 00, extracted from ROM</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/chr/chr-bank-01.png" alt="Extracted CHR bank 01 tile sheet">
+            <figcaption>CHR bank 01, extracted from ROM</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/chr/chr-bank-02.png" alt="Extracted CHR bank 02 tile sheet">
+            <figcaption>CHR bank 02, extracted from ROM</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-4" data-title="Town">
+      <div class="content">
+        <p class="eyebrow">ROM-native output</p>
+        <h2>Jova town renders as two validated neighboring screens</h2>
+        <div class="wide-gallery">
+          <figure>
+            <img src="assets/rom-native/jova-town-left.png" alt="ROM-native Jova town left screen">
+            <figcaption>Jova town, left viewport</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/rom-native/jova-town-right.png" alt="ROM-native Jova town right screen">
+            <figcaption>Jova town, right viewport</figcaption>
+          </figure>
+        </div>
+        <p class="note">These images come from native descriptor rendering plus ROM CHR and ROM background palette bytes.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-5" data-title="Overworld">
+      <div class="content two-column">
+        <div>
+          <p class="eyebrow">Second screen family</p>
+          <h2>Jova Woods proves the path generalizes beyond the starting town</h2>
+          <p>The table-derived background path resolves Jova Woods through screen record <code>2:$A1A0</code>, layout header <code>2:$A23E</code>, visible layout <code>2:$A4DA</code>, and tile set <code>4:$8CF4</code>.</p>
+        </div>
+        <figure class="hero-figure">
+          <img src="assets/rom-native/jova-woods.png" alt="ROM-native Jova Woods background">
+          <figcaption>Jova Woods, ROM-native background</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-6" data-title="Validation">
+      <div class="content">
+        <p class="eyebrow">Validation results</p>
+        <h2>Representative screens round-trip exactly</h2>
+        <div class="metrics">
+          <div><strong>0</strong><span>Jova left differing pixels</span></div>
+          <div><strong>0</strong><span>Jova right differing pixels</span></div>
+          <div><strong>0</strong><span>Jova Woods differing pixels</span></div>
+        </div>
+        <div class="validation-grid">
+          <div><strong>Background bytes</strong><span>Native nametable pages match the visible emulator-captured pages exactly.</span></div>
+          <div><strong>Background PNGs</strong><span>ROM-native PNGs match PPU-background reconstructions exactly.</span></div>
+          <div><strong>Calibration role</strong><span>Mesen remains a proof oracle, not the source of every final map tile.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-7" data-title="Next">
+      <div class="content two-column">
+        <div>
+          <p class="eyebrow">Next milestone</p>
+          <h2>Scale descriptor derivation across more locations</h2>
+          <p>The next best work is expanding from validated examples to generated descriptor candidates for the manifest locations, then filling the remaining fields needed for full composites.</p>
+        </div>
+        <div class="callout-list">
+          <div><strong>1</strong><span>Derive candidates from <code>out/manifest.json</code> contexts.</span></div>
+          <div><strong>2</strong><span>Finish dimensions, page selection, row streaming, CHR-bank choice, and palette mode.</span></div>
+          <div><strong>3</strong><span>Add day/night outdoor variants and fixed-palette interiors.</span></div>
+          <div><strong>4</strong><span>Generate full-map PNGs, then optional actor and door overlays.</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="controls" aria-label="Slide navigation">
+    <button id="previous-slide" type="button" aria-label="Previous slide" title="Previous slide">&lt;</button>
+    <button id="next-slide" type="button" aria-label="Next slide" title="Next slide">&gt;</button>
+  </nav>
+
+  <script src="slides.js"></script>
+</body>
+</html>

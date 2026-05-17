@@ -26,7 +26,10 @@
     "replay:jova-buffer-trace": "node src/index.js replay-ppu-buffer-trace --trace out/mesen-buffer-trace/ppu-buffer-writes.tsv --mirroring vertical --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/mesen-buffer-trace/replayed-nametables.bin",
     "render:jova-native": "node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --visible-page 0 --out out/decoder/jova-native-nametables.bin",
     "render:jova-right-native": "node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --compare out/captures/jova-right-day/ppu-2000-2fff-nametables.bin --visible-page 1 --out out/decoder/jova-right-native-nametables.bin",
-    "render:jova-woods-native": "node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --visible-page 0 --out out/decoder/jova-woods-native-nametables.bin"
+    "render:jova-woods-native": "node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --visible-page 0 --out out/decoder/jova-woods-native-nametables.bin",
+    "render:jova-native-png": "node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-day --state out/captures/jova-day/state.json --compare-png out/captures/jova-day/background.png --out out/decoder/jova-native-background.png",
+    "render:jova-right-native-png": "node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-day --state out/captures/jova-right-day/state.json --visible-page 1 --compare-png out/captures/jova-right-day/background.png --out out/decoder/jova-right-native-background.png",
+    "render:jova-woods-native-png": "node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-woods-day --state out/captures/jova-woods-day/state.json --compare-png out/captures/jova-woods-day/background.png --out out/decoder/jova-woods-native-background.png"
   },
   "engines": {
     "node": ">=20"

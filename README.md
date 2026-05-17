@@ -12,6 +12,7 @@ The current vertical slice includes:
 - decodes the fixed PPU transfer stream format and replays traced NMI PPU buffer updates
 - derives background layout/tile pointers from `objset`, `area`, and `submap`
 - renders descriptor-backed ROM-native Jova town and Jova Woods nametable checkpoints directly from PRG layout/tile data
+- renders validated ROM-native background PNGs from descriptor nametables, CHR banks, and ROM palette bytes
 
 ## ROM Setup
 
@@ -42,6 +43,9 @@ npm run replay:jova-buffer-trace
 npm run render:jova-native
 npm run render:jova-right-native
 npm run render:jova-woods-native
+npm run render:jova-native-png
+npm run render:jova-right-native-png
+npm run render:jova-woods-native-png
 ```
 
 You can also pass paths directly:
@@ -52,13 +56,22 @@ node src/index.js extract-chr --rom roms/cv2.nes --out out/chr --scale 1
 node src/index.js manifest --out out/manifest.json
 node src/index.js inspect-background-context --rom roms/cv2.nes --objset 0x02 --area 0 --submap 0
 node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --visible-page 0
+node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-day --state out/captures/jova-day/state.json --out out/decoder/jova-native-background.png
+```
+
+## Demos
+
+Sprint demos live under `demos/`. The current stakeholder demo is:
+
+```text
+demos/2026-05-17-sprint-demo/index.html
 ```
 
 ## Next Milestone
 
 The next milestone is expanding descriptor derivation from the decoded background pointer tables. The vendored `cv2r` source gives us strong anchors for locations, actors, doors, palette offsets, and bank layout, but it does not already contain a complete background renderer. Mesen is available as a representative calibration oracle, including Jova and Jova Woods fixtures that round-trip to 0-pixel composite diffs.
 
-Current background-loader findings are documented in `docs/background-decoder-notes.md`, and the committed descriptor schema is documented in `docs/background-descriptor-schema.md`. The important checkpoint is that `npm run inspect:jova-background` and `npm run inspect:jova-woods-background` derive the layout header and tile-set pointers used by the validated descriptors. `npm run render:jova-native` verifies Jova town page 0, `npm run render:jova-right-native` verifies the right-side page, and `npm run render:jova-woods-native` verifies the first overworld checkpoint from a save-state capture.
+Current background-loader findings are documented in `docs/background-decoder-notes.md`, and the committed descriptor schema is documented in `docs/background-descriptor-schema.md`. The important checkpoint is that `npm run inspect:jova-background` and `npm run inspect:jova-woods-background` derive the layout header and tile-set pointers used by the validated descriptors. `npm run render:jova-native` verifies Jova town page 0, `npm run render:jova-right-native` verifies the right-side page, and `npm run render:jova-woods-native` verifies the first overworld checkpoint from a save-state capture. The `render:*native-png` commands turn those same ROM-native backgrounds into PNGs for demos and future map output.
 
 The intended path is:
 

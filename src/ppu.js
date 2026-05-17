@@ -41,11 +41,11 @@ function attributePaletteIndex(attributeByte, tileX, tileY) {
   return (attributeByte >> shift) & 0x03;
 }
 
-function renderNametable(opts) {
-  const patterns = fs.readFileSync(opts.patternsPath);
-  const nametables = fs.readFileSync(opts.nametablesPath);
-  const palettes = fs.readFileSync(opts.palettesPath);
-  const state = opts.statePath ? readJson(opts.statePath) : {};
+function renderNametableFromMemory(opts) {
+  const patterns = opts.patterns;
+  const nametables = opts.nametables;
+  const palettes = opts.palettes;
+  const state = opts.state || {};
   const scrollState = opts.scrollState || state.ppuTmpVideoRamAddr || state.ppuVideoRamAddr || 0;
   const nametableIndex = opts.nametableIndex ?? ((scrollState >> 10) & 0x03);
   const bgPatternBase = opts.bgPatternBase ?? (state.ppuBackgroundPatternAddr ?? (((state.cpu2000 || 0) & 0x10) ? 0x1000 : 0x0000));
@@ -102,6 +102,16 @@ function renderNametable(opts) {
       state
     }
   };
+}
+
+function renderNametable(opts) {
+  return renderNametableFromMemory({
+    ...opts,
+    patterns: fs.readFileSync(opts.patternsPath),
+    nametables: fs.readFileSync(opts.nametablesPath),
+    palettes: fs.readFileSync(opts.palettesPath),
+    state: opts.statePath ? readJson(opts.statePath) : {}
+  });
 }
 
 function renderSprites(opts) {
@@ -337,7 +347,9 @@ function renderPpuCapture(captureDir, outPath) {
 }
 
 module.exports = {
+  diffImages,
   renderSprites,
+  renderNametableFromMemory,
   renderNametable,
   renderPpuCapture
 };

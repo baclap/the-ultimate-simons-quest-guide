@@ -164,6 +164,7 @@ The `jova-day` descriptor reads the visible Jova background from these ROM addre
 - tile set pointer: PRG bank `4` at `$841D`
 - tile data base: `$841D + $44 = $8461`
 - attribute table: PRG bank `4` at `$841E`
+- background palette: PRG bank `4` at `$9EA2`
 
 The main 8x8 block layout at bank `2:$8497` is:
 
@@ -227,6 +228,11 @@ page 1 differences: 0 / 1024
 page 3 differences: 0 / 1024
 ```
 
+`npm run render:jova-native-png` and `npm run render:jova-right-native-png`
+combine the ROM-native nametable bytes with ROM CHR banks `0/1` and palette
+`4:$9EA2`. Both generated background PNGs compare at 0 differing pixels
+against the corresponding PPU-background reconstructions.
+
 ## Jova Woods Native Decoder Checkpoint
 
 `npm run capture:jova-woods` loads the local save-state fixture at `out/states/jova-woods.mss`, waits 30 frames, and writes `out/captures/jova-woods-day/`. The `.mss` is a local emulator artifact and is not committed.
@@ -255,6 +261,7 @@ path. It reads the visible Jova Woods background from these ROM addresses:
 - tile set pointer: PRG bank `4` at `$8CF4`
 - tile data base: `$8CF4 + $46 = $8D3A`
 - attribute table: PRG bank `4` at `$8CF5`
+- background palette: PRG bank `4` at `$9FC6`
 
 The visible 8x7 block layout at bank `2:$A4DA` is:
 
@@ -274,3 +281,7 @@ Current comparison against `out/captures/jova-woods-day/ppu-2000-2fff-nametables
 page 0 differences: 0 / 1024
 page 2 differences: 0 / 1024
 ```
+
+`npm run render:jova-woods-native-png` combines the ROM-native nametable bytes
+with ROM CHR banks `2/3` and palette `4:$9FC6`. The generated background PNG
+compares at 0 differing pixels against the PPU-background reconstruction.

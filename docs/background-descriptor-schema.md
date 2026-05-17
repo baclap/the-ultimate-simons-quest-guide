@@ -32,6 +32,7 @@ Required fields for `renderer: "native-background-v1"`:
 - `layoutBank`: PRG bank containing block layout bytes and switchable layout-header tables
 - `tileBank`: PRG bank containing tile/metatile bytes and block attribute bytes
 - `tileSetAddress`: CPU address of the tile-set pointer table in `tileBank`
+- `paletteBank`, `paletteAddress`: ROM location of the 16-byte background palette used for PNG rendering
 - `widthBlocks`, `heightBlocks`: block grid dimensions rendered into the nametable
 - `nametableMirroring`: mapper mirroring observed for the capture, currently `vertical`
 - `pages`: one or more nametable page descriptors
@@ -40,6 +41,7 @@ Optional fields:
 
 - `layoutHeaderAddress`: pointer table header used to resolve layouts
 - `layoutHeaderBank`: PRG bank for `layoutHeaderAddress` when that header is below `$C000`
+- `paletteLength`: palette byte count, defaulting to the 16-byte background palette
 - `rowsPerLayoutSection`: row-stream section height, currently `7` for Jova town
 - `validation`: known capture comparisons for this descriptor
 
@@ -67,9 +69,11 @@ Each page describes one nametable page:
 
 ## Current Descriptors
 
-- `jova-day`: Jova town day fixture. Covers page `0` for the starting screen and page `1` for the right-side screen. It uses fixed-bank layout header `$FA86`, PRG bank `2` layouts, and PRG bank `4:$841D` tile-set data.
-- `jova-woods-day`: Jova Woods day fixture from the local save state. It uses bank `2:$A23E` as the layout header, which resolves the visible page to layout `2:$A4DA`, and PRG bank `4:$8CF4` tile-set data.
+- `jova-day`: Jova town day fixture. Covers page `0` for the starting screen and page `1` for the right-side screen. It uses fixed-bank layout header `$FA86`, PRG bank `2` layouts, PRG bank `4:$841D` tile-set data, CHR banks `0/1`, and background palette `4:$9EA2`.
+- `jova-woods-day`: Jova Woods day fixture from the local save state. It uses bank `2:$A23E` as the layout header, which resolves the visible page to layout `2:$A4DA`, PRG bank `4:$8CF4` tile-set data, CHR banks `2/3`, and background palette `4:$9FC6`.
 
 Both descriptors currently validate exact visible-page nametable parity against
 Mesen captures through `npm run render:jova-native`,
 `npm run render:jova-right-native`, and `npm run render:jova-woods-native`.
+The corresponding `render:*native-png` commands also validate exact background
+PNG parity against the PPU-background reconstructions.
