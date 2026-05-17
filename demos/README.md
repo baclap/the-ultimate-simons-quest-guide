@@ -18,3 +18,5 @@ Current demos:
   ROM-native candidate renders and their confidence metadata.
 - `2026-05-17-vertical-layout-demo/`: before/after demo for multi-section
   layout rendering, including Jova and Dora Woods Part 2.
+- `2026-05-17-palette-resolver-demo/`: palette resolver demo showing the
+  decoded `$F7C5` to `$C895` transfer-id path and the corrected Dabi render.

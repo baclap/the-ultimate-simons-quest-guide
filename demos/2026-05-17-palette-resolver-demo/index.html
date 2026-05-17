@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Palette Resolver</title>
+  <link rel="stylesheet" href="styles.css?v=palette-resolver-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Palette resolver milestone</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/5</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main id="slides">
+    <section class="slide title-slide" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>Palette selection now comes from the ROM's runtime tables</h1>
+        <p class="lede">The atlas no longer treats Dabi's Path as a generic woods screen. It follows the same transfer-id path the game uses to reach palette bytes.</p>
+      </div>
+      <div class="hero-grid">
+        <figure>
+          <img src="assets/images/jova-woods-current.png?v=palette-resolver-1" alt="Jova Woods rendered from ROM data">
+          <figcaption>Jova Woods - transfer <code>$22</code>, palette <code>4:$9FC6</code></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/dabis-path-current.png?v=palette-resolver-1" alt="Dabi's Path rendered from ROM data">
+          <figcaption>Dabi's Path - transfer <code>$26</code>, palette <code>4:$A00A</code></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/dora-woods-part-2-current.png?v=palette-resolver-1" alt="Dora Woods Part 2 rendered from ROM data">
+          <figcaption>Dora Woods Part 2 - transfer <code>$23</code>, palette <code>4:$9FD7</code></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="pipeline">
+      <div class="copy narrow">
+        <p class="eyebrow">Discovery</p>
+        <h2>The selector is a two-step table path</h2>
+        <p>The game does not choose outdoor palettes from the layout index directly. It reads a transfer id from bank 2, then resolves that id through the fixed-bank transfer table.</p>
+      </div>
+      <div class="pipeline" aria-label="Palette resolver path">
+        <div><span>Runtime context</span><strong>objset / area / submap</strong></div>
+        <div><span>Bank 2</span><strong><code>$F7C5</code> selector pointers</strong></div>
+        <div><span>Transfer id</span><strong><code>$22</code>, <code>$23</code>, <code>$26</code></strong></div>
+        <div><span>Fixed bank</span><strong><code>$C895</code> transfer table</strong></div>
+        <div><span>PRG palette</span><strong>16 background color bytes</strong></div>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="dabi">
+      <div class="copy narrow">
+        <p class="eyebrow">Before And After</p>
+        <h2>Dabi's Path now uses the cave palette from ROM</h2>
+        <p>The old atlas inherited the objset-2 woods fallback. The resolver reads transfer id <code>$26</code>, which points to <code>4:$A00A</code>.</p>
+      </div>
+      <div class="compare">
+        <figure>
+          <img src="assets/images/dabis-path-before.png?v=palette-resolver-1" alt="Dabi's Path before palette resolver">
+          <figcaption>Previous: objset fallback palette</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/dabis-path-current.png?v=palette-resolver-1" alt="Dabi's Path after palette resolver">
+          <figcaption>Current: runtime selector palette</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="evidence">
+      <div class="copy narrow">
+        <p class="eyebrow">Evidence</p>
+        <h2>Three fixtures now line up with the selector model</h2>
+        <p>Jova Woods and Dabi's Path resolve directly from their cv2r context. Dora Woods Part 2 exposes a context-alias gap: the saved runtime selector context is <code>2:0:3</code> while the layout candidate is <code>2:8:2</code>.</p>
+      </div>
+      <div class="evidence-grid">
+        <article>
+          <h3>Jova Woods</h3>
+          <dl>
+            <dt>Selector list</dt><dd><code>2:$A1C0</code></dd>
+            <dt>Transfer id</dt><dd><code>$22</code></dd>
+            <dt>Palette</dt><dd><code>4:$9FC6</code></dd>
+          </dl>
+        </article>
+        <article>
+          <h3>Dora Woods Part 2</h3>
+          <dl>
+            <dt>Selector list</dt><dd><code>2:$A1C0</code></dd>
+            <dt>Transfer id</dt><dd><code>$23</code></dd>
+            <dt>Palette</dt><dd><code>4:$9FD7</code></dd>
+          </dl>
+        </article>
+        <article>
+          <h3>Dabi's Path</h3>
+          <dl>
+            <dt>Selector list</dt><dd><code>2:$A6EB</code></dd>
+            <dt>Transfer id</dt><dd><code>$26</code></dd>
+            <dt>Palette</dt><dd><code>4:$A00A</code></dd>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next</p>
+        <h2>The next gap is runtime context mapping</h2>
+        <p>The palette mechanism is decoded, but the atlas still needs a general way to map every cv2r layout candidate to the runtime selector context the game used. Dora proves that those tuples can diverge.</p>
+      </div>
+      <div class="next-grid">
+        <article><strong>Keep</strong><span>Use <code>$F7C5</code> and <code>$C895</code> as the canonical palette path.</span></article>
+        <article><strong>Decode</strong><span>Generalize cv2r layout candidates into runtime palette contexts.</span></article>
+        <article><strong>Validate</strong><span>Add a few more save states where route aliases are likely.</span></article>
+        <article><strong>Resume</strong><span>After that, return to full exterior topology and mansion template fixes.</span></article>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/data/atlas-data.js?v=palette-resolver-1"></script>
+  <script src="slides.js?v=palette-resolver-1"></script>
+</body>
+</html>

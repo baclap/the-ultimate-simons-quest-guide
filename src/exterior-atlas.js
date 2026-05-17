@@ -18,16 +18,17 @@ const { writePng } = require('./png');
 const PATTERN_TABLE_CPU_ADDRESS = 0xb720;
 const OBJSET_PATTERN_OFFSET = 0x30;
 const MAP_SIZE_BY_OBJSET = [2, 4, 4, 5, 2, 2];
-const BANK_7_PALETTE_POINTER_TABLE = 0x88b0;
-const BANK_7_TOWN_PALETTE_POINTER_TABLE = 0x88bb;
-const BANK_7_EXTERIOR_PALETTE_POINTER_TABLE = 0x88d9;
+const PALETTE_INDEX_POINTERS = 0xf7c5;
+const BANK_7_TRANSFER_POINTER_TABLE = 0x8895;
+const RAW_BACKGROUND_PALETTE_SENTINEL = 0x0f;
 
-const PALETTE_OVERRIDES = {
+const PALETTE_CONTEXT_ALIASES = {
   '2:8:2': {
-    pointerAddress: BANK_7_EXTERIOR_PALETTE_POINTER_TABLE + 0x02,
-    expectedAddress: 0x9fd7,
-    source: 'fixture-validated-bank-7-exterior-palette-table',
-    note: 'Dora Woods - Part 2 save-state capture matches the layout-space render at 0 differing pixels with palette 4:$9FD7.'
+    objset: 2,
+    area: 0,
+    submap: 3,
+    source: 'fixture-validated-runtime-palette-context',
+    note: 'Dora Woods - Part 2 is a cv2r layout candidate at 2:8:2, but its save-state RAM shows the live palette selector context as 2:0:3, yielding transfer id $23 and palette 4:$9FD7.'
   }
 };
 
@@ -38,8 +39,9 @@ const TEMPLATE_BY_OBJSET = {
     confidence: 'validated-template',
     confidenceNote: 'Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.',
     chrBanks: [0x00, 0x01],
+    paletteBank: 4,
     paletteAddress: 0x9ea2,
-    paletteStrategy: 'town-layout-palette-table',
+    paletteStrategy: 'object-set-fallback',
     widthBlocks: 8,
     heightBlocks: 8,
     rowsPerLayoutSection: 7
@@ -50,6 +52,7 @@ const TEMPLATE_BY_OBJSET = {
     confidence: 'inferred-template',
     confidenceNote: 'Renderable exterior landmark; CHR/palette selection is an atlas v0 inference.',
     chrBanks: [0x04, 0x05],
+    paletteBank: 4,
     paletteAddress: 0x9fe8,
     paletteStrategy: 'object-set-fallback',
     widthBlocks: 8,
@@ -61,6 +64,7 @@ const TEMPLATE_BY_OBJSET = {
     confidence: 'validated-template',
     confidenceNote: 'Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.',
     chrBanks: [0x02, 0x03],
+    paletteBank: 4,
     paletteAddress: 0x9fc6,
     paletteStrategy: 'object-set-fallback',
     widthBlocks: 8,
@@ -72,6 +76,7 @@ const TEMPLATE_BY_OBJSET = {
     confidence: 'inferred-template',
     confidenceNote: 'Tile-set path is derived from the ROM; CHR/palette selection still needs emulator validation.',
     chrBanks: [0x04, 0x05],
+    paletteBank: 4,
     paletteAddress: 0x9fe8,
     paletteStrategy: 'object-set-fallback',
     widthBlocks: 8,
@@ -83,6 +88,7 @@ const TEMPLATE_BY_OBJSET = {
     confidence: 'inferred-template',
     confidenceNote: 'Tile-set path is derived from the ROM; CHR/palette selection still needs emulator validation.',
     chrBanks: [0x08, 0x09],
+    paletteBank: 4,
     paletteAddress: 0xa070,
     paletteStrategy: 'object-set-fallback',
     widthBlocks: 8,
@@ -94,6 +100,7 @@ const TEMPLATE_BY_OBJSET = {
     confidence: 'inferred-template',
     confidenceNote: 'Included as the exterior castle approach; Dracula fight remains excluded.',
     chrBanks: [0x06, 0x07],
+    paletteBank: 4,
     paletteAddress: 0xa0c5,
     paletteStrategy: 'object-set-fallback',
     widthBlocks: 8,
@@ -215,42 +222,86 @@ function readPalettePointer(rom, info, address) {
   return readPrgWord(rom, info, address, { bank: 7 });
 }
 
-function townPaletteAddress(rom, info, layoutIndex) {
-  const pointerAddress = BANK_7_TOWN_PALETTE_POINTER_TABLE + layoutIndex * 2;
-  const paletteAddress = readPalettePointer(rom, info, pointerAddress);
-  if (paletteAddress >= 0x8000 && paletteAddress < 0xc000) {
-    return {
-      address: paletteAddress,
-      pointerAddress,
-      source: 'bank-7-town-layout-palette-table'
-    };
-  }
-  return undefined;
-}
-
-function paletteOverrideKey(loc) {
+function paletteContextKey(loc) {
   return `${loc.objset}:${loc.area}:${loc.submap || 0}`;
 }
 
-function paletteOverrideForLocation(rom, info, loc) {
-  const override = PALETTE_OVERRIDES[paletteOverrideKey(loc)];
-  if (!override) {
-    return undefined;
+function paletteContextForLocation(loc) {
+  const alias = PALETTE_CONTEXT_ALIASES[paletteContextKey(loc)];
+  if (!alias) {
+    return {
+      objset: loc.objset,
+      area: loc.area,
+      submap: loc.submap || 0,
+      source: 'cv2r-runtime-context'
+    };
   }
 
-  const paletteAddress = readPalettePointer(rom, info, override.pointerAddress);
-  if (override.expectedAddress != null && paletteAddress !== override.expectedAddress) {
-    throw new Error(
-      `palette override for ${loc.name} expected $${override.expectedAddress.toString(16).toUpperCase()} ` +
-      `at bank 7:$${override.pointerAddress.toString(16).toUpperCase()}, got $${paletteAddress.toString(16).toUpperCase()}`
-    );
+  return {
+    objset: alias.objset,
+    area: alias.area,
+    submap: alias.submap || 0,
+    source: alias.source,
+    note: alias.note,
+    original: {
+      objset: loc.objset,
+      area: loc.area,
+      submap: loc.submap || 0
+    }
+  };
+}
+
+function paletteBankForAddress(address) {
+  return address < 0xc000 ? 4 : undefined;
+}
+
+function palettePointerAddressForTransferId(transferId) {
+  return BANK_7_TRANSFER_POINTER_TABLE + transferId * 2;
+}
+
+function paletteFromRuntimeSelector(rom, info, loc, variant = 'day') {
+  const context = paletteContextForLocation(loc);
+  const paletteTableAddress = readBackgroundTableWord(rom, info, PALETTE_INDEX_POINTERS + context.objset * 2);
+  const variantOffset = variant === 'night' ? 2 : 0;
+  const indexListPointerAddress = paletteTableAddress + context.area * 4 + variantOffset;
+  const indexListAddress = readBackgroundTableWord(rom, info, indexListPointerAddress);
+  const submap = context.submap & 0x7f;
+  const indexOffset = submap * 2;
+  const transferId = readBackgroundTableByte(rom, info, indexListAddress + indexOffset);
+  const auxiliaryTransferId = readBackgroundTableByte(rom, info, indexListAddress + indexOffset + 1);
+  const pointerAddress = palettePointerAddressForTransferId(transferId);
+  const paletteAddress = readPalettePointer(rom, info, pointerAddress);
+  const bank = paletteBankForAddress(paletteAddress);
+
+  if (readPrgByte(rom, info, paletteAddress, bank == null ? {} : { bank }) !== RAW_BACKGROUND_PALETTE_SENTINEL) {
+    return undefined;
   }
 
   return {
     address: paletteAddress,
-    pointerAddress: override.pointerAddress,
-    source: override.source,
-    note: override.note
+    bank,
+    pointerAddress,
+    source: 'runtime-palette-selector-table',
+    note: context.note,
+    selector: {
+      variant,
+      context: {
+        objset: context.objset,
+        area: context.area,
+        submap: context.submap,
+        source: context.source,
+        original: context.original
+      },
+      paletteIndexPointersAddress: PALETTE_INDEX_POINTERS,
+      paletteTableAddress,
+      indexListPointerAddress,
+      indexListAddress,
+      indexOffset,
+      transferId,
+      auxiliaryTransferId,
+      transferPointerTableAddress: BANK_7_TRANSFER_POINTER_TABLE,
+      transferPointerAddress: pointerAddress
+    }
   };
 }
 
@@ -261,21 +312,14 @@ function templateForLocation(rom, info, loc, screenRecord) {
   }
 
   const template = { ...base };
-  if (loc.objset === 0) {
-    const townPalette = townPaletteAddress(rom, info, screenRecord.layoutIndex);
-    if (townPalette) {
-      template.paletteAddress = townPalette.address;
-      template.palettePointerAddress = townPalette.pointerAddress;
-      template.paletteStrategy = townPalette.source;
-    }
-  }
-
-  const paletteOverride = paletteOverrideForLocation(rom, info, loc);
-  if (paletteOverride) {
-    template.paletteAddress = paletteOverride.address;
-    template.palettePointerAddress = paletteOverride.pointerAddress;
-    template.paletteStrategy = paletteOverride.source;
-    template.paletteNote = paletteOverride.note;
+  const palette = paletteFromRuntimeSelector(rom, info, loc);
+  if (palette) {
+    template.paletteAddress = palette.address;
+    template.paletteBank = palette.bank;
+    template.palettePointerAddress = palette.pointerAddress;
+    template.paletteStrategy = palette.source;
+    template.paletteNote = palette.note;
+    template.paletteSelector = palette.selector;
   }
 
   return template;
@@ -332,7 +376,7 @@ function buildSegmentForCandidate(loc, screenRecord, template) {
         chrBanks: template.chrBanks,
         layoutBank: BACKGROUND_TABLE_BANK,
         tileBank: 4,
-        paletteBank: 4,
+        paletteBank: template.paletteBank,
         paletteAddress: template.paletteAddress,
         widthBlocks: template.widthBlocks,
         heightBlocks: template.heightBlocks,
@@ -359,11 +403,22 @@ function publicTemplate(template) {
     confidence: template.confidence,
     confidenceNote: template.confidenceNote,
     chrBanks: template.chrBanks.map((bank) => hex(bank, 2)),
-    paletteBank: 4,
+    paletteBank: template.paletteBank,
     paletteAddress: hex(template.paletteAddress, 4),
     palettePointerAddress: hex(template.palettePointerAddress, 4),
     paletteStrategy: template.paletteStrategy,
     paletteNote: template.paletteNote,
+    paletteSelector: template.paletteSelector && {
+      ...template.paletteSelector,
+      paletteIndexPointersAddress: hex(template.paletteSelector.paletteIndexPointersAddress, 4),
+      paletteTableAddress: hex(template.paletteSelector.paletteTableAddress, 4),
+      indexListPointerAddress: hex(template.paletteSelector.indexListPointerAddress, 4),
+      indexListAddress: hex(template.paletteSelector.indexListAddress, 4),
+      transferId: hex(template.paletteSelector.transferId, 2),
+      auxiliaryTransferId: hex(template.paletteSelector.auxiliaryTransferId, 2),
+      transferPointerTableAddress: hex(template.paletteSelector.transferPointerTableAddress, 4),
+      transferPointerAddress: hex(template.paletteSelector.transferPointerAddress, 4)
+    },
     widthBlocks: template.widthBlocks,
     heightBlocks: template.heightBlocks,
     rowsPerLayoutSection: template.rowsPerLayoutSection
@@ -532,9 +587,8 @@ function buildExteriorAtlas(rom, info) {
       patternTableCpuAddress: hex(PATTERN_TABLE_CPU_ADDRESS, 4),
       objsetPatternOffset: hex(OBJSET_PATTERN_OFFSET, 2),
       mapSizeByObjset: MAP_SIZE_BY_OBJSET,
-      bank7PalettePointerTable: hex(BANK_7_PALETTE_POINTER_TABLE, 4),
-      bank7TownPalettePointerTable: hex(BANK_7_TOWN_PALETTE_POINTER_TABLE, 4),
-      bank7ExteriorPalettePointerTable: hex(BANK_7_EXTERIOR_PALETTE_POINTER_TABLE, 4)
+      paletteIndexPointers: hex(PALETTE_INDEX_POINTERS, 4),
+      bank7TransferPointerTable: hex(BANK_7_TRANSFER_POINTER_TABLE, 4)
     },
     templates: Object.values(TEMPLATE_BY_OBJSET).map(publicTemplate),
     candidates: locations

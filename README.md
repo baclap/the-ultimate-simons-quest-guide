@@ -17,6 +17,7 @@ The current vertical slice includes:
 - renders a continuous Jova Woods layout-space segment from adjacent ROM layout column groups
 - renders an exterior atlas of 55 town, route, mansion-door, mountain, and castle exterior candidates from ROM layout data
 - decodes layout headers as column-group by vertical-section grids and renders 13 multi-section atlas entries larger than one viewport row
+- decodes day background palette selection through the ROM's runtime selector table at `2:$F7C5` and transfer table at `7:$C895`
 
 ## ROM Setup
 
@@ -38,10 +39,14 @@ npm run render-all
 npm run mesen:smoke
 npm run capture:jova
 npm run capture:jova-woods
+npm run capture:dora-woods-part-2
+npm run capture:dabis-path
 npm run inspect:jova-background
 npm run inspect:jova-woods-background
 npm run render:jova-capture
 npm run render:jova-woods-capture
+npm run render:dora-woods-part-2-capture
+npm run render:dabis-path-capture
 npm run decode:title-transfer
 npm run replay:jova-buffer-trace
 npm run render:jova-native
@@ -82,6 +87,7 @@ demos/2026-05-17-layout-segment-demo/index.html
 demos/2026-05-17-jova-to-veros-route-demo/index.html
 demos/2026-05-17-exterior-atlas-demo/index.html
 demos/2026-05-17-vertical-layout-demo/index.html
+demos/2026-05-17-palette-resolver-demo/index.html
 ```
 
 ## Next Milestone
@@ -104,15 +110,18 @@ It enumerates 55 exterior candidates from the vendored `cv2r` metadata, resolves
 their ROM screen records and layout headers, and writes a manifest plus PNGs
 under `out/exterior-atlas/`. Layout headers are decoded as two-dimensional
 grids, so entries like Jova, Dora Woods - Part 2, and Castlevania render as
-full layout-space segments rather than first-row-only strips. See
+full layout-space segments rather than first-row-only strips. Day background
+palettes are resolved from the ROM's runtime selector path where possible; the
+manifest records selector context, index-list pointer, transfer id, transfer
+pointer, and final palette address. See
 `docs/exterior-atlas-notes.md` for the inventory rules, confidence split,
 template assumptions, vertical grid coverage, and special screen-record
 handling.
 
 The intended path is:
 
-1. attach viewport-sized validation windows to multi-section layouts such as Jova and Dora Woods - Part 2
-2. decode remaining per-location palette selection, including day/night outdoor variants
+1. generalize runtime palette selector contexts for route aliases like Dora
+2. add day/night outdoor palette variants
 3. fix the separate mansion-door/interior template family
 4. turn exterior atlas entries into topology-aware route/world coordinates
 5. connect validated segments into full composites and overlay data

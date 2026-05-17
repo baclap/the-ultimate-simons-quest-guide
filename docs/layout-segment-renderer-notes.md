@@ -75,10 +75,10 @@ Examples from the exterior atlas:
 | Castlevania | `4x4` | `1024x896` |
 
 Dora Woods - Part 2 also validates that layout-space output can use a
-per-location palette. Its Mesen save-state fixture exposes background palette
-`4:$9FD7` via bank `7:$88DB`; a `256x240` crop from the `512x448` layout at
-`x=144, y=48` matches the emulator background capture with `0` differing
-pixels.
+runtime-selected palette. Its Mesen save-state fixture exposes background
+palette `4:$9FD7` via transfer id `$23` and bank `7:$88DB`; a `256x240` crop
+from the `512x448` layout at `x=144, y=48` matches the emulator background
+capture with `0` differing pixels.
 
 ## Interpretation
 

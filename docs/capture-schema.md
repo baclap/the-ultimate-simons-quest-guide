@@ -89,23 +89,37 @@ background-only differingPixels: 306
 background+sprite differingPixels: 0
 ```
 
-The Dora Woods - Part 2 save-state fixture is used to validate a per-location
-background palette:
+The Dora Woods - Part 2 save-state fixture is used to validate a runtime
+palette selector context alias:
 
 ```text
 npm run capture:dora-woods-part-2
 npm run render:dora-woods-part-2-capture
 PPU background palette: 0F 00 10 0A 0F 16 1C 06 0F 22 19 1C 0F 11 20 15
-ROM source: PRG bank 4:$9FD7, selected through bank 7:$88DB
+ROM source: transfer id $23, bank 7:$88DB -> PRG bank 4:$9FD7
+Runtime selector context: 2:0:3, used for cv2r layout candidate 2:8:2
 layout crop vs captured background: 0 differing pixels at x=144, y=48
+```
+
+The Dabi's Path save-state fixture validates the same selector path without a
+context alias:
+
+```text
+npm run capture:dabis-path
+npm run render:dabis-path-capture
+PPU background palette: 0F 00 23 03 0F 1C 04 0C 0F 01 11 05 0F 01 20 05
+ROM source: transfer id $26, bank 7:$88E1 -> PRG bank 4:$A00A
+Runtime selector context: 2:3:0
 ```
 
 ## Next Work
 
 1. Capture representative outdoor day/night palette fixtures.
-2. Capture one mansion/interior-style screen.
-3. Add more named save-state fixtures for representative outdoor areas.
-4. Use these emulator captures as fixtures while decoding ROM room/background data.
+2. Capture route-alias fixtures near Dora-like transitions to generalize cv2r
+   layout context to runtime palette context.
+3. Capture one mansion/interior-style screen.
+4. Add more named save-state fixtures for representative outdoor areas.
+5. Use these emulator captures as fixtures while decoding ROM room/background data.
 
 ## Variant Model
 

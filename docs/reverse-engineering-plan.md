@@ -22,6 +22,8 @@ The repository now has a zero-dependency Node CLI that can:
 - render an exterior atlas of 55 candidates from `cv2r` metadata plus ROM layout, tile, CHR, and palette data
 - decode layout headers as two-dimensional grids and render full multi-section atlas entries
 - validate Dora Woods - Part 2 against a Mesen save-state fixture and render it with its ROM palette at `4:$9FD7`
+- decode the runtime background palette selector path through bank `2:$F7C5` and fixed-bank transfer table `7:$C895`
+- validate Dabi's Path through that selector path, resolving transfer id `$26` to palette `4:$A00A`
 
 Generated output is intentionally ignored by git:
 
@@ -62,6 +64,8 @@ Committed reference data is intentionally tracked:
 - The first exterior atlas pass renders 55 exterior candidates, including towns, overworld routes, mansion doors, mountains, Castlevania Bridge, and Castlevania exterior. It records 31 validated-template renders and 24 inferred-template renders.
 - Special exterior screen-record markers `FD`/`FE` are now preserved in metadata and decoded by using byte `1` as the effective layout index for the current five known exterior cases.
 - Layout header byte `0` is the horizontal column-group count and byte `1` is the vertical section count. The atlas now renders all sections for 13 multi-section layouts, including Jova `4x2`, Dora Woods - Part 2 `2x2`, Dabi's Path - Part 1 `2x2`, and Castlevania `4x4`.
+- Day background palettes are now resolved from the ROM's runtime selector path where the selected transfer stream is raw palette data. The manifest records the palette index table, transfer id, transfer pointer, and final palette address.
+- Dora Woods - Part 2 exposes an important context-alias gap: its `cv2r` layout candidate is `2:8:2`, but the validated live palette selector context is `2:0:3`.
 - These verified checkpoints are now stored as reusable descriptors in `data/background-descriptors.json`.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
 
@@ -86,7 +90,7 @@ Work items:
 
 2. Validate multi-section layouts.
    - Add save-state fixtures for Jova vertical movement and at least one additional multi-section outdoor area.
-   - Keep the Dora Woods - Part 2 fixture as the reference for the first per-location palette override.
+   - Keep the Dora Woods - Part 2 fixture as the reference for the first runtime palette context alias.
    - Compare viewport-sized windows against the full layout-space output without using emulator captures as source art.
 
 3. Convert atlas entries into topology.
@@ -98,9 +102,11 @@ Work items:
    - Capture both day and night descriptors for outdoor locations.
    - Keep mansion interiors as one fixed-palette descriptor unless later evidence shows otherwise.
 
-5. Decode remaining palette selection.
-   - Replace object-set fallback palettes with per-location palette derivation where the ROM encodes it.
+5. Generalize runtime palette contexts.
+   - The selector mechanism is decoded, but aliases like Dora show that every
+     `cv2r` layout tuple is not always the runtime palette tuple.
    - Preserve day and night palette variants as first-class render options.
+   - Add representative save states to prove the remaining alias cases.
 
 6. Validate.
    - Capture deterministic emulator screenshots, PPU state, and OAM.

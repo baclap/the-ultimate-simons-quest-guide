@@ -71,12 +71,12 @@ Current confidence split:
 
 | Objset | Template | CHR banks | Palette | Status |
 | ---: | --- | --- | --- | --- |
-| `0` | Town exterior, day | `0/1` | derived from bank 7 town layout palette table, with Jova validating `4:$9EA2` | validated-template |
-| `1` | Mansion door exterior, day | `4/5` | `4:$9FE8` | inferred-template |
-| `2` | Overworld woods/routes, day | `2/3` | `4:$9FC6`, with Dora Woods - Part 2 overriding to `4:$9FD7` from bank 7 pointer `$88DB` | validated-template |
-| `3` | Cemetery/marsh/woods exterior, day | `4/5` | `4:$9FE8` | inferred-template |
-| `4` | Mountain/ditch/bridge exterior, day | `6/7` | `4:$A070` | inferred-template |
-| `5` | Castlevania exterior, day | `8/9` | `4:$A0C5` | inferred-template |
+| `0` | Town exterior, day | `0/1` | runtime selector table, with Jova resolving to transfer `$16` and palette `4:$9EA2` | validated-template |
+| `1` | Mansion door exterior, day | `4/5` | runtime selector table where the selected transfer stream is raw palette data, otherwise fallback | inferred-template |
+| `2` | Overworld woods/routes, day | `2/3` | runtime selector table, with Jova Woods `$22 -> 4:$9FC6`, Dora Woods Part 2 `$23 -> 4:$9FD7`, and Dabi's Path `$26 -> 4:$A00A` validated by fixtures | validated-template |
+| `3` | Cemetery/marsh/woods exterior, day | `4/5` | runtime selector table where the selected transfer stream is raw palette data, otherwise fallback | inferred-template |
+| `4` | Mountain/ditch/bridge exterior, day | `8/9` | runtime selector table where the selected transfer stream is raw palette data, otherwise fallback | inferred-template |
+| `5` | Castlevania exterior, day | `6/7` | runtime selector table where the selected transfer stream is raw palette data, otherwise fallback | inferred-template |
 
 These assumptions are deliberately preserved in generated metadata so a future
 PNG renderer, web canvas renderer, or regression suite can see exactly which
@@ -123,6 +123,36 @@ the effective layout index:
 | Sadam Woods - Part 2 | `FD 06 00` | `0x06` |
 | Dora Woods - Part 2 | `FE 0D FF` | `0x0D` |
 
+## Runtime Palette Selector
+
+The palette milestone decoded the game path that queues background palette
+transfers:
+
+- fixed-bank routine `7:$C7FD` derives a palette index-list pointer from
+  runtime objset/area/submap context
+- bank `2:$F7C5` points to one palette index table per objset
+- each area has day and night index-list pointers, four bytes per area
+- each submap entry is two bytes: a background transfer id and an auxiliary
+  transfer id
+- fixed-bank table `7:$C895` maps transfer ids to the actual transfer stream
+  or raw background palette bytes
+
+The atlas manifest records this selector chain under
+`template.paletteSelector` for each candidate when the selected transfer stream
+starts with a raw background palette byte (`$0F`).
+
+Representative day fixtures:
+
+| Location | Selector context | Index list | Transfer id | Palette |
+| --- | --- | --- | ---: | --- |
+| Jova Woods | `2:0:0` | `2:$A1C0` | `$22` | `4:$9FC6` |
+| Dora Woods - Part 2 | `2:0:3` fixture alias for layout candidate `2:8:2` | `2:$A1C0` | `$23` | `4:$9FD7` |
+| Dabi's Path | `2:3:0` / `2:3:1` | `2:$A6EB` | `$26` | `4:$A00A` |
+
+Dora Woods - Part 2 is the first evidence that a `cv2r` layout candidate tuple
+can differ from the live runtime palette selector context. The renderer keeps
+that as a documented context alias, not as a hardcoded palette-byte override.
+
 ## Dora Palette Fixture
 
 `out/states/dora-woods-part-2.mss` is a local Mesen save-state fixture for
@@ -133,25 +163,41 @@ shows the day background palette in PPU RAM as:
 0F 00 10 0A 0F 16 1C 06 0F 22 19 1C 0F 11 20 15
 ```
 
-Those 16 bytes are present in PRG bank `4` at `$9FD7`, and bank `7:$88DB`
-points to that palette. Rendering the full Dora Woods - Part 2 layout with
-palette `4:$9FD7`, then cropping at the captured scroll position
+Those 16 bytes are present in PRG bank `4` at `$9FD7`. The decoded selector
+path reaches it through runtime context `2:0:3`, transfer id `$23`, and bank
+`7:$88DB`. Rendering the full Dora Woods - Part 2 layout with palette
+`4:$9FD7`, then cropping at the captured scroll position
 `x=144, y=48`, matches the emulator background render with `0` differing
-pixels. The earlier object-set fallback palette `4:$9FC6` is still valid for
-the Jova Woods fixture, but not for this Dora screen.
+pixels.
+
+## Dabi Palette Fixture
+
+`out/states/dabis-path.mss` is a local Mesen save-state fixture for Dabi's
+Path. Capturing it with `npm run capture:dabis-path` shows the day background
+palette in PPU RAM as:
+
+```text
+0F 00 23 03 0F 1C 04 0C 0F 01 11 05 0F 01 20 05
+```
+
+Those 16 bytes are present in PRG bank `4` at `$A00A`. The selector path for
+both Dabi's Path candidates uses index list `2:$A6EB`, transfer id `$26`, and
+bank `7:$88E1`. The fixture crop differs only at the known scroll-wrap edge
+and enemy-overlap pixels; the palette bytes match exactly.
 
 ## Limits
 
 Atlas v0 is not yet the final map image.
 
 - It does not place all segments into world topology coordinates.
-- It does not render night palettes yet.
+- It does not render night palettes yet, although the selector table already
+  exposes day and night index-list pointers.
 - Inferred templates need representative emulator validation.
-- Most non-town palette choices are still object-set fallbacks; Dora Woods -
-  Part 2 is the first fixture-backed per-location override.
+- The palette mechanism is decoded, but the mapping from every `cv2r` layout
+  candidate to the live runtime selector context is not yet fully generalized.
 - Mansion-door renders are still inferred and visibly wrong; they likely need a
   separate CHR/tile template investigation rather than only a palette change.
 
-The next milestone should attach viewport-sized save-state validation windows
-to representative multi-section layouts, then use those fixtures to isolate
-palette selection and mansion-template fixes.
+The next milestone should generalize runtime selector contexts for route
+aliases like Dora, then use the same fixture approach to isolate mansion
+template fixes.
