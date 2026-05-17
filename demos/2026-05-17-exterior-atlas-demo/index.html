@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Castlevania II Exterior Atlas Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="#slide-1">Castlevania II Exterior Atlas</a>
+    <span><span id="slide-number">1</span>/<span id="slide-total">6</span></span>
+  </header>
+
+  <main>
+    <section class="slide title-slide" id="slide-1">
+      <div class="content hero-layout">
+        <div>
+          <p class="eyebrow">Exterior atlas v0</p>
+          <h1>The renderer now finds and draws the exterior world inventory</h1>
+          <p class="lede">The atlas pass enumerates exterior-like locations from cv2r metadata, resolves their ROM layout tables, and emits layout-space PNGs directly from the game artifact.</p>
+          <div class="metric-row">
+            <div><strong id="total-candidates">55</strong><span>exterior candidates</span></div>
+            <div><strong id="rendered-candidates">55</strong><span>rendered PNGs</span></div>
+            <div><strong id="special-records">5</strong><span>special records decoded</span></div>
+          </div>
+        </div>
+        <div class="hero-samples" id="hero-samples" aria-label="Representative rendered exterior atlas samples"></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-2">
+      <div class="content">
+        <p class="eyebrow">Known-good baseline</p>
+        <h2>The Jova-to-Veros route remains the calibrated anchor</h2>
+        <p>The atlas expands outward from the continuous route work. Jova Woods keeps its validated layout source, while the broader pass records which additional segments are using inferred templates.</p>
+        <div class="route-window" aria-label="Scrollable Jova to Veros route baseline">
+          <img src="assets/baseline/jova-to-veros-outdoor-day.png" alt="Full outdoor Jova to Veros route rendered from ROM layout data">
+        </div>
+        <div class="legend">
+          <span class="validated">validated template</span>
+          <span class="inferred">inferred template</span>
+          <span>layout-space PNGs, not emulator screenshots</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-3">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Coverage</p>
+          <h2>The manifest is now a reusable map inventory</h2>
+          <p>Each candidate records its cv2r location, object set, pattern byte, screen-record pointer, layout index, layout header, tile set, palette choice, CHR banks, dimensions, and confidence status.</p>
+        </div>
+        <div class="coverage-panel">
+          <div class="coverage-stats" id="coverage-stats"></div>
+          <div class="category-bars" id="category-bars"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide atlas-slide" id="slide-4">
+      <div class="content wide">
+        <p class="eyebrow">Atlas grid</p>
+        <h2>Every current exterior candidate has a ROM-native PNG</h2>
+        <div class="filter-bar" id="filter-bar" aria-label="Atlas category filters"></div>
+        <div class="atlas-grid" id="atlas-grid"></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-5">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Decoding progress</p>
+          <h2>Special screen records are preserved instead of flattened away</h2>
+          <p>Five exterior candidates use special screen-record markers. The atlas keeps the raw bytes and records when the renderer uses byte 1 as the effective layout index.</p>
+        </div>
+        <div class="special-list" id="special-list"></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-6">
+      <div class="content split">
+        <div>
+          <p class="eyebrow">Next demo goal</p>
+          <h2>Turn the atlas into a topology-aware world map</h2>
+          <p>The next milestone should place these rendered segments into route/world coordinates, promote representative inferred templates through emulator validation, and add the outdoor night-palette pass.</p>
+        </div>
+        <div class="next-grid">
+          <div><strong>Topology</strong><span>Connect locations by world adjacency instead of category order.</span></div>
+          <div><strong>Validation</strong><span>Capture representative windows for objsets 1, 3, 4, and 5.</span></div>
+          <div><strong>Palette variants</strong><span>Add night exterior palettes while keeping mansion interiors single-palette.</span></div>
+          <div><strong>Consumers</strong><span>Keep the manifest useful for PNG output and future canvas rendering.</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="controls" aria-label="Slide navigation">
+    <button id="previous-slide" type="button" title="Previous slide">&lt;</button>
+    <button id="next-slide" type="button" title="Next slide">&gt;</button>
+  </nav>
+
+  <script src="assets/exterior-atlas/atlas-data.js"></script>
+  <script src="slides.js"></script>
+</body>
+</html>
