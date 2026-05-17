@@ -15,6 +15,7 @@ The current vertical slice includes:
 - renders validated ROM-native background PNGs from descriptor nametables, CHR banks, and ROM palette bytes
 - organizes ROM-native screens into a route-ordered viewport catalog with validated/inferred status
 - renders a continuous Jova Woods layout-space segment from adjacent ROM layout column groups
+- renders an exterior atlas of 55 town, route, mansion-door, mountain, and castle exterior candidates from ROM layout data
 
 ## ROM Setup
 
@@ -51,6 +52,7 @@ npm run render:jova-woods-native-png
 npm run render:region:jova-to-veros
 npm run render:segment:jova-woods
 npm run render:route:jova-to-veros
+npm run render:atlas:exterior
 ```
 
 You can also pass paths directly:
@@ -65,6 +67,7 @@ node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor j
 node src/index.js render-region-png --rom roms/cv2.nes --region jova-to-veros-day --out out/regions/jova-to-veros-day.png
 node src/index.js render-layout-segment-png --rom roms/cv2.nes --segment jova-woods-day --out out/layout-segments/jova-woods-day.png
 node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-veros-outdoor-day --out out/layout-routes/jova-to-veros-outdoor-day.png
+node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas
 ```
 
 ## Demos
@@ -76,6 +79,7 @@ demos/2026-05-17-sprint-demo/index.html
 demos/2026-05-17-regional-demo/index.html
 demos/2026-05-17-layout-segment-demo/index.html
 demos/2026-05-17-jova-to-veros-route-demo/index.html
+demos/2026-05-17-exterior-atlas-demo/index.html
 ```
 
 ## Next Milestone
@@ -93,10 +97,17 @@ Jova-to-Veros route. It renders a 3072x224 route image from Jova Woods,
 Jova-Veros Bridge, Veros Woods - Part 1, and Veros Woods - Part 2 layout
 segments.
 
+`npm run render:atlas:exterior` expands from route rendering into atlas coverage.
+It enumerates 55 exterior candidates from the vendored `cv2r` metadata, resolves
+their ROM screen records and layout headers, and writes a manifest plus PNGs
+under `out/exterior-atlas/`. See `docs/exterior-atlas-notes.md` for the
+inventory rules, confidence split, template assumptions, and special
+screen-record handling.
+
 The intended path is:
 
-1. promote additional outdoor contexts into layout segment descriptors
-2. attach viewport-sized validation windows to segment metadata without using those captures as source art
-3. identify remaining descriptor fields not fully encoded yet: dimensions, page selection, row streaming, CHR-bank choice, and palette mode
+1. turn exterior atlas entries into topology-aware route/world coordinates
+2. attach viewport-sized validation windows to inferred template families without using those captures as source art
+3. identify remaining descriptor fields not fully encoded yet: per-location palette selection, page selection, row streaming, and CHR-bank choice
 4. expand descriptor coverage to day/night outdoor variants and fixed-palette interiors
-5. connect validated segments into route graphs, then expand to full composites and overlay data
+5. connect validated segments into full composites and overlay data

@@ -19,6 +19,7 @@ The repository now has a zero-dependency Node CLI that can:
 - organize ROM-native screens into a route-ordered viewport catalog with validated and inferred status metadata
 - render a continuous Jova Woods layout-space segment from adjacent ROM layout column groups
 - render the full outdoor Jova-to-Veros route as connected layout-space segments
+- render an exterior atlas of 55 candidates from `cv2r` metadata plus ROM layout, tile, CHR, and palette data
 
 Generated output is intentionally ignored by git:
 
@@ -56,6 +57,8 @@ Committed reference data is intentionally tracked:
 - The first regional renderer catalogs `jova-to-veros-day` from three validated screens and two inferred manifest-context candidates: Jova-Veros Bridge and Veros Woods - Part 1. It is route-ordered, but not a continuous world-space stitch.
 - The first layout segment renderer renders `jova-woods-day` as a 1024x224 continuous segment from layout header `2:$A23E` and column groups `0..3`.
 - The first route renderer composes `jova-to-veros-outdoor-day` into a 3072x224 outdoor route: Jova Woods, Jova-Veros Bridge, Veros Woods - Part 1, and Veros Woods - Part 2.
+- The first exterior atlas pass renders 55 exterior candidates, including towns, overworld routes, mansion doors, mountains, Castlevania Bridge, and Castlevania exterior. It records 31 validated-template renders and 24 inferred-template renders.
+- Special exterior screen-record markers `FD`/`FE` are now preserved in metadata and decoded by using byte `1` as the effective layout index for the current five known exterior cases.
 - These verified checkpoints are now stored as reusable descriptors in `data/background-descriptors.json`.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
 
@@ -67,33 +70,36 @@ The long-term renderer should decode the ROM's screen, tile, CHR-bank, palette, 
 
 Day/night is a first-class render variant. Outdoor town and overworld screens should eventually render both variants. Town interiors are day-only because they are inaccessible at night. Mansion interiors are accessible at night, but their interior palette is confirmed stable between day and night, so they only need one rendered interior variant.
 
-## Descriptor Pipeline Milestone
+## Exterior Atlas Milestone
 
-The current implementation target is turning verified one-off checkpoints into reusable descriptor data that can be consumed by multiple render targets.
+The current implementation target is turning the exterior atlas into a topology-aware world map while keeping descriptor data usable by multiple render targets.
 
 Work items:
 
-1. Preserve decoded checkpoints as data.
+1. Preserve decoded checkpoints and atlas entries as data.
    - Store runtime context, ROM addresses, page selection, palette mode, and validation captures in `data/background-descriptors.json`.
+   - Store atlas render status, screen-record bytes, layout headers, tile-set addresses, CHR banks, and palette assumptions in generated atlas manifests.
    - Keep docs close enough to the data that a future renderer can use the discoveries without replaying the same traces.
 
-2. Expand descriptor derivation from decoded background pointer tables.
-   - Use `inspect-background-context` to derive layout headers and tile-set pointers for more `out/manifest.json` locations.
-   - Identify the remaining descriptor fields not fully encoded yet: dimensions, page selection, row streaming, CHR-bank choice, and palette mode.
-   - Use Jova town and Jova Woods as known-good endpoints while expanding the decoder.
+2. Convert atlas entries into topology.
+   - Use doors, sign text, route names, and observed route continuity to define adjacency/composite placement.
+   - Keep the atlas images as layout-space source segments, not emulator screenshots.
 
-3. Expand descriptor coverage.
-   - Add representative save-state fixtures for additional towns, roads, mansions, and interiors.
+3. Promote inferred templates.
+   - Add representative save-state fixtures for mansion doors, objset `3`, objset `4`, and Castlevania exterior.
    - Capture both day and night descriptors for outdoor locations.
    - Keep mansion interiors as one fixed-palette descriptor unless later evidence shows otherwise.
 
-4. Validate.
+4. Decode remaining palette selection.
+   - Replace object-set fallback palettes with per-location palette derivation where the ROM encodes it.
+   - Preserve day and night palette variants as first-class render options.
+
+5. Validate.
    - Capture deterministic emulator screenshots, PPU state, and OAM.
    - Compare generated output with pixel diffs.
 
-5. Scale out.
-   - Generate descriptors for all locations from `out/manifest.json` and the ROM tables.
-   - Define adjacency/composite layout per area.
+6. Scale out.
+   - Generate descriptors for all locations from the `cv2r` manifest and the ROM tables.
    - Generate full-map PNGs plus optional actor/door overlays.
 
 ## Emulator Note

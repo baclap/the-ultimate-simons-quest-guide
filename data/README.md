@@ -9,3 +9,9 @@ Current files:
 - `background-descriptors.json`: committed ROM-native background descriptors for validated checkpoints. See `docs/background-descriptor-schema.md`.
 - `regions.json`: committed regional route descriptors that organize validated and inferred viewport renders. See `docs/regional-renderer-notes.md`.
 - `layout-segments.json`: committed continuous layout-space segment and route descriptors that render larger-than-viewport map slices from ROM layout pointers.
+
+The exterior atlas is generated from `cv2r` metadata plus ROM table reads rather
+than maintained as a hand-authored `data/` JSON file. Run
+`npm run render:atlas:exterior` to create `out/exterior-atlas/manifest.json`;
+the current demo also commits a self-contained generated atlas manifest under
+`demos/2026-05-17-exterior-atlas-demo/assets/exterior-atlas/`.

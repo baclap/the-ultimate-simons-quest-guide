@@ -627,6 +627,7 @@ function renderLayoutRoutePng(rom, info, route, output, opts = {}) {
 
 module.exports = {
   DEFAULT_LAYOUT_SEGMENTS_FILE,
+  deriveLayoutContext,
   loadLayoutSegment,
   loadLayoutSegmentFile,
   loadLayoutRoute,
