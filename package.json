@@ -22,6 +22,7 @@
     "inspect:jova-background": "node src/index.js inspect-background-context --rom roms/cv2.nes --objset 0 --area 0 --submap 0",
     "inspect:jova-woods-background": "node src/index.js inspect-background-context --rom roms/cv2.nes --objset 0x02 --area 0 --submap 0",
     "inspect:runtime-contexts": "node src/index.js inspect-runtime-context --fixtures data/runtime-context-fixtures.json",
+    "inspect:runtime-context-map": "node src/index.js inspect-runtime-context-map --rom roms/cv2.nes",
     "render:jova-capture": "node src/index.js render-ppu-capture --capture out/captures/jova-day --out out/captures/jova-day/background.png",
     "render:jova-right-capture": "node src/index.js render-ppu-capture --capture out/captures/jova-right-day --out out/captures/jova-right-day/background.png",
     "render:jova-woods-capture": "node src/index.js render-ppu-capture --capture out/captures/jova-woods-day --out out/captures/jova-woods-day/background.png",

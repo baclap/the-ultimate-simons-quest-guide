@@ -40,16 +40,32 @@ routine masks `$51 & $7F`, the palette context is `2:0:3`, resolving transfer
 
 ## Current Renderer Rule
 
-`src/exterior-atlas.js` now consumes fixture-backed aliases from
-`data/runtime-context-fixtures.json`. This moves the Dora behavior out of an
-inline hardcoded palette exception and into committed evidence. The renderer
-still only aliases contexts when a fixture proves that the atlas context and
-runtime context differ.
+`src/runtime-context.js` now builds a ROM-derived resolver over the atlas
+candidates. It reads each candidate's area record, screen-record pointer, and
+first screen-record byte. For special screen records (`$FD`/`$FE`), it looks
+for a prior same-marker special stream in the same object set.
+
+That rule currently finds one exterior alias:
+
+| Atlas candidate | Screen record | Alias source | Runtime selector context |
+| --- | --- | --- | --- |
+| Dora Woods - Part 2, `2:8:2` | `2:$A1AB`, starts `$FE $0D` | Veros Woods - Part 2, `2:0:3`, stream `2:$A1A3`, starts `$FE $06` | `2:0:3`, raw `$51=$83` |
+
+This matches the committed Mesen fixture exactly, so fixtures are now
+validation evidence rather than the primary source of the alias. If the ROM rule
+does not find an alias, the renderer still falls back to the fixture-backed
+alias table, and then to the direct `cv2r` context.
+
+Use this command to inspect the current resolver report:
+
+```sh
+npm run inspect:runtime-context-map
+```
 
 ## Remaining Gap
 
-The next research step is to decode the transition tables that set `$30`,
-`$50`, and `$51`, then map static `cv2r` atlas candidates to live runtime
-contexts without needing a fixture for every location. The likely source is the
-fixed-bank transition parser around `7:$D0B0`, which writes `$30/$50/$51` from
-table bytes containing control markers such as `$FA`, `$FB`, `$FC`, and `$FF`.
+The resolver now closes the known Dora alias without location-specific logic.
+The remaining research step is broader transition semantics: decode all table
+paths that set `$30`, `$50`, and `$51`, especially around the fixed-bank parser
+near `7:$D0B2`, so the project can explain every possible runtime context
+transition and not only aliases visible in current atlas records.

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Runtime Context Resolver</title>
+  <link rel="stylesheet" href="styles.css?v=runtime-context-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Runtime context milestone</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/5</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main id="slides">
+    <section class="slide title-slide" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>Runtime palette context now has a ROM-derived resolver</h1>
+        <p class="lede">The renderer no longer needs a Dora-specific fixture alias to select the blue-leaf day palette. It can find the context alias from the game's special screen-record structure.</p>
+      </div>
+      <div class="metric-row">
+        <div><strong>55</strong><span>exterior candidates scanned</span></div>
+        <div><strong>5</strong><span>special screen records found</span></div>
+        <div><strong>1</strong><span>ROM-derived palette alias</span></div>
+      </div>
+      <div class="hero-grid">
+        <figure>
+          <img src="assets/images/dora-woods-part-2-current.png?v=runtime-context-1" alt="Dora Woods Part 2 rendered from ROM data">
+          <figcaption>Dora Woods Part 2 resolves through runtime context <code>2:0:3</code></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/dabis-path-current.png?v=runtime-context-1" alt="Dabi's Path rendered from ROM data">
+          <figcaption>Dabi's Path stays direct at <code>2:3:0</code></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="dora">
+      <div class="copy narrow">
+        <p class="eyebrow">Before And After</p>
+        <h2>Dora proves layout context and palette context can diverge</h2>
+        <p>The layout candidate is still <code>2:8:2</code>, but the live palette selector uses <code>$30=02</code>, <code>$50=00</code>, and <code>$51=83</code>. The resolver now derives that from ROM tables.</p>
+      </div>
+      <div class="compare">
+        <figure>
+          <img src="assets/images/dora-woods-part-2-before-direct.png?v=runtime-context-1" alt="Dora Woods Part 2 rendered with direct context palette">
+          <figcaption>Direct candidate context: transfer <code>$24</code>, palette <code>4:$9FE8</code></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/dora-woods-part-2-current.png?v=runtime-context-1" alt="Dora Woods Part 2 rendered with resolved runtime context palette">
+          <figcaption>Resolved runtime context: transfer <code>$23</code>, palette <code>4:$9FD7</code></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="rule">
+      <div class="copy narrow">
+        <p class="eyebrow">Resolver Rule</p>
+        <h2>The alias comes from a nested special screen record</h2>
+        <p>The rule is table-driven: scan special screen records, then alias only when one starts inside an earlier same-marker special stream in the same object set.</p>
+      </div>
+      <div class="rule-grid">
+        <article>
+          <span>Candidate</span>
+          <strong>Dora Woods Part 2</strong>
+          <code>2:$A1AB = FE 0D ...</code>
+        </article>
+        <article>
+          <span>Containing stream</span>
+          <strong>Veros Woods Part 2</strong>
+          <code>2:$A1A3 = FE 06 ...</code>
+        </article>
+        <article>
+          <span>Raw runtime submap</span>
+          <strong><code>$83</code></strong>
+          <code>submap 03 + high-bit flag</code>
+        </article>
+        <article>
+          <span>Palette result</span>
+          <strong><code>4:$9FD7</code></strong>
+          <code>transfer id $23</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="guardrail">
+      <div class="copy narrow">
+        <p class="eyebrow">Guardrail</p>
+        <h2>Special records are not all aliases</h2>
+        <p>Dabi and Aljiba also use special screen records, but they do not meet the same-marker containment rule. Their palette contexts remain direct.</p>
+      </div>
+      <div class="compare three">
+        <figure>
+          <img src="assets/images/dabis-path-current.png?v=runtime-context-1" alt="Dabi's Path rendered from ROM data">
+          <figcaption>Dabi's Path: direct <code>2:3:0</code>, transfer <code>$26</code></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/aljiba-woods-part-2.png?v=runtime-context-1" alt="Aljiba Woods Part 2 rendered from ROM data">
+          <figcaption>Aljiba Woods Part 2: direct <code>2:3:3</code>, transfer <code>$23</code></figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/veros-woods-part-2.png?v=runtime-context-1" alt="Veros Woods Part 2 rendered from ROM data">
+          <figcaption>Alias source stream: direct <code>2:0:3</code>, transfer <code>$23</code></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Demo Goal</p>
+        <h2>Move from palette-context aliases to topology and template fixes</h2>
+        <p>The known palette-context gap is closed for current evidence. The next demo should make the world map more coherent by placing exterior segments into route topology while continuing to isolate the mansion-door template problem.</p>
+      </div>
+      <div class="next-grid">
+        <article><strong>Topology</strong><span>Connect exterior segments by route adjacency instead of atlas order.</span></article>
+        <article><strong>Mansions</strong><span>Investigate the scrambled mansion-door tile template separately from palette selection.</span></article>
+        <article><strong>Validation</strong><span>Add targeted save states for representative objsets 1, 3, 4, and 5.</span></article>
+        <article><strong>Variants</strong><span>Add night exterior palette rendering after day topology is stable.</span></article>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/data/atlas-data.js?v=runtime-context-1"></script>
+  <script src="assets/data/runtime-context-map.js?v=runtime-context-1"></script>
+  <script src="slides.js?v=runtime-context-1"></script>
+</body>
+</html>

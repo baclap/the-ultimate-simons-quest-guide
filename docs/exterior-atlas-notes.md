@@ -139,8 +139,10 @@ transfers:
 
 The atlas manifest records this selector chain under
 `template.paletteSelector` for each candidate when the selected transfer stream
-starts with a raw background palette byte (`$0F`). Runtime context aliases come
-from committed fixture evidence in `data/runtime-context-fixtures.json`.
+starts with a raw background palette byte (`$0F`). Runtime context aliases are
+now resolved from ROM screen-record structure first, with
+`data/runtime-context-fixtures.json` retained as validation evidence and a
+fallback alias source.
 
 Representative day fixtures:
 
@@ -152,8 +154,10 @@ Representative day fixtures:
 
 Dora Woods - Part 2 is the first evidence that a `cv2r` layout candidate tuple
 can differ from the live runtime palette selector context. The renderer now
-keeps that as fixture-backed context evidence, not as a hardcoded palette-byte
-override.
+derives that alias from the ROM: candidate `2:8:2` starts at special screen
+record `2:$A1AB` (`$FE $0D`), which is nested inside the same-marker special
+stream for `2:0:3` at `2:$A1A3` (`$FE $06`). The derived raw runtime submap is
+`$83`, matching the Mesen fixture.
 
 ## Dora Palette Fixture
 

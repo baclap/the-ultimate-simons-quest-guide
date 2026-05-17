@@ -19,8 +19,12 @@ const {
   renderLayoutRoutePng,
   renderLayoutSegmentPng
 } = require('./layout-segments');
-const { renderExteriorAtlas } = require('./exterior-atlas');
 const {
+  buildExteriorAtlas,
+  renderExteriorAtlas
+} = require('./exterior-atlas');
+const {
+  createRuntimeContextResolver,
   inspectRuntimeContextFixtures,
   readCaptureRuntimeContext
 } = require('./runtime-context');
@@ -86,6 +90,7 @@ function usage() {
     '  node src/index.js inspect-background-context --rom roms/cv2.nes --objset 0x02 --area 0 --submap 0',
     '  node src/index.js inspect-runtime-context --capture out/captures/jova-woods-day',
     '  node src/index.js inspect-runtime-context --fixtures data/runtime-context-fixtures.json',
+    '  node src/index.js inspect-runtime-context-map --rom roms/cv2.nes',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --compare out/captures/jova-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-native-nametables.bin',
     '  node src/index.js render-background-native-png --rom roms/cv2.nes --descriptor jova-day --state out/captures/jova-day/state.json --compare-png out/captures/jova-day/background.png --out out/decoder/jova-native-background.png',
     '  node src/index.js render-region-png --rom roms/cv2.nes --region jova-to-veros-day --out out/regions/jova-to-veros-day.png',
@@ -107,6 +112,7 @@ function usage() {
     '  replay-ppu-buffer-trace  Replay traced $0700 NMI PPU buffer writes into nametable bytes.',
     '  inspect-background-context  Derive background table pointers from objset/area/submap.',
     '  inspect-runtime-context  Extract live map context bytes from capture CPU RAM or committed fixture evidence.',
+    '  inspect-runtime-context-map  Derive ROM table aliases between atlas candidates and live palette selector contexts.',
     '  render-background-native  Render a descriptor-backed ROM-native nametable checkpoint.',
     '  render-background-native-png  Render a descriptor-backed ROM-native background PNG.',
     '  render-region-png  Render a route-ordered ROM-native viewport catalog PNG.',
@@ -393,6 +399,17 @@ function inspectRuntimeContextCommand(args) {
   printJson(inspectRuntimeContextFixtures());
 }
 
+function inspectRuntimeContextMapCommand(args) {
+  const romPath = required(args, 'rom');
+  const { buffer, info } = readRom(romPath);
+  const atlas = buildExteriorAtlas(buffer, info);
+  const resolver = createRuntimeContextResolver(buffer, info, atlas.candidates);
+  printJson({
+    rom: describeRom(info),
+    runtimeContextMap: resolver.inspect()
+  });
+}
+
 function renderNativeBackgroundCommand(args, renderFn, defaultVisiblePage) {
   const romPath = required(args, 'rom');
   const visiblePage = integerOption(args, 'visible-page', defaultVisiblePage);
@@ -663,6 +680,11 @@ function main() {
 
   if (command === 'inspect-runtime-context') {
     inspectRuntimeContextCommand(args);
+    return;
+  }
+
+  if (command === 'inspect-runtime-context-map') {
+    inspectRuntimeContextMapCommand(args);
     return;
   }
 

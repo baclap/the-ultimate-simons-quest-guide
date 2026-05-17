@@ -2,6 +2,16 @@
 
 const fs = require('fs');
 const path = require('path');
+const {
+  readPrgByte,
+  readPrgWord,
+  toHex
+} = require('./background');
+const {
+  AREA_TABLE_POINTERS,
+  BACKGROUND_TABLE_BANK,
+  SCREEN_RECORD_POINTERS_OFFSET
+} = require('./background-context');
 
 const RUNTIME_CONTEXT_ADDRESSES = {
   objset: 0x0030,
@@ -14,6 +24,8 @@ const RUNTIME_CONTEXT_ADDRESSES = {
 };
 
 const DEFAULT_FIXTURE_FILE = path.join(__dirname, '..', 'data', 'runtime-context-fixtures.json');
+const SPECIAL_SCREEN_RECORD_MARKERS = new Set([0xfd, 0xfe]);
+const MAX_SPECIAL_ALIAS_DISTANCE = 0x20;
 
 function hex(value, width = 2) {
   if (value == null) {
@@ -119,6 +131,184 @@ function contextsEqual(left, right) {
     left.submap === right.submap;
 }
 
+function readBackgroundTableByte(rom, info, cpuAddress) {
+  return readPrgByte(rom, info, cpuAddress, { bank: BACKGROUND_TABLE_BANK });
+}
+
+function readBackgroundTableWord(rom, info, cpuAddress) {
+  return readPrgWord(rom, info, cpuAddress, { bank: BACKGROUND_TABLE_BANK });
+}
+
+function normalizeLocationContext(loc) {
+  return {
+    objset: loc.objset,
+    area: loc.area,
+    submap: loc.submap || 0
+  };
+}
+
+function publicSimpleContext(context) {
+  return {
+    objset: hex(context.objset, 2),
+    area: hex(context.area, 2),
+    submap: hex(context.submap, 2)
+  };
+}
+
+function readRuntimeMappingScreenRecord(rom, info, loc) {
+  const context = normalizeLocationContext(loc);
+  const areaTableAddress = readBackgroundTableWord(rom, info, AREA_TABLE_POINTERS + context.objset * 2);
+  const areaRecordAddress = readBackgroundTableWord(rom, info, areaTableAddress + context.area * 2);
+  const pointerAddress = areaRecordAddress + SCREEN_RECORD_POINTERS_OFFSET + context.submap * 2;
+  const address = readBackgroundTableWord(rom, info, pointerAddress);
+  const firstByte = readBackgroundTableByte(rom, info, address);
+  const secondByte = readBackgroundTableByte(rom, info, address + 1);
+
+  return {
+    context,
+    key: contextKey(context),
+    name: loc.name,
+    areaTableAddress,
+    areaRecordAddress,
+    pointerAddress,
+    address,
+    firstByte,
+    secondByte,
+    specialMarker: SPECIAL_SCREEN_RECORD_MARKERS.has(firstByte) ? firstByte : undefined
+  };
+}
+
+function findSpecialScreenRecordAlias(entry, entries) {
+  if (entry.specialMarker == null) {
+    return undefined;
+  }
+
+  const containers = entries
+    .filter((candidate) => (
+      candidate !== entry &&
+      candidate.context.objset === entry.context.objset &&
+      candidate.specialMarker === entry.specialMarker &&
+      candidate.address < entry.address &&
+      entry.address - candidate.address <= MAX_SPECIAL_ALIAS_DISTANCE
+    ))
+    .sort((left, right) => right.address - left.address);
+
+  const source = containers[0];
+  if (!source) {
+    return undefined;
+  }
+
+  const submapRaw = source.context.submap | 0x80;
+
+  return {
+    objset: source.context.objset,
+    area: source.context.area,
+    submap: source.context.submap,
+    submapRaw,
+    submapFlags: submapRaw & 0x80,
+    source: 'rom-special-screen-record-alias',
+    note: `${entry.name || entry.key} starts at screen record $${toHex(entry.address)} inside the same-marker special stream for ${source.name || source.key} at $${toHex(source.address)}.`,
+    screenRecordAlias: {
+      reason: 'same-marker-special-screen-record-containment',
+      marker: hex(entry.specialMarker, 2),
+      target: {
+        context: publicSimpleContext(entry.context),
+        name: entry.name,
+        screenRecordAddress: hex(entry.address, 4),
+        screenRecordPointerAddress: hex(entry.pointerAddress, 4)
+      },
+      source: {
+        context: publicSimpleContext(source.context),
+        name: source.name,
+        screenRecordAddress: hex(source.address, 4),
+        screenRecordPointerAddress: hex(source.pointerAddress, 4)
+      },
+      byteOffset: entry.address - source.address
+    },
+    original: entry.context
+  };
+}
+
+function publicScreenRecordEntry(entry) {
+  return {
+    name: entry.name,
+    context: publicSimpleContext(entry.context),
+    areaRecordAddress: hex(entry.areaRecordAddress, 4),
+    screenRecordPointerAddress: hex(entry.pointerAddress, 4),
+    screenRecordAddress: hex(entry.address, 4),
+    firstByte: hex(entry.firstByte, 2),
+    secondByte: hex(entry.secondByte, 2),
+    specialMarker: hex(entry.specialMarker, 2)
+  };
+}
+
+function createRuntimeContextResolver(rom, info, locations) {
+  const entries = locations.map((loc) => readRuntimeMappingScreenRecord(rom, info, loc));
+  const byKey = new Map(entries.map((entry) => [entry.key, entry]));
+  const aliasByKey = new Map();
+
+  for (const entry of entries) {
+    const alias = findSpecialScreenRecordAlias(entry, entries);
+    if (alias) {
+      aliasByKey.set(entry.key, alias);
+    }
+  }
+
+  function resolvePaletteContext(loc) {
+    const key = contextKey(normalizeLocationContext(loc));
+    const entry = byKey.get(key);
+    const alias = aliasByKey.get(key);
+    if (!entry || !alias) {
+      return {
+        ...normalizeLocationContext(loc),
+        source: 'cv2r-runtime-context'
+      };
+    }
+
+    return alias;
+  }
+
+  function inspect() {
+    const aliases = [];
+    for (const [key, alias] of aliasByKey.entries()) {
+      aliases.push({
+        key,
+        target: alias.screenRecordAlias.target,
+        source: alias.screenRecordAlias.source,
+        marker: alias.screenRecordAlias.marker,
+        byteOffset: alias.screenRecordAlias.byteOffset,
+        resolvedContext: {
+          objset: hex(alias.objset, 2),
+          area: hex(alias.area, 2),
+          submap: hex(alias.submap, 2),
+          submapRaw: hex(alias.submapRaw, 2),
+          submapFlags: hex(alias.submapFlags, 2)
+        },
+        note: alias.note
+      });
+    }
+
+    return {
+      source: 'rom-special-screen-record-alias',
+      constants: {
+        areaTablePointers: hex(AREA_TABLE_POINTERS, 4),
+        screenRecordPointersOffset: hex(SCREEN_RECORD_POINTERS_OFFSET, 2),
+        maxSpecialAliasDistance: hex(MAX_SPECIAL_ALIAS_DISTANCE, 2)
+      },
+      candidates: entries.length,
+      specialScreenRecords: entries
+        .filter((entry) => entry.specialMarker != null)
+        .map(publicScreenRecordEntry),
+      aliases
+    };
+  }
+
+  return {
+    inspect,
+    resolvePaletteContext
+  };
+}
+
 function loadRuntimeContextFixtures(filePath = DEFAULT_FIXTURE_FILE) {
   const resolved = path.resolve(filePath);
   const data = JSON.parse(fs.readFileSync(resolved, 'utf8'));
@@ -221,6 +411,7 @@ module.exports = {
   DEFAULT_FIXTURE_FILE,
   RUNTIME_CONTEXT_ADDRESSES,
   contextKey,
+  createRuntimeContextResolver,
   extractRuntimeContextFromCpuRam,
   inspectRuntimeContextFixtures,
   loadRuntimeContextFixtures,

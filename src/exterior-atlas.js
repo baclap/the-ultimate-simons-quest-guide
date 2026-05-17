@@ -14,7 +14,10 @@ const {
   renderLayoutSegment
 } = require('./layout-segments');
 const { writePng } = require('./png');
-const { paletteContextAliasesFromFixtures } = require('./runtime-context');
+const {
+  createRuntimeContextResolver,
+  paletteContextAliasesFromFixtures
+} = require('./runtime-context');
 
 const PATTERN_TABLE_CPU_ADDRESS = 0xb720;
 const OBJSET_PATTERN_OFFSET = 0x30;
@@ -219,7 +222,26 @@ function paletteContextKey(loc) {
   return `${loc.objset}:${loc.area}:${loc.submap || 0}`;
 }
 
-function paletteContextForLocation(loc) {
+function paletteContextForLocation(loc, runtimeContextResolver) {
+  const resolved = runtimeContextResolver?.resolvePaletteContext(loc);
+  if (resolved && resolved.source !== 'cv2r-runtime-context') {
+    return {
+      objset: resolved.objset,
+      area: resolved.area,
+      submap: resolved.submap || 0,
+      source: resolved.source,
+      submapRaw: resolved.submapRaw,
+      submapFlags: resolved.submapFlags,
+      note: resolved.note,
+      screenRecordAlias: resolved.screenRecordAlias,
+      original: resolved.original || {
+        objset: loc.objset,
+        area: loc.area,
+        submap: loc.submap || 0
+      }
+    };
+  }
+
   const alias = PALETTE_CONTEXT_ALIASES[paletteContextKey(loc)];
   if (!alias) {
     return {
@@ -255,8 +277,8 @@ function palettePointerAddressForTransferId(transferId) {
   return BANK_7_TRANSFER_POINTER_TABLE + transferId * 2;
 }
 
-function paletteFromRuntimeSelector(rom, info, loc, variant = 'day') {
-  const context = paletteContextForLocation(loc);
+function paletteFromRuntimeSelector(rom, info, loc, variant = 'day', runtimeContextResolver) {
+  const context = paletteContextForLocation(loc, runtimeContextResolver);
   const paletteTableAddress = readBackgroundTableWord(rom, info, PALETTE_INDEX_POINTERS + context.objset * 2);
   const variantOffset = variant === 'night' ? 2 : 0;
   const indexListPointerAddress = paletteTableAddress + context.area * 4 + variantOffset;
@@ -289,6 +311,7 @@ function paletteFromRuntimeSelector(rom, info, loc, variant = 'day') {
         fixture: context.fixture,
         submapRaw: context.submapRaw,
         submapFlags: context.submapFlags,
+        screenRecordAlias: context.screenRecordAlias,
         original: context.original
       },
       paletteIndexPointersAddress: PALETTE_INDEX_POINTERS,
@@ -304,14 +327,14 @@ function paletteFromRuntimeSelector(rom, info, loc, variant = 'day') {
   };
 }
 
-function templateForLocation(rom, info, loc, screenRecord) {
+function templateForLocation(rom, info, loc, runtimeContextResolver) {
   const base = TEMPLATE_BY_OBJSET[loc.objset];
   if (!base) {
     return undefined;
   }
 
   const template = { ...base };
-  const palette = paletteFromRuntimeSelector(rom, info, loc);
+  const palette = paletteFromRuntimeSelector(rom, info, loc, 'day', runtimeContextResolver);
   if (palette) {
     template.paletteAddress = palette.address;
     template.paletteBank = palette.bank;
@@ -424,11 +447,11 @@ function publicTemplate(template) {
   };
 }
 
-function renderCandidate(rom, info, loc, outDir) {
+function renderCandidate(rom, info, loc, outDir, runtimeContextResolver) {
   const id = locationId(loc);
   const screenRecord = readScreenRecord(rom, info, loc);
   const patternByte = readPatternByte(rom, info, loc);
-  const template = templateForLocation(rom, info, loc, screenRecord);
+  const template = templateForLocation(rom, info, loc, runtimeContextResolver);
 
   const base = {
     id,
@@ -588,7 +611,8 @@ function buildExteriorAtlas(rom, info) {
       mapSizeByObjset: MAP_SIZE_BY_OBJSET,
       paletteIndexPointers: hex(PALETTE_INDEX_POINTERS, 4),
       bank7TransferPointerTable: hex(BANK_7_TRANSFER_POINTER_TABLE, 4),
-      runtimeContextFixtures: 'data/runtime-context-fixtures.json'
+      runtimeContextFixtures: 'data/runtime-context-fixtures.json',
+      runtimeContextResolver: 'rom-special-screen-record-alias'
     },
     templates: Object.values(TEMPLATE_BY_OBJSET).map(publicTemplate),
     candidates: locations
@@ -601,7 +625,10 @@ function renderExteriorAtlas(rom, info, opts = {}) {
   fs.mkdirSync(path.join(outDir, 'images'), { recursive: true });
 
   const atlas = buildExteriorAtlas(rom, info);
-  const renderedCandidates = atlas.candidates.map((loc) => renderCandidate(rom, info, loc, outDir));
+  const runtimeContextResolver = createRuntimeContextResolver(rom, info, atlas.candidates);
+  const renderedCandidates = atlas.candidates.map((loc) => (
+    renderCandidate(rom, info, loc, outDir, runtimeContextResolver)
+  ));
   const result = {
     ...atlas,
     summary: summarize(renderedCandidates),

@@ -20,3 +20,5 @@ Current demos:
   layout rendering, including Jova and Dora Woods Part 2.
 - `2026-05-17-palette-resolver-demo/`: palette resolver demo showing the
   decoded `$F7C5` to `$C895` transfer-id path and the corrected Dabi render.
+- `2026-05-17-runtime-context-demo/`: runtime context resolver demo showing
+  the ROM-derived Dora palette-context alias and its guardrails.
