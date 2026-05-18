@@ -16,6 +16,7 @@ The current vertical slice includes:
 - organizes ROM-native screens into a route-ordered viewport catalog with validated/inferred status
 - renders a continuous Jova Woods layout-space segment from adjacent ROM layout column groups
 - renders an exterior atlas of 55 town, route, mansion-door, mountain, and castle exterior candidates from ROM layout data
+- decodes ROM area-transition triples into a reusable exterior topology graph
 - decodes layout headers as column-group by vertical-section grids and renders 13 multi-section atlas entries larger than one viewport row
 - decodes day background palette selection through the ROM's runtime selector table at `2:$F7C5` and transfer table at `7:$C895`
 - derives the known Dora runtime palette-context alias from ROM special
@@ -63,6 +64,7 @@ npm run render:region:jova-to-veros
 npm run render:segment:jova-woods
 npm run render:route:jova-to-veros
 npm run render:atlas:exterior
+npm run render:topology:exterior
 ```
 
 You can also pass paths directly:
@@ -80,6 +82,7 @@ node src/index.js render-region-png --rom roms/cv2.nes --region jova-to-veros-da
 node src/index.js render-layout-segment-png --rom roms/cv2.nes --segment jova-woods-day --out out/layout-segments/jova-woods-day.png
 node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-veros-outdoor-day --out out/layout-routes/jova-to-veros-outdoor-day.png
 node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas
+node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology
 ```
 
 ## Demos
@@ -95,6 +98,7 @@ demos/2026-05-17-exterior-atlas-demo/index.html
 demos/2026-05-17-vertical-layout-demo/index.html
 demos/2026-05-17-palette-resolver-demo/index.html
 demos/2026-05-17-runtime-context-demo/index.html
+demos/2026-05-17-topology-demo/index.html
 ```
 
 ## Next Milestone
@@ -127,6 +131,12 @@ See `docs/exterior-atlas-notes.md` and
 `docs/runtime-context-mapping-notes.md` for the inventory rules, confidence
 split, template assumptions, vertical grid coverage, special screen-record
 handling, and runtime context evidence.
+
+`npm run render:topology:exterior` decodes the ROM area-transition triples into
+a reusable graph under `out/exterior-topology/`. It emits 55 exterior nodes, 32
+area groups, and adjacency edges for area boundaries and same-area submaps. This
+is the current topology milestone: connected map structure without claiming
+final world-coordinate placement. See `docs/exterior-topology-notes.md`.
 
 The intended path is:
 

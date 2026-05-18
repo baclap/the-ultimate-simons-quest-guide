@@ -39,7 +39,8 @@
     "render:region:jova-to-veros": "node src/index.js render-region-png --rom roms/cv2.nes --region jova-to-veros-day --out out/regions/jova-to-veros-day.png --metadata-out out/regions/jova-to-veros-day.json",
     "render:segment:jova-woods": "node src/index.js render-layout-segment-png --rom roms/cv2.nes --segment jova-woods-day --out out/layout-segments/jova-woods-day.png --metadata-out out/layout-segments/jova-woods-day.json",
     "render:route:jova-to-veros": "node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-veros-outdoor-day --out out/layout-routes/jova-to-veros-outdoor-day.png --metadata-out out/layout-routes/jova-to-veros-outdoor-day.json",
-    "render:atlas:exterior": "node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas"
+    "render:atlas:exterior": "node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas",
+    "render:topology:exterior": "node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology"
   },
   "engines": {
     "node": ">=20"

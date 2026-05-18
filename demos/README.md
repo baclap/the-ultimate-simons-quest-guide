@@ -22,3 +22,6 @@ Current demos:
   decoded `$F7C5` to `$C895` transfer-id path and the corrected Dabi render.
 - `2026-05-17-runtime-context-demo/`: runtime context resolver demo showing
   the ROM-derived Dora palette-context alias and its guardrails.
+- `2026-05-17-topology-demo/`: exterior topology demo showing ROM transition
+  edges, a Jova-to-Castlevania schematic route, and connected mansion-door
+  landmarks.

@@ -200,12 +200,11 @@ Atlas v0 is not yet the final map image.
 - It does not render night palettes yet, although the selector table already
   exposes day and night index-list pointers.
 - Inferred templates need representative emulator validation.
-- The palette mechanism is decoded, and known aliases are now data-backed, but
-  the mapping from every `cv2r` layout candidate to the live runtime selector
-  context is not yet fully generalized.
+- The palette mechanism is decoded, and the known Dora alias is now derived
+  from ROM screen-record structure and validated by save-state evidence.
 - Mansion-door renders are still inferred and visibly wrong; they likely need a
   separate CHR/tile template investigation rather than only a palette change.
 
-The next milestone should generalize runtime selector contexts for route
-aliases like Dora, then use the same fixture approach to isolate mansion
-template fixes.
+The topology milestone adds an adjacency graph on top of this atlas; see
+`docs/exterior-topology-notes.md`. Mansion template fixes and final
+world-coordinate composition remain separate follow-up work.

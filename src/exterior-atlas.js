@@ -661,5 +661,6 @@ function renderExteriorAtlas(rom, info, opts = {}) {
 module.exports = {
   buildExteriorAtlas,
   isExteriorCandidate,
+  locationId,
   renderExteriorAtlas
 };

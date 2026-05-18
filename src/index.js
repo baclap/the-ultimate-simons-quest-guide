@@ -23,6 +23,7 @@ const {
   buildExteriorAtlas,
   renderExteriorAtlas
 } = require('./exterior-atlas');
+const { renderExteriorTopology } = require('./exterior-topology');
 const {
   createRuntimeContextResolver,
   inspectRuntimeContextFixtures,
@@ -97,6 +98,7 @@ function usage() {
     '  node src/index.js render-layout-segment-png --rom roms/cv2.nes --segment jova-woods-day --out out/layout-segments/jova-woods-day.png',
     '  node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-veros-outdoor-day --out out/layout-routes/jova-to-veros-outdoor-day.png',
     '  node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas',
+    '  node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --descriptor-file data/background-descriptors.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
     '',
@@ -119,6 +121,7 @@ function usage() {
     '  render-layout-segment-png  Render a continuous ROM-native layout-space segment PNG.',
     '  render-layout-route-png  Render connected ROM-native layout-space segments into one route PNG.',
     '  render-exterior-atlas  Render exterior candidate layout-space segments and a manifest.',
+    '  render-exterior-topology  Decode exterior area transition topology and write graph data.',
     '  render-jova-native  Alias for render-background-native --descriptor jova-day.',
     '  render-jova-woods-native  Alias for render-background-native --descriptor jova-woods-day.'
   ].join('\n');
@@ -611,6 +614,16 @@ function renderExteriorAtlasCommand(args) {
   });
 }
 
+function renderExteriorTopologyCommand(args) {
+  const romPath = required(args, 'rom');
+  const outDir = args.out ? String(args.out) : path.join('out', 'exterior-topology');
+  const { buffer, info } = readRom(romPath);
+  printJson({
+    rom: describeRom(info),
+    topology: renderExteriorTopology(buffer, info, { outDir })
+  });
+}
+
 function renderJovaNativeCommand(args) {
   renderNativeBackgroundCommand(args, renderJovaNativeNametables, 0);
 }
@@ -715,6 +728,11 @@ function main() {
 
   if (command === 'render-exterior-atlas') {
     renderExteriorAtlasCommand(args);
+    return;
+  }
+
+  if (command === 'render-exterior-topology') {
+    renderExteriorTopologyCommand(args);
     return;
   }
 

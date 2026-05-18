@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Exterior Topology</title>
+  <link rel="stylesheet" href="styles.css?v=topology-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Exterior topology milestone</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/6</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main id="slides">
+    <section class="slide title-slide" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>The atlas now has exterior route topology</h1>
+        <p class="lede">The project can read ROM transition triples and explain how rendered exterior candidates connect. This is adjacency data for map composition, not final world-coordinate placement yet.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="hero-grid">
+        <figure>
+          <img src="assets/exterior-atlas/images/obj00-area00-sub00-jova.png?v=topology-1" alt="Jova rendered from ROM data">
+          <figcaption>Town nodes are connected to route exits through ROM area transitions.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/exterior-atlas/images/obj02-area08-sub02-dora-woods-part-2.png?v=topology-1" alt="Dora Woods Part 2 rendered from ROM data">
+          <figcaption>Multi-submap areas stay grouped, with per-submap images preserved.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/exterior-atlas/images/obj05-area00-sub00-castlevania.png?v=topology-1" alt="Castlevania rendered from ROM data">
+          <figcaption>Castlevania is now reachable through the decoded area graph.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="path">
+      <div class="copy narrow">
+        <p class="eyebrow">Schematic Route</p>
+        <h2>A ROM-derived path from Jova to Castlevania</h2>
+        <p>The path is generated from resolved area-boundary edges. Some edges are traversed in reverse because the graph is treated as walkable adjacency for this schematic.</p>
+      </div>
+      <div class="route-path" id="route-path"></div>
+    </section>
+
+    <section class="slide" data-hash="segments">
+      <div class="copy narrow">
+        <p class="eyebrow">Rendered Route Inventory</p>
+        <h2>The path is backed by ROM-rendered atlas segments</h2>
+        <p>Each area card below contains the actual layout-space PNGs already emitted by the atlas pass. The order comes from topology, not category sorting.</p>
+      </div>
+      <div class="segment-strip" id="segment-strip"></div>
+    </section>
+
+    <section class="slide" data-hash="evidence">
+      <div class="copy narrow">
+        <p class="eyebrow">Transition Evidence</p>
+        <h2>Every route hop keeps its raw transition bytes</h2>
+        <p>The graph stores the three-byte boundary tuple, decoded marker kind, source record address, and resolved target. This keeps the route explainable for future PNG or canvas consumers.</p>
+      </div>
+      <div class="transition-table" id="transition-table"></div>
+    </section>
+
+    <section class="slide" data-hash="mansions">
+      <div class="copy narrow">
+        <p class="eyebrow">Known Gap</p>
+        <h2>Mansion doors are connected landmarks, but their template is pending</h2>
+        <p>The topology knows where mansion-door exteriors sit in the world. Their current render template is still visibly wrong, so the graph marks them without pretending that artwork is final.</p>
+      </div>
+      <div class="mansion-grid" id="mansion-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Demo Goal</p>
+        <h2>Turn topology into true composition coordinates</h2>
+        <p>The next step is to promote this graph into a coordinate solver: align connected segment edges, validate representative windows, fix mansion templates, and then add day/night palette variants.</p>
+      </div>
+      <div class="next-grid">
+        <article><strong>Coordinates</strong><span>Convert adjacency into concrete composite placement.</span></article>
+        <article><strong>Templates</strong><span>Fix mansion-door CHR/metatile assumptions.</span></article>
+        <article><strong>Validation</strong><span>Use targeted save states for graph junctions and inferred objsets.</span></article>
+        <article><strong>Variants</strong><span>Render day and night exterior palettes from the same topology.</span></article>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/exterior-atlas/atlas-data.js?v=topology-1"></script>
+  <script src="assets/topology/topology-data.js?v=topology-1"></script>
+  <script src="slides.js?v=topology-1"></script>
+</body>
+</html>
