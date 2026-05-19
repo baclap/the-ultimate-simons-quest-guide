@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Render Recipe Audit</title>
+  <link rel="stylesheet" href="styles.css?v=recipe-audit-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Render recipe audit milestone</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/6</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main id="slides">
+    <section class="slide title-slide" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>Save states are now recipe probes</h1>
+        <p class="lede">The pipeline captures representative emulator states, extracts live render evidence, and compares that evidence to ROM-derived CHR and palette selector data.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="hero-grid" id="hero-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="palettes">
+      <div class="copy narrow">
+        <p class="eyebrow">Day And Night</p>
+        <h2>The palette selector path resolves the new variants</h2>
+        <p>Town, woods, and objset 3 probes all resolve exact live palette bytes through the ROM selector and transfer tables.</p>
+      </div>
+      <div class="fixture-grid" id="palette-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="mansion-door">
+      <div class="copy narrow">
+        <p class="eyebrow">Concrete Fix</p>
+        <h2>Berkeley Mansion door explains the scrambled door template</h2>
+        <p>The live state fingerprints CHR banks 08/09 and palette transfer 0F. The atlas mansion-door template now uses that object-set-level evidence.</p>
+      </div>
+      <div class="compare-grid" id="mansion-door-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="interiors">
+      <div class="copy narrow">
+        <p class="eyebrow">Interior Families</p>
+        <h2>Town and mansion interiors are now separate recipe probes</h2>
+        <p>The audit records interior runtime context, CHR banks, palette source, and PPU state without forcing them into the exterior atlas model.</p>
+      </div>
+      <div class="fixture-grid" id="interior-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="table">
+      <div class="copy narrow">
+        <p class="eyebrow">Evidence Table</p>
+        <h2>Every captured probe has explicit recipe status</h2>
+        <p>The table keeps resolved and unresolved facts visible so future map output can avoid silent per-area guesswork.</p>
+      </div>
+      <div class="audit-table" id="audit-table"></div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Deferred Probes</p>
+        <h2>The next states target the remaining scrambled families</h2>
+        <p>North Bridge, Vrad Graveyard, Castlevania Bridge, and Castlevania exterior stay explicitly deferred until representative states are available.</p>
+      </div>
+      <div class="next-grid" id="deferred-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/audit/audit-data.js?v=recipe-audit-1"></script>
+  <script src="slides.js?v=recipe-audit-1"></script>
+</body>
+</html>

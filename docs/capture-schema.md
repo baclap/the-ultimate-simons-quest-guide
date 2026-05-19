@@ -9,6 +9,7 @@ npm run capture:jova
 npm run render:jova-capture
 npm run capture:jova-woods
 npm run render:jova-woods-capture
+npm run capture:recipe-probes
 ```
 
 Current Jova fixture:
@@ -121,6 +122,18 @@ ROM source: transfer id $26, bank 7:$88E1 -> PRG bank 4:$A00A
 Runtime selector context: 2:3:0
 CPU RAM evidence: $30=02, $50=03, $51=00
 ```
+
+The render recipe probe set is configured in
+`data/render-recipe-fixtures.json`. It captures the currently available
+representative day/night, mansion-door, town-interior, and mansion-interior
+states and then audits them with:
+
+```text
+npm run audit:render-recipes
+```
+
+The audit writes `out/render-recipe-audit/audit.json` and is documented in
+`docs/render-recipe-audit-notes.md`.
 
 Use the runtime-context inspector to read these bytes from an existing capture:
 

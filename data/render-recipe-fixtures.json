@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "statesRoot": "out/states",
+  "capturesRoot": "out/captures",
+  "fixtures": [
+    {
+      "id": "jova-town-day",
+      "label": "Jova town exterior, day",
+      "location": "Jova",
+      "variant": "day",
+      "access": "outdoor",
+      "capture": "out/captures/jova-day",
+      "startPresses": "240:20,2000:20,3500:20",
+      "captureFrame": 5000,
+      "timeout": 60,
+      "atlasContext": {
+        "objset": "0x00",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "reason": "Baseline town exterior day palette and CHR evidence."
+    },
+    {
+      "id": "jova-town-night",
+      "label": "Jova town exterior, night",
+      "location": "Jova",
+      "variant": "night",
+      "access": "outdoor",
+      "state": "out/states/jova-town-night.mss",
+      "capture": "out/captures/jova-town-night",
+      "atlasContext": {
+        "objset": "0x00",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "reason": "Town exterior night palette probe."
+    },
+    {
+      "id": "jova-woods-day",
+      "label": "Jova Woods, day",
+      "location": "Jova Woods",
+      "variant": "day",
+      "access": "outdoor",
+      "state": "out/states/jova-woods.mss",
+      "capture": "out/captures/jova-woods-day",
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "reason": "Baseline objset 2 route where runtime context and atlas context match."
+    },
+    {
+      "id": "jova-woods-night",
+      "label": "Jova Woods, night",
+      "location": "Jova Woods",
+      "variant": "night",
+      "access": "outdoor",
+      "state": "out/states/jova-woods-night.mss",
+      "capture": "out/captures/jova-woods-night",
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "reason": "Normal objset 2 night palette probe."
+    },
+    {
+      "id": "dora-woods-part-2-day",
+      "label": "Dora Woods - Part 2, day",
+      "location": "Dora Woods - Part 2",
+      "variant": "day",
+      "access": "outdoor",
+      "state": "out/states/dora-woods-part-2.mss",
+      "capture": "out/captures/dora-woods-part-2-day",
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x08",
+        "submap": "0x02"
+      },
+      "reason": "Known special runtime palette-context alias."
+    },
+    {
+      "id": "dabis-path-day",
+      "label": "Dabi's Path, day",
+      "location": "Dabi's Path",
+      "variant": "day",
+      "access": "outdoor",
+      "state": "out/states/dabis-path.mss",
+      "capture": "out/captures/dabis-path-day",
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x03",
+        "submap": "0x00"
+      },
+      "reason": "Objset 2 alternate day palette that validates the selector path without an alias."
+    },
+    {
+      "id": "camilla-cemetery-day",
+      "label": "Camilla Cemetery, day",
+      "location": "Camilla Cemetery",
+      "variant": "day",
+      "access": "outdoor",
+      "state": "out/states/camilla-cemetery-day.mss",
+      "capture": "out/captures/camilla-cemetery-day",
+      "atlasContext": {
+        "objset": "0x03",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "reason": "Representative objset 3 exterior day recipe probe."
+    },
+    {
+      "id": "camilla-cemetery-night",
+      "label": "Camilla Cemetery, night",
+      "location": "Camilla Cemetery",
+      "variant": "night",
+      "access": "outdoor",
+      "state": "out/states/camilla-cemetery-night.mss",
+      "capture": "out/captures/camilla-cemetery-night",
+      "atlasContext": {
+        "objset": "0x03",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "reason": "Representative objset 3 exterior night palette probe."
+    },
+    {
+      "id": "berkeley-mansion-door-day",
+      "label": "Berkeley Mansion door, day",
+      "location": "Berkeley Mansion - Door",
+      "variant": "day",
+      "access": "mansion-door",
+      "state": "out/states/berkeley-mansion-door-day.mss",
+      "capture": "out/captures/berkeley-mansion-door-day",
+      "atlasContext": {
+        "objset": "0x01",
+        "area": "0x01",
+        "submap": "0x00"
+      },
+      "reason": "Diagnostic probe for scrambled mansion-door exterior renders."
+    },
+    {
+      "id": "jova-town-interior-day",
+      "label": "Jova town interior, day",
+      "location": "Jova town interior",
+      "variant": "day",
+      "access": "town-interior",
+      "state": "out/states/jova-town-interior-day.mss",
+      "capture": "out/captures/jova-town-interior-day",
+      "expectedContexts": [
+        {
+          "objset": "0x00",
+          "area": "0x08",
+          "submap": "0x00"
+        },
+        {
+          "objset": "0x00",
+          "area": "0x09",
+          "submap": "0x00"
+        }
+      ],
+      "reason": "Representative town-interior render family; exact room context is read from live state."
+    },
+    {
+      "id": "berkeley-mansion-interior-day",
+      "label": "Berkeley Mansion interior, day",
+      "location": "Berkeley Mansion",
+      "variant": "fixed",
+      "access": "mansion-interior",
+      "state": "out/states/berkeley-mansion-interior-day.mss",
+      "capture": "out/captures/berkeley-mansion-interior-day",
+      "atlasContext": {
+        "objset": "0x01",
+        "area": "0x07",
+        "submap": "0x00"
+      },
+      "reason": "Representative mansion-interior recipe; mansion interiors are assumed day/night palette-stable."
+    }
+  ],
+  "deferred": [
+    {
+      "id": "north-bridge-day",
+      "label": "North Bridge, day",
+      "state": "out/states/north-bridge-day.mss",
+      "reason": "Suspected palette issue; state not available yet."
+    },
+    {
+      "id": "north-bridge-night",
+      "label": "North Bridge, night",
+      "state": "out/states/north-bridge-night.mss",
+      "reason": "Night variant for suspected palette issue; state not available yet."
+    },
+    {
+      "id": "vrad-graveyard-day",
+      "label": "Vrad Graveyard, day",
+      "state": "out/states/vrad-graveyard-day.mss",
+      "reason": "Representative objset 4 and currently suspect scrambled render; state not available yet."
+    },
+    {
+      "id": "castlevania-bridge-day",
+      "label": "Castlevania Bridge, day",
+      "state": "out/states/castlevania-bridge-day.mss",
+      "reason": "Currently suspect scrambled render; state not available yet."
+    },
+    {
+      "id": "castlevania-exterior-day",
+      "label": "Castlevania exterior, day",
+      "state": "out/states/castlevania-exterior-day.mss",
+      "reason": "Representative objset 5 large layout; state not available yet."
+    }
+  ]
+}

@@ -46,10 +46,10 @@ const TEMPLATE_BY_OBJSET = {
     id: 'mansion-door-day',
     label: 'Mansion door exterior, day',
     confidence: 'inferred-template',
-    confidenceNote: 'Renderable exterior landmark; CHR/palette selection is an atlas v0 inference.',
-    chrBanks: [0x04, 0x05],
+    confidenceNote: 'Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.',
+    chrBanks: [0x08, 0x09],
     paletteBank: 4,
-    paletteAddress: 0x9fe8,
+    paletteAddress: 0x9f5e,
     paletteStrategy: 'object-set-fallback',
     widthBlocks: 8,
     heightBlocks: 7

@@ -1,0 +1,3340 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "fixtureFile": "data/render-recipe-fixtures.json",
+    "note": "Save states are validation probes. Captured PPU/CPU evidence is used to audit ROM-derived render recipes, not as final map source art."
+  },
+  "summary": {
+    "fixtures": 11,
+    "audited": 11,
+    "missingCaptureFiles": 0,
+    "chrExact": 11,
+    "paletteSelectorExact": 11,
+    "paletteTransferMatched": 11,
+    "recipeEvidencePresent": 11,
+    "deferred": 5
+  },
+  "fixtures": [
+    {
+      "id": "jova-town-day",
+      "label": "Jova town exterior, day",
+      "location": "Jova",
+      "variant": "day",
+      "access": "outdoor",
+      "reason": "Baseline town exterior day palette and CHR evidence.",
+      "capture": "out/captures/jova-day",
+      "status": "audited",
+      "requiredFiles": [
+        {
+          "file": "screenshot.png",
+          "exists": true
+        },
+        {
+          "file": "cpu-0000-07ff.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-0000-1fff-patterns.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-2000-2fff-nametables.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-3f00-3f1f-palettes.bin",
+          "exists": true
+        },
+        {
+          "file": "oam-0000-00ff-sprites.bin",
+          "exists": true
+        },
+        {
+          "file": "state.json",
+          "exists": true
+        }
+      ],
+      "expectedContext": {
+        "status": "matches",
+        "expected": [
+          {
+            "objset": "0x00",
+            "area": "0x00",
+            "submap": "0x00"
+          }
+        ]
+      },
+      "atlasContext": {
+        "objset": "0x00",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "atlasCandidate": {
+        "id": "obj00-area00-sub00-jova",
+        "name": "Jova",
+        "image": "images/obj00-area00-sub00-jova.png"
+      },
+      "live": {
+        "runtimeContext": {
+          "objset": "0x00",
+          "area": "0x00",
+          "submap": "0x00",
+          "submapRaw": "0x00",
+          "submapFlags": "0x00",
+          "actorPointer": "0x90AC",
+          "tileSetPointer": "0x841D"
+        },
+        "ppu": {
+          "backgroundPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x05",
+            "0x0F",
+            "0x00",
+            "0x16",
+            "0x10",
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x22",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "fullPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x05",
+            "0x0F",
+            "0x00",
+            "0x16",
+            "0x10",
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x22",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15",
+            "0x0F",
+            "0x0F",
+            "0x16",
+            "0x20",
+            "0x0F",
+            "0x27",
+            "0x20",
+            "0x16",
+            "0x0F",
+            "0x17",
+            "0x20",
+            "0x0F",
+            "0x0F",
+            "0x00",
+            "0x20",
+            "0x0F"
+          ],
+          "backgroundPatternAddress": "0x0000",
+          "xScroll": 0,
+          "videoRamAddress": "0x1882",
+          "tmpVideoRamAddress": "0x1080"
+        }
+      },
+      "chr": {
+        "status": "exact-match",
+        "banks": [
+          {
+            "slot": 0,
+            "ppuAddress": "0x0000",
+            "sha1": "6e0d98e3d50b61e7a0a275c948209bd93018fc47",
+            "matches": [
+              {
+                "bank": 0,
+                "bankHex": "0x00"
+              }
+            ],
+            "status": "exact-match"
+          },
+          {
+            "slot": 1,
+            "ppuAddress": "0x1000",
+            "sha1": "080f054ffbfc6bd18157d9ddebad07d98a649fd3",
+            "matches": [
+              {
+                "bank": 1,
+                "bankHex": "0x01"
+              }
+            ],
+            "status": "exact-match"
+          }
+        ]
+      },
+      "palette": {
+        "selector": {
+          "status": "exact-match",
+          "variant": "day",
+          "runtimeContext": {
+            "objset": "0x00",
+            "area": "0x00",
+            "submap": "0x00"
+          },
+          "paletteTableAddress": "0x8072",
+          "indexListPointerAddress": "0x8072",
+          "indexListAddress": "0xFA3E",
+          "indexOffset": 0,
+          "transferId": "0x16",
+          "auxiliaryTransferId": "0x2E",
+          "transferPointerAddress": "0x88C1",
+          "paletteAddress": "0x9EA2",
+          "paletteBank": 4,
+          "bytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x05",
+            "0x0F",
+            "0x00",
+            "0x16",
+            "0x10",
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x22",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "rawPalette": true
+        },
+        "transferMatches": [
+          {
+            "transferId": "0x16",
+            "transferPointerAddress": "0x88C1",
+            "paletteAddress": "0x9EA2",
+            "paletteBank": 4,
+            "bytes": [
+              "0x0F",
+              "0x00",
+              "0x10",
+              "0x05",
+              "0x0F",
+              "0x00",
+              "0x16",
+              "0x10",
+              "0x0F",
+              "0x00",
+              "0x10",
+              "0x22",
+              "0x0F",
+              "0x11",
+              "0x20",
+              "0x15"
+            ]
+          }
+        ],
+        "status": "selector-exact"
+      },
+      "romContext": {
+        "status": "resolved",
+        "backgroundContext": {
+          "input": {
+            "objset": 0,
+            "objsetHex": "0x00",
+            "area": 0,
+            "areaHex": "0x00",
+            "submap": 0,
+            "submapHex": "0x00"
+          },
+          "tables": {
+            "areaTable": {
+              "pointerTableAddress": "0xF7AB",
+              "pointerAddress": "0xF7AB",
+              "address": "0x8042",
+              "bank": 2
+            },
+            "areaRecord": {
+              "pointerAddress": "0x8042",
+              "address": "0xF9FF"
+            },
+            "screenRecord": {
+              "pointerAddress": "0xFA08",
+              "address": "0xFA3A",
+              "firstBytes": [
+                "0x03",
+                "0x04",
+                "0xFE",
+                "0xFF",
+                "0x16",
+                "0x2E",
+                "0x19",
+                "0x2E"
+              ],
+              "layoutIndex": 3,
+              "layoutIndexHex": "0x03"
+            },
+            "layoutTable": {
+              "pointerTableAddress": "0xF7FB",
+              "pointerAddress": "0xF7FB",
+              "address": "0x80D3",
+              "bank": 2
+            },
+            "layoutHeader": {
+              "pointerAddress": "0x80DF",
+              "address": "0xFA86",
+              "secondaryAddress": "0xFA50"
+            },
+            "tileSet": {
+              "pointerTableAddress": "0xF7D1",
+              "pointerAddress": "0xF7D1",
+              "address": "0x841D",
+              "bank": 4,
+              "auxiliaryAddress": "0xF7E9"
+            }
+          },
+          "derivedDescriptorFields": {
+            "layoutBank": 2,
+            "layoutHeaderAddress": "0xFA86",
+            "tileBank": 4,
+            "tileSetAddress": "0x841D"
+          }
+        }
+      },
+      "evidenceStatus": {
+        "runtimeContext": "matches",
+        "chr": "exact-match",
+        "palette": "exact-match",
+        "renderRecipe": "recipe-evidence-present"
+      }
+    },
+    {
+      "id": "jova-town-night",
+      "label": "Jova town exterior, night",
+      "location": "Jova",
+      "variant": "night",
+      "access": "outdoor",
+      "reason": "Town exterior night palette probe.",
+      "capture": "out/captures/jova-town-night",
+      "state": "out/states/jova-town-night.mss",
+      "status": "audited",
+      "requiredFiles": [
+        {
+          "file": "screenshot.png",
+          "exists": true
+        },
+        {
+          "file": "cpu-0000-07ff.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-0000-1fff-patterns.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-2000-2fff-nametables.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-3f00-3f1f-palettes.bin",
+          "exists": true
+        },
+        {
+          "file": "oam-0000-00ff-sprites.bin",
+          "exists": true
+        },
+        {
+          "file": "state.json",
+          "exists": true
+        }
+      ],
+      "expectedContext": {
+        "status": "matches",
+        "expected": [
+          {
+            "objset": "0x00",
+            "area": "0x00",
+            "submap": "0x00"
+          }
+        ]
+      },
+      "atlasContext": {
+        "objset": "0x00",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "atlasCandidate": {
+        "id": "obj00-area00-sub00-jova",
+        "name": "Jova",
+        "image": "images/obj00-area00-sub00-jova.png"
+      },
+      "live": {
+        "runtimeContext": {
+          "objset": "0x00",
+          "area": "0x00",
+          "submap": "0x00",
+          "submapRaw": "0x80",
+          "submapFlags": "0x80",
+          "actorPointer": "0x90AC",
+          "tileSetPointer": "0x841D"
+        },
+        "ppu": {
+          "backgroundPaletteBytes": [
+            "0x0F",
+            "0x0C",
+            "0x1C",
+            "0x03",
+            "0x0F",
+            "0x0C",
+            "0x02",
+            "0x1C",
+            "0x0F",
+            "0x0C",
+            "0x11",
+            "0x0F",
+            "0x0F",
+            "0x01",
+            "0x31",
+            "0x05"
+          ],
+          "fullPaletteBytes": [
+            "0x0F",
+            "0x0C",
+            "0x1C",
+            "0x03",
+            "0x0F",
+            "0x0C",
+            "0x02",
+            "0x1C",
+            "0x0F",
+            "0x0C",
+            "0x11",
+            "0x0F",
+            "0x0F",
+            "0x01",
+            "0x31",
+            "0x05",
+            "0x0F",
+            "0x0F",
+            "0x16",
+            "0x20",
+            "0x0F",
+            "0x27",
+            "0x20",
+            "0x16",
+            "0x0F",
+            "0x1A",
+            "0x2A",
+            "0x0F",
+            "0x0F",
+            "0x03",
+            "0x20",
+            "0x0F"
+          ],
+          "backgroundPatternAddress": "0x0000",
+          "xScroll": 0,
+          "videoRamAddress": "0x0902",
+          "tmpVideoRamAddress": "0x0100"
+        }
+      },
+      "chr": {
+        "status": "exact-match",
+        "banks": [
+          {
+            "slot": 0,
+            "ppuAddress": "0x0000",
+            "sha1": "6e0d98e3d50b61e7a0a275c948209bd93018fc47",
+            "matches": [
+              {
+                "bank": 0,
+                "bankHex": "0x00"
+              }
+            ],
+            "status": "exact-match"
+          },
+          {
+            "slot": 1,
+            "ppuAddress": "0x1000",
+            "sha1": "080f054ffbfc6bd18157d9ddebad07d98a649fd3",
+            "matches": [
+              {
+                "bank": 1,
+                "bankHex": "0x01"
+              }
+            ],
+            "status": "exact-match"
+          }
+        ]
+      },
+      "palette": {
+        "selector": {
+          "status": "exact-match",
+          "variant": "night",
+          "runtimeContext": {
+            "objset": "0x00",
+            "area": "0x00",
+            "submap": "0x00"
+          },
+          "paletteTableAddress": "0x8072",
+          "indexListPointerAddress": "0x8074",
+          "indexListAddress": "0xFA4A",
+          "indexOffset": 0,
+          "transferId": "0x14",
+          "auxiliaryTransferId": "0x37",
+          "transferPointerAddress": "0x88BD",
+          "paletteAddress": "0x9E80",
+          "paletteBank": 4,
+          "bytes": [
+            "0x0F",
+            "0x0C",
+            "0x1C",
+            "0x03",
+            "0x0F",
+            "0x0C",
+            "0x02",
+            "0x1C",
+            "0x0F",
+            "0x0C",
+            "0x11",
+            "0x0F",
+            "0x0F",
+            "0x01",
+            "0x31",
+            "0x05"
+          ],
+          "rawPalette": true
+        },
+        "transferMatches": [
+          {
+            "transferId": "0x14",
+            "transferPointerAddress": "0x88BD",
+            "paletteAddress": "0x9E80",
+            "paletteBank": 4,
+            "bytes": [
+              "0x0F",
+              "0x0C",
+              "0x1C",
+              "0x03",
+              "0x0F",
+              "0x0C",
+              "0x02",
+              "0x1C",
+              "0x0F",
+              "0x0C",
+              "0x11",
+              "0x0F",
+              "0x0F",
+              "0x01",
+              "0x31",
+              "0x05"
+            ]
+          }
+        ],
+        "status": "selector-exact"
+      },
+      "romContext": {
+        "status": "resolved",
+        "backgroundContext": {
+          "input": {
+            "objset": 0,
+            "objsetHex": "0x00",
+            "area": 0,
+            "areaHex": "0x00",
+            "submap": 0,
+            "submapHex": "0x00"
+          },
+          "tables": {
+            "areaTable": {
+              "pointerTableAddress": "0xF7AB",
+              "pointerAddress": "0xF7AB",
+              "address": "0x8042",
+              "bank": 2
+            },
+            "areaRecord": {
+              "pointerAddress": "0x8042",
+              "address": "0xF9FF"
+            },
+            "screenRecord": {
+              "pointerAddress": "0xFA08",
+              "address": "0xFA3A",
+              "firstBytes": [
+                "0x03",
+                "0x04",
+                "0xFE",
+                "0xFF",
+                "0x16",
+                "0x2E",
+                "0x19",
+                "0x2E"
+              ],
+              "layoutIndex": 3,
+              "layoutIndexHex": "0x03"
+            },
+            "layoutTable": {
+              "pointerTableAddress": "0xF7FB",
+              "pointerAddress": "0xF7FB",
+              "address": "0x80D3",
+              "bank": 2
+            },
+            "layoutHeader": {
+              "pointerAddress": "0x80DF",
+              "address": "0xFA86",
+              "secondaryAddress": "0xFA50"
+            },
+            "tileSet": {
+              "pointerTableAddress": "0xF7D1",
+              "pointerAddress": "0xF7D1",
+              "address": "0x841D",
+              "bank": 4,
+              "auxiliaryAddress": "0xF7E9"
+            }
+          },
+          "derivedDescriptorFields": {
+            "layoutBank": 2,
+            "layoutHeaderAddress": "0xFA86",
+            "tileBank": 4,
+            "tileSetAddress": "0x841D"
+          }
+        }
+      },
+      "evidenceStatus": {
+        "runtimeContext": "matches",
+        "chr": "exact-match",
+        "palette": "exact-match",
+        "renderRecipe": "recipe-evidence-present"
+      }
+    },
+    {
+      "id": "jova-woods-day",
+      "label": "Jova Woods, day",
+      "location": "Jova Woods",
+      "variant": "day",
+      "access": "outdoor",
+      "reason": "Baseline objset 2 route where runtime context and atlas context match.",
+      "capture": "out/captures/jova-woods-day",
+      "state": "out/states/jova-woods.mss",
+      "status": "audited",
+      "requiredFiles": [
+        {
+          "file": "screenshot.png",
+          "exists": true
+        },
+        {
+          "file": "cpu-0000-07ff.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-0000-1fff-patterns.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-2000-2fff-nametables.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-3f00-3f1f-palettes.bin",
+          "exists": true
+        },
+        {
+          "file": "oam-0000-00ff-sprites.bin",
+          "exists": true
+        },
+        {
+          "file": "state.json",
+          "exists": true
+        }
+      ],
+      "expectedContext": {
+        "status": "matches",
+        "expected": [
+          {
+            "objset": "0x02",
+            "area": "0x00",
+            "submap": "0x00"
+          }
+        ]
+      },
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "atlasCandidate": {
+        "id": "obj02-area00-sub00-jova-woods",
+        "name": "Jova Woods",
+        "image": "images/obj02-area00-sub00-jova-woods.png"
+      },
+      "live": {
+        "runtimeContext": {
+          "objset": "0x02",
+          "area": "0x00",
+          "submap": "0x00",
+          "submapRaw": "0x00",
+          "submapFlags": "0x00",
+          "actorPointer": "0x9FE4",
+          "tileSetPointer": "0x8CF4"
+        },
+        "ppu": {
+          "backgroundPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0A",
+            "0x0F",
+            "0x16",
+            "0x1A",
+            "0x06",
+            "0x0F",
+            "0x22",
+            "0x17",
+            "0x1A",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "fullPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0A",
+            "0x0F",
+            "0x16",
+            "0x1A",
+            "0x06",
+            "0x0F",
+            "0x22",
+            "0x17",
+            "0x1A",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15",
+            "0x0F",
+            "0x0F",
+            "0x16",
+            "0x20",
+            "0x0F",
+            "0x27",
+            "0x20",
+            "0x16",
+            "0x0F",
+            "0x15",
+            "0x35",
+            "0x0F",
+            "0x0F",
+            "0x21",
+            "0x20",
+            "0x0F"
+          ],
+          "backgroundPatternAddress": "0x0000",
+          "xScroll": 0,
+          "videoRamAddress": "0x3B82",
+          "tmpVideoRamAddress": "0x3380"
+        }
+      },
+      "chr": {
+        "status": "exact-match",
+        "banks": [
+          {
+            "slot": 0,
+            "ppuAddress": "0x0000",
+            "sha1": "af90453c4fb4b66a7de212233f3f36ace1f4e5bd",
+            "matches": [
+              {
+                "bank": 2,
+                "bankHex": "0x02"
+              }
+            ],
+            "status": "exact-match"
+          },
+          {
+            "slot": 1,
+            "ppuAddress": "0x1000",
+            "sha1": "50b0d3261453a2e4621abe117ab00d068d7016d5",
+            "matches": [
+              {
+                "bank": 3,
+                "bankHex": "0x03"
+              }
+            ],
+            "status": "exact-match"
+          }
+        ]
+      },
+      "palette": {
+        "selector": {
+          "status": "exact-match",
+          "variant": "day",
+          "runtimeContext": {
+            "objset": "0x02",
+            "area": "0x00",
+            "submap": "0x00"
+          },
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9EF9",
+          "indexListAddress": "0xA1C0",
+          "indexOffset": 0,
+          "transferId": "0x22",
+          "auxiliaryTransferId": "0x2F",
+          "transferPointerAddress": "0x88D9",
+          "paletteAddress": "0x9FC6",
+          "paletteBank": 4,
+          "bytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0A",
+            "0x0F",
+            "0x16",
+            "0x1A",
+            "0x06",
+            "0x0F",
+            "0x22",
+            "0x17",
+            "0x1A",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "rawPalette": true
+        },
+        "transferMatches": [
+          {
+            "transferId": "0x22",
+            "transferPointerAddress": "0x88D9",
+            "paletteAddress": "0x9FC6",
+            "paletteBank": 4,
+            "bytes": [
+              "0x0F",
+              "0x00",
+              "0x10",
+              "0x0A",
+              "0x0F",
+              "0x16",
+              "0x1A",
+              "0x06",
+              "0x0F",
+              "0x22",
+              "0x17",
+              "0x1A",
+              "0x0F",
+              "0x11",
+              "0x20",
+              "0x15"
+            ]
+          }
+        ],
+        "status": "selector-exact"
+      },
+      "romContext": {
+        "status": "resolved",
+        "backgroundContext": {
+          "input": {
+            "objset": 2,
+            "objsetHex": "0x02",
+            "area": 0,
+            "areaHex": "0x00",
+            "submap": 0,
+            "submapHex": "0x00"
+          },
+          "tables": {
+            "areaTable": {
+              "pointerTableAddress": "0xF7AB",
+              "pointerAddress": "0xF7AF",
+              "address": "0x9EE5",
+              "bank": 2
+            },
+            "areaRecord": {
+              "pointerAddress": "0x9EE5",
+              "address": "0xA149",
+              "bank": 2
+            },
+            "screenRecord": {
+              "pointerAddress": "0xA152",
+              "address": "0xA1A0",
+              "bank": 2,
+              "firstBytes": [
+                "0x02",
+                "0x04",
+                "0x05",
+                "0xFE",
+                "0x06",
+                "0xFF",
+                "0x00",
+                "0x01"
+              ],
+              "layoutIndex": 2,
+              "layoutIndexHex": "0x02"
+            },
+            "layoutTable": {
+              "pointerTableAddress": "0xF7FB",
+              "pointerAddress": "0xF7FF",
+              "address": "0x9F21",
+              "bank": 2
+            },
+            "layoutHeader": {
+              "pointerAddress": "0x9F29",
+              "address": "0xA23E",
+              "bank": 2,
+              "secondaryAddress": "0xA221",
+              "secondaryBank": 2
+            },
+            "tileSet": {
+              "pointerTableAddress": "0xF7D1",
+              "pointerAddress": "0xF7D9",
+              "address": "0x8CF4",
+              "bank": 4,
+              "auxiliaryAddress": "0xF7EF"
+            }
+          },
+          "derivedDescriptorFields": {
+            "layoutBank": 2,
+            "layoutHeaderAddress": "0xA23E",
+            "layoutHeaderBank": 2,
+            "tileBank": 4,
+            "tileSetAddress": "0x8CF4"
+          }
+        }
+      },
+      "evidenceStatus": {
+        "runtimeContext": "matches",
+        "chr": "exact-match",
+        "palette": "exact-match",
+        "renderRecipe": "recipe-evidence-present"
+      }
+    },
+    {
+      "id": "jova-woods-night",
+      "label": "Jova Woods, night",
+      "location": "Jova Woods",
+      "variant": "night",
+      "access": "outdoor",
+      "reason": "Normal objset 2 night palette probe.",
+      "capture": "out/captures/jova-woods-night",
+      "state": "out/states/jova-woods-night.mss",
+      "status": "audited",
+      "requiredFiles": [
+        {
+          "file": "screenshot.png",
+          "exists": true
+        },
+        {
+          "file": "cpu-0000-07ff.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-0000-1fff-patterns.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-2000-2fff-nametables.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-3f00-3f1f-palettes.bin",
+          "exists": true
+        },
+        {
+          "file": "oam-0000-00ff-sprites.bin",
+          "exists": true
+        },
+        {
+          "file": "state.json",
+          "exists": true
+        }
+      ],
+      "expectedContext": {
+        "status": "matches",
+        "expected": [
+          {
+            "objset": "0x02",
+            "area": "0x00",
+            "submap": "0x00"
+          }
+        ]
+      },
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "atlasCandidate": {
+        "id": "obj02-area00-sub00-jova-woods",
+        "name": "Jova Woods",
+        "image": "images/obj02-area00-sub00-jova-woods.png"
+      },
+      "live": {
+        "runtimeContext": {
+          "objset": "0x02",
+          "area": "0x00",
+          "submap": "0x00",
+          "submapRaw": "0x00",
+          "submapFlags": "0x00",
+          "actorPointer": "0x9FE4",
+          "tileSetPointer": "0x8CF4"
+        },
+        "ppu": {
+          "backgroundPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x2B",
+            "0x0B",
+            "0x0F",
+            "0x11",
+            "0x11",
+            "0x01",
+            "0x0F",
+            "0x02",
+            "0x1B",
+            "0x01",
+            "0x0F",
+            "0x01",
+            "0x31",
+            "0x05"
+          ],
+          "fullPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x2B",
+            "0x0B",
+            "0x0F",
+            "0x11",
+            "0x11",
+            "0x01",
+            "0x0F",
+            "0x02",
+            "0x1B",
+            "0x01",
+            "0x0F",
+            "0x01",
+            "0x31",
+            "0x05",
+            "0x0F",
+            "0x0F",
+            "0x16",
+            "0x20",
+            "0x0F",
+            "0x27",
+            "0x20",
+            "0x16",
+            "0x0F",
+            "0x15",
+            "0x35",
+            "0x0F",
+            "0x0F",
+            "0x21",
+            "0x20",
+            "0x0F"
+          ],
+          "backgroundPatternAddress": "0x0000",
+          "xScroll": 0,
+          "videoRamAddress": "0x3B82",
+          "tmpVideoRamAddress": "0x3380"
+        }
+      },
+      "chr": {
+        "status": "exact-match",
+        "banks": [
+          {
+            "slot": 0,
+            "ppuAddress": "0x0000",
+            "sha1": "af90453c4fb4b66a7de212233f3f36ace1f4e5bd",
+            "matches": [
+              {
+                "bank": 2,
+                "bankHex": "0x02"
+              }
+            ],
+            "status": "exact-match"
+          },
+          {
+            "slot": 1,
+            "ppuAddress": "0x1000",
+            "sha1": "50b0d3261453a2e4621abe117ab00d068d7016d5",
+            "matches": [
+              {
+                "bank": 3,
+                "bankHex": "0x03"
+              }
+            ],
+            "status": "exact-match"
+          }
+        ]
+      },
+      "palette": {
+        "selector": {
+          "status": "exact-match",
+          "variant": "night",
+          "runtimeContext": {
+            "objset": "0x02",
+            "area": "0x00",
+            "submap": "0x00"
+          },
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9EFB",
+          "indexListAddress": "0xA1DC",
+          "indexOffset": 0,
+          "transferId": "0x25",
+          "auxiliaryTransferId": "0x2F",
+          "transferPointerAddress": "0x88DF",
+          "paletteAddress": "0x9FF9",
+          "paletteBank": 4,
+          "bytes": [
+            "0x0F",
+            "0x00",
+            "0x2B",
+            "0x0B",
+            "0x0F",
+            "0x11",
+            "0x11",
+            "0x01",
+            "0x0F",
+            "0x02",
+            "0x1B",
+            "0x01",
+            "0x0F",
+            "0x01",
+            "0x31",
+            "0x05"
+          ],
+          "rawPalette": true
+        },
+        "transferMatches": [
+          {
+            "transferId": "0x25",
+            "transferPointerAddress": "0x88DF",
+            "paletteAddress": "0x9FF9",
+            "paletteBank": 4,
+            "bytes": [
+              "0x0F",
+              "0x00",
+              "0x2B",
+              "0x0B",
+              "0x0F",
+              "0x11",
+              "0x11",
+              "0x01",
+              "0x0F",
+              "0x02",
+              "0x1B",
+              "0x01",
+              "0x0F",
+              "0x01",
+              "0x31",
+              "0x05"
+            ]
+          }
+        ],
+        "status": "selector-exact"
+      },
+      "romContext": {
+        "status": "resolved",
+        "backgroundContext": {
+          "input": {
+            "objset": 2,
+            "objsetHex": "0x02",
+            "area": 0,
+            "areaHex": "0x00",
+            "submap": 0,
+            "submapHex": "0x00"
+          },
+          "tables": {
+            "areaTable": {
+              "pointerTableAddress": "0xF7AB",
+              "pointerAddress": "0xF7AF",
+              "address": "0x9EE5",
+              "bank": 2
+            },
+            "areaRecord": {
+              "pointerAddress": "0x9EE5",
+              "address": "0xA149",
+              "bank": 2
+            },
+            "screenRecord": {
+              "pointerAddress": "0xA152",
+              "address": "0xA1A0",
+              "bank": 2,
+              "firstBytes": [
+                "0x02",
+                "0x04",
+                "0x05",
+                "0xFE",
+                "0x06",
+                "0xFF",
+                "0x00",
+                "0x01"
+              ],
+              "layoutIndex": 2,
+              "layoutIndexHex": "0x02"
+            },
+            "layoutTable": {
+              "pointerTableAddress": "0xF7FB",
+              "pointerAddress": "0xF7FF",
+              "address": "0x9F21",
+              "bank": 2
+            },
+            "layoutHeader": {
+              "pointerAddress": "0x9F29",
+              "address": "0xA23E",
+              "bank": 2,
+              "secondaryAddress": "0xA221",
+              "secondaryBank": 2
+            },
+            "tileSet": {
+              "pointerTableAddress": "0xF7D1",
+              "pointerAddress": "0xF7D9",
+              "address": "0x8CF4",
+              "bank": 4,
+              "auxiliaryAddress": "0xF7EF"
+            }
+          },
+          "derivedDescriptorFields": {
+            "layoutBank": 2,
+            "layoutHeaderAddress": "0xA23E",
+            "layoutHeaderBank": 2,
+            "tileBank": 4,
+            "tileSetAddress": "0x8CF4"
+          }
+        }
+      },
+      "evidenceStatus": {
+        "runtimeContext": "matches",
+        "chr": "exact-match",
+        "palette": "exact-match",
+        "renderRecipe": "recipe-evidence-present"
+      }
+    },
+    {
+      "id": "dora-woods-part-2-day",
+      "label": "Dora Woods - Part 2, day",
+      "location": "Dora Woods - Part 2",
+      "variant": "day",
+      "access": "outdoor",
+      "reason": "Known special runtime palette-context alias.",
+      "capture": "out/captures/dora-woods-part-2-day",
+      "state": "out/states/dora-woods-part-2.mss",
+      "status": "audited",
+      "requiredFiles": [
+        {
+          "file": "screenshot.png",
+          "exists": true
+        },
+        {
+          "file": "cpu-0000-07ff.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-0000-1fff-patterns.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-2000-2fff-nametables.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-3f00-3f1f-palettes.bin",
+          "exists": true
+        },
+        {
+          "file": "oam-0000-00ff-sprites.bin",
+          "exists": true
+        },
+        {
+          "file": "state.json",
+          "exists": true
+        }
+      ],
+      "expectedContext": {
+        "status": "differs",
+        "expected": [
+          {
+            "objset": "0x02",
+            "area": "0x08",
+            "submap": "0x02"
+          }
+        ]
+      },
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x08",
+        "submap": "0x02"
+      },
+      "atlasCandidate": {
+        "id": "obj02-area08-sub02-dora-woods-part-2",
+        "name": "Dora Woods - Part 2",
+        "image": "images/obj02-area08-sub02-dora-woods-part-2.png"
+      },
+      "live": {
+        "runtimeContext": {
+          "objset": "0x02",
+          "area": "0x00",
+          "submap": "0x03",
+          "submapRaw": "0x83",
+          "submapFlags": "0x80",
+          "actorPointer": "0xA04F",
+          "tileSetPointer": "0x8CF4"
+        },
+        "ppu": {
+          "backgroundPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0A",
+            "0x0F",
+            "0x16",
+            "0x1C",
+            "0x06",
+            "0x0F",
+            "0x22",
+            "0x19",
+            "0x1C",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "fullPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0A",
+            "0x0F",
+            "0x16",
+            "0x1C",
+            "0x06",
+            "0x0F",
+            "0x22",
+            "0x19",
+            "0x1C",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15",
+            "0x0F",
+            "0x0F",
+            "0x16",
+            "0x20",
+            "0x0F",
+            "0x27",
+            "0x20",
+            "0x16",
+            "0x0F",
+            "0x16",
+            "0x36",
+            "0x0F",
+            "0x0F",
+            "0x23",
+            "0x20",
+            "0x0F"
+          ],
+          "backgroundPatternAddress": "0x0000",
+          "xScroll": 0,
+          "videoRamAddress": "0x08D4",
+          "tmpVideoRamAddress": "0x00D2"
+        }
+      },
+      "chr": {
+        "status": "exact-match",
+        "banks": [
+          {
+            "slot": 0,
+            "ppuAddress": "0x0000",
+            "sha1": "af90453c4fb4b66a7de212233f3f36ace1f4e5bd",
+            "matches": [
+              {
+                "bank": 2,
+                "bankHex": "0x02"
+              }
+            ],
+            "status": "exact-match"
+          },
+          {
+            "slot": 1,
+            "ppuAddress": "0x1000",
+            "sha1": "50b0d3261453a2e4621abe117ab00d068d7016d5",
+            "matches": [
+              {
+                "bank": 3,
+                "bankHex": "0x03"
+              }
+            ],
+            "status": "exact-match"
+          }
+        ]
+      },
+      "palette": {
+        "selector": {
+          "status": "exact-match",
+          "variant": "day",
+          "runtimeContext": {
+            "objset": "0x02",
+            "area": "0x00",
+            "submap": "0x03"
+          },
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9EF9",
+          "indexListAddress": "0xA1C0",
+          "indexOffset": 6,
+          "transferId": "0x23",
+          "auxiliaryTransferId": "0x30",
+          "transferPointerAddress": "0x88DB",
+          "paletteAddress": "0x9FD7",
+          "paletteBank": 4,
+          "bytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0A",
+            "0x0F",
+            "0x16",
+            "0x1C",
+            "0x06",
+            "0x0F",
+            "0x22",
+            "0x19",
+            "0x1C",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "rawPalette": true
+        },
+        "transferMatches": [
+          {
+            "transferId": "0x23",
+            "transferPointerAddress": "0x88DB",
+            "paletteAddress": "0x9FD7",
+            "paletteBank": 4,
+            "bytes": [
+              "0x0F",
+              "0x00",
+              "0x10",
+              "0x0A",
+              "0x0F",
+              "0x16",
+              "0x1C",
+              "0x06",
+              "0x0F",
+              "0x22",
+              "0x19",
+              "0x1C",
+              "0x0F",
+              "0x11",
+              "0x20",
+              "0x15"
+            ]
+          }
+        ],
+        "status": "selector-exact"
+      },
+      "romContext": {
+        "status": "resolved",
+        "backgroundContext": {
+          "input": {
+            "objset": 2,
+            "objsetHex": "0x02",
+            "area": 0,
+            "areaHex": "0x00",
+            "submap": 3,
+            "submapHex": "0x03"
+          },
+          "tables": {
+            "areaTable": {
+              "pointerTableAddress": "0xF7AB",
+              "pointerAddress": "0xF7AF",
+              "address": "0x9EE5",
+              "bank": 2
+            },
+            "areaRecord": {
+              "pointerAddress": "0x9EE5",
+              "address": "0xA149",
+              "bank": 2
+            },
+            "screenRecord": {
+              "pointerAddress": "0xA158",
+              "address": "0xA1A3",
+              "bank": 2,
+              "firstBytes": [
+                "0xFE",
+                "0x06",
+                "0xFF",
+                "0x00",
+                "0x01",
+                "0x16",
+                "0x0B",
+                "0x0C"
+              ],
+              "layoutIndex": 254,
+              "layoutIndexHex": "0xFE"
+            },
+            "layoutTable": {
+              "pointerTableAddress": "0xF7FB",
+              "pointerAddress": "0xF7FF",
+              "address": "0x9F21",
+              "bank": 2
+            },
+            "layoutHeader": {
+              "pointerAddress": "0xA319",
+              "address": "0x1917",
+              "bank": 2,
+              "secondaryAddress": "0x0000",
+              "secondaryBank": 2
+            },
+            "tileSet": {
+              "pointerTableAddress": "0xF7D1",
+              "pointerAddress": "0xF7D9",
+              "address": "0x8CF4",
+              "bank": 4,
+              "auxiliaryAddress": "0xF7EF"
+            }
+          },
+          "derivedDescriptorFields": {
+            "layoutBank": 2,
+            "layoutHeaderAddress": "0x1917",
+            "layoutHeaderBank": 2,
+            "tileBank": 4,
+            "tileSetAddress": "0x8CF4"
+          }
+        }
+      },
+      "evidenceStatus": {
+        "runtimeContext": "differs",
+        "chr": "exact-match",
+        "palette": "exact-match",
+        "renderRecipe": "recipe-evidence-present"
+      }
+    },
+    {
+      "id": "dabis-path-day",
+      "label": "Dabi's Path, day",
+      "location": "Dabi's Path",
+      "variant": "day",
+      "access": "outdoor",
+      "reason": "Objset 2 alternate day palette that validates the selector path without an alias.",
+      "capture": "out/captures/dabis-path-day",
+      "state": "out/states/dabis-path.mss",
+      "status": "audited",
+      "requiredFiles": [
+        {
+          "file": "screenshot.png",
+          "exists": true
+        },
+        {
+          "file": "cpu-0000-07ff.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-0000-1fff-patterns.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-2000-2fff-nametables.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-3f00-3f1f-palettes.bin",
+          "exists": true
+        },
+        {
+          "file": "oam-0000-00ff-sprites.bin",
+          "exists": true
+        },
+        {
+          "file": "state.json",
+          "exists": true
+        }
+      ],
+      "expectedContext": {
+        "status": "matches",
+        "expected": [
+          {
+            "objset": "0x02",
+            "area": "0x03",
+            "submap": "0x00"
+          }
+        ]
+      },
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x03",
+        "submap": "0x00"
+      },
+      "atlasCandidate": {
+        "id": "obj02-area03-sub00-dabi-s-path-part-1",
+        "name": "Dabi's Path - Part 1",
+        "image": "images/obj02-area03-sub00-dabi-s-path-part-1.png"
+      },
+      "live": {
+        "runtimeContext": {
+          "objset": "0x02",
+          "area": "0x03",
+          "submap": "0x00",
+          "submapRaw": "0x00",
+          "submapFlags": "0x00",
+          "actorPointer": "0xA66F",
+          "tileSetPointer": "0x8CF4"
+        },
+        "ppu": {
+          "backgroundPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x23",
+            "0x03",
+            "0x0F",
+            "0x1C",
+            "0x04",
+            "0x0C",
+            "0x0F",
+            "0x01",
+            "0x11",
+            "0x05",
+            "0x0F",
+            "0x01",
+            "0x20",
+            "0x05"
+          ],
+          "fullPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x23",
+            "0x03",
+            "0x0F",
+            "0x1C",
+            "0x04",
+            "0x0C",
+            "0x0F",
+            "0x01",
+            "0x11",
+            "0x05",
+            "0x0F",
+            "0x01",
+            "0x20",
+            "0x05",
+            "0x0F",
+            "0x0F",
+            "0x16",
+            "0x20",
+            "0x0F",
+            "0x27",
+            "0x20",
+            "0x16",
+            "0x0F",
+            "0x17",
+            "0x37",
+            "0x0F",
+            "0x0F",
+            "0x00",
+            "0x20",
+            "0x0F"
+          ],
+          "backgroundPatternAddress": "0x0000",
+          "xScroll": 0,
+          "videoRamAddress": "0x3B42",
+          "tmpVideoRamAddress": "0x3340"
+        }
+      },
+      "chr": {
+        "status": "exact-match",
+        "banks": [
+          {
+            "slot": 0,
+            "ppuAddress": "0x0000",
+            "sha1": "af90453c4fb4b66a7de212233f3f36ace1f4e5bd",
+            "matches": [
+              {
+                "bank": 2,
+                "bankHex": "0x02"
+              }
+            ],
+            "status": "exact-match"
+          },
+          {
+            "slot": 1,
+            "ppuAddress": "0x1000",
+            "sha1": "50b0d3261453a2e4621abe117ab00d068d7016d5",
+            "matches": [
+              {
+                "bank": 3,
+                "bankHex": "0x03"
+              }
+            ],
+            "status": "exact-match"
+          }
+        ]
+      },
+      "palette": {
+        "selector": {
+          "status": "exact-match",
+          "variant": "day",
+          "runtimeContext": {
+            "objset": "0x02",
+            "area": "0x03",
+            "submap": "0x00"
+          },
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F05",
+          "indexListAddress": "0xA6EB",
+          "indexOffset": 0,
+          "transferId": "0x26",
+          "auxiliaryTransferId": "0x31",
+          "transferPointerAddress": "0x88E1",
+          "paletteAddress": "0xA00A",
+          "paletteBank": 4,
+          "bytes": [
+            "0x0F",
+            "0x00",
+            "0x23",
+            "0x03",
+            "0x0F",
+            "0x1C",
+            "0x04",
+            "0x0C",
+            "0x0F",
+            "0x01",
+            "0x11",
+            "0x05",
+            "0x0F",
+            "0x01",
+            "0x20",
+            "0x05"
+          ],
+          "rawPalette": true
+        },
+        "transferMatches": [
+          {
+            "transferId": "0x26",
+            "transferPointerAddress": "0x88E1",
+            "paletteAddress": "0xA00A",
+            "paletteBank": 4,
+            "bytes": [
+              "0x0F",
+              "0x00",
+              "0x23",
+              "0x03",
+              "0x0F",
+              "0x1C",
+              "0x04",
+              "0x0C",
+              "0x0F",
+              "0x01",
+              "0x11",
+              "0x05",
+              "0x0F",
+              "0x01",
+              "0x20",
+              "0x05"
+            ]
+          }
+        ],
+        "status": "selector-exact"
+      },
+      "romContext": {
+        "status": "resolved",
+        "backgroundContext": {
+          "input": {
+            "objset": 2,
+            "objsetHex": "0x02",
+            "area": 3,
+            "areaHex": "0x03",
+            "submap": 0,
+            "submapHex": "0x00"
+          },
+          "tables": {
+            "areaTable": {
+              "pointerTableAddress": "0xF7AB",
+              "pointerAddress": "0xF7AF",
+              "address": "0x9EE5",
+              "bank": 2
+            },
+            "areaRecord": {
+              "pointerAddress": "0x9EEB",
+              "address": "0xA6A5",
+              "bank": 2
+            },
+            "screenRecord": {
+              "pointerAddress": "0xA6AE",
+              "address": "0xA6D1",
+              "bank": 2,
+              "firstBytes": [
+                "0xFD",
+                "0x13",
+                "0xFF",
+                "0x00",
+                "0x01",
+                "0x14",
+                "0x08",
+                "0xFE"
+              ],
+              "layoutIndex": 253,
+              "layoutIndexHex": "0xFD"
+            },
+            "layoutTable": {
+              "pointerTableAddress": "0xF7FB",
+              "pointerAddress": "0xF7FF",
+              "address": "0x9F21",
+              "bank": 2
+            },
+            "layoutHeader": {
+              "pointerAddress": "0xA315",
+              "address": "0x0A04",
+              "bank": 2,
+              "secondaryAddress": "0x0101",
+              "secondaryBank": 2
+            },
+            "tileSet": {
+              "pointerTableAddress": "0xF7D1",
+              "pointerAddress": "0xF7D9",
+              "address": "0x8CF4",
+              "bank": 4,
+              "auxiliaryAddress": "0xF7EF"
+            }
+          },
+          "derivedDescriptorFields": {
+            "layoutBank": 2,
+            "layoutHeaderAddress": "0x0A04",
+            "layoutHeaderBank": 2,
+            "tileBank": 4,
+            "tileSetAddress": "0x8CF4"
+          }
+        }
+      },
+      "evidenceStatus": {
+        "runtimeContext": "matches",
+        "chr": "exact-match",
+        "palette": "exact-match",
+        "renderRecipe": "recipe-evidence-present"
+      }
+    },
+    {
+      "id": "camilla-cemetery-day",
+      "label": "Camilla Cemetery, day",
+      "location": "Camilla Cemetery",
+      "variant": "day",
+      "access": "outdoor",
+      "reason": "Representative objset 3 exterior day recipe probe.",
+      "capture": "out/captures/camilla-cemetery-day",
+      "state": "out/states/camilla-cemetery-day.mss",
+      "status": "audited",
+      "requiredFiles": [
+        {
+          "file": "screenshot.png",
+          "exists": true
+        },
+        {
+          "file": "cpu-0000-07ff.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-0000-1fff-patterns.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-2000-2fff-nametables.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-3f00-3f1f-palettes.bin",
+          "exists": true
+        },
+        {
+          "file": "oam-0000-00ff-sprites.bin",
+          "exists": true
+        },
+        {
+          "file": "state.json",
+          "exists": true
+        }
+      ],
+      "expectedContext": {
+        "status": "matches",
+        "expected": [
+          {
+            "objset": "0x03",
+            "area": "0x00",
+            "submap": "0x00"
+          }
+        ]
+      },
+      "atlasContext": {
+        "objset": "0x03",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "atlasCandidate": {
+        "id": "obj03-area00-sub00-camilla-cemetery",
+        "name": "Camilla Cemetery",
+        "image": "images/obj03-area00-sub00-camilla-cemetery.png"
+      },
+      "live": {
+        "runtimeContext": {
+          "objset": "0x03",
+          "area": "0x00",
+          "submap": "0x00",
+          "submapRaw": "0x00",
+          "submapFlags": "0x00",
+          "actorPointer": "0xAF22",
+          "tileSetPointer": "0x918A"
+        },
+        "ppu": {
+          "backgroundPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x1C",
+            "0x0F",
+            "0x16",
+            "0x2B",
+            "0x06",
+            "0x0F",
+            "0x22",
+            "0x20",
+            "0x2C",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "fullPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x1C",
+            "0x0F",
+            "0x16",
+            "0x2B",
+            "0x06",
+            "0x0F",
+            "0x22",
+            "0x20",
+            "0x2C",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15",
+            "0x0F",
+            "0x0F",
+            "0x16",
+            "0x20",
+            "0x0F",
+            "0x27",
+            "0x20",
+            "0x16",
+            "0x0F",
+            "0x14",
+            "0x34",
+            "0x0F",
+            "0x0F",
+            "0x26",
+            "0x20",
+            "0x0F"
+          ],
+          "backgroundPatternAddress": "0x0000",
+          "xScroll": 0,
+          "videoRamAddress": "0x3BA2",
+          "tmpVideoRamAddress": "0x33A0"
+        }
+      },
+      "chr": {
+        "status": "exact-match",
+        "banks": [
+          {
+            "slot": 0,
+            "ppuAddress": "0x0000",
+            "sha1": "59602391659d508f75f800222f23c2898fdb14c3",
+            "matches": [
+              {
+                "bank": 4,
+                "bankHex": "0x04"
+              }
+            ],
+            "status": "exact-match"
+          },
+          {
+            "slot": 1,
+            "ppuAddress": "0x1000",
+            "sha1": "fb807093385d4ae676d8d4f073284ab2c1091502",
+            "matches": [
+              {
+                "bank": 5,
+                "bankHex": "0x05"
+              }
+            ],
+            "status": "exact-match"
+          }
+        ]
+      },
+      "palette": {
+        "selector": {
+          "status": "exact-match",
+          "variant": "day",
+          "runtimeContext": {
+            "objset": "0x03",
+            "area": "0x00",
+            "submap": "0x00"
+          },
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB28A",
+          "indexListAddress": "0xB3B2",
+          "indexOffset": 0,
+          "transferId": "0x29",
+          "auxiliaryTransferId": "0x35",
+          "transferPointerAddress": "0x88E7",
+          "paletteAddress": "0xA03D",
+          "paletteBank": 4,
+          "bytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x1C",
+            "0x0F",
+            "0x16",
+            "0x2B",
+            "0x06",
+            "0x0F",
+            "0x22",
+            "0x20",
+            "0x2C",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "rawPalette": true
+        },
+        "transferMatches": [
+          {
+            "transferId": "0x29",
+            "transferPointerAddress": "0x88E7",
+            "paletteAddress": "0xA03D",
+            "paletteBank": 4,
+            "bytes": [
+              "0x0F",
+              "0x00",
+              "0x10",
+              "0x1C",
+              "0x0F",
+              "0x16",
+              "0x2B",
+              "0x06",
+              "0x0F",
+              "0x22",
+              "0x20",
+              "0x2C",
+              "0x0F",
+              "0x11",
+              "0x20",
+              "0x15"
+            ]
+          }
+        ],
+        "status": "selector-exact"
+      },
+      "romContext": {
+        "status": "resolved",
+        "backgroundContext": {
+          "input": {
+            "objset": 3,
+            "objsetHex": "0x03",
+            "area": 0,
+            "areaHex": "0x00",
+            "submap": 0,
+            "submapHex": "0x00"
+          },
+          "tables": {
+            "areaTable": {
+              "pointerTableAddress": "0xF7AB",
+              "pointerAddress": "0xF7B1",
+              "address": "0xB280",
+              "bank": 2
+            },
+            "areaRecord": {
+              "pointerAddress": "0xB280",
+              "address": "0xB372",
+              "bank": 2
+            },
+            "screenRecord": {
+              "pointerAddress": "0xB37B",
+              "address": "0xB3A2",
+              "bank": 2,
+              "firstBytes": [
+                "0x00",
+                "0x01",
+                "0x05",
+                "0xFD",
+                "0x06",
+                "0x00",
+                "0x00",
+                "0x01"
+              ],
+              "layoutIndex": 0,
+              "layoutIndexHex": "0x00"
+            },
+            "layoutTable": {
+              "pointerTableAddress": "0xF7FB",
+              "pointerAddress": "0xF801",
+              "address": "0xB29E",
+              "bank": 2
+            },
+            "layoutHeader": {
+              "pointerAddress": "0xB29E",
+              "address": "0xB3EF",
+              "bank": 2,
+              "secondaryAddress": "0xB3EE",
+              "secondaryBank": 2
+            },
+            "tileSet": {
+              "pointerTableAddress": "0xF7D1",
+              "pointerAddress": "0xF7DD",
+              "address": "0x918A",
+              "bank": 4,
+              "auxiliaryAddress": "0xF7F2"
+            }
+          },
+          "derivedDescriptorFields": {
+            "layoutBank": 2,
+            "layoutHeaderAddress": "0xB3EF",
+            "layoutHeaderBank": 2,
+            "tileBank": 4,
+            "tileSetAddress": "0x918A"
+          }
+        }
+      },
+      "evidenceStatus": {
+        "runtimeContext": "matches",
+        "chr": "exact-match",
+        "palette": "exact-match",
+        "renderRecipe": "recipe-evidence-present"
+      }
+    },
+    {
+      "id": "camilla-cemetery-night",
+      "label": "Camilla Cemetery, night",
+      "location": "Camilla Cemetery",
+      "variant": "night",
+      "access": "outdoor",
+      "reason": "Representative objset 3 exterior night palette probe.",
+      "capture": "out/captures/camilla-cemetery-night",
+      "state": "out/states/camilla-cemetery-night.mss",
+      "status": "audited",
+      "requiredFiles": [
+        {
+          "file": "screenshot.png",
+          "exists": true
+        },
+        {
+          "file": "cpu-0000-07ff.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-0000-1fff-patterns.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-2000-2fff-nametables.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-3f00-3f1f-palettes.bin",
+          "exists": true
+        },
+        {
+          "file": "oam-0000-00ff-sprites.bin",
+          "exists": true
+        },
+        {
+          "file": "state.json",
+          "exists": true
+        }
+      ],
+      "expectedContext": {
+        "status": "matches",
+        "expected": [
+          {
+            "objset": "0x03",
+            "area": "0x00",
+            "submap": "0x00"
+          }
+        ]
+      },
+      "atlasContext": {
+        "objset": "0x03",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "atlasCandidate": {
+        "id": "obj03-area00-sub00-camilla-cemetery",
+        "name": "Camilla Cemetery",
+        "image": "images/obj03-area00-sub00-camilla-cemetery.png"
+      },
+      "live": {
+        "runtimeContext": {
+          "objset": "0x03",
+          "area": "0x00",
+          "submap": "0x00",
+          "submapRaw": "0x00",
+          "submapFlags": "0x00",
+          "actorPointer": "0xAF22",
+          "tileSetPointer": "0x918A"
+        },
+        "ppu": {
+          "backgroundPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x01",
+            "0x0F",
+            "0x11",
+            "0x0C",
+            "0x01",
+            "0x0F",
+            "0x02",
+            "0x13",
+            "0x0C",
+            "0x0F",
+            "0x01",
+            "0x31",
+            "0x05"
+          ],
+          "fullPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x01",
+            "0x0F",
+            "0x11",
+            "0x0C",
+            "0x01",
+            "0x0F",
+            "0x02",
+            "0x13",
+            "0x0C",
+            "0x0F",
+            "0x01",
+            "0x31",
+            "0x05",
+            "0x0F",
+            "0x0F",
+            "0x16",
+            "0x20",
+            "0x0F",
+            "0x27",
+            "0x20",
+            "0x16",
+            "0x0F",
+            "0x14",
+            "0x34",
+            "0x0F",
+            "0x0F",
+            "0x26",
+            "0x20",
+            "0x0F"
+          ],
+          "backgroundPatternAddress": "0x0000",
+          "xScroll": 0,
+          "videoRamAddress": "0x3BA2",
+          "tmpVideoRamAddress": "0x33A0"
+        }
+      },
+      "chr": {
+        "status": "exact-match",
+        "banks": [
+          {
+            "slot": 0,
+            "ppuAddress": "0x0000",
+            "sha1": "59602391659d508f75f800222f23c2898fdb14c3",
+            "matches": [
+              {
+                "bank": 4,
+                "bankHex": "0x04"
+              }
+            ],
+            "status": "exact-match"
+          },
+          {
+            "slot": 1,
+            "ppuAddress": "0x1000",
+            "sha1": "fb807093385d4ae676d8d4f073284ab2c1091502",
+            "matches": [
+              {
+                "bank": 5,
+                "bankHex": "0x05"
+              }
+            ],
+            "status": "exact-match"
+          }
+        ]
+      },
+      "palette": {
+        "selector": {
+          "status": "exact-match",
+          "variant": "night",
+          "runtimeContext": {
+            "objset": "0x03",
+            "area": "0x00",
+            "submap": "0x00"
+          },
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB28C",
+          "indexListAddress": "0xB3C0",
+          "indexOffset": 0,
+          "transferId": "0x2B",
+          "auxiliaryTransferId": "0x35",
+          "transferPointerAddress": "0x88EB",
+          "paletteAddress": "0xA05F",
+          "paletteBank": 4,
+          "bytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x01",
+            "0x0F",
+            "0x11",
+            "0x0C",
+            "0x01",
+            "0x0F",
+            "0x02",
+            "0x13",
+            "0x0C",
+            "0x0F",
+            "0x01",
+            "0x31",
+            "0x05"
+          ],
+          "rawPalette": true
+        },
+        "transferMatches": [
+          {
+            "transferId": "0x2B",
+            "transferPointerAddress": "0x88EB",
+            "paletteAddress": "0xA05F",
+            "paletteBank": 4,
+            "bytes": [
+              "0x0F",
+              "0x00",
+              "0x10",
+              "0x01",
+              "0x0F",
+              "0x11",
+              "0x0C",
+              "0x01",
+              "0x0F",
+              "0x02",
+              "0x13",
+              "0x0C",
+              "0x0F",
+              "0x01",
+              "0x31",
+              "0x05"
+            ]
+          }
+        ],
+        "status": "selector-exact"
+      },
+      "romContext": {
+        "status": "resolved",
+        "backgroundContext": {
+          "input": {
+            "objset": 3,
+            "objsetHex": "0x03",
+            "area": 0,
+            "areaHex": "0x00",
+            "submap": 0,
+            "submapHex": "0x00"
+          },
+          "tables": {
+            "areaTable": {
+              "pointerTableAddress": "0xF7AB",
+              "pointerAddress": "0xF7B1",
+              "address": "0xB280",
+              "bank": 2
+            },
+            "areaRecord": {
+              "pointerAddress": "0xB280",
+              "address": "0xB372",
+              "bank": 2
+            },
+            "screenRecord": {
+              "pointerAddress": "0xB37B",
+              "address": "0xB3A2",
+              "bank": 2,
+              "firstBytes": [
+                "0x00",
+                "0x01",
+                "0x05",
+                "0xFD",
+                "0x06",
+                "0x00",
+                "0x00",
+                "0x01"
+              ],
+              "layoutIndex": 0,
+              "layoutIndexHex": "0x00"
+            },
+            "layoutTable": {
+              "pointerTableAddress": "0xF7FB",
+              "pointerAddress": "0xF801",
+              "address": "0xB29E",
+              "bank": 2
+            },
+            "layoutHeader": {
+              "pointerAddress": "0xB29E",
+              "address": "0xB3EF",
+              "bank": 2,
+              "secondaryAddress": "0xB3EE",
+              "secondaryBank": 2
+            },
+            "tileSet": {
+              "pointerTableAddress": "0xF7D1",
+              "pointerAddress": "0xF7DD",
+              "address": "0x918A",
+              "bank": 4,
+              "auxiliaryAddress": "0xF7F2"
+            }
+          },
+          "derivedDescriptorFields": {
+            "layoutBank": 2,
+            "layoutHeaderAddress": "0xB3EF",
+            "layoutHeaderBank": 2,
+            "tileBank": 4,
+            "tileSetAddress": "0x918A"
+          }
+        }
+      },
+      "evidenceStatus": {
+        "runtimeContext": "matches",
+        "chr": "exact-match",
+        "palette": "exact-match",
+        "renderRecipe": "recipe-evidence-present"
+      }
+    },
+    {
+      "id": "berkeley-mansion-door-day",
+      "label": "Berkeley Mansion door, day",
+      "location": "Berkeley Mansion - Door",
+      "variant": "day",
+      "access": "mansion-door",
+      "reason": "Diagnostic probe for scrambled mansion-door exterior renders.",
+      "capture": "out/captures/berkeley-mansion-door-day",
+      "state": "out/states/berkeley-mansion-door-day.mss",
+      "status": "audited",
+      "requiredFiles": [
+        {
+          "file": "screenshot.png",
+          "exists": true
+        },
+        {
+          "file": "cpu-0000-07ff.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-0000-1fff-patterns.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-2000-2fff-nametables.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-3f00-3f1f-palettes.bin",
+          "exists": true
+        },
+        {
+          "file": "oam-0000-00ff-sprites.bin",
+          "exists": true
+        },
+        {
+          "file": "state.json",
+          "exists": true
+        }
+      ],
+      "expectedContext": {
+        "status": "matches",
+        "expected": [
+          {
+            "objset": "0x01",
+            "area": "0x01",
+            "submap": "0x00"
+          }
+        ]
+      },
+      "atlasContext": {
+        "objset": "0x01",
+        "area": "0x01",
+        "submap": "0x00"
+      },
+      "atlasCandidate": {
+        "id": "obj01-area01-sub00-berkeley-mansion-door",
+        "name": "Berkeley Mansion - Door",
+        "image": "images/obj01-area01-sub00-berkeley-mansion-door.png"
+      },
+      "live": {
+        "runtimeContext": {
+          "objset": "0x01",
+          "area": "0x01",
+          "submap": "0x00",
+          "submapRaw": "0x00",
+          "submapFlags": "0x00",
+          "actorPointer": "0x9346",
+          "tileSetPointer": "0x8891"
+        },
+        "ppu": {
+          "backgroundPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0B",
+            "0x0F",
+            "0x0A",
+            "0x17",
+            "0x00",
+            "0x0F",
+            "0x06",
+            "0x09",
+            "0x37",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "fullPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0B",
+            "0x0F",
+            "0x0A",
+            "0x17",
+            "0x00",
+            "0x0F",
+            "0x06",
+            "0x09",
+            "0x37",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15",
+            "0x0F",
+            "0x0F",
+            "0x16",
+            "0x20",
+            "0x0F",
+            "0x27",
+            "0x20",
+            "0x16",
+            "0x0F",
+            "0x1C",
+            "0x3C",
+            "0x0F",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x0F"
+          ],
+          "backgroundPatternAddress": "0x0000",
+          "xScroll": 0,
+          "videoRamAddress": "0x3B82",
+          "tmpVideoRamAddress": "0x3380"
+        }
+      },
+      "chr": {
+        "status": "exact-match",
+        "banks": [
+          {
+            "slot": 0,
+            "ppuAddress": "0x0000",
+            "sha1": "49407ad6e2b59cfcda3e9fa4f96a6776781c9efb",
+            "matches": [
+              {
+                "bank": 8,
+                "bankHex": "0x08"
+              }
+            ],
+            "status": "exact-match"
+          },
+          {
+            "slot": 1,
+            "ppuAddress": "0x1000",
+            "sha1": "0007874eb55a5b5a6f8a5b770d954e728e0b69a3",
+            "matches": [
+              {
+                "bank": 9,
+                "bankHex": "0x09"
+              }
+            ],
+            "status": "exact-match"
+          }
+        ]
+      },
+      "palette": {
+        "selector": {
+          "status": "exact-match",
+          "variant": "day",
+          "runtimeContext": {
+            "objset": "0x01",
+            "area": "0x01",
+            "submap": "0x00"
+          },
+          "paletteTableAddress": "0x8762",
+          "indexListPointerAddress": "0x8766",
+          "indexListAddress": "0x8D65",
+          "indexOffset": 0,
+          "transferId": "0x0F",
+          "auxiliaryTransferId": "0x48",
+          "transferPointerAddress": "0x88B3",
+          "paletteAddress": "0x9F5E",
+          "paletteBank": 4,
+          "bytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0B",
+            "0x0F",
+            "0x0A",
+            "0x17",
+            "0x00",
+            "0x0F",
+            "0x06",
+            "0x09",
+            "0x37",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "rawPalette": true
+        },
+        "transferMatches": [
+          {
+            "transferId": "0x0F",
+            "transferPointerAddress": "0x88B3",
+            "paletteAddress": "0x9F5E",
+            "paletteBank": 4,
+            "bytes": [
+              "0x0F",
+              "0x00",
+              "0x10",
+              "0x0B",
+              "0x0F",
+              "0x0A",
+              "0x17",
+              "0x00",
+              "0x0F",
+              "0x06",
+              "0x09",
+              "0x37",
+              "0x0F",
+              "0x11",
+              "0x20",
+              "0x15"
+            ]
+          }
+        ],
+        "status": "selector-exact"
+      },
+      "romContext": {
+        "status": "resolved",
+        "backgroundContext": {
+          "input": {
+            "objset": 1,
+            "objsetHex": "0x01",
+            "area": 1,
+            "areaHex": "0x01",
+            "submap": 0,
+            "submapHex": "0x00"
+          },
+          "tables": {
+            "areaTable": {
+              "pointerTableAddress": "0xF7AB",
+              "pointerAddress": "0xF7AD",
+              "address": "0x873C",
+              "bank": 2
+            },
+            "areaRecord": {
+              "pointerAddress": "0x873E",
+              "address": "0x8D3A",
+              "bank": 2
+            },
+            "screenRecord": {
+              "pointerAddress": "0x8D43",
+              "address": "0x8D61",
+              "bank": 2,
+              "firstBytes": [
+                "0x02",
+                "0x00",
+                "0x00",
+                "0x00",
+                "0x0F",
+                "0x48",
+                "0x0F",
+                "0x48"
+              ],
+              "layoutIndex": 2,
+              "layoutIndexHex": "0x02"
+            },
+            "layoutTable": {
+              "pointerTableAddress": "0xF7FB",
+              "pointerAddress": "0xF7FD",
+              "address": "0x8792",
+              "bank": 2
+            },
+            "layoutHeader": {
+              "pointerAddress": "0x879A",
+              "address": "0x87CF",
+              "bank": 2,
+              "secondaryAddress": "0x87CE",
+              "secondaryBank": 2
+            },
+            "tileSet": {
+              "pointerTableAddress": "0xF7D1",
+              "pointerAddress": "0xF7D5",
+              "address": "0x8891",
+              "bank": 4,
+              "auxiliaryAddress": "0xF7EC"
+            }
+          },
+          "derivedDescriptorFields": {
+            "layoutBank": 2,
+            "layoutHeaderAddress": "0x87CF",
+            "layoutHeaderBank": 2,
+            "tileBank": 4,
+            "tileSetAddress": "0x8891"
+          }
+        }
+      },
+      "evidenceStatus": {
+        "runtimeContext": "matches",
+        "chr": "exact-match",
+        "palette": "exact-match",
+        "renderRecipe": "recipe-evidence-present"
+      }
+    },
+    {
+      "id": "jova-town-interior-day",
+      "label": "Jova town interior, day",
+      "location": "Jova town interior",
+      "variant": "day",
+      "access": "town-interior",
+      "reason": "Representative town-interior render family; exact room context is read from live state.",
+      "capture": "out/captures/jova-town-interior-day",
+      "state": "out/states/jova-town-interior-day.mss",
+      "status": "audited",
+      "requiredFiles": [
+        {
+          "file": "screenshot.png",
+          "exists": true
+        },
+        {
+          "file": "cpu-0000-07ff.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-0000-1fff-patterns.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-2000-2fff-nametables.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-3f00-3f1f-palettes.bin",
+          "exists": true
+        },
+        {
+          "file": "oam-0000-00ff-sprites.bin",
+          "exists": true
+        },
+        {
+          "file": "state.json",
+          "exists": true
+        }
+      ],
+      "expectedContext": {
+        "status": "matches",
+        "expected": [
+          {
+            "objset": "0x00",
+            "area": "0x08",
+            "submap": "0x00"
+          },
+          {
+            "objset": "0x00",
+            "area": "0x09",
+            "submap": "0x00"
+          }
+        ]
+      },
+      "live": {
+        "runtimeContext": {
+          "objset": "0x00",
+          "area": "0x08",
+          "submap": "0x00",
+          "submapRaw": "0x00",
+          "submapFlags": "0x00",
+          "actorPointer": "0x913E",
+          "tileSetPointer": "0x841D"
+        },
+        "ppu": {
+          "backgroundPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x3C",
+            "0x0C",
+            "0x0F",
+            "0x03",
+            "0x13",
+            "0x33",
+            "0x0F",
+            "0x00",
+            "0x20",
+            "0x21",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "fullPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x3C",
+            "0x0C",
+            "0x0F",
+            "0x03",
+            "0x13",
+            "0x33",
+            "0x0F",
+            "0x00",
+            "0x20",
+            "0x21",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15",
+            "0x0F",
+            "0x0F",
+            "0x16",
+            "0x20",
+            "0x0F",
+            "0x27",
+            "0x20",
+            "0x16",
+            "0x0F",
+            "0x17",
+            "0x20",
+            "0x0F",
+            "0x0F",
+            "0x00",
+            "0x20",
+            "0x0F"
+          ],
+          "backgroundPatternAddress": "0x0000",
+          "xScroll": 0,
+          "videoRamAddress": "0x3B82",
+          "tmpVideoRamAddress": "0x3380"
+        }
+      },
+      "chr": {
+        "status": "exact-match",
+        "banks": [
+          {
+            "slot": 0,
+            "ppuAddress": "0x0000",
+            "sha1": "6e0d98e3d50b61e7a0a275c948209bd93018fc47",
+            "matches": [
+              {
+                "bank": 0,
+                "bankHex": "0x00"
+              }
+            ],
+            "status": "exact-match"
+          },
+          {
+            "slot": 1,
+            "ppuAddress": "0x1000",
+            "sha1": "080f054ffbfc6bd18157d9ddebad07d98a649fd3",
+            "matches": [
+              {
+                "bank": 1,
+                "bankHex": "0x01"
+              }
+            ],
+            "status": "exact-match"
+          }
+        ]
+      },
+      "palette": {
+        "selector": {
+          "status": "exact-match",
+          "variant": "day",
+          "runtimeContext": {
+            "objset": "0x00",
+            "area": "0x08",
+            "submap": "0x00"
+          },
+          "paletteTableAddress": "0x8072",
+          "indexListPointerAddress": "0x8092",
+          "indexListAddress": "0xFA42",
+          "indexOffset": 0,
+          "transferId": "0x15",
+          "auxiliaryTransferId": "0x2E",
+          "transferPointerAddress": "0x88BF",
+          "paletteAddress": "0x9E91",
+          "paletteBank": 4,
+          "bytes": [
+            "0x0F",
+            "0x00",
+            "0x3C",
+            "0x0C",
+            "0x0F",
+            "0x03",
+            "0x13",
+            "0x33",
+            "0x0F",
+            "0x00",
+            "0x20",
+            "0x21",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "rawPalette": true
+        },
+        "transferMatches": [
+          {
+            "transferId": "0x15",
+            "transferPointerAddress": "0x88BF",
+            "paletteAddress": "0x9E91",
+            "paletteBank": 4,
+            "bytes": [
+              "0x0F",
+              "0x00",
+              "0x3C",
+              "0x0C",
+              "0x0F",
+              "0x03",
+              "0x13",
+              "0x33",
+              "0x0F",
+              "0x00",
+              "0x20",
+              "0x21",
+              "0x0F",
+              "0x11",
+              "0x20",
+              "0x15"
+            ]
+          }
+        ],
+        "status": "selector-exact"
+      },
+      "romContext": {
+        "status": "resolved",
+        "backgroundContext": {
+          "input": {
+            "objset": 0,
+            "objsetHex": "0x00",
+            "area": 8,
+            "areaHex": "0x08",
+            "submap": 0,
+            "submapHex": "0x00"
+          },
+          "tables": {
+            "areaTable": {
+              "pointerTableAddress": "0xF7AB",
+              "pointerAddress": "0xF7AB",
+              "address": "0x8042",
+              "bank": 2
+            },
+            "areaRecord": {
+              "pointerAddress": "0x8052",
+              "address": "0xFA15"
+            },
+            "screenRecord": {
+              "pointerAddress": "0xFA1E",
+              "address": "0x800C",
+              "bank": 2,
+              "firstBytes": [
+                "0x07",
+                "0x08",
+                "0x0C",
+                "0x0D",
+                "0x01",
+                "0x01",
+                "0x9F",
+                "0x82"
+              ],
+              "layoutIndex": 7,
+              "layoutIndexHex": "0x07"
+            },
+            "layoutTable": {
+              "pointerTableAddress": "0xF7FB",
+              "pointerAddress": "0xF7FB",
+              "address": "0x80D3",
+              "bank": 2
+            },
+            "layoutHeader": {
+              "pointerAddress": "0x80EF",
+              "address": "0x8016",
+              "bank": 2,
+              "secondaryAddress": "0x8041",
+              "secondaryBank": 2
+            },
+            "tileSet": {
+              "pointerTableAddress": "0xF7D1",
+              "pointerAddress": "0xF7D1",
+              "address": "0x841D",
+              "bank": 4,
+              "auxiliaryAddress": "0xF7E9"
+            }
+          },
+          "derivedDescriptorFields": {
+            "layoutBank": 2,
+            "layoutHeaderAddress": "0x8016",
+            "layoutHeaderBank": 2,
+            "tileBank": 4,
+            "tileSetAddress": "0x841D"
+          }
+        }
+      },
+      "evidenceStatus": {
+        "runtimeContext": "matches",
+        "chr": "exact-match",
+        "palette": "exact-match",
+        "renderRecipe": "recipe-evidence-present"
+      }
+    },
+    {
+      "id": "berkeley-mansion-interior-day",
+      "label": "Berkeley Mansion interior, day",
+      "location": "Berkeley Mansion",
+      "variant": "fixed",
+      "access": "mansion-interior",
+      "reason": "Representative mansion-interior recipe; mansion interiors are assumed day/night palette-stable.",
+      "capture": "out/captures/berkeley-mansion-interior-day",
+      "state": "out/states/berkeley-mansion-interior-day.mss",
+      "status": "audited",
+      "requiredFiles": [
+        {
+          "file": "screenshot.png",
+          "exists": true
+        },
+        {
+          "file": "cpu-0000-07ff.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-0000-1fff-patterns.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-2000-2fff-nametables.bin",
+          "exists": true
+        },
+        {
+          "file": "ppu-3f00-3f1f-palettes.bin",
+          "exists": true
+        },
+        {
+          "file": "oam-0000-00ff-sprites.bin",
+          "exists": true
+        },
+        {
+          "file": "state.json",
+          "exists": true
+        }
+      ],
+      "expectedContext": {
+        "status": "matches",
+        "expected": [
+          {
+            "objset": "0x01",
+            "area": "0x07",
+            "submap": "0x00"
+          }
+        ]
+      },
+      "atlasContext": {
+        "objset": "0x01",
+        "area": "0x07",
+        "submap": "0x00"
+      },
+      "live": {
+        "runtimeContext": {
+          "objset": "0x01",
+          "area": "0x07",
+          "submap": "0x00",
+          "submapRaw": "0x00",
+          "submapFlags": "0x00",
+          "actorPointer": "0x9AC4",
+          "tileSetPointer": "0x8891"
+        },
+        "ppu": {
+          "backgroundPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0B",
+            "0x0F",
+            "0x0A",
+            "0x17",
+            "0x00",
+            "0x0F",
+            "0x06",
+            "0x09",
+            "0x37",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "fullPaletteBytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0B",
+            "0x0F",
+            "0x0A",
+            "0x17",
+            "0x00",
+            "0x0F",
+            "0x06",
+            "0x09",
+            "0x37",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15",
+            "0x0F",
+            "0x0F",
+            "0x16",
+            "0x20",
+            "0x0F",
+            "0x27",
+            "0x20",
+            "0x16",
+            "0x0F",
+            "0x1C",
+            "0x3C",
+            "0x0F",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x0F"
+          ],
+          "backgroundPatternAddress": "0x0000",
+          "xScroll": 0,
+          "videoRamAddress": "0x3B02",
+          "tmpVideoRamAddress": "0x3300"
+        }
+      },
+      "chr": {
+        "status": "exact-match",
+        "banks": [
+          {
+            "slot": 0,
+            "ppuAddress": "0x0000",
+            "sha1": "49407ad6e2b59cfcda3e9fa4f96a6776781c9efb",
+            "matches": [
+              {
+                "bank": 8,
+                "bankHex": "0x08"
+              }
+            ],
+            "status": "exact-match"
+          },
+          {
+            "slot": 1,
+            "ppuAddress": "0x1000",
+            "sha1": "0007874eb55a5b5a6f8a5b770d954e728e0b69a3",
+            "matches": [
+              {
+                "bank": 9,
+                "bankHex": "0x09"
+              }
+            ],
+            "status": "exact-match"
+          }
+        ]
+      },
+      "palette": {
+        "selector": {
+          "status": "exact-match",
+          "variant": "day",
+          "runtimeContext": {
+            "objset": "0x01",
+            "area": "0x07",
+            "submap": "0x00"
+          },
+          "paletteTableAddress": "0x8762",
+          "indexListPointerAddress": "0x877E",
+          "indexListAddress": "0x8D65",
+          "indexOffset": 0,
+          "transferId": "0x0F",
+          "auxiliaryTransferId": "0x48",
+          "transferPointerAddress": "0x88B3",
+          "paletteAddress": "0x9F5E",
+          "paletteBank": 4,
+          "bytes": [
+            "0x0F",
+            "0x00",
+            "0x10",
+            "0x0B",
+            "0x0F",
+            "0x0A",
+            "0x17",
+            "0x00",
+            "0x0F",
+            "0x06",
+            "0x09",
+            "0x37",
+            "0x0F",
+            "0x11",
+            "0x20",
+            "0x15"
+          ],
+          "rawPalette": true
+        },
+        "transferMatches": [
+          {
+            "transferId": "0x0F",
+            "transferPointerAddress": "0x88B3",
+            "paletteAddress": "0x9F5E",
+            "paletteBank": 4,
+            "bytes": [
+              "0x0F",
+              "0x00",
+              "0x10",
+              "0x0B",
+              "0x0F",
+              "0x0A",
+              "0x17",
+              "0x00",
+              "0x0F",
+              "0x06",
+              "0x09",
+              "0x37",
+              "0x0F",
+              "0x11",
+              "0x20",
+              "0x15"
+            ]
+          }
+        ],
+        "status": "selector-exact"
+      },
+      "romContext": {
+        "status": "resolved",
+        "backgroundContext": {
+          "input": {
+            "objset": 1,
+            "objsetHex": "0x01",
+            "area": 7,
+            "areaHex": "0x07",
+            "submap": 0,
+            "submapHex": "0x00"
+          },
+          "tables": {
+            "areaTable": {
+              "pointerTableAddress": "0xF7AB",
+              "pointerAddress": "0xF7AD",
+              "address": "0x873C",
+              "bank": 2
+            },
+            "areaRecord": {
+              "pointerAddress": "0x874A",
+              "address": "0x8D45",
+              "bank": 2
+            },
+            "screenRecord": {
+              "pointerAddress": "0x8D4E",
+              "address": "0x8D5F",
+              "bank": 2,
+              "firstBytes": [
+                "0x04",
+                "0x05",
+                "0x02",
+                "0x00",
+                "0x00",
+                "0x00",
+                "0x0F",
+                "0x48"
+              ],
+              "layoutIndex": 4,
+              "layoutIndexHex": "0x04"
+            },
+            "layoutTable": {
+              "pointerTableAddress": "0xF7FB",
+              "pointerAddress": "0xF7FD",
+              "address": "0x8792",
+              "bank": 2
+            },
+            "layoutHeader": {
+              "pointerAddress": "0x87A2",
+              "address": "0x8D99",
+              "bank": 2,
+              "secondaryAddress": "0x8D6B",
+              "secondaryBank": 2
+            },
+            "tileSet": {
+              "pointerTableAddress": "0xF7D1",
+              "pointerAddress": "0xF7D5",
+              "address": "0x8891",
+              "bank": 4,
+              "auxiliaryAddress": "0xF7EC"
+            }
+          },
+          "derivedDescriptorFields": {
+            "layoutBank": 2,
+            "layoutHeaderAddress": "0x8D99",
+            "layoutHeaderBank": 2,
+            "tileBank": 4,
+            "tileSetAddress": "0x8891"
+          }
+        }
+      },
+      "evidenceStatus": {
+        "runtimeContext": "matches",
+        "chr": "exact-match",
+        "palette": "exact-match",
+        "renderRecipe": "recipe-evidence-present"
+      }
+    }
+  ],
+  "deferred": [
+    {
+      "id": "north-bridge-day",
+      "label": "North Bridge, day",
+      "state": "out/states/north-bridge-day.mss",
+      "reason": "Suspected palette issue; state not available yet."
+    },
+    {
+      "id": "north-bridge-night",
+      "label": "North Bridge, night",
+      "state": "out/states/north-bridge-night.mss",
+      "reason": "Night variant for suspected palette issue; state not available yet."
+    },
+    {
+      "id": "vrad-graveyard-day",
+      "label": "Vrad Graveyard, day",
+      "state": "out/states/vrad-graveyard-day.mss",
+      "reason": "Representative objset 4 and currently suspect scrambled render; state not available yet."
+    },
+    {
+      "id": "castlevania-bridge-day",
+      "label": "Castlevania Bridge, day",
+      "state": "out/states/castlevania-bridge-day.mss",
+      "reason": "Currently suspect scrambled render; state not available yet."
+    },
+    {
+      "id": "castlevania-exterior-day",
+      "label": "Castlevania exterior, day",
+      "state": "out/states/castlevania-exterior-day.mss",
+      "reason": "Representative objset 5 large layout; state not available yet."
+    }
+  ]
+}

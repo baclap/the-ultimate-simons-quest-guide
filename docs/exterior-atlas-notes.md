@@ -72,7 +72,7 @@ Current confidence split:
 | Objset | Template | CHR banks | Palette | Status |
 | ---: | --- | --- | --- | --- |
 | `0` | Town exterior, day | `0/1` | runtime selector table, with Jova resolving to transfer `$16` and palette `4:$9EA2` | validated-template |
-| `1` | Mansion door exterior, day | `4/5` | runtime selector table where the selected transfer stream is raw palette data, otherwise fallback | inferred-template |
+| `1` | Mansion door exterior, day | `8/9` | runtime selector table, with Berkeley Mansion door resolving to transfer `$0F` and palette `4:$9F5E` | inferred-template |
 | `2` | Overworld woods/routes, day | `2/3` | runtime selector table, with Jova Woods `$22 -> 4:$9FC6`, Dora Woods Part 2 `$23 -> 4:$9FD7`, and Dabi's Path `$26 -> 4:$A00A` validated by fixtures | validated-template |
 | `3` | Cemetery/marsh/woods exterior, day | `4/5` | runtime selector table where the selected transfer stream is raw palette data, otherwise fallback | inferred-template |
 | `4` | Mountain/ditch/bridge exterior, day | `8/9` | runtime selector table where the selected transfer stream is raw palette data, otherwise fallback | inferred-template |
@@ -81,6 +81,11 @@ Current confidence split:
 These assumptions are deliberately preserved in generated metadata so a future
 PNG renderer, web canvas renderer, or regression suite can see exactly which
 parts are proven and which parts are pending validation.
+
+The mansion-door CHR banks were promoted from the render recipe audit, not from
+a per-area visual tweak: Berkeley Mansion door live PPU pattern memory matches
+CHR banks `08/09`, and its palette selector resolves `$0F -> 4:$9F5E`. Layout
+crop validation is still pending, so the family remains `inferred-template`.
 
 ## Layout Grids
 

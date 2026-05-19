@@ -26,6 +26,8 @@ The repository now has a zero-dependency Node CLI that can:
 - validate Dabi's Path through that selector path, resolving transfer id `$26` to palette `4:$A00A`
 - extract live runtime context bytes from save-state captures and store durable
   fixture evidence in `data/runtime-context-fixtures.json`
+- capture a broader render-recipe probe set and audit live CHR/palette state
+  against ROM selector tables
 
 Generated output is intentionally ignored by git:
 
@@ -74,6 +76,13 @@ Committed reference data is intentionally tracked:
   `data/runtime-context-fixtures.json`.
 - These verified checkpoints are now stored as reusable descriptors in `data/background-descriptors.json`.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
+- The render recipe audit now covers 11 probes and resolves exact CHR ROM banks
+  plus exact ROM palette selector output for all of them, including day/night
+  town and woods variants, Camilla Cemetery, Berkeley Mansion door, and
+  representative interiors.
+- Berkeley Mansion door live evidence shows object set `1` uses CHR banks
+  `08/09` and palette transfer `$0F -> 4:$9F5E`; the exterior atlas mansion-door
+  template has been updated from the old inferred `04/05` banks.
 
 ## Strategy
 

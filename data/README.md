@@ -12,6 +12,9 @@ Current files:
 - `runtime-context-fixtures.json`: committed save-state-derived evidence for
   live `$30/$50/$51` runtime context bytes, including the Dora palette-context
   alias. See `docs/runtime-context-mapping-notes.md`.
+- `render-recipe-fixtures.json`: committed manifest for save-state probes used
+  to audit live CHR banks, palette selector output, and interior/exterior recipe
+  families. See `docs/render-recipe-audit-notes.md`.
 
 The exterior atlas is generated from `cv2r` metadata plus ROM table reads rather
 than maintained as a hand-authored `data/` JSON file. Run

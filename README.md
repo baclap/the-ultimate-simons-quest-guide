@@ -21,6 +21,8 @@ The current vertical slice includes:
 - decodes day background palette selection through the ROM's runtime selector table at `2:$F7C5` and transfer table at `7:$C895`
 - derives the known Dora runtime palette-context alias from ROM special
   screen-record structure and validates it against save-state captures
+- captures a focused render-recipe probe set and audits live CHR/palette state
+  against ROM-derived selector data
 
 ## ROM Setup
 
@@ -44,10 +46,12 @@ npm run capture:jova
 npm run capture:jova-woods
 npm run capture:dora-woods-part-2
 npm run capture:dabis-path
+npm run capture:recipe-probes
 npm run inspect:jova-background
 npm run inspect:jova-woods-background
 npm run inspect:runtime-contexts
 npm run inspect:runtime-context-map
+npm run audit:render-recipes
 npm run render:jova-capture
 npm run render:jova-woods-capture
 npm run render:dora-woods-part-2-capture
@@ -83,6 +87,7 @@ node src/index.js render-layout-segment-png --rom roms/cv2.nes --segment jova-wo
 node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-veros-outdoor-day --out out/layout-routes/jova-to-veros-outdoor-day.png
 node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas
 node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology
+node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit
 ```
 
 ## Demos
@@ -99,6 +104,7 @@ demos/2026-05-17-vertical-layout-demo/index.html
 demos/2026-05-17-palette-resolver-demo/index.html
 demos/2026-05-17-runtime-context-demo/index.html
 demos/2026-05-17-topology-demo/index.html
+demos/2026-05-19-render-recipe-audit-demo/index.html
 ```
 
 ## Next Milestone
@@ -138,10 +144,18 @@ area groups, and adjacency edges for area boundaries and same-area submaps. This
 is the current topology milestone: connected map structure without claiming
 final world-coordinate placement. See `docs/exterior-topology-notes.md`.
 
+`npm run capture:recipe-probes` and `npm run audit:render-recipes` are the
+current ROM-first calibration milestone. They use the local save states listed
+in `data/render-recipe-fixtures.json` to capture live CPU/PPU evidence and
+verify that CHR banks and palettes can be derived from ROM data. The first audit
+covers 11 probes, resolves exact CHR and palette selector matches for all of
+them, and promotes the mansion-door CHR template to banks `8/9` from Berkeley
+Mansion evidence. See `docs/render-recipe-audit-notes.md`.
+
 The intended path is:
 
-1. turn exterior atlas entries into topology-aware route/world coordinates
-2. fix the separate mansion-door/interior template family
-3. add day/night outdoor palette variants
-4. add representative emulator validations for objsets 1, 3, 4, and 5
-5. connect validated segments into full composites and overlay data
+1. use recipe probes to replace remaining template assumptions with decoded ROM rules
+2. gather deferred states for North Bridge, Vrad Graveyard, Castlevania Bridge, and Castlevania exterior
+3. add day/night outdoor palette variants to atlas output
+4. turn exterior topology into coordinate-aware full-map composition
+5. connect validated exteriors/interiors into final PNG and optional canvas outputs

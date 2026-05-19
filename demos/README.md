@@ -25,3 +25,6 @@ Current demos:
 - `2026-05-17-topology-demo/`: exterior topology demo showing ROM transition
   edges, a Jova-to-Castlevania schematic route, and connected mansion-door
   landmarks.
+- `2026-05-19-render-recipe-audit-demo/`: save-state probe demo showing live
+  CHR/palette evidence, day/night palette selector matches, interior recipe
+  probes, and deferred suspect areas.
