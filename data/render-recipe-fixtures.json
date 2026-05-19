@@ -141,6 +141,148 @@
       "reason": "Diagnostic probe for scrambled mansion-door exterior renders."
     },
     {
+      "id": "bodley-mansion-door-night",
+      "label": "Bodley Mansion door, night",
+      "location": "Bodley Mansion - Door",
+      "variant": "night",
+      "access": "mansion-door",
+      "state": "out/states/bodley-mansion-door-night.mss",
+      "capture": "out/captures/bodley-mansion-door-night",
+      "atlasContext": {
+        "objset": "0x01",
+        "area": "0x04",
+        "submap": "0x00"
+      },
+      "reason": "Night probe for mansion-door exterior palette behavior."
+    },
+    {
+      "id": "doina-town-exterior-day",
+      "label": "Town of Doina exterior, day",
+      "location": "Town of Doina",
+      "variant": "day",
+      "access": "outdoor",
+      "state": "out/states/doina-town-exterior-day.mss",
+      "capture": "out/captures/doina-town-exterior-day",
+      "atlasContext": {
+        "objset": "0x00",
+        "area": "0x05",
+        "submap": "0x00"
+      },
+      "reason": "Additional town exterior day palette and CHR validation."
+    },
+    {
+      "id": "ondol-town-exterior-day",
+      "label": "Town of Ondol exterior, day",
+      "location": "Town of Ondol",
+      "variant": "day",
+      "access": "outdoor",
+      "state": "out/states/ondol-town-exterior-day.mss",
+      "capture": "out/captures/ondol-town-exterior-day",
+      "atlasContext": {
+        "objset": "0x00",
+        "area": "0x04",
+        "submap": "0x00"
+      },
+      "reason": "Additional town exterior day palette and CHR validation."
+    },
+    {
+      "id": "north-bridge-day",
+      "label": "North Bridge, day",
+      "location": "North Bridge",
+      "variant": "day",
+      "access": "outdoor",
+      "state": "out/states/north-bridge-day.mss",
+      "capture": "out/captures/north-bridge-day",
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x08",
+        "submap": "0x00"
+      },
+      "reason": "Representative probe for a suspected projected palette issue."
+    },
+    {
+      "id": "deborah-cliff-night",
+      "label": "Deborah Cliff, night",
+      "location": "Deborah Cliff",
+      "variant": "night",
+      "access": "outdoor",
+      "state": "out/states/deborah-cliff-night.mss",
+      "capture": "out/captures/deborah-cliff-night",
+      "expectedContexts": [
+        {
+          "objset": "0x04",
+          "area": "0x01",
+          "submap": "0x00"
+        },
+        {
+          "objset": "0x04",
+          "area": "0x01",
+          "submap": "0x01"
+        }
+      ],
+      "reason": "Objset 4 night evidence captured while traversing Deborah Cliff/Jam Wasteland."
+    },
+    {
+      "id": "vrad-graveyard-day",
+      "label": "Vrad Graveyard, day",
+      "location": "Vrad Graveyard",
+      "variant": "day",
+      "access": "outdoor",
+      "state": "out/states/vrad-graveyard-day.mss",
+      "capture": "out/captures/vrad-graveyard-day",
+      "atlasContext": {
+        "objset": "0x04",
+        "area": "0x03",
+        "submap": "0x00"
+      },
+      "reason": "Representative objset 4 probe for currently scrambled graveyard render."
+    },
+    {
+      "id": "vrad-graveyard-night",
+      "label": "Vrad Graveyard, night",
+      "location": "Vrad Graveyard",
+      "variant": "night",
+      "access": "outdoor",
+      "state": "out/states/vrad-graveyard-night.mss",
+      "capture": "out/captures/vrad-graveyard-night",
+      "atlasContext": {
+        "objset": "0x04",
+        "area": "0x03",
+        "submap": "0x00"
+      },
+      "reason": "Night variant for objset 4 graveyard CHR and palette evidence."
+    },
+    {
+      "id": "castlevania-bridge-day",
+      "label": "Castlevania Bridge, day",
+      "location": "Castlevania Bridge",
+      "variant": "day",
+      "access": "outdoor",
+      "state": "out/states/castlevania-bridge-day.mss",
+      "capture": "out/captures/castlevania-bridge-day",
+      "atlasContext": {
+        "objset": "0x04",
+        "area": "0x03",
+        "submap": "0x01"
+      },
+      "reason": "Representative objset 4 bridge probe for currently scrambled render."
+    },
+    {
+      "id": "castlevania-bridge-night",
+      "label": "Castlevania Bridge, night",
+      "location": "Castlevania Bridge",
+      "variant": "night",
+      "access": "outdoor",
+      "state": "out/states/castlevania-bridge-night.mss",
+      "capture": "out/captures/castlevania-bridge-night",
+      "atlasContext": {
+        "objset": "0x04",
+        "area": "0x03",
+        "submap": "0x01"
+      },
+      "reason": "Night variant for objset 4 bridge CHR and palette evidence."
+    },
+    {
       "id": "jova-town-interior-day",
       "label": "Jova town interior, day",
       "location": "Jova town interior",
@@ -163,6 +305,21 @@
       "reason": "Representative town-interior render family; exact room context is read from live state."
     },
     {
+      "id": "doina-church-interior-day",
+      "label": "Town of Doina church interior, day",
+      "location": "Town of Doina church interior",
+      "variant": "day",
+      "access": "town-interior",
+      "state": "out/states/doina-church-interior-day.mss",
+      "capture": "out/captures/doina-church-interior-day",
+      "atlasContext": {
+        "objset": "0x00",
+        "area": "0x07",
+        "submap": "0x00"
+      },
+      "reason": "Additional town-interior probe for church recipe behavior."
+    },
+    {
       "id": "berkeley-mansion-interior-day",
       "label": "Berkeley Mansion interior, day",
       "location": "Berkeley Mansion",
@@ -180,28 +337,10 @@
   ],
   "deferred": [
     {
-      "id": "north-bridge-day",
-      "label": "North Bridge, day",
-      "state": "out/states/north-bridge-day.mss",
-      "reason": "Suspected palette issue; state not available yet."
-    },
-    {
       "id": "north-bridge-night",
       "label": "North Bridge, night",
       "state": "out/states/north-bridge-night.mss",
       "reason": "Night variant for suspected palette issue; state not available yet."
-    },
-    {
-      "id": "vrad-graveyard-day",
-      "label": "Vrad Graveyard, day",
-      "state": "out/states/vrad-graveyard-day.mss",
-      "reason": "Representative objset 4 and currently suspect scrambled render; state not available yet."
-    },
-    {
-      "id": "castlevania-bridge-day",
-      "label": "Castlevania Bridge, day",
-      "state": "out/states/castlevania-bridge-day.mss",
-      "reason": "Currently suspect scrambled render; state not available yet."
     },
     {
       "id": "castlevania-exterior-day",

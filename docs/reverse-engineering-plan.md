@@ -66,7 +66,7 @@ Committed reference data is intentionally tracked:
 - The first regional renderer catalogs `jova-to-veros-day` from three validated screens and two inferred manifest-context candidates: Jova-Veros Bridge and Veros Woods - Part 1. It is route-ordered, but not a continuous world-space stitch.
 - The first layout segment renderer renders `jova-woods-day` as a 1024x224 continuous segment from layout header `2:$A23E` and column groups `0..3`.
 - The first route renderer composes `jova-to-veros-outdoor-day` into a 3072x224 outdoor route: Jova Woods, Jova-Veros Bridge, Veros Woods - Part 1, and Veros Woods - Part 2.
-- The first exterior atlas pass renders 55 exterior candidates, including towns, overworld routes, mansion doors, mountains, Castlevania Bridge, and Castlevania exterior. It records 31 validated-template renders and 24 inferred-template renders.
+- The first exterior atlas pass renders 55 exterior candidates, including towns, overworld routes, mansion doors, mountains, Castlevania Bridge, and Castlevania exterior. It now records 49 validated-template renders and 6 inferred-template renders after objset `3` and `4` recipe promotion.
 - Special exterior screen-record markers `FD`/`FE` are now preserved in metadata and decoded by using byte `1` as the effective layout index for the current five known exterior cases.
 - Layout header byte `0` is the horizontal column-group count and byte `1` is the vertical section count. The atlas now renders all sections for 13 multi-section layouts, including Jova `4x2`, Dora Woods - Part 2 `2x2`, Dabi's Path - Part 1 `2x2`, and Castlevania `4x4`.
 - Day background palettes are now resolved from the ROM's runtime selector path where the selected transfer stream is raw palette data. The manifest records the palette index table, transfer id, transfer pointer, and final palette address.
@@ -76,13 +76,19 @@ Committed reference data is intentionally tracked:
   `data/runtime-context-fixtures.json`.
 - These verified checkpoints are now stored as reusable descriptors in `data/background-descriptors.json`.
 - Runtime nametable mirroring for the current Jova fixture behaves vertically even though the iNES header advertises horizontal mirroring, so mirroring must be treated as mapper/runtime state.
-- The render recipe audit now covers 11 probes and resolves exact CHR ROM banks
+- The render recipe audit now covers 21 probes and resolves exact CHR ROM banks
   plus exact ROM palette selector output for all of them, including day/night
-  town and woods variants, Camilla Cemetery, Berkeley Mansion door, and
-  representative interiors.
+  town and woods variants, Camilla Cemetery, mansion doors, North Bridge,
+  Vrad Graveyard, Castlevania Bridge, Deborah Cliff, and representative
+  interiors.
 - Berkeley Mansion door live evidence shows object set `1` uses CHR banks
   `08/09` and palette transfer `$0F -> 4:$9F5E`; the exterior atlas mansion-door
   template has been updated from the old inferred `04/05` banks.
+- Vrad Graveyard, Castlevania Bridge, and Deborah Cliff live evidence shows
+  object set `4` uses CHR banks `06/07`; the old diagnostic `08/09` fallback
+  caused the visibly scrambled objset `4` renders.
+- Human-facing names now follow the Nintendo Power Transylvania map where the
+  scan is legible, while `cv2r` labels remain preserved as source names.
 
 ## Strategy
 
@@ -113,7 +119,7 @@ Work items:
    - Keep the atlas images as layout-space source segments, not emulator screenshots.
 
 4. Promote inferred templates.
-   - Add representative save-state fixtures for mansion doors, objset `3`, objset `4`, and Castlevania exterior.
+   - Add representative save-state fixtures for North Bridge night and Castlevania exterior.
    - Capture both day and night descriptors for outdoor locations.
    - Keep mansion interiors as one fixed-palette descriptor unless later evidence shows otherwise.
 

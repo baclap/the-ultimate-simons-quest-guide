@@ -29,18 +29,23 @@ npm run render:recipe-atlas
 
 ## Current Result
 
-The current atlas renders 99 entries without blocked/error cases:
+The current atlas renders 112 entries without blocked/error cases:
 
-- 11 validated
-- 80 projected
-- 8 diagnostic
-- 57 day variants
-- 42 night variants
+- 21 validated
+- 90 projected
+- 1 diagnostic
+- 58 day variants
+- 54 night variants
 
 The resolver derives palettes through the ROM selector table at `2:$F7C5` and
 the transfer pointer table at `7:$8895`. CHR banks come from exact probe
 fingerprints when available, then from validated family evidence, then from
 explicit diagnostic fallbacks for unresolved families.
+
+Objset `4` is now promoted from diagnostic to a validated family. Vrad
+Graveyard, Castlevania Bridge, and Deborah Cliff probes all resolve live CHR
+banks `06/07`; the old diagnostic fallback used `08/09`, which explains the
+scrambled tile output.
 
 ## Interpretation
 
@@ -50,7 +55,5 @@ same recipe resolver used by validated areas. If a projected area still looks
 wrong, that is evidence about a missing recipe rule, not a hidden per-area
 override.
 
-The next validation states should prioritize North Bridge, Vrad Graveyard,
-Castlevania Bridge, and Castlevania exterior. Those are the remaining areas
-where projected or diagnostic output is most likely to expose missing CHR,
-tile-set, or palette rules.
+The next validation states should prioritize North Bridge night and Castlevania
+exterior. Castlevania exterior remains the only diagnostic render family.

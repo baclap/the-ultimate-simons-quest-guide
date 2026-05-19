@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "primarySource": "Nintendo Power Castlevania II: Simon's Quest Transylvania map",
+    "primarySourceUrl": "https://i.etsystatic.com/63264078/r/il/5f4082/7590914027/il_1588xN.7590914027_ind8.jpg",
+    "rule": "Use Nintendo Power map names for human-facing labels where the scanned map is legible. Preserve cv2r names as sourceName and keep other published names as aliases."
+  },
+  "secondarySources": [
+    {
+      "name": "Castlevania Wiki - Vlad Graveyard",
+      "url": "https://castlevania.fandom.com/wiki/Vlad_Graveyard",
+      "note": "Uses Vlad Graveyard as primary and Vrad Graveyard as an alternate."
+    },
+    {
+      "name": "Castlevania Wiki - Simon's Quest World Map",
+      "url": "https://castlevania.fandom.com/wiki/Simon%27s_Quest_World_Map",
+      "note": "Collects design-map, guidebook, and NES Game Atlas names; useful for aliases and conflicts."
+    }
+  ],
+  "overrides": {
+    "Jova": {
+      "name": "Town of Jova"
+    },
+    "Veros": {
+      "name": "Town of Veros"
+    },
+    "Aljiba": {
+      "name": "Town of Aljiba"
+    },
+    "Alba": {
+      "name": "Town of Alba",
+      "aliases": ["Town of Aldra"]
+    },
+    "Ondol": {
+      "name": "Town of Ondol"
+    },
+    "Doina": {
+      "name": "Town of Doina"
+    },
+    "Yomi": {
+      "name": "Town of Yomi"
+    },
+    "Jova-Veros Bridge": {
+      "name": "South Bridge",
+      "aliases": ["Jova-Veros Bridge"]
+    },
+    "Dabi's Path - Part 1": {
+      "name": "Dabis Path - Part 1",
+      "aliases": ["Dabi's Path - Part 1"]
+    },
+    "Dabi's Path - Part 2": {
+      "name": "Dabis Path - Part 2",
+      "aliases": ["Dabi's Path - Part 2"]
+    },
+    "Brahm Mansion - Door": {
+      "name": "Brahm's Mansion - Door",
+      "aliases": ["Brahm Mansion - Door"]
+    },
+    "Brahm Mansion - Part 1": {
+      "name": "Brahm's Mansion - Part 1",
+      "aliases": ["Brahm Mansion - Part 1"]
+    },
+    "Brahm Mansion - Part 2": {
+      "name": "Brahm's Mansion - Part 2",
+      "aliases": ["Brahm Mansion - Part 2"]
+    },
+    "Brahm Mansion - Death Fight": {
+      "name": "Brahm's Mansion - Death Fight",
+      "aliases": ["Brahm Mansion - Death Fight"]
+    },
+    "Brahm Mansion - Orb Room": {
+      "name": "Brahm's Mansion - Orb Room",
+      "aliases": ["Brahm Mansion - Orb Room"]
+    },
+    "Rover Mansion - Door": {
+      "name": "Lauber Mansion - Door",
+      "aliases": ["Rover Mansion - Door"]
+    },
+    "Rover Mansion - Part 1": {
+      "name": "Lauber Mansion - Part 1",
+      "aliases": ["Rover Mansion - Part 1"]
+    },
+    "Rover Mansion - Part 2": {
+      "name": "Lauber Mansion - Part 2",
+      "aliases": ["Rover Mansion - Part 2"]
+    },
+    "Rover -> Laruba Wrong Warp": {
+      "name": "Lauber -> Laruba Wrong Warp",
+      "aliases": ["Rover -> Laruba Wrong Warp"]
+    },
+    "Long Bridge to Bordia Mountains (Dead End Swamp)": {
+      "name": "Long Bridge to Borgia Mountains (Dead End Swamp)",
+      "aliases": ["Long Bridge to Bordia Mountains (Dead End Swamp)"]
+    },
+    "Bordia Mountains (Dead End Swamp)": {
+      "name": "Borgia Mountains (Dead End Swamp)",
+      "aliases": ["Bordia Mountains (Dead End Swamp)"]
+    },
+    "Vrad Graveyard": {
+      "name": "Vrad Graveyard",
+      "aliases": ["Vlad Graveyard"]
+    }
+  },
+  "ambiguous": [
+    {
+      "sourceName": "Castlevania Bridge",
+      "observedMapText": "The scan labels the nearby bridge text unclearly; keep cv2r label until higher-resolution Nintendo Power evidence confirms the exact bridge name.",
+      "aliases": ["West Bridge", "East Bridge"]
+    }
+  ]
+}

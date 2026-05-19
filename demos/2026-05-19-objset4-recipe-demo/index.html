@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Objset 4 Recipe Promotion</title>
+  <link rel="stylesheet" href="styles.css?v=objset4-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Objset 4 recipe promotion</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/6</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide title-slide" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>New save states promoted objset 4</h1>
+        <p class="lede">Vrad Graveyard, Castlevania Bridge, and Deborah Cliff prove that the mountain/ditch/bridge family uses CHR banks 06/07, not the previous diagnostic 08/09 fallback.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="hero-grid" id="hero-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="naming">
+      <div class="copy narrow">
+        <p class="eyebrow">Naming Source</p>
+        <h2>Nintendo Power is now the display-name source</h2>
+        <p>The manifest keeps `cv2r` names as source metadata, while demos and atlas labels use Nintendo Power names where the map is legible.</p>
+      </div>
+      <div class="table" id="naming-table"></div>
+    </section>
+
+    <section class="slide" data-hash="before-after">
+      <div class="copy narrow">
+        <p class="eyebrow">Tiling Fix</p>
+        <h2>The scrambled objset 4 renders now use the live CHR family</h2>
+        <p>The old images used banks 08/09. The audited live states match banks 06/07 and exact ROM palette selectors.</p>
+      </div>
+      <div class="compare-grid" id="compare-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="validated">
+      <div class="copy narrow">
+        <p class="eyebrow">Validated Evidence</p>
+        <h2>The new probes are now first-class recipe evidence</h2>
+        <p>These renders are generated from ROM data; save states only validate which CHR/palette recipe the game selected.</p>
+      </div>
+      <div class="card-grid" id="validated-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="projected">
+      <div class="copy narrow">
+        <p class="eyebrow">Projected Family</p>
+        <h2>The fixed recipe projects to the rest of objset 4</h2>
+        <p>These are not individually pixel-proven yet, but they now use the validated object-set recipe instead of the scrambled fallback.</p>
+      </div>
+      <div class="card-grid" id="projected-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Remaining Gaps</p>
+        <h2>Only Castlevania exterior remains diagnostic</h2>
+        <p>North Bridge night and Castlevania exterior are still deferred. The next major map step is coordinate-aware composition once final recipe families are validated.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/recipe-atlas/recipe-atlas-data.js?v=objset4-1"></script>
+  <script src="slides.js?v=objset4-1"></script>
+</body>
+</html>

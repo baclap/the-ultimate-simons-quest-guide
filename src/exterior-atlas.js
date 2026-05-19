@@ -69,8 +69,8 @@ const TEMPLATE_BY_OBJSET = {
   3: {
     id: 'cemetery-marsh-woods-day',
     label: 'Cemetery/marsh/woods exterior, day',
-    confidence: 'inferred-template',
-    confidenceNote: 'Tile-set path is derived from the ROM; CHR/palette selection still needs emulator validation.',
+    confidence: 'validated-template',
+    confidenceNote: 'Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.',
     chrBanks: [0x04, 0x05],
     paletteBank: 4,
     paletteAddress: 0x9fe8,
@@ -81,9 +81,9 @@ const TEMPLATE_BY_OBJSET = {
   4: {
     id: 'mountain-ditch-bridge-day',
     label: 'Mountain/ditch/bridge exterior, day',
-    confidence: 'inferred-template',
-    confidenceNote: 'Tile-set path is derived from the ROM; CHR/palette selection still needs emulator validation.',
-    chrBanks: [0x08, 0x09],
+    confidence: 'validated-template',
+    confidenceNote: 'Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.',
+    chrBanks: [0x06, 0x07],
     paletteBank: 4,
     paletteAddress: 0xa070,
     paletteStrategy: 'object-set-fallback',

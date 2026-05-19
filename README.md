@@ -25,6 +25,8 @@ The current vertical slice includes:
   against ROM-derived selector data
 - renders a confidence-labeled recipe atlas with validated, projected, and
   diagnostic day/night variants
+- resolves human-facing labels through the Nintendo Power map naming policy
+  while preserving `cv2r` source names
 
 ## ROM Setup
 
@@ -110,6 +112,7 @@ demos/2026-05-17-runtime-context-demo/index.html
 demos/2026-05-17-topology-demo/index.html
 demos/2026-05-19-render-recipe-audit-demo/index.html
 demos/2026-05-19-recipe-resolver-demo/index.html
+demos/2026-05-19-objset4-recipe-demo/index.html
 ```
 
 ## Next Milestone
@@ -164,14 +167,19 @@ them, and promotes the mansion-door CHR template to banks `8/9` from Berkeley
 Mansion evidence. See `docs/render-recipe-audit-notes.md`.
 
 `npm run render:recipe-atlas` applies that audit evidence to atlas rendering.
-It currently renders 99 ROM-native entries: 11 exact validated contexts, 80
-projected variants from validated recipe families, and 8 diagnostic renders for
-families still awaiting representative states. See
-`docs/render-recipe-atlas-notes.md`.
+It currently renders 112 ROM-native entries: 21 exact validated contexts, 90
+projected variants from validated recipe families, and 1 diagnostic render for
+Castlevania exterior, which still awaits a representative state. Objset `4`
+now uses live CHR banks `6/7` from Vrad Graveyard, Castlevania Bridge, and
+Deborah Cliff probes. See `docs/render-recipe-atlas-notes.md`.
+
+Human-facing location names now follow the Nintendo Power map where the scan is
+legible, with `cv2r` labels preserved as `sourceName`. See
+`docs/location-naming-policy.md`.
 
 The intended path is:
 
-1. gather deferred states for North Bridge, Vrad Graveyard, Castlevania Bridge, and Castlevania exterior
+1. gather deferred states for North Bridge night and Castlevania exterior
 2. promote or correct projected/diagnostic recipe families from that evidence
 3. turn exterior topology into coordinate-aware full-map composition
 4. connect validated exteriors/interiors into final PNG and optional canvas outputs

@@ -53,11 +53,11 @@ const FALLBACK_FAMILY_RECIPES = {
     note: 'Objset 3 family is validated by Camilla Cemetery day/night probes.'
   },
   4: {
-    chrBanks: [0x08, 0x09],
+    chrBanks: [0x06, 0x07],
     widthBlocks: 8,
     heightBlocks: 7,
-    confidence: 'diagnostic',
-    note: 'Objset 4 still needs Vrad/Castlevania Bridge probes.'
+    confidence: 'projected',
+    note: 'Objset 4 route family is validated by Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes.'
   },
   5: {
     chrBanks: [0x06, 0x07],
@@ -358,7 +358,7 @@ function layoutGridForHeader(rom, info, derivation) {
 }
 
 function exteriorVariantsForLocation(loc) {
-  if ([0, 2, 3].includes(loc.objset)) {
+  if ([0, 1, 2, 3, 4].includes(loc.objset)) {
     return ['day', 'night'];
   }
   return ['day'];
@@ -594,6 +594,10 @@ function renderRecipeInput(rom, info, input, outDir, auditEvidence, runtimeConte
     id: input.id,
     locationId: input.locationId,
     name: input.name,
+    sourceName: input.loc?.sourceName,
+    aliases: input.loc?.aliases,
+    namingSource: input.loc?.namingSource,
+    namingNote: input.loc?.namingNote,
     source: input.source,
     access: input.access,
     variant: input.variant,

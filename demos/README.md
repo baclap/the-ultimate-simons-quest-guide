@@ -30,3 +30,6 @@ Current demos:
   probes, and deferred suspect areas.
 - `2026-05-19-recipe-resolver-demo/`: recipe resolver atlas demo showing 99
   ROM-native validated, projected, and diagnostic day/night renders.
+- `2026-05-19-objset4-recipe-demo/`: objset 4 recipe promotion demo showing
+  Nintendo Power naming, new save-state evidence, and the CHR `06/07` fix for
+  Vrad Graveyard and Castlevania Bridge.

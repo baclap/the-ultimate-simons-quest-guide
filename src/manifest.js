@@ -2,6 +2,11 @@
 
 const fs = require('fs');
 const path = require('path');
+const {
+  DEFAULT_LOCATION_NAMES_FILE,
+  loadLocationNames,
+  resolveLocationName
+} = require('./location-names');
 
 const CV2R_ROOT = path.join(__dirname, '..', 'third_party', 'cv2r');
 const CV2R_CORE = path.join(CV2R_ROOT, 'lib', 'core.js');
@@ -99,10 +104,15 @@ function loadCore() {
 
 function buildManifest() {
   const core = loadCore();
+  const locationNames = loadLocationNames();
   let actorCount = 0;
   let doorCount = 0;
 
   const locations = core.map(loc => {
+    const resolvedName = resolveLocationName(loc.name, { names: locationNames });
+    const resolvedEntryRoom = loc.entryRoom
+      ? resolveLocationName(loc.entryRoom, { names: locationNames })
+      : undefined;
     const doors = loc.doors && loc.doors.data ? loc.doors.data.map(summarizeDoor) : [];
     const actors = loc.actors ? loc.actors.map(summarizeActor) : [];
     actorCount += actors.length;
@@ -110,14 +120,19 @@ function buildManifest() {
 
     return {
       id: locationId(loc),
-      name: loc.name,
+      name: resolvedName.name,
+      sourceName: resolvedName.sourceName,
+      aliases: resolvedName.aliases,
+      namingSource: resolvedName.namingSource,
+      namingNote: resolvedName.namingNote,
       objset: loc.objset,
       objsetHex: hex(loc.objset),
       area: loc.area,
       areaHex: hex(loc.area),
       submap: loc.submap || 0,
       submapHex: hex(loc.submap || 0),
-      entryRoom: loc.entryRoom,
+      entryRoom: resolvedEntryRoom?.name,
+      entryRoomSourceName: loc.entryRoom,
       boss: Boolean(loc.boss),
       death: Boolean(loc.death),
       ceiling: Boolean(loc.ceiling),
@@ -133,7 +148,9 @@ function buildManifest() {
     source: {
       name: 'tonylukasavage/cv2r',
       localPath: CV2R_ROOT,
-      coreFile: CV2R_CORE
+      coreFile: CV2R_CORE,
+      locationNamesFile: DEFAULT_LOCATION_NAMES_FILE,
+      displayNamePolicy: locationNames.policy
     },
     summary: {
       locations: locations.length,
@@ -158,4 +175,3 @@ module.exports = {
   buildManifest,
   writeManifest
 };
-

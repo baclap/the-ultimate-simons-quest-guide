@@ -64,8 +64,8 @@ Current confidence split:
 
 | Confidence | Count |
 | --- | ---: |
-| Validated-template | 31 |
-| Inferred-template | 24 |
+| Validated-template | 49 |
+| Inferred-template | 6 |
 
 ## Template Assumptions
 
@@ -74,8 +74,8 @@ Current confidence split:
 | `0` | Town exterior, day | `0/1` | runtime selector table, with Jova resolving to transfer `$16` and palette `4:$9EA2` | validated-template |
 | `1` | Mansion door exterior, day | `8/9` | runtime selector table, with Berkeley Mansion door resolving to transfer `$0F` and palette `4:$9F5E` | inferred-template |
 | `2` | Overworld woods/routes, day | `2/3` | runtime selector table, with Jova Woods `$22 -> 4:$9FC6`, Dora Woods Part 2 `$23 -> 4:$9FD7`, and Dabi's Path `$26 -> 4:$A00A` validated by fixtures | validated-template |
-| `3` | Cemetery/marsh/woods exterior, day | `4/5` | runtime selector table where the selected transfer stream is raw palette data, otherwise fallback | inferred-template |
-| `4` | Mountain/ditch/bridge exterior, day | `8/9` | runtime selector table where the selected transfer stream is raw palette data, otherwise fallback | inferred-template |
+| `3` | Cemetery/marsh/woods exterior, day | `4/5` | runtime selector table, with Camilla Cemetery resolving exact day/night selector palettes | validated-template |
+| `4` | Mountain/ditch/bridge exterior, day | `6/7` | runtime selector table, with Vrad Graveyard and Castlevania Bridge resolving exact selector palettes | validated-template |
 | `5` | Castlevania exterior, day | `6/7` | runtime selector table where the selected transfer stream is raw palette data, otherwise fallback | inferred-template |
 
 These assumptions are deliberately preserved in generated metadata so a future
@@ -86,6 +86,11 @@ The mansion-door CHR banks were promoted from the render recipe audit, not from
 a per-area visual tweak: Berkeley Mansion door live PPU pattern memory matches
 CHR banks `08/09`, and its palette selector resolves `$0F -> 4:$9F5E`. Layout
 crop validation is still pending, so the family remains `inferred-template`.
+
+Objset `4` was later promoted from the same audit path. Vrad Graveyard,
+Castlevania Bridge, and Deborah Cliff live PPU pattern memory matches CHR banks
+`06/07`; the previous `08/09` assumption caused visibly scrambled diagnostic
+renders.
 
 ## Layout Grids
 
