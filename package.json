@@ -25,6 +25,7 @@
     "inspect:runtime-contexts": "node src/index.js inspect-runtime-context --fixtures data/runtime-context-fixtures.json",
     "inspect:runtime-context-map": "node src/index.js inspect-runtime-context-map --rom roms/cv2.nes",
     "audit:render-recipes": "node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit",
+    "render:recipe-atlas": "node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas",
     "render:jova-capture": "node src/index.js render-ppu-capture --capture out/captures/jova-day --out out/captures/jova-day/background.png",
     "render:jova-right-capture": "node src/index.js render-ppu-capture --capture out/captures/jova-right-day --out out/captures/jova-right-day/background.png",
     "render:jova-woods-capture": "node src/index.js render-ppu-capture --capture out/captures/jova-woods-day --out out/captures/jova-woods-day/background.png",

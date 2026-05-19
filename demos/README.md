@@ -28,3 +28,5 @@ Current demos:
 - `2026-05-19-render-recipe-audit-demo/`: save-state probe demo showing live
   CHR/palette evidence, day/night palette selector matches, interior recipe
   probes, and deferred suspect areas.
+- `2026-05-19-recipe-resolver-demo/`: recipe resolver atlas demo showing 99
+  ROM-native validated, projected, and diagnostic day/night renders.

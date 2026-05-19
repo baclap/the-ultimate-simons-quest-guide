@@ -23,6 +23,8 @@ The current vertical slice includes:
   screen-record structure and validates it against save-state captures
 - captures a focused render-recipe probe set and audits live CHR/palette state
   against ROM-derived selector data
+- renders a confidence-labeled recipe atlas with validated, projected, and
+  diagnostic day/night variants
 
 ## ROM Setup
 
@@ -52,6 +54,7 @@ npm run inspect:jova-woods-background
 npm run inspect:runtime-contexts
 npm run inspect:runtime-context-map
 npm run audit:render-recipes
+npm run render:recipe-atlas
 npm run render:jova-capture
 npm run render:jova-woods-capture
 npm run render:dora-woods-part-2-capture
@@ -88,6 +91,7 @@ node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-ver
 node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas
 node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology
 node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit
+node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas
 ```
 
 ## Demos
@@ -105,11 +109,18 @@ demos/2026-05-17-palette-resolver-demo/index.html
 demos/2026-05-17-runtime-context-demo/index.html
 demos/2026-05-17-topology-demo/index.html
 demos/2026-05-19-render-recipe-audit-demo/index.html
+demos/2026-05-19-recipe-resolver-demo/index.html
 ```
 
 ## Next Milestone
 
-The next milestone is validating the new multi-section atlas output against representative emulator save states, then using those fixtures to isolate remaining palette and mansion-template issues. The vendored `cv2r` source gives us strong anchors for locations, actors, doors, palette offsets, and bank layout, but it does not already contain a complete background renderer. Mesen is available as a representative calibration oracle, including Jova and Jova Woods fixtures that round-trip to 0-pixel composite diffs.
+The next milestone is validating the remaining projected/diagnostic recipe
+families against representative emulator save states, then promoting or
+correcting those families before full-world composition. The vendored `cv2r`
+source gives us strong anchors for locations, actors, doors, palette offsets,
+and bank layout, but it does not already contain a complete background
+renderer. Mesen is available as a representative calibration oracle, including
+Jova and Jova Woods fixtures that round-trip to 0-pixel composite diffs.
 
 Current background-loader findings are documented in `docs/background-decoder-notes.md`, and the committed descriptor schema is documented in `docs/background-descriptor-schema.md`. Region rendering notes live in `docs/regional-renderer-notes.md`. The important checkpoint is that `npm run inspect:jova-background` and `npm run inspect:jova-woods-background` derive the layout header and tile-set pointers used by the validated descriptors. `npm run render:jova-native` verifies Jova town page 0, `npm run render:jova-right-native` verifies the right-side page, and `npm run render:jova-woods-native` verifies the first overworld checkpoint from a save-state capture. The `render:*native-png` commands turn those same ROM-native backgrounds into PNGs for demos and future map output. `npm run render:region:jova-to-veros` creates a route-ordered viewport catalog from validated descriptors plus inferred manifest-context candidates; it is not a continuous map stitch yet.
 
@@ -152,10 +163,15 @@ covers 11 probes, resolves exact CHR and palette selector matches for all of
 them, and promotes the mansion-door CHR template to banks `8/9` from Berkeley
 Mansion evidence. See `docs/render-recipe-audit-notes.md`.
 
+`npm run render:recipe-atlas` applies that audit evidence to atlas rendering.
+It currently renders 99 ROM-native entries: 11 exact validated contexts, 80
+projected variants from validated recipe families, and 8 diagnostic renders for
+families still awaiting representative states. See
+`docs/render-recipe-atlas-notes.md`.
+
 The intended path is:
 
-1. use recipe probes to replace remaining template assumptions with decoded ROM rules
-2. gather deferred states for North Bridge, Vrad Graveyard, Castlevania Bridge, and Castlevania exterior
-3. add day/night outdoor palette variants to atlas output
-4. turn exterior topology into coordinate-aware full-map composition
-5. connect validated exteriors/interiors into final PNG and optional canvas outputs
+1. gather deferred states for North Bridge, Vrad Graveyard, Castlevania Bridge, and Castlevania exterior
+2. promote or correct projected/diagnostic recipe families from that evidence
+3. turn exterior topology into coordinate-aware full-map composition
+4. connect validated exteriors/interiors into final PNG and optional canvas outputs

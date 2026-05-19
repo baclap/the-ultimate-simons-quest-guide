@@ -28,6 +28,7 @@ const {
   auditRenderRecipes,
   captureRenderRecipeFixtures
 } = require('./render-recipe-audit');
+const { renderRecipeAtlas } = require('./render-recipe-atlas');
 const {
   createRuntimeContextResolver,
   inspectRuntimeContextFixtures,
@@ -105,6 +106,7 @@ function usage() {
     '  node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology',
     '  node src/index.js capture-render-recipe-fixtures --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json',
     '  node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit',
+    '  node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --descriptor-file data/background-descriptors.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
     '',
@@ -130,6 +132,7 @@ function usage() {
     '  render-exterior-topology  Decode exterior area transition topology and write graph data.',
     '  capture-render-recipe-fixtures  Capture configured save-state probes for recipe auditing.',
     '  audit-render-recipes  Audit live capture evidence against ROM-derived render recipe tables.',
+    '  render-recipe-atlas  Render validated/projected atlas variants from audited render recipes.',
     '  render-jova-native  Alias for render-background-native --descriptor jova-day.',
     '  render-jova-woods-native  Alias for render-background-native --descriptor jova-woods-day.'
   ].join('\n');
@@ -660,6 +663,19 @@ function auditRenderRecipesCommand(args) {
   });
 }
 
+function renderRecipeAtlasCommand(args) {
+  const romPath = required(args, 'rom');
+  const outDir = args.out ? String(args.out) : path.join('out', 'render-recipe-atlas');
+  const { buffer, info } = readRom(romPath);
+  printJson({
+    rom: describeRom(info),
+    atlas: renderRecipeAtlas(buffer, info, {
+      auditFile: args.audit ? String(args.audit) : undefined,
+      outDir
+    })
+  });
+}
+
 function renderJovaNativeCommand(args) {
   renderNativeBackgroundCommand(args, renderJovaNativeNametables, 0);
 }
@@ -779,6 +795,11 @@ function main() {
 
   if (command === 'audit-render-recipes') {
     auditRenderRecipesCommand(args);
+    return;
+  }
+
+  if (command === 'render-recipe-atlas') {
+    renderRecipeAtlasCommand(args);
     return;
   }
 

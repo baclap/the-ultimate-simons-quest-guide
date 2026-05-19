@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Recipe Resolver Atlas</title>
+  <link rel="stylesheet" href="styles.css?v=recipe-resolver-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Recipe resolver atlas milestone</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/6</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main id="slides">
+    <section class="slide title-slide" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>A recipe resolver now renders the atlas variants</h1>
+        <p class="lede">The renderer uses audited ROM-derived recipes to produce validated fixtures, projected day/night variants, and diagnostic output for unresolved families.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="hero-grid" id="hero-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="validated">
+      <div class="copy narrow">
+        <p class="eyebrow">Validated Core</p>
+        <h2>Known save-state probes now render from recipes</h2>
+        <p>These atlas images are generated from ROM layout data, ROM CHR, and ROM palette transfer tables. The save states only validate the recipe selection.</p>
+      </div>
+      <div class="card-grid compact" id="validated-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="day-night">
+      <div class="copy narrow">
+        <p class="eyebrow">Day And Night</p>
+        <h2>The same resolver can project palette variants</h2>
+        <p>Validated families can now emit day and night renders without adding per-location palette overrides.</p>
+      </div>
+      <div class="pair-grid" id="pair-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="projected">
+      <div class="copy narrow">
+        <p class="eyebrow">Projected And Diagnostic</p>
+        <h2>Unknown areas are rendered, but clearly labeled</h2>
+        <p>Projected output is useful evidence, not a final claim. Diagnostic output marks families that still need representative save states.</p>
+      </div>
+      <div class="card-grid" id="projected-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="table">
+      <div class="copy narrow">
+        <p class="eyebrow">Recipe Inventory</p>
+        <h2>The manifest records confidence for every render</h2>
+        <p>Each row keeps the runtime context, CHR banks, palette address, and validation source visible so the renderer avoids hidden per-area fixes.</p>
+      </div>
+      <div class="inventory-table" id="inventory-table"></div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Demo Goal</p>
+        <h2>Validate the remaining families, then compose the world</h2>
+        <p>The next states should target projected or diagnostic families where visual output still looks suspicious.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/recipe-atlas/recipe-atlas-data.js?v=recipe-resolver-1"></script>
+  <script src="slides.js?v=recipe-resolver-1"></script>
+</body>
+</html>
