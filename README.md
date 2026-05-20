@@ -32,8 +32,11 @@ The current vertical slice includes:
 - traces scripted emulator transitions to capture runtime context changes,
   CPU/OAM diffs, write PCs, and PPU state as evidence for destination-position
   decoding
-- resolves Simon screen X at `$0348` across six scoped transition probes and
+- resolves Simon screen X at `$0348` across the transition probe set and
   separates true visible-Y changes from camera/nametable plane changes
+- audits transition routine bytes `$70-$73` across 10 completed scripted
+  transitions, including Castlevania visible-Y evidence, Jova interior control
+  evidence, and Deborah Cliff special-transport evidence
 - resolves human-facing labels through the Nintendo Power map naming policy
   while preserving `cv2r` source names
 
@@ -104,7 +107,7 @@ node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-ver
 node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas
 node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology
 node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition
-node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --out out/transition-probes
+node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes
 node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit
 node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas
 ```
@@ -133,18 +136,20 @@ demos/2026-05-20-transition-probe-demo/index.html
 demos/2026-05-20-destination-position-demo/index.html
 demos/2026-05-20-camera-scroll-demo/index.html
 demos/2026-05-20-destination-y-probe-demo/index.html
+demos/2026-05-20-transition-routine-bytes-demo/index.html
 ```
 
 ## Next Milestone
 
-The next milestone is decoding the transition-routine bytes behind `$70-$73`
-and tying them back to ROM transition data. That should let the composer infer
-player placement and camera state from the ROM instead of relying on
-save-state-specific placement guesses. The vendored `cv2r` source gives us
-strong anchors for locations, actors, doors, palette offsets, and bank layout,
-but it does not already contain a complete background renderer. Mesen remains a
-representative calibration oracle for proving ROM-derived rules, not the source
-art for the final map.
+The next milestone is decoding what the transition routine computes from the
+observed `$70-$73` bytes. The byte writes are now captured and tied to scripted
+transition evidence; the next step is mapping the routine inputs back to ROM
+transition tables so the composer can infer player placement and camera state
+from the ROM instead of relying on save-state-specific placement guesses. The
+vendored `cv2r` source gives us strong anchors for locations, actors, doors,
+palette offsets, and bank layout, but it does not already contain a complete
+background renderer. Mesen remains a representative calibration oracle for
+proving ROM-derived rules, not the source art for the final map.
 
 Current background-loader findings are documented in `docs/background-decoder-notes.md`, and the committed descriptor schema is documented in `docs/background-descriptor-schema.md`. Region rendering notes live in `docs/regional-renderer-notes.md`. The important checkpoint is that `npm run inspect:jova-background` and `npm run inspect:jova-woods-background` derive the layout header and tile-set pointers used by the validated descriptors. `npm run render:jova-native` verifies Jova town page 0, `npm run render:jova-right-native` verifies the right-side page, and `npm run render:jova-woods-native` verifies the first overworld checkpoint from a save-state capture. The `render:*native-png` commands turn those same ROM-native backgrounds into PNGs for demos and future map output. `npm run render:region:jova-to-veros` creates a route-ordered viewport catalog from validated descriptors plus inferred manifest-context candidates; it is not a continuous map stitch yet.
 
@@ -209,12 +214,12 @@ unresolved. See `docs/transition-semantics-notes.md`.
 `npm run probe:transitions` runs the destination and camera probe harness. It
 loads small save-state fixtures, drives scripted inputs, watches `$30/$50/$51`
 target context, and records CPU/OAM/PPU evidence before and after transitions
-settle. The current probe set covers a Jova Woods round trip, a Doina church
-interior round trip, Castlevania-to-Bridge, and Dora Woods - Part 3-to-Part 2.
-It identifies sprite-staging `$0348` as Simon screen-center X across all six
-scoped transitions, keeps `$0073` as the lead diagnostic destination-Y clue,
-and proves Dora's camera-plane transition does not itself change Simon's
-visible Y. See `docs/transition-probe-notes.md`.
+settle. The current probe set covers six probes and 10 completed transitions:
+Jova Woods, Doina church, Castlevania Bridge, Dora Woods - Part 3, Deborah
+Cliff tornado transport, and Jova Thorn Whip Room. It identifies sprite-staging
+`$0348` as Simon screen-center X, reports `$70-$73` writes at
+`7:$D19E/$D1A3/$D1A8/$D1AD`, and keeps routine-byte, Simon placement, camera,
+and topology evidence as separate tracks. See `docs/transition-probe-notes.md`.
 
 Human-facing location names now follow the Nintendo Power map where the scan is
 legible, with `cv2r` labels preserved as `sourceName`. See

@@ -53,3 +53,7 @@ Current demos:
 - `2026-05-20-destination-y-probe-demo/`: destination and camera probe demo
   showing Castlevania's first visible Simon Y delta, Dora Woods' camera-plane
   transition, and the `$70-$73` transition-routine decoding target.
+- `2026-05-20-transition-routine-bytes-demo/`: transition routine bytes demo
+  showing six scripted probes, 10 completed transitions, per-step `$70-$73`
+  write PCs, Deborah Cliff transport evidence, and the next ROM-routine
+  decoding target.

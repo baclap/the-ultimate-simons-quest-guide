@@ -14,6 +14,7 @@ const SCROLL_STAGING_ROUTINE_END = 0xd305;
 const SIMON_TILE_HINTS = new Set([0x03, 0x05, 0x07, 0x09, 0x0b, 0x0d]);
 const POSITION_CANDIDATE_RAM_LIMIT = 0x07ff;
 const CAMERA_CANDIDATE_RAM_LIMIT = 0x07ff;
+const ROUTINE_BYTE_ADDRESSES = [0x0070, 0x0071, 0x0072, 0x0073];
 
 const SCROLL_METRIC_DEFINITIONS = [
   { name: 'scrollXLow', label: 'scroll X low byte', value: (scroll) => scroll.scrollX & 0xff },
@@ -119,6 +120,120 @@ function publicPpu(row) {
     bgPatternAddr: hex(row.ppuBgPatternAddr, 4),
     spritePatternAddr: hex(row.ppuSpritePatternAddr, 4),
     scroll
+  };
+}
+
+function contextNodeId(context) {
+  if (!context) {
+    return undefined;
+  }
+  return [
+    `obj${Number(context.objset).toString(16).padStart(2, '0')}`,
+    `area${Number(context.area).toString(16).padStart(2, '0')}`,
+    `sub${Number(context.submap).toString(16).padStart(2, '0')}`
+  ].join('-');
+}
+
+function contextAreaId(contextOrNodeId) {
+  if (!contextOrNodeId) {
+    return undefined;
+  }
+  if (typeof contextOrNodeId === 'string') {
+    const match = contextOrNodeId.match(/^(obj[0-9a-f]{2}-area[0-9a-f]{2})-sub[0-9a-f]{2}$/i);
+    return match ? match[1].toLowerCase() : undefined;
+  }
+  return [
+    `obj${Number(contextOrNodeId.objset).toString(16).padStart(2, '0')}`,
+    `area${Number(contextOrNodeId.area).toString(16).padStart(2, '0')}`
+  ].join('-');
+}
+
+function publicTopologyEdge(edge) {
+  if (!edge) {
+    return undefined;
+  }
+  const semantics = edge.transitionSemantics || edge.semantics || {};
+  return {
+    id: edge.id,
+    type: edge.type,
+    direction: edge.direction,
+    source: edge.source,
+    target: edge.target,
+    note: edge.note,
+    transition: edge.transition ? {
+      kind: edge.transition.kind,
+      marker: edge.transition.marker,
+      bytes: edge.transition.bytes
+    } : undefined,
+    semantics: {
+      transitionClass: semantics.transitionClass,
+      placementMode: semantics.placementMode,
+      ordinaryAdjacency: semantics.ordinaryAdjacency,
+      coordinateConfidence: semantics.coordinateConfidence,
+      note: semantics.note
+    }
+  };
+}
+
+function loadTopologyIndex(filePath) {
+  if (!filePath) {
+    return undefined;
+  }
+  const resolved = path.resolve(filePath);
+  const topology = readJson(resolved);
+  const direct = new Map();
+  const edges = topology.edges || [];
+  for (const edge of edges) {
+    if (!edge.source || !edge.target) {
+      continue;
+    }
+    direct.set(`${edge.source}->${edge.target}`, edge);
+  }
+  return {
+    file: resolved,
+    edges,
+    direct
+  };
+}
+
+function topologyEvidenceForStep(topologyIndex, startContext, finalContext) {
+  const startNode = contextNodeId(startContext);
+  const finalNode = contextNodeId(finalContext);
+  if (!topologyIndex || !startNode || !finalNode) {
+    return {
+      startNode,
+      finalNode,
+      matchStatus: topologyIndex ? 'missing-context' : 'not-requested'
+    };
+  }
+
+  const directEdge = topologyIndex.direct.get(`${startNode}->${finalNode}`);
+  if (directEdge) {
+    return {
+      startNode,
+      finalNode,
+      matchStatus: 'direct',
+      edge: publicTopologyEdge(directEdge)
+    };
+  }
+
+  const startArea = contextAreaId(startNode);
+  const sourceAreaCandidates = topologyIndex.edges
+    .filter((edge) => contextAreaId(edge.source) === startArea && edge.target === finalNode)
+    .slice(0, 4);
+  if (sourceAreaCandidates.length > 0) {
+    return {
+      startNode,
+      finalNode,
+      matchStatus: 'source-area-candidate',
+      candidateEdges: sourceAreaCandidates.map(publicTopologyEdge)
+    };
+  }
+
+  return {
+    startNode,
+    finalNode,
+    matchStatus: 'none'
   };
 }
 
@@ -453,6 +568,47 @@ function summarizeWrites(writes, changes) {
 
 function writesForAddress(writes, address) {
   return writes.filter((write) => write.address === address);
+}
+
+function routineByteEvidence(beforeCpu, afterCpu, writes) {
+  return ROUTINE_BYTE_ADDRESSES.map((address) => {
+    const addressWrites = writesForAddress(writes, address);
+    const transitionRoutineWrites = addressWrites.filter((write) => (
+      write.pc >= TRANSITION_ROUTINE_START && write.pc <= TRANSITION_ROUTINE_END
+    ));
+    const lastWrite = addressWrites[addressWrites.length - 1];
+    const lastTransitionRoutineWrite = transitionRoutineWrites[transitionRoutineWrites.length - 1];
+    const before = beforeCpu ? beforeCpu[address] : undefined;
+    const after = afterCpu ? afterCpu[address] : undefined;
+    return {
+      address,
+      addressHex: hex(address, 4),
+      before,
+      beforeHex: hex(before, 2),
+      after,
+      afterHex: hex(after, 2),
+      changed: before != null && after != null ? before !== after : undefined,
+      writeCount: addressWrites.length,
+      transitionRoutineWriteCount: transitionRoutineWrites.length,
+      writtenInTransitionRoutine: transitionRoutineWrites.length > 0,
+      lastWrite: lastWrite ? {
+        frame: lastWrite.frame,
+        stepFrame: lastWrite.stepFrame,
+        pc: lastWrite.pcHex,
+        value: lastWrite.valueHex,
+        event: lastWrite.event
+      } : undefined,
+      lastTransitionRoutineWrite: lastTransitionRoutineWrite ? {
+        frame: lastTransitionRoutineWrite.frame,
+        stepFrame: lastTransitionRoutineWrite.stepFrame,
+        pc: lastTransitionRoutineWrite.pcHex,
+        value: lastTransitionRoutineWrite.valueHex,
+        event: lastTransitionRoutineWrite.event
+      } : undefined,
+      topWritePcs: summarizePcs(addressWrites).slice(0, 5),
+      topTransitionRoutinePcs: summarizePcs(transitionRoutineWrites).slice(0, 5)
+    };
+  });
 }
 
 function candidateMetrics(cluster, ppu) {
@@ -1053,7 +1209,47 @@ function summarizeDestinationY(steps) {
   };
 }
 
-function analyzeProbeOutput(probe, outDir) {
+function summarizeRoutineBytes(steps) {
+  return {
+    addresses: ROUTINE_BYTE_ADDRESSES.map((address) => hex(address, 4)),
+    steps: steps.map((step) => {
+      const before = step.spriteEvidence?.beforeSimon?.bounds;
+      const after = step.spriteEvidence?.afterSimon?.bounds;
+      const changedCameraMetrics = (step.cameraEvidence?.changedMetrics || []).map((metric) => ({
+        metric: metric.name,
+        before: metric.beforeHex,
+        after: metric.afterHex
+      }));
+      return {
+        stepId: step.id,
+        label: step.label,
+        type: step.type,
+        input: step.input,
+        status: step.status,
+        framesToTarget: step.framesToTarget,
+        startContext: step.startContext,
+        finalContext: step.finalContext,
+        topologyEdge: step.topologyEdge,
+        simon: {
+          beforeX: hex(before?.xCenter, 2),
+          afterX: hex(after?.xCenter, 2),
+          beforeY: hex(before?.yCenter, 2),
+          afterY: hex(after?.yCenter, 2),
+          changedX: before?.xCenter != null && after?.xCenter != null ? before.xCenter !== after.xCenter : undefined,
+          changedY: before?.yCenter != null && after?.yCenter != null ? before.yCenter !== after.yCenter : undefined
+        },
+        camera: {
+          startScroll: step.startPpu?.scroll,
+          finalScroll: step.finalPpu?.scroll,
+          changedMetrics: changedCameraMetrics
+        },
+        bytes: step.routineBytes || []
+      };
+    })
+  };
+}
+
+function analyzeProbeOutput(probe, outDir, topologyIndex) {
   const summaryPath = path.join(outDir, 'summary.json');
   const tracePath = path.join(outDir, 'trace.tsv');
   const ramWritesPath = path.join(outDir, 'ram-writes.tsv');
@@ -1078,6 +1274,7 @@ function analyzeProbeOutput(probe, outDir) {
     const afterOam = readSnapshot(outDir, stepSummary.afterOam);
     const changes = diffCpu(before, after);
     const stepWrites = ramWrites.filter((write) => write.stepId === step.id);
+    const routineBytes = routineByteEvidence(before, after, stepWrites);
     const beforeClusters = clusterSprites(decodeOam(beforeOam));
     const afterClusters = clusterSprites(decodeOam(afterOam));
     const beforeSimon = beforeClusters[0];
@@ -1125,6 +1322,7 @@ function analyzeProbeOutput(probe, outDir) {
       startContext: publicContext(contextFromRow(firstRow)),
       targetObservedContext: publicContext(contextFromRow(targetRow)),
       finalContext: publicContext(contextFromRow(finalRow)),
+      topologyEdge: topologyEvidenceForStep(topologyIndex, contextFromRow(firstRow), contextFromRow(finalRow)),
       startPpu: publicPpu(firstRow),
       targetPpu: publicPpu(targetRow),
       finalPpu: publicPpu(finalRow),
@@ -1139,6 +1337,7 @@ function analyzeProbeOutput(probe, outDir) {
         changedMetrics: scrollMetrics.filter((metric) => metric.changed),
         stableWrittenCandidates: cameraCandidates.filter((candidate) => candidate.strength === 'stable-written-match').slice(0, 8)
       },
+      routineBytes,
       destinationYCandidates,
       ramWriteEvidence: summarizeWrites(stepWrites, changes),
       cameraCandidates,
@@ -1231,13 +1430,15 @@ function summarizeAnalysis(probes) {
     }, {}),
     xCenterCandidates: xCenterCandidates.slice(0, 8),
     camera: summarizeCameraCandidates(steps),
-    destinationY: summarizeDestinationY(steps)
+    destinationY: summarizeDestinationY(steps),
+    routineBytes: summarizeRoutineBytes(steps)
   };
 }
 
 function runTransitionProbes(opts) {
   const romPath = path.resolve(opts.romPath);
   const manifest = loadTransitionProbeManifest(opts.fixtureFile);
+  const topologyIndex = loadTopologyIndex(opts.topologyFile);
   const outDir = path.resolve(opts.outDir || manifest.capturesRoot || DEFAULT_OUT_DIR);
   const only = opts.only ? new Set(String(opts.only).split(',').map((value) => value.trim()).filter(Boolean)) : undefined;
   const selectedProbes = manifest.probes.filter((probe) => !only || only.has(probe.id));
@@ -1260,7 +1461,7 @@ function runTransitionProbes(opts) {
         CV2MAP_TRANSITION_STEPS: encodeSteps(probe.steps)
       }
     });
-    const analysis = analyzeProbeOutput(probe, probeOutDir);
+    const analysis = analyzeProbeOutput(probe, probeOutDir, topologyIndex);
     results.push({
       ...analysis,
       mesen: {
@@ -1275,6 +1476,7 @@ function runTransitionProbes(opts) {
     schemaVersion: 1,
     source: {
       fixtureFile: path.relative(process.cwd(), manifest.file),
+      topologyFile: topologyIndex ? path.relative(process.cwd(), topologyIndex.file) : undefined,
       script: TRACE_SCRIPT,
       notes: [
         'Transition probes use save states and scripted inputs to observe runtime state changes.',

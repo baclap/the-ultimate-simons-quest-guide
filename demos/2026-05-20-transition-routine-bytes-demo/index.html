@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Transition Routine Bytes</title>
+  <link rel="stylesheet" href="styles.css?v=transition-routine-bytes-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Transition routine bytes</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/6</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide active" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>The transition routine now has byte-level evidence</h1>
+        <p class="lede">The probe suite watches scripted transitions, records before/after CPU and PPU state, and now reports how zero-page bytes <code>$70-$73</code> are written by the fixed-bank transition routine.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="callout" id="overview-callout"></div>
+    </section>
+
+    <section class="slide" data-hash="matrix">
+      <div class="copy narrow">
+        <p class="eyebrow">Byte Matrix</p>
+        <h2><code>$70-$73</code> are tracked per transition</h2>
+        <p>The matrix keeps routine bytes, Simon placement, camera state, and ROM topology evidence separate so none of them get promoted into renderer rules prematurely.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="matrix-table">
+          <thead>
+            <tr>
+              <th>Transition</th>
+              <th>Context</th>
+              <th>Simon and camera</th>
+              <th>ROM edge</th>
+              <th>$70</th>
+              <th>$71</th>
+              <th>$72</th>
+              <th>$73</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="castlevania">
+      <div class="copy narrow">
+        <p class="eyebrow">Visible Y</p>
+        <h2>Castlevania proves a real high-to-low transition</h2>
+        <p>Walking left from Castlevania to the bridge changes Simon from visible center Y <code>0x8C</code> to <code>0xBA</code>. The return edge completes too, but it settles at bridge-height Y in this capture.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="castlevania-table">
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th>Status</th>
+              <th>Contexts</th>
+              <th>Simon X/Y</th>
+              <th>Routine bytes</th>
+              <th>Topology</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="deborah">
+      <div class="copy narrow">
+        <p class="eyebrow">Transport</p>
+        <h2>Deborah Cliff is now a completed special-transport probe</h2>
+        <p>Holding down with the red crystal triggers the tornado transport and lands at Bodley Mansion - Door. The topology match is a source-area candidate, not an ordinary adjacency rule.</p>
+      </div>
+      <div class="routine-grid" id="deborah-grid"></div>
+      <div class="table-wrap">
+        <table id="deborah-table">
+          <thead>
+            <tr>
+              <th>Byte</th>
+              <th>Before</th>
+              <th>After</th>
+              <th>Writes</th>
+              <th>Last transition PC</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="interiors">
+      <div class="copy narrow">
+        <p class="eyebrow">Interior Control</p>
+        <h2>Doina and Jova interior doors behave as controllable probes</h2>
+        <p>The exterior topology graph does not claim interior door edges yet, but the scripted probes show repeatable context, placement, and routine-byte writes for both exit and re-entry cases.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="interior-table">
+          <thead>
+            <tr>
+              <th>Transition</th>
+              <th>Input</th>
+              <th>Frames</th>
+              <th>Contexts</th>
+              <th>Simon X/Y</th>
+              <th>$70-$73</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Demo Goal</p>
+        <h2>Decode what the routine bytes mean</h2>
+        <p>This milestone proves where the bytes are written and how they vary across transitions. The next step is tying those byte values back to ROM tables and deriving placement/camera rules from the game data itself.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/transition-probes/analysis-data.js?v=transition-routine-bytes-1"></script>
+  <script src="slides.js?v=transition-routine-bytes-1"></script>
+</body>
+</html>

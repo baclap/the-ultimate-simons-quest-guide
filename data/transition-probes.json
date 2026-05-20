@@ -82,15 +82,15 @@
       ]
     },
     {
-      "id": "castlevania-bridge-left",
-      "label": "Castlevania entrance to Castlevania Bridge",
+      "id": "castlevania-bridge-round-trip",
+      "label": "Castlevania entrance and bridge round trip",
       "state": "out/states/castlevania.mss",
       "location": "Castlevania",
       "variant": "fixed",
       "access": "castlevania-final-area",
       "preSettleFrames": 30,
       "timeout": 45,
-      "reason": "Potential vertical-varying transition: Simon starts at the high Castlevania entrance and walking left should land on the lower Castlevania Bridge plane.",
+      "reason": "Visible-Y round trip: Simon starts at the high Castlevania entrance, walks left to the lower bridge plane, then walks right back to the high entrance.",
       "steps": [
         {
           "id": "castlevania-to-bridge",
@@ -103,6 +103,19 @@
             "objset": "0x04",
             "area": "0x03",
             "submap": "0x01"
+          }
+        },
+        {
+          "id": "bridge-to-castlevania",
+          "label": "Walk right from Castlevania Bridge back to Castlevania entrance",
+          "type": "final-area-entry",
+          "input": "right",
+          "maxFrames": 420,
+          "settleFrames": 30,
+          "targetContext": {
+            "objset": "0x05",
+            "area": "0x00",
+            "submap": "0x00"
           }
         }
       ]
@@ -129,6 +142,71 @@
             "objset": "0x02",
             "area": "0x08",
             "submap": "0x02"
+          }
+        }
+      ]
+    },
+    {
+      "id": "deborah-cliff-tornado-transport",
+      "label": "Deborah Cliff tornado transport",
+      "state": "out/states/deborah-cliff-night.mss",
+      "location": "Deborah Cliff",
+      "variant": "night",
+      "access": "special-transport",
+      "preSettleFrames": 30,
+      "timeout": 90,
+      "reason": "Special transport probe: Simon starts at Deborah Cliff with the red crystal equipped; holding down should trigger the tornado transport to Bodley Mansion - Door.",
+      "steps": [
+        {
+          "id": "deborah-cliff-to-bodley-door",
+          "label": "Hold down at Deborah Cliff to trigger tornado transport",
+          "type": "special-transport",
+          "input": "down",
+          "maxFrames": 3600,
+          "settleFrames": 60,
+          "targetContext": {
+            "objset": "0x01",
+            "area": "0x04",
+            "submap": "0x00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "jova-town-interior-round-trip",
+      "label": "Jova town interior round trip",
+      "state": "out/states/jova-town-interior-day.mss",
+      "location": "Jova Thorn Whip Room",
+      "variant": "day",
+      "access": "town-interior",
+      "preSettleFrames": 30,
+      "timeout": 45,
+      "reason": "Town-interior control probe: walk left out of Jova Thorn Whip Room into Town of Jova, then press up to re-enter the room.",
+      "steps": [
+        {
+          "id": "jova-interior-to-town",
+          "label": "Walk left from Jova Thorn Whip Room to Town of Jova",
+          "type": "interior-exit",
+          "input": "left",
+          "maxFrames": 420,
+          "settleFrames": 30,
+          "targetContext": {
+            "objset": "0x00",
+            "area": "0x00",
+            "submap": "0x00"
+          }
+        },
+        {
+          "id": "jova-town-to-interior",
+          "label": "Press up from Town of Jova to re-enter Jova Thorn Whip Room",
+          "type": "interior-entry",
+          "input": "up",
+          "maxFrames": 240,
+          "settleFrames": 30,
+          "targetContext": {
+            "objset": "0x00",
+            "area": "0x08",
+            "submap": "0x00"
           }
         }
       ]
