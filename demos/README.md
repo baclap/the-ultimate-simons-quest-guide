@@ -39,3 +39,6 @@ Current demos:
 - `2026-05-20-composition-draft-demo/`: first route composition demo showing
   the Jova-to-Castlevania path placed from ROM-derived topology constraints,
   with the one solver-inferred row shift called out explicitly.
+- `2026-05-20-transition-semantics-demo/`: transition classification demo
+  showing the Deborah Cliff tornado edge as a connector-only transport
+  candidate instead of ordinary adjacency.

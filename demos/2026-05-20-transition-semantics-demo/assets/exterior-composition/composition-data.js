@@ -1,0 +1,2067 @@
+window.EXTERIOR_COMPOSITION = {
+  "schemaVersion": 1,
+  "source": {
+    "renderer": "rom-topology-route-composition",
+    "topologyFile": "out/exterior-topology/topology.json",
+    "recipeAtlasFile": "out/render-recipe-atlas/manifest.json",
+    "routeSource": "shortest route over ROM-derived boundary-transition edges",
+    "notes": [
+      "Area adjacency comes from ROM area transition triples decoded by the exterior topology pass.",
+      "Transition semantics classify connector-only edges before placement.",
+      "Within one area, submap order comes from the topology area record order.",
+      "Segment dimensions and pixels come from the ROM-derived recipe atlas.",
+      "Connector route breaks and collision row shifts are not claimed as ROM world coordinates."
+    ]
+  },
+  "route": {
+    "id": "jova-to-castlevania-area-path",
+    "label": "Jova to Castlevania topology path",
+    "variant": "day",
+    "status": "draft-composition",
+    "note": "This draft composes the route with ROM-derived left/right constraints, but exact world coordinates still need deeper scroll/entrance decoding."
+  },
+  "summary": {
+    "areas": 14,
+    "nodes": 21,
+    "constraints": 13,
+    "romDerivedPlacementConstraints": 12,
+    "connectorOnlyTransitions": 1,
+    "genericOverlapShifts": 0,
+    "solverInferredPlacements": 1,
+    "unresolvedPlacements": 0,
+    "width": 8512,
+    "height": 1696,
+    "margin": 32,
+    "normalizedShift": {
+      "shiftX": 6944,
+      "shiftY": 32
+    },
+    "output": "composition.png"
+  },
+  "placements": [
+    {
+      "id": "obj00-area00",
+      "label": "Town of Jova",
+      "category": "town-exteriors",
+      "objset": "0x00",
+      "area": "0x00",
+      "x": 6944,
+      "y": 32,
+      "width": 1024,
+      "height": 448,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj00-area00-sub00",
+          "atlasId": "obj00-area00-sub00-town-of-jova",
+          "entryId": "obj00-area00-sub00-town-of-jova-day",
+          "name": "Town of Jova",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "validated",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 448,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj00-area00-sub00-town-of-jova-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj00-area00-sub00-town-of-jova-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x00",
+              "area": "0x00",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x00",
+              "area": "0x00",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x00",
+              "0x01"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0x9EA2",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x8072",
+                "indexListPointerAddress": "0x8072",
+                "indexListAddress": "0xFA3E",
+                "indexOffset": 0,
+                "transferId": "0x16",
+                "auxiliaryTransferId": "0x2E",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88C1"
+              }
+            }
+          },
+          "x": 6944,
+          "y": 32
+        }
+      ]
+    },
+    {
+      "id": "obj02-area07",
+      "label": "Dead River - Part 2 -> Belasco Marsh",
+      "category": "western-overworld",
+      "objset": "0x02",
+      "area": "0x07",
+      "x": 4896,
+      "y": 32,
+      "width": 2048,
+      "height": 224,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj02-area07-sub00",
+          "atlasId": "obj02-area07-sub00-dead-river-part-2",
+          "entryId": "obj02-area07-sub00-dead-river-part-2-day",
+          "name": "Dead River - Part 2",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 512,
+          "height": 224,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj02-area07-sub00-dead-river-part-2-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj02-area07-sub00-dead-river-part-2-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x02",
+              "area": "0x07",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x02",
+              "area": "0x07",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x02",
+              "0x03"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xCAF3",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x9EF9",
+                "indexListPointerAddress": "0x9F15",
+                "indexListAddress": "0xA1C8",
+                "indexOffset": 0,
+                "transferId": "0x1F",
+                "auxiliaryTransferId": "0x2F",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88D3"
+              }
+            }
+          },
+          "x": 4896,
+          "y": 32
+        },
+        {
+          "nodeId": "obj02-area07-sub01",
+          "atlasId": "obj02-area07-sub01-dead-river-part-1",
+          "entryId": "obj02-area07-sub01-dead-river-part-1-day",
+          "name": "Dead River - Part 1",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 512,
+          "height": 224,
+          "relativeX": 512,
+          "relativeY": 0,
+          "output": "images/obj02-area07-sub01-dead-river-part-1-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj02-area07-sub01-dead-river-part-1-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x02",
+              "area": "0x07",
+              "submap": "0x01"
+            },
+            "paletteContext": {
+              "objset": "0x02",
+              "area": "0x07",
+              "submap": "0x01"
+            },
+            "chrBanks": [
+              "0x02",
+              "0x03"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xCAF3",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x9EF9",
+                "indexListPointerAddress": "0x9F15",
+                "indexListAddress": "0xA1C8",
+                "indexOffset": 2,
+                "transferId": "0x1F",
+                "auxiliaryTransferId": "0x2F",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88D3"
+              }
+            }
+          },
+          "x": 5408,
+          "y": 32
+        },
+        {
+          "nodeId": "obj02-area07-sub02",
+          "atlasId": "obj02-area07-sub02-belasco-marsh",
+          "entryId": "obj02-area07-sub02-belasco-marsh-day",
+          "name": "Belasco Marsh",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 224,
+          "relativeX": 1024,
+          "relativeY": 0,
+          "output": "images/obj02-area07-sub02-belasco-marsh-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj02-area07-sub02-belasco-marsh-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x02",
+              "area": "0x07",
+              "submap": "0x02"
+            },
+            "paletteContext": {
+              "objset": "0x02",
+              "area": "0x07",
+              "submap": "0x02"
+            },
+            "chrBanks": [
+              "0x02",
+              "0x03"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0x9FC6",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x9EF9",
+                "indexListPointerAddress": "0x9F15",
+                "indexListAddress": "0xA1C8",
+                "indexOffset": 4,
+                "transferId": "0x22",
+                "auxiliaryTransferId": "0x32",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88D9"
+              }
+            }
+          },
+          "x": 5920,
+          "y": 32
+        }
+      ]
+    },
+    {
+      "id": "obj00-area03",
+      "label": "Town of Alba",
+      "category": "town-exteriors",
+      "objset": "0x00",
+      "area": "0x03",
+      "x": 3872,
+      "y": 32,
+      "width": 1024,
+      "height": 672,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj00-area03-sub00",
+          "atlasId": "obj00-area03-sub00-town-of-alba",
+          "entryId": "obj00-area03-sub00-town-of-alba-day",
+          "name": "Town of Alba",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 672,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj00-area03-sub00-town-of-alba-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj00-area03-sub00-town-of-alba-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x00",
+              "area": "0x03",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x00",
+              "area": "0x03",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x00",
+              "0x01"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0x9ED5",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x8072",
+                "indexListPointerAddress": "0x807E",
+                "indexListAddress": "0xFA40",
+                "indexOffset": 0,
+                "transferId": "0x19",
+                "auxiliaryTransferId": "0x2E",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88C7"
+              }
+            }
+          },
+          "x": 3872,
+          "y": 32
+        }
+      ]
+    },
+    {
+      "id": "obj03-area02",
+      "label": "Sadam Woods - Part 2 -> Sadam Woods - Part 1",
+      "category": "eastern-overworld",
+      "objset": "0x03",
+      "area": "0x02",
+      "x": 2848,
+      "y": 32,
+      "width": 1024,
+      "height": 448,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj03-area02-sub00",
+          "atlasId": "obj03-area02-sub00-sadam-woods-part-2",
+          "entryId": "obj03-area02-sub00-sadam-woods-part-2-day",
+          "name": "Sadam Woods - Part 2",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 512,
+          "height": 448,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj03-area02-sub00-sadam-woods-part-2-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj03-area02-sub00-sadam-woods-part-2-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x03",
+              "area": "0x02",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x03",
+              "area": "0x02",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x04",
+              "0x05"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xA081",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0xB28A",
+                "indexListPointerAddress": "0xB292",
+                "indexListAddress": "0xB3B8",
+                "indexOffset": 0,
+                "transferId": "0x2D",
+                "auxiliaryTransferId": "0x36",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88EF"
+              }
+            }
+          },
+          "x": 2848,
+          "y": 32
+        },
+        {
+          "nodeId": "obj03-area02-sub01",
+          "atlasId": "obj03-area02-sub01-sadam-woods-part-1",
+          "entryId": "obj03-area02-sub01-sadam-woods-part-1-day",
+          "name": "Sadam Woods - Part 1",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 512,
+          "height": 224,
+          "relativeX": 512,
+          "relativeY": 0,
+          "output": "images/obj03-area02-sub01-sadam-woods-part-1-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj03-area02-sub01-sadam-woods-part-1-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x03",
+              "area": "0x02",
+              "submap": "0x01"
+            },
+            "paletteContext": {
+              "objset": "0x03",
+              "area": "0x02",
+              "submap": "0x01"
+            },
+            "chrBanks": [
+              "0x04",
+              "0x05"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xA081",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0xB28A",
+                "indexListPointerAddress": "0xB292",
+                "indexListAddress": "0xB3B8",
+                "indexOffset": 2,
+                "transferId": "0x2D",
+                "auxiliaryTransferId": "0x36",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88EF"
+              }
+            }
+          },
+          "x": 3360,
+          "y": 32
+        }
+      ]
+    },
+    {
+      "id": "obj03-area04",
+      "label": "Sadam Woods - Part 3",
+      "category": "eastern-overworld",
+      "objset": "0x03",
+      "area": "0x04",
+      "x": 2336,
+      "y": 32,
+      "width": 512,
+      "height": 224,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj03-area04-sub00",
+          "atlasId": "obj03-area04-sub00-sadam-woods-part-3",
+          "entryId": "obj03-area04-sub00-sadam-woods-part-3-day",
+          "name": "Sadam Woods - Part 3",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 512,
+          "height": 224,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj03-area04-sub00-sadam-woods-part-3-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj03-area04-sub00-sadam-woods-part-3-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x03",
+              "area": "0x04",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x03",
+              "area": "0x04",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x04",
+              "0x05"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xA081",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0xB28A",
+                "indexListPointerAddress": "0xB29A",
+                "indexListAddress": "0xB3BE",
+                "indexOffset": 0,
+                "transferId": "0x2D",
+                "auxiliaryTransferId": "0x36",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88EF"
+              }
+            }
+          },
+          "x": 2336,
+          "y": 32
+        }
+      ]
+    },
+    {
+      "id": "obj00-area04",
+      "label": "Town of Ondol",
+      "category": "town-exteriors",
+      "objset": "0x00",
+      "area": "0x04",
+      "x": 1312,
+      "y": 32,
+      "width": 1024,
+      "height": 672,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj00-area04-sub00",
+          "atlasId": "obj00-area04-sub00-town-of-ondol",
+          "entryId": "obj00-area04-sub00-town-of-ondol-day",
+          "name": "Town of Ondol",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "validated",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 672,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj00-area04-sub00-town-of-ondol-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj00-area04-sub00-town-of-ondol-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x00",
+              "area": "0x04",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x00",
+              "area": "0x04",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x00",
+              "0x01"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0x9EE6",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x8072",
+                "indexListPointerAddress": "0x8082",
+                "indexListAddress": "0x86B4",
+                "indexOffset": 0,
+                "transferId": "0x1A",
+                "auxiliaryTransferId": "0x2E",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88C9"
+              }
+            }
+          },
+          "x": 1312,
+          "y": 32
+        }
+      ]
+    },
+    {
+      "id": "obj04-area01",
+      "label": "Deborah Cliff (In Tornado) -> Jam Wasteland (Deborah Cliff)",
+      "category": "mountains-and-castle-approach",
+      "objset": "0x04",
+      "area": "0x01",
+      "x": 32,
+      "y": 32,
+      "width": 1280,
+      "height": 224,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj04-area01-sub00",
+          "atlasId": "obj04-area01-sub00-deborah-cliff-in-tornado",
+          "entryId": "obj04-area01-sub00-deborah-cliff-in-tornado-day",
+          "name": "Deborah Cliff (In Tornado)",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 256,
+          "height": 224,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj04-area01-sub00-deborah-cliff-in-tornado-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj04-area01-sub00-deborah-cliff-in-tornado-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x04",
+              "area": "0x01",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x04",
+              "area": "0x01",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x06",
+              "0x07"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xA0E0",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0xAEAD",
+                "indexListPointerAddress": "0xAEB1",
+                "indexListAddress": "0xAEC3",
+                "indexOffset": 0,
+                "transferId": "0x3F",
+                "auxiliaryTransferId": "0x44",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x8913"
+              }
+            }
+          },
+          "x": 32,
+          "y": 32
+        },
+        {
+          "nodeId": "obj04-area01-sub01",
+          "atlasId": "obj04-area01-sub01-jam-wasteland-deborah-cliff",
+          "entryId": "obj04-area01-sub01-jam-wasteland-deborah-cliff-day",
+          "name": "Jam Wasteland (Deborah Cliff)",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 224,
+          "relativeX": 256,
+          "relativeY": 0,
+          "output": "images/obj04-area01-sub01-jam-wasteland-deborah-cliff-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj04-area01-sub01-jam-wasteland-deborah-cliff-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x04",
+              "area": "0x01",
+              "submap": "0x01"
+            },
+            "paletteContext": {
+              "objset": "0x04",
+              "area": "0x01",
+              "submap": "0x01"
+            },
+            "chrBanks": [
+              "0x06",
+              "0x07"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xA0E0",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0xAEAD",
+                "indexListPointerAddress": "0xAEB1",
+                "indexListAddress": "0xAEC3",
+                "indexOffset": 2,
+                "transferId": "0x3F",
+                "auxiliaryTransferId": "0x44",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x8913"
+              }
+            }
+          },
+          "x": 288,
+          "y": 32
+        }
+      ]
+    },
+    {
+      "id": "obj01-area04",
+      "label": "Bodley Mansion - Door",
+      "category": "mansion-door-exteriors",
+      "objset": "0x01",
+      "area": "0x04",
+      "x": 32,
+      "y": 768,
+      "width": 256,
+      "height": 224,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj01-area04-sub00",
+          "atlasId": "obj01-area04-sub00-bodley-mansion-door",
+          "entryId": "obj01-area04-sub00-bodley-mansion-door-day",
+          "name": "Bodley Mansion - Door",
+          "access": "mansion-door",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 256,
+          "height": 224,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj01-area04-sub00-bodley-mansion-door-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj01-area04-sub00-bodley-mansion-door-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x01",
+              "area": "0x04",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x01",
+              "area": "0x04",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x08",
+              "0x09"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0x9FAC",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x8762",
+                "indexListPointerAddress": "0x8772",
+                "indexListAddress": "0x9A6D",
+                "indexOffset": 0,
+                "transferId": "0x13",
+                "auxiliaryTransferId": "0x4B",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88BB"
+              }
+            }
+          },
+          "x": 32,
+          "y": 768
+        }
+      ]
+    },
+    {
+      "id": "obj04-area02",
+      "label": "Wicked Ditch",
+      "category": "mountains-and-castle-approach",
+      "objset": "0x04",
+      "area": "0x02",
+      "x": 288,
+      "y": 768,
+      "width": 1024,
+      "height": 224,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj04-area02-sub00",
+          "atlasId": "obj04-area02-sub00-wicked-ditch",
+          "entryId": "obj04-area02-sub00-wicked-ditch-day",
+          "name": "Wicked Ditch",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 224,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj04-area02-sub00-wicked-ditch-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj04-area02-sub00-wicked-ditch-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x04",
+              "area": "0x02",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x04",
+              "area": "0x02",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x06",
+              "0x07"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xA0F1",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0xAEAD",
+                "indexListPointerAddress": "0xAEB5",
+                "indexListAddress": "0xAEC7",
+                "indexOffset": 0,
+                "transferId": "0x40",
+                "auxiliaryTransferId": "0x45",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x8915"
+              }
+            }
+          },
+          "x": 288,
+          "y": 768
+        }
+      ]
+    },
+    {
+      "id": "obj00-area05",
+      "label": "Town of Doina",
+      "category": "town-exteriors",
+      "objset": "0x00",
+      "area": "0x05",
+      "x": 1312,
+      "y": 768,
+      "width": 1024,
+      "height": 224,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj00-area05-sub00",
+          "atlasId": "obj00-area05-sub00-town-of-doina",
+          "entryId": "obj00-area05-sub00-town-of-doina-day",
+          "name": "Town of Doina",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "validated",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 224,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj00-area05-sub00-town-of-doina-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj00-area05-sub00-town-of-doina-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x00",
+              "area": "0x05",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x00",
+              "area": "0x05",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x00",
+              "0x01"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0x9EF7",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x8072",
+                "indexListPointerAddress": "0x8086",
+                "indexListAddress": "0xFB27",
+                "indexOffset": 0,
+                "transferId": "0x1B",
+                "auxiliaryTransferId": "0x2E",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88CB"
+              }
+            }
+          },
+          "x": 1312,
+          "y": 768
+        }
+      ]
+    },
+    {
+      "id": "obj02-area08",
+      "label": "North Bridge -> Dora Woods - Part 2",
+      "category": "western-overworld",
+      "objset": "0x02",
+      "area": "0x08",
+      "x": 2336,
+      "y": 768,
+      "width": 2048,
+      "height": 448,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj02-area08-sub00",
+          "atlasId": "obj02-area08-sub00-north-bridge",
+          "entryId": "obj02-area08-sub00-north-bridge-day",
+          "name": "North Bridge",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "validated",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 224,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj02-area08-sub00-north-bridge-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj02-area08-sub00-north-bridge-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x02",
+              "area": "0x08",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x02",
+              "area": "0x08",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x02",
+              "0x03"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xCB04",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x9EF9",
+                "indexListPointerAddress": "0x9F19",
+                "indexListAddress": "0xA1CE",
+                "indexOffset": 0,
+                "transferId": "0x20",
+                "auxiliaryTransferId": "0x33",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88D5"
+              }
+            }
+          },
+          "x": 2336,
+          "y": 768
+        },
+        {
+          "nodeId": "obj02-area08-sub01",
+          "atlasId": "obj02-area08-sub01-dora-woods-part-1",
+          "entryId": "obj02-area08-sub01-dora-woods-part-1-day",
+          "name": "Dora Woods - Part 1",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 512,
+          "height": 224,
+          "relativeX": 1024,
+          "relativeY": 0,
+          "output": "images/obj02-area08-sub01-dora-woods-part-1-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj02-area08-sub01-dora-woods-part-1-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x02",
+              "area": "0x08",
+              "submap": "0x01"
+            },
+            "paletteContext": {
+              "objset": "0x02",
+              "area": "0x08",
+              "submap": "0x01"
+            },
+            "chrBanks": [
+              "0x02",
+              "0x03"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0x9FE8",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x9EF9",
+                "indexListPointerAddress": "0x9F19",
+                "indexListAddress": "0xA1CE",
+                "indexOffset": 2,
+                "transferId": "0x24",
+                "auxiliaryTransferId": "0x33",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88DD"
+              }
+            }
+          },
+          "x": 3360,
+          "y": 768
+        },
+        {
+          "nodeId": "obj02-area08-sub02",
+          "atlasId": "obj02-area08-sub02-dora-woods-part-2",
+          "entryId": "obj02-area08-sub02-dora-woods-part-2-day",
+          "name": "Dora Woods - Part 2",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "validated",
+          "renderStatus": "rendered",
+          "width": 512,
+          "height": 448,
+          "relativeX": 1536,
+          "relativeY": 0,
+          "output": "images/obj02-area08-sub02-dora-woods-part-2-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj02-area08-sub02-dora-woods-part-2-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x02",
+              "area": "0x08",
+              "submap": "0x02"
+            },
+            "paletteContext": {
+              "objset": "0x02",
+              "area": "0x00",
+              "submap": "0x03",
+              "submapRaw": "0x83",
+              "submapFlags": "0x80"
+            },
+            "chrBanks": [
+              "0x02",
+              "0x03"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0x9FD7",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x9EF9",
+                "indexListPointerAddress": "0x9EF9",
+                "indexListAddress": "0xA1C0",
+                "indexOffset": 6,
+                "transferId": "0x23",
+                "auxiliaryTransferId": "0x30",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88DB"
+              }
+            }
+          },
+          "x": 3872,
+          "y": 768
+        }
+      ]
+    },
+    {
+      "id": "obj00-area06",
+      "label": "Town of Yomi",
+      "category": "town-exteriors",
+      "objset": "0x00",
+      "area": "0x06",
+      "x": 4384,
+      "y": 768,
+      "width": 1024,
+      "height": 224,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj00-area06-sub00",
+          "atlasId": "obj00-area06-sub00-town-of-yomi",
+          "entryId": "obj00-area06-sub00-town-of-yomi-day",
+          "name": "Town of Yomi",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "projected",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 224,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj00-area06-sub00-town-of-yomi-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj00-area06-sub00-town-of-yomi-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x00",
+              "area": "0x06",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x00",
+              "area": "0x06",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x00",
+              "0x01"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0x9F08",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0x8072",
+                "indexListPointerAddress": "0x808A",
+                "indexListAddress": "0xFB29",
+                "indexOffset": 0,
+                "transferId": "0x1C",
+                "auxiliaryTransferId": "0x2E",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88CD"
+              }
+            }
+          },
+          "x": 4384,
+          "y": 768
+        }
+      ]
+    },
+    {
+      "id": "obj04-area03",
+      "label": "Vrad Graveyard -> Castlevania Bridge",
+      "category": "mountains-and-castle-approach",
+      "objset": "0x04",
+      "area": "0x03",
+      "x": 5408,
+      "y": 768,
+      "width": 2048,
+      "height": 224,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj04-area03-sub00",
+          "atlasId": "obj04-area03-sub00-vrad-graveyard",
+          "entryId": "obj04-area03-sub00-vrad-graveyard-day",
+          "name": "Vrad Graveyard",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "validated",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 224,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj04-area03-sub00-vrad-graveyard-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj04-area03-sub00-vrad-graveyard-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x04",
+              "area": "0x03",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x04",
+              "area": "0x03",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x06",
+              "0x07"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xA113",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0xAEAD",
+                "indexListPointerAddress": "0xAEB9",
+                "indexListAddress": "0xAEC9",
+                "indexOffset": 0,
+                "transferId": "0x42",
+                "auxiliaryTransferId": "0x46",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x8919"
+              }
+            }
+          },
+          "x": 5408,
+          "y": 768
+        },
+        {
+          "nodeId": "obj04-area03-sub01",
+          "atlasId": "obj04-area03-sub01-castlevania-bridge",
+          "entryId": "obj04-area03-sub01-castlevania-bridge-day",
+          "name": "Castlevania Bridge",
+          "access": "outdoor",
+          "variant": "day",
+          "recipeStatus": "validated",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 224,
+          "relativeX": 1024,
+          "relativeY": 0,
+          "output": "images/obj04-area03-sub01-castlevania-bridge-day.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj04-area03-sub01-castlevania-bridge-day.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x04",
+              "area": "0x03",
+              "submap": "0x01"
+            },
+            "paletteContext": {
+              "objset": "0x04",
+              "area": "0x03",
+              "submap": "0x01"
+            },
+            "chrBanks": [
+              "0x06",
+              "0x07"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xCB04",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0xAEAD",
+                "indexListPointerAddress": "0xAEB9",
+                "indexListAddress": "0xAEC9",
+                "indexOffset": 2,
+                "transferId": "0x20",
+                "auxiliaryTransferId": "0x46",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x88D5"
+              }
+            }
+          },
+          "x": 6432,
+          "y": 768
+        }
+      ]
+    },
+    {
+      "id": "obj05-area00",
+      "label": "Castlevania",
+      "category": "castlevania-final-area",
+      "objset": "0x05",
+      "area": "0x00",
+      "x": 7456,
+      "y": 768,
+      "width": 1024,
+      "height": 896,
+      "source": {
+        "areaGrouping": "rom-topology-area",
+        "submapOrder": "cv2r-submap-order",
+        "dimensions": "recipe-atlas-layout-header"
+      },
+      "nodePlacements": [
+        {
+          "nodeId": "obj05-area00-sub00",
+          "atlasId": "obj05-area00-sub00-castlevania",
+          "entryId": "obj05-area00-sub00-castlevania-fixed",
+          "name": "Castlevania",
+          "access": "final-area",
+          "variant": "fixed",
+          "recipeStatus": "validated",
+          "renderStatus": "rendered",
+          "width": 1024,
+          "height": 896,
+          "relativeX": 0,
+          "relativeY": 0,
+          "output": "images/obj05-area00-sub00-castlevania-fixed.png",
+          "sourceFile": "out/render-recipe-atlas/images/obj05-area00-sub00-castlevania-fixed.png",
+          "derivation": {
+            "source": "recipe-atlas-entry",
+            "layoutContext": {
+              "objset": "0x05",
+              "area": "0x00",
+              "submap": "0x00"
+            },
+            "paletteContext": {
+              "objset": "0x05",
+              "area": "0x00",
+              "submap": "0x00"
+            },
+            "chrBanks": [
+              "0x0B",
+              "0x0C"
+            ],
+            "palette": {
+              "status": "resolved",
+              "variant": "day",
+              "address": "0xA150",
+              "selector": {
+                "paletteIndexPointersAddress": "0xF7C5",
+                "paletteTableAddress": "0xBC4E",
+                "indexListPointerAddress": "0xBC4E",
+                "indexListAddress": "0xBC52",
+                "indexOffset": 0,
+                "transferId": "0x57",
+                "auxiliaryTransferId": "0x4C",
+                "transferPointerTableAddress": "0x8895",
+                "transferPointerAddress": "0x8943"
+              }
+            }
+          },
+          "x": 7456,
+          "y": 768
+        }
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "index": 1,
+      "edgeId": "boundary-transition:obj00-area00-sub00->obj02-area07-sub02:left",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "forward",
+      "direction": "left",
+      "relationship": "next-area-left-of-current-area",
+      "transitionClass": "object-set-boundary",
+      "transitionSemantics": {
+        "transitionClass": "object-set-boundary",
+        "coordinateConfidence": "horizontal-side-only",
+        "note": "Transition crosses to an area that may use another object set.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFF 0x02 0x07",
+            "note": "Transition crosses to an area that may use another object set."
+          }
+        ]
+      },
+      "currentAreaId": "obj00-area00",
+      "nextAreaId": "obj02-area07",
+      "edgeSourceArea": "obj00-area00",
+      "edgeTargetArea": "obj02-area07",
+      "sourceNode": "obj00-area00-sub00",
+      "targetNode": "obj02-area07-sub02",
+      "transition": {
+        "kind": "objset-area",
+        "marker": "0xFF",
+        "bytes": [
+          "0xFF",
+          "0x02",
+          "0x07"
+        ],
+        "target": {
+          "objset": 2,
+          "objsetHex": "0x02",
+          "area": 7,
+          "areaHex": "0x07"
+        }
+      },
+      "proposedPlacement": {
+        "x": 4896,
+        "y": 32
+      },
+      "appliedPlacement": {
+        "x": 4896,
+        "y": 32
+      }
+    },
+    {
+      "index": 2,
+      "edgeId": "boundary-transition:obj00-area03-sub00->obj02-area07-sub00:right",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "reverse",
+      "direction": "right",
+      "relationship": "next-area-left-of-current-area",
+      "transitionClass": "object-set-boundary",
+      "transitionSemantics": {
+        "transitionClass": "object-set-boundary",
+        "coordinateConfidence": "horizontal-side-only",
+        "note": "Transition crosses to an area that may use another object set.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFF 0x02 0x07",
+            "note": "Transition crosses to an area that may use another object set."
+          }
+        ]
+      },
+      "currentAreaId": "obj02-area07",
+      "nextAreaId": "obj00-area03",
+      "edgeSourceArea": "obj00-area03",
+      "edgeTargetArea": "obj02-area07",
+      "sourceNode": "obj00-area03-sub00",
+      "targetNode": "obj02-area07-sub00",
+      "transition": {
+        "kind": "objset-area",
+        "marker": "0xFF",
+        "bytes": [
+          "0xFF",
+          "0x02",
+          "0x07"
+        ],
+        "target": {
+          "objset": 2,
+          "objsetHex": "0x02",
+          "area": 7,
+          "areaHex": "0x07"
+        }
+      },
+      "proposedPlacement": {
+        "x": 3872,
+        "y": 32
+      },
+      "appliedPlacement": {
+        "x": 3872,
+        "y": 32
+      }
+    },
+    {
+      "index": 3,
+      "edgeId": "boundary-transition:obj00-area03-sub00->obj03-area02-sub01:left",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "forward",
+      "direction": "left",
+      "relationship": "next-area-left-of-current-area",
+      "transitionClass": "object-set-boundary",
+      "transitionSemantics": {
+        "transitionClass": "object-set-boundary",
+        "coordinateConfidence": "horizontal-side-only",
+        "note": "Transition crosses to an area that may use another object set.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFF 0x03 0x02",
+            "note": "Transition crosses to an area that may use another object set."
+          }
+        ]
+      },
+      "currentAreaId": "obj00-area03",
+      "nextAreaId": "obj03-area02",
+      "edgeSourceArea": "obj00-area03",
+      "edgeTargetArea": "obj03-area02",
+      "sourceNode": "obj00-area03-sub00",
+      "targetNode": "obj03-area02-sub01",
+      "transition": {
+        "kind": "objset-area",
+        "marker": "0xFF",
+        "bytes": [
+          "0xFF",
+          "0x03",
+          "0x02"
+        ],
+        "target": {
+          "objset": 3,
+          "objsetHex": "0x03",
+          "area": 2,
+          "areaHex": "0x02"
+        }
+      },
+      "proposedPlacement": {
+        "x": 2848,
+        "y": 32
+      },
+      "appliedPlacement": {
+        "x": 2848,
+        "y": 32
+      }
+    },
+    {
+      "index": 4,
+      "edgeId": "boundary-transition:obj03-area02-sub00->obj03-area04-sub00:left",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "forward",
+      "direction": "left",
+      "relationship": "next-area-left-of-current-area",
+      "transitionClass": "same-object-set-boundary",
+      "transitionSemantics": {
+        "transitionClass": "same-object-set-boundary",
+        "coordinateConfidence": "horizontal-side-only",
+        "note": "Transition stays in the current object set and changes area.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0x00 0x00 0x04",
+            "note": "Transition stays in the current object set and changes area."
+          }
+        ]
+      },
+      "currentAreaId": "obj03-area02",
+      "nextAreaId": "obj03-area04",
+      "edgeSourceArea": "obj03-area02",
+      "edgeTargetArea": "obj03-area04",
+      "sourceNode": "obj03-area02-sub00",
+      "targetNode": "obj03-area04-sub00",
+      "transition": {
+        "kind": "same-objset-area",
+        "marker": "0x00",
+        "bytes": [
+          "0x00",
+          "0x00",
+          "0x04"
+        ],
+        "target": {
+          "objset": 3,
+          "objsetHex": "0x03",
+          "area": 4,
+          "areaHex": "0x04"
+        }
+      },
+      "proposedPlacement": {
+        "x": 2336,
+        "y": 32
+      },
+      "appliedPlacement": {
+        "x": 2336,
+        "y": 32
+      }
+    },
+    {
+      "index": 5,
+      "edgeId": "boundary-transition:obj00-area04-sub00->obj03-area04-sub00:right",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "reverse",
+      "direction": "right",
+      "relationship": "next-area-left-of-current-area",
+      "transitionClass": "object-set-boundary",
+      "transitionSemantics": {
+        "transitionClass": "object-set-boundary",
+        "coordinateConfidence": "horizontal-side-only",
+        "note": "Transition crosses to an area that may use another object set.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFF 0x03 0x04",
+            "note": "Transition crosses to an area that may use another object set."
+          }
+        ]
+      },
+      "currentAreaId": "obj03-area04",
+      "nextAreaId": "obj00-area04",
+      "edgeSourceArea": "obj00-area04",
+      "edgeTargetArea": "obj03-area04",
+      "sourceNode": "obj00-area04-sub00",
+      "targetNode": "obj03-area04-sub00",
+      "transition": {
+        "kind": "objset-area",
+        "marker": "0xFF",
+        "bytes": [
+          "0xFF",
+          "0x03",
+          "0x04"
+        ],
+        "target": {
+          "objset": 3,
+          "objsetHex": "0x03",
+          "area": 4,
+          "areaHex": "0x04"
+        }
+      },
+      "proposedPlacement": {
+        "x": 1312,
+        "y": 32
+      },
+      "appliedPlacement": {
+        "x": 1312,
+        "y": 32
+      }
+    },
+    {
+      "index": 6,
+      "edgeId": "boundary-transition:obj00-area04-sub00->obj04-area01-sub01:left",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "forward",
+      "direction": "left",
+      "relationship": "next-area-left-of-current-area",
+      "transitionClass": "object-set-boundary",
+      "transitionSemantics": {
+        "transitionClass": "object-set-boundary",
+        "coordinateConfidence": "horizontal-side-only",
+        "note": "Transition crosses to an area that may use another object set.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFF 0x04 0x01",
+            "note": "Transition crosses to an area that may use another object set."
+          }
+        ]
+      },
+      "currentAreaId": "obj00-area04",
+      "nextAreaId": "obj04-area01",
+      "edgeSourceArea": "obj00-area04",
+      "edgeTargetArea": "obj04-area01",
+      "sourceNode": "obj00-area04-sub00",
+      "targetNode": "obj04-area01-sub01",
+      "transition": {
+        "kind": "objset-area",
+        "marker": "0xFF",
+        "bytes": [
+          "0xFF",
+          "0x04",
+          "0x01"
+        ],
+        "target": {
+          "objset": 4,
+          "objsetHex": "0x04",
+          "area": 1,
+          "areaHex": "0x01"
+        }
+      },
+      "proposedPlacement": {
+        "x": 32,
+        "y": 32
+      },
+      "appliedPlacement": {
+        "x": 32,
+        "y": 32
+      }
+    },
+    {
+      "index": 7,
+      "edgeId": "boundary-transition:obj04-area01-sub00->obj01-area04-sub00:left",
+      "source": "transition-semantics",
+      "confidence": "rom-area-transition",
+      "traversal": "forward",
+      "direction": "left",
+      "relationship": "connector-only-not-adjacent",
+      "currentAreaId": "obj04-area01",
+      "nextAreaId": "obj01-area04",
+      "edgeSourceArea": "obj04-area01",
+      "edgeTargetArea": "obj01-area04",
+      "sourceNode": "obj04-area01-sub00",
+      "targetNode": "obj01-area04-sub00",
+      "transitionClass": "special-transport-candidate",
+      "transitionSemantics": {
+        "transitionClass": "special-transport-candidate",
+        "placementMode": "connector-only",
+        "ordinaryAdjacency": false,
+        "coordinateConfidence": "endpoint-known-position-unknown",
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFF 0x01 0x04",
+            "note": "The edge target is decoded from the ROM transition table."
+          },
+          {
+            "source": "cv2r-location-metadata",
+            "value": "Deborah Cliff (In Tornado) -> Bodley Mansion - Door",
+            "note": "One endpoint is labeled as a tornado submap in the reverse-engineered source."
+          }
+        ],
+        "note": "This edge should be rendered as a connector until the transport event coordinates are decoded."
+      },
+      "transition": {
+        "kind": "objset-area",
+        "marker": "0xFF",
+        "bytes": [
+          "0xFF",
+          "0x01",
+          "0x04"
+        ],
+        "target": {
+          "objset": 1,
+          "objsetHex": "0x01",
+          "area": 4,
+          "areaHex": "0x04"
+        }
+      },
+      "appliedPlacement": {
+        "x": 32,
+        "y": 768
+      },
+      "solverAdjustment": {
+        "source": "connector-only-route-break",
+        "shifts": 1,
+        "rowStep": 960,
+        "note": "Transition semantics say this edge should be a connector, not an ordinary left/right adjacency. Exact transport coordinates remain unresolved."
+      }
+    },
+    {
+      "index": 8,
+      "edgeId": "boundary-transition:obj01-area04-sub00->obj04-area02-sub00:right",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "forward",
+      "direction": "right",
+      "relationship": "next-area-right-of-current-area",
+      "transitionClass": "object-set-boundary",
+      "transitionSemantics": {
+        "transitionClass": "object-set-boundary",
+        "coordinateConfidence": "horizontal-side-only",
+        "note": "Transition crosses to an area that may use another object set.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFF 0x04 0x02",
+            "note": "Transition crosses to an area that may use another object set."
+          }
+        ]
+      },
+      "currentAreaId": "obj01-area04",
+      "nextAreaId": "obj04-area02",
+      "edgeSourceArea": "obj01-area04",
+      "edgeTargetArea": "obj04-area02",
+      "sourceNode": "obj01-area04-sub00",
+      "targetNode": "obj04-area02-sub00",
+      "transition": {
+        "kind": "objset-area",
+        "marker": "0xFF",
+        "bytes": [
+          "0xFF",
+          "0x04",
+          "0x02"
+        ],
+        "target": {
+          "objset": 4,
+          "objsetHex": "0x04",
+          "area": 2,
+          "areaHex": "0x02"
+        }
+      },
+      "proposedPlacement": {
+        "x": 288,
+        "y": 768
+      },
+      "appliedPlacement": {
+        "x": 288,
+        "y": 768
+      }
+    },
+    {
+      "index": 9,
+      "edgeId": "boundary-transition:obj00-area05-sub00->obj04-area02-sub00:left",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "reverse",
+      "direction": "left",
+      "relationship": "next-area-right-of-current-area",
+      "transitionClass": "object-set-boundary",
+      "transitionSemantics": {
+        "transitionClass": "object-set-boundary",
+        "coordinateConfidence": "horizontal-side-only",
+        "note": "Transition crosses to an area that may use another object set.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFF 0x04 0x02",
+            "note": "Transition crosses to an area that may use another object set."
+          }
+        ]
+      },
+      "currentAreaId": "obj04-area02",
+      "nextAreaId": "obj00-area05",
+      "edgeSourceArea": "obj00-area05",
+      "edgeTargetArea": "obj04-area02",
+      "sourceNode": "obj00-area05-sub00",
+      "targetNode": "obj04-area02-sub00",
+      "transition": {
+        "kind": "objset-area",
+        "marker": "0xFF",
+        "bytes": [
+          "0xFF",
+          "0x04",
+          "0x02"
+        ],
+        "target": {
+          "objset": 4,
+          "objsetHex": "0x04",
+          "area": 2,
+          "areaHex": "0x02"
+        }
+      },
+      "proposedPlacement": {
+        "x": 1312,
+        "y": 768
+      },
+      "appliedPlacement": {
+        "x": 1312,
+        "y": 768
+      }
+    },
+    {
+      "index": 10,
+      "edgeId": "boundary-transition:obj00-area05-sub00->obj02-area08-sub00:right",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "forward",
+      "direction": "right",
+      "relationship": "next-area-right-of-current-area",
+      "transitionClass": "object-set-boundary",
+      "transitionSemantics": {
+        "transitionClass": "object-set-boundary",
+        "coordinateConfidence": "horizontal-side-only",
+        "note": "Transition crosses to an area that may use another object set.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFF 0x02 0x08",
+            "note": "Transition crosses to an area that may use another object set."
+          }
+        ]
+      },
+      "currentAreaId": "obj00-area05",
+      "nextAreaId": "obj02-area08",
+      "edgeSourceArea": "obj00-area05",
+      "edgeTargetArea": "obj02-area08",
+      "sourceNode": "obj00-area05-sub00",
+      "targetNode": "obj02-area08-sub00",
+      "transition": {
+        "kind": "objset-area",
+        "marker": "0xFF",
+        "bytes": [
+          "0xFF",
+          "0x02",
+          "0x08"
+        ],
+        "target": {
+          "objset": 2,
+          "objsetHex": "0x02",
+          "area": 8,
+          "areaHex": "0x08"
+        }
+      },
+      "proposedPlacement": {
+        "x": 2336,
+        "y": 768
+      },
+      "appliedPlacement": {
+        "x": 2336,
+        "y": 768
+      }
+    },
+    {
+      "index": 11,
+      "edgeId": "boundary-transition:obj00-area06-sub00->obj02-area08-sub02:left",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "reverse",
+      "direction": "left",
+      "relationship": "next-area-right-of-current-area",
+      "transitionClass": "object-set-load-boundary",
+      "transitionSemantics": {
+        "transitionClass": "object-set-load-boundary",
+        "coordinateConfidence": "horizontal-side-plus-load-marker",
+        "note": "Transition crosses object set/area and carries the load marker.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFC 0x02 0x08",
+            "note": "Transition crosses object set/area and carries the load marker."
+          }
+        ]
+      },
+      "currentAreaId": "obj02-area08",
+      "nextAreaId": "obj00-area06",
+      "edgeSourceArea": "obj00-area06",
+      "edgeTargetArea": "obj02-area08",
+      "sourceNode": "obj00-area06-sub00",
+      "targetNode": "obj02-area08-sub02",
+      "transition": {
+        "kind": "objset-area-load",
+        "marker": "0xFC",
+        "bytes": [
+          "0xFC",
+          "0x02",
+          "0x08"
+        ],
+        "target": {
+          "objset": 2,
+          "objsetHex": "0x02",
+          "area": 8,
+          "areaHex": "0x08"
+        }
+      },
+      "proposedPlacement": {
+        "x": 4384,
+        "y": 768
+      },
+      "appliedPlacement": {
+        "x": 4384,
+        "y": 768
+      }
+    },
+    {
+      "index": 12,
+      "edgeId": "boundary-transition:obj00-area06-sub00->obj04-area03-sub00:right",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "forward",
+      "direction": "right",
+      "relationship": "next-area-right-of-current-area",
+      "transitionClass": "object-set-boundary",
+      "transitionSemantics": {
+        "transitionClass": "object-set-boundary",
+        "coordinateConfidence": "horizontal-side-only",
+        "note": "Transition crosses to an area that may use another object set.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFF 0x04 0x03",
+            "note": "Transition crosses to an area that may use another object set."
+          }
+        ]
+      },
+      "currentAreaId": "obj00-area06",
+      "nextAreaId": "obj04-area03",
+      "edgeSourceArea": "obj00-area06",
+      "edgeTargetArea": "obj04-area03",
+      "sourceNode": "obj00-area06-sub00",
+      "targetNode": "obj04-area03-sub00",
+      "transition": {
+        "kind": "objset-area",
+        "marker": "0xFF",
+        "bytes": [
+          "0xFF",
+          "0x04",
+          "0x03"
+        ],
+        "target": {
+          "objset": 4,
+          "objsetHex": "0x04",
+          "area": 3,
+          "areaHex": "0x03"
+        }
+      },
+      "proposedPlacement": {
+        "x": 5408,
+        "y": 768
+      },
+      "appliedPlacement": {
+        "x": 5408,
+        "y": 768
+      }
+    },
+    {
+      "index": 13,
+      "edgeId": "boundary-transition:obj04-area03-sub01->obj05-area00-sub00:right",
+      "source": "rom-boundary-transition",
+      "confidence": "rom-area-transition",
+      "traversal": "forward",
+      "direction": "right",
+      "relationship": "next-area-right-of-current-area",
+      "transitionClass": "object-set-boundary",
+      "transitionSemantics": {
+        "transitionClass": "object-set-boundary",
+        "coordinateConfidence": "horizontal-side-only",
+        "note": "Transition crosses to an area that may use another object set.",
+        "placementMode": "ordinary-adjacency",
+        "ordinaryAdjacency": true,
+        "evidence": [
+          {
+            "source": "rom-area-transition-bytes",
+            "value": "0xFF 0x05 0x00",
+            "note": "Transition crosses to an area that may use another object set."
+          }
+        ]
+      },
+      "currentAreaId": "obj04-area03",
+      "nextAreaId": "obj05-area00",
+      "edgeSourceArea": "obj04-area03",
+      "edgeTargetArea": "obj05-area00",
+      "sourceNode": "obj04-area03-sub01",
+      "targetNode": "obj05-area00-sub00",
+      "transition": {
+        "kind": "objset-area",
+        "marker": "0xFF",
+        "bytes": [
+          "0xFF",
+          "0x05",
+          "0x00"
+        ],
+        "target": {
+          "objset": 5,
+          "objsetHex": "0x05",
+          "area": 0,
+          "areaHex": "0x00"
+        }
+      },
+      "proposedPlacement": {
+        "x": 7456,
+        "y": 768
+      },
+      "appliedPlacement": {
+        "x": 7456,
+        "y": 768
+      }
+    }
+  ],
+  "unresolved": []
+};

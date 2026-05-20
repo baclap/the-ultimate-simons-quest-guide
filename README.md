@@ -27,6 +27,8 @@ The current vertical slice includes:
   night, and fixed variants
 - composes the Jova-to-Castlevania exterior route from ROM-derived topology
   constraints and recipe-atlas segments, with inferred solver shifts labeled
+- classifies topology edges by transition semantics so connector-only transport
+  candidates are not forced into ordinary left/right adjacency
 - resolves human-facing labels through the Nintendo Power map naming policy
   while preserving `cv2r` source names
 
@@ -119,6 +121,7 @@ demos/2026-05-19-recipe-resolver-demo/index.html
 demos/2026-05-19-objset4-recipe-demo/index.html
 demos/2026-05-19-recipe-completeness-demo/index.html
 demos/2026-05-20-composition-draft-demo/index.html
+demos/2026-05-20-transition-semantics-demo/index.html
 ```
 
 ## Next Milestone
@@ -181,9 +184,15 @@ day/night exterior. See `docs/render-recipe-atlas-notes.md`.
 
 `npm run render:composition:exterior` composes the Jova-to-Castlevania route
 from the ROM-derived topology graph and recipe-atlas segments. It currently
-places 14 route areas and 21 rendered nodes, with 13 ROM-derived boundary
-constraints, zero unresolved links, and one generic overlap-avoidance row shift
-explicitly marked as inferred. See `docs/exterior-composition-notes.md`.
+places 14 route areas and 21 rendered nodes, with 12 ordinary ROM-derived
+boundary constraints, one connector-only transport candidate, zero generic
+overlap shifts, and zero unresolved links. See
+`docs/exterior-composition-notes.md`.
+
+Topology edges now include `transitionSemantics` metadata. The first
+connector-only edge is Deborah Cliff (In Tornado) to Bodley Mansion - Door:
+the endpoint is still ROM-derived, but final transport coordinates remain
+unresolved. See `docs/transition-semantics-notes.md`.
 
 Human-facing location names now follow the Nintendo Power map where the scan is
 legible, with `cv2r` labels preserved as `sourceName`. See
@@ -191,8 +200,8 @@ legible, with `cv2r` labels preserved as `sourceName`. See
 
 The intended path is:
 
-1. expand route composition into full exterior graph composition
-2. decode or validate vertical transition and entrance-position rules
+1. decode or validate transition destination positions, including vertical and special-transport rules
+2. expand route composition into full exterior graph composition
 3. validate remaining mansion-door layout/crop assumptions
 4. connect validated exteriors/interiors/final-area segments into final PNG and optional canvas outputs
 5. preserve day, night, and fixed variants as first-class outputs

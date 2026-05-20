@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Transition Semantics</title>
+  <link rel="stylesheet" href="styles.css?v=transition-semantics-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Transition semantics</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/5</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide active" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>The route now knows ordinary edges from connector edges</h1>
+        <p class="lede">Topology keeps the ROM transition bytes, but adds semantic labels before composition. Deborah Cliff is now rendered as a connector-only transport candidate instead of a forced left/right adjacency.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="hero-map">
+        <img src="assets/exterior-composition/composition.png?v=transition-semantics-1" alt="Transition-aware exterior route composition">
+      </div>
+    </section>
+
+    <section class="slide" data-hash="classes">
+      <div class="copy narrow">
+        <p class="eyebrow">Topology</p>
+        <h2>Every edge carries a transition class</h2>
+        <p>The classes come from ROM marker bytes where possible. The tornado case is deliberately marked as a candidate because the endpoint is ROM-derived, while the transport interpretation comes from reverse-engineered metadata and gameplay behavior.</p>
+      </div>
+      <div class="class-grid" id="class-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="deborah">
+      <div class="copy narrow">
+        <p class="eyebrow">Special Case</p>
+        <h2>Deborah Cliff is no longer treated as ordinary adjacency</h2>
+        <p>The route still connects to Bodley Mansion, but the composition records that exact transport coordinates are unresolved. This removes the old generic overlap shove and replaces it with a named connector break.</p>
+      </div>
+      <div class="feature-grid" id="feature-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="composition">
+      <div class="copy narrow">
+        <p class="eyebrow">Composition</p>
+        <h2>The map image exposes the connector break</h2>
+        <p>The lower row begins at the mansion-door endpoint after the connector-only edge. Ordinary walking edges then continue through Wicked Ditch, Doina, Dora Woods, Yomi, Vrad Graveyard, and Castlevania.</p>
+      </div>
+      <div class="map-stage">
+        <img src="assets/exterior-composition/composition.png?v=transition-semantics-1" alt="Transition-aware composition draft">
+      </div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Demo Goal</p>
+        <h2>Decode destination positions, not just edge targets</h2>
+        <p>The next gap is the runtime transition routine: the data that places Simon after boundary changes, vertical movement, and special transport events.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/exterior-topology/topology-data.js?v=transition-semantics-1"></script>
+  <script src="assets/exterior-composition/composition-data.js?v=transition-semantics-1"></script>
+  <script src="slides.js?v=transition-semantics-1"></script>
+</body>
+</html>

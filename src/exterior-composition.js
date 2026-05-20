@@ -177,6 +177,29 @@ function relationFromEdge(edge, currentAreaId, nextAreaId) {
   return undefined;
 }
 
+function isConnectorOnly(edge) {
+  return edge.transitionSemantics?.placementMode === 'connector-only';
+}
+
+function firstFreeRouteBreak(placed, referenceGroup, nextGroup, rowStep, rowGap) {
+  const maxY = Math.max(...placed.map((placement) => placement.y + placement.height));
+  let candidate = {
+    x: referenceGroup.x,
+    y: maxY + rowGap,
+    width: nextGroup.width,
+    height: nextGroup.height
+  };
+
+  while (hasOverlap(candidate, placed)) {
+    candidate = {
+      ...candidate,
+      y: candidate.y + rowStep
+    };
+  }
+
+  return candidate;
+}
+
 function placeRouteGroups(route, groupsByArea, edgesById, opts = {}) {
   const horizontalGap = opts.horizontalGap ?? 0;
   const rowGap = opts.rowGap ?? 64;
@@ -218,6 +241,50 @@ function placeRouteGroups(route, groupsByArea, edgesById, opts = {}) {
     }
 
     const relation = relationFromEdge(edge, currentAreaId, nextAreaId);
+    if (isConnectorOnly(edge)) {
+      const candidate = firstFreeRouteBreak(placements, currentGroup, nextGroup, rowStep, rowGap);
+      nextGroup.x = candidate.x;
+      nextGroup.y = candidate.y;
+      placements.push(nextGroup);
+      placedByArea.set(nextGroup.id, nextGroup);
+
+      constraints.push({
+        index,
+        edgeId,
+        source: 'transition-semantics',
+        confidence: edge.confidence,
+        traversal: relation?.traversal || 'inferred',
+        direction: edge.direction,
+        relationship: 'connector-only-not-adjacent',
+        currentAreaId,
+        nextAreaId,
+        edgeSourceArea: edge.sourceArea,
+        edgeTargetArea: edge.targetArea,
+        sourceNode: edge.source,
+        targetNode: edge.target,
+        transitionClass: edge.transitionSemantics?.transitionClass,
+        transitionSemantics: edge.transitionSemantics,
+        transition: edge.transition && {
+          kind: edge.transition.kind,
+          marker: edge.transition.marker,
+          bytes: edge.transition.bytes,
+          target: edge.transition.target
+        },
+        proposedPlacement: undefined,
+        appliedPlacement: {
+          x: nextGroup.x,
+          y: nextGroup.y
+        },
+        solverAdjustment: {
+          source: 'connector-only-route-break',
+          shifts: 1,
+          rowStep,
+          note: 'Transition semantics say this edge should be a connector, not an ordinary left/right adjacency. Exact transport coordinates remain unresolved.'
+        }
+      });
+      continue;
+    }
+
     let side = relation?.side;
     let relationshipSource = 'rom-boundary-transition';
     if (!side) {
@@ -266,6 +333,8 @@ function placeRouteGroups(route, groupsByArea, edgesById, opts = {}) {
       traversal: relation?.traversal || 'inferred',
       direction: edge.direction,
       relationship: side === 'right' ? 'next-area-right-of-current-area' : 'next-area-left-of-current-area',
+      transitionClass: edge.transitionSemantics?.transitionClass,
+      transitionSemantics: edge.transitionSemantics,
       currentAreaId,
       nextAreaId,
       edgeSourceArea: edge.sourceArea,
@@ -427,8 +496,15 @@ function renderExteriorComposition(opts = {}) {
   const imagePath = path.join(outDir, 'composition.png');
   const image = composeImage(placed.placements, imagePath, margin);
 
-  const solverInferred = placed.constraints.filter((constraint) => constraint.solverAdjustment).length +
-    placed.constraints.filter((constraint) => constraint.source !== 'rom-boundary-transition').length;
+  const solverInferred = placed.constraints.filter((constraint) => (
+    constraint.solverAdjustment || constraint.source !== 'rom-boundary-transition'
+  )).length;
+  const genericOverlapShifts = placed.constraints.filter((constraint) => (
+    constraint.solverAdjustment?.source === 'generic-overlap-avoidance'
+  )).length;
+  const connectorOnlyTransitions = placed.constraints.filter((constraint) => (
+    constraint.relationship === 'connector-only-not-adjacent'
+  )).length;
   const nodeCount = placed.placements.reduce((count, placement) => count + placement.nodePlacements.length, 0);
   const composition = {
     schemaVersion: 1,
@@ -439,9 +515,10 @@ function renderExteriorComposition(opts = {}) {
       routeSource: 'shortest route over ROM-derived boundary-transition edges',
       notes: [
         'Area adjacency comes from ROM area transition triples decoded by the exterior topology pass.',
+        'Transition semantics classify connector-only edges before placement.',
         'Within one area, submap order comes from the topology area record order.',
         'Segment dimensions and pixels come from the ROM-derived recipe atlas.',
-        'Collision row shifts are generic solver-inferred layout moves and are not claimed as ROM world coordinates.'
+        'Connector route breaks and collision row shifts are not claimed as ROM world coordinates.'
       ]
     },
     route: {
@@ -456,6 +533,8 @@ function renderExteriorComposition(opts = {}) {
       nodes: nodeCount,
       constraints: placed.constraints.length,
       romDerivedPlacementConstraints: placed.constraints.filter((constraint) => constraint.source === 'rom-boundary-transition').length,
+      connectorOnlyTransitions,
+      genericOverlapShifts,
       solverInferredPlacements: solverInferred,
       unresolvedPlacements: placed.unresolved.length,
       width: image.width,

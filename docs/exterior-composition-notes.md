@@ -1,9 +1,9 @@
 # Exterior Composition Notes
 
-The exterior composition pass is the first bridge from topology to a rendered
-map draft. It composes a route from already-rendered recipe-atlas segments while
+The exterior composition pass is the bridge from topology to a rendered map
+draft. It composes a route from already-rendered recipe-atlas segments while
 preserving which placement facts come from ROM data and which placement choices
-are still generic solver inference.
+are still unresolved connector inference.
 
 ## Command
 
@@ -46,11 +46,16 @@ final-area render rather than a day/night exterior.
 
 ## What Is Still Inferred
 
-The current pass does not claim final world coordinates. It only has horizontal
-left/right constraints, so when the route would overlap itself the renderer
-uses a generic row-shift solver. That row shift is recorded as
-`solverAdjustment.source = "generic-overlap-avoidance"` in
-`composition.json`.
+The current pass does not claim final world coordinates. Most route edges still
+use ordinary left/right constraints, but topology now identifies the Deborah
+Cliff tornado edge as connector-only. The composition renderer starts a new
+route row for that edge instead of pretending the mansion is simply adjacent to
+the cliff wall.
+
+That connector break is recorded as
+`solverAdjustment.source = "connector-only-route-break"` in `composition.json`.
+It is not a per-area placement tweak; it is a visible marker that exact tornado
+transport coordinates still need deeper decoding.
 
 Current run summary:
 
@@ -58,29 +63,33 @@ Current run summary:
 | --- | ---: |
 | Route areas | 14 |
 | Rendered nodes | 21 |
-| ROM-derived placement constraints | 13 |
+| ROM-derived ordinary placement constraints | 12 |
+| Connector-only transitions | 1 |
+| Generic overlap shifts | 0 |
 | Solver-inferred placements | 1 |
 | Unresolved placements | 0 |
-| Output size | 8512x1920 |
+| Output size | 8512x1696 |
 
-The one inferred row shift occurs when placing `obj04-area02` after
-`obj01-area04`. The edge direction still comes from the ROM transition
-`obj01-area04 -> obj04-area02`; only the row move is inferred to avoid reusing
-the same layout space.
+The one inferred row break occurs on
+`obj04-area01-sub00 -> obj01-area04-sub00`: Deborah Cliff (In Tornado) to
+Bodley Mansion - Door. The endpoint still comes from the ROM transition tuple
+`$FF $01 $04`; the connector-only interpretation is based on the
+reverse-engineered `cv2r` location name until the actual tornado routine is
+decoded.
 
 ## Limits
 
 - This is a route composition, not the full exterior graph.
-- It does not decode vertical transition offsets, stair destinations, or exact
-  entrance coordinates yet.
+- It does not decode vertical transition offsets, stair destinations, tornado
+  transport coordinates, or exact entrance coordinates yet.
 - It does not validate the composed map against live emulator windows yet.
 - Mansion-door segments are included from the recipe atlas, but mansion-door
   layout/crop parity remains a separate validation target.
 
 ## Next Step
 
-The next milestone should expand the same provenance model from one route to
-the full exterior topology graph. Where placement remains ambiguous, the output
-should keep marking solver inference instead of adding per-area hand placement.
-The most valuable deeper decoding target is the ROM/runtime state that explains
-vertical placement and entrance position across transitions.
+The next milestone should decode the ROM/runtime state behind special transport
+and vertical placement. Where placement remains ambiguous, the output should
+keep marking connector inference instead of adding per-area hand placement. The
+most valuable deeper decoding target is the routine that handles route
+transitions and writes runtime context plus Simon's destination position.

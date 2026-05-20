@@ -249,6 +249,102 @@ function createEdgeId(kind, source, target, suffix) {
   return `${kind}:${source}->${targetId}:${suffix}`;
 }
 
+function evidence(source, value, note) {
+  return {
+    source,
+    value,
+    note
+  };
+}
+
+function classifySubmapSequence(source, target) {
+  return {
+    transitionClass: 'same-area-submap-sequence',
+    placementMode: 'ordinary-adjacency',
+    ordinaryAdjacency: true,
+    coordinateConfidence: 'submap-order-only',
+    evidence: [
+      evidence('cv2r-submap-order', `${source.id} -> ${target.id}`, 'Adjacent submaps in one area record.')
+    ],
+    note: 'Submap order indicates a layout sequence, not a complete world coordinate.'
+  };
+}
+
+function hasTransportMetadata(source, target) {
+  return /tornado/i.test(source.name) || (target && /tornado/i.test(target.name));
+}
+
+function classifyBoundaryTransition(source, target, transition, resolved) {
+  if (!resolved.node) {
+    return {
+      transitionClass: 'unresolved-target',
+      placementMode: 'unresolved',
+      ordinaryAdjacency: false,
+      coordinateConfidence: 'target-not-in-atlas',
+      evidence: [
+        evidence('rom-area-transition-bytes', transition.bytes.join(' '), 'Transition target is not currently represented by the exterior atlas.')
+      ],
+      note: 'The transition is preserved as metadata until the target is decoded or intentionally excluded.'
+    };
+  }
+
+  if (hasTransportMetadata(source, target)) {
+    return {
+      transitionClass: 'special-transport-candidate',
+      placementMode: 'connector-only',
+      ordinaryAdjacency: false,
+      coordinateConfidence: 'endpoint-known-position-unknown',
+      evidence: [
+        evidence('rom-area-transition-bytes', transition.bytes.join(' '), 'The edge target is decoded from the ROM transition table.'),
+        evidence('cv2r-location-metadata', `${source.name} -> ${target.name}`, 'One endpoint is labeled as a tornado submap in the reverse-engineered source.')
+      ],
+      note: 'This edge should be rendered as a connector until the transport event coordinates are decoded.'
+    };
+  }
+
+  const byKind = {
+    'objset-area': {
+      transitionClass: 'object-set-boundary',
+      coordinateConfidence: 'horizontal-side-only',
+      note: 'Transition crosses to an area that may use another object set.'
+    },
+    'objset-area-load': {
+      transitionClass: 'object-set-load-boundary',
+      coordinateConfidence: 'horizontal-side-plus-load-marker',
+      note: 'Transition crosses object set/area and carries the load marker.'
+    },
+    'same-objset-area': {
+      transitionClass: 'same-object-set-boundary',
+      coordinateConfidence: 'horizontal-side-only',
+      note: 'Transition stays in the current object set and changes area.'
+    },
+    'same-objset-area-load': {
+      transitionClass: 'same-object-set-load-boundary',
+      coordinateConfidence: 'horizontal-side-plus-load-marker',
+      note: 'Transition stays in the current object set and carries the load marker.'
+    },
+    'same-objset-area-submap': {
+      transitionClass: 'explicit-submap-boundary',
+      coordinateConfidence: 'horizontal-side-plus-target-submap',
+      note: 'Transition names a target submap explicitly.'
+    }
+  };
+  const classified = byKind[transition.kind] || {
+    transitionClass: 'unknown-boundary',
+    coordinateConfidence: 'unknown',
+    note: 'Transition marker is not classified yet.'
+  };
+
+  return {
+    ...classified,
+    placementMode: 'ordinary-adjacency',
+    ordinaryAdjacency: true,
+    evidence: [
+      evidence('rom-area-transition-bytes', transition.bytes.join(' '), classified.note)
+    ]
+  };
+}
+
 function buildEdges(nodes, areas) {
   const areasById = new Map(areas.map((area) => [area.id, area]));
   const nodesById = new Map(nodes.map((node) => [node.id, node]));
@@ -268,6 +364,7 @@ function buildEdges(nodes, areas) {
         sourceArea: source.areaId,
         target: target.id,
         targetArea: target.areaId,
+        transitionSemantics: classifySubmapSequence(source, target),
         note: 'Adjacent submaps in the same area record.'
       });
     }
@@ -280,6 +377,7 @@ function buildEdges(nodes, areas) {
       const transition = area.transitions[side];
       const resolved = resolveTransitionTarget(side, transition, areasById, nodesByContext, nodesById);
       const targetAreaId = resolved.area?.id || areaId(transition.target);
+      const semantics = classifyBoundaryTransition(source, resolved.node, transition, resolved);
 
       edges.push({
         id: createEdgeId('boundary-transition', source.id, resolved.node?.id, side),
@@ -305,6 +403,7 @@ function buildEdges(nodes, areas) {
             submapFlags: hex(transition.target.submapFlags, 2)
           }
         },
+        transitionSemantics: semantics,
         sourceRecord: area.areaRecord,
         note: resolved.node
           ? `${source.name} exits ${side} to ${resolved.node.name}.`
@@ -363,6 +462,14 @@ function shortestAreaPath(areas, edges, startAreaId, targetAreaId) {
 
 function summarize(nodes, areas, edges, routes) {
   const boundaryEdges = edges.filter((edge) => edge.type === 'boundary-transition');
+  const transitionClasses = {};
+  const placementModes = {};
+  for (const edge of edges) {
+    const transitionClass = edge.transitionSemantics?.transitionClass || 'unclassified';
+    const placementMode = edge.transitionSemantics?.placementMode || 'unclassified';
+    transitionClasses[transitionClass] = (transitionClasses[transitionClass] || 0) + 1;
+    placementModes[placementMode] = (placementModes[placementMode] || 0) + 1;
+  }
   return {
     nodes: nodes.length,
     areas: areas.length,
@@ -370,6 +477,9 @@ function summarize(nodes, areas, edges, routes) {
     submapSequenceEdges: edges.filter((edge) => edge.type === 'submap-sequence').length,
     boundaryTransitionEdges: boundaryEdges.length,
     unresolvedBoundaryEdges: boundaryEdges.filter((edge) => !edge.target).length,
+    connectorOnlyEdges: edges.filter((edge) => edge.transitionSemantics?.placementMode === 'connector-only').length,
+    transitionClasses,
+    placementModes,
     templatePendingNodes: nodes.filter((node) => node.templateStatus === 'template-pending').length,
     routeCount: routes.length
   };
@@ -401,6 +511,7 @@ function buildExteriorTopology(rom, info) {
       notes: [
         'Topology edges come from area-record transition triples at offsets 3..8.',
         'Submap sequence edges come from cv2r submap order within one area record.',
+        'Transition semantics separate ordinary adjacency from connector-only candidates such as tornado transport.',
         'This is an adjacency graph, not final world-coordinate placement.'
       ]
     },

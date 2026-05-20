@@ -38,6 +38,10 @@ There are two edge families:
 Each `boundary-transition` preserves its raw three-byte transition tuple and
 decoded marker kind.
 
+Each edge also carries `transitionSemantics`. This separates ordinary
+left/right adjacency from connector-only candidates where the endpoint is known
+but the world coordinate is not yet decoded.
+
 ## Transition Bytes
 
 Area records are read through bank `2:$F7AB`. For each area:
@@ -74,10 +78,30 @@ The current pass emits:
 | Submap sequence edges | 23 |
 | Boundary transition edges | 64 |
 | Unresolved boundary targets | 1 |
+| Connector-only edges | 1 |
 | Template-pending mansion-door nodes | 5 |
 
 The unresolved boundary target is `obj00-area09`, an excluded interior room.
 It remains in metadata as a non-atlas target rather than being hidden.
+
+Transition semantics currently classify:
+
+| Transition class | Count |
+| --- | ---: |
+| `same-area-submap-sequence` | 23 |
+| `object-set-boundary` | 42 |
+| `object-set-load-boundary` | 4 |
+| `same-object-set-boundary` | 15 |
+| `same-object-set-load-boundary` | 1 |
+| `special-transport-candidate` | 1 |
+| `unresolved-target` | 1 |
+
+The connector-only edge is
+`obj04-area01-sub00 -> obj01-area04-sub00`: Deborah Cliff (In Tornado) to
+Bodley Mansion - Door. The ROM transition bytes still identify the endpoint,
+but `cv2r` location metadata marks the source as a tornado submap, so the
+composition pass treats it as a connector until the transport coordinates are
+decoded.
 
 ## Demo Path
 
