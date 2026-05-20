@@ -39,19 +39,23 @@ The analyzer writes:
 - `analysis.json`: durable transition evidence
 - `analysis-data.js`: browser-friendly copy for demos
 
-## Initial Probe Set
+## Current Probe Set
 
-The first probe set intentionally covers only two round trips:
+The current probe set intentionally stays small, but it now covers normal
+horizontal edges, an interior entry/exit pair, a final-area edge with a real
+visible Y change, and a Dora edge with a vertical camera-plane change:
 
 - Jova Woods left edge to Town of Jova, then back into Jova Woods
 - Doina church interior exit to Town of Doina, then re-entry by pressing up
+- Castlevania entrance walking left to Castlevania Bridge
+- Dora Woods - Part 3 walking left to Dora Woods - Part 2
 
 The Jova Woods return uses a short settle window so the script records the
 post-transition context before enemies can interfere with Simon.
 
 ## Findings
 
-All four scoped transitions completed without timeout.
+All six scoped transitions completed without timeout.
 
 | Transition | Input | Frames to target | Runtime context change | Simon X evidence |
 | --- | --- | ---: | --- | --- |
@@ -59,6 +63,8 @@ All four scoped transitions completed without timeout.
 | Jova to Jova Woods | right | 21 | `$30` `00 -> 02`, `$3D/$3E` `9FE4 -> 90AC`, `$51` `80 -> 00`, `$63/$64` `841D -> 8CF4` | `$0348` `E9 -> 10`, OAM center `10` |
 | Doina church to Doina | left | 4 | `$50` `07 -> 05` | `$0348` `10 -> 80`, OAM center `80` |
 | Doina to Doina church | up | 4 | `$50` `05 -> 07`, `$3D/$3E` `8EDD -> 91A1` | `$0348` `80 -> 10`, OAM center `10` |
+| Castlevania to Castlevania Bridge | left | 5 | `$30` `05 -> 04`, `$50` `00 -> 03`, `$51` `00 -> 81`, `$63/$64` `9A3F -> 9620` | `$0348` `11 -> E9`, OAM center `E9` |
+| Dora Woods - Part 3 to Dora Woods - Part 2 | left | 4 | `$50` `09 -> 08`, `$51` `00 -> 82` | `$0348` `11 -> E9`, OAM center `E9` |
 
 These traces confirm that the known runtime context bytes are enough to detect
 the transition target quickly:
@@ -69,18 +75,21 @@ the transition target quickly:
 - `$3D/$3E`: actor pointer
 - `$63/$64`: runtime tile-set pointer
 
-The first destination-position probe resolves Simon's screen-center X for the
-scoped transition families. Low RAM `$0348` matches the OAM-derived Simon
-sprite-cluster center in all four transitions and is written during each step:
+The destination-position probe resolves Simon's screen-center X for the scoped
+transition families. Sprite-staging RAM `$0348` matches the OAM-derived Simon
+sprite-cluster center in all six transitions and is written during each step:
 
 - `woods-to-jova`: `$0348 = $E9`, OAM center X `$E9`
 - `jova-to-woods`: `$0348 = $10`, OAM center X `$10`
 - `church-to-doina`: `$0348 = $80`, OAM center X `$80`
 - `doina-to-church`: `$0348 = $10`, OAM center X `$10`
+- `castlevania-to-bridge`: `$0348 = $E9`, OAM center X `$E9`
+- `dora-part-3-to-part-2`: `$0348 = $E9`, OAM center X `$E9`
 
-This is high-confidence for screen X within the current horizontal/interior
-probe set. It does not yet prove vertical destination Y, full camera state, or
-special-transport placement.
+This is high-confidence for screen X within the current horizontal/interior and
+edge-transition probe set. The candidate scorer now favors written
+sprite-staging bytes so `$0348` is not buried under incidental zero-value RAM
+matches.
 
 The camera/scroll pass now compares the same before/after CPU snapshots against
 decoded PPU scroll state. It keeps these candidates separate from Simon position
@@ -88,9 +97,9 @@ so incidental zero matches do not hide scroll-specific evidence.
 
 | Metric | RAM candidate | Probe support | Write evidence | Confidence |
 | --- | --- | --- | --- | --- |
-| Scroll Y low byte | `$00FC` | Jova Woods to Jova, then Jova to Jova Woods | Repeated writes from `7:$D2F5` | High within the scoped outdoor pair |
-| Scroll X low byte | `$00FD` | Doina church exit, then re-entry | Repeated writes from `7:$D2F9` | High within the scoped church pair |
-| Scroll X low byte mirror | `$0053` | Doina church exit, then re-entry | Writes from `7:$E7E2`/`7:$E76F` | High match, likely a mirror or render-facing copy |
+| Scroll Y low byte | `$00FC` | Jova Woods both ways and Castlevania to Bridge | Repeated writes from `7:$D2F5` | Diagnostic after Dora adds a scroll-Y change that does not match this low byte |
+| Scroll X low byte | `$00FD` | Doina church exit, then re-entry | Repeated writes from `7:$D2F9` | Diagnostic after Dora adds an unmatched scroll-X change |
+| Nametable Y bit | `$0012`, `$00AF`, `$00C7` | Dora Woods - Part 3 to Part 2 | Writes outside the transition routine | High match for the scoped Dora camera-plane change, still diagnostic as a placement rule |
 
 The PPU scroll itself changes as follows:
 
@@ -98,12 +107,20 @@ The PPU scroll itself changes as follows:
 - `jova-to-woods`: scroll X/Y `256,211 -> 0,227`
 - `church-to-doina`: scroll X/Y `0,227 -> 498,227`
 - `doina-to-church`: scroll X/Y `498,227 -> 0,227`
+- `castlevania-to-bridge`: scroll X/Y `0,33 -> 256,227`
+- `dora-part-3-to-part-2`: scroll X/Y `16,240 -> 256,0`
 
-Destination Y is deliberately not promoted yet. All four current transitions
-place Simon at the same OAM-derived center Y, `$BA`, so the fixture set cannot
-distinguish a real Y field from any byte that merely happens to hold the same
-value. The analyzer records this as `blocked-non-varying-fixture-set` and keeps
-weak, unwritten `$0730/$0732` matches as diagnostic only.
+Destination Y is deliberately not promoted yet. Castlevania is the first
+scoped fixture that changes Simon's visible Y, moving from center `$8C` to
+`$BA`. The lead diagnostic candidate is zero-page `$0073`: it is written by
+the fixed-bank transition routine at `7:$D1AD` and lands on Simon's final
+sprite top, `$AE`, for the Castlevania-to-Bridge step.
+
+Dora Woods - Part 3 to Dora Woods - Part 2 is an important counterpoint:
+it changes vertical camera/nametable state, but Simon's visible Y stays
+`$6D -> $6D`. That means the project should decode player placement and camera
+placement as separate outputs instead of treating every vertically interesting
+edge as a Simon-Y transition.
 
 The focused write trace also confirms that the fixed-bank transition routine
 around `7:$D0B0-$D260` writes runtime context and loader state during the
@@ -122,11 +139,11 @@ composition rules without area-specific placement guesses.
 
 ## Limits
 
-- This milestone validates only one normal outdoor horizontal round trip and one
-  town-interior round trip.
-- It does not yet prove vertical transitions, doors, mansion entrances, or
-  special transports.
-- It resolves Simon screen-center X and scoped scroll low-byte candidates, but
-  it does not yet promote final map placement rules.
-- It cannot resolve destination Y until a transition fixture lands Simon at a
-  different visible height.
+- This milestone validates one normal outdoor horizontal round trip, one
+  town-interior round trip, one final-area Y delta, and one Dora camera-plane
+  transition.
+- It does not yet prove doors, mansion entrances, or special transports.
+- It resolves Simon screen-center X, but it does not yet promote final map
+  placement rules.
+- Destination Y still needs either another true visible-Y fixture or a decoded
+  ROM-table explanation for the `$70-$73` transition-routine bytes.

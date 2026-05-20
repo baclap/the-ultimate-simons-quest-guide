@@ -50,3 +50,6 @@ Current demos:
   transition probes.
 - `2026-05-20-camera-scroll-demo/`: camera scroll evidence demo showing scoped
   scroll low-byte candidates and the explicit destination-Y fixture gap.
+- `2026-05-20-destination-y-probe-demo/`: destination and camera probe demo
+  showing Castlevania's first visible Simon Y delta, Dora Woods' camera-plane
+  transition, and the `$70-$73` transition-routine decoding target.

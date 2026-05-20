@@ -80,6 +80,58 @@
           }
         }
       ]
+    },
+    {
+      "id": "castlevania-bridge-left",
+      "label": "Castlevania entrance to Castlevania Bridge",
+      "state": "out/states/castlevania.mss",
+      "location": "Castlevania",
+      "variant": "fixed",
+      "access": "castlevania-final-area",
+      "preSettleFrames": 30,
+      "timeout": 45,
+      "reason": "Potential vertical-varying transition: Simon starts at the high Castlevania entrance and walking left should land on the lower Castlevania Bridge plane.",
+      "steps": [
+        {
+          "id": "castlevania-to-bridge",
+          "label": "Walk left from Castlevania entrance to Castlevania Bridge",
+          "type": "final-area-exit",
+          "input": "left",
+          "maxFrames": 420,
+          "settleFrames": 30,
+          "targetContext": {
+            "objset": "0x04",
+            "area": "0x03",
+            "submap": "0x01"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dora-woods-part-3-left",
+      "label": "Dora Woods - Part 3 to Dora Woods - Part 2",
+      "state": "out/states/dora-woods-part-3-day.mss",
+      "location": "Dora Woods - Part 3",
+      "variant": "day",
+      "access": "outdoor",
+      "preSettleFrames": 30,
+      "timeout": 45,
+      "reason": "Second vertical-varying outdoor transition: Simon starts on the left edge of Dora Woods - Part 3 and walking left should land in Dora Woods - Part 2 near the staircase down to Yomi.",
+      "steps": [
+        {
+          "id": "dora-part-3-to-part-2",
+          "label": "Walk left from Dora Woods - Part 3 to Dora Woods - Part 2",
+          "type": "outdoor-horizontal-vertical-delta",
+          "input": "left",
+          "maxFrames": 420,
+          "settleFrames": 30,
+          "targetContext": {
+            "objset": "0x02",
+            "area": "0x08",
+            "submap": "0x02"
+          }
+        }
+      ]
     }
   ]
 }

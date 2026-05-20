@@ -56,6 +56,19 @@ function hex(value, width = 2) {
   return `0x${Number(value).toString(16).toUpperCase().padStart(width, '0')}`;
 }
 
+function memoryRegionName(address) {
+  if (address <= 0x00ff) {
+    return 'zero-page';
+  }
+  if (address >= 0x0200 && address <= 0x02ff) {
+    return 'oam-shadow';
+  }
+  if (address >= 0x0300 && address <= 0x03ff) {
+    return 'sprite-staging';
+  }
+  return 'low-ram';
+}
+
 function parseInteger(value, label) {
   if (Number.isInteger(value)) {
     return value;
@@ -556,7 +569,7 @@ function scoreCameraCandidates(beforeCpu, afterCpu, writes, beforePpu, afterPpu)
         strength,
         address,
         addressHex: hex(address, 4),
-        memoryRegion: address <= 0x00ff ? 'zero-page' : 'low-ram',
+        memoryRegion: memoryRegionName(address),
         before,
         beforeHex: hex(before, 2),
         after,
@@ -636,10 +649,13 @@ function scorePositionCandidates(changes, writes, beforeCluster, afterCluster, b
     const addressWrites = writesForAddress(writes, change.address);
     const routineWrites = addressWrites.filter((write) => write.pc >= TRANSITION_ROUTINE_START && write.pc <= TRANSITION_ROUTINE_END);
     if (addressWrites.length > 0) {
-      score += 1;
+      score += 4;
     }
     if (routineWrites.length > 0) {
       score += 2;
+    }
+    if (memoryRegionName(change.address) === 'sprite-staging') {
+      score += 3;
     }
     if (matches.length === 0 && score < 3) {
       continue;
@@ -649,7 +665,7 @@ function scorePositionCandidates(changes, writes, beforeCluster, afterCluster, b
     candidates.push({
       address: change.address,
       addressHex: change.addressHex,
-      memoryRegion: change.address <= 0x00ff ? 'zero-page' : 'low-ram',
+      memoryRegion: memoryRegionName(change.address),
       before: change.before,
       beforeHex: change.beforeHex,
       after: change.after,
@@ -668,7 +684,134 @@ function scorePositionCandidates(changes, writes, beforeCluster, afterCluster, b
     });
   }
 
-  return candidates.sort((left, right) => right.score - left.score || left.address - right.address).slice(0, 16);
+  return candidates.sort((left, right) => right.score - left.score || left.address - right.address).slice(0, 96);
+}
+
+function yMetrics(cluster) {
+  if (!cluster) {
+    return [];
+  }
+  return [
+    'ySpriteMin',
+    'ySpriteMax',
+    'yMin',
+    'yMax',
+    'yCenter'
+  ].map((name) => ({
+    source: 'simonSpriteCluster',
+    name,
+    value: cluster.bounds[name]
+  }));
+}
+
+function destinationYCandidateKind(address, writes) {
+  if (address >= 0x0200 && address <= 0x02ff) {
+    return 'oam-shadow-copy';
+  }
+  const transitionRoutineWrites = writes.filter((write) => (
+    write.pc >= TRANSITION_ROUTINE_START && write.pc <= TRANSITION_ROUTINE_END
+  ));
+  if (transitionRoutineWrites.length > 0) {
+    return 'transition-routine-byte';
+  }
+  if (writes.length > 0) {
+    return 'written-ram';
+  }
+  return 'unwritten-ram';
+}
+
+function scoreDestinationYCandidates(changes, writes, beforeCluster, afterCluster) {
+  const beforeMetrics = yMetrics(beforeCluster);
+  const afterMetrics = yMetrics(afterCluster);
+  const candidates = [];
+
+  for (const change of changes) {
+    if (change.address > POSITION_CANDIDATE_RAM_LIMIT || change.label) {
+      continue;
+    }
+
+    const matches = [];
+    let score = 0;
+    for (const afterMetric of afterMetrics) {
+      const beforeMetric = beforeMetrics.find((item) => item.name === afterMetric.name);
+      if (!beforeMetric) {
+        continue;
+      }
+      const beforeMatches = change.before === beforeMetric.value;
+      const afterMatches = change.after === afterMetric.value;
+      const deltaMatches = byteDelta(change.before, change.after) === byteDelta(beforeMetric.value, afterMetric.value);
+      if (beforeMatches && afterMatches) {
+        score += 10;
+        matches.push({
+          strength: 'strong',
+          metric: afterMetric.name,
+          before: hex(beforeMetric.value, 2),
+          after: hex(afterMetric.value, 2)
+        });
+      } else if (afterMatches) {
+        score += 4;
+        matches.push({
+          strength: 'after-match',
+          metric: afterMetric.name,
+          after: hex(afterMetric.value, 2)
+        });
+      } else if (deltaMatches) {
+        score += 2;
+        matches.push({
+          strength: 'delta-match',
+          metric: afterMetric.name,
+          before: hex(beforeMetric.value, 2),
+          after: hex(afterMetric.value, 2)
+        });
+      }
+    }
+
+    if (matches.length === 0) {
+      continue;
+    }
+
+    const addressWrites = writesForAddress(writes, change.address);
+    const transitionRoutineWrites = addressWrites.filter((write) => (
+      write.pc >= TRANSITION_ROUTINE_START && write.pc <= TRANSITION_ROUTINE_END
+    ));
+    if (addressWrites.length > 0) {
+      score += 1;
+    }
+    if (transitionRoutineWrites.length > 0) {
+      score += 3;
+    }
+
+    const lastWrite = addressWrites[addressWrites.length - 1];
+    candidates.push({
+      address: change.address,
+      addressHex: change.addressHex,
+      memoryRegion: memoryRegionName(change.address),
+      candidateKind: destinationYCandidateKind(change.address, addressWrites),
+      before: change.before,
+      beforeHex: change.beforeHex,
+      after: change.after,
+      afterHex: change.afterHex,
+      score,
+      matches,
+      writeCount: addressWrites.length,
+      transitionRoutineWrites: transitionRoutineWrites.length,
+      lastWrite: lastWrite ? {
+        frame: lastWrite.frame,
+        stepFrame: lastWrite.stepFrame,
+        pc: lastWrite.pcHex,
+        value: lastWrite.valueHex,
+        event: lastWrite.event
+      } : undefined,
+      topWritePcs: summarizePcs(addressWrites).slice(0, 5)
+    });
+  }
+
+  return candidates.sort((left, right) => (
+    Number(right.candidateKind === 'transition-routine-byte') - Number(left.candidateKind === 'transition-routine-byte') ||
+    Number(right.writeCount > 0) - Number(left.writeCount > 0) ||
+    right.score - left.score ||
+    left.address - right.address
+  )).slice(0, 16);
 }
 
 function diffCpu(before, after) {
@@ -809,24 +952,20 @@ function summarizeDestinationY(steps) {
     .map((observation) => observation.afterCenter)
     .filter((value) => value != null))];
   const transitionsWithYDelta = observations.filter((observation) => observation.changed).length;
-  const diagnosticCandidates = [];
   const groups = new Map();
 
   for (const step of steps) {
-    for (const candidate of step.positionCandidates || []) {
-      const yMatches = (candidate.matches || []).filter((match) => (
-        match.source === 'simonSpriteCluster' && /^y/.test(match.metric)
-      ));
-      if (yMatches.length === 0) {
-        continue;
-      }
+    for (const candidate of step.destinationYCandidates || []) {
       const key = candidate.addressHex;
       if (!groups.has(key)) {
         groups.set(key, {
           addressHex: candidate.addressHex,
           memoryRegion: candidate.memoryRegion,
+          candidateKind: candidate.candidateKind,
           steps: [],
-          writeCounts: []
+          writeCounts: [],
+          transitionRoutineWriteCounts: [],
+          scores: []
         });
       }
       const group = groups.get(key);
@@ -834,7 +973,8 @@ function summarizeDestinationY(steps) {
         stepId: step.id,
         before: candidate.beforeHex,
         after: candidate.afterHex,
-        matches: yMatches.map((match) => ({
+        candidateKind: candidate.candidateKind,
+        matches: (candidate.matches || []).map((match) => ({
           strength: match.strength,
           metric: match.metric,
           before: match.before,
@@ -844,34 +984,70 @@ function summarizeDestinationY(steps) {
         lastWritePc: candidate.lastWrite && candidate.lastWrite.pc
       });
       group.writeCounts.push(candidate.writeCount);
+      group.transitionRoutineWriteCounts.push(candidate.transitionRoutineWrites);
+      group.scores.push(candidate.score);
     }
   }
 
-  for (const group of groups.values()) {
-    diagnosticCandidates.push({
+  const diagnosticCandidates = [...groups.values()].map((group) => {
+    const matchedDeltaSteps = group.steps.filter((entry) => {
+      const observation = observations.find((item) => item.stepId === entry.stepId);
+      return observation?.changed;
+    }).length;
+    const totalWrites = group.writeCounts.reduce((sum, count) => sum + count, 0);
+    const totalTransitionRoutineWrites = group.transitionRoutineWriteCounts.reduce((sum, count) => sum + count, 0);
+    return {
       ...group,
       matchedSteps: group.steps.length,
-      totalWrites: group.writeCounts.reduce((sum, count) => sum + count, 0),
-      confidence: 'diagnostic'
-    });
-  }
+      matchedDeltaSteps,
+      minScore: Math.min(...group.scores),
+      totalWrites,
+      totalTransitionRoutineWrites,
+      confidence: transitionsWithYDelta > 1 &&
+        matchedDeltaSteps === transitionsWithYDelta &&
+        totalWrites > 0 &&
+        group.candidateKind !== 'oam-shadow-copy'
+        ? 'high'
+        : 'diagnostic'
+    };
+  });
 
   diagnosticCandidates.sort((left, right) => (
+    Number(right.candidateKind === 'transition-routine-byte') - Number(left.candidateKind === 'transition-routine-byte') ||
+    Number(right.candidateKind !== 'oam-shadow-copy') - Number(left.candidateKind !== 'oam-shadow-copy') ||
+    right.totalTransitionRoutineWrites - left.totalTransitionRoutineWrites ||
     right.totalWrites - left.totalWrites ||
+    right.minScore - left.minScore ||
     right.matchedSteps - left.matchedSteps ||
     left.addressHex.localeCompare(right.addressHex)
   ));
 
+  let status = 'blocked-non-varying-fixture-set';
+  if (afterCenters.length > 1 || transitionsWithYDelta > 0) {
+    const hasHigh = diagnosticCandidates.some((candidate) => candidate.confidence === 'high');
+    const hasTransitionRoutine = diagnosticCandidates.some((candidate) => candidate.candidateKind === 'transition-routine-byte');
+    const hasWrittenNonOam = diagnosticCandidates.some((candidate) => (
+      candidate.totalWrites > 0 && candidate.candidateKind !== 'oam-shadow-copy'
+    ));
+    if (hasHigh) {
+      status = 'resolved-high-confidence';
+    } else if (hasTransitionRoutine) {
+      status = 'transition-routine-y-candidate';
+    } else if (hasWrittenNonOam) {
+      status = 'written-y-candidate';
+    } else {
+      status = 'oam-shadow-only-y-delta';
+    }
+  }
+
   return {
-    status: afterCenters.length > 1 || transitionsWithYDelta > 0
-      ? 'diagnostic-candidates-available'
-      : 'blocked-non-varying-fixture-set',
+    status,
     observedAfterCenters: afterCenters.map((value) => hex(value, 2)),
     uniqueAfterCenters: afterCenters.length,
     transitionsWithYDelta,
     observations,
     diagnosticCandidates: diagnosticCandidates.slice(0, 8),
-    nextFixtureNeeded: afterCenters.length > 1 || transitionsWithYDelta > 0
+    nextFixtureNeeded: status !== 'blocked-non-varying-fixture-set'
       ? undefined
       : 'A transition fixture whose destination places Simon at a different visible Y position, such as a safe stair or vertical screen transition.'
   };
@@ -906,6 +1082,12 @@ function analyzeProbeOutput(probe, outDir) {
     const afterClusters = clusterSprites(decodeOam(afterOam));
     const beforeSimon = beforeClusters[0];
     const afterSimon = afterClusters[0];
+    const destinationYCandidates = scoreDestinationYCandidates(
+      changes,
+      stepWrites,
+      beforeSimon,
+      afterSimon
+    );
     const scrollMetrics = scrollMetricComparisons(firstRow, finalRow);
     const cameraCandidates = scoreCameraCandidates(
       before,
@@ -957,6 +1139,7 @@ function analyzeProbeOutput(probe, outDir) {
         changedMetrics: scrollMetrics.filter((metric) => metric.changed),
         stableWrittenCandidates: cameraCandidates.filter((candidate) => candidate.strength === 'stable-written-match').slice(0, 8)
       },
+      destinationYCandidates,
       ramWriteEvidence: summarizeWrites(stepWrites, changes),
       cameraCandidates,
       positionCandidates,
@@ -992,12 +1175,12 @@ function summarizeAnalysis(probes) {
   const positionGroups = new Map();
   for (const step of steps) {
     for (const candidate of step.positionCandidates || []) {
-      const hasStrongXCenter = (candidate.matches || []).some((match) => (
-        match.strength === 'strong' &&
+      const xCenterMatch = (candidate.matches || []).find((match) => (
+        (match.strength === 'strong' || match.strength === 'after-match') &&
         match.source === 'simonSpriteCluster' &&
         match.metric === 'xCenter'
       ));
-      if (!hasStrongXCenter) {
+      if (!xCenterMatch) {
         continue;
       }
       if (!positionGroups.has(candidate.addressHex)) {
@@ -1014,6 +1197,7 @@ function summarizeAnalysis(probes) {
         stepId: step.id,
         value: candidate.afterHex,
         score: candidate.score,
+        matchStrength: xCenterMatch.strength,
         lastWritePc: candidate.lastWrite && candidate.lastWrite.pc
       });
       group.scores.push(candidate.score);

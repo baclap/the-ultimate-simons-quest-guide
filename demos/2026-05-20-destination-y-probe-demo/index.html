@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Destination and Camera Probe</title>
+  <link rel="stylesheet" href="styles.css?v=destination-y-2">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Destination and camera probe</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/5</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide active" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>Two new edge probes separate player Y from camera plane</h1>
+        <p class="lede">Castlevania-to-Bridge gives us the first true Simon Y delta. Dora Woods - Part 3-to-Part 2 changes camera and nametable state, but Simon keeps the same visible Y.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="callout" id="candidate-callout"></div>
+    </section>
+
+    <section class="slide" data-hash="delta">
+      <div class="copy narrow">
+        <p class="eyebrow">OAM Evidence</p>
+        <h2>Only one scoped transition changes Simon's visible Y</h2>
+        <p>The Castlevania step starts at center Y <code>0x8C</code> and lands at <code>0xBA</code>. Dora Woods starts and lands at <code>0x6D</code>, even though the camera plane changes.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="delta-table">
+          <thead>
+            <tr>
+              <th>Transition</th>
+              <th>Before Y</th>
+              <th>After Y</th>
+              <th>Delta</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="candidate">
+      <div class="copy narrow">
+        <p class="eyebrow">Y Candidate</p>
+        <h2><code>$0073</code> is the lead diagnostic Y clue</h2>
+        <p>The strongest useful candidate is not the OAM shadow. It is a zero-page byte written by the transition routine that lands on Simon's bridge-side sprite top.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="candidate-table">
+          <thead>
+            <tr>
+              <th>Candidate</th>
+              <th>Kind</th>
+              <th>Matched value</th>
+              <th>Write evidence</th>
+              <th>Confidence</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="camera">
+      <div class="copy narrow">
+        <p class="eyebrow">Camera Evidence</p>
+        <h2>Dora adds a vertical camera-plane transition</h2>
+        <p>Dora Woods - Part 3-to-Part 2 changes nametable Y and scroll state while Simon's visible Y remains fixed, so placement and camera must be decoded as separate outputs.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="scroll-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>RAM field</th>
+              <th>Matched steps</th>
+              <th>Last write</th>
+              <th>Confidence</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Demo Goal</p>
+        <h2>Decode the transition routine bytes behind <code>$70-$73</code></h2>
+        <p>The next step is tying the observed transition bytes back to ROM tables so the composer can infer player placement and camera state without save-state-specific rules.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/transition-probes/analysis-data.js?v=destination-y-2"></script>
+  <script src="slides.js?v=destination-y-2"></script>
+</body>
+</html>
