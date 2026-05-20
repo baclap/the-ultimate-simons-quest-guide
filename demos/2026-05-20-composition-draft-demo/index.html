@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Composition Draft</title>
+  <link rel="stylesheet" href="styles.css?v=composition-draft-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Composition draft</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/5</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide active" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>First route composition from ROM-derived topology</h1>
+        <p class="lede">The renderer now takes recipe-atlas segments and places the Jova-to-Castlevania route using decoded ROM transition constraints. The result is a draft layout with explicit provenance, not a hand-placed world map.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="hero-map">
+        <img src="assets/exterior-composition/composition.png?v=composition-draft-1" alt="ROM-derived exterior route composition draft">
+      </div>
+    </section>
+
+    <section class="slide" data-hash="map">
+      <div class="copy narrow">
+        <p class="eyebrow">Composition</p>
+        <h2>The route is placed as connected layout-space segments</h2>
+        <p>Each area image comes from the recipe atlas. Left/right relationships come from ROM boundary transitions; the only row break is labeled as generic overlap avoidance.</p>
+      </div>
+      <div class="map-stage">
+        <img src="assets/exterior-composition/composition.png?v=composition-draft-1" alt="Full composition draft">
+      </div>
+    </section>
+
+    <section class="slide" data-hash="traceability">
+      <div class="copy narrow">
+        <p class="eyebrow">Traceability</p>
+        <h2>Every route jump keeps its transition bytes</h2>
+        <p>The table below is generated from `composition.json`: the placement relation, source edge, and raw transition tuple remain attached to the rendered route.</p>
+      </div>
+      <div class="constraint-table" id="constraint-table"></div>
+    </section>
+
+    <section class="slide" data-hash="provenance">
+      <div class="copy narrow">
+        <p class="eyebrow">Decoded vs Inferred</p>
+        <h2>The draft separates ROM facts from solver choices</h2>
+        <p>This is the shape we want for future work: decode more tables first, mark any remaining solver guesses plainly, and avoid hiding game-specific knowledge inside renderer branches.</p>
+      </div>
+      <div class="provenance-grid" id="provenance-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Demo Goal</p>
+        <h2>Move from route composition to full graph composition</h2>
+        <p>The next useful milestone is to compose every exterior area from the topology graph, then replace the one inferred row shift with decoded vertical or entrance-position evidence where the ROM provides it.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/exterior-composition/composition-data.js?v=composition-draft-1"></script>
+  <script src="slides.js?v=composition-draft-1"></script>
+</body>
+</html>

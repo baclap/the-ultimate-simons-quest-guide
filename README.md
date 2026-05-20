@@ -25,6 +25,8 @@ The current vertical slice includes:
   against ROM-derived selector data
 - renders a confidence-labeled recipe atlas with validated/projected day,
   night, and fixed variants
+- composes the Jova-to-Castlevania exterior route from ROM-derived topology
+  constraints and recipe-atlas segments, with inferred solver shifts labeled
 - resolves human-facing labels through the Nintendo Power map naming policy
   while preserving `cv2r` source names
 
@@ -74,6 +76,7 @@ npm run render:segment:jova-woods
 npm run render:route:jova-to-veros
 npm run render:atlas:exterior
 npm run render:topology:exterior
+npm run render:composition:exterior
 ```
 
 You can also pass paths directly:
@@ -92,6 +95,7 @@ node src/index.js render-layout-segment-png --rom roms/cv2.nes --segment jova-wo
 node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-veros-outdoor-day --out out/layout-routes/jova-to-veros-outdoor-day.png
 node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas
 node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology
+node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition
 node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit
 node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas
 ```
@@ -114,6 +118,7 @@ demos/2026-05-19-render-recipe-audit-demo/index.html
 demos/2026-05-19-recipe-resolver-demo/index.html
 demos/2026-05-19-objset4-recipe-demo/index.html
 demos/2026-05-19-recipe-completeness-demo/index.html
+demos/2026-05-20-composition-draft-demo/index.html
 ```
 
 ## Next Milestone
@@ -174,13 +179,20 @@ projected variants from validated recipe families, with no diagnostic render
 families remaining. Castlevania is modeled as a fixed-palette final area, not a
 day/night exterior. See `docs/render-recipe-atlas-notes.md`.
 
+`npm run render:composition:exterior` composes the Jova-to-Castlevania route
+from the ROM-derived topology graph and recipe-atlas segments. It currently
+places 14 route areas and 21 rendered nodes, with 13 ROM-derived boundary
+constraints, zero unresolved links, and one generic overlap-avoidance row shift
+explicitly marked as inferred. See `docs/exterior-composition-notes.md`.
+
 Human-facing location names now follow the Nintendo Power map where the scan is
 legible, with `cv2r` labels preserved as `sourceName`. See
 `docs/location-naming-policy.md`.
 
 The intended path is:
 
-1. turn exterior topology into coordinate-aware full-map composition
-2. validate remaining mansion-door layout/crop assumptions
-3. connect validated exteriors/interiors/final-area segments into final PNG and optional canvas outputs
-4. preserve day, night, and fixed variants as first-class outputs
+1. expand route composition into full exterior graph composition
+2. decode or validate vertical transition and entrance-position rules
+3. validate remaining mansion-door layout/crop assumptions
+4. connect validated exteriors/interiors/final-area segments into final PNG and optional canvas outputs
+5. preserve day, night, and fixed variants as first-class outputs

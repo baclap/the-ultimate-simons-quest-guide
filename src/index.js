@@ -24,6 +24,7 @@ const {
   renderExteriorAtlas
 } = require('./exterior-atlas');
 const { renderExteriorTopology } = require('./exterior-topology');
+const { renderExteriorComposition } = require('./exterior-composition');
 const {
   auditRenderRecipes,
   captureRenderRecipeFixtures
@@ -104,6 +105,7 @@ function usage() {
     '  node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-veros-outdoor-day --out out/layout-routes/jova-to-veros-outdoor-day.png',
     '  node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas',
     '  node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology',
+    '  node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition',
     '  node src/index.js capture-render-recipe-fixtures --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json',
     '  node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit',
     '  node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas',
@@ -130,6 +132,7 @@ function usage() {
     '  render-layout-route-png  Render connected ROM-native layout-space segments into one route PNG.',
     '  render-exterior-atlas  Render exterior candidate layout-space segments and a manifest.',
     '  render-exterior-topology  Decode exterior area transition topology and write graph data.',
+    '  render-exterior-composition  Compose a topology route from ROM-derived transition constraints.',
     '  capture-render-recipe-fixtures  Capture configured save-state probes for recipe auditing.',
     '  audit-render-recipes  Audit live capture evidence against ROM-derived render recipe tables.',
     '  render-recipe-atlas  Render validated/projected atlas variants from audited render recipes.',
@@ -635,6 +638,22 @@ function renderExteriorTopologyCommand(args) {
   });
 }
 
+function renderExteriorCompositionCommand(args) {
+  const romPath = required(args, 'rom');
+  const outDir = args.out ? String(args.out) : path.join('out', 'exterior-composition');
+  const { info } = readRom(romPath);
+  printJson({
+    rom: describeRom(info),
+    composition: renderExteriorComposition({
+      topologyFile: args.topology ? String(args.topology) : undefined,
+      recipeAtlasFile: args.atlas ? String(args.atlas) : undefined,
+      routeId: args.route ? String(args.route) : undefined,
+      variant: args.variant ? String(args.variant) : undefined,
+      outDir
+    })
+  });
+}
+
 function captureRenderRecipeFixturesCommand(args) {
   const romPath = required(args, 'rom');
   printJson(captureRenderRecipeFixtures({
@@ -785,6 +804,11 @@ function main() {
 
   if (command === 'render-exterior-topology') {
     renderExteriorTopologyCommand(args);
+    return;
+  }
+
+  if (command === 'render-exterior-composition') {
+    renderExteriorCompositionCommand(args);
     return;
   }
 

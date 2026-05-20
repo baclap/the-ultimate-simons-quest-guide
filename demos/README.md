@@ -36,3 +36,6 @@ Current demos:
 - `2026-05-19-recipe-completeness-demo/`: recipe completeness demo showing
   North Bridge night, Castlevania final area, fixed variants, and zero
   diagnostic recipe families.
+- `2026-05-20-composition-draft-demo/`: first route composition demo showing
+  the Jova-to-Castlevania path placed from ROM-derived topology constraints,
+  with the one solver-inferred row shift called out explicitly.
