@@ -82,13 +82,36 @@ This is high-confidence for screen X within the current horizontal/interior
 probe set. It does not yet prove vertical destination Y, full camera state, or
 special-transport placement.
 
+The camera/scroll pass now compares the same before/after CPU snapshots against
+decoded PPU scroll state. It keeps these candidates separate from Simon position
+so incidental zero matches do not hide scroll-specific evidence.
+
+| Metric | RAM candidate | Probe support | Write evidence | Confidence |
+| --- | --- | --- | --- | --- |
+| Scroll Y low byte | `$00FC` | Jova Woods to Jova, then Jova to Jova Woods | Repeated writes from `7:$D2F5` | High within the scoped outdoor pair |
+| Scroll X low byte | `$00FD` | Doina church exit, then re-entry | Repeated writes from `7:$D2F9` | High within the scoped church pair |
+| Scroll X low byte mirror | `$0053` | Doina church exit, then re-entry | Writes from `7:$E7E2`/`7:$E76F` | High match, likely a mirror or render-facing copy |
+
+The PPU scroll itself changes as follows:
+
+- `woods-to-jova`: scroll X/Y `0,227 -> 256,211`
+- `jova-to-woods`: scroll X/Y `256,211 -> 0,227`
+- `church-to-doina`: scroll X/Y `0,227 -> 498,227`
+- `doina-to-church`: scroll X/Y `498,227 -> 0,227`
+
+Destination Y is deliberately not promoted yet. All four current transitions
+place Simon at the same OAM-derived center Y, `$BA`, so the fixture set cannot
+distinguish a real Y field from any byte that merely happens to hold the same
+value. The analyzer records this as `blocked-non-varying-fixture-set` and keeps
+weak, unwritten `$0730/$0732` matches as diagnostic only.
+
 The focused write trace also confirms that the fixed-bank transition routine
 around `7:$D0B0-$D260` writes runtime context and loader state during the
 transition. For example, the Jova Woods round trip records writes to `$30`,
 `$50`, `$51`, `$63/$64`, `$6E/$6F`, `$70-$73`, `$89`, `$8E`, and `$93` from
 PCs in that range. `$0348` is written later by the sprite/object staging path,
-so the next trace target is the path from transition-state bytes into final
-player/object position staging.
+and `$00FC/$00FD` are written just after that range by the scroll staging path
+around `7:$D2F5-$D2F9`.
 
 ## Why This Matters
 
@@ -103,5 +126,7 @@ composition rules without area-specific placement guesses.
   town-interior round trip.
 - It does not yet prove vertical transitions, doors, mansion entrances, or
   special transports.
-- It resolves Simon screen-center X for the scoped transitions, but it does not
-  yet promote final map placement rules.
+- It resolves Simon screen-center X and scoped scroll low-byte candidates, but
+  it does not yet promote final map placement rules.
+- It cannot resolve destination Y until a transition fixture lands Simon at a
+  different visible height.

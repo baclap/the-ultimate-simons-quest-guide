@@ -1,0 +1,11711 @@
+window.TRANSITION_PROBES = {
+  "schemaVersion": 1,
+  "source": {
+    "fixtureFile": "data/transition-probes.json",
+    "script": "tools/mesen/trace-transition.lua",
+    "notes": [
+      "Transition probes use save states and scripted inputs to observe runtime state changes.",
+      "The emulator trace is evidence for decoding ROM behavior; it is not source art for map rendering."
+    ]
+  },
+  "summary": {
+    "probes": 2,
+    "transitions": 4,
+    "completeTransitions": 4,
+    "timeoutTransitions": 0,
+    "byType": {
+      "outdoor-horizontal": 1,
+      "outdoor-horizontal-return": 1,
+      "interior-exit": 1,
+      "interior-entry": 1
+    },
+    "xCenterCandidates": [
+      {
+        "addressHex": "0x0348",
+        "memoryRegion": "low-ram",
+        "steps": [
+          {
+            "stepId": "woods-to-jova",
+            "value": "0xE9",
+            "score": 23,
+            "lastWritePc": "0xCFF5"
+          },
+          {
+            "stepId": "jova-to-woods",
+            "value": "0x10",
+            "score": 27,
+            "lastWritePc": "0xCFF5"
+          },
+          {
+            "stepId": "church-to-doina",
+            "value": "0x80",
+            "score": 23,
+            "lastWritePc": "0xCFF5"
+          },
+          {
+            "stepId": "doina-to-church",
+            "value": "0x10",
+            "score": 27,
+            "lastWritePc": "0xCFF5"
+          }
+        ],
+        "scores": [
+          23,
+          27,
+          23,
+          27
+        ],
+        "writeCounts": [
+          34,
+          10,
+          2,
+          1
+        ],
+        "matchedSteps": 4,
+        "minScore": 23,
+        "totalWrites": 47,
+        "confidence": "high"
+      },
+      {
+        "addressHex": "0x023B",
+        "memoryRegion": "low-ram",
+        "steps": [
+          {
+            "stepId": "church-to-doina",
+            "value": "0x80",
+            "score": 22
+          },
+          {
+            "stepId": "doina-to-church",
+            "value": "0x10",
+            "score": 26
+          }
+        ],
+        "scores": [
+          22,
+          26
+        ],
+        "writeCounts": [
+          0,
+          0
+        ],
+        "matchedSteps": 2,
+        "minScore": 22,
+        "totalWrites": 0,
+        "confidence": "diagnostic"
+      },
+      {
+        "addressHex": "0x0243",
+        "memoryRegion": "low-ram",
+        "steps": [
+          {
+            "stepId": "church-to-doina",
+            "value": "0x80",
+            "score": 22
+          },
+          {
+            "stepId": "doina-to-church",
+            "value": "0x10",
+            "score": 26
+          }
+        ],
+        "scores": [
+          22,
+          26
+        ],
+        "writeCounts": [
+          0,
+          0
+        ],
+        "matchedSteps": 2,
+        "minScore": 22,
+        "totalWrites": 0,
+        "confidence": "diagnostic"
+      }
+    ],
+    "camera": {
+      "changedMetrics": [
+        {
+          "metric": "coarseX",
+          "changedSteps": 2,
+          "stepIds": [
+            "church-to-doina",
+            "doina-to-church"
+          ]
+        },
+        {
+          "metric": "coarseY",
+          "changedSteps": 2,
+          "stepIds": [
+            "woods-to-jova",
+            "jova-to-woods"
+          ]
+        },
+        {
+          "metric": "fineX",
+          "changedSteps": 2,
+          "stepIds": [
+            "church-to-doina",
+            "doina-to-church"
+          ]
+        },
+        {
+          "metric": "nametableX",
+          "changedSteps": 4,
+          "stepIds": [
+            "woods-to-jova",
+            "jova-to-woods",
+            "church-to-doina",
+            "doina-to-church"
+          ]
+        },
+        {
+          "metric": "scrollXLow",
+          "changedSteps": 2,
+          "stepIds": [
+            "church-to-doina",
+            "doina-to-church"
+          ]
+        },
+        {
+          "metric": "scrollYLow",
+          "changedSteps": 2,
+          "stepIds": [
+            "woods-to-jova",
+            "jova-to-woods"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "metric": "scrollYLow",
+          "metricLabel": "scroll Y low byte",
+          "addressHex": "0x00FC",
+          "memoryRegion": "zero-page",
+          "steps": [
+            {
+              "stepId": "woods-to-jova",
+              "before": "0xE3",
+              "after": "0xD3",
+              "metricBefore": "0xE3",
+              "metricAfter": "0xD3",
+              "score": 16,
+              "lastWritePc": "0xD2F5",
+              "scrollStagingWrites": 58
+            },
+            {
+              "stepId": "jova-to-woods",
+              "before": "0xD3",
+              "after": "0xE3",
+              "metricBefore": "0xD3",
+              "metricAfter": "0xE3",
+              "score": 16,
+              "lastWritePc": "0xD2F5",
+              "scrollStagingWrites": 29
+            }
+          ],
+          "scores": [
+            16,
+            16
+          ],
+          "writeCounts": [
+            59,
+            30
+          ],
+          "scrollStagingWriteCounts": [
+            58,
+            29
+          ],
+          "matchedChangedSteps": 2,
+          "changedSteps": 2,
+          "minScore": 16,
+          "totalWrites": 89,
+          "totalScrollStagingWrites": 87,
+          "confidence": "high"
+        },
+        {
+          "metric": "scrollXLow",
+          "metricLabel": "scroll X low byte",
+          "addressHex": "0x00FD",
+          "memoryRegion": "zero-page",
+          "steps": [
+            {
+              "stepId": "church-to-doina",
+              "before": "0x00",
+              "after": "0xF2",
+              "metricBefore": "0x00",
+              "metricAfter": "0xF2",
+              "score": 16,
+              "lastWritePc": "0xD2F9",
+              "scrollStagingWrites": 32
+            },
+            {
+              "stepId": "doina-to-church",
+              "before": "0xF2",
+              "after": "0x00",
+              "metricBefore": "0xF2",
+              "metricAfter": "0x00",
+              "score": 16,
+              "lastWritePc": "0xD2F9",
+              "scrollStagingWrites": 31
+            }
+          ],
+          "scores": [
+            16,
+            16
+          ],
+          "writeCounts": [
+            33,
+            32
+          ],
+          "scrollStagingWriteCounts": [
+            32,
+            31
+          ],
+          "matchedChangedSteps": 2,
+          "changedSteps": 2,
+          "minScore": 16,
+          "totalWrites": 65,
+          "totalScrollStagingWrites": 63,
+          "confidence": "high"
+        },
+        {
+          "metric": "scrollXLow",
+          "metricLabel": "scroll X low byte",
+          "addressHex": "0x0053",
+          "memoryRegion": "zero-page",
+          "steps": [
+            {
+              "stepId": "church-to-doina",
+              "before": "0x00",
+              "after": "0xF2",
+              "metricBefore": "0x00",
+              "metricAfter": "0xF2",
+              "score": 13,
+              "lastWritePc": "0xE7E2",
+              "scrollStagingWrites": 0
+            },
+            {
+              "stepId": "doina-to-church",
+              "before": "0xF2",
+              "after": "0x00",
+              "metricBefore": "0xF2",
+              "metricAfter": "0x00",
+              "score": 13,
+              "lastWritePc": "0xE76F",
+              "scrollStagingWrites": 0
+            }
+          ],
+          "scores": [
+            13,
+            13
+          ],
+          "writeCounts": [
+            1,
+            2
+          ],
+          "scrollStagingWriteCounts": [
+            0,
+            0
+          ],
+          "matchedChangedSteps": 2,
+          "changedSteps": 2,
+          "minScore": 13,
+          "totalWrites": 3,
+          "totalScrollStagingWrites": 0,
+          "confidence": "high"
+        },
+        {
+          "metric": "nametableX",
+          "metricLabel": "horizontal nametable bit",
+          "addressHex": "0x00A5",
+          "memoryRegion": "zero-page",
+          "steps": [
+            {
+              "stepId": "woods-to-jova",
+              "before": "0x00",
+              "after": "0x01",
+              "metricBefore": "0x00",
+              "metricAfter": "0x01",
+              "score": 13,
+              "lastWritePc": "0x9C7B",
+              "scrollStagingWrites": 0
+            },
+            {
+              "stepId": "jova-to-woods",
+              "before": "0x01",
+              "after": "0x00",
+              "metricBefore": "0x01",
+              "metricAfter": "0x00",
+              "score": 13,
+              "lastWritePc": "0x9CCC",
+              "scrollStagingWrites": 0
+            },
+            {
+              "stepId": "church-to-doina",
+              "before": "0x00",
+              "after": "0x01",
+              "metricBefore": "0x00",
+              "metricAfter": "0x01",
+              "score": 13,
+              "lastWritePc": "0x9C7B",
+              "scrollStagingWrites": 0
+            }
+          ],
+          "scores": [
+            13,
+            13,
+            13
+          ],
+          "writeCounts": [
+            62,
+            48,
+            62
+          ],
+          "scrollStagingWriteCounts": [
+            0,
+            0,
+            0
+          ],
+          "matchedChangedSteps": 3,
+          "changedSteps": 4,
+          "minScore": 13,
+          "totalWrites": 172,
+          "totalScrollStagingWrites": 0,
+          "confidence": "diagnostic"
+        },
+        {
+          "metric": "nametableX",
+          "metricLabel": "horizontal nametable bit",
+          "addressHex": "0x03D8",
+          "memoryRegion": "low-ram",
+          "steps": [
+            {
+              "stepId": "woods-to-jova",
+              "before": "0x00",
+              "after": "0x01",
+              "metricBefore": "0x00",
+              "metricAfter": "0x01",
+              "score": 13,
+              "lastWritePc": "0xDECF",
+              "scrollStagingWrites": 0
+            },
+            {
+              "stepId": "church-to-doina",
+              "before": "0x00",
+              "after": "0x01",
+              "metricBefore": "0x00",
+              "metricAfter": "0x01",
+              "score": 13,
+              "lastWritePc": "0xDECF",
+              "scrollStagingWrites": 0
+            },
+            {
+              "stepId": "doina-to-church",
+              "before": "0x01",
+              "after": "0x00",
+              "metricBefore": "0x01",
+              "metricAfter": "0x00",
+              "score": 13,
+              "lastWritePc": "0xDECF",
+              "scrollStagingWrites": 0
+            }
+          ],
+          "scores": [
+            13,
+            13,
+            13
+          ],
+          "writeCounts": [
+            34,
+            2,
+            1
+          ],
+          "scrollStagingWriteCounts": [
+            0,
+            0,
+            0
+          ],
+          "matchedChangedSteps": 3,
+          "changedSteps": 4,
+          "minScore": 13,
+          "totalWrites": 37,
+          "totalScrollStagingWrites": 0,
+          "confidence": "diagnostic"
+        },
+        {
+          "metric": "nametableX",
+          "metricLabel": "horizontal nametable bit",
+          "addressHex": "0x0054",
+          "memoryRegion": "zero-page",
+          "steps": [
+            {
+              "stepId": "church-to-doina",
+              "before": "0x00",
+              "after": "0x01",
+              "metricBefore": "0x00",
+              "metricAfter": "0x01",
+              "score": 13,
+              "lastWritePc": "0xE7E7",
+              "scrollStagingWrites": 0
+            },
+            {
+              "stepId": "doina-to-church",
+              "before": "0x01",
+              "after": "0x00",
+              "metricBefore": "0x01",
+              "metricAfter": "0x00",
+              "score": 13,
+              "lastWritePc": "0xE771",
+              "scrollStagingWrites": 0
+            }
+          ],
+          "scores": [
+            13,
+            13
+          ],
+          "writeCounts": [
+            1,
+            2
+          ],
+          "scrollStagingWriteCounts": [
+            0,
+            0
+          ],
+          "matchedChangedSteps": 2,
+          "changedSteps": 4,
+          "minScore": 13,
+          "totalWrites": 3,
+          "totalScrollStagingWrites": 0,
+          "confidence": "diagnostic"
+        },
+        {
+          "metric": "nametableX",
+          "metricLabel": "horizontal nametable bit",
+          "addressHex": "0x0057",
+          "memoryRegion": "zero-page",
+          "steps": [
+            {
+              "stepId": "woods-to-jova",
+              "before": "0x00",
+              "after": "0x01",
+              "metricBefore": "0x00",
+              "metricAfter": "0x01",
+              "score": 13,
+              "lastWritePc": "0xE7BE",
+              "scrollStagingWrites": 0
+            },
+            {
+              "stepId": "jova-to-woods",
+              "before": "0x01",
+              "after": "0x00",
+              "metricBefore": "0x01",
+              "metricAfter": "0x00",
+              "score": 13,
+              "lastWritePc": "0xE7BE",
+              "scrollStagingWrites": 0
+            }
+          ],
+          "scores": [
+            13,
+            13
+          ],
+          "writeCounts": [
+            1,
+            1
+          ],
+          "scrollStagingWriteCounts": [
+            0,
+            0
+          ],
+          "matchedChangedSteps": 2,
+          "changedSteps": 4,
+          "minScore": 13,
+          "totalWrites": 2,
+          "totalScrollStagingWrites": 0,
+          "confidence": "diagnostic"
+        },
+        {
+          "metric": "nametableX",
+          "metricLabel": "horizontal nametable bit",
+          "addressHex": "0x015A",
+          "memoryRegion": "low-ram",
+          "steps": [
+            {
+              "stepId": "church-to-doina",
+              "before": "0x00",
+              "after": "0x01",
+              "metricBefore": "0x00",
+              "metricAfter": "0x01",
+              "score": 12,
+              "scrollStagingWrites": 0
+            },
+            {
+              "stepId": "doina-to-church",
+              "before": "0x01",
+              "after": "0x00",
+              "metricBefore": "0x01",
+              "metricAfter": "0x00",
+              "score": 12,
+              "scrollStagingWrites": 0
+            }
+          ],
+          "scores": [
+            12,
+            12
+          ],
+          "writeCounts": [
+            0,
+            0
+          ],
+          "scrollStagingWriteCounts": [
+            0,
+            0
+          ],
+          "matchedChangedSteps": 2,
+          "changedSteps": 4,
+          "minScore": 12,
+          "totalWrites": 0,
+          "totalScrollStagingWrites": 0,
+          "confidence": "diagnostic"
+        },
+        {
+          "metric": "nametableX",
+          "metricLabel": "horizontal nametable bit",
+          "addressHex": "0x0700",
+          "memoryRegion": "low-ram",
+          "steps": [
+            {
+              "stepId": "woods-to-jova",
+              "before": "0x00",
+              "after": "0x01",
+              "metricBefore": "0x00",
+              "metricAfter": "0x01",
+              "score": 12,
+              "scrollStagingWrites": 0
+            },
+            {
+              "stepId": "church-to-doina",
+              "before": "0x00",
+              "after": "0x01",
+              "metricBefore": "0x00",
+              "metricAfter": "0x01",
+              "score": 12,
+              "scrollStagingWrites": 0
+            }
+          ],
+          "scores": [
+            12,
+            12
+          ],
+          "writeCounts": [
+            0,
+            0
+          ],
+          "scrollStagingWriteCounts": [
+            0,
+            0
+          ],
+          "matchedChangedSteps": 2,
+          "changedSteps": 4,
+          "minScore": 12,
+          "totalWrites": 0,
+          "totalScrollStagingWrites": 0,
+          "confidence": "diagnostic"
+        },
+        {
+          "metric": "nametableX",
+          "metricLabel": "horizontal nametable bit",
+          "addressHex": "0x0777",
+          "memoryRegion": "low-ram",
+          "steps": [
+            {
+              "stepId": "woods-to-jova",
+              "before": "0x00",
+              "after": "0x01",
+              "metricBefore": "0x00",
+              "metricAfter": "0x01",
+              "score": 12,
+              "scrollStagingWrites": 0
+            },
+            {
+              "stepId": "jova-to-woods",
+              "before": "0x01",
+              "after": "0x00",
+              "metricBefore": "0x01",
+              "metricAfter": "0x00",
+              "score": 12,
+              "scrollStagingWrites": 0
+            }
+          ],
+          "scores": [
+            12,
+            12
+          ],
+          "writeCounts": [
+            0,
+            0
+          ],
+          "scrollStagingWriteCounts": [
+            0,
+            0
+          ],
+          "matchedChangedSteps": 2,
+          "changedSteps": 4,
+          "minScore": 12,
+          "totalWrites": 0,
+          "totalScrollStagingWrites": 0,
+          "confidence": "diagnostic"
+        },
+        {
+          "metric": "nametableX",
+          "metricLabel": "horizontal nametable bit",
+          "addressHex": "0x0010",
+          "memoryRegion": "zero-page",
+          "steps": [
+            {
+              "stepId": "church-to-doina",
+              "before": "0x00",
+              "after": "0x01",
+              "metricBefore": "0x00",
+              "metricAfter": "0x01",
+              "score": 13,
+              "lastWritePc": "0xE8AB",
+              "scrollStagingWrites": 0
+            }
+          ],
+          "scores": [
+            13
+          ],
+          "writeCounts": [
+            1584
+          ],
+          "scrollStagingWriteCounts": [
+            0
+          ],
+          "matchedChangedSteps": 1,
+          "changedSteps": 4,
+          "minScore": 13,
+          "totalWrites": 1584,
+          "totalScrollStagingWrites": 0,
+          "confidence": "diagnostic"
+        },
+        {
+          "metric": "nametableX",
+          "metricLabel": "horizontal nametable bit",
+          "addressHex": "0x004B",
+          "memoryRegion": "zero-page",
+          "steps": [
+            {
+              "stepId": "doina-to-church",
+              "before": "0x01",
+              "after": "0x00",
+              "metricBefore": "0x01",
+              "metricAfter": "0x00",
+              "score": 13,
+              "lastWritePc": "0xCD67",
+              "scrollStagingWrites": 0
+            }
+          ],
+          "scores": [
+            13
+          ],
+          "writeCounts": [
+            1
+          ],
+          "scrollStagingWriteCounts": [
+            0
+          ],
+          "matchedChangedSteps": 1,
+          "changedSteps": 4,
+          "minScore": 13,
+          "totalWrites": 1,
+          "totalScrollStagingWrites": 0,
+          "confidence": "diagnostic"
+        }
+      ]
+    },
+    "destinationY": {
+      "status": "blocked-non-varying-fixture-set",
+      "observedAfterCenters": [
+        "0xBA"
+      ],
+      "uniqueAfterCenters": 1,
+      "transitionsWithYDelta": 0,
+      "observations": [
+        {
+          "stepId": "woods-to-jova",
+          "beforeCenter": 186,
+          "beforeCenterHex": "0xBA",
+          "afterCenter": 186,
+          "afterCenterHex": "0xBA",
+          "beforeSpriteMinHex": "0xAE",
+          "afterSpriteMinHex": "0xAE",
+          "changed": false
+        },
+        {
+          "stepId": "jova-to-woods",
+          "beforeCenter": 186,
+          "beforeCenterHex": "0xBA",
+          "afterCenter": 186,
+          "afterCenterHex": "0xBA",
+          "beforeSpriteMinHex": "0xAE",
+          "afterSpriteMinHex": "0xAE",
+          "changed": false
+        },
+        {
+          "stepId": "church-to-doina",
+          "beforeCenter": 186,
+          "beforeCenterHex": "0xBA",
+          "afterCenter": 186,
+          "afterCenterHex": "0xBA",
+          "beforeSpriteMinHex": "0xAE",
+          "afterSpriteMinHex": "0xAE",
+          "changed": false
+        },
+        {
+          "stepId": "doina-to-church",
+          "beforeCenter": 186,
+          "beforeCenterHex": "0xBA",
+          "afterCenter": 186,
+          "afterCenterHex": "0xBA",
+          "beforeSpriteMinHex": "0xAE",
+          "afterSpriteMinHex": "0xAE",
+          "changed": false
+        }
+      ],
+      "diagnosticCandidates": [
+        {
+          "addressHex": "0x0730",
+          "memoryRegion": "low-ram",
+          "steps": [
+            {
+              "stepId": "church-to-doina",
+              "before": "0x00",
+              "after": "0xAE",
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "metric": "ySpriteMin",
+                  "after": "0xAE"
+                },
+                {
+                  "strength": "after-match",
+                  "metric": "yMin",
+                  "after": "0xAE"
+                }
+              ],
+              "score": 8
+            }
+          ],
+          "writeCounts": [
+            0
+          ],
+          "matchedSteps": 1,
+          "totalWrites": 0,
+          "confidence": "diagnostic"
+        },
+        {
+          "addressHex": "0x0732",
+          "memoryRegion": "low-ram",
+          "steps": [
+            {
+              "stepId": "church-to-doina",
+              "before": "0x00",
+              "after": "0xAE",
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "metric": "ySpriteMin",
+                  "after": "0xAE"
+                },
+                {
+                  "strength": "after-match",
+                  "metric": "yMin",
+                  "after": "0xAE"
+                }
+              ],
+              "score": 8
+            }
+          ],
+          "writeCounts": [
+            0
+          ],
+          "matchedSteps": 1,
+          "totalWrites": 0,
+          "confidence": "diagnostic"
+        }
+      ],
+      "nextFixtureNeeded": "A transition fixture whose destination places Simon at a different visible Y position, such as a safe stair or vertical screen transition."
+    }
+  },
+  "probes": [
+    {
+      "id": "jova-woods-left-round-trip",
+      "label": "Jova Woods left-edge round trip",
+      "location": "Jova Woods",
+      "variant": "day",
+      "access": "outdoor",
+      "state": "/Users/baclap/workspace/castlevania/out/states/jova-woods.mss",
+      "reason": "Normal outdoor horizontal boundary transition plus immediate return, with short post-return settle to avoid enemy knockback after re-entering Jova Woods.",
+      "output": "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip",
+      "trace": "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/trace.tsv",
+      "ramWrites": "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/ram-writes.tsv",
+      "status": "complete",
+      "totalFrames": 124,
+      "stateLoadedFrame": 0,
+      "steps": [
+        {
+          "id": "woods-to-jova",
+          "label": "Walk left from Jova Woods into Town of Jova",
+          "type": "outdoor-horizontal",
+          "input": "left",
+          "status": "complete",
+          "startFrame": 30,
+          "firstTargetFrame": 66,
+          "completeFrame": 90,
+          "durationFrames": 60,
+          "framesToTarget": 36,
+          "settleFrames": 24,
+          "targetContext": {
+            "objset": "0x00",
+            "area": "0x00",
+            "submap": "0x00"
+          },
+          "startContext": {
+            "objset": "0x02",
+            "area": "0x00",
+            "submap": "0x00",
+            "submapRaw": "0x00",
+            "submapFlags": "0x00",
+            "actorPointer": "0x9FE4",
+            "tileSetPointer": "0x8CF4"
+          },
+          "targetObservedContext": {
+            "objset": "0x00",
+            "area": "0x00",
+            "submap": "0x00",
+            "submapRaw": "0x80",
+            "submapFlags": "0x80",
+            "actorPointer": "0x9FE4",
+            "tileSetPointer": "0x841D"
+          },
+          "finalContext": {
+            "objset": "0x00",
+            "area": "0x00",
+            "submap": "0x00",
+            "submapRaw": "0x80",
+            "submapFlags": "0x80",
+            "actorPointer": "0x9FE4",
+            "tileSetPointer": "0x841D"
+          },
+          "startPpu": {
+            "xScroll": 0,
+            "videoRamAddr": "0x3B82",
+            "tmpVideoRamAddr": "0x3380",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 0,
+              "coarseY": 28,
+              "fineX": 0,
+              "fineY": 3,
+              "nametableX": 0,
+              "nametableY": 0,
+              "scrollX": 0,
+              "scrollY": 227
+            }
+          },
+          "targetPpu": {
+            "xScroll": 0,
+            "videoRamAddr": "0x0000",
+            "tmpVideoRamAddr": "0x0000",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 0,
+              "coarseY": 0,
+              "fineX": 0,
+              "fineY": 0,
+              "nametableX": 0,
+              "nametableY": 0,
+              "scrollX": 0,
+              "scrollY": 0
+            }
+          },
+          "finalPpu": {
+            "xScroll": 0,
+            "videoRamAddr": "0x2000",
+            "tmpVideoRamAddr": "0x3740",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 0,
+              "coarseY": 26,
+              "fineX": 0,
+              "fineY": 3,
+              "nametableX": 1,
+              "nametableY": 0,
+              "scrollX": 256,
+              "scrollY": 211
+            }
+          },
+          "changedBytes": {
+            "count": 345,
+            "knownFields": [
+              {
+                "address": 48,
+                "addressHex": "0x0030",
+                "before": 2,
+                "beforeHex": "0x02",
+                "after": 0,
+                "afterHex": "0x00",
+                "label": "runtimeObjset"
+              },
+              {
+                "address": 81,
+                "addressHex": "0x0051",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 128,
+                "afterHex": "0x80",
+                "label": "runtimeSubmapRaw"
+              },
+              {
+                "address": 99,
+                "addressHex": "0x0063",
+                "before": 244,
+                "beforeHex": "0xF4",
+                "after": 29,
+                "afterHex": "0x1D",
+                "label": "runtimeTileSetPointerLow"
+              },
+              {
+                "address": 100,
+                "addressHex": "0x0064",
+                "before": 140,
+                "beforeHex": "0x8C",
+                "after": 132,
+                "afterHex": "0x84",
+                "label": "runtimeTileSetPointerHigh"
+              }
+            ],
+            "zeroPageCandidates": [
+              {
+                "address": 0,
+                "addressHex": "0x0000",
+                "before": 96,
+                "beforeHex": "0x60",
+                "after": 154,
+                "afterHex": "0x9A"
+              },
+              {
+                "address": 1,
+                "addressHex": "0x0001",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 204,
+                "afterHex": "0xCC"
+              },
+              {
+                "address": 2,
+                "addressHex": "0x0002",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 95,
+                "afterHex": "0x5F"
+              },
+              {
+                "address": 3,
+                "addressHex": "0x0003",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 132,
+                "afterHex": "0x84"
+              },
+              {
+                "address": 6,
+                "addressHex": "0x0006",
+                "before": 8,
+                "beforeHex": "0x08",
+                "after": 248,
+                "afterHex": "0xF8"
+              },
+              {
+                "address": 7,
+                "addressHex": "0x0007",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 45,
+                "afterHex": "0x2D"
+              },
+              {
+                "address": 8,
+                "addressHex": "0x0008",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 2,
+                "afterHex": "0x02"
+              },
+              {
+                "address": 9,
+                "addressHex": "0x0009",
+                "before": 221,
+                "beforeHex": "0xDD",
+                "after": 113,
+                "afterHex": "0x71"
+              },
+              {
+                "address": 10,
+                "addressHex": "0x000A",
+                "before": 225,
+                "beforeHex": "0xE1",
+                "after": 255,
+                "afterHex": "0xFF"
+              },
+              {
+                "address": 11,
+                "addressHex": "0x000B",
+                "before": 5,
+                "beforeHex": "0x05",
+                "after": 6,
+                "afterHex": "0x06"
+              },
+              {
+                "address": 12,
+                "addressHex": "0x000C",
+                "before": 2,
+                "beforeHex": "0x02",
+                "after": 7,
+                "afterHex": "0x07"
+              },
+              {
+                "address": 13,
+                "addressHex": "0x000D",
+                "before": 97,
+                "beforeHex": "0x61",
+                "after": 63,
+                "afterHex": "0x3F"
+              },
+              {
+                "address": 15,
+                "addressHex": "0x000F",
+                "before": 132,
+                "beforeHex": "0x84",
+                "after": 136,
+                "afterHex": "0x88"
+              },
+              {
+                "address": 16,
+                "addressHex": "0x0010",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 2,
+                "afterHex": "0x02"
+              },
+              {
+                "address": 17,
+                "addressHex": "0x0011",
+                "before": 55,
+                "beforeHex": "0x37",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 18,
+                "addressHex": "0x0012",
+                "before": 16,
+                "beforeHex": "0x10",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 19,
+                "addressHex": "0x0013",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 7,
+                "afterHex": "0x07"
+              },
+              {
+                "address": 20,
+                "addressHex": "0x0014",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 3,
+                "afterHex": "0x03"
+              },
+              {
+                "address": 22,
+                "addressHex": "0x0016",
+                "before": 72,
+                "beforeHex": "0x48",
+                "after": 113,
+                "afterHex": "0x71"
+              },
+              {
+                "address": 23,
+                "addressHex": "0x0017",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 136,
+                "afterHex": "0x88"
+              },
+              {
+                "address": 28,
+                "addressHex": "0x001C",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 4,
+                "afterHex": "0x04"
+              },
+              {
+                "address": 29,
+                "addressHex": "0x001D",
+                "before": 217,
+                "beforeHex": "0xD9",
+                "after": 21,
+                "afterHex": "0x15"
+              },
+              {
+                "address": 33,
+                "addressHex": "0x0021",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 5,
+                "afterHex": "0x05"
+              },
+              {
+                "address": 34,
+                "addressHex": "0x0022",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 133,
+                "afterHex": "0x85"
+              },
+              {
+                "address": 36,
+                "addressHex": "0x0024",
+                "before": 255,
+                "beforeHex": "0xFF",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 44,
+                "addressHex": "0x002C",
+                "before": 3,
+                "beforeHex": "0x03",
+                "after": 2,
+                "afterHex": "0x02"
+              },
+              {
+                "address": 45,
+                "addressHex": "0x002D",
+                "before": 100,
+                "beforeHex": "0x64",
+                "after": 112,
+                "afterHex": "0x70"
+              },
+              {
+                "address": 46,
+                "addressHex": "0x002E",
+                "before": 54,
+                "beforeHex": "0x36",
+                "after": 191,
+                "afterHex": "0xBF"
+              },
+              {
+                "address": 84,
+                "addressHex": "0x0054",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 3,
+                "afterHex": "0x03"
+              },
+              {
+                "address": 87,
+                "addressHex": "0x0057",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 88,
+                "addressHex": "0x0058",
+                "before": 252,
+                "beforeHex": "0xFC",
+                "after": 32,
+                "afterHex": "0x20"
+              },
+              {
+                "address": 89,
+                "addressHex": "0x0059",
+                "before": 11,
+                "beforeHex": "0x0B",
+                "after": 35,
+                "afterHex": "0x23"
+              },
+              {
+                "address": 90,
+                "addressHex": "0x005A",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 30,
+                "afterHex": "0x1E"
+              },
+              {
+                "address": 91,
+                "addressHex": "0x005B",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 30,
+                "afterHex": "0x1E"
+              },
+              {
+                "address": 92,
+                "addressHex": "0x005C",
+                "before": 255,
+                "beforeHex": "0xFF",
+                "after": 27,
+                "afterHex": "0x1B"
+              },
+              {
+                "address": 93,
+                "addressHex": "0x005D",
+                "before": 28,
+                "beforeHex": "0x1C",
+                "after": 56,
+                "afterHex": "0x38"
+              },
+              {
+                "address": 94,
+                "addressHex": "0x005E",
+                "before": 6,
+                "beforeHex": "0x06",
+                "after": 220,
+                "afterHex": "0xDC"
+              },
+              {
+                "address": 95,
+                "addressHex": "0x005F",
+                "before": 35,
+                "beforeHex": "0x23",
+                "after": 39,
+                "afterHex": "0x27"
+              },
+              {
+                "address": 96,
+                "addressHex": "0x0060",
+                "before": 248,
+                "beforeHex": "0xF8",
+                "after": 7,
+                "afterHex": "0x07"
+              },
+              {
+                "address": 97,
+                "addressHex": "0x0061",
+                "before": 35,
+                "beforeHex": "0x23",
+                "after": 39,
+                "afterHex": "0x27"
+              },
+              {
+                "address": 98,
+                "addressHex": "0x0062",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 65,
+                "afterHex": "0x41"
+              },
+              {
+                "address": 101,
+                "addressHex": "0x0065",
+                "before": 16,
+                "beforeHex": "0x10",
+                "after": 12,
+                "afterHex": "0x0C"
+              },
+              {
+                "address": 102,
+                "addressHex": "0x0066",
+                "before": 252,
+                "beforeHex": "0xFC",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 103,
+                "addressHex": "0x0067",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 130,
+                "afterHex": "0x82"
+              },
+              {
+                "address": 106,
+                "addressHex": "0x006A",
+                "before": 24,
+                "beforeHex": "0x18",
+                "after": 30,
+                "afterHex": "0x1E"
+              },
+              {
+                "address": 109,
+                "addressHex": "0x006D",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 255,
+                "afterHex": "0xFF"
+              },
+              {
+                "address": 110,
+                "addressHex": "0x006E",
+                "before": 239,
+                "beforeHex": "0xEF",
+                "after": 233,
+                "afterHex": "0xE9"
+              },
+              {
+                "address": 112,
+                "addressHex": "0x0070",
+                "before": 62,
+                "beforeHex": "0x3E",
+                "after": 134,
+                "afterHex": "0x86"
+              },
+              {
+                "address": 113,
+                "addressHex": "0x0071",
+                "before": 162,
+                "beforeHex": "0xA2",
+                "after": 250,
+                "afterHex": "0xFA"
+              },
+              {
+                "address": 114,
+                "addressHex": "0x0072",
+                "before": 33,
+                "beforeHex": "0x21",
+                "after": 80,
+                "afterHex": "0x50"
+              },
+              {
+                "address": 115,
+                "addressHex": "0x0073",
+                "before": 162,
+                "beforeHex": "0xA2",
+                "after": 250,
+                "afterHex": "0xFA"
+              },
+              {
+                "address": 132,
+                "addressHex": "0x0084",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 5,
+                "afterHex": "0x05"
+              },
+              {
+                "address": 133,
+                "addressHex": "0x0085",
+                "before": 86,
+                "beforeHex": "0x56",
+                "after": 88,
+                "afterHex": "0x58"
+              },
+              {
+                "address": 137,
+                "addressHex": "0x0089",
+                "before": 255,
+                "beforeHex": "0xFF",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 143,
+                "addressHex": "0x008F",
+                "before": 65,
+                "beforeHex": "0x41",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 147,
+                "addressHex": "0x0093",
+                "before": 248,
+                "beforeHex": "0xF8",
+                "after": 2,
+                "afterHex": "0x02"
+              },
+              {
+                "address": 148,
+                "addressHex": "0x0094",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 10,
+                "afterHex": "0x0A"
+              },
+              {
+                "address": 149,
+                "addressHex": "0x0095",
+                "before": 28,
+                "beforeHex": "0x1C",
+                "after": 48,
+                "afterHex": "0x30"
+              },
+              {
+                "address": 151,
+                "addressHex": "0x0097",
+                "before": 3,
+                "beforeHex": "0x03",
+                "after": 8,
+                "afterHex": "0x08"
+              },
+              {
+                "address": 155,
+                "addressHex": "0x009B",
+                "before": 26,
+                "beforeHex": "0x1A",
+                "after": 161,
+                "afterHex": "0xA1"
+              },
+              {
+                "address": 156,
+                "addressHex": "0x009C",
+                "before": 10,
+                "beforeHex": "0x0A",
+                "after": 8,
+                "afterHex": "0x08"
+              },
+              {
+                "address": 161,
+                "addressHex": "0x00A1",
+                "before": 21,
+                "beforeHex": "0x15",
+                "after": 27,
+                "afterHex": "0x1B"
+              },
+              {
+                "address": 165,
+                "addressHex": "0x00A5",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 167,
+                "addressHex": "0x00A7",
+                "before": 95,
+                "beforeHex": "0x5F",
+                "after": 100,
+                "afterHex": "0x64"
+              }
+            ]
+          },
+          "spriteEvidence": {
+            "beforeSimon": {
+              "confidence": "high",
+              "score": 32,
+              "spriteCount": 4,
+              "hintTiles": 4,
+              "bounds": {
+                "xSpriteMin": 40,
+                "xSpriteMax": 48,
+                "ySpriteMin": 174,
+                "ySpriteMax": 190,
+                "xMin": 40,
+                "xMax": 56,
+                "yMin": 174,
+                "yMax": 198,
+                "width": 16,
+                "height": 24,
+                "xCenter": 48,
+                "yCenter": 186
+              },
+              "tiles": [
+                "0x03",
+                "0x05",
+                "0x07",
+                "0x09"
+              ],
+              "spriteIndexes": [
+                14,
+                15,
+                16,
+                17
+              ]
+            },
+            "afterSimon": {
+              "confidence": "high",
+              "score": 32,
+              "spriteCount": 4,
+              "hintTiles": 4,
+              "bounds": {
+                "xSpriteMin": 225,
+                "xSpriteMax": 233,
+                "ySpriteMin": 174,
+                "ySpriteMax": 190,
+                "xMin": 225,
+                "xMax": 241,
+                "yMin": 174,
+                "yMax": 198,
+                "width": 16,
+                "height": 24,
+                "xCenter": 233,
+                "yCenter": 186
+              },
+              "tiles": [
+                "0x03",
+                "0x05",
+                "0x07",
+                "0x09"
+              ],
+              "spriteIndexes": [
+                14,
+                15,
+                16,
+                17
+              ]
+            },
+            "beforeClusters": [
+              {
+                "confidence": "high",
+                "score": 32,
+                "spriteCount": 4,
+                "hintTiles": 4,
+                "bounds": {
+                  "xSpriteMin": 40,
+                  "xSpriteMax": 48,
+                  "ySpriteMin": 174,
+                  "ySpriteMax": 190,
+                  "xMin": 40,
+                  "xMax": 56,
+                  "yMin": 174,
+                  "yMax": 198,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 48,
+                  "yCenter": 186
+                },
+                "tiles": [
+                  "0x03",
+                  "0x05",
+                  "0x07",
+                  "0x09"
+                ],
+                "spriteIndexes": [
+                  14,
+                  15,
+                  16,
+                  17
+                ]
+              }
+            ],
+            "afterClusters": [
+              {
+                "confidence": "high",
+                "score": 32,
+                "spriteCount": 4,
+                "hintTiles": 4,
+                "bounds": {
+                  "xSpriteMin": 225,
+                  "xSpriteMax": 233,
+                  "ySpriteMin": 174,
+                  "ySpriteMax": 190,
+                  "xMin": 225,
+                  "xMax": 241,
+                  "yMin": 174,
+                  "yMax": 198,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 233,
+                  "yCenter": 186
+                },
+                "tiles": [
+                  "0x03",
+                  "0x05",
+                  "0x07",
+                  "0x09"
+                ],
+                "spriteIndexes": [
+                  14,
+                  15,
+                  16,
+                  17
+                ]
+              }
+            ]
+          },
+          "cameraEvidence": {
+            "changedMetrics": [
+              {
+                "name": "scrollYLow",
+                "label": "scroll Y low byte",
+                "before": 227,
+                "beforeHex": "0xE3",
+                "after": 211,
+                "afterHex": "0xD3",
+                "changed": true
+              },
+              {
+                "name": "coarseY",
+                "label": "coarse Y tile",
+                "before": 28,
+                "beforeHex": "0x1C",
+                "after": 26,
+                "afterHex": "0x1A",
+                "changed": true
+              },
+              {
+                "name": "nametableX",
+                "label": "horizontal nametable bit",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01",
+                "changed": true
+              }
+            ],
+            "stableWrittenCandidates": [
+              {
+                "metric": "coarseX",
+                "metricLabel": "coarse X tile",
+                "strength": "stable-written-match",
+                "address": 253,
+                "addressHex": "0x00FD",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 6,
+                "writeCount": 59,
+                "transitionRoutineWrites": 0,
+                "scrollStagingWrites": 58,
+                "lastWrite": {
+                  "frame": 89,
+                  "stepFrame": 59,
+                  "pc": "0xD2F9",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD2F9",
+                    "count": 58
+                  },
+                  {
+                    "pc": "0xC6C9",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "fineX",
+                "metricLabel": "fine X pixel",
+                "strength": "stable-written-match",
+                "address": 253,
+                "addressHex": "0x00FD",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 6,
+                "writeCount": 59,
+                "transitionRoutineWrites": 0,
+                "scrollStagingWrites": 58,
+                "lastWrite": {
+                  "frame": 89,
+                  "stepFrame": 59,
+                  "pc": "0xD2F9",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD2F9",
+                    "count": 58
+                  },
+                  {
+                    "pc": "0xC6C9",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "nametableY",
+                "metricLabel": "vertical nametable bit",
+                "strength": "stable-written-match",
+                "address": 253,
+                "addressHex": "0x00FD",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 6,
+                "writeCount": 59,
+                "transitionRoutineWrites": 0,
+                "scrollStagingWrites": 58,
+                "lastWrite": {
+                  "frame": 89,
+                  "stepFrame": 59,
+                  "pc": "0xD2F9",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD2F9",
+                    "count": 58
+                  },
+                  {
+                    "pc": "0xC6C9",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "scrollXLow",
+                "metricLabel": "scroll X low byte",
+                "strength": "stable-written-match",
+                "address": 253,
+                "addressHex": "0x00FD",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 6,
+                "writeCount": 59,
+                "transitionRoutineWrites": 0,
+                "scrollStagingWrites": 58,
+                "lastWrite": {
+                  "frame": 89,
+                  "stepFrame": 59,
+                  "pc": "0xD2F9",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD2F9",
+                    "count": 58
+                  },
+                  {
+                    "pc": "0xC6C9",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "coarseX",
+                "metricLabel": "coarse X tile",
+                "strength": "stable-written-match",
+                "address": 80,
+                "addressHex": "0x0050",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 5,
+                "writeCount": 1,
+                "transitionRoutineWrites": 1,
+                "scrollStagingWrites": 0,
+                "lastWrite": {
+                  "frame": 64,
+                  "stepFrame": 34,
+                  "pc": "0xD113",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD113",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "coarseX",
+                "metricLabel": "coarse X tile",
+                "strength": "stable-written-match",
+                "address": 142,
+                "addressHex": "0x008E",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 5,
+                "writeCount": 2,
+                "transitionRoutineWrites": 2,
+                "scrollStagingWrites": 0,
+                "lastWrite": {
+                  "frame": 65,
+                  "stepFrame": 35,
+                  "pc": "0xD183",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD11F",
+                    "count": 1
+                  },
+                  {
+                    "pc": "0xD183",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "fineX",
+                "metricLabel": "fine X pixel",
+                "strength": "stable-written-match",
+                "address": 80,
+                "addressHex": "0x0050",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 5,
+                "writeCount": 1,
+                "transitionRoutineWrites": 1,
+                "scrollStagingWrites": 0,
+                "lastWrite": {
+                  "frame": 64,
+                  "stepFrame": 34,
+                  "pc": "0xD113",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD113",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "fineX",
+                "metricLabel": "fine X pixel",
+                "strength": "stable-written-match",
+                "address": 142,
+                "addressHex": "0x008E",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 5,
+                "writeCount": 2,
+                "transitionRoutineWrites": 2,
+                "scrollStagingWrites": 0,
+                "lastWrite": {
+                  "frame": 65,
+                  "stepFrame": 35,
+                  "pc": "0xD183",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD11F",
+                    "count": 1
+                  },
+                  {
+                    "pc": "0xD183",
+                    "count": 1
+                  }
+                ]
+              }
+            ]
+          },
+          "ramWriteEvidence": {
+            "totalWrites": 105471,
+            "zeroPageWrites": 105177,
+            "spriteStagingWrites": 294,
+            "changedAddressWrites": 96365,
+            "transitionRoutineWrites": 26,
+            "topPcs": [
+              {
+                "pc": "0xC043",
+                "count": 41509
+              },
+              {
+                "pc": "0xE85F",
+                "count": 2880
+              },
+              {
+                "pc": "0xE862",
+                "count": 2880
+              },
+              {
+                "pc": "0xEB92",
+                "count": 2880
+              },
+              {
+                "pc": "0xEB95",
+                "count": 2880
+              },
+              {
+                "pc": "0xAC18",
+                "count": 2040
+              },
+              {
+                "pc": "0xC4A0",
+                "count": 1920
+              },
+              {
+                "pc": "0xC4AB",
+                "count": 1920
+              },
+              {
+                "pc": "0xE393",
+                "count": 1272
+              },
+              {
+                "pc": "0xEA26",
+                "count": 1258
+              }
+            ],
+            "transitionRoutinePcs": [
+              {
+                "pc": "0xD23A",
+                "count": 2
+              },
+              {
+                "pc": "0xD23F",
+                "count": 2
+              },
+              {
+                "pc": "0xD256",
+                "count": 2
+              },
+              {
+                "pc": "0xD10E",
+                "count": 1
+              },
+              {
+                "pc": "0xD113",
+                "count": 1
+              },
+              {
+                "pc": "0xD11B",
+                "count": 1
+              },
+              {
+                "pc": "0xD11F",
+                "count": 1
+              },
+              {
+                "pc": "0xD123",
+                "count": 1
+              },
+              {
+                "pc": "0xD16B",
+                "count": 1
+              },
+              {
+                "pc": "0xD170",
+                "count": 1
+              }
+            ],
+            "transitionRoutineDetails": [
+              {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD23A",
+                "address": "0x0004",
+                "value": "0xB7",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0xFF"
+                }
+              },
+              {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD23F",
+                "address": "0x0005",
+                "value": "0xA1",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0xFF"
+                }
+              },
+              {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD256",
+                "address": "0x0089",
+                "value": "0xF9",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0xFF"
+                }
+              },
+              {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD10E",
+                "address": "0x0030",
+                "value": "0x00",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0xFF"
+                }
+              },
+              {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD113",
+                "address": "0x0050",
+                "value": "0x00",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0xFF"
+                }
+              },
+              {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD11B",
+                "address": "0x0089",
+                "value": "0x80",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0xFF"
+                }
+              },
+              {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD11F",
+                "address": "0x008E",
+                "value": "0x00",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0xFF"
+                }
+              },
+              {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD123",
+                "address": "0x002C",
+                "value": "0x0A",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0xFF"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD22B",
+                "address": "0x0051",
+                "value": "0x80",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0xFF"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD23A",
+                "address": "0x0004",
+                "value": "0x3D",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD23F",
+                "address": "0x0005",
+                "value": "0xFA",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD256",
+                "address": "0x0089",
+                "value": "0x01",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD16B",
+                "address": "0x0000",
+                "value": "0x3A",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD170",
+                "address": "0x0001",
+                "value": "0xFA",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD183",
+                "address": "0x008E",
+                "value": "0x00",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD187",
+                "address": "0x0093",
+                "value": "0x03",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD190",
+                "address": "0x0004",
+                "value": "0xD3",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD195",
+                "address": "0x0005",
+                "value": "0x80",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD19E",
+                "address": "0x0070",
+                "value": "0x86",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD1A3",
+                "address": "0x0071",
+                "value": "0xFA",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD1A8",
+                "address": "0x0072",
+                "value": "0x50",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD1AD",
+                "address": "0x0073",
+                "value": "0xFA",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD1B7",
+                "address": "0x0063",
+                "value": "0x1D",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD1BC",
+                "address": "0x0064",
+                "value": "0x84",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD1C1",
+                "address": "0x006E",
+                "value": "0xE9",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              },
+              {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD1C6",
+                "address": "0x006F",
+                "value": "0xF7",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x80"
+                }
+              }
+            ]
+          },
+          "cameraCandidates": [
+            {
+              "metric": "scrollYLow",
+              "metricLabel": "scroll Y low byte",
+              "strength": "strong",
+              "address": 252,
+              "addressHex": "0x00FC",
+              "memoryRegion": "zero-page",
+              "before": 227,
+              "beforeHex": "0xE3",
+              "after": 211,
+              "afterHex": "0xD3",
+              "metricBeforeHex": "0xE3",
+              "metricAfterHex": "0xD3",
+              "metricChanged": true,
+              "score": 16,
+              "writeCount": 59,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 58,
+              "lastWrite": {
+                "frame": 89,
+                "stepFrame": 59,
+                "pc": "0xD2F5",
+                "value": "0xD3",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F5",
+                  "count": 58
+                },
+                {
+                  "pc": "0xC6C7",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 87,
+              "addressHex": "0x0057",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 1,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xE7BE",
+                "value": "0x01",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE7BE",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 165,
+              "addressHex": "0x00A5",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 62,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 89,
+                "stepFrame": 59,
+                "pc": "0x9C7B",
+                "value": "0x01",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x9CCC",
+                  "count": 28
+                },
+                {
+                  "pc": "0x9C6E",
+                  "count": 14
+                },
+                {
+                  "pc": "0x9C7B",
+                  "count": 14
+                },
+                {
+                  "pc": "0xA3D4",
+                  "count": 6
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 984,
+              "addressHex": "0x03D8",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 34,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0xDECF",
+                "value": "0x01",
+                "event": "sprite-staging-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xDECF",
+                  "count": 34
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 1792,
+              "addressHex": "0x0700",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 1800,
+              "addressHex": "0x0708",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 1808,
+              "addressHex": "0x0710",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 1816,
+              "addressHex": "0x0718",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 1824,
+              "addressHex": "0x0720",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 1837,
+              "addressHex": "0x072D",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 1845,
+              "addressHex": "0x0735",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 1911,
+              "addressHex": "0x0777",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "after-match",
+              "address": 137,
+              "addressHex": "0x0089",
+              "memoryRegion": "zero-page",
+              "before": 255,
+              "beforeHex": "0xFF",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 7,
+              "writeCount": 3,
+              "transitionRoutineWrites": 3,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD256",
+                "value": "0x01",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD256",
+                  "count": 2
+                },
+                {
+                  "pc": "0xD11B",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "coarseX",
+              "metricLabel": "coarse X tile",
+              "strength": "stable-written-match",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 6,
+              "writeCount": 59,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 58,
+              "lastWrite": {
+                "frame": 89,
+                "stepFrame": 59,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 58
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "fineX",
+              "metricLabel": "fine X pixel",
+              "strength": "stable-written-match",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 6,
+              "writeCount": 59,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 58,
+              "lastWrite": {
+                "frame": 89,
+                "stepFrame": 59,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 58
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableY",
+              "metricLabel": "vertical nametable bit",
+              "strength": "stable-written-match",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 6,
+              "writeCount": 59,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 58,
+              "lastWrite": {
+                "frame": 89,
+                "stepFrame": 59,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 58
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "scrollXLow",
+              "metricLabel": "scroll X low byte",
+              "strength": "stable-written-match",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 6,
+              "writeCount": 59,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 58,
+              "lastWrite": {
+                "frame": 89,
+                "stepFrame": 59,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 58
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "coarseX",
+              "metricLabel": "coarse X tile",
+              "strength": "stable-written-match",
+              "address": 80,
+              "addressHex": "0x0050",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD113",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD113",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "coarseX",
+              "metricLabel": "coarse X tile",
+              "strength": "stable-written-match",
+              "address": 142,
+              "addressHex": "0x008E",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 2,
+              "transitionRoutineWrites": 2,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD183",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD11F",
+                  "count": 1
+                },
+                {
+                  "pc": "0xD183",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "coarseY",
+              "metricLabel": "coarse Y tile",
+              "strength": "delta-match",
+              "address": 48,
+              "addressHex": "0x0030",
+              "memoryRegion": "zero-page",
+              "before": 2,
+              "beforeHex": "0x02",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x1C",
+              "metricAfterHex": "0x1A",
+              "metricChanged": true,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD10E",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD10E",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "fineX",
+              "metricLabel": "fine X pixel",
+              "strength": "stable-written-match",
+              "address": 80,
+              "addressHex": "0x0050",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD113",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD113",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "fineX",
+              "metricLabel": "fine X pixel",
+              "strength": "stable-written-match",
+              "address": 142,
+              "addressHex": "0x008E",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 2,
+              "transitionRoutineWrites": 2,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD183",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD11F",
+                  "count": 1
+                },
+                {
+                  "pc": "0xD183",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "after-match",
+              "address": 18,
+              "addressHex": "0x0012",
+              "memoryRegion": "zero-page",
+              "before": 16,
+              "beforeHex": "0x10",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 5,
+              "writeCount": 84,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 89,
+                "stepFrame": 59,
+                "pc": "0xE94C",
+                "value": "0x01",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE94C",
+                  "count": 48
+                },
+                {
+                  "pc": "0xEAC0",
+                  "count": 36
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "after-match",
+              "address": 201,
+              "addressHex": "0x00C9",
+              "memoryRegion": "zero-page",
+              "before": 7,
+              "beforeHex": "0x07",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 84,
+                "stepFrame": 54,
+                "pc": "0x99A2",
+                "value": "0x01",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x99A2",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableY",
+              "metricLabel": "vertical nametable bit",
+              "strength": "stable-written-match",
+              "address": 80,
+              "addressHex": "0x0050",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD113",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD113",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableY",
+              "metricLabel": "vertical nametable bit",
+              "strength": "stable-written-match",
+              "address": 142,
+              "addressHex": "0x008E",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 2,
+              "transitionRoutineWrites": 2,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD183",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD11F",
+                  "count": 1
+                },
+                {
+                  "pc": "0xD183",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "scrollXLow",
+              "metricLabel": "scroll X low byte",
+              "strength": "stable-written-match",
+              "address": 80,
+              "addressHex": "0x0050",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 64,
+                "stepFrame": 34,
+                "pc": "0xD113",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD113",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "scrollXLow",
+              "metricLabel": "scroll X low byte",
+              "strength": "stable-written-match",
+              "address": 142,
+              "addressHex": "0x008E",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 2,
+              "transitionRoutineWrites": 2,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD183",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD11F",
+                  "count": 1
+                },
+                {
+                  "pc": "0xD183",
+                  "count": 1
+                }
+              ]
+            }
+          ],
+          "positionCandidates": [
+            {
+              "address": 840,
+              "addressHex": "0x0348",
+              "memoryRegion": "low-ram",
+              "before": 48,
+              "beforeHex": "0x30",
+              "after": 233,
+              "afterHex": "0xE9",
+              "score": 23,
+              "matches": [
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0x28",
+                  "after": "0xE1"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0x30",
+                  "after": "0xE9"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0x28",
+                  "after": "0xE1"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0x38",
+                  "after": "0xF1"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0x30",
+                  "after": "0xE9"
+                }
+              ],
+              "writeCount": 34,
+              "lastWrite": {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xCFF5",
+                "value": "0xE9",
+                "event": "sprite-staging-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x8448",
+                  "count": 33
+                },
+                {
+                  "pc": "0xCFF5",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 17,
+              "addressHex": "0x0011",
+              "memoryRegion": "zero-page",
+              "before": 55,
+              "beforeHex": "0x37",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 252,
+              "lastWrite": {
+                "frame": 89,
+                "stepFrame": 59,
+                "pc": "0xE94A",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE934",
+                  "count": 192
+                },
+                {
+                  "pc": "0xEAB8",
+                  "count": 36
+                },
+                {
+                  "pc": "0xE94A",
+                  "count": 24
+                }
+              ]
+            },
+            {
+              "address": 36,
+              "addressHex": "0x0024",
+              "memoryRegion": "zero-page",
+              "before": 255,
+              "beforeHex": "0xFF",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 1,
+              "lastWrite": {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xD07C",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD07C",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 102,
+              "addressHex": "0x0066",
+              "memoryRegion": "zero-page",
+              "before": 252,
+              "beforeHex": "0xFC",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 25,
+              "lastWrite": {
+                "frame": 89,
+                "stepFrame": 59,
+                "pc": "0xE95B",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE95B",
+                  "count": 24
+                },
+                {
+                  "pc": "0xE77B",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 143,
+              "addressHex": "0x008F",
+              "memoryRegion": "zero-page",
+              "before": 65,
+              "beforeHex": "0x41",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 1,
+              "lastWrite": {
+                "frame": 65,
+                "stepFrame": 35,
+                "pc": "0xCD65",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xCD65",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 570,
+              "addressHex": "0x023A",
+              "memoryRegion": "low-ram",
+              "before": 64,
+              "beforeHex": "0x40",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 574,
+              "addressHex": "0x023E",
+              "memoryRegion": "low-ram",
+              "before": 64,
+              "beforeHex": "0x40",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 578,
+              "addressHex": "0x0242",
+              "memoryRegion": "low-ram",
+              "before": 64,
+              "beforeHex": "0x40",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 582,
+              "addressHex": "0x0246",
+              "memoryRegion": "low-ram",
+              "before": 64,
+              "beforeHex": "0x40",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 1038,
+              "addressHex": "0x040E",
+              "memoryRegion": "low-ram",
+              "before": 17,
+              "beforeHex": "0x11",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 1056,
+              "addressHex": "0x0420",
+              "memoryRegion": "low-ram",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 1504,
+              "addressHex": "0x05E0",
+              "memoryRegion": "low-ram",
+              "before": 170,
+              "beforeHex": "0xAA",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 1505,
+              "addressHex": "0x05E1",
+              "memoryRegion": "low-ram",
+              "before": 170,
+              "beforeHex": "0xAA",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 1506,
+              "addressHex": "0x05E2",
+              "memoryRegion": "low-ram",
+              "before": 170,
+              "beforeHex": "0xAA",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 1507,
+              "addressHex": "0x05E3",
+              "memoryRegion": "low-ram",
+              "before": 170,
+              "beforeHex": "0xAA",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 1508,
+              "addressHex": "0x05E4",
+              "memoryRegion": "low-ram",
+              "before": 170,
+              "beforeHex": "0xAA",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            }
+          ],
+          "snapshots": {
+            "beforeCpu": "woods-to-jova-before-cpu-0000-07ff.bin",
+            "afterCpu": "woods-to-jova-after-cpu-0000-07ff.bin",
+            "beforeOam": "woods-to-jova-before-oam-0000-00ff.bin",
+            "afterOam": "woods-to-jova-after-oam-0000-00ff.bin"
+          }
+        },
+        {
+          "id": "jova-to-woods",
+          "label": "Walk right from Town of Jova back into Jova Woods",
+          "type": "outdoor-horizontal-return",
+          "input": "right",
+          "status": "complete",
+          "startFrame": 90,
+          "firstTargetFrame": 111,
+          "completeFrame": 123,
+          "durationFrames": 33,
+          "framesToTarget": 21,
+          "settleFrames": 12,
+          "targetContext": {
+            "objset": "0x02",
+            "area": "0x00",
+            "submap": "0x00"
+          },
+          "startContext": {
+            "objset": "0x00",
+            "area": "0x00",
+            "submap": "0x00",
+            "submapRaw": "0x80",
+            "submapFlags": "0x80",
+            "actorPointer": "0x9FE4",
+            "tileSetPointer": "0x841D"
+          },
+          "targetObservedContext": {
+            "objset": "0x02",
+            "area": "0x00",
+            "submap": "0x00",
+            "submapRaw": "0x00",
+            "submapFlags": "0x00",
+            "actorPointer": "0x90AC",
+            "tileSetPointer": "0x8CF4"
+          },
+          "finalContext": {
+            "objset": "0x02",
+            "area": "0x00",
+            "submap": "0x00",
+            "submapRaw": "0x00",
+            "submapFlags": "0x00",
+            "actorPointer": "0x90AC",
+            "tileSetPointer": "0x8CF4"
+          },
+          "startPpu": {
+            "xScroll": 0,
+            "videoRamAddr": "0x2000",
+            "tmpVideoRamAddr": "0x3740",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 0,
+              "coarseY": 26,
+              "fineX": 0,
+              "fineY": 3,
+              "nametableX": 1,
+              "nametableY": 0,
+              "scrollX": 256,
+              "scrollY": 211
+            }
+          },
+          "targetPpu": {
+            "xScroll": 0,
+            "videoRamAddr": "0x0000",
+            "tmpVideoRamAddr": "0x0000",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 0,
+              "coarseY": 0,
+              "fineX": 0,
+              "fineY": 0,
+              "nametableX": 0,
+              "nametableY": 0,
+              "scrollX": 0,
+              "scrollY": 0
+            }
+          },
+          "finalPpu": {
+            "xScroll": 0,
+            "videoRamAddr": "0x2000",
+            "tmpVideoRamAddr": "0x3380",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 0,
+              "coarseY": 28,
+              "fineX": 0,
+              "fineY": 3,
+              "nametableX": 0,
+              "nametableY": 0,
+              "scrollX": 0,
+              "scrollY": 227
+            }
+          },
+          "changedBytes": {
+            "count": 497,
+            "knownFields": [
+              {
+                "address": 48,
+                "addressHex": "0x0030",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 2,
+                "afterHex": "0x02",
+                "label": "runtimeObjset"
+              },
+              {
+                "address": 61,
+                "addressHex": "0x003D",
+                "before": 228,
+                "beforeHex": "0xE4",
+                "after": 172,
+                "afterHex": "0xAC",
+                "label": "runtimeActorPointerLow"
+              },
+              {
+                "address": 62,
+                "addressHex": "0x003E",
+                "before": 159,
+                "beforeHex": "0x9F",
+                "after": 144,
+                "afterHex": "0x90",
+                "label": "runtimeActorPointerHigh"
+              },
+              {
+                "address": 81,
+                "addressHex": "0x0051",
+                "before": 128,
+                "beforeHex": "0x80",
+                "after": 0,
+                "afterHex": "0x00",
+                "label": "runtimeSubmapRaw"
+              },
+              {
+                "address": 99,
+                "addressHex": "0x0063",
+                "before": 29,
+                "beforeHex": "0x1D",
+                "after": 244,
+                "afterHex": "0xF4",
+                "label": "runtimeTileSetPointerLow"
+              },
+              {
+                "address": 100,
+                "addressHex": "0x0064",
+                "before": 132,
+                "beforeHex": "0x84",
+                "after": 140,
+                "afterHex": "0x8C",
+                "label": "runtimeTileSetPointerHigh"
+              }
+            ],
+            "zeroPageCandidates": [
+              {
+                "address": 2,
+                "addressHex": "0x0002",
+                "before": 95,
+                "beforeHex": "0x5F",
+                "after": 7,
+                "afterHex": "0x07"
+              },
+              {
+                "address": 3,
+                "addressHex": "0x0003",
+                "before": 132,
+                "beforeHex": "0x84",
+                "after": 248,
+                "afterHex": "0xF8"
+              },
+              {
+                "address": 4,
+                "addressHex": "0x0004",
+                "before": 2,
+                "beforeHex": "0x02",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 6,
+                "addressHex": "0x0006",
+                "before": 248,
+                "beforeHex": "0xF8",
+                "after": 8,
+                "afterHex": "0x08"
+              },
+              {
+                "address": 7,
+                "addressHex": "0x0007",
+                "before": 45,
+                "beforeHex": "0x2D",
+                "after": 41,
+                "afterHex": "0x29"
+              },
+              {
+                "address": 8,
+                "addressHex": "0x0008",
+                "before": 2,
+                "beforeHex": "0x02",
+                "after": 80,
+                "afterHex": "0x50"
+              },
+              {
+                "address": 9,
+                "addressHex": "0x0009",
+                "before": 113,
+                "beforeHex": "0x71",
+                "after": 58,
+                "afterHex": "0x3A"
+              },
+              {
+                "address": 10,
+                "addressHex": "0x000A",
+                "before": 255,
+                "beforeHex": "0xFF",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 13,
+                "addressHex": "0x000D",
+                "before": 63,
+                "beforeHex": "0x3F",
+                "after": 3,
+                "afterHex": "0x03"
+              },
+              {
+                "address": 14,
+                "addressHex": "0x000E",
+                "before": 177,
+                "beforeHex": "0xB1",
+                "after": 178,
+                "afterHex": "0xB2"
+              },
+              {
+                "address": 15,
+                "addressHex": "0x000F",
+                "before": 136,
+                "beforeHex": "0x88",
+                "after": 141,
+                "afterHex": "0x8D"
+              },
+              {
+                "address": 16,
+                "addressHex": "0x0010",
+                "before": 2,
+                "beforeHex": "0x02",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 19,
+                "addressHex": "0x0013",
+                "before": 7,
+                "beforeHex": "0x07",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 20,
+                "addressHex": "0x0014",
+                "before": 3,
+                "beforeHex": "0x03",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 22,
+                "addressHex": "0x0016",
+                "before": 113,
+                "beforeHex": "0x71",
+                "after": 58,
+                "afterHex": "0x3A"
+              },
+              {
+                "address": 23,
+                "addressHex": "0x0017",
+                "before": 136,
+                "beforeHex": "0x88",
+                "after": 141,
+                "afterHex": "0x8D"
+              },
+              {
+                "address": 29,
+                "addressHex": "0x001D",
+                "before": 21,
+                "beforeHex": "0x15",
+                "after": 52,
+                "afterHex": "0x34"
+              },
+              {
+                "address": 34,
+                "addressHex": "0x0022",
+                "before": 133,
+                "beforeHex": "0x85",
+                "after": 120,
+                "afterHex": "0x78"
+              },
+              {
+                "address": 45,
+                "addressHex": "0x002D",
+                "before": 112,
+                "beforeHex": "0x70",
+                "after": 220,
+                "afterHex": "0xDC"
+              },
+              {
+                "address": 46,
+                "addressHex": "0x002E",
+                "before": 191,
+                "beforeHex": "0xBF",
+                "after": 10,
+                "afterHex": "0x0A"
+              },
+              {
+                "address": 57,
+                "addressHex": "0x0039",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 48,
+                "afterHex": "0x30"
+              },
+              {
+                "address": 59,
+                "addressHex": "0x003B",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 14,
+                "afterHex": "0x0E"
+              },
+              {
+                "address": 84,
+                "addressHex": "0x0054",
+                "before": 3,
+                "beforeHex": "0x03",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 87,
+                "addressHex": "0x0057",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 88,
+                "addressHex": "0x0058",
+                "before": 32,
+                "beforeHex": "0x20",
+                "after": 2,
+                "afterHex": "0x02"
+              },
+              {
+                "address": 89,
+                "addressHex": "0x0059",
+                "before": 35,
+                "beforeHex": "0x23",
+                "after": 11,
+                "afterHex": "0x0B"
+              },
+              {
+                "address": 90,
+                "addressHex": "0x005A",
+                "before": 30,
+                "beforeHex": "0x1E",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 91,
+                "addressHex": "0x005B",
+                "before": 30,
+                "beforeHex": "0x1E",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 92,
+                "addressHex": "0x005C",
+                "before": 27,
+                "beforeHex": "0x1B",
+                "after": 255,
+                "afterHex": "0xFF"
+              },
+              {
+                "address": 93,
+                "addressHex": "0x005D",
+                "before": 56,
+                "beforeHex": "0x38",
+                "after": 28,
+                "afterHex": "0x1C"
+              },
+              {
+                "address": 94,
+                "addressHex": "0x005E",
+                "before": 220,
+                "beforeHex": "0xDC",
+                "after": 164,
+                "afterHex": "0xA4"
+              },
+              {
+                "address": 95,
+                "addressHex": "0x005F",
+                "before": 39,
+                "beforeHex": "0x27",
+                "after": 35,
+                "afterHex": "0x23"
+              },
+              {
+                "address": 96,
+                "addressHex": "0x0060",
+                "before": 7,
+                "beforeHex": "0x07",
+                "after": 249,
+                "afterHex": "0xF9"
+              },
+              {
+                "address": 97,
+                "addressHex": "0x0061",
+                "before": 39,
+                "beforeHex": "0x27",
+                "after": 35,
+                "afterHex": "0x23"
+              },
+              {
+                "address": 98,
+                "addressHex": "0x0062",
+                "before": 65,
+                "beforeHex": "0x41",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 101,
+                "addressHex": "0x0065",
+                "before": 12,
+                "beforeHex": "0x0C",
+                "after": 6,
+                "afterHex": "0x06"
+              },
+              {
+                "address": 103,
+                "addressHex": "0x0067",
+                "before": 130,
+                "beforeHex": "0x82",
+                "after": 129,
+                "afterHex": "0x81"
+              },
+              {
+                "address": 105,
+                "addressHex": "0x0069",
+                "before": 255,
+                "beforeHex": "0xFF",
+                "after": 27,
+                "afterHex": "0x1B"
+              },
+              {
+                "address": 106,
+                "addressHex": "0x006A",
+                "before": 30,
+                "beforeHex": "0x1E",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 109,
+                "addressHex": "0x006D",
+                "before": 255,
+                "beforeHex": "0xFF",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 110,
+                "addressHex": "0x006E",
+                "before": 233,
+                "beforeHex": "0xE9",
+                "after": 239,
+                "afterHex": "0xEF"
+              },
+              {
+                "address": 112,
+                "addressHex": "0x0070",
+                "before": 134,
+                "beforeHex": "0x86",
+                "after": 62,
+                "afterHex": "0x3E"
+              },
+              {
+                "address": 113,
+                "addressHex": "0x0071",
+                "before": 250,
+                "beforeHex": "0xFA",
+                "after": 162,
+                "afterHex": "0xA2"
+              },
+              {
+                "address": 114,
+                "addressHex": "0x0072",
+                "before": 80,
+                "beforeHex": "0x50",
+                "after": 33,
+                "afterHex": "0x21"
+              },
+              {
+                "address": 115,
+                "addressHex": "0x0073",
+                "before": 250,
+                "beforeHex": "0xFA",
+                "after": 162,
+                "afterHex": "0xA2"
+              },
+              {
+                "address": 118,
+                "addressHex": "0x0076",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 132,
+                "addressHex": "0x0084",
+                "before": 5,
+                "beforeHex": "0x05",
+                "after": 14,
+                "afterHex": "0x0E"
+              },
+              {
+                "address": 137,
+                "addressHex": "0x0089",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 255,
+                "afterHex": "0xFF"
+              },
+              {
+                "address": 140,
+                "addressHex": "0x008C",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 224,
+                "afterHex": "0xE0"
+              },
+              {
+                "address": 143,
+                "addressHex": "0x008F",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 65,
+                "afterHex": "0x41"
+              },
+              {
+                "address": 147,
+                "addressHex": "0x0093",
+                "before": 2,
+                "beforeHex": "0x02",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 148,
+                "addressHex": "0x0094",
+                "before": 10,
+                "beforeHex": "0x0A",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 149,
+                "addressHex": "0x0095",
+                "before": 48,
+                "beforeHex": "0x30",
+                "after": 32,
+                "afterHex": "0x20"
+              },
+              {
+                "address": 151,
+                "addressHex": "0x0097",
+                "before": 8,
+                "beforeHex": "0x08",
+                "after": 4,
+                "afterHex": "0x04"
+              },
+              {
+                "address": 153,
+                "addressHex": "0x0099",
+                "before": 116,
+                "beforeHex": "0x74",
+                "after": 115,
+                "afterHex": "0x73"
+              },
+              {
+                "address": 155,
+                "addressHex": "0x009B",
+                "before": 161,
+                "beforeHex": "0xA1",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 157,
+                "addressHex": "0x009D",
+                "before": 151,
+                "beforeHex": "0x97",
+                "after": 138,
+                "afterHex": "0x8A"
+              },
+              {
+                "address": 161,
+                "addressHex": "0x00A1",
+                "before": 27,
+                "beforeHex": "0x1B",
+                "after": 110,
+                "afterHex": "0x6E"
+              },
+              {
+                "address": 162,
+                "addressHex": "0x00A2",
+                "before": 150,
+                "beforeHex": "0x96",
+                "after": 145,
+                "afterHex": "0x91"
+              },
+              {
+                "address": 163,
+                "addressHex": "0x00A3",
+                "before": 64,
+                "beforeHex": "0x40",
+                "after": 61,
+                "afterHex": "0x3D"
+              },
+              {
+                "address": 165,
+                "addressHex": "0x00A5",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 167,
+                "addressHex": "0x00A7",
+                "before": 100,
+                "beforeHex": "0x64",
+                "after": 210,
+                "afterHex": "0xD2"
+              },
+              {
+                "address": 168,
+                "addressHex": "0x00A8",
+                "before": 157,
+                "beforeHex": "0x9D",
+                "after": 151,
+                "afterHex": "0x97"
+              },
+              {
+                "address": 169,
+                "addressHex": "0x00A9",
+                "before": 98,
+                "beforeHex": "0x62",
+                "after": 131,
+                "afterHex": "0x83"
+              }
+            ]
+          },
+          "spriteEvidence": {
+            "beforeSimon": {
+              "confidence": "high",
+              "score": 32,
+              "spriteCount": 4,
+              "hintTiles": 4,
+              "bounds": {
+                "xSpriteMin": 225,
+                "xSpriteMax": 233,
+                "ySpriteMin": 174,
+                "ySpriteMax": 190,
+                "xMin": 225,
+                "xMax": 241,
+                "yMin": 174,
+                "yMax": 198,
+                "width": 16,
+                "height": 24,
+                "xCenter": 233,
+                "yCenter": 186
+              },
+              "tiles": [
+                "0x03",
+                "0x05",
+                "0x07",
+                "0x09"
+              ],
+              "spriteIndexes": [
+                14,
+                15,
+                16,
+                17
+              ]
+            },
+            "afterSimon": {
+              "confidence": "high",
+              "score": 32,
+              "spriteCount": 4,
+              "hintTiles": 4,
+              "bounds": {
+                "xSpriteMin": 8,
+                "xSpriteMax": 16,
+                "ySpriteMin": 174,
+                "ySpriteMax": 190,
+                "xMin": 8,
+                "xMax": 24,
+                "yMin": 174,
+                "yMax": 198,
+                "width": 16,
+                "height": 24,
+                "xCenter": 16,
+                "yCenter": 186
+              },
+              "tiles": [
+                "0x03",
+                "0x05",
+                "0x07",
+                "0x09"
+              ],
+              "spriteIndexes": [
+                14,
+                15,
+                16,
+                17
+              ]
+            },
+            "beforeClusters": [
+              {
+                "confidence": "high",
+                "score": 32,
+                "spriteCount": 4,
+                "hintTiles": 4,
+                "bounds": {
+                  "xSpriteMin": 225,
+                  "xSpriteMax": 233,
+                  "ySpriteMin": 174,
+                  "ySpriteMax": 190,
+                  "xMin": 225,
+                  "xMax": 241,
+                  "yMin": 174,
+                  "yMax": 198,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 233,
+                  "yCenter": 186
+                },
+                "tiles": [
+                  "0x03",
+                  "0x05",
+                  "0x07",
+                  "0x09"
+                ],
+                "spriteIndexes": [
+                  14,
+                  15,
+                  16,
+                  17
+                ]
+              }
+            ],
+            "afterClusters": [
+              {
+                "confidence": "high",
+                "score": 32,
+                "spriteCount": 4,
+                "hintTiles": 4,
+                "bounds": {
+                  "xSpriteMin": 8,
+                  "xSpriteMax": 16,
+                  "ySpriteMin": 174,
+                  "ySpriteMax": 190,
+                  "xMin": 8,
+                  "xMax": 24,
+                  "yMin": 174,
+                  "yMax": 198,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 16,
+                  "yCenter": 186
+                },
+                "tiles": [
+                  "0x03",
+                  "0x05",
+                  "0x07",
+                  "0x09"
+                ],
+                "spriteIndexes": [
+                  14,
+                  15,
+                  16,
+                  17
+                ]
+              }
+            ]
+          },
+          "cameraEvidence": {
+            "changedMetrics": [
+              {
+                "name": "scrollYLow",
+                "label": "scroll Y low byte",
+                "before": 211,
+                "beforeHex": "0xD3",
+                "after": 227,
+                "afterHex": "0xE3",
+                "changed": true
+              },
+              {
+                "name": "coarseY",
+                "label": "coarse Y tile",
+                "before": 26,
+                "beforeHex": "0x1A",
+                "after": 28,
+                "afterHex": "0x1C",
+                "changed": true
+              },
+              {
+                "name": "nametableX",
+                "label": "horizontal nametable bit",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 0,
+                "afterHex": "0x00",
+                "changed": true
+              }
+            ],
+            "stableWrittenCandidates": [
+              {
+                "metric": "coarseX",
+                "metricLabel": "coarse X tile",
+                "strength": "stable-written-match",
+                "address": 253,
+                "addressHex": "0x00FD",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 6,
+                "writeCount": 30,
+                "transitionRoutineWrites": 0,
+                "scrollStagingWrites": 29,
+                "lastWrite": {
+                  "frame": 122,
+                  "stepFrame": 32,
+                  "pc": "0xD2F9",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD2F9",
+                    "count": 29
+                  },
+                  {
+                    "pc": "0xC6C9",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "fineX",
+                "metricLabel": "fine X pixel",
+                "strength": "stable-written-match",
+                "address": 253,
+                "addressHex": "0x00FD",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 6,
+                "writeCount": 30,
+                "transitionRoutineWrites": 0,
+                "scrollStagingWrites": 29,
+                "lastWrite": {
+                  "frame": 122,
+                  "stepFrame": 32,
+                  "pc": "0xD2F9",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD2F9",
+                    "count": 29
+                  },
+                  {
+                    "pc": "0xC6C9",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "nametableY",
+                "metricLabel": "vertical nametable bit",
+                "strength": "stable-written-match",
+                "address": 253,
+                "addressHex": "0x00FD",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 6,
+                "writeCount": 30,
+                "transitionRoutineWrites": 0,
+                "scrollStagingWrites": 29,
+                "lastWrite": {
+                  "frame": 122,
+                  "stepFrame": 32,
+                  "pc": "0xD2F9",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD2F9",
+                    "count": 29
+                  },
+                  {
+                    "pc": "0xC6C9",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "scrollXLow",
+                "metricLabel": "scroll X low byte",
+                "strength": "stable-written-match",
+                "address": 253,
+                "addressHex": "0x00FD",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 6,
+                "writeCount": 30,
+                "transitionRoutineWrites": 0,
+                "scrollStagingWrites": 29,
+                "lastWrite": {
+                  "frame": 122,
+                  "stepFrame": 32,
+                  "pc": "0xD2F9",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD2F9",
+                    "count": 29
+                  },
+                  {
+                    "pc": "0xC6C9",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "coarseX",
+                "metricLabel": "coarse X tile",
+                "strength": "stable-written-match",
+                "address": 80,
+                "addressHex": "0x0050",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 5,
+                "writeCount": 1,
+                "transitionRoutineWrites": 1,
+                "scrollStagingWrites": 0,
+                "lastWrite": {
+                  "frame": 109,
+                  "stepFrame": 19,
+                  "pc": "0xD113",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD113",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "coarseX",
+                "metricLabel": "coarse X tile",
+                "strength": "stable-written-match",
+                "address": 142,
+                "addressHex": "0x008E",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 5,
+                "writeCount": 2,
+                "transitionRoutineWrites": 2,
+                "scrollStagingWrites": 0,
+                "lastWrite": {
+                  "frame": 110,
+                  "stepFrame": 20,
+                  "pc": "0xD183",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD11F",
+                    "count": 1
+                  },
+                  {
+                    "pc": "0xD183",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "fineX",
+                "metricLabel": "fine X pixel",
+                "strength": "stable-written-match",
+                "address": 80,
+                "addressHex": "0x0050",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 5,
+                "writeCount": 1,
+                "transitionRoutineWrites": 1,
+                "scrollStagingWrites": 0,
+                "lastWrite": {
+                  "frame": 109,
+                  "stepFrame": 19,
+                  "pc": "0xD113",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD113",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "fineX",
+                "metricLabel": "fine X pixel",
+                "strength": "stable-written-match",
+                "address": 142,
+                "addressHex": "0x008E",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 5,
+                "writeCount": 2,
+                "transitionRoutineWrites": 2,
+                "scrollStagingWrites": 0,
+                "lastWrite": {
+                  "frame": 110,
+                  "stepFrame": 20,
+                  "pc": "0xD183",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD11F",
+                    "count": 1
+                  },
+                  {
+                    "pc": "0xD183",
+                    "count": 1
+                  }
+                ]
+              }
+            ]
+          },
+          "ramWriteEvidence": {
+            "totalWrites": 57669,
+            "zeroPageWrites": 57082,
+            "spriteStagingWrites": 587,
+            "changedAddressWrites": 49667,
+            "transitionRoutineWrites": 22,
+            "topPcs": [
+              {
+                "pc": "0xC043",
+                "count": 26337
+              },
+              {
+                "pc": "0xEB92",
+                "count": 1552
+              },
+              {
+                "pc": "0xEB95",
+                "count": 1552
+              },
+              {
+                "pc": "0xE85F",
+                "count": 1424
+              },
+              {
+                "pc": "0xE862",
+                "count": 1424
+              },
+              {
+                "pc": "0xAC18",
+                "count": 1054
+              },
+              {
+                "pc": "0xC4A0",
+                "count": 992
+              },
+              {
+                "pc": "0xC4AB",
+                "count": 992
+              },
+              {
+                "pc": "0xE393",
+                "count": 632
+              },
+              {
+                "pc": "0xAB98",
+                "count": 558
+              }
+            ],
+            "transitionRoutinePcs": [
+              {
+                "pc": "0xD10E",
+                "count": 1
+              },
+              {
+                "pc": "0xD113",
+                "count": 1
+              },
+              {
+                "pc": "0xD11F",
+                "count": 1
+              },
+              {
+                "pc": "0xD123",
+                "count": 1
+              },
+              {
+                "pc": "0xD16B",
+                "count": 1
+              },
+              {
+                "pc": "0xD170",
+                "count": 1
+              },
+              {
+                "pc": "0xD183",
+                "count": 1
+              },
+              {
+                "pc": "0xD187",
+                "count": 1
+              },
+              {
+                "pc": "0xD190",
+                "count": 1
+              },
+              {
+                "pc": "0xD195",
+                "count": 1
+              }
+            ],
+            "transitionRoutineDetails": [
+              {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD23A",
+                "address": "0x0004",
+                "value": "0x3D",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x01"
+                }
+              },
+              {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD23F",
+                "address": "0x0005",
+                "value": "0xFA",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x01"
+                }
+              },
+              {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD256",
+                "address": "0x0089",
+                "value": "0xFF",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x01"
+                }
+              },
+              {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD10E",
+                "address": "0x0030",
+                "value": "0x02",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x00",
+                  "submapRaw": "0x01"
+                }
+              },
+              {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD113",
+                "address": "0x0050",
+                "value": "0x00",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x01"
+                }
+              },
+              {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD11F",
+                "address": "0x008E",
+                "value": "0x00",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x01"
+                }
+              },
+              {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD123",
+                "address": "0x002C",
+                "value": "0x0A",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x01"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD22B",
+                "address": "0x0051",
+                "value": "0x00",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x01"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD16B",
+                "address": "0x0000",
+                "value": "0xA0",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD170",
+                "address": "0x0001",
+                "value": "0xA1",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD183",
+                "address": "0x008E",
+                "value": "0x00",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD187",
+                "address": "0x0093",
+                "value": "0x02",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD190",
+                "address": "0x0004",
+                "value": "0x21",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD195",
+                "address": "0x0005",
+                "value": "0x9F",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD19E",
+                "address": "0x0070",
+                "value": "0x3E",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD1A3",
+                "address": "0x0071",
+                "value": "0xA2",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD1A8",
+                "address": "0x0072",
+                "value": "0x21",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD1AD",
+                "address": "0x0073",
+                "value": "0xA2",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD1B7",
+                "address": "0x0063",
+                "value": "0xF4",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD1BC",
+                "address": "0x0064",
+                "value": "0x8C",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD1C1",
+                "address": "0x006E",
+                "value": "0xEF",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD1C6",
+                "address": "0x006F",
+                "value": "0xF7",
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submapRaw": "0x00"
+                }
+              }
+            ]
+          },
+          "cameraCandidates": [
+            {
+              "metric": "scrollYLow",
+              "metricLabel": "scroll Y low byte",
+              "strength": "strong",
+              "address": 252,
+              "addressHex": "0x00FC",
+              "memoryRegion": "zero-page",
+              "before": 211,
+              "beforeHex": "0xD3",
+              "after": 227,
+              "afterHex": "0xE3",
+              "metricBeforeHex": "0xD3",
+              "metricAfterHex": "0xE3",
+              "metricChanged": true,
+              "score": 16,
+              "writeCount": 30,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 29,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xD2F5",
+                "value": "0xE3",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F5",
+                  "count": 29
+                },
+                {
+                  "pc": "0xC6C7",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 87,
+              "addressHex": "0x0057",
+              "memoryRegion": "zero-page",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 1,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xE7BE",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE7BE",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 165,
+              "addressHex": "0x00A5",
+              "memoryRegion": "zero-page",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 48,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 120,
+                "stepFrame": 30,
+                "pc": "0x9CCC",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x9CCC",
+                  "count": 26
+                },
+                {
+                  "pc": "0x9C6E",
+                  "count": 10
+                },
+                {
+                  "pc": "0x9C7B",
+                  "count": 10
+                },
+                {
+                  "pc": "0xA3D4",
+                  "count": 2
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 338,
+              "addressHex": "0x0152",
+              "memoryRegion": "low-ram",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 342,
+              "addressHex": "0x0156",
+              "memoryRegion": "low-ram",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 1911,
+              "addressHex": "0x0777",
+              "memoryRegion": "low-ram",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "after-match",
+              "address": 147,
+              "addressHex": "0x0093",
+              "memoryRegion": "zero-page",
+              "before": 2,
+              "beforeHex": "0x02",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 8,
+              "writeCount": 2539,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 29,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xE862",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE862",
+                  "count": 1424
+                },
+                {
+                  "pc": "0xE84C",
+                  "count": 178
+                },
+                {
+                  "pc": "0xE557",
+                  "count": 128
+                },
+                {
+                  "pc": "0xE36C",
+                  "count": 92
+                },
+                {
+                  "pc": "0xE36E",
+                  "count": 92
+                }
+              ]
+            },
+            {
+              "metric": "coarseX",
+              "metricLabel": "coarse X tile",
+              "strength": "stable-written-match",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 6,
+              "writeCount": 30,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 29,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 29
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "fineX",
+              "metricLabel": "fine X pixel",
+              "strength": "stable-written-match",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 6,
+              "writeCount": 30,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 29,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 29
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableY",
+              "metricLabel": "vertical nametable bit",
+              "strength": "stable-written-match",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 6,
+              "writeCount": 30,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 29,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 29
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "scrollXLow",
+              "metricLabel": "scroll X low byte",
+              "strength": "stable-written-match",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 6,
+              "writeCount": 30,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 29,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 29
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "coarseX",
+              "metricLabel": "coarse X tile",
+              "strength": "stable-written-match",
+              "address": 80,
+              "addressHex": "0x0050",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD113",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD113",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "coarseX",
+              "metricLabel": "coarse X tile",
+              "strength": "stable-written-match",
+              "address": 142,
+              "addressHex": "0x008E",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 2,
+              "transitionRoutineWrites": 2,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD183",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD11F",
+                  "count": 1
+                },
+                {
+                  "pc": "0xD183",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "coarseY",
+              "metricLabel": "coarse Y tile",
+              "strength": "delta-match",
+              "address": 48,
+              "addressHex": "0x0030",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 2,
+              "afterHex": "0x02",
+              "metricBeforeHex": "0x1A",
+              "metricAfterHex": "0x1C",
+              "metricChanged": true,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD10E",
+                "value": "0x02",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD10E",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "coarseY",
+              "metricLabel": "coarse Y tile",
+              "strength": "after-match",
+              "address": 93,
+              "addressHex": "0x005D",
+              "memoryRegion": "zero-page",
+              "before": 56,
+              "beforeHex": "0x38",
+              "after": 28,
+              "afterHex": "0x1C",
+              "metricBeforeHex": "0x1A",
+              "metricAfterHex": "0x1C",
+              "metricChanged": true,
+              "score": 5,
+              "writeCount": 10,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xEAFC",
+                "value": "0x1C",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xEAFC",
+                  "count": 10
+                }
+              ]
+            },
+            {
+              "metric": "fineX",
+              "metricLabel": "fine X pixel",
+              "strength": "stable-written-match",
+              "address": 80,
+              "addressHex": "0x0050",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD113",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD113",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "fineX",
+              "metricLabel": "fine X pixel",
+              "strength": "stable-written-match",
+              "address": 142,
+              "addressHex": "0x008E",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 2,
+              "transitionRoutineWrites": 2,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD183",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD11F",
+                  "count": 1
+                },
+                {
+                  "pc": "0xD183",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "delta-match",
+              "address": 4,
+              "addressHex": "0x0004",
+              "memoryRegion": "zero-page",
+              "before": 2,
+              "beforeHex": "0x02",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 5,
+              "writeCount": 1072,
+              "transitionRoutineWrites": 2,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xE8A9",
+                "value": "0x01",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xC49A",
+                  "count": 496
+                },
+                {
+                  "pc": "0xE8A9",
+                  "count": 356
+                },
+                {
+                  "pc": "0xE891",
+                  "count": 94
+                },
+                {
+                  "pc": "0xAB5F",
+                  "count": 53
+                },
+                {
+                  "pc": "0xABDE",
+                  "count": 31
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "after-match",
+              "address": 81,
+              "addressHex": "0x0051",
+              "memoryRegion": "zero-page",
+              "before": 128,
+              "beforeHex": "0x80",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 5,
+              "writeCount": 2,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD22B",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x847C",
+                  "count": 1
+                },
+                {
+                  "pc": "0xD22B",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableY",
+              "metricLabel": "vertical nametable bit",
+              "strength": "stable-written-match",
+              "address": 80,
+              "addressHex": "0x0050",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD113",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD113",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableY",
+              "metricLabel": "vertical nametable bit",
+              "strength": "stable-written-match",
+              "address": 142,
+              "addressHex": "0x008E",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 2,
+              "transitionRoutineWrites": 2,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD183",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD11F",
+                  "count": 1
+                },
+                {
+                  "pc": "0xD183",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "scrollXLow",
+              "metricLabel": "scroll X low byte",
+              "strength": "stable-written-match",
+              "address": 80,
+              "addressHex": "0x0050",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 109,
+                "stepFrame": 19,
+                "pc": "0xD113",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD113",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "scrollXLow",
+              "metricLabel": "scroll X low byte",
+              "strength": "stable-written-match",
+              "address": 142,
+              "addressHex": "0x008E",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 2,
+              "transitionRoutineWrites": 2,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xD183",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD11F",
+                  "count": 1
+                },
+                {
+                  "pc": "0xD183",
+                  "count": 1
+                }
+              ]
+            }
+          ],
+          "positionCandidates": [
+            {
+              "address": 840,
+              "addressHex": "0x0348",
+              "memoryRegion": "low-ram",
+              "before": 233,
+              "beforeHex": "0xE9",
+              "after": 16,
+              "afterHex": "0x10",
+              "score": 27,
+              "matches": [
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0xE1",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0xE9",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0xE1",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0xF1",
+                  "after": "0x18"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "width",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0xE9",
+                  "after": "0x10"
+                }
+              ],
+              "writeCount": 10,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xCFF5",
+                "value": "0x10",
+                "event": "sprite-staging-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x8448",
+                  "count": 9
+                },
+                {
+                  "pc": "0xCFF5",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 147,
+              "addressHex": "0x0093",
+              "memoryRegion": "zero-page",
+              "before": 2,
+              "beforeHex": "0x02",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 15,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 2539,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xE862",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE862",
+                  "count": 1424
+                },
+                {
+                  "pc": "0xE84C",
+                  "count": 178
+                },
+                {
+                  "pc": "0xE557",
+                  "count": 128
+                },
+                {
+                  "pc": "0xE36C",
+                  "count": 92
+                },
+                {
+                  "pc": "0xE36E",
+                  "count": 92
+                }
+              ]
+            },
+            {
+              "address": 1080,
+              "addressHex": "0x0438",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 16,
+              "afterHex": "0x10",
+              "score": 14,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "width",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollYLow",
+                  "before": "0xD3",
+                  "after": "0xE3"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 20,
+              "addressHex": "0x0014",
+              "memoryRegion": "zero-page",
+              "before": 3,
+              "beforeHex": "0x03",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 294,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xEA9F",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xAB83",
+                  "count": 212
+                },
+                {
+                  "pc": "0xE973",
+                  "count": 53
+                },
+                {
+                  "pc": "0xE58B",
+                  "count": 15
+                },
+                {
+                  "pc": "0xEA9F",
+                  "count": 12
+                },
+                {
+                  "pc": "0xE512",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 84,
+              "addressHex": "0x0054",
+              "memoryRegion": "zero-page",
+              "before": 3,
+              "beforeHex": "0x03",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 1,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xE7B3",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE7B3",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 87,
+              "addressHex": "0x0057",
+              "memoryRegion": "zero-page",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 1,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xE7BE",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE7BE",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 90,
+              "addressHex": "0x005A",
+              "memoryRegion": "zero-page",
+              "before": 30,
+              "beforeHex": "0x1E",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 2,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xE842",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE842",
+                  "count": 2
+                }
+              ]
+            },
+            {
+              "address": 91,
+              "addressHex": "0x005B",
+              "memoryRegion": "zero-page",
+              "before": 30,
+              "beforeHex": "0x1E",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 2,
+              "lastWrite": {
+                "frame": 110,
+                "stepFrame": 20,
+                "pc": "0xE844",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE844",
+                  "count": 2
+                }
+              ]
+            },
+            {
+              "address": 98,
+              "addressHex": "0x0062",
+              "memoryRegion": "zero-page",
+              "before": 65,
+              "beforeHex": "0x41",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 76,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xEA56",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xEA56",
+                  "count": 76
+                }
+              ]
+            },
+            {
+              "address": 106,
+              "addressHex": "0x006A",
+              "memoryRegion": "zero-page",
+              "before": 30,
+              "beforeHex": "0x1E",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 427,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xE961",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE8AD",
+                  "count": 356
+                },
+                {
+                  "pc": "0xE9D6",
+                  "count": 53
+                },
+                {
+                  "pc": "0xE961",
+                  "count": 10
+                },
+                {
+                  "pc": "0xE8B7",
+                  "count": 6
+                },
+                {
+                  "pc": "0xE504",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 148,
+              "addressHex": "0x0094",
+              "memoryRegion": "zero-page",
+              "before": 10,
+              "beforeHex": "0x0A",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 3181,
+              "lastWrite": {
+                "frame": 122,
+                "stepFrame": 32,
+                "pc": "0xEB95",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xEB92",
+                  "count": 1552
+                },
+                {
+                  "pc": "0xEB95",
+                  "count": 1552
+                },
+                {
+                  "pc": "0xD2D9",
+                  "count": 29
+                },
+                {
+                  "pc": "0xEAE4",
+                  "count": 19
+                },
+                {
+                  "pc": "0x837F",
+                  "count": 9
+                }
+              ]
+            },
+            {
+              "address": 165,
+              "addressHex": "0x00A5",
+              "memoryRegion": "zero-page",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 48,
+              "lastWrite": {
+                "frame": 120,
+                "stepFrame": 30,
+                "pc": "0x9CCC",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x9CCC",
+                  "count": 26
+                },
+                {
+                  "pc": "0x9C6E",
+                  "count": 10
+                },
+                {
+                  "pc": "0x9C7B",
+                  "count": 10
+                },
+                {
+                  "pc": "0xA3D4",
+                  "count": 2
+                }
+              ]
+            },
+            {
+              "address": 225,
+              "addressHex": "0x00E1",
+              "memoryRegion": "zero-page",
+              "before": 21,
+              "beforeHex": "0x15",
+              "after": 16,
+              "afterHex": "0x10",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "width",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "after": "0x10"
+                }
+              ],
+              "writeCount": 1,
+              "lastWrite": {
+                "frame": 98,
+                "stepFrame": 8,
+                "pc": "0xA332",
+                "value": "0x10",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xA332",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 257,
+              "addressHex": "0x0101",
+              "memoryRegion": "low-ram",
+              "before": 2,
+              "beforeHex": "0x02",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 338,
+              "addressHex": "0x0152",
+              "memoryRegion": "low-ram",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 339,
+              "addressHex": "0x0153",
+              "memoryRegion": "low-ram",
+              "before": 6,
+              "beforeHex": "0x06",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 12,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            }
+          ],
+          "snapshots": {
+            "beforeCpu": "jova-to-woods-before-cpu-0000-07ff.bin",
+            "afterCpu": "jova-to-woods-after-cpu-0000-07ff.bin",
+            "beforeOam": "jova-to-woods-before-oam-0000-00ff.bin",
+            "afterOam": "jova-to-woods-after-oam-0000-00ff.bin"
+          }
+        }
+      ],
+      "mesen": {
+        "status": 0,
+        "durationMs": 9380,
+        "outputs": [
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/jova-to-woods-after-cpu-0000-07ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/jova-to-woods-after-oam-0000-00ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/jova-to-woods-before-cpu-0000-07ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/jova-to-woods-before-oam-0000-00ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/probe-start-cpu-0000-07ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/ram-writes.tsv",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/summary.json",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/trace.tsv",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/woods-to-jova-after-cpu-0000-07ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/woods-to-jova-after-oam-0000-00ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/woods-to-jova-before-cpu-0000-07ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/jova-woods-left-round-trip/woods-to-jova-before-oam-0000-00ff.bin"
+        ]
+      }
+    },
+    {
+      "id": "doina-church-round-trip",
+      "label": "Doina church interior round trip",
+      "location": "Town of Doina church interior",
+      "variant": "day",
+      "access": "town-interior",
+      "state": "/Users/baclap/workspace/castlevania/out/states/doina-church-interior-day.mss",
+      "reason": "Interior exit by walking left, then exterior re-entry by pressing up at the door.",
+      "output": "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip",
+      "trace": "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/trace.tsv",
+      "ramWrites": "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/ram-writes.tsv",
+      "status": "complete",
+      "totalFrames": 99,
+      "stateLoadedFrame": 0,
+      "steps": [
+        {
+          "id": "church-to-doina",
+          "label": "Walk left from Doina church to Town of Doina",
+          "type": "interior-exit",
+          "input": "left",
+          "status": "complete",
+          "startFrame": 30,
+          "firstTargetFrame": 34,
+          "completeFrame": 64,
+          "durationFrames": 34,
+          "framesToTarget": 4,
+          "settleFrames": 30,
+          "targetContext": {
+            "objset": "0x00",
+            "area": "0x05",
+            "submap": "0x00"
+          },
+          "startContext": {
+            "objset": "0x00",
+            "area": "0x07",
+            "submap": "0x00",
+            "submapRaw": "0x00",
+            "submapFlags": "0x00",
+            "actorPointer": "0x8EDD",
+            "tileSetPointer": "0x841D"
+          },
+          "targetObservedContext": {
+            "objset": "0x00",
+            "area": "0x05",
+            "submap": "0x00",
+            "submapRaw": "0x00",
+            "submapFlags": "0x00",
+            "actorPointer": "0x8EDD",
+            "tileSetPointer": "0x841D"
+          },
+          "finalContext": {
+            "objset": "0x00",
+            "area": "0x05",
+            "submap": "0x00",
+            "submapRaw": "0x00",
+            "submapFlags": "0x00",
+            "actorPointer": "0x8EDD",
+            "tileSetPointer": "0x841D"
+          },
+          "startPpu": {
+            "xScroll": 0,
+            "videoRamAddr": "0x3B82",
+            "tmpVideoRamAddr": "0x3380",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 0,
+              "coarseY": 28,
+              "fineX": 0,
+              "fineY": 3,
+              "nametableX": 0,
+              "nametableY": 0,
+              "scrollX": 0,
+              "scrollY": 227
+            }
+          },
+          "targetPpu": {
+            "xScroll": 0,
+            "videoRamAddr": "0x0000",
+            "tmpVideoRamAddr": "0x0000",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 0,
+              "coarseY": 0,
+              "fineX": 0,
+              "fineY": 0,
+              "nametableX": 0,
+              "nametableY": 0,
+              "scrollX": 0,
+              "scrollY": 0
+            }
+          },
+          "finalPpu": {
+            "xScroll": 2,
+            "videoRamAddr": "0x2000",
+            "tmpVideoRamAddr": "0x379E",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 30,
+              "coarseY": 28,
+              "fineX": 2,
+              "fineY": 3,
+              "nametableX": 1,
+              "nametableY": 0,
+              "scrollX": 498,
+              "scrollY": 227
+            }
+          },
+          "changedBytes": {
+            "count": 386,
+            "knownFields": [
+              {
+                "address": 80,
+                "addressHex": "0x0050",
+                "before": 7,
+                "beforeHex": "0x07",
+                "after": 5,
+                "afterHex": "0x05",
+                "label": "runtimeArea"
+              }
+            ],
+            "zeroPageCandidates": [
+              {
+                "address": 0,
+                "addressHex": "0x0000",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 154,
+                "afterHex": "0x9A"
+              },
+              {
+                "address": 1,
+                "addressHex": "0x0001",
+                "before": 139,
+                "beforeHex": "0x8B",
+                "after": 204,
+                "afterHex": "0xCC"
+              },
+              {
+                "address": 2,
+                "addressHex": "0x0002",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 7,
+                "afterHex": "0x07"
+              },
+              {
+                "address": 3,
+                "addressHex": "0x0003",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 248,
+                "afterHex": "0xF8"
+              },
+              {
+                "address": 4,
+                "addressHex": "0x0004",
+                "before": 2,
+                "beforeHex": "0x02",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 6,
+                "addressHex": "0x0006",
+                "before": 8,
+                "beforeHex": "0x08",
+                "after": 248,
+                "afterHex": "0xF8"
+              },
+              {
+                "address": 7,
+                "addressHex": "0x0007",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 41,
+                "afterHex": "0x29"
+              },
+              {
+                "address": 8,
+                "addressHex": "0x0008",
+                "before": 252,
+                "beforeHex": "0xFC",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 9,
+                "addressHex": "0x0009",
+                "before": 12,
+                "beforeHex": "0x0C",
+                "after": 97,
+                "afterHex": "0x61"
+              },
+              {
+                "address": 10,
+                "addressHex": "0x000A",
+                "before": 6,
+                "beforeHex": "0x06",
+                "after": 241,
+                "afterHex": "0xF1"
+              },
+              {
+                "address": 11,
+                "addressHex": "0x000B",
+                "before": 5,
+                "beforeHex": "0x05",
+                "after": 6,
+                "afterHex": "0x06"
+              },
+              {
+                "address": 12,
+                "addressHex": "0x000C",
+                "before": 2,
+                "beforeHex": "0x02",
+                "after": 7,
+                "afterHex": "0x07"
+              },
+              {
+                "address": 13,
+                "addressHex": "0x000D",
+                "before": 31,
+                "beforeHex": "0x1F",
+                "after": 51,
+                "afterHex": "0x33"
+              },
+              {
+                "address": 16,
+                "addressHex": "0x0010",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 19,
+                "addressHex": "0x0013",
+                "before": 2,
+                "beforeHex": "0x02",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 20,
+                "addressHex": "0x0014",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 3,
+                "afterHex": "0x03"
+              },
+              {
+                "address": 22,
+                "addressHex": "0x0016",
+                "before": 72,
+                "beforeHex": "0x48",
+                "after": 97,
+                "afterHex": "0x61"
+              },
+              {
+                "address": 23,
+                "addressHex": "0x0017",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 132,
+                "afterHex": "0x84"
+              },
+              {
+                "address": 28,
+                "addressHex": "0x001C",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 4,
+                "afterHex": "0x04"
+              },
+              {
+                "address": 29,
+                "addressHex": "0x001D",
+                "before": 130,
+                "beforeHex": "0x82",
+                "after": 163,
+                "afterHex": "0xA3"
+              },
+              {
+                "address": 33,
+                "addressHex": "0x0021",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 5,
+                "afterHex": "0x05"
+              },
+              {
+                "address": 34,
+                "addressHex": "0x0022",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 120,
+                "afterHex": "0x78"
+              },
+              {
+                "address": 44,
+                "addressHex": "0x002C",
+                "before": 3,
+                "beforeHex": "0x03",
+                "after": 2,
+                "afterHex": "0x02"
+              },
+              {
+                "address": 45,
+                "addressHex": "0x002D",
+                "before": 192,
+                "beforeHex": "0xC0",
+                "after": 248,
+                "afterHex": "0xF8"
+              },
+              {
+                "address": 46,
+                "addressHex": "0x002E",
+                "before": 144,
+                "beforeHex": "0x90",
+                "after": 165,
+                "afterHex": "0xA5"
+              },
+              {
+                "address": 83,
+                "addressHex": "0x0053",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 242,
+                "afterHex": "0xF2"
+              },
+              {
+                "address": 84,
+                "addressHex": "0x0054",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 88,
+                "addressHex": "0x0058",
+                "before": 252,
+                "beforeHex": "0xFC",
+                "after": 26,
+                "afterHex": "0x1A"
+              },
+              {
+                "address": 89,
+                "addressHex": "0x0059",
+                "before": 11,
+                "beforeHex": "0x0B",
+                "after": 26,
+                "afterHex": "0x1A"
+              },
+              {
+                "address": 94,
+                "addressHex": "0x005E",
+                "before": 10,
+                "beforeHex": "0x0A",
+                "after": 164,
+                "afterHex": "0xA4"
+              },
+              {
+                "address": 95,
+                "addressHex": "0x005F",
+                "before": 34,
+                "beforeHex": "0x22",
+                "after": 39,
+                "afterHex": "0x27"
+              },
+              {
+                "address": 96,
+                "addressHex": "0x0060",
+                "before": 251,
+                "beforeHex": "0xFB",
+                "after": 249,
+                "afterHex": "0xF9"
+              },
+              {
+                "address": 101,
+                "addressHex": "0x0065",
+                "before": 16,
+                "beforeHex": "0x10",
+                "after": 15,
+                "afterHex": "0x0F"
+              },
+              {
+                "address": 102,
+                "addressHex": "0x0066",
+                "before": 252,
+                "beforeHex": "0xFC",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 103,
+                "addressHex": "0x0067",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 130,
+                "afterHex": "0x82"
+              },
+              {
+                "address": 106,
+                "addressHex": "0x006A",
+                "before": 16,
+                "beforeHex": "0x10",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 109,
+                "addressHex": "0x006D",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 255,
+                "afterHex": "0xFF"
+              },
+              {
+                "address": 112,
+                "addressHex": "0x0070",
+                "before": 16,
+                "beforeHex": "0x10",
+                "after": 102,
+                "afterHex": "0x66"
+              },
+              {
+                "address": 113,
+                "addressHex": "0x0071",
+                "before": 128,
+                "beforeHex": "0x80",
+                "after": 251,
+                "afterHex": "0xFB"
+              },
+              {
+                "address": 114,
+                "addressHex": "0x0072",
+                "before": 61,
+                "beforeHex": "0x3D",
+                "after": 53,
+                "afterHex": "0x35"
+              },
+              {
+                "address": 115,
+                "addressHex": "0x0073",
+                "before": 128,
+                "beforeHex": "0x80",
+                "after": 251,
+                "afterHex": "0xFB"
+              },
+              {
+                "address": 143,
+                "addressHex": "0x008F",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 147,
+                "addressHex": "0x0093",
+                "before": 32,
+                "beforeHex": "0x20",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 149,
+                "addressHex": "0x0095",
+                "before": 28,
+                "beforeHex": "0x1C",
+                "after": 32,
+                "afterHex": "0x20"
+              },
+              {
+                "address": 150,
+                "addressHex": "0x0096",
+                "before": 6,
+                "beforeHex": "0x06",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 151,
+                "addressHex": "0x0097",
+                "before": 16,
+                "beforeHex": "0x10",
+                "after": 4,
+                "afterHex": "0x04"
+              },
+              {
+                "address": 153,
+                "addressHex": "0x0099",
+                "before": 4,
+                "beforeHex": "0x04",
+                "after": 117,
+                "afterHex": "0x75"
+              },
+              {
+                "address": 155,
+                "addressHex": "0x009B",
+                "before": 4,
+                "beforeHex": "0x04",
+                "after": 30,
+                "afterHex": "0x1E"
+              },
+              {
+                "address": 156,
+                "addressHex": "0x009C",
+                "before": 8,
+                "beforeHex": "0x08",
+                "after": 9,
+                "afterHex": "0x09"
+              },
+              {
+                "address": 161,
+                "addressHex": "0x00A1",
+                "before": 231,
+                "beforeHex": "0xE7",
+                "after": 233,
+                "afterHex": "0xE9"
+              },
+              {
+                "address": 165,
+                "addressHex": "0x00A5",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 167,
+                "addressHex": "0x00A7",
+                "before": 145,
+                "beforeHex": "0x91",
+                "after": 141,
+                "afterHex": "0x8D"
+              },
+              {
+                "address": 168,
+                "addressHex": "0x00A8",
+                "before": 152,
+                "beforeHex": "0x98",
+                "after": 157,
+                "afterHex": "0x9D"
+              },
+              {
+                "address": 169,
+                "addressHex": "0x00A9",
+                "before": 15,
+                "beforeHex": "0x0F",
+                "after": 48,
+                "afterHex": "0x30"
+              },
+              {
+                "address": 171,
+                "addressHex": "0x00AB",
+                "before": 3,
+                "beforeHex": "0x03",
+                "after": 10,
+                "afterHex": "0x0A"
+              },
+              {
+                "address": 172,
+                "addressHex": "0x00AC",
+                "before": 3,
+                "beforeHex": "0x03",
+                "after": 58,
+                "afterHex": "0x3A"
+              },
+              {
+                "address": 173,
+                "addressHex": "0x00AD",
+                "before": 3,
+                "beforeHex": "0x03",
+                "after": 10,
+                "afterHex": "0x0A"
+              },
+              {
+                "address": 175,
+                "addressHex": "0x00AF",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 176,
+                "addressHex": "0x00B0",
+                "before": 3,
+                "beforeHex": "0x03",
+                "after": 10,
+                "afterHex": "0x0A"
+              },
+              {
+                "address": 181,
+                "addressHex": "0x00B5",
+                "before": 3,
+                "beforeHex": "0x03",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 183,
+                "addressHex": "0x00B7",
+                "before": 52,
+                "beforeHex": "0x34",
+                "after": 58,
+                "afterHex": "0x3A"
+              },
+              {
+                "address": 184,
+                "addressHex": "0x00B8",
+                "before": 229,
+                "beforeHex": "0xE5",
+                "after": 235,
+                "afterHex": "0xEB"
+              },
+              {
+                "address": 185,
+                "addressHex": "0x00B9",
+                "before": 57,
+                "beforeHex": "0x39",
+                "after": 59,
+                "afterHex": "0x3B"
+              },
+              {
+                "address": 187,
+                "addressHex": "0x00BB",
+                "before": 157,
+                "beforeHex": "0x9D",
+                "after": 160,
+                "afterHex": "0xA0"
+              }
+            ]
+          },
+          "spriteEvidence": {
+            "beforeSimon": {
+              "confidence": "high",
+              "score": 32,
+              "spriteCount": 4,
+              "hintTiles": 4,
+              "bounds": {
+                "xSpriteMin": 8,
+                "xSpriteMax": 16,
+                "ySpriteMin": 174,
+                "ySpriteMax": 190,
+                "xMin": 8,
+                "xMax": 24,
+                "yMin": 174,
+                "yMax": 198,
+                "width": 16,
+                "height": 24,
+                "xCenter": 16,
+                "yCenter": 186
+              },
+              "tiles": [
+                "0x03",
+                "0x05",
+                "0x07",
+                "0x09"
+              ],
+              "spriteIndexes": [
+                14,
+                15,
+                16,
+                17
+              ]
+            },
+            "afterSimon": {
+              "confidence": "medium",
+              "score": 22,
+              "spriteCount": 4,
+              "hintTiles": 2,
+              "bounds": {
+                "xSpriteMin": 120,
+                "xSpriteMax": 128,
+                "ySpriteMin": 174,
+                "ySpriteMax": 190,
+                "xMin": 120,
+                "xMax": 136,
+                "yMin": 174,
+                "yMax": 198,
+                "width": 16,
+                "height": 24,
+                "xCenter": 128,
+                "yCenter": 186
+              },
+              "tiles": [
+                "0x0B",
+                "0x0D",
+                "0x0F",
+                "0x11"
+              ],
+              "spriteIndexes": [
+                14,
+                15,
+                16,
+                17
+              ]
+            },
+            "beforeClusters": [
+              {
+                "confidence": "high",
+                "score": 32,
+                "spriteCount": 4,
+                "hintTiles": 4,
+                "bounds": {
+                  "xSpriteMin": 8,
+                  "xSpriteMax": 16,
+                  "ySpriteMin": 174,
+                  "ySpriteMax": 190,
+                  "xMin": 8,
+                  "xMax": 24,
+                  "yMin": 174,
+                  "yMax": 198,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 16,
+                  "yCenter": 186
+                },
+                "tiles": [
+                  "0x03",
+                  "0x05",
+                  "0x07",
+                  "0x09"
+                ],
+                "spriteIndexes": [
+                  14,
+                  15,
+                  16,
+                  17
+                ]
+              },
+              {
+                "confidence": "low",
+                "score": 12,
+                "spriteCount": 4,
+                "hintTiles": 0,
+                "bounds": {
+                  "xSpriteMin": 80,
+                  "xSpriteMax": 88,
+                  "ySpriteMin": 109,
+                  "ySpriteMax": 125,
+                  "xMin": 80,
+                  "xMax": 96,
+                  "yMin": 109,
+                  "yMax": 133,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 88,
+                  "yCenter": 121
+                },
+                "tiles": [
+                  "0x97",
+                  "0x91",
+                  "0x95",
+                  "0x93"
+                ],
+                "spriteIndexes": [
+                  20,
+                  31,
+                  35,
+                  50
+                ]
+              }
+            ],
+            "afterClusters": [
+              {
+                "confidence": "medium",
+                "score": 22,
+                "spriteCount": 4,
+                "hintTiles": 2,
+                "bounds": {
+                  "xSpriteMin": 120,
+                  "xSpriteMax": 128,
+                  "ySpriteMin": 174,
+                  "ySpriteMax": 190,
+                  "xMin": 120,
+                  "xMax": 136,
+                  "yMin": 174,
+                  "yMax": 198,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 128,
+                  "yCenter": 186
+                },
+                "tiles": [
+                  "0x0B",
+                  "0x0D",
+                  "0x0F",
+                  "0x11"
+                ],
+                "spriteIndexes": [
+                  14,
+                  15,
+                  16,
+                  17
+                ]
+              },
+              {
+                "confidence": "low",
+                "score": 12,
+                "spriteCount": 4,
+                "hintTiles": 0,
+                "bounds": {
+                  "xSpriteMin": 78,
+                  "xSpriteMax": 86,
+                  "ySpriteMin": 109,
+                  "ySpriteMax": 125,
+                  "xMin": 78,
+                  "xMax": 94,
+                  "yMin": 109,
+                  "yMax": 133,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 86,
+                  "yCenter": 121
+                },
+                "tiles": [
+                  "0x93",
+                  "0x97",
+                  "0x91",
+                  "0x95"
+                ],
+                "spriteIndexes": [
+                  30,
+                  34,
+                  45,
+                  49
+                ]
+              }
+            ]
+          },
+          "cameraEvidence": {
+            "changedMetrics": [
+              {
+                "name": "scrollXLow",
+                "label": "scroll X low byte",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 242,
+                "afterHex": "0xF2",
+                "changed": true
+              },
+              {
+                "name": "coarseX",
+                "label": "coarse X tile",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 30,
+                "afterHex": "0x1E",
+                "changed": true
+              },
+              {
+                "name": "fineX",
+                "label": "fine X pixel",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 2,
+                "afterHex": "0x02",
+                "changed": true
+              },
+              {
+                "name": "nametableX",
+                "label": "horizontal nametable bit",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01",
+                "changed": true
+              }
+            ],
+            "stableWrittenCandidates": [
+              {
+                "metric": "scrollYLow",
+                "metricLabel": "scroll Y low byte",
+                "strength": "stable-written-match",
+                "address": 252,
+                "addressHex": "0x00FC",
+                "memoryRegion": "zero-page",
+                "before": 227,
+                "beforeHex": "0xE3",
+                "after": 227,
+                "afterHex": "0xE3",
+                "metricBeforeHex": "0xE3",
+                "metricAfterHex": "0xE3",
+                "metricChanged": false,
+                "score": 6,
+                "writeCount": 33,
+                "transitionRoutineWrites": 0,
+                "scrollStagingWrites": 32,
+                "lastWrite": {
+                  "frame": 63,
+                  "stepFrame": 33,
+                  "pc": "0xD2F5",
+                  "value": "0xE3",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD2F5",
+                    "count": 32
+                  },
+                  {
+                    "pc": "0xC6C7",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "nametableY",
+                "metricLabel": "vertical nametable bit",
+                "strength": "stable-written-match",
+                "address": 142,
+                "addressHex": "0x008E",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 5,
+                "writeCount": 1,
+                "transitionRoutineWrites": 1,
+                "scrollStagingWrites": 0,
+                "lastWrite": {
+                  "frame": 33,
+                  "stepFrame": 3,
+                  "pc": "0xD183",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD183",
+                    "count": 1
+                  }
+                ]
+              }
+            ]
+          },
+          "ramWriteEvidence": {
+            "totalWrites": 59628,
+            "zeroPageWrites": 59590,
+            "spriteStagingWrites": 38,
+            "changedAddressWrites": 48226,
+            "transitionRoutineWrites": 14,
+            "topPcs": [
+              {
+                "pc": "0xC043",
+                "count": 12822
+              },
+              {
+                "pc": "0xE85F",
+                "count": 3480
+              },
+              {
+                "pc": "0xE862",
+                "count": 3480
+              },
+              {
+                "pc": "0xEB92",
+                "count": 3480
+              },
+              {
+                "pc": "0xEB95",
+                "count": 3480
+              },
+              {
+                "pc": "0xE393",
+                "count": 1515
+              },
+              {
+                "pc": "0xAC18",
+                "count": 1122
+              },
+              {
+                "pc": "0xC4A0",
+                "count": 1056
+              },
+              {
+                "pc": "0xC4AB",
+                "count": 1056
+              },
+              {
+                "pc": "0xEA26",
+                "count": 900
+              }
+            ],
+            "transitionRoutinePcs": [
+              {
+                "pc": "0xD16B",
+                "count": 1
+              },
+              {
+                "pc": "0xD170",
+                "count": 1
+              },
+              {
+                "pc": "0xD183",
+                "count": 1
+              },
+              {
+                "pc": "0xD187",
+                "count": 1
+              },
+              {
+                "pc": "0xD190",
+                "count": 1
+              },
+              {
+                "pc": "0xD195",
+                "count": 1
+              },
+              {
+                "pc": "0xD19E",
+                "count": 1
+              },
+              {
+                "pc": "0xD1A3",
+                "count": 1
+              },
+              {
+                "pc": "0xD1A8",
+                "count": 1
+              },
+              {
+                "pc": "0xD1AD",
+                "count": 1
+              }
+            ],
+            "transitionRoutineDetails": [
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD16B",
+                "address": "0x0000",
+                "value": "0x1F",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD170",
+                "address": "0x0001",
+                "value": "0xFB",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD183",
+                "address": "0x008E",
+                "value": "0x00",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD187",
+                "address": "0x0093",
+                "value": "0x00",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD190",
+                "address": "0x0004",
+                "value": "0xD3",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD195",
+                "address": "0x0005",
+                "value": "0x80",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD19E",
+                "address": "0x0070",
+                "value": "0x66",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD1A3",
+                "address": "0x0071",
+                "value": "0xFB",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD1A8",
+                "address": "0x0072",
+                "value": "0x35",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD1AD",
+                "address": "0x0073",
+                "value": "0xFB",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD1B7",
+                "address": "0x0063",
+                "value": "0x1D",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD1BC",
+                "address": "0x0064",
+                "value": "0x84",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD1C1",
+                "address": "0x006E",
+                "value": "0xE9",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD1C6",
+                "address": "0x006F",
+                "value": "0xF7",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x05",
+                  "submapRaw": "0x00"
+                }
+              }
+            ]
+          },
+          "cameraCandidates": [
+            {
+              "metric": "scrollXLow",
+              "metricLabel": "scroll X low byte",
+              "strength": "strong",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 242,
+              "afterHex": "0xF2",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0xF2",
+              "metricChanged": true,
+              "score": 16,
+              "writeCount": 33,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 32,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0xD2F9",
+                "value": "0xF2",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 32
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 16,
+              "addressHex": "0x0010",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 1584,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0xE8AB",
+                "value": "0x01",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE8AB",
+                  "count": 870
+                },
+                {
+                  "pc": "0xABA7",
+                  "count": 594
+                },
+                {
+                  "pc": "0xE932",
+                  "count": 90
+                },
+                {
+                  "pc": "0xEABE",
+                  "count": 30
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 84,
+              "addressHex": "0x0054",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 1,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xE7E7",
+                "value": "0x01",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE7E7",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 165,
+              "addressHex": "0x00A5",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 62,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0x9C7B",
+                "value": "0x01",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x9C6E",
+                  "count": 20
+                },
+                {
+                  "pc": "0x9C7B",
+                  "count": 20
+                },
+                {
+                  "pc": "0x9CCC",
+                  "count": 20
+                },
+                {
+                  "pc": "0xA3D4",
+                  "count": 2
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 984,
+              "addressHex": "0x03D8",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 2,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 31,
+                "stepFrame": 1,
+                "pc": "0xDECF",
+                "value": "0x01",
+                "event": "sprite-staging-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xDECF",
+                  "count": 2
+                }
+              ]
+            },
+            {
+              "metric": "scrollXLow",
+              "metricLabel": "scroll X low byte",
+              "strength": "strong",
+              "address": 83,
+              "addressHex": "0x0053",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 242,
+              "afterHex": "0xF2",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0xF2",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 1,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xE7E2",
+                "value": "0xF2",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE7E2",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 346,
+              "addressHex": "0x015A",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 347,
+              "addressHex": "0x015B",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 1792,
+              "addressHex": "0x0700",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "after-match",
+              "address": 4,
+              "addressHex": "0x0004",
+              "memoryRegion": "zero-page",
+              "before": 2,
+              "beforeHex": "0x02",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 7,
+              "writeCount": 1760,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0xE8A9",
+                "value": "0x01",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE8A9",
+                  "count": 870
+                },
+                {
+                  "pc": "0xC49A",
+                  "count": 528
+                },
+                {
+                  "pc": "0xE891",
+                  "count": 225
+                },
+                {
+                  "pc": "0xAB5F",
+                  "count": 66
+                },
+                {
+                  "pc": "0xABDE",
+                  "count": 33
+                }
+              ]
+            },
+            {
+              "metric": "scrollYLow",
+              "metricLabel": "scroll Y low byte",
+              "strength": "stable-written-match",
+              "address": 252,
+              "addressHex": "0x00FC",
+              "memoryRegion": "zero-page",
+              "before": 227,
+              "beforeHex": "0xE3",
+              "after": 227,
+              "afterHex": "0xE3",
+              "metricBeforeHex": "0xE3",
+              "metricAfterHex": "0xE3",
+              "metricChanged": false,
+              "score": 6,
+              "writeCount": 33,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 32,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0xD2F5",
+                "value": "0xE3",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F5",
+                  "count": 32
+                },
+                {
+                  "pc": "0xC6C7",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "coarseX",
+              "metricLabel": "coarse X tile",
+              "strength": "after-match",
+              "address": 155,
+              "addressHex": "0x009B",
+              "memoryRegion": "zero-page",
+              "before": 4,
+              "beforeHex": "0x04",
+              "after": 30,
+              "afterHex": "0x1E",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x1E",
+              "metricChanged": true,
+              "score": 5,
+              "writeCount": 104,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0x9BC2",
+                "value": "0x1E",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x9CC0",
+                  "count": 33
+                },
+                {
+                  "pc": "0x9B12",
+                  "count": 32
+                },
+                {
+                  "pc": "0x9BC2",
+                  "count": 27
+                },
+                {
+                  "pc": "0x9B0C",
+                  "count": 4
+                },
+                {
+                  "pc": "0x9BD0",
+                  "count": 4
+                }
+              ]
+            },
+            {
+              "metric": "fineX",
+              "metricLabel": "fine X pixel",
+              "strength": "after-match",
+              "address": 44,
+              "addressHex": "0x002C",
+              "memoryRegion": "zero-page",
+              "before": 3,
+              "beforeHex": "0x03",
+              "after": 2,
+              "afterHex": "0x02",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x02",
+              "metricChanged": true,
+              "score": 5,
+              "writeCount": 2,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD002",
+                "value": "0x02",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x8490",
+                  "count": 1
+                },
+                {
+                  "pc": "0xD002",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "after-match",
+              "address": 19,
+              "addressHex": "0x0013",
+              "memoryRegion": "zero-page",
+              "before": 2,
+              "beforeHex": "0x02",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 5,
+              "writeCount": 45,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0xEAA5",
+                "value": "0x01",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xEAA5",
+                  "count": 30
+                },
+                {
+                  "pc": "0xE9E4",
+                  "count": 15
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "after-match",
+              "address": 768,
+              "addressHex": "0x0300",
+              "memoryRegion": "low-ram",
+              "before": 4,
+              "beforeHex": "0x04",
+              "after": 1,
+              "afterHex": "0x01",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x01",
+              "metricChanged": true,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 30,
+                "stepFrame": 0,
+                "pc": "0xDD7D",
+                "value": "0x01",
+                "event": "sprite-staging-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xDD7D",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableY",
+              "metricLabel": "vertical nametable bit",
+              "strength": "stable-written-match",
+              "address": 142,
+              "addressHex": "0x008E",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD183",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD183",
+                  "count": 1
+                }
+              ]
+            }
+          ],
+          "positionCandidates": [
+            {
+              "address": 840,
+              "addressHex": "0x0348",
+              "memoryRegion": "low-ram",
+              "before": 16,
+              "beforeHex": "0x10",
+              "after": 128,
+              "afterHex": "0x80",
+              "score": 23,
+              "matches": [
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0x08",
+                  "after": "0x78"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0x10",
+                  "after": "0x80"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0x08",
+                  "after": "0x78"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0x18",
+                  "after": "0x88"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0x10",
+                  "after": "0x80"
+                }
+              ],
+              "writeCount": 2,
+              "lastWrite": {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xCFF5",
+                "value": "0x80",
+                "event": "sprite-staging-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x8448",
+                  "count": 1
+                },
+                {
+                  "pc": "0xCFF5",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 571,
+              "addressHex": "0x023B",
+              "memoryRegion": "low-ram",
+              "before": 16,
+              "beforeHex": "0x10",
+              "after": 128,
+              "afterHex": "0x80",
+              "score": 22,
+              "matches": [
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0x08",
+                  "after": "0x78"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0x10",
+                  "after": "0x80"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0x08",
+                  "after": "0x78"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0x18",
+                  "after": "0x88"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0x10",
+                  "after": "0x80"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 575,
+              "addressHex": "0x023F",
+              "memoryRegion": "low-ram",
+              "before": 8,
+              "beforeHex": "0x08",
+              "after": 120,
+              "afterHex": "0x78",
+              "score": 22,
+              "matches": [
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0x08",
+                  "after": "0x78"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0x10",
+                  "after": "0x80"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0x08",
+                  "after": "0x78"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0x18",
+                  "after": "0x88"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0x10",
+                  "after": "0x80"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 579,
+              "addressHex": "0x0243",
+              "memoryRegion": "low-ram",
+              "before": 16,
+              "beforeHex": "0x10",
+              "after": 128,
+              "afterHex": "0x80",
+              "score": 22,
+              "matches": [
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0x08",
+                  "after": "0x78"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0x10",
+                  "after": "0x80"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0x08",
+                  "after": "0x78"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0x18",
+                  "after": "0x88"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0x10",
+                  "after": "0x80"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 583,
+              "addressHex": "0x0247",
+              "memoryRegion": "low-ram",
+              "before": 8,
+              "beforeHex": "0x08",
+              "after": 120,
+              "afterHex": "0x78",
+              "score": 22,
+              "matches": [
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0x08",
+                  "after": "0x78"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0x10",
+                  "after": "0x80"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0x08",
+                  "after": "0x78"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0x18",
+                  "after": "0x88"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0x10",
+                  "after": "0x80"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 34,
+              "addressHex": "0x0022",
+              "memoryRegion": "zero-page",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 120,
+              "afterHex": "0x78",
+              "score": 9,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "after": "0x78"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "after": "0x78"
+                }
+              ],
+              "writeCount": 2562,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0xC894",
+                "value": "0x78",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE393",
+                  "count": 1515
+                },
+                {
+                  "pc": "0xC894",
+                  "count": 578
+                },
+                {
+                  "pc": "0xE866",
+                  "count": 435
+                },
+                {
+                  "pc": "0xCBB5",
+                  "count": 33
+                },
+                {
+                  "pc": "0xC6C5",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 83,
+              "addressHex": "0x0053",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 242,
+              "afterHex": "0xF2",
+              "score": 9,
+              "matches": [
+                {
+                  "strength": "strong",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "before": "0x00",
+                  "after": "0xF2"
+                }
+              ],
+              "writeCount": 1,
+              "lastWrite": {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xE7E2",
+                "value": "0xF2",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE7E2",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 242,
+              "afterHex": "0xF2",
+              "score": 9,
+              "matches": [
+                {
+                  "strength": "strong",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "before": "0x00",
+                  "after": "0xF2"
+                }
+              ],
+              "writeCount": 33,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0xD2F9",
+                "value": "0xF2",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 32
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 1840,
+              "addressHex": "0x0730",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 174,
+              "afterHex": "0xAE",
+              "score": 8,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "ySpriteMin",
+                  "after": "0xAE"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "yMin",
+                  "after": "0xAE"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 1842,
+              "addressHex": "0x0732",
+              "memoryRegion": "low-ram",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 174,
+              "afterHex": "0xAE",
+              "score": 8,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "ySpriteMin",
+                  "after": "0xAE"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "yMin",
+                  "after": "0xAE"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 20,
+              "addressHex": "0x0014",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 3,
+              "afterHex": "0x03",
+              "score": 5,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineY",
+                  "after": "0x03"
+                }
+              ],
+              "writeCount": 309,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0xEA9F",
+                "value": "0x03",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xAB83",
+                  "count": 264
+                },
+                {
+                  "pc": "0xEA9F",
+                  "count": 30
+                },
+                {
+                  "pc": "0xE973",
+                  "count": 15
+                }
+              ]
+            },
+            {
+              "address": 44,
+              "addressHex": "0x002C",
+              "memoryRegion": "zero-page",
+              "before": 3,
+              "beforeHex": "0x03",
+              "after": 2,
+              "afterHex": "0x02",
+              "score": 5,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x02"
+                }
+              ],
+              "writeCount": 2,
+              "lastWrite": {
+                "frame": 33,
+                "stepFrame": 3,
+                "pc": "0xD002",
+                "value": "0x02",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x8490",
+                  "count": 1
+                },
+                {
+                  "pc": "0xD002",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 155,
+              "addressHex": "0x009B",
+              "memoryRegion": "zero-page",
+              "before": 4,
+              "beforeHex": "0x04",
+              "after": 30,
+              "afterHex": "0x1E",
+              "score": 5,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x1E"
+                }
+              ],
+              "writeCount": 104,
+              "lastWrite": {
+                "frame": 63,
+                "stepFrame": 33,
+                "pc": "0x9BC2",
+                "value": "0x1E",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x9CC0",
+                  "count": 33
+                },
+                {
+                  "pc": "0x9B12",
+                  "count": 32
+                },
+                {
+                  "pc": "0x9BC2",
+                  "count": 27
+                },
+                {
+                  "pc": "0x9B0C",
+                  "count": 4
+                },
+                {
+                  "pc": "0x9BD0",
+                  "count": 4
+                }
+              ]
+            },
+            {
+              "address": 288,
+              "addressHex": "0x0120",
+              "memoryRegion": "low-ram",
+              "before": 46,
+              "beforeHex": "0x2E",
+              "after": 30,
+              "afterHex": "0x1E",
+              "score": 4,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x1E"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 334,
+              "addressHex": "0x014E",
+              "memoryRegion": "low-ram",
+              "before": 3,
+              "beforeHex": "0x03",
+              "after": 2,
+              "afterHex": "0x02",
+              "score": 4,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x02"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 335,
+              "addressHex": "0x014F",
+              "memoryRegion": "low-ram",
+              "before": 3,
+              "beforeHex": "0x03",
+              "after": 2,
+              "afterHex": "0x02",
+              "score": 4,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x02"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            }
+          ],
+          "snapshots": {
+            "beforeCpu": "church-to-doina-before-cpu-0000-07ff.bin",
+            "afterCpu": "church-to-doina-after-cpu-0000-07ff.bin",
+            "beforeOam": "church-to-doina-before-oam-0000-00ff.bin",
+            "afterOam": "church-to-doina-after-oam-0000-00ff.bin"
+          }
+        },
+        {
+          "id": "doina-to-church",
+          "label": "Press up from Town of Doina to re-enter the church",
+          "type": "interior-entry",
+          "input": "up",
+          "status": "complete",
+          "startFrame": 64,
+          "firstTargetFrame": 68,
+          "completeFrame": 98,
+          "durationFrames": 34,
+          "framesToTarget": 4,
+          "settleFrames": 30,
+          "targetContext": {
+            "objset": "0x00",
+            "area": "0x07",
+            "submap": "0x00"
+          },
+          "startContext": {
+            "objset": "0x00",
+            "area": "0x05",
+            "submap": "0x00",
+            "submapRaw": "0x00",
+            "submapFlags": "0x00",
+            "actorPointer": "0x8EDD",
+            "tileSetPointer": "0x841D"
+          },
+          "targetObservedContext": {
+            "objset": "0x00",
+            "area": "0x07",
+            "submap": "0x00",
+            "submapRaw": "0x00",
+            "submapFlags": "0x00",
+            "actorPointer": "0x91A1",
+            "tileSetPointer": "0x841D"
+          },
+          "finalContext": {
+            "objset": "0x00",
+            "area": "0x07",
+            "submap": "0x00",
+            "submapRaw": "0x00",
+            "submapFlags": "0x00",
+            "actorPointer": "0x91A1",
+            "tileSetPointer": "0x841D"
+          },
+          "startPpu": {
+            "xScroll": 2,
+            "videoRamAddr": "0x2000",
+            "tmpVideoRamAddr": "0x379E",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 30,
+              "coarseY": 28,
+              "fineX": 2,
+              "fineY": 3,
+              "nametableX": 1,
+              "nametableY": 0,
+              "scrollX": 498,
+              "scrollY": 227
+            }
+          },
+          "targetPpu": {
+            "xScroll": 2,
+            "videoRamAddr": "0x2000",
+            "tmpVideoRamAddr": "0x379E",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 30,
+              "coarseY": 28,
+              "fineX": 2,
+              "fineY": 3,
+              "nametableX": 1,
+              "nametableY": 0,
+              "scrollX": 498,
+              "scrollY": 227
+            }
+          },
+          "finalPpu": {
+            "xScroll": 0,
+            "videoRamAddr": "0x2000",
+            "tmpVideoRamAddr": "0x3380",
+            "bgPatternAddr": "0x0000",
+            "spritePatternAddr": "0x1000",
+            "scroll": {
+              "coarseX": 0,
+              "coarseY": 28,
+              "fineX": 0,
+              "fineY": 3,
+              "nametableX": 0,
+              "nametableY": 0,
+              "scrollX": 0,
+              "scrollY": 227
+            }
+          },
+          "changedBytes": {
+            "count": 378,
+            "knownFields": [
+              {
+                "address": 61,
+                "addressHex": "0x003D",
+                "before": 221,
+                "beforeHex": "0xDD",
+                "after": 161,
+                "afterHex": "0xA1",
+                "label": "runtimeActorPointerLow"
+              },
+              {
+                "address": 62,
+                "addressHex": "0x003E",
+                "before": 142,
+                "beforeHex": "0x8E",
+                "after": 145,
+                "afterHex": "0x91",
+                "label": "runtimeActorPointerHigh"
+              },
+              {
+                "address": 80,
+                "addressHex": "0x0050",
+                "before": 5,
+                "beforeHex": "0x05",
+                "after": 7,
+                "afterHex": "0x07",
+                "label": "runtimeArea"
+              }
+            ],
+            "zeroPageCandidates": [
+              {
+                "address": 2,
+                "addressHex": "0x0002",
+                "before": 7,
+                "beforeHex": "0x07",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 3,
+                "addressHex": "0x0003",
+                "before": 248,
+                "beforeHex": "0xF8",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 9,
+                "addressHex": "0x0009",
+                "before": 97,
+                "beforeHex": "0x61",
+                "after": 113,
+                "afterHex": "0x71"
+              },
+              {
+                "address": 13,
+                "addressHex": "0x000D",
+                "before": 51,
+                "beforeHex": "0x33",
+                "after": 19,
+                "afterHex": "0x13"
+              },
+              {
+                "address": 14,
+                "addressHex": "0x000E",
+                "before": 178,
+                "beforeHex": "0xB2",
+                "after": 180,
+                "afterHex": "0xB4"
+              },
+              {
+                "address": 20,
+                "addressHex": "0x0014",
+                "before": 3,
+                "beforeHex": "0x03",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 22,
+                "addressHex": "0x0016",
+                "before": 97,
+                "beforeHex": "0x61",
+                "after": 113,
+                "afterHex": "0x71"
+              },
+              {
+                "address": 29,
+                "addressHex": "0x001D",
+                "before": 163,
+                "beforeHex": "0xA3",
+                "after": 195,
+                "afterHex": "0xC3"
+              },
+              {
+                "address": 45,
+                "addressHex": "0x002D",
+                "before": 248,
+                "beforeHex": "0xF8",
+                "after": 236,
+                "afterHex": "0xEC"
+              },
+              {
+                "address": 46,
+                "addressHex": "0x002E",
+                "before": 165,
+                "beforeHex": "0xA5",
+                "after": 51,
+                "afterHex": "0x33"
+              },
+              {
+                "address": 55,
+                "addressHex": "0x0037",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 57,
+                "addressHex": "0x0039",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 31,
+                "afterHex": "0x1F"
+              },
+              {
+                "address": 75,
+                "addressHex": "0x004B",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 83,
+                "addressHex": "0x0053",
+                "before": 242,
+                "beforeHex": "0xF2",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 84,
+                "addressHex": "0x0054",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 88,
+                "addressHex": "0x0058",
+                "before": 26,
+                "beforeHex": "0x1A",
+                "after": 10,
+                "afterHex": "0x0A"
+              },
+              {
+                "address": 89,
+                "addressHex": "0x0059",
+                "before": 26,
+                "beforeHex": "0x1A",
+                "after": 11,
+                "afterHex": "0x0B"
+              },
+              {
+                "address": 98,
+                "addressHex": "0x0062",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 101,
+                "addressHex": "0x0065",
+                "before": 15,
+                "beforeHex": "0x0F",
+                "after": 14,
+                "afterHex": "0x0E"
+              },
+              {
+                "address": 103,
+                "addressHex": "0x0067",
+                "before": 130,
+                "beforeHex": "0x82",
+                "after": 2,
+                "afterHex": "0x02"
+              },
+              {
+                "address": 104,
+                "addressHex": "0x0068",
+                "before": 128,
+                "beforeHex": "0x80",
+                "after": 162,
+                "afterHex": "0xA2"
+              },
+              {
+                "address": 109,
+                "addressHex": "0x006D",
+                "before": 255,
+                "beforeHex": "0xFF",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 112,
+                "addressHex": "0x0070",
+                "before": 102,
+                "beforeHex": "0x66",
+                "after": 16,
+                "afterHex": "0x10"
+              },
+              {
+                "address": 113,
+                "addressHex": "0x0071",
+                "before": 251,
+                "beforeHex": "0xFB",
+                "after": 128,
+                "afterHex": "0x80"
+              },
+              {
+                "address": 114,
+                "addressHex": "0x0072",
+                "before": 53,
+                "beforeHex": "0x35",
+                "after": 61,
+                "afterHex": "0x3D"
+              },
+              {
+                "address": 115,
+                "addressHex": "0x0073",
+                "before": 251,
+                "beforeHex": "0xFB",
+                "after": 128,
+                "afterHex": "0x80"
+              },
+              {
+                "address": 116,
+                "addressHex": "0x0074",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 242,
+                "afterHex": "0xF2"
+              },
+              {
+                "address": 132,
+                "addressHex": "0x0084",
+                "before": 5,
+                "beforeHex": "0x05",
+                "after": 6,
+                "afterHex": "0x06"
+              },
+              {
+                "address": 143,
+                "addressHex": "0x008F",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 148,
+                "addressHex": "0x0094",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 170,
+                "afterHex": "0xAA"
+              },
+              {
+                "address": 153,
+                "addressHex": "0x0099",
+                "before": 117,
+                "beforeHex": "0x75",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 155,
+                "addressHex": "0x009B",
+                "before": 30,
+                "beforeHex": "0x1E",
+                "after": 58,
+                "afterHex": "0x3A"
+              },
+              {
+                "address": 156,
+                "addressHex": "0x009C",
+                "before": 9,
+                "beforeHex": "0x09",
+                "after": 10,
+                "afterHex": "0x0A"
+              },
+              {
+                "address": 161,
+                "addressHex": "0x00A1",
+                "before": 233,
+                "beforeHex": "0xE9",
+                "after": 236,
+                "afterHex": "0xEC"
+              },
+              {
+                "address": 165,
+                "addressHex": "0x00A5",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 12,
+                "afterHex": "0x0C"
+              },
+              {
+                "address": 167,
+                "addressHex": "0x00A7",
+                "before": 141,
+                "beforeHex": "0x8D",
+                "after": 95,
+                "afterHex": "0x5F"
+              },
+              {
+                "address": 168,
+                "addressHex": "0x00A8",
+                "before": 157,
+                "beforeHex": "0x9D",
+                "after": 153,
+                "afterHex": "0x99"
+              },
+              {
+                "address": 169,
+                "addressHex": "0x00A9",
+                "before": 48,
+                "beforeHex": "0x30",
+                "after": 82,
+                "afterHex": "0x52"
+              },
+              {
+                "address": 171,
+                "addressHex": "0x00AB",
+                "before": 10,
+                "beforeHex": "0x0A",
+                "after": 16,
+                "afterHex": "0x10"
+              },
+              {
+                "address": 172,
+                "addressHex": "0x00AC",
+                "before": 58,
+                "beforeHex": "0x3A",
+                "after": 24,
+                "afterHex": "0x18"
+              },
+              {
+                "address": 173,
+                "addressHex": "0x00AD",
+                "before": 10,
+                "beforeHex": "0x0A",
+                "after": 16,
+                "afterHex": "0x10"
+              },
+              {
+                "address": 175,
+                "addressHex": "0x00AF",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 176,
+                "addressHex": "0x00B0",
+                "before": 10,
+                "beforeHex": "0x0A",
+                "after": 16,
+                "afterHex": "0x10"
+              },
+              {
+                "address": 181,
+                "addressHex": "0x00B5",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 3,
+                "afterHex": "0x03"
+              },
+              {
+                "address": 183,
+                "addressHex": "0x00B7",
+                "before": 58,
+                "beforeHex": "0x3A",
+                "after": 66,
+                "afterHex": "0x42"
+              },
+              {
+                "address": 185,
+                "addressHex": "0x00B9",
+                "before": 59,
+                "beforeHex": "0x3B",
+                "after": 64,
+                "afterHex": "0x40"
+              },
+              {
+                "address": 187,
+                "addressHex": "0x00BB",
+                "before": 160,
+                "beforeHex": "0xA0",
+                "after": 151,
+                "afterHex": "0x97"
+              },
+              {
+                "address": 188,
+                "addressHex": "0x00BC",
+                "before": 233,
+                "beforeHex": "0xE9",
+                "after": 237,
+                "afterHex": "0xED"
+              },
+              {
+                "address": 199,
+                "addressHex": "0x00C7",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 1,
+                "afterHex": "0x01"
+              },
+              {
+                "address": 253,
+                "addressHex": "0x00FD",
+                "before": 242,
+                "beforeHex": "0xF2",
+                "after": 0,
+                "afterHex": "0x00"
+              },
+              {
+                "address": 255,
+                "addressHex": "0x00FF",
+                "before": 169,
+                "beforeHex": "0xA9",
+                "after": 168,
+                "afterHex": "0xA8"
+              }
+            ]
+          },
+          "spriteEvidence": {
+            "beforeSimon": {
+              "confidence": "medium",
+              "score": 22,
+              "spriteCount": 4,
+              "hintTiles": 2,
+              "bounds": {
+                "xSpriteMin": 120,
+                "xSpriteMax": 128,
+                "ySpriteMin": 174,
+                "ySpriteMax": 190,
+                "xMin": 120,
+                "xMax": 136,
+                "yMin": 174,
+                "yMax": 198,
+                "width": 16,
+                "height": 24,
+                "xCenter": 128,
+                "yCenter": 186
+              },
+              "tiles": [
+                "0x0B",
+                "0x0D",
+                "0x0F",
+                "0x11"
+              ],
+              "spriteIndexes": [
+                14,
+                15,
+                16,
+                17
+              ]
+            },
+            "afterSimon": {
+              "confidence": "high",
+              "score": 32,
+              "spriteCount": 4,
+              "hintTiles": 4,
+              "bounds": {
+                "xSpriteMin": 8,
+                "xSpriteMax": 16,
+                "ySpriteMin": 174,
+                "ySpriteMax": 190,
+                "xMin": 8,
+                "xMax": 24,
+                "yMin": 174,
+                "yMax": 198,
+                "width": 16,
+                "height": 24,
+                "xCenter": 16,
+                "yCenter": 186
+              },
+              "tiles": [
+                "0x03",
+                "0x05",
+                "0x07",
+                "0x09"
+              ],
+              "spriteIndexes": [
+                14,
+                15,
+                16,
+                17
+              ]
+            },
+            "beforeClusters": [
+              {
+                "confidence": "medium",
+                "score": 22,
+                "spriteCount": 4,
+                "hintTiles": 2,
+                "bounds": {
+                  "xSpriteMin": 120,
+                  "xSpriteMax": 128,
+                  "ySpriteMin": 174,
+                  "ySpriteMax": 190,
+                  "xMin": 120,
+                  "xMax": 136,
+                  "yMin": 174,
+                  "yMax": 198,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 128,
+                  "yCenter": 186
+                },
+                "tiles": [
+                  "0x0B",
+                  "0x0D",
+                  "0x0F",
+                  "0x11"
+                ],
+                "spriteIndexes": [
+                  14,
+                  15,
+                  16,
+                  17
+                ]
+              },
+              {
+                "confidence": "low",
+                "score": 12,
+                "spriteCount": 4,
+                "hintTiles": 0,
+                "bounds": {
+                  "xSpriteMin": 78,
+                  "xSpriteMax": 86,
+                  "ySpriteMin": 109,
+                  "ySpriteMax": 125,
+                  "xMin": 78,
+                  "xMax": 94,
+                  "yMin": 109,
+                  "yMax": 133,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 86,
+                  "yCenter": 121
+                },
+                "tiles": [
+                  "0x93",
+                  "0x97",
+                  "0x91",
+                  "0x95"
+                ],
+                "spriteIndexes": [
+                  30,
+                  34,
+                  45,
+                  49
+                ]
+              }
+            ],
+            "afterClusters": [
+              {
+                "confidence": "high",
+                "score": 32,
+                "spriteCount": 4,
+                "hintTiles": 4,
+                "bounds": {
+                  "xSpriteMin": 8,
+                  "xSpriteMax": 16,
+                  "ySpriteMin": 174,
+                  "ySpriteMax": 190,
+                  "xMin": 8,
+                  "xMax": 24,
+                  "yMin": 174,
+                  "yMax": 198,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 16,
+                  "yCenter": 186
+                },
+                "tiles": [
+                  "0x03",
+                  "0x05",
+                  "0x07",
+                  "0x09"
+                ],
+                "spriteIndexes": [
+                  14,
+                  15,
+                  16,
+                  17
+                ]
+              },
+              {
+                "confidence": "low",
+                "score": 12,
+                "spriteCount": 4,
+                "hintTiles": 0,
+                "bounds": {
+                  "xSpriteMin": 135,
+                  "xSpriteMax": 143,
+                  "ySpriteMin": 173,
+                  "ySpriteMax": 189,
+                  "xMin": 135,
+                  "xMax": 151,
+                  "yMin": 173,
+                  "yMax": 197,
+                  "width": 16,
+                  "height": 24,
+                  "xCenter": 143,
+                  "yCenter": 185
+                },
+                "tiles": [
+                  "0xA3",
+                  "0xA1",
+                  "0xA7",
+                  "0xA5"
+                ],
+                "spriteIndexes": [
+                  27,
+                  42,
+                  46,
+                  61
+                ]
+              }
+            ]
+          },
+          "cameraEvidence": {
+            "changedMetrics": [
+              {
+                "name": "scrollXLow",
+                "label": "scroll X low byte",
+                "before": 242,
+                "beforeHex": "0xF2",
+                "after": 0,
+                "afterHex": "0x00",
+                "changed": true
+              },
+              {
+                "name": "coarseX",
+                "label": "coarse X tile",
+                "before": 30,
+                "beforeHex": "0x1E",
+                "after": 0,
+                "afterHex": "0x00",
+                "changed": true
+              },
+              {
+                "name": "fineX",
+                "label": "fine X pixel",
+                "before": 2,
+                "beforeHex": "0x02",
+                "after": 0,
+                "afterHex": "0x00",
+                "changed": true
+              },
+              {
+                "name": "nametableX",
+                "label": "horizontal nametable bit",
+                "before": 1,
+                "beforeHex": "0x01",
+                "after": 0,
+                "afterHex": "0x00",
+                "changed": true
+              }
+            ],
+            "stableWrittenCandidates": [
+              {
+                "metric": "nametableY",
+                "metricLabel": "vertical nametable bit",
+                "strength": "stable-written-match",
+                "address": 147,
+                "addressHex": "0x0093",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 8,
+                "writeCount": 3982,
+                "transitionRoutineWrites": 1,
+                "scrollStagingWrites": 31,
+                "lastWrite": {
+                  "frame": 97,
+                  "stepFrame": 33,
+                  "pc": "0xE862",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xE862",
+                    "count": 2584
+                  },
+                  {
+                    "pc": "0xE84C",
+                    "count": 323
+                  },
+                  {
+                    "pc": "0xE36C",
+                    "count": 156
+                  },
+                  {
+                    "pc": "0xE36E",
+                    "count": 156
+                  },
+                  {
+                    "pc": "0xE370",
+                    "count": 156
+                  }
+                ]
+              },
+              {
+                "metric": "scrollYLow",
+                "metricLabel": "scroll Y low byte",
+                "strength": "stable-written-match",
+                "address": 252,
+                "addressHex": "0x00FC",
+                "memoryRegion": "zero-page",
+                "before": 227,
+                "beforeHex": "0xE3",
+                "after": 227,
+                "afterHex": "0xE3",
+                "metricBeforeHex": "0xE3",
+                "metricAfterHex": "0xE3",
+                "metricChanged": false,
+                "score": 6,
+                "writeCount": 32,
+                "transitionRoutineWrites": 0,
+                "scrollStagingWrites": 31,
+                "lastWrite": {
+                  "frame": 97,
+                  "stepFrame": 33,
+                  "pc": "0xD2F5",
+                  "value": "0xE3",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD2F5",
+                    "count": 31
+                  },
+                  {
+                    "pc": "0xC6C7",
+                    "count": 1
+                  }
+                ]
+              },
+              {
+                "metric": "nametableY",
+                "metricLabel": "vertical nametable bit",
+                "strength": "stable-written-match",
+                "address": 142,
+                "addressHex": "0x008E",
+                "memoryRegion": "zero-page",
+                "before": 0,
+                "beforeHex": "0x00",
+                "after": 0,
+                "afterHex": "0x00",
+                "metricBeforeHex": "0x00",
+                "metricAfterHex": "0x00",
+                "metricChanged": false,
+                "score": 5,
+                "writeCount": 1,
+                "transitionRoutineWrites": 1,
+                "scrollStagingWrites": 0,
+                "lastWrite": {
+                  "frame": 68,
+                  "stepFrame": 4,
+                  "pc": "0xD183",
+                  "value": "0x00",
+                  "event": "zero-page-write"
+                },
+                "topWritePcs": [
+                  {
+                    "pc": "0xD183",
+                    "count": 1
+                  }
+                ]
+              }
+            ]
+          },
+          "ramWriteEvidence": {
+            "totalWrites": 59730,
+            "zeroPageWrites": 59274,
+            "spriteStagingWrites": 456,
+            "changedAddressWrites": 33111,
+            "transitionRoutineWrites": 17,
+            "topPcs": [
+              {
+                "pc": "0xC043",
+                "count": 21173
+              },
+              {
+                "pc": "0xE85F",
+                "count": 2584
+              },
+              {
+                "pc": "0xE862",
+                "count": 2584
+              },
+              {
+                "pc": "0xEB92",
+                "count": 2584
+              },
+              {
+                "pc": "0xEB95",
+                "count": 2584
+              },
+              {
+                "pc": "0xE393",
+                "count": 1125
+              },
+              {
+                "pc": "0xAC18",
+                "count": 1088
+              },
+              {
+                "pc": "0xC4A0",
+                "count": 1024
+              },
+              {
+                "pc": "0xC4AB",
+                "count": 1024
+              },
+              {
+                "pc": "0xEA26",
+                "count": 658
+              }
+            ],
+            "transitionRoutinePcs": [
+              {
+                "pc": "0xD16B",
+                "count": 1
+              },
+              {
+                "pc": "0xD170",
+                "count": 1
+              },
+              {
+                "pc": "0xD183",
+                "count": 1
+              },
+              {
+                "pc": "0xD187",
+                "count": 1
+              },
+              {
+                "pc": "0xD190",
+                "count": 1
+              },
+              {
+                "pc": "0xD195",
+                "count": 1
+              },
+              {
+                "pc": "0xD19E",
+                "count": 1
+              },
+              {
+                "pc": "0xD1A3",
+                "count": 1
+              },
+              {
+                "pc": "0xD1A8",
+                "count": 1
+              },
+              {
+                "pc": "0xD1AD",
+                "count": 1
+              }
+            ],
+            "transitionRoutineDetails": [
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD23A",
+                "address": "0x0004",
+                "value": "0xD2",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD23F",
+                "address": "0x0005",
+                "value": "0x80",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD256",
+                "address": "0x0089",
+                "value": "0x01",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD16B",
+                "address": "0x0000",
+                "value": "0x0B",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD170",
+                "address": "0x0001",
+                "value": "0x80",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD183",
+                "address": "0x008E",
+                "value": "0x00",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD187",
+                "address": "0x0093",
+                "value": "0x10",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD190",
+                "address": "0x0004",
+                "value": "0xD3",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD195",
+                "address": "0x0005",
+                "value": "0x80",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD19E",
+                "address": "0x0070",
+                "value": "0x10",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD1A3",
+                "address": "0x0071",
+                "value": "0x80",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD1A8",
+                "address": "0x0072",
+                "value": "0x3D",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD1AD",
+                "address": "0x0073",
+                "value": "0x80",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD1B7",
+                "address": "0x0063",
+                "value": "0x1D",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD1BC",
+                "address": "0x0064",
+                "value": "0x84",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD1C1",
+                "address": "0x006E",
+                "value": "0xE9",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              },
+              {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD1C6",
+                "address": "0x006F",
+                "value": "0xF7",
+                "context": {
+                  "objset": "0x00",
+                  "area": "0x07",
+                  "submapRaw": "0x00"
+                }
+              }
+            ]
+          },
+          "cameraCandidates": [
+            {
+              "metric": "scrollXLow",
+              "metricLabel": "scroll X low byte",
+              "strength": "strong",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 242,
+              "beforeHex": "0xF2",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0xF2",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 16,
+              "writeCount": 32,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 31,
+              "lastWrite": {
+                "frame": 97,
+                "stepFrame": 33,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 31
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 75,
+              "addressHex": "0x004B",
+              "memoryRegion": "zero-page",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 1,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 65,
+                "stepFrame": 1,
+                "pc": "0xCD67",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xCD67",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 84,
+              "addressHex": "0x0054",
+              "memoryRegion": "zero-page",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 2,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xE771",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x8409",
+                  "count": 1
+                },
+                {
+                  "pc": "0xE771",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 984,
+              "addressHex": "0x03D8",
+              "memoryRegion": "low-ram",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 1,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 67,
+                "stepFrame": 3,
+                "pc": "0xDECF",
+                "value": "0x00",
+                "event": "sprite-staging-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xDECF",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "scrollXLow",
+              "metricLabel": "scroll X low byte",
+              "strength": "strong",
+              "address": 83,
+              "addressHex": "0x0053",
+              "memoryRegion": "zero-page",
+              "before": 242,
+              "beforeHex": "0xF2",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0xF2",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 13,
+              "writeCount": 2,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xE76F",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x8403",
+                  "count": 1
+                },
+                {
+                  "pc": "0xE76F",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "strong",
+              "address": 346,
+              "addressHex": "0x015A",
+              "memoryRegion": "low-ram",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 12,
+              "writeCount": 0,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 0,
+              "topWritePcs": []
+            },
+            {
+              "metric": "nametableY",
+              "metricLabel": "vertical nametable bit",
+              "strength": "stable-written-match",
+              "address": 147,
+              "addressHex": "0x0093",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 8,
+              "writeCount": 3982,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 31,
+              "lastWrite": {
+                "frame": 97,
+                "stepFrame": 33,
+                "pc": "0xE862",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xE862",
+                  "count": 2584
+                },
+                {
+                  "pc": "0xE84C",
+                  "count": 323
+                },
+                {
+                  "pc": "0xE36C",
+                  "count": 156
+                },
+                {
+                  "pc": "0xE36E",
+                  "count": 156
+                },
+                {
+                  "pc": "0xE370",
+                  "count": 156
+                }
+              ]
+            },
+            {
+              "metric": "coarseX",
+              "metricLabel": "coarse X tile",
+              "strength": "after-match",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 242,
+              "beforeHex": "0xF2",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x1E",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 6,
+              "writeCount": 32,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 31,
+              "lastWrite": {
+                "frame": 97,
+                "stepFrame": 33,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 31
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "fineX",
+              "metricLabel": "fine X pixel",
+              "strength": "after-match",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 242,
+              "beforeHex": "0xF2",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x02",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 6,
+              "writeCount": 32,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 31,
+              "lastWrite": {
+                "frame": 97,
+                "stepFrame": 33,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 31
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableX",
+              "metricLabel": "horizontal nametable bit",
+              "strength": "after-match",
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 242,
+              "beforeHex": "0xF2",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x01",
+              "metricAfterHex": "0x00",
+              "metricChanged": true,
+              "score": 6,
+              "writeCount": 32,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 31,
+              "lastWrite": {
+                "frame": 97,
+                "stepFrame": 33,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 31
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "scrollYLow",
+              "metricLabel": "scroll Y low byte",
+              "strength": "stable-written-match",
+              "address": 252,
+              "addressHex": "0x00FC",
+              "memoryRegion": "zero-page",
+              "before": 227,
+              "beforeHex": "0xE3",
+              "after": 227,
+              "afterHex": "0xE3",
+              "metricBeforeHex": "0xE3",
+              "metricAfterHex": "0xE3",
+              "metricChanged": false,
+              "score": 6,
+              "writeCount": 32,
+              "transitionRoutineWrites": 0,
+              "scrollStagingWrites": 31,
+              "lastWrite": {
+                "frame": 97,
+                "stepFrame": 33,
+                "pc": "0xD2F5",
+                "value": "0xE3",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F5",
+                  "count": 31
+                },
+                {
+                  "pc": "0xC6C7",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "metric": "nametableY",
+              "metricLabel": "vertical nametable bit",
+              "strength": "stable-written-match",
+              "address": 142,
+              "addressHex": "0x008E",
+              "memoryRegion": "zero-page",
+              "before": 0,
+              "beforeHex": "0x00",
+              "after": 0,
+              "afterHex": "0x00",
+              "metricBeforeHex": "0x00",
+              "metricAfterHex": "0x00",
+              "metricChanged": false,
+              "score": 5,
+              "writeCount": 1,
+              "transitionRoutineWrites": 1,
+              "scrollStagingWrites": 0,
+              "lastWrite": {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD183",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD183",
+                  "count": 1
+                }
+              ]
+            }
+          ],
+          "positionCandidates": [
+            {
+              "address": 840,
+              "addressHex": "0x0348",
+              "memoryRegion": "low-ram",
+              "before": 128,
+              "beforeHex": "0x80",
+              "after": 16,
+              "afterHex": "0x10",
+              "score": 27,
+              "matches": [
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0x78",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0x80",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0x78",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0x88",
+                  "after": "0x18"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "width",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0x80",
+                  "after": "0x10"
+                }
+              ],
+              "writeCount": 1,
+              "lastWrite": {
+                "frame": 69,
+                "stepFrame": 5,
+                "pc": "0xCFF5",
+                "value": "0x10",
+                "event": "sprite-staging-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xCFF5",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 571,
+              "addressHex": "0x023B",
+              "memoryRegion": "low-ram",
+              "before": 128,
+              "beforeHex": "0x80",
+              "after": 16,
+              "afterHex": "0x10",
+              "score": 26,
+              "matches": [
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0x78",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0x80",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0x78",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0x88",
+                  "after": "0x18"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "width",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0x80",
+                  "after": "0x10"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 579,
+              "addressHex": "0x0243",
+              "memoryRegion": "low-ram",
+              "before": 128,
+              "beforeHex": "0x80",
+              "after": 16,
+              "afterHex": "0x10",
+              "score": 26,
+              "matches": [
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0x78",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0x80",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0x78",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0x88",
+                  "after": "0x18"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "width",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0x80",
+                  "after": "0x10"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 575,
+              "addressHex": "0x023F",
+              "memoryRegion": "low-ram",
+              "before": 120,
+              "beforeHex": "0x78",
+              "after": 8,
+              "afterHex": "0x08",
+              "score": 22,
+              "matches": [
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0x78",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0x80",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0x78",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0x88",
+                  "after": "0x18"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0x80",
+                  "after": "0x10"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 583,
+              "addressHex": "0x0247",
+              "memoryRegion": "low-ram",
+              "before": 120,
+              "beforeHex": "0x78",
+              "after": 8,
+              "afterHex": "0x08",
+              "score": 22,
+              "matches": [
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMin",
+                  "before": "0x78",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "before": "0x80",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "strong",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMin",
+                  "before": "0x78",
+                  "after": "0x08"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xMax",
+                  "before": "0x88",
+                  "after": "0x18"
+                },
+                {
+                  "strength": "delta-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "before": "0x80",
+                  "after": "0x10"
+                }
+              ],
+              "writeCount": 0,
+              "topWritePcs": []
+            },
+            {
+              "address": 83,
+              "addressHex": "0x0053",
+              "memoryRegion": "zero-page",
+              "before": 242,
+              "beforeHex": "0xF2",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 17,
+              "matches": [
+                {
+                  "strength": "strong",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "before": "0xF2",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 2,
+              "lastWrite": {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xE76F",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x8403",
+                  "count": 1
+                },
+                {
+                  "pc": "0xE76F",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 253,
+              "addressHex": "0x00FD",
+              "memoryRegion": "zero-page",
+              "before": 242,
+              "beforeHex": "0xF2",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 17,
+              "matches": [
+                {
+                  "strength": "strong",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "before": "0xF2",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 32,
+              "lastWrite": {
+                "frame": 97,
+                "stepFrame": 33,
+                "pc": "0xD2F9",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD2F9",
+                  "count": 31
+                },
+                {
+                  "pc": "0xC6C9",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 112,
+              "addressHex": "0x0070",
+              "memoryRegion": "zero-page",
+              "before": 102,
+              "beforeHex": "0x66",
+              "after": 16,
+              "afterHex": "0x10",
+              "score": 15,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "width",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "after": "0x10"
+                }
+              ],
+              "writeCount": 1,
+              "lastWrite": {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xD19E",
+                "value": "0x10",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xD19E",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 75,
+              "addressHex": "0x004B",
+              "memoryRegion": "zero-page",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 1,
+              "lastWrite": {
+                "frame": 65,
+                "stepFrame": 1,
+                "pc": "0xCD67",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xCD67",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 84,
+              "addressHex": "0x0054",
+              "memoryRegion": "zero-page",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 2,
+              "lastWrite": {
+                "frame": 68,
+                "stepFrame": 4,
+                "pc": "0xE771",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x8409",
+                  "count": 1
+                },
+                {
+                  "pc": "0xE771",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 109,
+              "addressHex": "0x006D",
+              "memoryRegion": "zero-page",
+              "before": 255,
+              "beforeHex": "0xFF",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 1,
+              "lastWrite": {
+                "frame": 67,
+                "stepFrame": 3,
+                "pc": "0x8781",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x8781",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "address": 153,
+              "addressHex": "0x0099",
+              "memoryRegion": "zero-page",
+              "before": 117,
+              "beforeHex": "0x75",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 623,
+              "lastWrite": {
+                "frame": 97,
+                "stepFrame": 33,
+                "pc": "0x9A66",
+                "value": "0x00",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x9DF6",
+                  "count": 142
+                },
+                {
+                  "pc": "0x9CF8",
+                  "count": 68
+                },
+                {
+                  "pc": "0x96F2",
+                  "count": 64
+                },
+                {
+                  "pc": "0x9B04",
+                  "count": 56
+                },
+                {
+                  "pc": "0x9D1B",
+                  "count": 42
+                }
+              ]
+            },
+            {
+              "address": 171,
+              "addressHex": "0x00AB",
+              "memoryRegion": "zero-page",
+              "before": 10,
+              "beforeHex": "0x0A",
+              "after": 16,
+              "afterHex": "0x10",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "width",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "after": "0x10"
+                }
+              ],
+              "writeCount": 72,
+              "lastWrite": {
+                "frame": 97,
+                "stepFrame": 33,
+                "pc": "0x9A6E",
+                "value": "0x10",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x96CF",
+                  "count": 68
+                },
+                {
+                  "pc": "0x9A6E",
+                  "count": 4
+                }
+              ]
+            },
+            {
+              "address": 173,
+              "addressHex": "0x00AD",
+              "memoryRegion": "zero-page",
+              "before": 10,
+              "beforeHex": "0x0A",
+              "after": 16,
+              "afterHex": "0x10",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "width",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "after": "0x10"
+                }
+              ],
+              "writeCount": 72,
+              "lastWrite": {
+                "frame": 97,
+                "stepFrame": 33,
+                "pc": "0x9A6E",
+                "value": "0x10",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x96CF",
+                  "count": 68
+                },
+                {
+                  "pc": "0x9A6E",
+                  "count": 4
+                }
+              ]
+            },
+            {
+              "address": 176,
+              "addressHex": "0x00B0",
+              "memoryRegion": "zero-page",
+              "before": 10,
+              "beforeHex": "0x0A",
+              "after": 16,
+              "afterHex": "0x10",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xSpriteMax",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "width",
+                  "after": "0x10"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "simonSpriteCluster",
+                  "metric": "xCenter",
+                  "after": "0x10"
+                }
+              ],
+              "writeCount": 72,
+              "lastWrite": {
+                "frame": 97,
+                "stepFrame": 33,
+                "pc": "0x9A6E",
+                "value": "0x10",
+                "event": "zero-page-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0x96CF",
+                  "count": 68
+                },
+                {
+                  "pc": "0x9A6E",
+                  "count": 4
+                }
+              ]
+            },
+            {
+              "address": 984,
+              "addressHex": "0x03D8",
+              "memoryRegion": "low-ram",
+              "before": 1,
+              "beforeHex": "0x01",
+              "after": 0,
+              "afterHex": "0x00",
+              "score": 13,
+              "matches": [
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "scrollXLow",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "coarseX",
+                  "after": "0x00"
+                },
+                {
+                  "strength": "after-match",
+                  "source": "ppuScroll",
+                  "metric": "fineX",
+                  "after": "0x00"
+                }
+              ],
+              "writeCount": 1,
+              "lastWrite": {
+                "frame": 67,
+                "stepFrame": 3,
+                "pc": "0xDECF",
+                "value": "0x00",
+                "event": "sprite-staging-write"
+              },
+              "topWritePcs": [
+                {
+                  "pc": "0xDECF",
+                  "count": 1
+                }
+              ]
+            }
+          ],
+          "snapshots": {
+            "beforeCpu": "doina-to-church-before-cpu-0000-07ff.bin",
+            "afterCpu": "doina-to-church-after-cpu-0000-07ff.bin",
+            "beforeOam": "doina-to-church-before-oam-0000-00ff.bin",
+            "afterOam": "doina-to-church-after-oam-0000-00ff.bin"
+          }
+        }
+      ],
+      "mesen": {
+        "status": 0,
+        "durationMs": 6902,
+        "outputs": [
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/church-to-doina-after-cpu-0000-07ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/church-to-doina-after-oam-0000-00ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/church-to-doina-before-cpu-0000-07ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/church-to-doina-before-oam-0000-00ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/doina-to-church-after-cpu-0000-07ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/doina-to-church-after-oam-0000-00ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/doina-to-church-before-cpu-0000-07ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/doina-to-church-before-oam-0000-00ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/probe-start-cpu-0000-07ff.bin",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/ram-writes.tsv",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/summary.json",
+          "/Users/baclap/workspace/castlevania/out/transition-probes/doina-church-round-trip/trace.tsv"
+        ]
+      }
+    }
+  ]
+};

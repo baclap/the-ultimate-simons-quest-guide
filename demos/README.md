@@ -48,3 +48,5 @@ Current demos:
 - `2026-05-20-destination-position-demo/`: destination-position evidence demo
   showing OAM-backed Simon X detection at low RAM `$0348` across the scoped
   transition probes.
+- `2026-05-20-camera-scroll-demo/`: camera scroll evidence demo showing scoped
+  scroll low-byte candidates and the explicit destination-Y fixture gap.

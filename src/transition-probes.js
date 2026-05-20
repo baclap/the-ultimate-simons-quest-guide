@@ -9,8 +9,22 @@ const DEFAULT_OUT_DIR = path.join('out', 'transition-probes');
 const TRACE_SCRIPT = path.join('tools', 'mesen', 'trace-transition.lua');
 const TRANSITION_ROUTINE_START = 0xd0b0;
 const TRANSITION_ROUTINE_END = 0xd260;
+const SCROLL_STAGING_ROUTINE_START = 0xd2e0;
+const SCROLL_STAGING_ROUTINE_END = 0xd305;
 const SIMON_TILE_HINTS = new Set([0x03, 0x05, 0x07, 0x09, 0x0b, 0x0d]);
 const POSITION_CANDIDATE_RAM_LIMIT = 0x07ff;
+const CAMERA_CANDIDATE_RAM_LIMIT = 0x07ff;
+
+const SCROLL_METRIC_DEFINITIONS = [
+  { name: 'scrollXLow', label: 'scroll X low byte', value: (scroll) => scroll.scrollX & 0xff },
+  { name: 'scrollYLow', label: 'scroll Y low byte', value: (scroll) => scroll.scrollY & 0xff },
+  { name: 'coarseX', label: 'coarse X tile', value: (scroll) => scroll.coarseX },
+  { name: 'coarseY', label: 'coarse Y tile', value: (scroll) => scroll.coarseY },
+  { name: 'fineX', label: 'fine X pixel', value: (scroll) => scroll.fineX },
+  { name: 'fineY', label: 'fine Y pixel', value: (scroll) => scroll.fineY },
+  { name: 'nametableX', label: 'horizontal nametable bit', value: (scroll) => scroll.nametableX },
+  { name: 'nametableY', label: 'vertical nametable bit', value: (scroll) => scroll.nametableY }
+];
 
 const CPU_LABELS = {
   0x0026: 'gameState',
@@ -449,6 +463,131 @@ function candidateMetrics(cluster, ppu) {
   return metrics;
 }
 
+function scrollMetricComparisons(beforePpu, afterPpu) {
+  const beforeScroll = decodePpuScroll(beforePpu);
+  const afterScroll = decodePpuScroll(afterPpu);
+  if (!beforeScroll || !afterScroll) {
+    return [];
+  }
+  return SCROLL_METRIC_DEFINITIONS.map((definition) => {
+    const before = definition.value(beforeScroll);
+    const after = definition.value(afterScroll);
+    return {
+      name: definition.name,
+      label: definition.label,
+      before,
+      beforeHex: hex(before, 2),
+      after,
+      afterHex: hex(after, 2),
+      changed: before !== after
+    };
+  });
+}
+
+function byteDelta(before, after) {
+  return (after - before + 0x100) & 0xff;
+}
+
+function scoreCameraCandidates(beforeCpu, afterCpu, writes, beforePpu, afterPpu) {
+  if (!beforeCpu || !afterCpu) {
+    return [];
+  }
+  const metrics = scrollMetricComparisons(beforePpu, afterPpu);
+  const candidates = [];
+  const count = Math.min(beforeCpu.length, afterCpu.length, CAMERA_CANDIDATE_RAM_LIMIT + 1);
+
+  for (let address = 0; address < count; address += 1) {
+    const before = beforeCpu[address];
+    const after = afterCpu[address];
+    const addressChanged = before !== after;
+    const addressWrites = writesForAddress(writes, address);
+    const transitionRoutineWrites = addressWrites.filter((write) => (
+      write.pc >= TRANSITION_ROUTINE_START && write.pc <= TRANSITION_ROUTINE_END
+    ));
+    const scrollStagingWrites = addressWrites.filter((write) => (
+      write.pc >= SCROLL_STAGING_ROUTINE_START && write.pc <= SCROLL_STAGING_ROUTINE_END
+    ));
+
+    for (const metric of metrics) {
+      const beforeMatches = before === metric.before;
+      const afterMatches = after === metric.after;
+      let strength;
+      let score = 0;
+
+      if (metric.changed && addressChanged && beforeMatches && afterMatches) {
+        strength = 'strong';
+        score += 12;
+      } else if (metric.changed && addressChanged && afterMatches) {
+        strength = 'after-match';
+        score += metric.after === 0 ? 2 : 4;
+      } else if (
+        metric.changed &&
+        addressChanged &&
+        metric.name !== 'fineX' &&
+        metric.name !== 'fineY' &&
+        byteDelta(before, after) === byteDelta(metric.before, metric.after)
+      ) {
+        strength = 'delta-match';
+        score += 2;
+      } else if (!metric.changed && beforeMatches && afterMatches && addressWrites.length > 0) {
+        strength = 'stable-written-match';
+        score += 2;
+      } else {
+        continue;
+      }
+
+      if (addressWrites.length > 0) {
+        score += 1;
+      }
+      if (transitionRoutineWrites.length > 0) {
+        score += 2;
+      }
+      if (scrollStagingWrites.length > 0) {
+        score += 3;
+      }
+      if (strength !== 'strong' && score < 5) {
+        continue;
+      }
+
+      const lastWrite = addressWrites[addressWrites.length - 1];
+      candidates.push({
+        metric: metric.name,
+        metricLabel: metric.label,
+        strength,
+        address,
+        addressHex: hex(address, 4),
+        memoryRegion: address <= 0x00ff ? 'zero-page' : 'low-ram',
+        before,
+        beforeHex: hex(before, 2),
+        after,
+        afterHex: hex(after, 2),
+        metricBeforeHex: metric.beforeHex,
+        metricAfterHex: metric.afterHex,
+        metricChanged: metric.changed,
+        score,
+        writeCount: addressWrites.length,
+        transitionRoutineWrites: transitionRoutineWrites.length,
+        scrollStagingWrites: scrollStagingWrites.length,
+        lastWrite: lastWrite ? {
+          frame: lastWrite.frame,
+          stepFrame: lastWrite.stepFrame,
+          pc: lastWrite.pcHex,
+          value: lastWrite.valueHex,
+          event: lastWrite.event
+        } : undefined,
+        topWritePcs: summarizePcs(addressWrites).slice(0, 5)
+      });
+    }
+  }
+
+  return candidates.sort((left, right) => (
+    right.score - left.score ||
+    Number(right.strength === 'strong') - Number(left.strength === 'strong') ||
+    left.metric.localeCompare(right.metric) ||
+    left.address - right.address
+  )).slice(0, 32);
+}
+
 function scorePositionCandidates(changes, writes, beforeCluster, afterCluster, beforePpu, afterPpu) {
   const beforeMetrics = candidateMetrics(beforeCluster, beforePpu);
   const afterMetrics = candidateMetrics(afterCluster, afterPpu);
@@ -565,6 +704,179 @@ function summarizeChanges(changes) {
   };
 }
 
+function summarizeCameraCandidates(steps) {
+  const changedStepIdsByMetric = new Map();
+  const groups = new Map();
+
+  for (const step of steps) {
+    for (const metric of step.cameraEvidence?.changedMetrics || []) {
+      if (!changedStepIdsByMetric.has(metric.name)) {
+        changedStepIdsByMetric.set(metric.name, new Set());
+      }
+      changedStepIdsByMetric.get(metric.name).add(step.id);
+    }
+
+    for (const candidate of step.cameraCandidates || []) {
+      if (candidate.strength !== 'strong') {
+        continue;
+      }
+      const key = `${candidate.metric}:${candidate.addressHex}`;
+      if (!groups.has(key)) {
+        groups.set(key, {
+          metric: candidate.metric,
+          metricLabel: candidate.metricLabel,
+          addressHex: candidate.addressHex,
+          memoryRegion: candidate.memoryRegion,
+          steps: [],
+          scores: [],
+          writeCounts: [],
+          scrollStagingWriteCounts: []
+        });
+      }
+      const group = groups.get(key);
+      group.steps.push({
+        stepId: step.id,
+        before: candidate.beforeHex,
+        after: candidate.afterHex,
+        metricBefore: candidate.metricBeforeHex,
+        metricAfter: candidate.metricAfterHex,
+        score: candidate.score,
+        lastWritePc: candidate.lastWrite && candidate.lastWrite.pc,
+        scrollStagingWrites: candidate.scrollStagingWrites
+      });
+      group.scores.push(candidate.score);
+      group.writeCounts.push(candidate.writeCount);
+      group.scrollStagingWriteCounts.push(candidate.scrollStagingWrites);
+    }
+  }
+
+  const changedMetrics = [...changedStepIdsByMetric.entries()]
+    .map(([metric, stepIds]) => ({
+      metric,
+      changedSteps: stepIds.size,
+      stepIds: [...stepIds]
+    }))
+    .sort((left, right) => left.metric.localeCompare(right.metric));
+
+  const candidates = [...groups.values()]
+    .map((candidate) => {
+      const changedStepIds = changedStepIdsByMetric.get(candidate.metric) || new Set();
+      const matchedChangedSteps = candidate.steps.filter((step) => changedStepIds.has(step.stepId)).length;
+      return {
+        ...candidate,
+        matchedChangedSteps,
+        changedSteps: changedStepIds.size,
+        minScore: Math.min(...candidate.scores),
+        totalWrites: candidate.writeCounts.reduce((sum, count) => sum + count, 0),
+        totalScrollStagingWrites: candidate.scrollStagingWriteCounts.reduce((sum, count) => sum + count, 0),
+        confidence: changedStepIds.size > 0 &&
+          matchedChangedSteps === changedStepIds.size &&
+          candidate.writeCounts.every((count) => count > 0)
+          ? 'high'
+          : 'diagnostic'
+      };
+    })
+    .sort((left, right) => (
+      Number(right.confidence === 'high') - Number(left.confidence === 'high') ||
+      right.matchedChangedSteps - left.matchedChangedSteps ||
+      right.totalScrollStagingWrites - left.totalScrollStagingWrites ||
+      right.minScore - left.minScore ||
+      left.addressHex.localeCompare(right.addressHex)
+    ));
+
+  return {
+    changedMetrics,
+    candidates: candidates.slice(0, 12)
+  };
+}
+
+function summarizeDestinationY(steps) {
+  const observations = steps.map((step) => {
+    const before = step.spriteEvidence?.beforeSimon?.bounds;
+    const after = step.spriteEvidence?.afterSimon?.bounds;
+    return {
+      stepId: step.id,
+      beforeCenter: before?.yCenter,
+      beforeCenterHex: hex(before?.yCenter, 2),
+      afterCenter: after?.yCenter,
+      afterCenterHex: hex(after?.yCenter, 2),
+      beforeSpriteMinHex: hex(before?.ySpriteMin, 2),
+      afterSpriteMinHex: hex(after?.ySpriteMin, 2),
+      changed: before?.yCenter != null && after?.yCenter != null && before.yCenter !== after.yCenter
+    };
+  });
+  const afterCenters = [...new Set(observations
+    .map((observation) => observation.afterCenter)
+    .filter((value) => value != null))];
+  const transitionsWithYDelta = observations.filter((observation) => observation.changed).length;
+  const diagnosticCandidates = [];
+  const groups = new Map();
+
+  for (const step of steps) {
+    for (const candidate of step.positionCandidates || []) {
+      const yMatches = (candidate.matches || []).filter((match) => (
+        match.source === 'simonSpriteCluster' && /^y/.test(match.metric)
+      ));
+      if (yMatches.length === 0) {
+        continue;
+      }
+      const key = candidate.addressHex;
+      if (!groups.has(key)) {
+        groups.set(key, {
+          addressHex: candidate.addressHex,
+          memoryRegion: candidate.memoryRegion,
+          steps: [],
+          writeCounts: []
+        });
+      }
+      const group = groups.get(key);
+      group.steps.push({
+        stepId: step.id,
+        before: candidate.beforeHex,
+        after: candidate.afterHex,
+        matches: yMatches.map((match) => ({
+          strength: match.strength,
+          metric: match.metric,
+          before: match.before,
+          after: match.after
+        })),
+        score: candidate.score,
+        lastWritePc: candidate.lastWrite && candidate.lastWrite.pc
+      });
+      group.writeCounts.push(candidate.writeCount);
+    }
+  }
+
+  for (const group of groups.values()) {
+    diagnosticCandidates.push({
+      ...group,
+      matchedSteps: group.steps.length,
+      totalWrites: group.writeCounts.reduce((sum, count) => sum + count, 0),
+      confidence: 'diagnostic'
+    });
+  }
+
+  diagnosticCandidates.sort((left, right) => (
+    right.totalWrites - left.totalWrites ||
+    right.matchedSteps - left.matchedSteps ||
+    left.addressHex.localeCompare(right.addressHex)
+  ));
+
+  return {
+    status: afterCenters.length > 1 || transitionsWithYDelta > 0
+      ? 'diagnostic-candidates-available'
+      : 'blocked-non-varying-fixture-set',
+    observedAfterCenters: afterCenters.map((value) => hex(value, 2)),
+    uniqueAfterCenters: afterCenters.length,
+    transitionsWithYDelta,
+    observations,
+    diagnosticCandidates: diagnosticCandidates.slice(0, 8),
+    nextFixtureNeeded: afterCenters.length > 1 || transitionsWithYDelta > 0
+      ? undefined
+      : 'A transition fixture whose destination places Simon at a different visible Y position, such as a safe stair or vertical screen transition.'
+  };
+}
+
 function analyzeProbeOutput(probe, outDir) {
   const summaryPath = path.join(outDir, 'summary.json');
   const tracePath = path.join(outDir, 'trace.tsv');
@@ -594,6 +906,14 @@ function analyzeProbeOutput(probe, outDir) {
     const afterClusters = clusterSprites(decodeOam(afterOam));
     const beforeSimon = beforeClusters[0];
     const afterSimon = afterClusters[0];
+    const scrollMetrics = scrollMetricComparisons(firstRow, finalRow);
+    const cameraCandidates = scoreCameraCandidates(
+      before,
+      after,
+      stepWrites,
+      firstRow,
+      finalRow
+    );
     const positionCandidates = scorePositionCandidates(
       changes,
       stepWrites,
@@ -633,7 +953,12 @@ function analyzeProbeOutput(probe, outDir) {
         beforeClusters: beforeClusters.slice(0, 5).map(publicSpriteCluster),
         afterClusters: afterClusters.slice(0, 5).map(publicSpriteCluster)
       },
+      cameraEvidence: {
+        changedMetrics: scrollMetrics.filter((metric) => metric.changed),
+        stableWrittenCandidates: cameraCandidates.filter((candidate) => candidate.strength === 'stable-written-match').slice(0, 8)
+      },
       ramWriteEvidence: summarizeWrites(stepWrites, changes),
+      cameraCandidates,
       positionCandidates,
       snapshots: {
         beforeCpu: stepSummary.beforeCpu,
@@ -720,7 +1045,9 @@ function summarizeAnalysis(probes) {
       acc[step.type] = (acc[step.type] || 0) + 1;
       return acc;
     }, {}),
-    xCenterCandidates: xCenterCandidates.slice(0, 8)
+    xCenterCandidates: xCenterCandidates.slice(0, 8),
+    camera: summarizeCameraCandidates(steps),
+    destinationY: summarizeDestinationY(steps)
   };
 }
 

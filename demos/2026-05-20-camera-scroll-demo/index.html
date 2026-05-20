@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Camera Scroll Evidence</title>
+  <link rel="stylesheet" href="styles.css?v=camera-scroll-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Camera scroll evidence</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/5</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide active" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>Transition probes now separate Simon position from camera state</h1>
+        <p class="lede">The same trace that resolved Simon's screen X now reports PPU scroll changes and the RAM bytes that track those camera low bytes.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="callout" id="candidate-callout"></div>
+    </section>
+
+    <section class="slide" data-hash="scroll">
+      <div class="copy narrow">
+        <p class="eyebrow">Camera Evidence</p>
+        <h2>The scroll low bytes now have RAM candidates</h2>
+        <p>The analyzer compares final PPU scroll against low RAM before and after each transition, then groups candidates that match every changed step for a metric.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="scroll-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>RAM field</th>
+              <th>Matched steps</th>
+              <th>Last write</th>
+              <th>Confidence</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="steps">
+      <div class="copy narrow">
+        <p class="eyebrow">Per Transition</p>
+        <h2>The camera evidence is scoped by actual scroll changes</h2>
+        <p>Outdoor Jova movement changes vertical scroll low byte; the church door changes horizontal scroll low byte. The summary keeps those families separate.</p>
+      </div>
+      <div class="routine-grid" id="step-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="y">
+      <div class="copy narrow">
+        <p class="eyebrow">Destination Y</p>
+        <h2>Y is now explicitly unresolved, not guessed</h2>
+        <p>All scoped transitions land Simon at the same visible Y, so the analyzer records the limitation and asks for a vertical-varying fixture before promoting any Y field.</p>
+      </div>
+      <div class="next-grid" id="y-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Demo Goal</p>
+        <h2>Add one fixture that varies Simon's destination Y</h2>
+        <p>The scroll low-byte path is now useful; the next proof point is a safe stair or vertical transition that lands Simon at a different on-screen height.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/transition-probes/analysis-data.js?v=camera-scroll-1"></script>
+  <script src="slides.js?v=camera-scroll-1"></script>
+</body>
+</html>
