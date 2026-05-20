@@ -46,7 +46,8 @@ Important fields in `state.json`:
 
 - `frames`: frame count when captured.
 - `location`: human-readable location label, such as `Jova`.
-- `variant`: render/capture variant, currently `day`, `night`, or `unknown`.
+- `variant`: render/capture variant, currently `day`, `night`, `fixed`, or
+  `unknown`.
 - `access`: access class, such as `outdoor`, `interior`, or `mansion`.
 - `startPresses`: scripted input windows used to reach the state.
 - `inputs`: generic scripted input windows, encoded as `button:startFrame:duration`.
@@ -164,5 +165,7 @@ Current variant rules:
 - Outdoor town/overworld screens need `day` and `night` variants.
 - Town interiors are day-only because they are not accessible at night.
 - Mansion interiors are accessible at night, but confirmed palette-stable between day and night, so they only need one interior render variant.
+- Castlevania's final area behaves like a fixed-palette area, not a day/night
+  exterior, so it uses one `fixed` variant.
 
 Representative emulator captures should include outdoor day/night pairs early enough to decode palette switching, but the final full-map renderer should render variants from ROM data rather than requiring emulator traversal for every screen.

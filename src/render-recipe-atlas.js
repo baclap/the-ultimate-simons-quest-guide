@@ -60,11 +60,11 @@ const FALLBACK_FAMILY_RECIPES = {
     note: 'Objset 4 route family is validated by Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes.'
   },
   5: {
-    chrBanks: [0x06, 0x07],
+    chrBanks: [0x0b, 0x0c],
     widthBlocks: 8,
     heightBlocks: 7,
-    confidence: 'diagnostic',
-    note: 'Castlevania exterior still needs a representative probe.'
+    confidence: 'projected',
+    note: 'Castlevania final area is validated by the fixed-palette final-area probe.'
   }
 };
 
@@ -207,7 +207,7 @@ function loadAuditEvidence(filePath = DEFAULT_AUDIT_FILE) {
       id: fixture.id,
       label: fixture.label,
       access: fixture.access,
-      variant: fixture.variant === 'fixed' ? 'day' : fixture.variant,
+      variant: fixture.variant,
       status: fixture.evidenceStatus?.renderRecipe,
       chrBanks,
       palette: selector && {
@@ -358,10 +358,23 @@ function layoutGridForHeader(rom, info, derivation) {
 }
 
 function exteriorVariantsForLocation(loc) {
+  if (loc.objset === 5) {
+    return ['fixed'];
+  }
   if ([0, 1, 2, 3, 4].includes(loc.objset)) {
     return ['day', 'night'];
   }
   return ['day'];
+}
+
+function accessForLocation(loc) {
+  if (loc.objset === 1) {
+    return 'mansion-door';
+  }
+  if (loc.objset === 5) {
+    return 'final-area';
+  }
+  return 'outdoor';
 }
 
 function findManifestLocation(manifest, context) {
@@ -385,7 +398,7 @@ function buildRecipeInputs(manifest, auditEvidence) {
         area: loc.area,
         submap: loc.submap || 0
       },
-      access: loc.objset === 1 ? 'mansion-door' : 'outdoor',
+      access: accessForLocation(loc),
       variant,
       source: 'exterior-atlas-candidate'
     })));
@@ -400,7 +413,7 @@ function buildRecipeInputs(manifest, auditEvidence) {
     if (!liveContext) {
       continue;
     }
-    const variant = fixture.variant === 'fixed' ? 'day' : fixture.variant;
+    const variant = fixture.variant;
     const key = contextKey(liveContext, variant);
     if (seen.has(key)) {
       continue;

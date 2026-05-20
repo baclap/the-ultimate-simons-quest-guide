@@ -201,6 +201,21 @@
       "reason": "Representative probe for a suspected projected palette issue."
     },
     {
+      "id": "north-bridge-night",
+      "label": "North Bridge, night",
+      "location": "North Bridge",
+      "variant": "night",
+      "access": "outdoor",
+      "state": "out/states/north-bridge-night.mss",
+      "capture": "out/captures/north-bridge-night",
+      "atlasContext": {
+        "objset": "0x02",
+        "area": "0x08",
+        "submap": "0x00"
+      },
+      "reason": "Night variant for suspected palette issue."
+    },
+    {
       "id": "deborah-cliff-night",
       "label": "Deborah Cliff, night",
       "location": "Deborah Cliff",
@@ -283,6 +298,21 @@
       "reason": "Night variant for objset 4 bridge CHR and palette evidence."
     },
     {
+      "id": "castlevania-final-area",
+      "label": "Castlevania final area",
+      "location": "Castlevania",
+      "variant": "fixed",
+      "access": "final-area",
+      "state": "out/states/castlevania.mss",
+      "capture": "out/captures/castlevania-final-area",
+      "atlasContext": {
+        "objset": "0x05",
+        "area": "0x00",
+        "submap": "0x00"
+      },
+      "reason": "Representative fixed-palette final Castlevania area; the game transitions from Castlevania Bridge directly inside."
+    },
+    {
       "id": "jova-town-interior-day",
       "label": "Jova town interior, day",
       "location": "Jova town interior",
@@ -335,18 +365,5 @@
       "reason": "Representative mansion-interior recipe; mansion interiors are assumed day/night palette-stable."
     }
   ],
-  "deferred": [
-    {
-      "id": "north-bridge-night",
-      "label": "North Bridge, night",
-      "state": "out/states/north-bridge-night.mss",
-      "reason": "Night variant for suspected palette issue; state not available yet."
-    },
-    {
-      "id": "castlevania-exterior-day",
-      "label": "Castlevania exterior, day",
-      "state": "out/states/castlevania-exterior-day.mss",
-      "reason": "Representative objset 5 large layout; state not available yet."
-    }
-  ]
+  "deferred": []
 }

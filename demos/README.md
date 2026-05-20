@@ -33,3 +33,6 @@ Current demos:
 - `2026-05-19-objset4-recipe-demo/`: objset 4 recipe promotion demo showing
   Nintendo Power naming, new save-state evidence, and the CHR `06/07` fix for
   Vrad Graveyard and Castlevania Bridge.
+- `2026-05-19-recipe-completeness-demo/`: recipe completeness demo showing
+  North Bridge night, Castlevania final area, fixed variants, and zero
+  diagnostic recipe families.

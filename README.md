@@ -15,7 +15,7 @@ The current vertical slice includes:
 - renders validated ROM-native background PNGs from descriptor nametables, CHR banks, and ROM palette bytes
 - organizes ROM-native screens into a route-ordered viewport catalog with validated/inferred status
 - renders a continuous Jova Woods layout-space segment from adjacent ROM layout column groups
-- renders an exterior atlas of 55 town, route, mansion-door, mountain, and castle exterior candidates from ROM layout data
+- renders an atlas of 55 town, route, mansion-door, mountain, and Castlevania final-area candidates from ROM layout data
 - decodes ROM area-transition triples into a reusable exterior topology graph
 - decodes layout headers as column-group by vertical-section grids and renders 13 multi-section atlas entries larger than one viewport row
 - decodes day background palette selection through the ROM's runtime selector table at `2:$F7C5` and transfer table at `7:$C895`
@@ -23,8 +23,8 @@ The current vertical slice includes:
   screen-record structure and validates it against save-state captures
 - captures a focused render-recipe probe set and audits live CHR/palette state
   against ROM-derived selector data
-- renders a confidence-labeled recipe atlas with validated, projected, and
-  diagnostic day/night variants
+- renders a confidence-labeled recipe atlas with validated/projected day,
+  night, and fixed variants
 - resolves human-facing labels through the Nintendo Power map naming policy
   while preserving `cv2r` source names
 
@@ -113,17 +113,18 @@ demos/2026-05-17-topology-demo/index.html
 demos/2026-05-19-render-recipe-audit-demo/index.html
 demos/2026-05-19-recipe-resolver-demo/index.html
 demos/2026-05-19-objset4-recipe-demo/index.html
+demos/2026-05-19-recipe-completeness-demo/index.html
 ```
 
 ## Next Milestone
 
-The next milestone is validating the remaining projected/diagnostic recipe
-families against representative emulator save states, then promoting or
-correcting those families before full-world composition. The vendored `cv2r`
-source gives us strong anchors for locations, actors, doors, palette offsets,
-and bank layout, but it does not already contain a complete background
-renderer. Mesen is available as a representative calibration oracle, including
-Jova and Jova Woods fixtures that round-trip to 0-pixel composite diffs.
+The next milestone is coordinate-aware full-world composition: placing validated
+layout-space segments into a coherent map while preserving day, night, and
+fixed-palette variants. The vendored `cv2r` source gives us strong anchors for
+locations, actors, doors, palette offsets, and bank layout, but it does not
+already contain a complete background renderer. Mesen remains a representative
+calibration oracle for proving ROM-derived rules, not the source art for the
+final map.
 
 Current background-loader findings are documented in `docs/background-decoder-notes.md`, and the committed descriptor schema is documented in `docs/background-descriptor-schema.md`. Region rendering notes live in `docs/regional-renderer-notes.md`. The important checkpoint is that `npm run inspect:jova-background` and `npm run inspect:jova-woods-background` derive the layout header and tile-set pointers used by the validated descriptors. `npm run render:jova-native` verifies Jova town page 0, `npm run render:jova-right-native` verifies the right-side page, and `npm run render:jova-woods-native` verifies the first overworld checkpoint from a save-state capture. The `render:*native-png` commands turn those same ROM-native backgrounds into PNGs for demos and future map output. `npm run render:region:jova-to-veros` creates a route-ordered viewport catalog from validated descriptors plus inferred manifest-context candidates; it is not a continuous map stitch yet.
 
@@ -161,17 +162,17 @@ final world-coordinate placement. See `docs/exterior-topology-notes.md`.
 `npm run capture:recipe-probes` and `npm run audit:render-recipes` are the
 current ROM-first calibration milestone. They use the local save states listed
 in `data/render-recipe-fixtures.json` to capture live CPU/PPU evidence and
-verify that CHR banks and palettes can be derived from ROM data. The first audit
-covers 11 probes, resolves exact CHR and palette selector matches for all of
-them, and promotes the mansion-door CHR template to banks `8/9` from Berkeley
-Mansion evidence. See `docs/render-recipe-audit-notes.md`.
+verify that CHR banks and palettes can be derived from ROM data. The audit now
+covers 23 probes, resolves exact CHR and palette selector matches for all of
+them, promotes the mansion-door CHR template to banks `8/9`, promotes objset
+`4` to banks `6/7`, and resolves Castlevania final area to banks `0B/0C`. See
+`docs/render-recipe-audit-notes.md`.
 
 `npm run render:recipe-atlas` applies that audit evidence to atlas rendering.
-It currently renders 112 ROM-native entries: 21 exact validated contexts, 90
-projected variants from validated recipe families, and 1 diagnostic render for
-Castlevania exterior, which still awaits a representative state. Objset `4`
-now uses live CHR banks `6/7` from Vrad Graveyard, Castlevania Bridge, and
-Deborah Cliff probes. See `docs/render-recipe-atlas-notes.md`.
+It currently renders 112 ROM-native entries: 23 exact validated contexts and 89
+projected variants from validated recipe families, with no diagnostic render
+families remaining. Castlevania is modeled as a fixed-palette final area, not a
+day/night exterior. See `docs/render-recipe-atlas-notes.md`.
 
 Human-facing location names now follow the Nintendo Power map where the scan is
 legible, with `cv2r` labels preserved as `sourceName`. See
@@ -179,7 +180,7 @@ legible, with `cv2r` labels preserved as `sourceName`. See
 
 The intended path is:
 
-1. gather deferred states for North Bridge night and Castlevania exterior
-2. promote or correct projected/diagnostic recipe families from that evidence
-3. turn exterior topology into coordinate-aware full-map composition
-4. connect validated exteriors/interiors into final PNG and optional canvas outputs
+1. turn exterior topology into coordinate-aware full-map composition
+2. validate remaining mansion-door layout/crop assumptions
+3. connect validated exteriors/interiors/final-area segments into final PNG and optional canvas outputs
+4. preserve day, night, and fixed variants as first-class outputs

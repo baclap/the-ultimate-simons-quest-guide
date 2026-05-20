@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Recipe Completeness</title>
+  <link rel="stylesheet" href="styles.css?v=recipe-complete-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Recipe completeness</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/6</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide title-slide active" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>Every broad render recipe family is now covered</h1>
+        <p class="lede">North Bridge night and Castlevania final area closed the deferred list. The atlas now has validated or projected recipes only, with no diagnostic family left.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="hero-grid" id="hero-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="castlevania">
+      <div class="copy narrow">
+        <p class="eyebrow">Objset 5</p>
+        <h2>Castlevania is a fixed final-area recipe</h2>
+        <p>The save state proves the old objset 5 assumption was wrong: live CHR is 0B/0C and the fixed palette resolves through transfer $57.</p>
+      </div>
+      <div class="compare-grid" id="castlevania-compare"></div>
+    </section>
+
+    <section class="slide" data-hash="bridge">
+      <div class="copy narrow">
+        <p class="eyebrow">Night Variant</p>
+        <h2>North Bridge night validates the last outdoor palette probe</h2>
+        <p>The live context matches the atlas context, uses CHR 02/03, and resolves the night palette transfer through the fixed-bank palette table.</p>
+      </div>
+      <div class="single-feature" id="bridge-feature"></div>
+    </section>
+
+    <section class="slide" data-hash="families">
+      <div class="copy narrow">
+        <p class="eyebrow">Recipe Families</p>
+        <h2>Object sets 0 through 5 now have representative evidence</h2>
+        <p>Exact fixtures identify CHR banks and palette selector output; projected entries reuse those family recipes rather than per-area visual tweaks.</p>
+      </div>
+      <div class="family-grid" id="family-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="status">
+      <div class="copy narrow">
+        <p class="eyebrow">Status</p>
+        <h2>The remaining risk moved from recipe choice to composition</h2>
+        <p>There are still projected screens and mansion-door layout checks to validate, but the broad CHR/palette recipe families are no longer blocked.</p>
+      </div>
+      <div class="status-table" id="status-table"></div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Demo Goal</p>
+        <h2>Start placing segments into world coordinates</h2>
+        <p>The next useful demo should show topology-aware composition: validated layout-space segments arranged into a coherent exterior-world map draft.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/recipe-atlas/recipe-atlas-data.js?v=recipe-complete-1"></script>
+  <script src="slides.js?v=recipe-complete-1"></script>
+</body>
+</html>

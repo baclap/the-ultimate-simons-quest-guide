@@ -91,13 +91,13 @@ const TEMPLATE_BY_OBJSET = {
     heightBlocks: 7
   },
   5: {
-    id: 'castlevania-exterior-day',
-    label: 'Castlevania exterior, day',
-    confidence: 'inferred-template',
-    confidenceNote: 'Included as the exterior castle approach; Dracula fight remains excluded.',
-    chrBanks: [0x06, 0x07],
+    id: 'castlevania-final-area-fixed',
+    label: 'Castlevania final area, fixed palette',
+    confidence: 'validated-template',
+    confidenceNote: 'Castlevania final-area fixture resolves live CHR banks 11/12 and exact ROM selector palette $57 -> 4:$A150.',
+    chrBanks: [0x0b, 0x0c],
     paletteBank: 4,
-    paletteAddress: 0xa0c5,
+    paletteAddress: 0xa150,
     paletteStrategy: 'object-set-fallback',
     widthBlocks: 8,
     heightBlocks: 7
@@ -110,7 +110,7 @@ const CATEGORY_BY_OBJSET = {
   2: 'western-overworld',
   3: 'eastern-overworld',
   4: 'mountains-and-castle-approach',
-  5: 'castlevania-exterior'
+  5: 'castlevania-final-area'
 };
 
 function hex(value, width = 2) {
@@ -278,9 +278,10 @@ function palettePointerAddressForTransferId(transferId) {
 }
 
 function paletteFromRuntimeSelector(rom, info, loc, variant = 'day', runtimeContextResolver) {
+  const selectorVariant = variant === 'night' ? 'night' : 'day';
   const context = paletteContextForLocation(loc, runtimeContextResolver);
   const paletteTableAddress = readBackgroundTableWord(rom, info, PALETTE_INDEX_POINTERS + context.objset * 2);
-  const variantOffset = variant === 'night' ? 2 : 0;
+  const variantOffset = selectorVariant === 'night' ? 2 : 0;
   const indexListPointerAddress = paletteTableAddress + context.area * 4 + variantOffset;
   const indexListAddress = readBackgroundTableWord(rom, info, indexListPointerAddress);
   const submap = context.submap & 0x7f;
@@ -303,6 +304,7 @@ function paletteFromRuntimeSelector(rom, info, loc, variant = 'day', runtimeCont
     note: context.note,
     selector: {
       variant,
+      selectorVariant,
       context: {
         objset: context.objset,
         area: context.area,
@@ -334,7 +336,13 @@ function templateForLocation(rom, info, loc, runtimeContextResolver) {
   }
 
   const template = { ...base };
-  const palette = paletteFromRuntimeSelector(rom, info, loc, 'day', runtimeContextResolver);
+  const palette = paletteFromRuntimeSelector(
+    rom,
+    info,
+    loc,
+    loc.objset === 5 ? 'fixed' : 'day',
+    runtimeContextResolver
+  );
   if (palette) {
     template.paletteAddress = palette.address;
     template.paletteBank = palette.bank;
@@ -345,6 +353,20 @@ function templateForLocation(rom, info, loc, runtimeContextResolver) {
   }
 
   return template;
+}
+
+function variantForLocation(loc) {
+  return loc.objset === 5 ? 'fixed' : 'day';
+}
+
+function accessForLocation(loc) {
+  if (loc.objset === 1) {
+    return 'mansion-door';
+  }
+  if (loc.objset === 5) {
+    return 'final-area';
+  }
+  return 'outdoor';
 }
 
 function layoutGridForHeader(rom, info, derivation) {
@@ -368,13 +390,15 @@ function layoutGridForHeader(rom, info, derivation) {
 }
 
 function buildSegmentForCandidate(loc, screenRecord, template) {
+  const variant = variantForLocation(loc);
+  const access = accessForLocation(loc);
   return {
-    id: `${locationId(loc)}-day`,
-    label: `${loc.name}, day`,
+    id: `${locationId(loc)}-${variant}`,
+    label: `${loc.name}, ${variant}`,
     location: loc.name,
-    variant: 'day',
-    access: 'outdoor',
-    paletteMode: 'day',
+    variant,
+    access,
+    paletteMode: variant,
     status: template.confidence,
     validation: template.confidenceNote,
     runtimeContext: {
@@ -391,9 +415,9 @@ function buildSegmentForCandidate(loc, screenRecord, template) {
       [template.id]: {
         id: template.id,
         label: template.label,
-        variant: 'day',
-        access: 'outdoor',
-        paletteMode: 'day',
+        variant,
+        access,
+        paletteMode: variant,
         renderer: 'native-background-v1',
         chrBanks: template.chrBanks,
         layoutBank: BACKGROUND_TABLE_BANK,

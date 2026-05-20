@@ -19,7 +19,7 @@ const CATEGORY_BY_OBJSET = {
   2: 'western-overworld',
   3: 'eastern-overworld',
   4: 'mountains-and-castle-approach',
-  5: 'castlevania-exterior'
+  5: 'castlevania-final-area'
 };
 
 function hex(value, width = 2) {

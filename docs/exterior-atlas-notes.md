@@ -30,7 +30,7 @@ The atlas starts from the vendored `cv2r` manifest and includes:
 - mansion door exteriors from objset `1`
 - all route-like objset `2`, `3`, and `4` locations, including exterior-like
   ceiling areas such as Dabi's Path and Debious Woods
-- Castlevania exterior from objset `5`
+- Castlevania final area from objset `5`
 
 It excludes town interiors, mansion interiors, entry rooms, and Dracula's fight.
 
@@ -43,7 +43,7 @@ Current coverage:
 | Western overworld | 24 |
 | Eastern overworld | 11 |
 | Mountains and castle approach | 7 |
-| Castlevania exterior | 1 |
+| Castlevania final area | 1 |
 | **Total** | **55** |
 
 All 55 candidates render a PNG in the current pass. Thirteen candidates have
@@ -64,8 +64,8 @@ Current confidence split:
 
 | Confidence | Count |
 | --- | ---: |
-| Validated-template | 49 |
-| Inferred-template | 6 |
+| Validated-template | 50 |
+| Inferred-template | 5 |
 
 ## Template Assumptions
 
@@ -76,7 +76,7 @@ Current confidence split:
 | `2` | Overworld woods/routes, day | `2/3` | runtime selector table, with Jova Woods `$22 -> 4:$9FC6`, Dora Woods Part 2 `$23 -> 4:$9FD7`, and Dabi's Path `$26 -> 4:$A00A` validated by fixtures | validated-template |
 | `3` | Cemetery/marsh/woods exterior, day | `4/5` | runtime selector table, with Camilla Cemetery resolving exact day/night selector palettes | validated-template |
 | `4` | Mountain/ditch/bridge exterior, day | `6/7` | runtime selector table, with Vrad Graveyard and Castlevania Bridge resolving exact selector palettes | validated-template |
-| `5` | Castlevania exterior, day | `6/7` | runtime selector table where the selected transfer stream is raw palette data, otherwise fallback | inferred-template |
+| `5` | Castlevania final area, fixed palette | `0B/0C` | runtime selector table, with Castlevania resolving transfer `$57 -> 4:$A150` | validated-template |
 
 These assumptions are deliberately preserved in generated metadata so a future
 PNG renderer, web canvas renderer, or regression suite can see exactly which
@@ -91,6 +91,10 @@ Objset `4` was later promoted from the same audit path. Vrad Graveyard,
 Castlevania Bridge, and Deborah Cliff live PPU pattern memory matches CHR banks
 `06/07`; the previous `08/09` assumption caused visibly scrambled diagnostic
 renders.
+
+Objset `5` is treated as the Castlevania final area rather than an exterior
+day/night map. Its live PPU pattern memory matches CHR banks `0B/0C`, and its
+fixed palette resolves through the ROM selector table as `$57 -> 4:$A150`.
 
 ## Layout Grids
 
