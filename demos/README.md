@@ -45,3 +45,6 @@ Current demos:
 - `2026-05-20-transition-probe-demo/`: scripted transition probe demo showing
   Jova Woods and Doina church round trips, runtime context byte changes, and
   the next destination-position decoding target.
+- `2026-05-20-destination-position-demo/`: destination-position evidence demo
+  showing OAM-backed Simon X detection at low RAM `$0348` across the scoped
+  transition probes.

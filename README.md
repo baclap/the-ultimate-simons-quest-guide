@@ -30,7 +30,8 @@ The current vertical slice includes:
 - classifies topology edges by transition semantics so connector-only transport
   candidates are not forced into ordinary left/right adjacency
 - traces scripted emulator transitions to capture runtime context changes,
-  CPU diffs, and PPU state as evidence for destination-position decoding
+  CPU/OAM diffs, write PCs, and PPU state as evidence for destination-position
+  decoding
 - resolves human-facing labels through the Nintendo Power map naming policy
   while preserving `cv2r` source names
 
@@ -127,6 +128,7 @@ demos/2026-05-19-recipe-completeness-demo/index.html
 demos/2026-05-20-composition-draft-demo/index.html
 demos/2026-05-20-transition-semantics-demo/index.html
 demos/2026-05-20-transition-probe-demo/index.html
+demos/2026-05-20-destination-position-demo/index.html
 ```
 
 ## Next Milestone
@@ -201,9 +203,11 @@ unresolved. See `docs/transition-semantics-notes.md`.
 
 `npm run probe:transitions` runs the first destination-probe harness. It loads
 small save-state fixtures, drives scripted inputs, watches `$30/$50/$51` target
-context, and records CPU/PPU evidence before and after transitions settle. The
-initial probe set covers a Jova Woods to Town of Jova round trip and a Doina
-church interior round trip. See `docs/transition-probe-notes.md`.
+context, and records CPU/OAM/PPU evidence before and after transitions settle.
+The initial probe set covers a Jova Woods to Town of Jova round trip and a
+Doina church interior round trip. The probe now identifies low RAM `$0348` as
+Simon screen-center X across the scoped transition families. See
+`docs/transition-probe-notes.md`.
 
 Human-facing location names now follow the Nintendo Power map where the scan is
 legible, with `cv2r` labels preserved as `sourceName`. See

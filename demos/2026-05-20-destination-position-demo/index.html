@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Destination Position</title>
+  <link rel="stylesheet" href="styles.css?v=destination-position-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Destination position</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/5</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide active" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>Simon's transition X position is now identified in RAM</h1>
+        <p class="lede">OAM confirms the on-screen Simon cluster after each transition, and low RAM <code>$0348</code> matches that cluster's center X in every scoped probe.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="callout" id="candidate-callout"></div>
+    </section>
+
+    <section class="slide" data-hash="evidence">
+      <div class="copy narrow">
+        <p class="eyebrow">OAM Evidence</p>
+        <h2>The sprite cluster gives us ground truth for screen X</h2>
+        <p>The analyzer groups visible OAM sprites, favors the Simon tile family, and compares the resulting center against low RAM candidates.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="position-table">
+          <thead>
+            <tr>
+              <th>Transition</th>
+              <th>OAM center X</th>
+              <th><code>$0348</code></th>
+              <th>Last write</th>
+              <th>Confidence</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="routine">
+      <div class="copy narrow">
+        <p class="eyebrow">ROM Routine</p>
+        <h2>The transition routine writes the context and loader state</h2>
+        <p>The focused trace catches writes from fixed-bank <code>7:$D0B0-$D260</code>. This confirms the routine is the right place to keep decoding destination behavior.</p>
+      </div>
+      <div class="routine-grid" id="routine-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="meaning">
+      <div class="copy narrow">
+        <p class="eyebrow">What Changed</p>
+        <h2>This is ROM/runtime evidence, not per-area placement logic</h2>
+        <p>The probe does not say "Jova means X equals E9" in hand-authored metadata. It observes the game state, correlates it with OAM, and finds the shared RAM field that carries Simon's transition X position.</p>
+      </div>
+      <div class="next-grid" id="meaning-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Demo Goal</p>
+        <h2>Turn position evidence into coordinate-aware placement</h2>
+        <p>The remaining gap is destination Y, camera state, and transition families beyond horizontal walking and one church door.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/transition-probes/analysis-data.js?v=destination-position-1"></script>
+  <script src="slides.js?v=destination-position-1"></script>
+</body>
+</html>

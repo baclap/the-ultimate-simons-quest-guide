@@ -149,6 +149,46 @@ local function ppu_state()
   }
 end
 
+local function hex(value, width)
+  if value == nil then
+    return ""
+  end
+  return string.format("%0" .. tostring(width) .. "X", value & ((1 << (width * 4)) - 1))
+end
+
+local function write_trace_row(event, addr, value)
+  local step = nil
+  if _G.current_step_index ~= nil then
+    step = _G.steps[_G.current_step_index]
+  end
+  if step == nil or step.status ~= "active" then
+    return
+  end
+
+  local state = emu.getState()
+  local context = read_context()
+  _G.write_rows[#_G.write_rows + 1] = table.concat({
+    tostring(frames),
+    step.id,
+    tostring(frames - step.start_frame),
+    event,
+    hex(state["cpu.pc"] or 0, 4),
+    hex(state["cpu.a"] or 0, 2),
+    hex(state["cpu.x"] or 0, 2),
+    hex(state["cpu.y"] or 0, 2),
+    hex(state["mapper.prgReg"] or 0, 2),
+    hex(addr or 0, 4),
+    hex(value or 0, 2),
+    tostring(context.objset),
+    tostring(context.area),
+    tostring(context.submap_raw),
+    tostring(context.submap),
+    tostring(context.actor_pointer),
+    tostring(context.tile_set_pointer),
+    tostring(context.transition_state)
+  }, "\t")
+end
+
 local function trace_row(step, step_frame, context)
   local ppu = ppu_state()
   return table.concat({
@@ -179,7 +219,7 @@ end
 
 local function step_json(step)
   return string.format(
-    '{"id":"%s","button":"%s","targetContext":{"objset":%d,"area":%d,"submap":%d},"startFrame":%s,"firstTargetFrame":%s,"completeFrame":%s,"maxFrames":%d,"settleFrames":%d,"status":"%s","beforeCpu":"%s","afterCpu":"%s"}',
+    '{"id":"%s","button":"%s","targetContext":{"objset":%d,"area":%d,"submap":%d},"startFrame":%s,"firstTargetFrame":%s,"completeFrame":%s,"maxFrames":%d,"settleFrames":%d,"status":"%s","beforeCpu":"%s","afterCpu":"%s","beforeOam":"%s","afterOam":"%s"}',
     json_escape(step.id),
     json_escape(step.button),
     step.target_objset,
@@ -192,7 +232,9 @@ local function step_json(step)
     step.settle_frames,
     json_escape(step.status),
     json_escape(step.before_cpu or ""),
-    json_escape(step.after_cpu or "")
+    json_escape(step.after_cpu or ""),
+    json_escape(step.before_oam or ""),
+    json_escape(step.after_oam or "")
   )
 end
 
@@ -230,6 +272,9 @@ local trace_rows = {
 
 _G.steps = parse_steps(steps_raw)
 _G.current_step_index = nil
+_G.write_rows = {
+  "frame\tstepId\tstepFrame\tevent\tpc\ta\tx\ty\tprgReg\taddr\tvalue\tobjset\tarea\tsubmapRaw\tsubmap\tactorPointer\ttileSetPointer\ttransitionState"
+}
 
 os.execute("mkdir -p " .. string.format("%q", out_dir))
 
@@ -264,27 +309,41 @@ emu.addEventCallback(function()
   emu.setInput(current_inputs(), 0)
 end, emu.eventType.inputPolled)
 
+emu.addMemoryCallback(function(addr, value)
+  write_trace_row("zero-page-write", addr, value)
+end, emu.callbackType.write, 0x0000, 0x00FF, emu.memType.nesMemory)
+
+emu.addMemoryCallback(function(addr, value)
+  write_trace_row("sprite-staging-write", addr, value)
+end, emu.callbackType.write, 0x0300, 0x03FF, emu.memType.nesMemory)
+
 local function start_step(index)
   local step = _G.steps[index]
   _G.current_step_index = index
   step.status = "active"
   step.start_frame = frames
   step.before_cpu = step.id .. "-before-cpu-0000-07ff.bin"
+  step.before_oam = step.id .. "-before-oam-0000-00ff.bin"
   dump_memory(out_dir .. "/" .. step.before_cpu, 0x0000, 0x0800, emu.memType.nesDebug)
+  dump_memory(out_dir .. "/" .. step.before_oam, 0x0000, 0x0100, emu.memType.nesSpriteRam)
 end
 
 local function complete_step(step)
   step.status = "complete"
   step.complete_frame = frames
   step.after_cpu = step.id .. "-after-cpu-0000-07ff.bin"
+  step.after_oam = step.id .. "-after-oam-0000-00ff.bin"
   dump_memory(out_dir .. "/" .. step.after_cpu, 0x0000, 0x0800, emu.memType.nesDebug)
+  dump_memory(out_dir .. "/" .. step.after_oam, 0x0000, 0x0100, emu.memType.nesSpriteRam)
 end
 
 local function timeout_step(step)
   step.status = "timeout"
   step.complete_frame = frames
   step.after_cpu = step.id .. "-timeout-cpu-0000-07ff.bin"
+  step.after_oam = step.id .. "-timeout-oam-0000-00ff.bin"
   dump_memory(out_dir .. "/" .. step.after_cpu, 0x0000, 0x0800, emu.memType.nesDebug)
+  dump_memory(out_dir .. "/" .. step.after_oam, 0x0000, 0x0100, emu.memType.nesSpriteRam)
 end
 
 emu.addEventCallback(function()
@@ -309,6 +368,7 @@ emu.addEventCallback(function()
   local step = _G.steps[_G.current_step_index]
   if step == nil then
     write_file(out_dir .. "/trace.tsv", table.concat(trace_rows, "\n") .. "\n")
+    write_file(out_dir .. "/ram-writes.tsv", table.concat(_G.write_rows, "\n") .. "\n")
     write_summary(out_dir, "complete", probe_id, probe_label, state_path, state_loaded_frame, _G.steps)
     emu.stop(0)
     return
@@ -335,6 +395,7 @@ emu.addEventCallback(function()
   if step_frame >= step.max_frames then
     timeout_step(step)
     write_file(out_dir .. "/trace.tsv", table.concat(trace_rows, "\n") .. "\n")
+    write_file(out_dir .. "/ram-writes.tsv", table.concat(_G.write_rows, "\n") .. "\n")
     write_summary(out_dir, "timeout", probe_id, probe_label, state_path, state_loaded_frame, _G.steps)
     emu.stop(0)
   end

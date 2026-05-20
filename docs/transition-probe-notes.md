@@ -25,10 +25,14 @@ under `out/transition-probes/`.
 Each probe writes:
 
 - `trace.tsv`: frame-by-frame runtime context and PPU state
+- `ram-writes.tsv`: per-step zero-page and sprite-staging writes with PC,
+  registers, runtime context, and written value
 - `summary.json`: per-step timing and status
 - `probe-start-cpu-0000-07ff.bin`: zero-page plus low RAM before scripted input
 - `<step>-before-cpu-0000-07ff.bin`: CPU RAM before a transition step
 - `<step>-after-cpu-0000-07ff.bin`: CPU RAM after the transition settles
+- `<step>-before-oam-0000-00ff.bin`: OAM before a transition step
+- `<step>-after-oam-0000-00ff.bin`: OAM after the transition settles
 
 The analyzer writes:
 
@@ -49,12 +53,12 @@ post-transition context before enemies can interfere with Simon.
 
 All four scoped transitions completed without timeout.
 
-| Transition | Input | Frames to target | Runtime context change |
-| --- | --- | ---: | --- |
-| Jova Woods to Jova | left | 36 | `$30` `02 -> 00`, `$51` `00 -> 80`, `$63/$64` `8CF4 -> 841D` |
-| Jova to Jova Woods | right | 21 | `$30` `00 -> 02`, `$3D/$3E` `9FE4 -> 90AC`, `$51` `80 -> 00`, `$63/$64` `841D -> 8CF4` |
-| Doina church to Doina | left | 4 | `$50` `07 -> 05` |
-| Doina to Doina church | up | 4 | `$50` `05 -> 07`, `$3D/$3E` `8EDD -> 91A1` |
+| Transition | Input | Frames to target | Runtime context change | Simon X evidence |
+| --- | --- | ---: | --- | --- |
+| Jova Woods to Jova | left | 36 | `$30` `02 -> 00`, `$51` `00 -> 80`, `$63/$64` `8CF4 -> 841D` | `$0348` `30 -> E9`, OAM center `E9` |
+| Jova to Jova Woods | right | 21 | `$30` `00 -> 02`, `$3D/$3E` `9FE4 -> 90AC`, `$51` `80 -> 00`, `$63/$64` `841D -> 8CF4` | `$0348` `E9 -> 10`, OAM center `10` |
+| Doina church to Doina | left | 4 | `$50` `07 -> 05` | `$0348` `10 -> 80`, OAM center `80` |
+| Doina to Doina church | up | 4 | `$50` `05 -> 07`, `$3D/$3E` `8EDD -> 91A1` | `$0348` `80 -> 10`, OAM center `10` |
 
 These traces confirm that the known runtime context bytes are enough to detect
 the transition target quickly:
@@ -65,10 +69,26 @@ the transition target quickly:
 - `$3D/$3E`: actor pointer
 - `$63/$64`: runtime tile-set pointer
 
-They do not yet decode Simon's destination X/Y position. The CPU snapshots and
-zero-page diffs are now available so the next step can identify which RAM bytes
-represent the position and camera state, then trace those writes back to ROM
-transition routines or tables.
+The first destination-position probe resolves Simon's screen-center X for the
+scoped transition families. Low RAM `$0348` matches the OAM-derived Simon
+sprite-cluster center in all four transitions and is written during each step:
+
+- `woods-to-jova`: `$0348 = $E9`, OAM center X `$E9`
+- `jova-to-woods`: `$0348 = $10`, OAM center X `$10`
+- `church-to-doina`: `$0348 = $80`, OAM center X `$80`
+- `doina-to-church`: `$0348 = $10`, OAM center X `$10`
+
+This is high-confidence for screen X within the current horizontal/interior
+probe set. It does not yet prove vertical destination Y, full camera state, or
+special-transport placement.
+
+The focused write trace also confirms that the fixed-bank transition routine
+around `7:$D0B0-$D260` writes runtime context and loader state during the
+transition. For example, the Jova Woods round trip records writes to `$30`,
+`$50`, `$51`, `$63/$64`, `$6E/$6F`, `$70-$73`, `$89`, `$8E`, and `$93` from
+PCs in that range. `$0348` is written later by the sprite/object staging path,
+so the next trace target is the path from transition-state bytes into final
+player/object position staging.
 
 ## Why This Matters
 
@@ -83,5 +103,5 @@ composition rules without area-specific placement guesses.
   town-interior round trip.
 - It does not yet prove vertical transitions, doors, mansion entrances, or
   special transports.
-- It does not promote new map placement rules yet; it preserves evidence for the
-  next decoding step.
+- It resolves Simon screen-center X for the scoped transitions, but it does not
+  yet promote final map placement rules.
