@@ -30,6 +30,7 @@ const {
   captureRenderRecipeFixtures
 } = require('./render-recipe-audit');
 const { renderRecipeAtlas } = require('./render-recipe-atlas');
+const { runTransitionProbes } = require('./transition-probes');
 const {
   createRuntimeContextResolver,
   inspectRuntimeContextFixtures,
@@ -106,6 +107,7 @@ function usage() {
     '  node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas',
     '  node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology',
     '  node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition',
+    '  node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --out out/transition-probes',
     '  node src/index.js capture-render-recipe-fixtures --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json',
     '  node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit',
     '  node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas',
@@ -133,6 +135,7 @@ function usage() {
     '  render-exterior-atlas  Render exterior candidate layout-space segments and a manifest.',
     '  render-exterior-topology  Decode exterior area transition topology and write graph data.',
     '  render-exterior-composition  Compose a topology route from ROM-derived transition constraints.',
+    '  run-transition-probes  Trace scripted transition round trips from save states.',
     '  capture-render-recipe-fixtures  Capture configured save-state probes for recipe auditing.',
     '  audit-render-recipes  Audit live capture evidence against ROM-derived render recipe tables.',
     '  render-recipe-atlas  Render validated/projected atlas variants from audited render recipes.',
@@ -654,6 +657,22 @@ function renderExteriorCompositionCommand(args) {
   });
 }
 
+function runTransitionProbesCommand(args) {
+  const romPath = required(args, 'rom');
+  const outDir = args.out ? String(args.out) : path.join('out', 'transition-probes');
+  const { info } = readRom(romPath);
+  printJson({
+    rom: describeRom(info),
+    transitionProbes: runTransitionProbes({
+      romPath,
+      fixtureFile: args.fixtures ? String(args.fixtures) : undefined,
+      outDir,
+      only: args.only ? String(args.only) : undefined,
+      timeout: numericOption(args, 'timeout', undefined)
+    })
+  });
+}
+
 function captureRenderRecipeFixturesCommand(args) {
   const romPath = required(args, 'rom');
   printJson(captureRenderRecipeFixtures({
@@ -809,6 +828,11 @@ function main() {
 
   if (command === 'render-exterior-composition') {
     renderExteriorCompositionCommand(args);
+    return;
+  }
+
+  if (command === 'run-transition-probes') {
+    runTransitionProbesCommand(args);
     return;
   }
 

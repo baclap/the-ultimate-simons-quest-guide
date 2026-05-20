@@ -42,3 +42,6 @@ Current demos:
 - `2026-05-20-transition-semantics-demo/`: transition classification demo
   showing the Deborah Cliff tornado edge as a connector-only transport
   candidate instead of ordinary adjacency.
+- `2026-05-20-transition-probe-demo/`: scripted transition probe demo showing
+  Jova Woods and Doina church round trips, runtime context byte changes, and
+  the next destination-position decoding target.

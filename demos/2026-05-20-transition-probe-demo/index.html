@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Transition Probe</title>
+  <link rel="stylesheet" href="styles.css?v=transition-probe-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Transition probe</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/5</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide active" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone</p>
+        <h1>Scripted transitions now produce reusable runtime evidence</h1>
+        <p class="lede">The harness loads save states, drives controller input, watches the target context bytes, and captures CPU/PPU evidence at the moment each transition settles.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="summary-panel">
+        <p>The initial set is intentionally small: one outdoor walking round trip and one church interior round trip. All four transitions completed, which means the harness is ready to decode destination placement instead of only endpoint identity.</p>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="outdoor">
+      <div class="copy narrow">
+        <p class="eyebrow">Outdoor Probe</p>
+        <h2>Jova Woods round trip proves live edge detection</h2>
+        <p>Walking left leaves Jova Woods for town context; walking right returns to woods context. The return settle is deliberately short because enemies spawn when the screen reloads.</p>
+      </div>
+      <div class="probe-grid" id="outdoor-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="interior">
+      <div class="copy narrow">
+        <p class="eyebrow">Interior Probe</p>
+        <h2>The church transition is fast and context-local</h2>
+        <p>The Doina church pair flips `$50` between the interior and town areas in four frames. Re-entry also updates the actor pointer, giving us another concrete byte to chase in the transition routine.</p>
+      </div>
+      <div class="probe-grid" id="interior-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="evidence">
+      <div class="copy narrow">
+        <p class="eyebrow">Evidence</p>
+        <h2>The trace records known fields and candidate position bytes</h2>
+        <p>Each step stores before/after CPU RAM. Known context bytes are labeled today; unknown zero-page changes remain available for identifying Simon and camera destination state next.</p>
+      </div>
+      <div class="evidence-table-wrap">
+        <table class="evidence-table" id="evidence-table">
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th>Known changed fields</th>
+              <th>Zero-page candidates</th>
+              <th>CPU diff count</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Demo Goal</p>
+        <h2>Decode destination positions from the transition routine</h2>
+        <p>The route graph already knows the connected areas. The next useful proof is the data that places Simon and the camera after each kind of transition.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/transition-probes/analysis-data.js?v=transition-probe-1"></script>
+  <script src="slides.js?v=transition-probe-1"></script>
+</body>
+</html>

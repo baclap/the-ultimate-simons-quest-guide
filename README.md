@@ -29,6 +29,8 @@ The current vertical slice includes:
   constraints and recipe-atlas segments, with inferred solver shifts labeled
 - classifies topology edges by transition semantics so connector-only transport
   candidates are not forced into ordinary left/right adjacency
+- traces scripted emulator transitions to capture runtime context changes,
+  CPU diffs, and PPU state as evidence for destination-position decoding
 - resolves human-facing labels through the Nintendo Power map naming policy
   while preserving `cv2r` source names
 
@@ -79,6 +81,7 @@ npm run render:route:jova-to-veros
 npm run render:atlas:exterior
 npm run render:topology:exterior
 npm run render:composition:exterior
+npm run probe:transitions
 ```
 
 You can also pass paths directly:
@@ -98,6 +101,7 @@ node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-ver
 node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas
 node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology
 node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition
+node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --out out/transition-probes
 node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit
 node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas
 ```
@@ -122,6 +126,7 @@ demos/2026-05-19-objset4-recipe-demo/index.html
 demos/2026-05-19-recipe-completeness-demo/index.html
 demos/2026-05-20-composition-draft-demo/index.html
 demos/2026-05-20-transition-semantics-demo/index.html
+demos/2026-05-20-transition-probe-demo/index.html
 ```
 
 ## Next Milestone
@@ -193,6 +198,12 @@ Topology edges now include `transitionSemantics` metadata. The first
 connector-only edge is Deborah Cliff (In Tornado) to Bodley Mansion - Door:
 the endpoint is still ROM-derived, but final transport coordinates remain
 unresolved. See `docs/transition-semantics-notes.md`.
+
+`npm run probe:transitions` runs the first destination-probe harness. It loads
+small save-state fixtures, drives scripted inputs, watches `$30/$50/$51` target
+context, and records CPU/PPU evidence before and after transitions settle. The
+initial probe set covers a Jova Woods to Town of Jova round trip and a Doina
+church interior round trip. See `docs/transition-probe-notes.md`.
 
 Human-facing location names now follow the Nintendo Power map where the scan is
 legible, with `cv2r` labels preserved as `sourceName`. See

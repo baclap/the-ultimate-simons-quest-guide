@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "statesRoot": "out/states",
+  "capturesRoot": "out/transition-probes",
+  "probes": [
+    {
+      "id": "jova-woods-left-round-trip",
+      "label": "Jova Woods left-edge round trip",
+      "state": "out/states/jova-woods.mss",
+      "location": "Jova Woods",
+      "variant": "day",
+      "access": "outdoor",
+      "preSettleFrames": 30,
+      "timeout": 45,
+      "reason": "Normal outdoor horizontal boundary transition plus immediate return, with short post-return settle to avoid enemy knockback after re-entering Jova Woods.",
+      "steps": [
+        {
+          "id": "woods-to-jova",
+          "label": "Walk left from Jova Woods into Town of Jova",
+          "type": "outdoor-horizontal",
+          "input": "left",
+          "maxFrames": 420,
+          "settleFrames": 24,
+          "targetContext": {
+            "objset": "0x00",
+            "area": "0x00",
+            "submap": "0x00"
+          }
+        },
+        {
+          "id": "jova-to-woods",
+          "label": "Walk right from Town of Jova back into Jova Woods",
+          "type": "outdoor-horizontal-return",
+          "input": "right",
+          "maxFrames": 420,
+          "settleFrames": 12,
+          "targetContext": {
+            "objset": "0x02",
+            "area": "0x00",
+            "submap": "0x00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "doina-church-round-trip",
+      "label": "Doina church interior round trip",
+      "state": "out/states/doina-church-interior-day.mss",
+      "location": "Town of Doina church interior",
+      "variant": "day",
+      "access": "town-interior",
+      "preSettleFrames": 30,
+      "timeout": 45,
+      "reason": "Interior exit by walking left, then exterior re-entry by pressing up at the door.",
+      "steps": [
+        {
+          "id": "church-to-doina",
+          "label": "Walk left from Doina church to Town of Doina",
+          "type": "interior-exit",
+          "input": "left",
+          "maxFrames": 420,
+          "settleFrames": 30,
+          "targetContext": {
+            "objset": "0x00",
+            "area": "0x05",
+            "submap": "0x00"
+          }
+        },
+        {
+          "id": "doina-to-church",
+          "label": "Press up from Town of Doina to re-enter the church",
+          "type": "interior-entry",
+          "input": "up",
+          "maxFrames": 240,
+          "settleFrames": 30,
+          "targetContext": {
+            "objset": "0x00",
+            "area": "0x07",
+            "submap": "0x00"
+          }
+        }
+      ]
+    }
+  ]
+}
