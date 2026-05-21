@@ -25,6 +25,7 @@ const {
 } = require('./exterior-atlas');
 const { renderExteriorTopology } = require('./exterior-topology');
 const { renderExteriorComposition } = require('./exterior-composition');
+const { renderExteriorWorldComposition } = require('./exterior-world-composition');
 const { decodeTransitionRoutine } = require('./transition-routine-decoder');
 const {
   auditRenderRecipes,
@@ -108,6 +109,7 @@ function usage() {
     '  node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas',
     '  node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology',
     '  node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition',
+    '  node src/index.js render-exterior-world-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --transition-rules out/transition-routine/decoder.json --out out/exterior-world-composition',
     '  node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes',
     '  node src/index.js decode-transition-routine --rom roms/cv2.nes --probes out/transition-probes/analysis.json --topology out/exterior-topology/topology.json --out out/transition-routine',
     '  node src/index.js capture-render-recipe-fixtures --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json',
@@ -137,6 +139,7 @@ function usage() {
     '  render-exterior-atlas  Render exterior candidate layout-space segments and a manifest.',
     '  render-exterior-topology  Decode exterior area transition topology and write graph data.',
     '  render-exterior-composition  Compose a topology route from ROM-derived transition constraints.',
+    '  render-exterior-world-composition  Compose all exterior topology areas from ROM-derived constraints.',
     '  run-transition-probes  Trace scripted transition round trips from save states.',
     '  decode-transition-routine  Summarize transition routine bytes and placement/camera evidence.',
     '  capture-render-recipe-fixtures  Capture configured save-state probes for recipe auditing.',
@@ -660,6 +663,22 @@ function renderExteriorCompositionCommand(args) {
   });
 }
 
+function renderExteriorWorldCompositionCommand(args) {
+  const romPath = required(args, 'rom');
+  const outDir = args.out ? String(args.out) : path.join('out', 'exterior-world-composition');
+  const { info } = readRom(romPath);
+  printJson({
+    rom: describeRom(info),
+    worldComposition: renderExteriorWorldComposition({
+      topologyFile: args.topology ? String(args.topology) : undefined,
+      recipeAtlasFile: args.atlas ? String(args.atlas) : undefined,
+      transitionRulesFile: args['transition-rules'] ? String(args['transition-rules']) : undefined,
+      variant: args.variant ? String(args.variant) : undefined,
+      outDir
+    })
+  });
+}
+
 function runTransitionProbesCommand(args) {
   const romPath = required(args, 'rom');
   const outDir = args.out ? String(args.out) : path.join('out', 'transition-probes');
@@ -846,6 +865,11 @@ function main() {
 
   if (command === 'render-exterior-composition') {
     renderExteriorCompositionCommand(args);
+    return;
+  }
+
+  if (command === 'render-exterior-world-composition') {
+    renderExteriorWorldCompositionCommand(args);
     return;
   }
 

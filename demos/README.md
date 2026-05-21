@@ -60,3 +60,7 @@ Current demos:
 - `2026-05-20-transition-routine-decoder-demo/`: transition routine decoder
   demo showing ROM byte windows, raw write metadata, topology matches, and
   promoted/diagnostic placement hypotheses for `$70-$73`.
+- `2026-05-20-world-composition-demo/`: full exterior world composition demo
+  showing all 32 exterior areas, all 55 exterior nodes, all 87 topology
+  constraints, zero hand-placed coordinates, and explicit conflict/unresolved
+  labels.

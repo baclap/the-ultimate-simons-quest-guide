@@ -39,6 +39,8 @@ The current vertical slice includes:
   evidence, and Deborah Cliff special-transport evidence
 - writes a transition routine decoder artifact with ROM byte windows, raw write
   metadata, topology matches, and promoted/diagnostic placement hypotheses
+- composes the full exterior topology graph into a single world draft with all
+  55 exterior nodes represented and `handPlacedCoordinates: 0`
 - resolves human-facing labels through the Nintendo Power map naming policy
   while preserving `cv2r` source names
 
@@ -91,6 +93,7 @@ npm run render:topology:exterior
 npm run render:composition:exterior
 npm run probe:transitions
 npm run decode:transition-routine
+npm run render:world:exterior
 ```
 
 You can also pass paths directly:
@@ -110,6 +113,7 @@ node src/index.js render-layout-route-png --rom roms/cv2.nes --route jova-to-ver
 node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas
 node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology
 node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition
+node src/index.js render-exterior-world-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --transition-rules out/transition-routine/decoder.json --out out/exterior-world-composition
 node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes
 node src/index.js decode-transition-routine --rom roms/cv2.nes --probes out/transition-probes/analysis.json --topology out/exterior-topology/topology.json --out out/transition-routine
 node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit
@@ -142,6 +146,7 @@ demos/2026-05-20-camera-scroll-demo/index.html
 demos/2026-05-20-destination-y-probe-demo/index.html
 demos/2026-05-20-transition-routine-bytes-demo/index.html
 demos/2026-05-20-transition-routine-decoder-demo/index.html
+demos/2026-05-20-world-composition-demo/index.html
 ```
 
 ## Next Milestone
@@ -232,14 +237,20 @@ ROM byte windows around the observed `$70-$73` write PCs, raw write metadata,
 matched topology edges, Simon placement, camera state, and promoted/diagnostic
 role hypotheses. See `docs/transition-routine-decoder-notes.md`.
 
+`npm run render:world:exterior` composes the full exterior topology graph using
+the topology, recipe atlas, and transition routine decoder artifact. The current
+draft places all 32 exterior areas and all 55 exterior nodes, represents all 87
+topology constraints, and reports `handPlacedCoordinates: 0` while keeping
+conflicts, connector-only transitions, and unresolved edges explicit. See
+`docs/exterior-world-composition-notes.md`.
+
 Human-facing location names now follow the Nintendo Power map where the scan is
 legible, with `cv2r` labels preserved as `sourceName`. See
 `docs/location-naming-policy.md`.
 
 The intended path is:
 
-1. decode or validate transition destination positions, including vertical and special-transport rules
-2. expand route composition into full exterior graph composition
-3. validate remaining mansion-door layout/crop assumptions
-4. connect validated exteriors/interiors/final-area segments into final PNG and optional canvas outputs
-5. preserve day, night, and fixed variants as first-class outputs
+1. decode conflict classes from the full exterior world composition, especially vertical and special-transport placement rules
+2. validate remaining mansion-door layout/crop assumptions
+3. connect validated exteriors/interiors/final-area segments into final PNG and optional canvas outputs
+4. preserve day, night, and fixed variants as first-class outputs

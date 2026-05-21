@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Exterior World Composition</title>
+  <link rel="stylesheet" href="styles.css?v=world-composition-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Exterior world composition</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/5</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide active" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone 2</p>
+        <h1>The full exterior graph now composes without hand placement</h1>
+        <p class="lede">Every exterior topology area with a recipe-atlas render is placed by ROM topology, decoded routine evidence, segment dimensions, and deterministic solver layout. No per-area coordinate tweaks are used.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="callout" id="overview-callout"></div>
+    </section>
+
+    <section class="slide" data-hash="world">
+      <div class="copy narrow">
+        <p class="eyebrow">World Draft</p>
+        <h2>All 55 exterior nodes are present</h2>
+        <p>This is a constraint-composition draft. It is not claiming final pixel-perfect world coordinates yet; conflicts and unresolved edges are visible in the manifest.</p>
+      </div>
+      <figure class="world-frame">
+        <img src="assets/exterior-world-composition/world.png" alt="ROM-derived exterior world composition draft">
+      </figure>
+    </section>
+
+    <section class="slide" data-hash="provenance">
+      <div class="copy narrow">
+        <p class="eyebrow">Provenance</p>
+        <h2>The manifest separates solved, solver, connector, and unresolved facts</h2>
+        <p>The important result is not that the draft is final. It is that every placement source is labeled, and unresolved edges are not counted as ROM-derived spatial placement.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="provenance-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Value</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="routine">
+      <div class="copy narrow">
+        <p class="eyebrow">Routine Evidence</p>
+        <h2><code>$70-$73</code> now changes confidence labels</h2>
+        <p>Observed transition routine evidence is attached to matching topology edges. It improves provenance without inventing coordinates when the decoded spatial rule is still missing.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="routine-table">
+          <thead>
+            <tr>
+              <th>Edge</th>
+              <th>Probe</th>
+              <th>Status</th>
+              <th>Placement source</th>
+              <th>Routine bytes</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Next Goal</p>
+        <h2>Turn conflicts into decoded placement rules</h2>
+        <p>The next research target is the conflict set: ordinary topology edges whose existing graph placement disagrees with another ROM edge. Those are the best clues for vertical offsets, special transitions, and missing coordinate semantics.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/exterior-world-composition/world-composition-data.js?v=world-composition-1"></script>
+  <script src="slides.js?v=world-composition-1"></script>
+</body>
+</html>
