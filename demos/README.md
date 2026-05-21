@@ -64,3 +64,7 @@ Current demos:
   showing all 32 exterior areas, all 55 exterior nodes, all 87 topology
   constraints, zero hand-placed coordinates, and explicit conflict/unresolved
   labels.
+- `2026-05-21-rom-unwound-lesson-demo/`: long-form educational slideshow
+  explaining how the ROM tooling decodes iNES structure, CHR tiles, palettes,
+  background tables, render recipes, topology, transition probes, and world
+  composition.

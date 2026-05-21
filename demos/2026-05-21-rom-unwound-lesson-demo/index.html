@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Lesson - ROM Unwound</title>
+  <link rel="stylesheet" href="styles.css?v=rom-unwound-1">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#start" aria-label="ROM Unwound lesson start">
+      <strong>CV2 ROM UNWOUND</strong>
+      <span id="chapter-label">Orientation</span>
+    </a>
+    <div class="top-actions">
+      <div class="progress-label"><span id="counter">1/--</span></div>
+      <nav class="slide-nav" aria-label="Slide navigation">
+        <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+        <button id="next" type="button" aria-label="Next slide">&gt;</button>
+      </nav>
+    </div>
+    <div class="progress-bar" aria-hidden="true"><span id="progress-fill"></span></div>
+  </header>
+
+  <aside class="chapter-rail" id="chapter-rail" aria-label="Lesson chapters"></aside>
+
+  <main id="deck" class="deck" aria-live="polite"></main>
+
+  <script src="assets/exterior-atlas/atlas-data.js?v=rom-unwound-1"></script>
+  <script src="assets/audit/audit-data.js?v=rom-unwound-1"></script>
+  <script src="assets/recipe-atlas/recipe-atlas-data.js?v=rom-unwound-1"></script>
+  <script src="assets/topology/topology-data.js?v=rom-unwound-1"></script>
+  <script src="assets/transition-probes/analysis-data.js?v=rom-unwound-1"></script>
+  <script src="assets/transition-routine/decoder-data.js?v=rom-unwound-1"></script>
+  <script src="assets/exterior-world-composition/world-composition-data.js?v=rom-unwound-1"></script>
+  <script src="slides.js?v=rom-unwound-1"></script>
+</body>
+</html>

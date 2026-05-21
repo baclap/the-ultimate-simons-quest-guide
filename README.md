@@ -153,6 +153,7 @@ demos/2026-05-20-destination-y-probe-demo/index.html
 demos/2026-05-20-transition-routine-bytes-demo/index.html
 demos/2026-05-20-transition-routine-decoder-demo/index.html
 demos/2026-05-20-world-composition-demo/index.html
+demos/2026-05-21-rom-unwound-lesson-demo/index.html
 ```
 
 ## Next Milestone

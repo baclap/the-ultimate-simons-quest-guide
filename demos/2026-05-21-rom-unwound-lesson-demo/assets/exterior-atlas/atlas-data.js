@@ -1,0 +1,10761 @@
+window.EXTERIOR_ATLAS = {
+  "schemaVersion": 1,
+  "source": {
+    "rom": "local iNES ROM",
+    "metadata": {
+      "name": "tonylukasavage/cv2r",
+      "localPath": "/Users/baclap/workspace/castlevania/third_party/cv2r",
+      "coreFile": "/Users/baclap/workspace/castlevania/third_party/cv2r/lib/core.js",
+      "locationNamesFile": "/Users/baclap/workspace/castlevania/data/location-names.json",
+      "displayNamePolicy": {
+        "primarySource": "Nintendo Power Castlevania II: Simon's Quest Transylvania map",
+        "primarySourceUrl": "https://i.etsystatic.com/63264078/r/il/5f4082/7590914027/il_1588xN.7590914027_ind8.jpg",
+        "rule": "Use Nintendo Power map names for human-facing labels where the scanned map is legible. Preserve cv2r names as sourceName and keep other published names as aliases."
+      }
+    },
+    "renderer": "rom-native-layout-segment",
+    "notes": [
+      "Atlas v0 renders layout-space segments directly from ROM layout pointers, metatiles, CHR banks, and palette bytes.",
+      "Layout headers are decoded as column-group by vertical-section grids; atlas rendering covers every section in the header.",
+      "Validated template confidence means at least one representative screen in that object set has exact emulator fixture parity.",
+      "Inferred template confidence means the table paths resolve and render, but CHR/palette selection still needs representative fixture validation."
+    ]
+  },
+  "constants": {
+    "patternTableCpuAddress": "0xB720",
+    "objsetPatternOffset": "0x30",
+    "mapSizeByObjset": [
+      2,
+      4,
+      4,
+      5,
+      2,
+      2
+    ],
+    "paletteIndexPointers": "0xF7C5",
+    "bank7TransferPointerTable": "0x8895",
+    "runtimeContextFixtures": "data/runtime-context-fixtures.json",
+    "runtimeContextResolver": "rom-special-screen-record-alias"
+  },
+  "templates": [
+    {
+      "id": "town-exterior-day",
+      "label": "Town exterior, day",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+      "chrBanks": [
+        "0x00",
+        "0x01"
+      ],
+      "paletteBank": 4,
+      "paletteAddress": "0x9EA2",
+      "paletteStrategy": "object-set-fallback",
+      "widthBlocks": 8,
+      "heightBlocks": 8,
+      "rowsPerLayoutSection": 7
+    },
+    {
+      "id": "mansion-door-day",
+      "label": "Mansion door exterior, day",
+      "confidence": "inferred-template",
+      "confidenceNote": "Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.",
+      "chrBanks": [
+        "0x08",
+        "0x09"
+      ],
+      "paletteBank": 4,
+      "paletteAddress": "0x9F5E",
+      "paletteStrategy": "object-set-fallback",
+      "widthBlocks": 8,
+      "heightBlocks": 7
+    },
+    {
+      "id": "overworld-woods-day",
+      "label": "Overworld woods/routes, day",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "chrBanks": [
+        "0x02",
+        "0x03"
+      ],
+      "paletteBank": 4,
+      "paletteAddress": "0x9FC6",
+      "paletteStrategy": "object-set-fallback",
+      "widthBlocks": 8,
+      "heightBlocks": 7
+    },
+    {
+      "id": "cemetery-marsh-woods-day",
+      "label": "Cemetery/marsh/woods exterior, day",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "chrBanks": [
+        "0x04",
+        "0x05"
+      ],
+      "paletteBank": 4,
+      "paletteAddress": "0x9FE8",
+      "paletteStrategy": "object-set-fallback",
+      "widthBlocks": 8,
+      "heightBlocks": 7
+    },
+    {
+      "id": "mountain-ditch-bridge-day",
+      "label": "Mountain/ditch/bridge exterior, day",
+      "confidence": "validated-template",
+      "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+      "chrBanks": [
+        "0x06",
+        "0x07"
+      ],
+      "paletteBank": 4,
+      "paletteAddress": "0xA070",
+      "paletteStrategy": "object-set-fallback",
+      "widthBlocks": 8,
+      "heightBlocks": 7
+    },
+    {
+      "id": "castlevania-final-area-fixed",
+      "label": "Castlevania final area, fixed palette",
+      "confidence": "validated-template",
+      "confidenceNote": "Castlevania final-area fixture resolves live CHR banks 11/12 and exact ROM selector palette $57 -> 4:$A150.",
+      "chrBanks": [
+        "0x0B",
+        "0x0C"
+      ],
+      "paletteBank": 4,
+      "paletteAddress": "0xA150",
+      "paletteStrategy": "object-set-fallback",
+      "widthBlocks": 8,
+      "heightBlocks": 7
+    }
+  ],
+  "candidates": [
+    {
+      "id": "obj00-area00-sub00-town-of-jova",
+      "name": "Town of Jova",
+      "category": "town-exteriors",
+      "objset": 0,
+      "objsetHex": "0x00",
+      "area": 0,
+      "areaHex": "0x00",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB720",
+        "value": "0x3B",
+        "lowNibble": "0xB",
+        "highNibble": "0x3",
+        "maskedId": "0x1B"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x8042",
+        "areaRecordAddress": "0xF9FF",
+        "pointerAddress": "0xFA08",
+        "address": "0xFA3A",
+        "firstBytes": [
+          "0x03",
+          "0x04",
+          "0xFE",
+          "0xFF",
+          "0x16",
+          "0x2E",
+          "0x19",
+          "0x2E"
+        ],
+        "rawLayoutIndex": "0x03",
+        "layoutIndex": "0x03",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+      "template": {
+        "id": "town-exterior-day",
+        "label": "Town exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+        "chrBanks": [
+          "0x00",
+          "0x01"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9EA2",
+        "palettePointerAddress": "0x88C1",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 0,
+            "area": 0,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8072",
+          "indexListPointerAddress": "0x8072",
+          "indexListAddress": "0xFA3E",
+          "indexOffset": 0,
+          "transferId": "0x16",
+          "auxiliaryTransferId": "0x2E",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88C1"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
+      },
+      "output": "images/obj00-area00-sub00-town-of-jova.png",
+      "width": 1024,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 2,
+        "totalPointers": 8,
+        "renderedColumns": 4,
+        "renderedRows": 2
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 2,
+      "layoutCellCount": 8,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 0,
+          "area": 0,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xFA08",
+          "address": "0xFA3A",
+          "firstBytes": [
+            "0x03",
+            "0x04",
+            "0xFE",
+            "0xFF",
+            "0x16",
+            "0x2E",
+            "0x19",
+            "0x2E"
+          ],
+          "rawLayoutIndex": 3,
+          "rawLayoutIndexHex": "0x03",
+          "layoutIndex": 3,
+          "layoutIndexHex": "0x03",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FB",
+          "address": "0x80D3"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x80DF",
+          "address": "0xFA86",
+          "secondaryAddress": "0xFA50"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D1",
+          "address": "0x841D",
+          "auxiliaryAddress": "0xF7E9"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFA88",
+          "layoutAddress": "0x8497"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFA8A",
+          "layoutAddress": "0x85AF"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFA8C",
+          "layoutAddress": "0x8577"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFA8E",
+          "layoutAddress": "0x8507"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFA90",
+          "layoutAddress": "0x83B7"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFA92",
+          "layoutAddress": "0x82D7"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFA94",
+          "layoutAddress": "0x861F"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFA96",
+          "layoutAddress": "0x845F"
+        }
+      ]
+    },
+    {
+      "id": "obj00-area01-sub00-town-of-veros",
+      "name": "Town of Veros",
+      "category": "town-exteriors",
+      "objset": 0,
+      "objsetHex": "0x00",
+      "area": 1,
+      "areaHex": "0x01",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB722",
+        "value": "0x3B",
+        "lowNibble": "0xB",
+        "highNibble": "0x3",
+        "maskedId": "0x1B"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x8042",
+        "areaRecordAddress": "0x8657",
+        "pointerAddress": "0x8660",
+        "address": "0x86AC",
+        "firstBytes": [
+          "0x01",
+          "0x05",
+          "0x09",
+          "0x0F",
+          "0x00",
+          "0xFE",
+          "0x17",
+          "0x2E"
+        ],
+        "rawLayoutIndex": "0x01",
+        "layoutIndex": "0x01",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+      "template": {
+        "id": "town-exterior-day",
+        "label": "Town exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+        "chrBanks": [
+          "0x00",
+          "0x01"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9EB3",
+        "palettePointerAddress": "0x88C3",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 0,
+            "area": 1,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8072",
+          "indexListPointerAddress": "0x8076",
+          "indexListAddress": "0x86B2",
+          "indexOffset": 0,
+          "transferId": "0x17",
+          "auxiliaryTransferId": "0x2E",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88C3"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
+      },
+      "output": "images/obj00-area01-sub00-town-of-veros.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 0,
+          "area": 1,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0x8660",
+          "address": "0x86AC",
+          "firstBytes": [
+            "0x01",
+            "0x05",
+            "0x09",
+            "0x0F",
+            "0x00",
+            "0xFE",
+            "0x17",
+            "0x2E"
+          ],
+          "rawLayoutIndex": 1,
+          "rawLayoutIndexHex": "0x01",
+          "layoutIndex": 1,
+          "layoutIndexHex": "0x01",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FB",
+          "address": "0x80D3"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x80D7",
+          "address": "0x86F8",
+          "bank": 2,
+          "secondaryAddress": "0x86C0"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D1",
+          "address": "0x841D",
+          "auxiliaryAddress": "0xF7E9"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x86FA",
+          "layoutAddress": "0x8347"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x86FC",
+          "layoutAddress": "0x8577"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x86FE",
+          "layoutAddress": "0x85E7"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x8700",
+          "layoutAddress": "0x837F"
+        }
+      ]
+    },
+    {
+      "id": "obj00-area02-sub00-town-of-aljiba",
+      "name": "Town of Aljiba",
+      "category": "town-exteriors",
+      "objset": 0,
+      "objsetHex": "0x00",
+      "area": 2,
+      "areaHex": "0x02",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB724",
+        "value": "0x3B",
+        "lowNibble": "0xB",
+        "highNibble": "0x3",
+        "maskedId": "0x1B"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x8042",
+        "areaRecordAddress": "0xFAC2",
+        "pointerAddress": "0xFACB",
+        "address": "0xFB1E",
+        "firstBytes": [
+          "0x02",
+          "0x00",
+          "0x06",
+          "0x0A",
+          "0x0B",
+          "0x0E",
+          "0xFF",
+          "0x18"
+        ],
+        "rawLayoutIndex": "0x02",
+        "layoutIndex": "0x02",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+      "template": {
+        "id": "town-exterior-day",
+        "label": "Town exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+        "chrBanks": [
+          "0x00",
+          "0x01"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9EC4",
+        "palettePointerAddress": "0x88C5",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 0,
+            "area": 2,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8072",
+          "indexListPointerAddress": "0x807A",
+          "indexListAddress": "0xFB25",
+          "indexOffset": 0,
+          "transferId": "0x18",
+          "auxiliaryTransferId": "0x2E",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88C5"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
+      },
+      "output": "images/obj00-area02-sub00-town-of-aljiba.png",
+      "width": 1024,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 2,
+        "totalPointers": 8,
+        "renderedColumns": 4,
+        "renderedRows": 2
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 2,
+      "layoutCellCount": 8,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 0,
+          "area": 2,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xFACB",
+          "address": "0xFB1E",
+          "firstBytes": [
+            "0x02",
+            "0x00",
+            "0x06",
+            "0x0A",
+            "0x0B",
+            "0x0E",
+            "0xFF",
+            "0x18"
+          ],
+          "rawLayoutIndex": 2,
+          "rawLayoutIndexHex": "0x02",
+          "layoutIndex": 2,
+          "layoutIndexHex": "0x02",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FB",
+          "address": "0x80D3"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x80DB",
+          "address": "0xFB78",
+          "secondaryAddress": "0xFB3E"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D1",
+          "address": "0x841D",
+          "auxiliaryAddress": "0xF7E9"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB7A",
+          "layoutAddress": "0x853F"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB7C",
+          "layoutAddress": "0x85AF"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB7E",
+          "layoutAddress": "0x85E7"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB80",
+          "layoutAddress": "0x8507"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB82",
+          "layoutAddress": "0x8347"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB84",
+          "layoutAddress": "0x830F"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB86",
+          "layoutAddress": "0x85AF"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB88",
+          "layoutAddress": "0x845F"
+        }
+      ]
+    },
+    {
+      "id": "obj00-area03-sub00-town-of-alba",
+      "name": "Town of Alba",
+      "category": "town-exteriors",
+      "objset": 0,
+      "objsetHex": "0x00",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB726",
+        "value": "0x3B",
+        "lowNibble": "0xB",
+        "highNibble": "0x3",
+        "maskedId": "0x1B"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x8042",
+        "areaRecordAddress": "0xFA0A",
+        "pointerAddress": "0xFA13",
+        "address": "0xFA3B",
+        "firstBytes": [
+          "0x04",
+          "0xFE",
+          "0xFF",
+          "0x16",
+          "0x2E",
+          "0x19",
+          "0x2E",
+          "0x15"
+        ],
+        "rawLayoutIndex": "0x04",
+        "layoutIndex": "0x04",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+      "template": {
+        "id": "town-exterior-day",
+        "label": "Town exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+        "chrBanks": [
+          "0x00",
+          "0x01"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9ED5",
+        "palettePointerAddress": "0x88C7",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 0,
+            "area": 3,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8072",
+          "indexListPointerAddress": "0x807E",
+          "indexListAddress": "0xFA40",
+          "indexOffset": 0,
+          "transferId": "0x19",
+          "auxiliaryTransferId": "0x2E",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88C7"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
+      },
+      "output": "images/obj00-area03-sub00-town-of-alba.png",
+      "width": 1024,
+      "height": 672,
+      "layoutSections": [
+        0,
+        1,
+        2
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 3,
+        "totalPointers": 12,
+        "renderedColumns": 4,
+        "renderedRows": 3
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 3,
+      "layoutCellCount": 12,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 0,
+          "area": 3,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xFA13",
+          "address": "0xFA3B",
+          "firstBytes": [
+            "0x04",
+            "0xFE",
+            "0xFF",
+            "0x16",
+            "0x2E",
+            "0x19",
+            "0x2E",
+            "0x15"
+          ],
+          "rawLayoutIndex": 4,
+          "rawLayoutIndexHex": "0x04",
+          "layoutIndex": 4,
+          "layoutIndexHex": "0x04",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FB",
+          "address": "0x80D3"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x80E3",
+          "address": "0xFAA0",
+          "secondaryAddress": "0xFA69"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D1",
+          "address": "0x841D",
+          "auxiliaryAddress": "0xF7E9"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAA2",
+          "layoutAddress": "0x853F"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAA4",
+          "layoutAddress": "0x8427"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAA6",
+          "layoutAddress": "0x8577"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAA8",
+          "layoutAddress": "0x8507"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAAA",
+          "layoutAddress": "0x8497"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAAC",
+          "layoutAddress": "0x85AF"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAAE",
+          "layoutAddress": "0x85E7"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAB0",
+          "layoutAddress": "0x84CF"
+        },
+        {
+          "index": 8,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAB2",
+          "layoutAddress": "0x83B7"
+        },
+        {
+          "index": 9,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAB4",
+          "layoutAddress": "0x85E7"
+        },
+        {
+          "index": 10,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAB6",
+          "layoutAddress": "0x861F"
+        },
+        {
+          "index": 11,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFAB8",
+          "layoutAddress": "0x845F"
+        }
+      ]
+    },
+    {
+      "id": "obj00-area04-sub00-town-of-ondol",
+      "name": "Town of Ondol",
+      "category": "town-exteriors",
+      "objset": 0,
+      "objsetHex": "0x00",
+      "area": 4,
+      "areaHex": "0x04",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB728",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x8042",
+        "areaRecordAddress": "0x8662",
+        "pointerAddress": "0x866B",
+        "address": "0x86AD",
+        "firstBytes": [
+          "0x05",
+          "0x09",
+          "0x0F",
+          "0x00",
+          "0xFE",
+          "0x17",
+          "0x2E",
+          "0x1A"
+        ],
+        "rawLayoutIndex": "0x05",
+        "layoutIndex": "0x05",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+      "template": {
+        "id": "town-exterior-day",
+        "label": "Town exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+        "chrBanks": [
+          "0x00",
+          "0x01"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9EE6",
+        "palettePointerAddress": "0x88C9",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 0,
+            "area": 4,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8072",
+          "indexListPointerAddress": "0x8082",
+          "indexListAddress": "0x86B4",
+          "indexOffset": 0,
+          "transferId": "0x1A",
+          "auxiliaryTransferId": "0x2E",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88C9"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
+      },
+      "output": "images/obj00-area04-sub00-town-of-ondol.png",
+      "width": 1024,
+      "height": 672,
+      "layoutSections": [
+        0,
+        1,
+        2
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 3,
+        "totalPointers": 12,
+        "renderedColumns": 4,
+        "renderedRows": 3
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 3,
+      "layoutCellCount": 12,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 0,
+          "area": 4,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0x866B",
+          "address": "0x86AD",
+          "firstBytes": [
+            "0x05",
+            "0x09",
+            "0x0F",
+            "0x00",
+            "0xFE",
+            "0x17",
+            "0x2E",
+            "0x1A"
+          ],
+          "rawLayoutIndex": 5,
+          "rawLayoutIndexHex": "0x05",
+          "layoutIndex": 5,
+          "layoutIndexHex": "0x05",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FB",
+          "address": "0x80D3"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x80E7",
+          "address": "0x870A",
+          "bank": 2,
+          "secondaryAddress": "0x86C5"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D1",
+          "address": "0x841D",
+          "auxiliaryAddress": "0xF7E9"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x870C",
+          "layoutAddress": "0x853F"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x870E",
+          "layoutAddress": "0x85E7"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x8710",
+          "layoutAddress": "0x85AF"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x8712",
+          "layoutAddress": "0x8507"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x8714",
+          "layoutAddress": "0x8497"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x8716",
+          "layoutAddress": "0x83EF"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x8718",
+          "layoutAddress": "0x861F"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x871A",
+          "layoutAddress": "0x84CF"
+        },
+        {
+          "index": 8,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x871C",
+          "layoutAddress": "0x83B7"
+        },
+        {
+          "index": 9,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x871E",
+          "layoutAddress": "0x85AF"
+        },
+        {
+          "index": 10,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x8720",
+          "layoutAddress": "0x830F"
+        },
+        {
+          "index": 11,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x8722",
+          "layoutAddress": "0x845F"
+        }
+      ]
+    },
+    {
+      "id": "obj00-area05-sub00-town-of-doina",
+      "name": "Town of Doina",
+      "category": "town-exteriors",
+      "objset": 0,
+      "objsetHex": "0x00",
+      "area": 5,
+      "areaHex": "0x05",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB72A",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x8042",
+        "areaRecordAddress": "0xFACD",
+        "pointerAddress": "0xFAD6",
+        "address": "0xFB1F",
+        "firstBytes": [
+          "0x00",
+          "0x06",
+          "0x0A",
+          "0x0B",
+          "0x0E",
+          "0xFF",
+          "0x18",
+          "0x2E"
+        ],
+        "rawLayoutIndex": "0x00",
+        "layoutIndex": "0x00",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+      "template": {
+        "id": "town-exterior-day",
+        "label": "Town exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+        "chrBanks": [
+          "0x00",
+          "0x01"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9EF7",
+        "palettePointerAddress": "0x88CB",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 0,
+            "area": 5,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8072",
+          "indexListPointerAddress": "0x8086",
+          "indexListAddress": "0xFB27",
+          "indexOffset": 0,
+          "transferId": "0x1B",
+          "auxiliaryTransferId": "0x2E",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88CB"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
+      },
+      "output": "images/obj00-area05-sub00-town-of-doina.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 0,
+          "area": 5,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xFAD6",
+          "address": "0xFB1F",
+          "firstBytes": [
+            "0x00",
+            "0x06",
+            "0x0A",
+            "0x0B",
+            "0x0E",
+            "0xFF",
+            "0x18",
+            "0x2E"
+          ],
+          "rawLayoutIndex": 0,
+          "rawLayoutIndexHex": "0x00",
+          "layoutIndex": 0,
+          "layoutIndexHex": "0x00",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FB",
+          "address": "0x80D3"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x80D3",
+          "address": "0xFB66",
+          "secondaryAddress": "0xFB35"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D1",
+          "address": "0x841D",
+          "auxiliaryAddress": "0xF7E9"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB68",
+          "layoutAddress": "0x8347"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB6A",
+          "layoutAddress": "0x861F"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB6C",
+          "layoutAddress": "0x8577"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB6E",
+          "layoutAddress": "0x837F"
+        }
+      ]
+    },
+    {
+      "id": "obj00-area06-sub00-town-of-yomi",
+      "name": "Town of Yomi",
+      "category": "town-exteriors",
+      "objset": 0,
+      "objsetHex": "0x00",
+      "area": 6,
+      "areaHex": "0x06",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB72C",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x8042",
+        "areaRecordAddress": "0xFAD8",
+        "pointerAddress": "0xFAE1",
+        "address": "0xFB20",
+        "firstBytes": [
+          "0x06",
+          "0x0A",
+          "0x0B",
+          "0x0E",
+          "0xFF",
+          "0x18",
+          "0x2E",
+          "0x1B"
+        ],
+        "rawLayoutIndex": "0x06",
+        "layoutIndex": "0x06",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+      "template": {
+        "id": "town-exterior-day",
+        "label": "Town exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova town validates at 0-pixel PNG diff; other towns reuse the same object-set tile format.",
+        "chrBanks": [
+          "0x00",
+          "0x01"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9F08",
+        "palettePointerAddress": "0x88CD",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 0,
+            "area": 6,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8072",
+          "indexListPointerAddress": "0x808A",
+          "indexListAddress": "0xFB29",
+          "indexOffset": 0,
+          "transferId": "0x1C",
+          "auxiliaryTransferId": "0x2E",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88CD"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 8,
+        "rowsPerLayoutSection": 7
+      },
+      "output": "images/obj00-area06-sub00-town-of-yomi.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 0,
+          "area": 6,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xFAE1",
+          "address": "0xFB20",
+          "firstBytes": [
+            "0x06",
+            "0x0A",
+            "0x0B",
+            "0x0E",
+            "0xFF",
+            "0x18",
+            "0x2E",
+            "0x1B"
+          ],
+          "rawLayoutIndex": 6,
+          "rawLayoutIndexHex": "0x06",
+          "layoutIndex": 6,
+          "layoutIndexHex": "0x06",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FB",
+          "address": "0x80D3"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x80EB",
+          "address": "0xFB92",
+          "secondaryAddress": "0xFB47"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D1",
+          "address": "0x841D",
+          "auxiliaryAddress": "0xF7E9"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB94",
+          "layoutAddress": "0x8347"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB96",
+          "layoutAddress": "0x861F"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB98",
+          "layoutAddress": "0x85AF"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xFB9A",
+          "layoutAddress": "0x837F"
+        }
+      ]
+    },
+    {
+      "id": "obj01-area00-sub00-laruba-mansion-door",
+      "name": "Laruba Mansion - Door",
+      "category": "mansion-door-exteriors",
+      "objset": 1,
+      "objsetHex": "0x01",
+      "area": 0,
+      "areaHex": "0x00",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB750",
+        "value": "0x19",
+        "lowNibble": "0x9",
+        "highNibble": "0x1",
+        "maskedId": "0x19"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x873C",
+        "areaRecordAddress": "0x88C7",
+        "pointerAddress": "0x88D0",
+        "address": "0x88E3",
+        "firstBytes": [
+          "0x02",
+          "0x00",
+          "0x01",
+          "0x0B",
+          "0x0C",
+          "0x0E",
+          "0x47",
+          "0x0E"
+        ],
+        "rawLayoutIndex": "0x02",
+        "layoutIndex": "0x02",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "inferred-template",
+      "confidenceNote": "Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.",
+      "template": {
+        "id": "mansion-door-day",
+        "label": "Mansion door exterior, day",
+        "confidence": "inferred-template",
+        "confidenceNote": "Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.",
+        "chrBanks": [
+          "0x08",
+          "0x09"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9F44",
+        "palettePointerAddress": "0x88B1",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 1,
+            "area": 0,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8762",
+          "indexListPointerAddress": "0x8762",
+          "indexListAddress": "0x88E8",
+          "indexOffset": 0,
+          "transferId": "0x0E",
+          "auxiliaryTransferId": "0x47",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88B1"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj01-area00-sub00-laruba-mansion-door.png",
+      "width": 256,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0
+      ],
+      "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 1,
+          "area": 0,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0x88D0",
+          "address": "0x88E3",
+          "firstBytes": [
+            "0x02",
+            "0x00",
+            "0x01",
+            "0x0B",
+            "0x0C",
+            "0x0E",
+            "0x47",
+            "0x0E"
+          ],
+          "rawLayoutIndex": 2,
+          "rawLayoutIndexHex": "0x02",
+          "layoutIndex": 2,
+          "layoutIndexHex": "0x02",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FD",
+          "address": "0x8792"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x879A",
+          "address": "0x87CF",
+          "bank": 2,
+          "secondaryAddress": "0x87CE"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D5",
+          "address": "0x8891",
+          "auxiliaryAddress": "0xF7EC"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x87D1",
+          "layoutAddress": "0x87E7"
+        }
+      ]
+    },
+    {
+      "id": "obj01-area01-sub00-berkeley-mansion-door",
+      "name": "Berkeley Mansion - Door",
+      "category": "mansion-door-exteriors",
+      "objset": 1,
+      "objsetHex": "0x01",
+      "area": 1,
+      "areaHex": "0x01",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB754",
+        "value": "0x17",
+        "lowNibble": "0x7",
+        "highNibble": "0x1",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x873C",
+        "areaRecordAddress": "0x8D3A",
+        "pointerAddress": "0x8D43",
+        "address": "0x8D61",
+        "firstBytes": [
+          "0x02",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x0F",
+          "0x48",
+          "0x0F",
+          "0x48"
+        ],
+        "rawLayoutIndex": "0x02",
+        "layoutIndex": "0x02",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "inferred-template",
+      "confidenceNote": "Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.",
+      "template": {
+        "id": "mansion-door-day",
+        "label": "Mansion door exterior, day",
+        "confidence": "inferred-template",
+        "confidenceNote": "Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.",
+        "chrBanks": [
+          "0x08",
+          "0x09"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9F5E",
+        "palettePointerAddress": "0x88B3",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 1,
+            "area": 1,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8762",
+          "indexListPointerAddress": "0x8766",
+          "indexListAddress": "0x8D65",
+          "indexOffset": 0,
+          "transferId": "0x0F",
+          "auxiliaryTransferId": "0x48",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88B3"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj01-area01-sub00-berkeley-mansion-door.png",
+      "width": 256,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0
+      ],
+      "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 1,
+          "area": 1,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0x8D43",
+          "address": "0x8D61",
+          "firstBytes": [
+            "0x02",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x0F",
+            "0x48",
+            "0x0F",
+            "0x48"
+          ],
+          "rawLayoutIndex": 2,
+          "rawLayoutIndexHex": "0x02",
+          "layoutIndex": 2,
+          "layoutIndexHex": "0x02",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FD",
+          "address": "0x8792"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x879A",
+          "address": "0x87CF",
+          "bank": 2,
+          "secondaryAddress": "0x87CE"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D5",
+          "address": "0x8891",
+          "auxiliaryAddress": "0xF7EC"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x87D1",
+          "layoutAddress": "0x87E7"
+        }
+      ]
+    },
+    {
+      "id": "obj01-area02-sub00-lauber-mansion-door",
+      "name": "Lauber Mansion - Door",
+      "category": "mansion-door-exteriors",
+      "objset": 1,
+      "objsetHex": "0x01",
+      "area": 2,
+      "areaHex": "0x02",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB758",
+        "value": "0x3B",
+        "lowNibble": "0xB",
+        "highNibble": "0x3",
+        "maskedId": "0x1B"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x873C",
+        "areaRecordAddress": "0x924A",
+        "pointerAddress": "0x9253",
+        "address": "0x9257",
+        "firstBytes": [
+          "0x03",
+          "0x10",
+          "0x49",
+          "0x10",
+          "0x49",
+          "0x10",
+          "0x49",
+          "0x0D"
+        ],
+        "rawLayoutIndex": "0x03",
+        "layoutIndex": "0x03",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "inferred-template",
+      "confidenceNote": "Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.",
+      "template": {
+        "id": "mansion-door-day",
+        "label": "Mansion door exterior, day",
+        "confidence": "inferred-template",
+        "confidenceNote": "Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.",
+        "chrBanks": [
+          "0x08",
+          "0x09"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9F78",
+        "palettePointerAddress": "0x88B5",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 1,
+            "area": 2,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8762",
+          "indexListPointerAddress": "0x876A",
+          "indexListAddress": "0x9258",
+          "indexOffset": 0,
+          "transferId": "0x10",
+          "auxiliaryTransferId": "0x49",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88B5"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj01-area02-sub00-lauber-mansion-door.png",
+      "width": 256,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0
+      ],
+      "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 1,
+          "area": 2,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0x9253",
+          "address": "0x9257",
+          "firstBytes": [
+            "0x03",
+            "0x10",
+            "0x49",
+            "0x10",
+            "0x49",
+            "0x10",
+            "0x49",
+            "0x0D"
+          ],
+          "rawLayoutIndex": 3,
+          "rawLayoutIndexHex": "0x03",
+          "layoutIndex": 3,
+          "layoutIndexHex": "0x03",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FD",
+          "address": "0x8792"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x879E",
+          "address": "0x87D5",
+          "bank": 2,
+          "secondaryAddress": "0x87CE"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D5",
+          "address": "0x8891",
+          "auxiliaryAddress": "0xF7EC"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x87D7",
+          "layoutAddress": "0x881F"
+        }
+      ]
+    },
+    {
+      "id": "obj01-area03-sub00-brahm-s-mansion-door",
+      "name": "Brahm's Mansion - Door",
+      "category": "mansion-door-exteriors",
+      "objset": 1,
+      "objsetHex": "0x01",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB75C",
+        "value": "0x3B",
+        "lowNibble": "0xB",
+        "highNibble": "0x3",
+        "maskedId": "0x1B"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x873C",
+        "areaRecordAddress": "0x967B",
+        "pointerAddress": "0x9684",
+        "address": "0x9697",
+        "firstBytes": [
+          "0x02",
+          "0x08",
+          "0x0A",
+          "0x0B",
+          "0x0C",
+          "0x00",
+          "0xFD",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x02",
+        "layoutIndex": "0x02",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "inferred-template",
+      "confidenceNote": "Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.",
+      "template": {
+        "id": "mansion-door-day",
+        "label": "Mansion door exterior, day",
+        "confidence": "inferred-template",
+        "confidenceNote": "Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.",
+        "chrBanks": [
+          "0x08",
+          "0x09"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9F92",
+        "palettePointerAddress": "0x88B7",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 1,
+            "area": 3,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8762",
+          "indexListPointerAddress": "0x876E",
+          "indexListAddress": "0x969F",
+          "indexOffset": 0,
+          "transferId": "0x11",
+          "auxiliaryTransferId": "0x4A",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88B7"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj01-area03-sub00-brahm-s-mansion-door.png",
+      "width": 256,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0
+      ],
+      "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 1,
+          "area": 3,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0x9684",
+          "address": "0x9697",
+          "firstBytes": [
+            "0x02",
+            "0x08",
+            "0x0A",
+            "0x0B",
+            "0x0C",
+            "0x00",
+            "0xFD",
+            "0x00"
+          ],
+          "rawLayoutIndex": 2,
+          "rawLayoutIndexHex": "0x02",
+          "layoutIndex": 2,
+          "layoutIndexHex": "0x02",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FD",
+          "address": "0x8792"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x879A",
+          "address": "0x87CF",
+          "bank": 2,
+          "secondaryAddress": "0x87CE"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D5",
+          "address": "0x8891",
+          "auxiliaryAddress": "0xF7EC"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x87D1",
+          "layoutAddress": "0x87E7"
+        }
+      ]
+    },
+    {
+      "id": "obj01-area04-sub00-bodley-mansion-door",
+      "name": "Bodley Mansion - Door",
+      "category": "mansion-door-exteriors",
+      "objset": 1,
+      "objsetHex": "0x01",
+      "area": 4,
+      "areaHex": "0x04",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB760",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x873C",
+        "areaRecordAddress": "0x9A51",
+        "pointerAddress": "0x9A5A",
+        "address": "0x9A69",
+        "firstBytes": [
+          "0x02",
+          "0x0D",
+          "0x0E",
+          "0x00",
+          "0x13",
+          "0x4B",
+          "0x13",
+          "0x4B"
+        ],
+        "rawLayoutIndex": "0x02",
+        "layoutIndex": "0x02",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "inferred-template",
+      "confidenceNote": "Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.",
+      "template": {
+        "id": "mansion-door-day",
+        "label": "Mansion door exterior, day",
+        "confidence": "inferred-template",
+        "confidenceNote": "Berkeley Mansion door fixture resolves live CHR banks 8/9 and palette selector $0F -> 4:$9F5E; layout crop validation remains pending.",
+        "chrBanks": [
+          "0x08",
+          "0x09"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FAC",
+        "palettePointerAddress": "0x88BB",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 1,
+            "area": 4,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x8762",
+          "indexListPointerAddress": "0x8772",
+          "indexListAddress": "0x9A6D",
+          "indexOffset": 0,
+          "transferId": "0x13",
+          "auxiliaryTransferId": "0x4B",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88BB"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj01-area04-sub00-bodley-mansion-door.png",
+      "width": 256,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0
+      ],
+      "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 1,
+          "area": 4,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0x9A5A",
+          "address": "0x9A69",
+          "firstBytes": [
+            "0x02",
+            "0x0D",
+            "0x0E",
+            "0x00",
+            "0x13",
+            "0x4B",
+            "0x13",
+            "0x4B"
+          ],
+          "rawLayoutIndex": 2,
+          "rawLayoutIndexHex": "0x02",
+          "layoutIndex": 2,
+          "layoutIndexHex": "0x02",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FD",
+          "address": "0x8792"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x879A",
+          "address": "0x87CF",
+          "bank": 2,
+          "secondaryAddress": "0x87CE"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D5",
+          "address": "0x8891",
+          "auxiliaryAddress": "0xF7EC"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0x87D1",
+          "layoutAddress": "0x87E7"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area00-sub00-jova-woods",
+      "name": "Jova Woods",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 0,
+      "areaHex": "0x00",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB780",
+        "value": "0x10",
+        "lowNibble": "0x0",
+        "highNibble": "0x1",
+        "maskedId": "0x10"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA149",
+        "pointerAddress": "0xA152",
+        "address": "0xA1A0",
+        "firstBytes": [
+          "0x02",
+          "0x04",
+          "0x05",
+          "0xFE",
+          "0x06",
+          "0xFF",
+          "0x00",
+          "0x01"
+        ],
+        "rawLayoutIndex": "0x02",
+        "layoutIndex": "0x02",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FC6",
+        "palettePointerAddress": "0x88D9",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 0,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9EF9",
+          "indexListAddress": "0xA1C0",
+          "indexOffset": 0,
+          "transferId": "0x22",
+          "auxiliaryTransferId": "0x2F",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D9"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area00-sub00-jova-woods.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 0,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA152",
+          "address": "0xA1A0",
+          "firstBytes": [
+            "0x02",
+            "0x04",
+            "0x05",
+            "0xFE",
+            "0x06",
+            "0xFF",
+            "0x00",
+            "0x01"
+          ],
+          "rawLayoutIndex": 2,
+          "rawLayoutIndexHex": "0x02",
+          "layoutIndex": 2,
+          "layoutIndexHex": "0x02",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F29",
+          "address": "0xA23E",
+          "bank": 2,
+          "secondaryAddress": "0xA221"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA240",
+          "layoutAddress": "0xA4DA"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA242",
+          "layoutAddress": "0x9F89"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA244",
+          "layoutAddress": "0xA3FA"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA246",
+          "layoutAddress": "0xA4A2"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area00-sub01-south-bridge",
+      "name": "South Bridge",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 0,
+      "areaHex": "0x00",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB781",
+        "value": "0x11",
+        "lowNibble": "0x1",
+        "highNibble": "0x1",
+        "maskedId": "0x11"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA149",
+        "pointerAddress": "0xA154",
+        "address": "0xA1A1",
+        "firstBytes": [
+          "0x04",
+          "0x05",
+          "0xFE",
+          "0x06",
+          "0xFF",
+          "0x00",
+          "0x01",
+          "0x16"
+        ],
+        "rawLayoutIndex": "0x04",
+        "layoutIndex": "0x04",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteAddress": "0xCAF3",
+        "palettePointerAddress": "0x88D3",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 0,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9EF9",
+          "indexListAddress": "0xA1C0",
+          "indexOffset": 2,
+          "transferId": "0x1F",
+          "auxiliaryTransferId": "0x2F",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D3"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area00-sub01-south-bridge.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 0,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA154",
+          "address": "0xA1A1",
+          "firstBytes": [
+            "0x04",
+            "0x05",
+            "0xFE",
+            "0x06",
+            "0xFF",
+            "0x00",
+            "0x01",
+            "0x16"
+          ],
+          "rawLayoutIndex": 4,
+          "rawLayoutIndexHex": "0x04",
+          "layoutIndex": 4,
+          "layoutIndexHex": "0x04",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F31",
+          "address": "0xA250",
+          "bank": 2,
+          "secondaryAddress": "0xA221"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA252",
+          "layoutAddress": "0xF8E7"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA254",
+          "layoutAddress": "0xF98F"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA256",
+          "layoutAddress": "0xF98F"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA258",
+          "layoutAddress": "0xF91F"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area00-sub02-veros-woods-part-1",
+      "name": "Veros Woods - Part 1",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 0,
+      "areaHex": "0x00",
+      "submap": 2,
+      "submapHex": "0x02",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB782",
+        "value": "0x44",
+        "lowNibble": "0x4",
+        "highNibble": "0x4",
+        "maskedId": "0x04"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA149",
+        "pointerAddress": "0xA156",
+        "address": "0xA1A2",
+        "firstBytes": [
+          "0x05",
+          "0xFE",
+          "0x06",
+          "0xFF",
+          "0x00",
+          "0x01",
+          "0x16",
+          "0x0B"
+        ],
+        "rawLayoutIndex": "0x05",
+        "layoutIndex": "0x05",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FD7",
+        "palettePointerAddress": "0x88DB",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 0,
+            "submap": 2,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9EF9",
+          "indexListAddress": "0xA1C0",
+          "indexOffset": 4,
+          "transferId": "0x23",
+          "auxiliaryTransferId": "0x30",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88DB"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area00-sub02-veros-woods-part-1.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 0,
+          "submap": 2
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA156",
+          "address": "0xA1A2",
+          "firstBytes": [
+            "0x05",
+            "0xFE",
+            "0x06",
+            "0xFF",
+            "0x00",
+            "0x01",
+            "0x16",
+            "0x0B"
+          ],
+          "rawLayoutIndex": 5,
+          "rawLayoutIndexHex": "0x05",
+          "layoutIndex": 5,
+          "layoutIndexHex": "0x05",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F35",
+          "address": "0xA262",
+          "bank": 2,
+          "secondaryAddress": "0xA218"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA264",
+          "layoutAddress": "0xA432"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA266",
+          "layoutAddress": "0xA46A"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area00-sub03-veros-woods-part-2",
+      "name": "Veros Woods - Part 2",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 0,
+      "areaHex": "0x00",
+      "submap": 3,
+      "submapHex": "0x03",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB783",
+        "value": "0x11",
+        "lowNibble": "0x1",
+        "highNibble": "0x1",
+        "maskedId": "0x11"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA149",
+        "pointerAddress": "0xA158",
+        "address": "0xA1A3",
+        "firstBytes": [
+          "0xFE",
+          "0x06",
+          "0xFF",
+          "0x00",
+          "0x01",
+          "0x16",
+          "0x0B",
+          "0x0C"
+        ],
+        "rawLayoutIndex": "0xFE",
+        "layoutIndex": "0x06",
+        "layoutIndexSource": "special-0xFE-byte-1"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FD7",
+        "palettePointerAddress": "0x88DB",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 0,
+            "submap": 3,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9EF9",
+          "indexListAddress": "0xA1C0",
+          "indexOffset": 6,
+          "transferId": "0x23",
+          "auxiliaryTransferId": "0x30",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88DB"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area00-sub03-veros-woods-part-2.png",
+      "width": 512,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 2,
+        "totalPointers": 4,
+        "renderedColumns": 2,
+        "renderedRows": 2
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 2,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 0,
+          "submap": 3
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA158",
+          "address": "0xA1A3",
+          "firstBytes": [
+            "0xFE",
+            "0x06",
+            "0xFF",
+            "0x00",
+            "0x01",
+            "0x16",
+            "0x0B",
+            "0x0C"
+          ],
+          "rawLayoutIndex": 254,
+          "rawLayoutIndexHex": "0xFE",
+          "layoutIndex": 6,
+          "layoutIndexHex": "0x06",
+          "layoutIndexSource": "segment-override"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F39",
+          "address": "0xA26C",
+          "bank": 2,
+          "secondaryAddress": "0xA1F8"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA26E",
+          "layoutAddress": "0xA2E2"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA270",
+          "layoutAddress": "0xA38A"
+        },
+        {
+          "index": 2,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA272",
+          "layoutAddress": "0xA31A"
+        },
+        {
+          "index": 3,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA274",
+          "layoutAddress": "0xA352"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area01-sub00-denis-woods-part-1",
+      "name": "Denis Woods - Part 1",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 1,
+      "areaHex": "0x01",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB784",
+        "value": "0x41",
+        "lowNibble": "0x1",
+        "highNibble": "0x4",
+        "maskedId": "0x01"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA15A",
+        "pointerAddress": "0xA163",
+        "address": "0xA1A8",
+        "firstBytes": [
+          "0x16",
+          "0x0B",
+          "0x0C",
+          "0xFE",
+          "0x0D",
+          "0xFF",
+          "0x00",
+          "0x06"
+        ],
+        "rawLayoutIndex": "0x16",
+        "layoutIndex": "0x16",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FD7",
+        "palettePointerAddress": "0x88DB",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 1,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9EFD",
+          "indexListAddress": "0xA1BE",
+          "indexOffset": 0,
+          "transferId": "0x23",
+          "auxiliaryTransferId": "0x30",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88DB"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area01-sub00-denis-woods-part-1.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 1,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA163",
+          "address": "0xA1A8",
+          "firstBytes": [
+            "0x16",
+            "0x0B",
+            "0x0C",
+            "0xFE",
+            "0x0D",
+            "0xFF",
+            "0x00",
+            "0x06"
+          ],
+          "rawLayoutIndex": 22,
+          "rawLayoutIndexHex": "0x16",
+          "layoutIndex": 22,
+          "layoutIndexHex": "0x16",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F79",
+          "address": "0xA2C6",
+          "bank": 2,
+          "secondaryAddress": "0xA221"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2C8",
+          "layoutAddress": "0xA3C2"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2CA",
+          "layoutAddress": "0xA4A2"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area02-sub00-aljiba-woods-part-3",
+      "name": "Aljiba Woods - Part 3",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 2,
+      "areaHex": "0x02",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB788",
+        "value": "0x17",
+        "lowNibble": "0x7",
+        "highNibble": "0x1",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA69A",
+        "pointerAddress": "0xA6A3",
+        "address": "0xA6D0",
+        "firstBytes": [
+          "0x18",
+          "0xFD",
+          "0x13",
+          "0xFF",
+          "0x00",
+          "0x01",
+          "0x14",
+          "0x08"
+        ],
+        "rawLayoutIndex": "0x18",
+        "layoutIndex": "0x18",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FD7",
+        "palettePointerAddress": "0x88DB",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 2,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F01",
+          "indexListAddress": "0xA6E9",
+          "indexOffset": 0,
+          "transferId": "0x23",
+          "auxiliaryTransferId": "0x31",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88DB"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area02-sub00-aljiba-woods-part-3.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 2,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA6A3",
+          "address": "0xA6D0",
+          "firstBytes": [
+            "0x18",
+            "0xFD",
+            "0x13",
+            "0xFF",
+            "0x00",
+            "0x01",
+            "0x14",
+            "0x08"
+          ],
+          "rawLayoutIndex": 24,
+          "rawLayoutIndexHex": "0x18",
+          "layoutIndex": 24,
+          "layoutIndexHex": "0x18",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F81",
+          "address": "0xA792",
+          "bank": 2,
+          "secondaryAddress": "0xA72F"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA794",
+          "layoutAddress": "0xABC4"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA796",
+          "layoutAddress": "0xAC6C"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area03-sub00-dabis-path-part-1",
+      "name": "Dabis Path - Part 1",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": true,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB78C",
+        "value": "0x17",
+        "lowNibble": "0x7",
+        "highNibble": "0x1",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA6A5",
+        "pointerAddress": "0xA6AE",
+        "address": "0xA6D1",
+        "firstBytes": [
+          "0xFD",
+          "0x13",
+          "0xFF",
+          "0x00",
+          "0x01",
+          "0x14",
+          "0x08",
+          "0xFE"
+        ],
+        "rawLayoutIndex": "0xFD",
+        "layoutIndex": "0x13",
+        "layoutIndexSource": "special-0xFD-byte-1"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA00A",
+        "palettePointerAddress": "0x88E1",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 3,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F05",
+          "indexListAddress": "0xA6EB",
+          "indexOffset": 0,
+          "transferId": "0x26",
+          "auxiliaryTransferId": "0x31",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88E1"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area03-sub00-dabis-path-part-1.png",
+      "width": 512,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 2,
+        "totalPointers": 4,
+        "renderedColumns": 2,
+        "renderedRows": 2
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 2,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 3,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA6AE",
+          "address": "0xA6D1",
+          "firstBytes": [
+            "0xFD",
+            "0x13",
+            "0xFF",
+            "0x00",
+            "0x01",
+            "0x14",
+            "0x08",
+            "0xFE"
+          ],
+          "rawLayoutIndex": 253,
+          "rawLayoutIndexHex": "0xFD",
+          "layoutIndex": 19,
+          "layoutIndexHex": "0x13",
+          "layoutIndexSource": "segment-override"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F6D",
+          "address": "0xA75E",
+          "bank": 2,
+          "secondaryAddress": "0xA71E"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA760",
+          "layoutAddress": "0xA79C"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA762",
+          "layoutAddress": "0xA7D4"
+        },
+        {
+          "index": 2,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA764",
+          "layoutAddress": "0xA95C"
+        },
+        {
+          "index": 3,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA766",
+          "layoutAddress": "0xA994"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area03-sub01-dabis-path-part-2",
+      "name": "Dabis Path - Part 2",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": true,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB78D",
+        "value": "0x17",
+        "lowNibble": "0x7",
+        "highNibble": "0x1",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA6A5",
+        "pointerAddress": "0xA6B0",
+        "address": "0xA6D6",
+        "firstBytes": [
+          "0x14",
+          "0x08",
+          "0xFE",
+          "0x09",
+          "0x00",
+          "0x00",
+          "0x05",
+          "0x07"
+        ],
+        "rawLayoutIndex": "0x14",
+        "layoutIndex": "0x14",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA00A",
+        "palettePointerAddress": "0x88E1",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 3,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F05",
+          "indexListAddress": "0xA6EB",
+          "indexOffset": 2,
+          "transferId": "0x26",
+          "auxiliaryTransferId": "0x31",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88E1"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area03-sub01-dabis-path-part-2.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 3,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA6B0",
+          "address": "0xA6D6",
+          "firstBytes": [
+            "0x14",
+            "0x08",
+            "0xFE",
+            "0x09",
+            "0x00",
+            "0x00",
+            "0x05",
+            "0x07"
+          ],
+          "rawLayoutIndex": 20,
+          "rawLayoutIndexHex": "0x14",
+          "layoutIndex": 20,
+          "layoutIndexHex": "0x14",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F71",
+          "address": "0xA76C",
+          "bank": 2,
+          "secondaryAddress": "0xA72F"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA76E",
+          "layoutAddress": "0xA80C"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA770",
+          "layoutAddress": "0xA844"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area03-sub02-aljiba-woods-part-1",
+      "name": "Aljiba Woods - Part 1",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 2,
+      "submapHex": "0x02",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB78E",
+        "value": "0x17",
+        "lowNibble": "0x7",
+        "highNibble": "0x1",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA6A5",
+        "pointerAddress": "0xA6B2",
+        "address": "0xA6D7",
+        "firstBytes": [
+          "0x08",
+          "0xFE",
+          "0x09",
+          "0x00",
+          "0x00",
+          "0x05",
+          "0x07",
+          "0x17"
+        ],
+        "rawLayoutIndex": "0x08",
+        "layoutIndex": "0x08",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FD7",
+        "palettePointerAddress": "0x88DB",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 3,
+            "submap": 2,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F05",
+          "indexListAddress": "0xA6EB",
+          "indexOffset": 4,
+          "transferId": "0x23",
+          "auxiliaryTransferId": "0x31",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88DB"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area03-sub02-aljiba-woods-part-1.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 3,
+          "submap": 2
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA6B2",
+          "address": "0xA6D7",
+          "firstBytes": [
+            "0x08",
+            "0xFE",
+            "0x09",
+            "0x00",
+            "0x00",
+            "0x05",
+            "0x07",
+            "0x17"
+          ],
+          "rawLayoutIndex": 8,
+          "rawLayoutIndexHex": "0x08",
+          "layoutIndex": 8,
+          "layoutIndexHex": "0x08",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F41",
+          "address": "0xA73E",
+          "bank": 2,
+          "secondaryAddress": "0xA72F"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA740",
+          "layoutAddress": "0xAD14"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA742",
+          "layoutAddress": "0x9F89"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area03-sub03-aljiba-woods-part-2",
+      "name": "Aljiba Woods - Part 2",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 3,
+      "submapHex": "0x03",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB78F",
+        "value": "0x3B",
+        "lowNibble": "0xB",
+        "highNibble": "0x3",
+        "maskedId": "0x1B"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA6A5",
+        "pointerAddress": "0xA6B4",
+        "address": "0xA6D8",
+        "firstBytes": [
+          "0xFE",
+          "0x09",
+          "0x00",
+          "0x00",
+          "0x05",
+          "0x07",
+          "0x17",
+          "0x15"
+        ],
+        "rawLayoutIndex": "0xFE",
+        "layoutIndex": "0x09",
+        "layoutIndexSource": "special-0xFE-byte-1"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FD7",
+        "palettePointerAddress": "0x88DB",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 3,
+            "submap": 3,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F05",
+          "indexListAddress": "0xA6EB",
+          "indexOffset": 6,
+          "transferId": "0x23",
+          "auxiliaryTransferId": "0x31",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88DB"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area03-sub03-aljiba-woods-part-2.png",
+      "width": 512,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 2,
+        "totalPointers": 4,
+        "renderedColumns": 2,
+        "renderedRows": 2
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 2,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 3,
+          "submap": 3
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA6B4",
+          "address": "0xA6D8",
+          "firstBytes": [
+            "0xFE",
+            "0x09",
+            "0x00",
+            "0x00",
+            "0x05",
+            "0x07",
+            "0x17",
+            "0x15"
+          ],
+          "rawLayoutIndex": 254,
+          "rawLayoutIndexHex": "0xFE",
+          "layoutIndex": 9,
+          "layoutIndexHex": "0x09",
+          "layoutIndexSource": "segment-override"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F45",
+          "address": "0xA748",
+          "bank": 2,
+          "secondaryAddress": "0xA714"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA74A",
+          "layoutAddress": "0xAA74"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA74C",
+          "layoutAddress": "0x9F89"
+        },
+        {
+          "index": 2,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA74E",
+          "layoutAddress": "0xAAAC"
+        },
+        {
+          "index": 3,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA750",
+          "layoutAddress": "0xAAE4"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area04-sub00-denis-woods-part-2",
+      "name": "Denis Woods - Part 2",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 4,
+      "areaHex": "0x04",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB790",
+        "value": "0x3B",
+        "lowNibble": "0xB",
+        "highNibble": "0x3",
+        "maskedId": "0x1B"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA6B6",
+        "pointerAddress": "0xA6BF",
+        "address": "0xA6DD",
+        "firstBytes": [
+          "0x07",
+          "0x17",
+          "0x15",
+          "0x0A",
+          "0x01",
+          "0x00",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x07",
+        "layoutIndex": "0x07",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FD7",
+        "palettePointerAddress": "0x88DB",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 4,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F09",
+          "indexListAddress": "0xA6F7",
+          "indexOffset": 0,
+          "transferId": "0x23",
+          "auxiliaryTransferId": "0x31",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88DB"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area04-sub00-denis-woods-part-2.png",
+      "width": 768,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 3,
+        "rows": 1,
+        "totalPointers": 3,
+        "renderedColumns": 3,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2
+      ],
+      "columnGroupCount": 3,
+      "sectionCount": 1,
+      "layoutCellCount": 3,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 4,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA6BF",
+          "address": "0xA6DD",
+          "firstBytes": [
+            "0x07",
+            "0x17",
+            "0x15",
+            "0x0A",
+            "0x01",
+            "0x00",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 7,
+          "rawLayoutIndexHex": "0x07",
+          "layoutIndex": 7,
+          "layoutIndexHex": "0x07",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F3D",
+          "address": "0xA730",
+          "bank": 2,
+          "secondaryAddress": "0xA70F"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA732",
+          "layoutAddress": "0xAC6C"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA734",
+          "layoutAddress": "0xABFC"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA736",
+          "layoutAddress": "0xACDC"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area04-sub01-denis-woods-part-3",
+      "name": "Denis Woods - Part 3",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 4,
+      "areaHex": "0x04",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB791",
+        "value": "0x3B",
+        "lowNibble": "0xB",
+        "highNibble": "0x3",
+        "maskedId": "0x1B"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA6B6",
+        "pointerAddress": "0xA6C1",
+        "address": "0xA6DE",
+        "firstBytes": [
+          "0x17",
+          "0x15",
+          "0x0A",
+          "0x01",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x17",
+        "layoutIndex": "0x17",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FD7",
+        "palettePointerAddress": "0x88DB",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 4,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F09",
+          "indexListAddress": "0xA6F7",
+          "indexOffset": 2,
+          "transferId": "0x23",
+          "auxiliaryTransferId": "0x31",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88DB"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area04-sub01-denis-woods-part-3.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 4,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA6C1",
+          "address": "0xA6DE",
+          "firstBytes": [
+            "0x17",
+            "0x15",
+            "0x0A",
+            "0x01",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 23,
+          "rawLayoutIndexHex": "0x17",
+          "layoutIndex": 23,
+          "layoutIndexHex": "0x17",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F7D",
+          "address": "0xA788",
+          "bank": 2,
+          "secondaryAddress": "0xA72F"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA78A",
+          "layoutAddress": "0xACA4"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA78C",
+          "layoutAddress": "0xAB1C"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area05-sub00-yuba-lake-path",
+      "name": "Yuba Lake Path",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 5,
+      "areaHex": "0x05",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": true,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB794",
+        "value": "0x3B",
+        "lowNibble": "0xB",
+        "highNibble": "0x3",
+        "maskedId": "0x1B"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA6C3",
+        "pointerAddress": "0xA6CC",
+        "address": "0xA6DF",
+        "firstBytes": [
+          "0x15",
+          "0x0A",
+          "0x01",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x15",
+        "layoutIndex": "0x15",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA00A",
+        "palettePointerAddress": "0x88E1",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 5,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F0D",
+          "indexListAddress": "0xA6F3",
+          "indexOffset": 0,
+          "transferId": "0x26",
+          "auxiliaryTransferId": "0x32",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88E1"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area05-sub00-yuba-lake-path.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 5,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA6CC",
+          "address": "0xA6DF",
+          "firstBytes": [
+            "0x15",
+            "0x0A",
+            "0x01",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 21,
+          "rawLayoutIndexHex": "0x15",
+          "layoutIndex": 21,
+          "layoutIndexHex": "0x15",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F75",
+          "address": "0xA776",
+          "bank": 2,
+          "secondaryAddress": "0xA72B"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA778",
+          "layoutAddress": "0xA87C"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA77A",
+          "layoutAddress": "0xA8B4"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA77C",
+          "layoutAddress": "0xA8EC"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA77E",
+          "layoutAddress": "0xA924"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area05-sub01-yuba-lake",
+      "name": "Yuba Lake",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 5,
+      "areaHex": "0x05",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB795",
+        "value": "0x3B",
+        "lowNibble": "0xB",
+        "highNibble": "0x3",
+        "maskedId": "0x1B"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA6C3",
+        "pointerAddress": "0xA6CE",
+        "address": "0xA6E0",
+        "firstBytes": [
+          "0x0A",
+          "0x01",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x0A",
+        "layoutIndex": "0x0A",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteAddress": "0xCAF3",
+        "palettePointerAddress": "0x88D3",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 5,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F0D",
+          "indexListAddress": "0xA6F3",
+          "indexOffset": 2,
+          "transferId": "0x1F",
+          "auxiliaryTransferId": "0x32",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D3"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area05-sub01-yuba-lake.png",
+      "width": 256,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 2,
+        "totalPointers": 2,
+        "renderedColumns": 1,
+        "renderedRows": 2
+      },
+      "columnGroups": [
+        0
+      ],
+      "columnGroupCount": 1,
+      "sectionCount": 2,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 5,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA6CE",
+          "address": "0xA6E0",
+          "firstBytes": [
+            "0x0A",
+            "0x01",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 10,
+          "rawLayoutIndexHex": "0x0A",
+          "layoutIndex": 10,
+          "layoutIndexHex": "0x0A",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F49",
+          "address": "0xA756",
+          "bank": 2,
+          "secondaryAddress": "0xA719"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA758",
+          "layoutAddress": "0xF8AF"
+        },
+        {
+          "index": 1,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA75A",
+          "layoutAddress": "0xA9CC"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area06-sub00-dead-river-to-brahm",
+      "name": "Dead River to Brahm",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 6,
+      "areaHex": "0x06",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB798",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA165",
+        "pointerAddress": "0xA16E",
+        "address": "0xA19D",
+        "firstBytes": [
+          "0x10",
+          "0x12",
+          "0x00",
+          "0x02",
+          "0x04",
+          "0x05",
+          "0xFE",
+          "0x06"
+        ],
+        "rawLayoutIndex": "0x10",
+        "layoutIndex": "0x10",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteAddress": "0xCB04",
+        "palettePointerAddress": "0x88D5",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 6,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F11",
+          "indexListAddress": "0xA1BC",
+          "indexOffset": 0,
+          "transferId": "0x20",
+          "auxiliaryTransferId": "0x30",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D5"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area06-sub00-dead-river-to-brahm.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 6,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA16E",
+          "address": "0xA19D",
+          "firstBytes": [
+            "0x10",
+            "0x12",
+            "0x00",
+            "0x02",
+            "0x04",
+            "0x05",
+            "0xFE",
+            "0x06"
+          ],
+          "rawLayoutIndex": 16,
+          "rawLayoutIndexHex": "0x10",
+          "layoutIndex": 16,
+          "layoutIndexHex": "0x10",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F61",
+          "address": "0xA2B2",
+          "bank": 2,
+          "secondaryAddress": "0xA221"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2B4",
+          "layoutAddress": "0xF877"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2B6",
+          "layoutAddress": "0xF83F"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area07-sub00-dead-river-part-2",
+      "name": "Dead River - Part 2",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 7,
+      "areaHex": "0x07",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB79C",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA170",
+        "pointerAddress": "0xA179",
+        "address": "0xA19D",
+        "firstBytes": [
+          "0x10",
+          "0x12",
+          "0x00",
+          "0x02",
+          "0x04",
+          "0x05",
+          "0xFE",
+          "0x06"
+        ],
+        "rawLayoutIndex": "0x10",
+        "layoutIndex": "0x10",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteAddress": "0xCAF3",
+        "palettePointerAddress": "0x88D3",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 7,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F15",
+          "indexListAddress": "0xA1C8",
+          "indexOffset": 0,
+          "transferId": "0x1F",
+          "auxiliaryTransferId": "0x2F",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D3"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area07-sub00-dead-river-part-2.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 7,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA179",
+          "address": "0xA19D",
+          "firstBytes": [
+            "0x10",
+            "0x12",
+            "0x00",
+            "0x02",
+            "0x04",
+            "0x05",
+            "0xFE",
+            "0x06"
+          ],
+          "rawLayoutIndex": 16,
+          "rawLayoutIndexHex": "0x10",
+          "layoutIndex": 16,
+          "layoutIndexHex": "0x10",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F61",
+          "address": "0xA2B2",
+          "bank": 2,
+          "secondaryAddress": "0xA221"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2B4",
+          "layoutAddress": "0xF877"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2B6",
+          "layoutAddress": "0xF83F"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area07-sub01-dead-river-part-1",
+      "name": "Dead River - Part 1",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 7,
+      "areaHex": "0x07",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB79D",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA170",
+        "pointerAddress": "0xA17B",
+        "address": "0xA19E",
+        "firstBytes": [
+          "0x12",
+          "0x00",
+          "0x02",
+          "0x04",
+          "0x05",
+          "0xFE",
+          "0x06",
+          "0xFF"
+        ],
+        "rawLayoutIndex": "0x12",
+        "layoutIndex": "0x12",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteAddress": "0xCAF3",
+        "palettePointerAddress": "0x88D3",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 7,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F15",
+          "indexListAddress": "0xA1C8",
+          "indexOffset": 2,
+          "transferId": "0x1F",
+          "auxiliaryTransferId": "0x2F",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D3"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area07-sub01-dead-river-part-1.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 7,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA17B",
+          "address": "0xA19E",
+          "firstBytes": [
+            "0x12",
+            "0x00",
+            "0x02",
+            "0x04",
+            "0x05",
+            "0xFE",
+            "0x06",
+            "0xFF"
+          ],
+          "rawLayoutIndex": 18,
+          "rawLayoutIndexHex": "0x12",
+          "layoutIndex": 18,
+          "layoutIndexHex": "0x12",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F69",
+          "address": "0xA2BC",
+          "bank": 2,
+          "secondaryAddress": "0xA221"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2BE",
+          "layoutAddress": "0xF83F"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2C0",
+          "layoutAddress": "0xF877"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area07-sub02-belasco-marsh",
+      "name": "Belasco Marsh",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 7,
+      "areaHex": "0x07",
+      "submap": 2,
+      "submapHex": "0x02",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB79E",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA170",
+        "pointerAddress": "0xA17D",
+        "address": "0xA19F",
+        "firstBytes": [
+          "0x00",
+          "0x02",
+          "0x04",
+          "0x05",
+          "0xFE",
+          "0x06",
+          "0xFF",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x00",
+        "layoutIndex": "0x00",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FC6",
+        "palettePointerAddress": "0x88D9",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 7,
+            "submap": 2,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F15",
+          "indexListAddress": "0xA1C8",
+          "indexOffset": 4,
+          "transferId": "0x22",
+          "auxiliaryTransferId": "0x32",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D9"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area07-sub02-belasco-marsh.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 7,
+          "submap": 2
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA17D",
+          "address": "0xA19F",
+          "firstBytes": [
+            "0x00",
+            "0x02",
+            "0x04",
+            "0x05",
+            "0xFE",
+            "0x06",
+            "0xFF",
+            "0x00"
+          ],
+          "rawLayoutIndex": 0,
+          "rawLayoutIndexHex": "0x00",
+          "layoutIndex": 0,
+          "layoutIndexHex": "0x00",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F21",
+          "address": "0xA22C",
+          "bank": 2,
+          "secondaryAddress": "0xA221"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA22E",
+          "layoutAddress": "0xA582"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA230",
+          "layoutAddress": "0xA5BA"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA232",
+          "layoutAddress": "0xA3FA"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA234",
+          "layoutAddress": "0xA4DA"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area08-sub00-north-bridge",
+      "name": "North Bridge",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 8,
+      "areaHex": "0x08",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7A0",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA17F",
+        "pointerAddress": "0xA188",
+        "address": "0xA1A9",
+        "firstBytes": [
+          "0x0B",
+          "0x0C",
+          "0xFE",
+          "0x0D",
+          "0xFF",
+          "0x00",
+          "0x06",
+          "0x01"
+        ],
+        "rawLayoutIndex": "0x0B",
+        "layoutIndex": "0x0B",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteAddress": "0xCB04",
+        "palettePointerAddress": "0x88D5",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 8,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F19",
+          "indexListAddress": "0xA1CE",
+          "indexOffset": 0,
+          "transferId": "0x20",
+          "auxiliaryTransferId": "0x33",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D5"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area08-sub00-north-bridge.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 8,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA188",
+          "address": "0xA1A9",
+          "firstBytes": [
+            "0x0B",
+            "0x0C",
+            "0xFE",
+            "0x0D",
+            "0xFF",
+            "0x00",
+            "0x06",
+            "0x01"
+          ],
+          "rawLayoutIndex": 11,
+          "rawLayoutIndexHex": "0x0B",
+          "layoutIndex": 11,
+          "layoutIndexHex": "0x0B",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F4D",
+          "address": "0xA27A",
+          "bank": 2,
+          "secondaryAddress": "0xA221"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA27C",
+          "layoutAddress": "0xF8E7"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA27E",
+          "layoutAddress": "0xF9C7"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA280",
+          "layoutAddress": "0xF9C7"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA282",
+          "layoutAddress": "0xF91F"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area08-sub01-dora-woods-part-1",
+      "name": "Dora Woods - Part 1",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 8,
+      "areaHex": "0x08",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7A1",
+        "value": "0x1E",
+        "lowNibble": "0xE",
+        "highNibble": "0x1",
+        "maskedId": "0x1E"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA17F",
+        "pointerAddress": "0xA18A",
+        "address": "0xA1AA",
+        "firstBytes": [
+          "0x0C",
+          "0xFE",
+          "0x0D",
+          "0xFF",
+          "0x00",
+          "0x06",
+          "0x01",
+          "0x19"
+        ],
+        "rawLayoutIndex": "0x0C",
+        "layoutIndex": "0x0C",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FE8",
+        "palettePointerAddress": "0x88DD",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 8,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F19",
+          "indexListAddress": "0xA1CE",
+          "indexOffset": 2,
+          "transferId": "0x24",
+          "auxiliaryTransferId": "0x33",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88DD"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area08-sub01-dora-woods-part-1.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 8,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA18A",
+          "address": "0xA1AA",
+          "firstBytes": [
+            "0x0C",
+            "0xFE",
+            "0x0D",
+            "0xFF",
+            "0x00",
+            "0x06",
+            "0x01",
+            "0x19"
+          ],
+          "rawLayoutIndex": 12,
+          "rawLayoutIndexHex": "0x0C",
+          "layoutIndex": 12,
+          "layoutIndexHex": "0x0C",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F51",
+          "address": "0xA28C",
+          "bank": 2,
+          "secondaryAddress": "0xA221"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA28E",
+          "layoutAddress": "0xA4A2"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA290",
+          "layoutAddress": "0xA5BA"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area08-sub02-dora-woods-part-2",
+      "name": "Dora Woods - Part 2",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 8,
+      "areaHex": "0x08",
+      "submap": 2,
+      "submapHex": "0x02",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7A2",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA17F",
+        "pointerAddress": "0xA18C",
+        "address": "0xA1AB",
+        "firstBytes": [
+          "0xFE",
+          "0x0D",
+          "0xFF",
+          "0x00",
+          "0x06",
+          "0x01",
+          "0x19",
+          "0x0F"
+        ],
+        "rawLayoutIndex": "0xFE",
+        "layoutIndex": "0x0D",
+        "layoutIndexSource": "special-0xFE-byte-1"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FD7",
+        "palettePointerAddress": "0x88DB",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteNote": "Dora Woods - Part 2 starts at screen record $A1AB inside the same-marker special stream for Veros Woods - Part 2 at $A1A3.",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 0,
+            "submap": 3,
+            "source": "rom-special-screen-record-alias",
+            "submapRaw": 131,
+            "submapFlags": 128,
+            "screenRecordAlias": {
+              "reason": "same-marker-special-screen-record-containment",
+              "marker": "0xFE",
+              "target": {
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x08",
+                  "submap": "0x02"
+                },
+                "name": "Dora Woods - Part 2",
+                "screenRecordAddress": "0xA1AB",
+                "screenRecordPointerAddress": "0xA18C"
+              },
+              "source": {
+                "context": {
+                  "objset": "0x02",
+                  "area": "0x00",
+                  "submap": "0x03"
+                },
+                "name": "Veros Woods - Part 2",
+                "screenRecordAddress": "0xA1A3",
+                "screenRecordPointerAddress": "0xA158"
+              },
+              "byteOffset": 8
+            },
+            "original": {
+              "objset": 2,
+              "area": 8,
+              "submap": 2
+            }
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9EF9",
+          "indexListAddress": "0xA1C0",
+          "indexOffset": 6,
+          "transferId": "0x23",
+          "auxiliaryTransferId": "0x30",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88DB"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area08-sub02-dora-woods-part-2.png",
+      "width": 512,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 2,
+        "totalPointers": 4,
+        "renderedColumns": 2,
+        "renderedRows": 2
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 2,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 8,
+          "submap": 2
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA18C",
+          "address": "0xA1AB",
+          "firstBytes": [
+            "0xFE",
+            "0x0D",
+            "0xFF",
+            "0x00",
+            "0x06",
+            "0x01",
+            "0x19",
+            "0x0F"
+          ],
+          "rawLayoutIndex": 254,
+          "rawLayoutIndexHex": "0xFE",
+          "layoutIndex": 13,
+          "layoutIndexHex": "0x0D",
+          "layoutIndexSource": "segment-override"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F55",
+          "address": "0xA296",
+          "bank": 2,
+          "secondaryAddress": "0xA1F8"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA298",
+          "layoutAddress": "0xA2E2"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA29A",
+          "layoutAddress": "0xA38A"
+        },
+        {
+          "index": 2,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA29C",
+          "layoutAddress": "0xA31A"
+        },
+        {
+          "index": 3,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA29E",
+          "layoutAddress": "0xA352"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area09-sub00-dora-woods-part-3",
+      "name": "Dora Woods - Part 3",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 9,
+      "areaHex": "0x09",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7A4",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA18E",
+        "pointerAddress": "0xA197",
+        "address": "0xA1B0",
+        "firstBytes": [
+          "0x01",
+          "0x19",
+          "0x0F",
+          "0x00",
+          "0x00",
+          "0x01",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x01",
+        "layoutIndex": "0x01",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0x9FE8",
+        "palettePointerAddress": "0x88DD",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 9,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F1D",
+          "indexListAddress": "0xA1D4",
+          "indexOffset": 0,
+          "transferId": "0x24",
+          "auxiliaryTransferId": "0x33",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88DD"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area09-sub00-dora-woods-part-3.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 9,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA197",
+          "address": "0xA1B0",
+          "firstBytes": [
+            "0x01",
+            "0x19",
+            "0x0F",
+            "0x00",
+            "0x00",
+            "0x01",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 1,
+          "rawLayoutIndexHex": "0x01",
+          "layoutIndex": 1,
+          "layoutIndexHex": "0x01",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F25",
+          "address": "0xA222",
+          "bank": 2,
+          "secondaryAddress": "0xA1F8"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA224",
+          "layoutAddress": "0xA3C2"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA226",
+          "layoutAddress": "0xA4DA"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp",
+      "name": "Long Bridge to Borgia Mountains (Dead End Swamp)",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 9,
+      "areaHex": "0x09",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7A5",
+        "value": "0x1E",
+        "lowNibble": "0xE",
+        "highNibble": "0x1",
+        "maskedId": "0x1E"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA18E",
+        "pointerAddress": "0xA199",
+        "address": "0xA1B1",
+        "firstBytes": [
+          "0x19",
+          "0x0F",
+          "0x00",
+          "0x00",
+          "0x01",
+          "0x00",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x19",
+        "layoutIndex": "0x19",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteAddress": "0xCAF3",
+        "palettePointerAddress": "0x88D3",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 9,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F1D",
+          "indexListAddress": "0xA1D4",
+          "indexOffset": 2,
+          "transferId": "0x1F",
+          "auxiliaryTransferId": "0x2F",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D3"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 9,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA199",
+          "address": "0xA1B1",
+          "firstBytes": [
+            "0x19",
+            "0x0F",
+            "0x00",
+            "0x00",
+            "0x01",
+            "0x00",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 25,
+          "rawLayoutIndexHex": "0x19",
+          "layoutIndex": 25,
+          "layoutIndexHex": "0x19",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F85",
+          "address": "0xA2D0",
+          "bank": 2,
+          "secondaryAddress": "0xA221"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2D2",
+          "layoutAddress": "0xF8E7"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2D4",
+          "layoutAddress": "0xF957"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2D6",
+          "layoutAddress": "0xF957"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2D8",
+          "layoutAddress": "0xF91F"
+        }
+      ]
+    },
+    {
+      "id": "obj02-area09-sub02-borgia-mountains-dead-end-swamp",
+      "name": "Borgia Mountains (Dead End Swamp)",
+      "category": "western-overworld",
+      "objset": 2,
+      "objsetHex": "0x02",
+      "area": 9,
+      "areaHex": "0x09",
+      "submap": 2,
+      "submapHex": "0x02",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7A6",
+        "value": "0x1F",
+        "lowNibble": "0xF",
+        "highNibble": "0x1",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0x9EE5",
+        "areaRecordAddress": "0xA18E",
+        "pointerAddress": "0xA19B",
+        "address": "0xA1B2",
+        "firstBytes": [
+          "0x0F",
+          "0x00",
+          "0x00",
+          "0x01",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x0F",
+        "layoutIndex": "0x0F",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+      "template": {
+        "id": "overworld-woods-day",
+        "label": "Overworld woods/routes, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Jova Woods validates at 0-pixel PNG diff; the rest of objset 2 uses the same tile-set path.",
+        "chrBanks": [
+          "0x02",
+          "0x03"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA01B",
+        "palettePointerAddress": "0x88E3",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 2,
+            "area": 9,
+            "submap": 2,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0x9EF9",
+          "indexListPointerAddress": "0x9F1D",
+          "indexListAddress": "0xA1D4",
+          "indexOffset": 4,
+          "transferId": "0x27",
+          "auxiliaryTransferId": "0x34",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88E3"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj02-area09-sub02-borgia-mountains-dead-end-swamp.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 2,
+          "area": 9,
+          "submap": 2
+        },
+        "screenRecord": {
+          "pointerAddress": "0xA19B",
+          "address": "0xA1B2",
+          "firstBytes": [
+            "0x0F",
+            "0x00",
+            "0x00",
+            "0x01",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 15,
+          "rawLayoutIndexHex": "0x0F",
+          "layoutIndex": 15,
+          "layoutIndexHex": "0x0F",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF7FF",
+          "address": "0x9F21"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0x9F5D",
+          "address": "0xA2A0",
+          "bank": 2,
+          "secondaryAddress": "0xA207"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7D9",
+          "address": "0x8CF4",
+          "auxiliaryAddress": "0xF7EF"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2A2",
+          "layoutAddress": "0xA5F2"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2A4",
+          "layoutAddress": "0xA62A"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2A6",
+          "layoutAddress": "0xA62A"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xA2A8",
+          "layoutAddress": "0xA662"
+        }
+      ]
+    },
+    {
+      "id": "obj03-area00-sub00-camilla-cemetery",
+      "name": "Camilla Cemetery",
+      "category": "eastern-overworld",
+      "objset": 3,
+      "objsetHex": "0x03",
+      "area": 0,
+      "areaHex": "0x00",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7B0",
+        "value": "0x15",
+        "lowNibble": "0x5",
+        "highNibble": "0x1",
+        "maskedId": "0x15"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xB280",
+        "areaRecordAddress": "0xB372",
+        "pointerAddress": "0xB37B",
+        "address": "0xB3A2",
+        "firstBytes": [
+          "0x00",
+          "0x01",
+          "0x05",
+          "0xFD",
+          "0x06",
+          "0x00",
+          "0x00",
+          "0x01"
+        ],
+        "rawLayoutIndex": "0x00",
+        "layoutIndex": "0x00",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "template": {
+        "id": "cemetery-marsh-woods-day",
+        "label": "Cemetery/marsh/woods exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x04",
+          "0x05"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA03D",
+        "palettePointerAddress": "0x88E7",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 3,
+            "area": 0,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB28A",
+          "indexListAddress": "0xB3B2",
+          "indexOffset": 0,
+          "transferId": "0x29",
+          "auxiliaryTransferId": "0x35",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88E7"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj03-area00-sub00-camilla-cemetery.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 3,
+          "area": 0,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xB37B",
+          "address": "0xB3A2",
+          "firstBytes": [
+            "0x00",
+            "0x01",
+            "0x05",
+            "0xFD",
+            "0x06",
+            "0x00",
+            "0x00",
+            "0x01"
+          ],
+          "rawLayoutIndex": 0,
+          "rawLayoutIndexHex": "0x00",
+          "layoutIndex": 0,
+          "layoutIndexHex": "0x00",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF801",
+          "address": "0xB29E"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xB29E",
+          "address": "0xB3EF",
+          "bank": 2,
+          "secondaryAddress": "0xB3EE"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7DD",
+          "address": "0x918A",
+          "auxiliaryAddress": "0xF7F2"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB3F1",
+          "layoutAddress": "0xB447"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB3F3",
+          "layoutAddress": "0xB47F"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB3F5",
+          "layoutAddress": "0xB4B7"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB3F7",
+          "layoutAddress": "0xB447"
+        }
+      ]
+    },
+    {
+      "id": "obj03-area00-sub01-joma-marsh-part-1",
+      "name": "Joma Marsh - Part 1",
+      "category": "eastern-overworld",
+      "objset": 3,
+      "objsetHex": "0x03",
+      "area": 0,
+      "areaHex": "0x00",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7B1",
+        "value": "0x16",
+        "lowNibble": "0x6",
+        "highNibble": "0x1",
+        "maskedId": "0x16"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xB280",
+        "areaRecordAddress": "0xB372",
+        "pointerAddress": "0xB37D",
+        "address": "0xB3A3",
+        "firstBytes": [
+          "0x01",
+          "0x05",
+          "0xFD",
+          "0x06",
+          "0x00",
+          "0x00",
+          "0x01",
+          "0x07"
+        ],
+        "rawLayoutIndex": "0x01",
+        "layoutIndex": "0x01",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "template": {
+        "id": "cemetery-marsh-woods-day",
+        "label": "Cemetery/marsh/woods exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x04",
+          "0x05"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA070",
+        "palettePointerAddress": "0x88ED",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 3,
+            "area": 0,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB28A",
+          "indexListAddress": "0xB3B2",
+          "indexOffset": 2,
+          "transferId": "0x2C",
+          "auxiliaryTransferId": "0x35",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88ED"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj03-area00-sub01-joma-marsh-part-1.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 3,
+          "area": 0,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xB37D",
+          "address": "0xB3A3",
+          "firstBytes": [
+            "0x01",
+            "0x05",
+            "0xFD",
+            "0x06",
+            "0x00",
+            "0x00",
+            "0x01",
+            "0x07"
+          ],
+          "rawLayoutIndex": 1,
+          "rawLayoutIndexHex": "0x01",
+          "layoutIndex": 1,
+          "layoutIndexHex": "0x01",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF801",
+          "address": "0xB29E"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xB2A2",
+          "address": "0xB401",
+          "bank": 2,
+          "secondaryAddress": "0xB3CE"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7DD",
+          "address": "0x918A",
+          "auxiliaryAddress": "0xF7F2"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB403",
+          "layoutAddress": "0xB2CA"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB405",
+          "layoutAddress": "0xB6E7"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB407",
+          "layoutAddress": "0xB302"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB409",
+          "layoutAddress": "0xB6AF"
+        }
+      ]
+    },
+    {
+      "id": "obj03-area01-sub00-storigoi-graveyard-blob-boost",
+      "name": "Storigoi Graveyard (Blob Boost)",
+      "category": "eastern-overworld",
+      "objset": 3,
+      "objsetHex": "0x03",
+      "area": 1,
+      "areaHex": "0x01",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7B5",
+        "value": "0x17",
+        "lowNibble": "0x7",
+        "highNibble": "0x1",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xB280",
+        "areaRecordAddress": "0xB37F",
+        "pointerAddress": "0xB388",
+        "address": "0xB3A4",
+        "firstBytes": [
+          "0x05",
+          "0xFD",
+          "0x06",
+          "0x00",
+          "0x00",
+          "0x01",
+          "0x07",
+          "0x09"
+        ],
+        "rawLayoutIndex": "0x05",
+        "layoutIndex": "0x05",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "template": {
+        "id": "cemetery-marsh-woods-day",
+        "label": "Cemetery/marsh/woods exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x04",
+          "0x05"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA04E",
+        "palettePointerAddress": "0x88E9",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 3,
+            "area": 1,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB28E",
+          "indexListAddress": "0xB3B6",
+          "indexOffset": 0,
+          "transferId": "0x2A",
+          "auxiliaryTransferId": "0x36",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88E9"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj03-area01-sub00-storigoi-graveyard-blob-boost.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 3,
+          "area": 1,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xB388",
+          "address": "0xB3A4",
+          "firstBytes": [
+            "0x05",
+            "0xFD",
+            "0x06",
+            "0x00",
+            "0x00",
+            "0x01",
+            "0x07",
+            "0x09"
+          ],
+          "rawLayoutIndex": 5,
+          "rawLayoutIndexHex": "0x05",
+          "layoutIndex": 5,
+          "layoutIndexHex": "0x05",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF801",
+          "address": "0xB29E"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xB2B2",
+          "address": "0xB413",
+          "bank": 2,
+          "secondaryAddress": "0xB3D3"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7DD",
+          "address": "0x918A",
+          "auxiliaryAddress": "0xF7F2"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB415",
+          "layoutAddress": "0xB4EF"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB417",
+          "layoutAddress": "0xB527"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB419",
+          "layoutAddress": "0xB55F"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB41B",
+          "layoutAddress": "0xB597"
+        }
+      ]
+    },
+    {
+      "id": "obj03-area02-sub00-sadam-woods-part-2",
+      "name": "Sadam Woods - Part 2",
+      "category": "eastern-overworld",
+      "objset": 3,
+      "objsetHex": "0x03",
+      "area": 2,
+      "areaHex": "0x02",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7BA",
+        "value": "0x17",
+        "lowNibble": "0x7",
+        "highNibble": "0x1",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xB280",
+        "areaRecordAddress": "0xB38A",
+        "pointerAddress": "0xB393",
+        "address": "0xB3A5",
+        "firstBytes": [
+          "0xFD",
+          "0x06",
+          "0x00",
+          "0x00",
+          "0x01",
+          "0x07",
+          "0x09",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0xFD",
+        "layoutIndex": "0x06",
+        "layoutIndexSource": "special-0xFD-byte-1"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "template": {
+        "id": "cemetery-marsh-woods-day",
+        "label": "Cemetery/marsh/woods exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x04",
+          "0x05"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA081",
+        "palettePointerAddress": "0x88EF",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 3,
+            "area": 2,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB292",
+          "indexListAddress": "0xB3B8",
+          "indexOffset": 0,
+          "transferId": "0x2D",
+          "auxiliaryTransferId": "0x36",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88EF"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj03-area02-sub00-sadam-woods-part-2.png",
+      "width": 512,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 2,
+        "totalPointers": 4,
+        "renderedColumns": 2,
+        "renderedRows": 2
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 2,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 3,
+          "area": 2,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xB393",
+          "address": "0xB3A5",
+          "firstBytes": [
+            "0xFD",
+            "0x06",
+            "0x00",
+            "0x00",
+            "0x01",
+            "0x07",
+            "0x09",
+            "0x00"
+          ],
+          "rawLayoutIndex": 253,
+          "rawLayoutIndexHex": "0xFD",
+          "layoutIndex": 6,
+          "layoutIndexHex": "0x06",
+          "layoutIndexSource": "segment-override"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF801",
+          "address": "0xB29E"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xB2B6",
+          "address": "0xB425",
+          "bank": 2,
+          "secondaryAddress": "0xB3D8"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7DD",
+          "address": "0x918A",
+          "auxiliaryAddress": "0xF7F2"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB427",
+          "layoutAddress": "0xB71F"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB429",
+          "layoutAddress": "0xB63F"
+        },
+        {
+          "index": 2,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB42B",
+          "layoutAddress": "0xB607"
+        },
+        {
+          "index": 3,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB42D",
+          "layoutAddress": "0xB5CF"
+        }
+      ]
+    },
+    {
+      "id": "obj03-area02-sub01-sadam-woods-part-1",
+      "name": "Sadam Woods - Part 1",
+      "category": "eastern-overworld",
+      "objset": 3,
+      "objsetHex": "0x03",
+      "area": 2,
+      "areaHex": "0x02",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7BB",
+        "value": "0x17",
+        "lowNibble": "0x7",
+        "highNibble": "0x1",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xB280",
+        "areaRecordAddress": "0xB38A",
+        "pointerAddress": "0xB395",
+        "address": "0xB3AA",
+        "firstBytes": [
+          "0x07",
+          "0x09",
+          "0x00",
+          "0x00",
+          "0x01",
+          "0x00",
+          "0x02",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x07",
+        "layoutIndex": "0x07",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "template": {
+        "id": "cemetery-marsh-woods-day",
+        "label": "Cemetery/marsh/woods exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x04",
+          "0x05"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA081",
+        "palettePointerAddress": "0x88EF",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 3,
+            "area": 2,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB292",
+          "indexListAddress": "0xB3B8",
+          "indexOffset": 2,
+          "transferId": "0x2D",
+          "auxiliaryTransferId": "0x36",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88EF"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj03-area02-sub01-sadam-woods-part-1.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 3,
+          "area": 2,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xB395",
+          "address": "0xB3AA",
+          "firstBytes": [
+            "0x07",
+            "0x09",
+            "0x00",
+            "0x00",
+            "0x01",
+            "0x00",
+            "0x02",
+            "0x00"
+          ],
+          "rawLayoutIndex": 7,
+          "rawLayoutIndexHex": "0x07",
+          "layoutIndex": 7,
+          "layoutIndexHex": "0x07",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF801",
+          "address": "0xB29E"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xB2BA",
+          "address": "0xB433",
+          "bank": 2,
+          "secondaryAddress": "0xB3E5"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7DD",
+          "address": "0x918A",
+          "auxiliaryAddress": "0xF7F2"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB435",
+          "layoutAddress": "0xB677"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB437",
+          "layoutAddress": "0xB757"
+        }
+      ]
+    },
+    {
+      "id": "obj03-area03-sub00-joma-marsh-part-2",
+      "name": "Joma Marsh - Part 2",
+      "category": "eastern-overworld",
+      "objset": 3,
+      "objsetHex": "0x03",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7BF",
+        "value": "0x17",
+        "lowNibble": "0x7",
+        "highNibble": "0x1",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xB280",
+        "areaRecordAddress": "0xB7C7",
+        "pointerAddress": "0xB7D0",
+        "address": "0xB7DA",
+        "firstBytes": [
+          "0x02",
+          "0x03",
+          "0x08",
+          "0x04",
+          "0x0A",
+          "0x00",
+          "0x02",
+          "0xFF"
+        ],
+        "rawLayoutIndex": "0x02",
+        "layoutIndex": "0x02",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "template": {
+        "id": "cemetery-marsh-woods-day",
+        "label": "Cemetery/marsh/woods exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x04",
+          "0x05"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA070",
+        "palettePointerAddress": "0x88ED",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 3,
+            "area": 3,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB296",
+          "indexListAddress": "0xB7E4",
+          "indexOffset": 0,
+          "transferId": "0x2C",
+          "auxiliaryTransferId": "0x38",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88ED"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj03-area03-sub00-joma-marsh-part-2.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 3,
+          "area": 3,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xB7D0",
+          "address": "0xB7DA",
+          "firstBytes": [
+            "0x02",
+            "0x03",
+            "0x08",
+            "0x04",
+            "0x0A",
+            "0x00",
+            "0x02",
+            "0xFF"
+          ],
+          "rawLayoutIndex": 2,
+          "rawLayoutIndexHex": "0x02",
+          "layoutIndex": 2,
+          "layoutIndexHex": "0x02",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF801",
+          "address": "0xB29E"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xB2A6",
+          "address": "0xB802",
+          "bank": 2,
+          "secondaryAddress": "0xB7F8"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7DD",
+          "address": "0x918A",
+          "auxiliaryAddress": "0xF7F2"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB804",
+          "layoutAddress": "0xB2CA"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB806",
+          "layoutAddress": "0xB302"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB808",
+          "layoutAddress": "0xBB66"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB80A",
+          "layoutAddress": "0xBB2E"
+        }
+      ]
+    },
+    {
+      "id": "obj03-area03-sub01-joma-marsh-part-3-fire-and-skulls",
+      "name": "Joma Marsh - Part 3 (Fire and Skulls)",
+      "category": "eastern-overworld",
+      "objset": 3,
+      "objsetHex": "0x03",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7C0",
+        "value": "0x17",
+        "lowNibble": "0x7",
+        "highNibble": "0x1",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xB280",
+        "areaRecordAddress": "0xB7C7",
+        "pointerAddress": "0xB7D2",
+        "address": "0xB7DB",
+        "firstBytes": [
+          "0x03",
+          "0x08",
+          "0x04",
+          "0x0A",
+          "0x00",
+          "0x02",
+          "0xFF",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x03",
+        "layoutIndex": "0x03",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "template": {
+        "id": "cemetery-marsh-woods-day",
+        "label": "Cemetery/marsh/woods exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x04",
+          "0x05"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA092",
+        "palettePointerAddress": "0x890D",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 3,
+            "area": 3,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB296",
+          "indexListAddress": "0xB7E4",
+          "indexOffset": 2,
+          "transferId": "0x3C",
+          "auxiliaryTransferId": "0x37",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x890D"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj03-area03-sub01-joma-marsh-part-3-fire-and-skulls.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 3,
+          "area": 3,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xB7D2",
+          "address": "0xB7DB",
+          "firstBytes": [
+            "0x03",
+            "0x08",
+            "0x04",
+            "0x0A",
+            "0x00",
+            "0x02",
+            "0xFF",
+            "0x00"
+          ],
+          "rawLayoutIndex": 3,
+          "rawLayoutIndexHex": "0x03",
+          "layoutIndex": 3,
+          "layoutIndexHex": "0x03",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF801",
+          "address": "0xB29E"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xB2AA",
+          "address": "0xB814",
+          "bank": 2,
+          "secondaryAddress": "0xB801"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7DD",
+          "address": "0x918A",
+          "auxiliaryAddress": "0xF7F2"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB816",
+          "layoutAddress": "0xB33A"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB818",
+          "layoutAddress": "0xBB9E"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB81A",
+          "layoutAddress": "0xBBD6"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB81C",
+          "layoutAddress": "0xBC0E"
+        }
+      ]
+    },
+    {
+      "id": "obj03-area03-sub02-debious-woods-part-3",
+      "name": "Debious Woods - Part 3",
+      "category": "eastern-overworld",
+      "objset": 3,
+      "objsetHex": "0x03",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 2,
+      "submapHex": "0x02",
+      "ceiling": true,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7C1",
+        "value": "0x17",
+        "lowNibble": "0x7",
+        "highNibble": "0x1",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xB280",
+        "areaRecordAddress": "0xB7C7",
+        "pointerAddress": "0xB7D4",
+        "address": "0xB7DC",
+        "firstBytes": [
+          "0x08",
+          "0x04",
+          "0x0A",
+          "0x00",
+          "0x02",
+          "0xFF",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x08",
+        "layoutIndex": "0x08",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "template": {
+        "id": "cemetery-marsh-woods-day",
+        "label": "Cemetery/marsh/woods exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x04",
+          "0x05"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA0B4",
+        "palettePointerAddress": "0x8911",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 3,
+            "area": 3,
+            "submap": 2,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB296",
+          "indexListAddress": "0xB7E4",
+          "indexOffset": 4,
+          "transferId": "0x3E",
+          "auxiliaryTransferId": "0x37",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x8911"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj03-area03-sub02-debious-woods-part-3.png",
+      "width": 1024,
+      "height": 672,
+      "layoutSections": [
+        0,
+        1,
+        2
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 3,
+        "totalPointers": 12,
+        "renderedColumns": 4,
+        "renderedRows": 3
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 3,
+      "layoutCellCount": 12,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 3,
+          "area": 3,
+          "submap": 2
+        },
+        "screenRecord": {
+          "pointerAddress": "0xB7D4",
+          "address": "0xB7DC",
+          "firstBytes": [
+            "0x08",
+            "0x04",
+            "0x0A",
+            "0x00",
+            "0x02",
+            "0xFF",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 8,
+          "rawLayoutIndexHex": "0x08",
+          "layoutIndex": 8,
+          "layoutIndexHex": "0x08",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF801",
+          "address": "0xB29E"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xB2BE",
+          "address": "0xB82E",
+          "bank": 2,
+          "secondaryAddress": "0xB801"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7DD",
+          "address": "0x918A",
+          "auxiliaryAddress": "0xF7F2"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB830",
+          "layoutAddress": "0xB856"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB832",
+          "layoutAddress": "0xB88E"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB834",
+          "layoutAddress": "0xB8C6"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB836",
+          "layoutAddress": "0xB8FE"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB838",
+          "layoutAddress": "0xB936"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB83A",
+          "layoutAddress": "0xB96E"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB83C",
+          "layoutAddress": "0xB9A6"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB83E",
+          "layoutAddress": "0xB9DE"
+        },
+        {
+          "index": 8,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB840",
+          "layoutAddress": "0xBA16"
+        },
+        {
+          "index": 9,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB842",
+          "layoutAddress": "0xBA4E"
+        },
+        {
+          "index": 10,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB844",
+          "layoutAddress": "0xBA86"
+        },
+        {
+          "index": 11,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB846",
+          "layoutAddress": "0xBABE"
+        }
+      ]
+    },
+    {
+      "id": "obj03-area03-sub03-debious-woods-part-2",
+      "name": "Debious Woods - Part 2",
+      "category": "eastern-overworld",
+      "objset": 3,
+      "objsetHex": "0x03",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 3,
+      "submapHex": "0x03",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7C2",
+        "value": "0x19",
+        "lowNibble": "0x9",
+        "highNibble": "0x1",
+        "maskedId": "0x19"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xB280",
+        "areaRecordAddress": "0xB7C7",
+        "pointerAddress": "0xB7D6",
+        "address": "0xB7DD",
+        "firstBytes": [
+          "0x04",
+          "0x0A",
+          "0x00",
+          "0x02",
+          "0xFF",
+          "0x00",
+          "0x00",
+          "0x2C"
+        ],
+        "rawLayoutIndex": "0x04",
+        "layoutIndex": "0x04",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "template": {
+        "id": "cemetery-marsh-woods-day",
+        "label": "Cemetery/marsh/woods exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x04",
+          "0x05"
+        ],
+        "paletteAddress": "0xCB04",
+        "palettePointerAddress": "0x88D5",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 3,
+            "area": 3,
+            "submap": 3,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB296",
+          "indexListAddress": "0xB7E4",
+          "indexOffset": 6,
+          "transferId": "0x20",
+          "auxiliaryTransferId": "0x37",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D5"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj03-area03-sub03-debious-woods-part-2.png",
+      "width": 256,
+      "height": 448,
+      "layoutSections": [
+        0,
+        1
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 2,
+        "totalPointers": 2,
+        "renderedColumns": 1,
+        "renderedRows": 2
+      },
+      "columnGroups": [
+        0
+      ],
+      "columnGroupCount": 1,
+      "sectionCount": 2,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 3,
+          "area": 3,
+          "submap": 3
+        },
+        "screenRecord": {
+          "pointerAddress": "0xB7D6",
+          "address": "0xB7DD",
+          "firstBytes": [
+            "0x04",
+            "0x0A",
+            "0x00",
+            "0x02",
+            "0xFF",
+            "0x00",
+            "0x00",
+            "0x2C"
+          ],
+          "rawLayoutIndex": 4,
+          "rawLayoutIndexHex": "0x04",
+          "layoutIndex": 4,
+          "layoutIndexHex": "0x04",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF801",
+          "address": "0xB29E"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xB2AE",
+          "address": "0xB826",
+          "bank": 2,
+          "secondaryAddress": "0xB7FD"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7DD",
+          "address": "0x918A",
+          "auxiliaryAddress": "0xF7F2"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB828",
+          "layoutAddress": "0xF8AF"
+        },
+        {
+          "index": 1,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB82A",
+          "layoutAddress": "0xBAF6"
+        }
+      ]
+    },
+    {
+      "id": "obj03-area03-sub04-debious-woods-part-1",
+      "name": "Debious Woods - Part 1",
+      "category": "eastern-overworld",
+      "objset": 3,
+      "objsetHex": "0x03",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 4,
+      "submapHex": "0x04",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7C3",
+        "value": "0x19",
+        "lowNibble": "0x9",
+        "highNibble": "0x1",
+        "maskedId": "0x19"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xB280",
+        "areaRecordAddress": "0xB7C7",
+        "pointerAddress": "0xB7D8",
+        "address": "0xB7DE",
+        "firstBytes": [
+          "0x0A",
+          "0x00",
+          "0x02",
+          "0xFF",
+          "0x00",
+          "0x00",
+          "0x2C",
+          "0x38"
+        ],
+        "rawLayoutIndex": "0x0A",
+        "layoutIndex": "0x0A",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "template": {
+        "id": "cemetery-marsh-woods-day",
+        "label": "Cemetery/marsh/woods exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x04",
+          "0x05"
+        ],
+        "paletteAddress": "0xCB04",
+        "palettePointerAddress": "0x88D5",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 3,
+            "area": 3,
+            "submap": 4,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB296",
+          "indexListAddress": "0xB7E4",
+          "indexOffset": 8,
+          "transferId": "0x20",
+          "auxiliaryTransferId": "0x37",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D5"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj03-area03-sub04-debious-woods-part-1.png",
+      "width": 256,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0
+      ],
+      "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 3,
+          "area": 3,
+          "submap": 4
+        },
+        "screenRecord": {
+          "pointerAddress": "0xB7D8",
+          "address": "0xB7DE",
+          "firstBytes": [
+            "0x0A",
+            "0x00",
+            "0x02",
+            "0xFF",
+            "0x00",
+            "0x00",
+            "0x2C",
+            "0x38"
+          ],
+          "rawLayoutIndex": 10,
+          "rawLayoutIndexHex": "0x0A",
+          "layoutIndex": 10,
+          "layoutIndexHex": "0x0A",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF801",
+          "address": "0xB29E"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xB2C6",
+          "address": "0xB850",
+          "bank": 2,
+          "secondaryAddress": "0xB801"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7DD",
+          "address": "0x918A",
+          "auxiliaryAddress": "0xF7F2"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB852",
+          "layoutAddress": "0xF877"
+        }
+      ]
+    },
+    {
+      "id": "obj03-area04-sub00-sadam-woods-part-3",
+      "name": "Sadam Woods - Part 3",
+      "category": "eastern-overworld",
+      "objset": 3,
+      "objsetHex": "0x03",
+      "area": 4,
+      "areaHex": "0x04",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7C4",
+        "value": "0x19",
+        "lowNibble": "0x9",
+        "highNibble": "0x1",
+        "maskedId": "0x19"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xB280",
+        "areaRecordAddress": "0xB397",
+        "pointerAddress": "0xB3A0",
+        "address": "0xB3AB",
+        "firstBytes": [
+          "0x09",
+          "0x00",
+          "0x00",
+          "0x01",
+          "0x00",
+          "0x02",
+          "0x00",
+          "0x29"
+        ],
+        "rawLayoutIndex": "0x09",
+        "layoutIndex": "0x09",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+      "template": {
+        "id": "cemetery-marsh-woods-day",
+        "label": "Cemetery/marsh/woods exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Camilla Cemetery fixtures resolve live CHR banks 4/5 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x04",
+          "0x05"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA081",
+        "palettePointerAddress": "0x88EF",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 3,
+            "area": 4,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xB28A",
+          "indexListPointerAddress": "0xB29A",
+          "indexListAddress": "0xB3BE",
+          "indexOffset": 0,
+          "transferId": "0x2D",
+          "auxiliaryTransferId": "0x36",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88EF"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj03-area04-sub00-sadam-woods-part-3.png",
+      "width": 512,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 2,
+        "rows": 1,
+        "totalPointers": 2,
+        "renderedColumns": 2,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1
+      ],
+      "columnGroupCount": 2,
+      "sectionCount": 1,
+      "layoutCellCount": 2,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 3,
+          "area": 4,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xB3A0",
+          "address": "0xB3AB",
+          "firstBytes": [
+            "0x09",
+            "0x00",
+            "0x00",
+            "0x01",
+            "0x00",
+            "0x02",
+            "0x00",
+            "0x29"
+          ],
+          "rawLayoutIndex": 9,
+          "rawLayoutIndexHex": "0x09",
+          "layoutIndex": 9,
+          "layoutIndexHex": "0x09",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF801",
+          "address": "0xB29E"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xB2C2",
+          "address": "0xB43D",
+          "bank": 2,
+          "secondaryAddress": "0xB3EA"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7DD",
+          "address": "0x918A",
+          "auxiliaryAddress": "0xF7F2"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB43F",
+          "layoutAddress": "0xB33A"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xB441",
+          "layoutAddress": "0xB78F"
+        }
+      ]
+    },
+    {
+      "id": "obj04-area00-sub00-vrad-mountain-part-2-diamond-dude",
+      "name": "Vrad Mountain - Part 2 (Diamond Dude)",
+      "category": "mountains-and-castle-approach",
+      "objset": 4,
+      "objsetHex": "0x04",
+      "area": 0,
+      "areaHex": "0x00",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7E0",
+        "value": "0x02",
+        "lowNibble": "0x2",
+        "highNibble": "0x0",
+        "maskedId": "0x02"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xAE64",
+        "areaRecordAddress": "0xAE6C",
+        "pointerAddress": "0xAE75",
+        "address": "0xAE9E",
+        "firstBytes": [
+          "0x04",
+          "0x05",
+          "0x03",
+          "0x00",
+          "0x01",
+          "0x02",
+          "0x07",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x04",
+        "layoutIndex": "0x04",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+      "template": {
+        "id": "mountain-ditch-bridge-day",
+        "label": "Mountain/ditch/bridge exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x06",
+          "0x07"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA0E0",
+        "palettePointerAddress": "0x8913",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 4,
+            "area": 0,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xAEAD",
+          "indexListPointerAddress": "0xAEAD",
+          "indexListAddress": "0xAEBD",
+          "indexOffset": 0,
+          "transferId": "0x3F",
+          "auxiliaryTransferId": "0x44",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x8913"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj04-area00-sub00-vrad-mountain-part-2-diamond-dude.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 4,
+          "area": 0,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xAE75",
+          "address": "0xAE9E",
+          "firstBytes": [
+            "0x04",
+            "0x05",
+            "0x03",
+            "0x00",
+            "0x01",
+            "0x02",
+            "0x07",
+            "0x00"
+          ],
+          "rawLayoutIndex": 4,
+          "rawLayoutIndexHex": "0x04",
+          "layoutIndex": 4,
+          "layoutIndexHex": "0x04",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF803",
+          "address": "0xAEDD"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xAEED",
+          "address": "0xAF46",
+          "bank": 2,
+          "secondaryAddress": "0xAEFD"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7E1",
+          "address": "0x9620",
+          "auxiliaryAddress": "0xF7F5"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF48",
+          "layoutAddress": "0xB0C0"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF4A",
+          "layoutAddress": "0xB050"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF4C",
+          "layoutAddress": "0xB088"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF4E",
+          "layoutAddress": "0xB018"
+        }
+      ]
+    },
+    {
+      "id": "obj04-area00-sub01-vrad-mountain-part-1",
+      "name": "Vrad Mountain - Part 1",
+      "category": "mountains-and-castle-approach",
+      "objset": 4,
+      "objsetHex": "0x04",
+      "area": 0,
+      "areaHex": "0x00",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7E1",
+        "value": "0xFF",
+        "lowNibble": "0xF",
+        "highNibble": "0xF",
+        "maskedId": "0x1F"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xAE64",
+        "areaRecordAddress": "0xAE6C",
+        "pointerAddress": "0xAE77",
+        "address": "0xAE9F",
+        "firstBytes": [
+          "0x05",
+          "0x03",
+          "0x00",
+          "0x01",
+          "0x02",
+          "0x07",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x05",
+        "layoutIndex": "0x05",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+      "template": {
+        "id": "mountain-ditch-bridge-day",
+        "label": "Mountain/ditch/bridge exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x06",
+          "0x07"
+        ],
+        "paletteAddress": "0xCAF3",
+        "palettePointerAddress": "0x88D3",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 4,
+            "area": 0,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xAEAD",
+          "indexListPointerAddress": "0xAEAD",
+          "indexListAddress": "0xAEBD",
+          "indexOffset": 2,
+          "transferId": "0x1F",
+          "auxiliaryTransferId": "0x44",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D3"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj04-area00-sub01-vrad-mountain-part-1.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 4,
+          "area": 0,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xAE77",
+          "address": "0xAE9F",
+          "firstBytes": [
+            "0x05",
+            "0x03",
+            "0x00",
+            "0x01",
+            "0x02",
+            "0x07",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 5,
+          "rawLayoutIndexHex": "0x05",
+          "layoutIndex": 5,
+          "layoutIndexHex": "0x05",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF803",
+          "address": "0xAEDD"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xAEF1",
+          "address": "0xAF58",
+          "bank": 2,
+          "secondaryAddress": "0xAEFD"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7E1",
+          "address": "0x9620",
+          "auxiliaryAddress": "0xF7F5"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF5A",
+          "layoutAddress": "0xF877"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF5C",
+          "layoutAddress": "0xF83F"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF5E",
+          "layoutAddress": "0xF83F"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF60",
+          "layoutAddress": "0xF877"
+        }
+      ]
+    },
+    {
+      "id": "obj04-area01-sub00-deborah-cliff-in-tornado",
+      "name": "Deborah Cliff (In Tornado)",
+      "category": "mountains-and-castle-approach",
+      "objset": 4,
+      "objsetHex": "0x04",
+      "area": 1,
+      "areaHex": "0x01",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7E2",
+        "value": "0x00",
+        "lowNibble": "0x0",
+        "highNibble": "0x0",
+        "maskedId": "0x00"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xAE64",
+        "areaRecordAddress": "0xAE79",
+        "pointerAddress": "0xAE82",
+        "address": "0xAEA4",
+        "firstBytes": [
+          "0x07",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x02",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x07",
+        "layoutIndex": "0x07",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+      "template": {
+        "id": "mountain-ditch-bridge-day",
+        "label": "Mountain/ditch/bridge exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x06",
+          "0x07"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA0E0",
+        "palettePointerAddress": "0x8913",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 4,
+            "area": 1,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xAEAD",
+          "indexListPointerAddress": "0xAEB1",
+          "indexListAddress": "0xAEC3",
+          "indexOffset": 0,
+          "transferId": "0x3F",
+          "auxiliaryTransferId": "0x44",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x8913"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj04-area01-sub00-deborah-cliff-in-tornado.png",
+      "width": 256,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 1,
+        "rows": 1,
+        "totalPointers": 1,
+        "renderedColumns": 1,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0
+      ],
+      "columnGroupCount": 1,
+      "sectionCount": 1,
+      "layoutCellCount": 1,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 4,
+          "area": 1,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xAE82",
+          "address": "0xAEA4",
+          "firstBytes": [
+            "0x07",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x02",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 7,
+          "rawLayoutIndexHex": "0x07",
+          "layoutIndex": 7,
+          "layoutIndexHex": "0x07",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF803",
+          "address": "0xAEDD"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xAEF9",
+          "address": "0xAF6A",
+          "bank": 2,
+          "secondaryAddress": "0xAEFD"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7E1",
+          "address": "0x9620",
+          "auxiliaryAddress": "0xF7F5"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF6C",
+          "layoutAddress": "0xB210"
+        }
+      ]
+    },
+    {
+      "id": "obj04-area01-sub01-jam-wasteland-deborah-cliff",
+      "name": "Jam Wasteland (Deborah Cliff)",
+      "category": "mountains-and-castle-approach",
+      "objset": 4,
+      "objsetHex": "0x04",
+      "area": 1,
+      "areaHex": "0x01",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7E3",
+        "value": "0x00",
+        "lowNibble": "0x0",
+        "highNibble": "0x0",
+        "maskedId": "0x00"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xAE64",
+        "areaRecordAddress": "0xAE79",
+        "pointerAddress": "0xAE84",
+        "address": "0xAEA0",
+        "firstBytes": [
+          "0x03",
+          "0x00",
+          "0x01",
+          "0x02",
+          "0x07",
+          "0x00",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x03",
+        "layoutIndex": "0x03",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+      "template": {
+        "id": "mountain-ditch-bridge-day",
+        "label": "Mountain/ditch/bridge exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x06",
+          "0x07"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA0E0",
+        "palettePointerAddress": "0x8913",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 4,
+            "area": 1,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xAEAD",
+          "indexListPointerAddress": "0xAEB1",
+          "indexListAddress": "0xAEC3",
+          "indexOffset": 2,
+          "transferId": "0x3F",
+          "auxiliaryTransferId": "0x44",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x8913"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj04-area01-sub01-jam-wasteland-deborah-cliff.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 4,
+          "area": 1,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xAE84",
+          "address": "0xAEA0",
+          "firstBytes": [
+            "0x03",
+            "0x00",
+            "0x01",
+            "0x02",
+            "0x07",
+            "0x00",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 3,
+          "rawLayoutIndexHex": "0x03",
+          "layoutIndex": 3,
+          "layoutIndexHex": "0x03",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF803",
+          "address": "0xAEDD"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xAEE9",
+          "address": "0xAF34",
+          "bank": 2,
+          "secondaryAddress": "0xAEFD"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7E1",
+          "address": "0x9620",
+          "auxiliaryAddress": "0xF7F5"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF36",
+          "layoutAddress": "0xAF70"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF38",
+          "layoutAddress": "0xAFA8"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF3A",
+          "layoutAddress": "0xAFE0"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF3C",
+          "layoutAddress": "0xB018"
+        }
+      ]
+    },
+    {
+      "id": "obj04-area02-sub00-wicked-ditch",
+      "name": "Wicked Ditch",
+      "category": "mountains-and-castle-approach",
+      "objset": 4,
+      "objsetHex": "0x04",
+      "area": 2,
+      "areaHex": "0x02",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7E4",
+        "value": "0x2C",
+        "lowNibble": "0xC",
+        "highNibble": "0x2",
+        "maskedId": "0x0C"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xAE64",
+        "areaRecordAddress": "0xAE86",
+        "pointerAddress": "0xAE8F",
+        "address": "0xAEA1",
+        "firstBytes": [
+          "0x00",
+          "0x01",
+          "0x02",
+          "0x07",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x00",
+        "layoutIndex": "0x00",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+      "template": {
+        "id": "mountain-ditch-bridge-day",
+        "label": "Mountain/ditch/bridge exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x06",
+          "0x07"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA0F1",
+        "palettePointerAddress": "0x8915",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 4,
+            "area": 2,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xAEAD",
+          "indexListPointerAddress": "0xAEB5",
+          "indexListAddress": "0xAEC7",
+          "indexOffset": 0,
+          "transferId": "0x40",
+          "auxiliaryTransferId": "0x45",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x8915"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj04-area02-sub00-wicked-ditch.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 4,
+          "area": 2,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xAE8F",
+          "address": "0xAEA1",
+          "firstBytes": [
+            "0x00",
+            "0x01",
+            "0x02",
+            "0x07",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x00"
+          ],
+          "rawLayoutIndex": 0,
+          "rawLayoutIndexHex": "0x00",
+          "layoutIndex": 0,
+          "layoutIndexHex": "0x00",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF803",
+          "address": "0xAEDD"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xAEDD",
+          "address": "0xAEFE",
+          "bank": 2,
+          "secondaryAddress": "0xAEFD"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7E1",
+          "address": "0x9620",
+          "auxiliaryAddress": "0xF7F5"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF00",
+          "layoutAddress": "0xB018"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF02",
+          "layoutAddress": "0xB050"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF04",
+          "layoutAddress": "0xB0F8"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF06",
+          "layoutAddress": "0xAFE0"
+        }
+      ]
+    },
+    {
+      "id": "obj04-area03-sub00-vrad-graveyard",
+      "name": "Vrad Graveyard",
+      "category": "mountains-and-castle-approach",
+      "objset": 4,
+      "objsetHex": "0x04",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7E6",
+        "value": "0x3C",
+        "lowNibble": "0xC",
+        "highNibble": "0x3",
+        "maskedId": "0x1C"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xAE64",
+        "areaRecordAddress": "0xAE91",
+        "pointerAddress": "0xAE9A",
+        "address": "0xAEA2",
+        "firstBytes": [
+          "0x01",
+          "0x02",
+          "0x07",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x02"
+        ],
+        "rawLayoutIndex": "0x01",
+        "layoutIndex": "0x01",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+      "template": {
+        "id": "mountain-ditch-bridge-day",
+        "label": "Mountain/ditch/bridge exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x06",
+          "0x07"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA113",
+        "palettePointerAddress": "0x8919",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 4,
+            "area": 3,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xAEAD",
+          "indexListPointerAddress": "0xAEB9",
+          "indexListAddress": "0xAEC9",
+          "indexOffset": 0,
+          "transferId": "0x42",
+          "auxiliaryTransferId": "0x46",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x8919"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj04-area03-sub00-vrad-graveyard.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 4,
+          "area": 3,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xAE9A",
+          "address": "0xAEA2",
+          "firstBytes": [
+            "0x01",
+            "0x02",
+            "0x07",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x02"
+          ],
+          "rawLayoutIndex": 1,
+          "rawLayoutIndexHex": "0x01",
+          "layoutIndex": 1,
+          "layoutIndexHex": "0x01",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF803",
+          "address": "0xAEDD"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xAEE1",
+          "address": "0xAF10",
+          "bank": 2,
+          "secondaryAddress": "0xAEFD"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7E1",
+          "address": "0x9620",
+          "auxiliaryAddress": "0xF7F5"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF12",
+          "layoutAddress": "0xB130"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF14",
+          "layoutAddress": "0xB168"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF16",
+          "layoutAddress": "0xB1A0"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF18",
+          "layoutAddress": "0xB1D8"
+        }
+      ]
+    },
+    {
+      "id": "obj04-area03-sub01-castlevania-bridge",
+      "name": "Castlevania Bridge",
+      "category": "mountains-and-castle-approach",
+      "objset": 4,
+      "objsetHex": "0x04",
+      "area": 3,
+      "areaHex": "0x03",
+      "submap": 1,
+      "submapHex": "0x01",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB7E7",
+        "value": "0x37",
+        "lowNibble": "0x7",
+        "highNibble": "0x3",
+        "maskedId": "0x17"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xAE64",
+        "areaRecordAddress": "0xAE91",
+        "pointerAddress": "0xAE9C",
+        "address": "0xAEA3",
+        "firstBytes": [
+          "0x02",
+          "0x07",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x00",
+          "0x02",
+          "0x00"
+        ],
+        "rawLayoutIndex": "0x02",
+        "layoutIndex": "0x02",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+      "template": {
+        "id": "mountain-ditch-bridge-day",
+        "label": "Mountain/ditch/bridge exterior, day",
+        "confidence": "validated-template",
+        "confidenceNote": "Vrad Graveyard, Castlevania Bridge, and Deborah Cliff probes resolve live CHR banks 6/7 and exact ROM selector palettes.",
+        "chrBanks": [
+          "0x06",
+          "0x07"
+        ],
+        "paletteAddress": "0xCB04",
+        "palettePointerAddress": "0x88D5",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "day",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 4,
+            "area": 3,
+            "submap": 1,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xAEAD",
+          "indexListPointerAddress": "0xAEB9",
+          "indexListAddress": "0xAEC9",
+          "indexOffset": 2,
+          "transferId": "0x20",
+          "auxiliaryTransferId": "0x46",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x88D5"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj04-area03-sub01-castlevania-bridge.png",
+      "width": 1024,
+      "height": 224,
+      "layoutSections": [
+        0
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 1,
+        "totalPointers": 4,
+        "renderedColumns": 4,
+        "renderedRows": 1
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 1,
+      "layoutCellCount": 4,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 4,
+          "area": 3,
+          "submap": 1
+        },
+        "screenRecord": {
+          "pointerAddress": "0xAE9C",
+          "address": "0xAEA3",
+          "firstBytes": [
+            "0x02",
+            "0x07",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x00",
+            "0x02",
+            "0x00"
+          ],
+          "rawLayoutIndex": 2,
+          "rawLayoutIndexHex": "0x02",
+          "layoutIndex": 2,
+          "layoutIndexHex": "0x02",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF803",
+          "address": "0xAEDD"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xAEE5",
+          "address": "0xAF22",
+          "bank": 2,
+          "secondaryAddress": "0xAEFD"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7E1",
+          "address": "0x9620",
+          "auxiliaryAddress": "0xF7F5"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF24",
+          "layoutAddress": "0xB248"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF26",
+          "layoutAddress": "0xF957"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF28",
+          "layoutAddress": "0xF957"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xAF2A",
+          "layoutAddress": "0xF91F"
+        }
+      ]
+    },
+    {
+      "id": "obj05-area00-sub00-castlevania",
+      "name": "Castlevania",
+      "category": "castlevania-final-area",
+      "objset": 5,
+      "objsetHex": "0x05",
+      "area": 0,
+      "areaHex": "0x00",
+      "submap": 0,
+      "submapHex": "0x00",
+      "ceiling": false,
+      "entryRoom": false,
+      "boss": false,
+      "pattern": {
+        "pointerAddress": "0xB810",
+        "value": "0x07",
+        "lowNibble": "0x7",
+        "highNibble": "0x0",
+        "maskedId": "0x07"
+      },
+      "screenRecord": {
+        "areaTableAddress": "0xBC56",
+        "areaRecordAddress": "0xBC58",
+        "pointerAddress": "0xBC61",
+        "address": "0xBC65",
+        "firstBytes": [
+          "0x00",
+          "0x01",
+          "0xFD",
+          "0x77",
+          "0x9A",
+          "0xEB",
+          "0xA6",
+          "0x59"
+        ],
+        "rawLayoutIndex": "0x00",
+        "layoutIndex": "0x00",
+        "layoutIndexSource": "screen-record-byte-0"
+      },
+      "renderStatus": "rendered",
+      "confidence": "validated-template",
+      "confidenceNote": "Castlevania final-area fixture resolves live CHR banks 11/12 and exact ROM selector palette $57 -> 4:$A150.",
+      "template": {
+        "id": "castlevania-final-area-fixed",
+        "label": "Castlevania final area, fixed palette",
+        "confidence": "validated-template",
+        "confidenceNote": "Castlevania final-area fixture resolves live CHR banks 11/12 and exact ROM selector palette $57 -> 4:$A150.",
+        "chrBanks": [
+          "0x0B",
+          "0x0C"
+        ],
+        "paletteBank": 4,
+        "paletteAddress": "0xA150",
+        "palettePointerAddress": "0x8943",
+        "paletteStrategy": "runtime-palette-selector-table",
+        "paletteSelector": {
+          "variant": "fixed",
+          "selectorVariant": "day",
+          "context": {
+            "objset": 5,
+            "area": 0,
+            "submap": 0,
+            "source": "cv2r-runtime-context"
+          },
+          "paletteIndexPointersAddress": "0xF7C5",
+          "paletteTableAddress": "0xBC4E",
+          "indexListPointerAddress": "0xBC4E",
+          "indexListAddress": "0xBC52",
+          "indexOffset": 0,
+          "transferId": "0x57",
+          "auxiliaryTransferId": "0x4C",
+          "transferPointerTableAddress": "0x8895",
+          "transferPointerAddress": "0x8943"
+        },
+        "widthBlocks": 8,
+        "heightBlocks": 7
+      },
+      "output": "images/obj05-area00-sub00-castlevania.png",
+      "width": 1024,
+      "height": 896,
+      "layoutSections": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "layoutGrid": {
+        "columns": 4,
+        "rows": 4,
+        "totalPointers": 16,
+        "renderedColumns": 4,
+        "renderedRows": 4
+      },
+      "columnGroups": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "columnGroupCount": 4,
+      "sectionCount": 4,
+      "layoutCellCount": 16,
+      "derivation": {
+        "runtimeContext": {
+          "objset": 5,
+          "area": 0,
+          "submap": 0
+        },
+        "screenRecord": {
+          "pointerAddress": "0xBC61",
+          "address": "0xBC65",
+          "firstBytes": [
+            "0x00",
+            "0x01",
+            "0xFD",
+            "0x77",
+            "0x9A",
+            "0xEB",
+            "0xA6",
+            "0x59"
+          ],
+          "rawLayoutIndex": 0,
+          "rawLayoutIndexHex": "0x00",
+          "layoutIndex": 0,
+          "layoutIndexHex": "0x00",
+          "layoutIndexSource": "screen-record-byte-0"
+        },
+        "layoutTable": {
+          "pointerAddress": "0xF805",
+          "address": "0xBC46"
+        },
+        "layoutHeader": {
+          "pointerAddress": "0xBC46",
+          "address": "0xBC82",
+          "bank": 2,
+          "secondaryAddress": "0xBC68"
+        },
+        "tileSet": {
+          "pointerAddress": "0xF7E5",
+          "address": "0x9A3F",
+          "auxiliaryAddress": "0xF7F8"
+        }
+      },
+      "columns": [
+        {
+          "index": 0,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC84",
+          "layoutAddress": "0xBCB2"
+        },
+        {
+          "index": 1,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC86",
+          "layoutAddress": "0xBCEA"
+        },
+        {
+          "index": 2,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC88",
+          "layoutAddress": "0xBD22"
+        },
+        {
+          "index": 3,
+          "section": 0,
+          "sectionIndex": 0,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 0,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC8A",
+          "layoutAddress": "0xBD5A"
+        },
+        {
+          "index": 4,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC8C",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 5,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC8E",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 6,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC90",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 7,
+          "section": 1,
+          "sectionIndex": 1,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 224,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC92",
+          "layoutAddress": "0xBD92"
+        },
+        {
+          "index": 8,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC94",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 9,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC96",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 10,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC98",
+          "layoutAddress": "0xBDCA"
+        },
+        {
+          "index": 11,
+          "section": 2,
+          "sectionIndex": 2,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 448,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC9A",
+          "layoutAddress": "0xBE02"
+        },
+        {
+          "index": 12,
+          "section": 3,
+          "sectionIndex": 3,
+          "columnGroup": 0,
+          "columnIndex": 0,
+          "x": 0,
+          "y": 672,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC9C",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 13,
+          "section": 3,
+          "sectionIndex": 3,
+          "columnGroup": 1,
+          "columnIndex": 1,
+          "x": 256,
+          "y": 672,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBC9E",
+          "layoutAddress": "0xF807"
+        },
+        {
+          "index": 14,
+          "section": 3,
+          "sectionIndex": 3,
+          "columnGroup": 2,
+          "columnIndex": 2,
+          "x": 512,
+          "y": 672,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBCA0",
+          "layoutAddress": "0xBE3A"
+        },
+        {
+          "index": 15,
+          "section": 3,
+          "sectionIndex": 3,
+          "columnGroup": 3,
+          "columnIndex": 3,
+          "x": 768,
+          "y": 672,
+          "width": 256,
+          "height": 224,
+          "layoutPointerAddress": "0xBCA2",
+          "layoutAddress": "0xBE72"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "candidates": 55,
+    "rendered": 55,
+    "renderErrors": 0,
+    "byCategory": {
+      "town-exteriors": 7,
+      "mansion-door-exteriors": 5,
+      "western-overworld": 24,
+      "eastern-overworld": 11,
+      "mountains-and-castle-approach": 7,
+      "castlevania-final-area": 1
+    },
+    "byObjset": {
+      "0x00": 7,
+      "0x01": 5,
+      "0x02": 24,
+      "0x03": 11,
+      "0x04": 7,
+      "0x05": 1
+    },
+    "byConfidence": {
+      "validated-template": 50,
+      "inferred-template": 5
+    },
+    "specialScreenRecords": 5,
+    "multiSectionLayouts": 13
+  }
+};
