@@ -45,7 +45,8 @@
     "render:atlas:exterior": "node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-atlas",
     "render:topology:exterior": "node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology",
     "render:composition:exterior": "node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition",
-    "probe:transitions": "node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes"
+    "probe:transitions": "node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes",
+    "decode:transition-routine": "node src/index.js decode-transition-routine --rom roms/cv2.nes --probes out/transition-probes/analysis.json --topology out/exterior-topology/topology.json --out out/transition-routine"
   },
   "engines": {
     "node": ">=20"

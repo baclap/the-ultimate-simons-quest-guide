@@ -57,3 +57,6 @@ Current demos:
   showing six scripted probes, 10 completed transitions, per-step `$70-$73`
   write PCs, Deborah Cliff transport evidence, and the next ROM-routine
   decoding target.
+- `2026-05-20-transition-routine-decoder-demo/`: transition routine decoder
+  demo showing ROM byte windows, raw write metadata, topology matches, and
+  promoted/diagnostic placement hypotheses for `$70-$73`.

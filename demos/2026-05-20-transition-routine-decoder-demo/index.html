@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Map Demo - Transition Routine Decoder</title>
+  <link rel="stylesheet" href="styles.css?v=transition-routine-decoder-1">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>CV2 MAP DEMO</strong>
+      <span>Transition routine decoder</span>
+    </div>
+    <nav aria-label="Slides">
+      <button id="prev" type="button" aria-label="Previous slide">&lt;</button>
+      <span id="counter">1/5</span>
+      <button id="next" type="button" aria-label="Next slide">&gt;</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="slide active" data-hash="overview">
+      <div class="copy">
+        <p class="eyebrow">Milestone 1</p>
+        <h1>The transition routine now has a decoder artifact</h1>
+        <p class="lede">The project now writes a durable ROM/routine evidence model for <code>$70-$73</code>, including raw write metadata, nearby ROM byte windows, topology matches, Simon placement, and camera state.</p>
+      </div>
+      <div class="metric-row" id="metric-row"></div>
+      <div class="callout" id="overview-callout"></div>
+    </section>
+
+    <section class="slide" data-hash="bytes">
+      <div class="copy narrow">
+        <p class="eyebrow">Routine Bytes</p>
+        <h2>Four stable write PCs, preserved as evidence</h2>
+        <p>The decoder stores ROM byte windows around the observed write PCs without assuming those PCs are perfectly aligned to final opcodes.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="window-table">
+          <thead>
+            <tr>
+              <th>Trace PC</th>
+              <th>Fixed bank</th>
+              <th>File offset</th>
+              <th>ROM bytes</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="matrix">
+      <div class="copy narrow">
+        <p class="eyebrow">Evidence Matrix</p>
+        <h2>Runtime bytes are now tied to transition outputs</h2>
+        <p>Each row keeps topology, routine bytes, Simon placement, and camera changes separate. This is the feedstock for composition, not a hand-authored placement table.</p>
+      </div>
+      <div class="table-wrap">
+        <table id="transition-table">
+          <thead>
+            <tr>
+              <th>Transition</th>
+              <th>Topology</th>
+              <th>Simon</th>
+              <th>Camera</th>
+              <th>$70-$73 after</th>
+              <th>Write counts</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" data-hash="roles">
+      <div class="copy narrow">
+        <p class="eyebrow">Role Hypotheses</p>
+        <h2>Promoted evidence is intentionally narrow</h2>
+        <p><code>$70-$73</code> are promoted as routine output bytes. Direct visible-Y and camera formulas stay diagnostic until the routine read explains all fixture classes without contradiction.</p>
+      </div>
+      <div class="routine-grid" id="role-grid"></div>
+    </section>
+
+    <section class="slide" data-hash="next">
+      <div class="copy narrow">
+        <p class="eyebrow">Bridge To Milestone 2</p>
+        <h2>This enables world assembly confidence labels</h2>
+        <p>The full-world composer can now distinguish routine-observed edges, topology-only edges, connector-only transports, and unresolved placements without area-specific coordinate overrides.</p>
+      </div>
+      <div class="next-grid" id="next-grid"></div>
+    </section>
+  </main>
+
+  <script src="assets/transition-routine/decoder-data.js?v=transition-routine-decoder-1"></script>
+  <script src="slides.js?v=transition-routine-decoder-1"></script>
+</body>
+</html>

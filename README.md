@@ -37,6 +37,8 @@ The current vertical slice includes:
 - audits transition routine bytes `$70-$73` across 10 completed scripted
   transitions, including Castlevania visible-Y evidence, Jova interior control
   evidence, and Deborah Cliff special-transport evidence
+- writes a transition routine decoder artifact with ROM byte windows, raw write
+  metadata, topology matches, and promoted/diagnostic placement hypotheses
 - resolves human-facing labels through the Nintendo Power map naming policy
   while preserving `cv2r` source names
 
@@ -88,6 +90,7 @@ npm run render:atlas:exterior
 npm run render:topology:exterior
 npm run render:composition:exterior
 npm run probe:transitions
+npm run decode:transition-routine
 ```
 
 You can also pass paths directly:
@@ -108,6 +111,7 @@ node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-at
 node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology
 node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition
 node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes
+node src/index.js decode-transition-routine --rom roms/cv2.nes --probes out/transition-probes/analysis.json --topology out/exterior-topology/topology.json --out out/transition-routine
 node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit
 node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas
 ```
@@ -137,6 +141,7 @@ demos/2026-05-20-destination-position-demo/index.html
 demos/2026-05-20-camera-scroll-demo/index.html
 demos/2026-05-20-destination-y-probe-demo/index.html
 demos/2026-05-20-transition-routine-bytes-demo/index.html
+demos/2026-05-20-transition-routine-decoder-demo/index.html
 ```
 
 ## Next Milestone
@@ -220,6 +225,12 @@ Cliff tornado transport, and Jova Thorn Whip Room. It identifies sprite-staging
 `$0348` as Simon screen-center X, reports `$70-$73` writes at
 `7:$D19E/$D1A3/$D1A8/$D1AD`, and keeps routine-byte, Simon placement, camera,
 and topology evidence as separate tracks. See `docs/transition-probe-notes.md`.
+
+`npm run decode:transition-routine` converts that probe output into a reusable
+transition routine evidence artifact under `out/transition-routine/`. It records
+ROM byte windows around the observed `$70-$73` write PCs, raw write metadata,
+matched topology edges, Simon placement, camera state, and promoted/diagnostic
+role hypotheses. See `docs/transition-routine-decoder-notes.md`.
 
 Human-facing location names now follow the Nintendo Power map where the scan is
 legible, with `cv2r` labels preserved as `sourceName`. See
