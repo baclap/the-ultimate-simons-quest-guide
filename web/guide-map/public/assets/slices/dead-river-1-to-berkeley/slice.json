@@ -19,7 +19,7 @@
   },
   "world": {
     "width": 6144,
-    "height": 448
+    "height": 672
   },
   "dataFile": "slice-data.bin",
   "byteLength": 39600,
@@ -324,7 +324,7 @@
       "sourceName": "Dead River - Part 1",
       "position": {
         "x": 0,
-        "y": 0,
+        "y": 224,
         "width": 256,
         "height": 224
       },
@@ -371,7 +371,7 @@
       "sourceName": "Belasco Marsh",
       "position": {
         "x": 256,
-        "y": 0,
+        "y": 224,
         "width": 1024,
         "height": 224
       },
@@ -455,7 +455,7 @@
       "sourceName": "Jova Woods",
       "position": {
         "x": 2304,
-        "y": 0,
+        "y": 224,
         "width": 1024,
         "height": 224
       },
@@ -497,7 +497,7 @@
       "sourceName": "South Bridge",
       "position": {
         "x": 3328,
-        "y": 0,
+        "y": 224,
         "width": 1024,
         "height": 224
       },
@@ -539,7 +539,7 @@
       "sourceName": "Veros Woods - Part 1",
       "position": {
         "x": 4352,
-        "y": 0,
+        "y": 224,
         "width": 512,
         "height": 224
       },
@@ -581,7 +581,7 @@
       "sourceName": "Veros Woods - Part 2",
       "position": {
         "x": 4864,
-        "y": 0,
+        "y": 224,
         "width": 512,
         "height": 448
       },
@@ -623,7 +623,7 @@
       "sourceName": "Denis Woods - Part 1",
       "position": {
         "x": 5376,
-        "y": 0,
+        "y": 224,
         "width": 512,
         "height": 224
       },
@@ -665,7 +665,7 @@
       "sourceName": "Berkeley Mansion - Door",
       "position": {
         "x": 5888,
-        "y": 0,
+        "y": 224,
         "width": 256,
         "height": 224
       },
