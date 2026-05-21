@@ -46,6 +46,11 @@
     "render:topology:exterior": "node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology",
     "render:composition:exterior": "node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition",
     "render:world:exterior": "node src/index.js render-exterior-world-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --transition-rules out/transition-routine/decoder.json --out out/exterior-world-composition",
+    "guide:slice:dead-river-berkeley": "node src/index.js build-guide-slice --rom roms/cv2.nes --slice data/guide-slices/dead-river-1-to-berkeley.json --atlas out/render-recipe-atlas/manifest.json --out web/guide-map/public/assets/slices/dead-river-1-to-berkeley",
+    "guide:wasm:build": "source \"$HOME/.cargo/env\" && npm --prefix web/guide-map run build:wasm",
+    "guide:web:dev": "npm run guide:wasm:build && npm --prefix web/guide-map run dev",
+    "guide:web:build": "npm run guide:wasm:build && npm --prefix web/guide-map run build",
+    "guide:web:preview": "npm --prefix web/guide-map run preview",
     "probe:transitions": "node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes",
     "decode:transition-routine": "node src/index.js decode-transition-routine --rom roms/cv2.nes --probes out/transition-probes/analysis.json --topology out/exterior-topology/topology.json --out out/transition-routine"
   },

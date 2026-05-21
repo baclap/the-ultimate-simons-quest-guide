@@ -41,6 +41,8 @@ The current vertical slice includes:
   metadata, topology matches, and promoted/diagnostic placement hypotheses
 - composes the full exterior topology graph into a single world draft with all
   55 exterior nodes represented and `handPlacedCoordinates: 0`
+- builds a static Rust WASM + WebGL2 guide-map prototype that renders the Dead
+  River 1 to Berkeley route from ROM-derived tile data at browser runtime
 - resolves human-facing labels through the Nintendo Power map naming policy
   while preserving `cv2r` source names
 
@@ -94,6 +96,9 @@ npm run render:composition:exterior
 npm run probe:transitions
 npm run decode:transition-routine
 npm run render:world:exterior
+npm run guide:slice:dead-river-berkeley
+npm run guide:web:build
+npm run guide:web:dev
 ```
 
 You can also pass paths directly:
@@ -114,6 +119,7 @@ node src/index.js render-exterior-atlas --rom roms/cv2.nes --out out/exterior-at
 node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology
 node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition
 node src/index.js render-exterior-world-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --transition-rules out/transition-routine/decoder.json --out out/exterior-world-composition
+node src/index.js build-guide-slice --rom roms/cv2.nes --slice data/guide-slices/dead-river-1-to-berkeley.json --atlas out/render-recipe-atlas/manifest.json --out web/guide-map/public/assets/slices/dead-river-1-to-berkeley
 node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes
 node src/index.js decode-transition-routine --rom roms/cv2.nes --probes out/transition-probes/analysis.json --topology out/exterior-topology/topology.json --out out/transition-routine
 node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit

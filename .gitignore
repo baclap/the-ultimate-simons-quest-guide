@@ -8,5 +8,7 @@ roms/*
 # Generated artifacts.
 out/*
 !out/.gitkeep
+web/guide-map/dist/
+web/guide-map-wasm/target/
 
 # Machine-readable reference data belongs in data/ and should be committed.

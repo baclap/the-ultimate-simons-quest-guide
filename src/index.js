@@ -26,6 +26,7 @@ const {
 const { renderExteriorTopology } = require('./exterior-topology');
 const { renderExteriorComposition } = require('./exterior-composition');
 const { renderExteriorWorldComposition } = require('./exterior-world-composition');
+const { buildGuideSlice } = require('./guide-slice');
 const { decodeTransitionRoutine } = require('./transition-routine-decoder');
 const {
   auditRenderRecipes,
@@ -110,6 +111,7 @@ function usage() {
     '  node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology',
     '  node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition',
     '  node src/index.js render-exterior-world-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --transition-rules out/transition-routine/decoder.json --out out/exterior-world-composition',
+    '  node src/index.js build-guide-slice --rom roms/cv2.nes --slice data/guide-slices/dead-river-1-to-berkeley.json --atlas out/render-recipe-atlas/manifest.json --out web/guide-map/public/assets/slices/dead-river-1-to-berkeley',
     '  node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes',
     '  node src/index.js decode-transition-routine --rom roms/cv2.nes --probes out/transition-probes/analysis.json --topology out/exterior-topology/topology.json --out out/transition-routine',
     '  node src/index.js capture-render-recipe-fixtures --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json',
@@ -140,6 +142,7 @@ function usage() {
     '  render-exterior-topology  Decode exterior area transition topology and write graph data.',
     '  render-exterior-composition  Compose a topology route from ROM-derived transition constraints.',
     '  render-exterior-world-composition  Compose all exterior topology areas from ROM-derived constraints.',
+    '  build-guide-slice  Build a static WebGL guide-map slice manifest and ROM-derived tile data binary.',
     '  run-transition-probes  Trace scripted transition round trips from save states.',
     '  decode-transition-routine  Summarize transition routine bytes and placement/camera evidence.',
     '  capture-render-recipe-fixtures  Capture configured save-state probes for recipe auditing.',
@@ -751,6 +754,22 @@ function renderRecipeAtlasCommand(args) {
   });
 }
 
+function buildGuideSliceCommand(args) {
+  const romPath = required(args, 'rom');
+  const sliceFile = required(args, 'slice');
+  const atlasFile = required(args, 'atlas');
+  const outDir = required(args, 'out');
+  const { buffer, info } = readRom(romPath);
+  printJson({
+    rom: describeRom(info),
+    guideSlice: buildGuideSlice(buffer, info, {
+      sliceFile,
+      atlasFile,
+      outDir
+    })
+  });
+}
+
 function renderJovaNativeCommand(args) {
   renderNativeBackgroundCommand(args, renderJovaNativeNametables, 0);
 }
@@ -870,6 +889,11 @@ function main() {
 
   if (command === 'render-exterior-world-composition') {
     renderExteriorWorldCompositionCommand(args);
+    return;
+  }
+
+  if (command === 'build-guide-slice') {
+    buildGuideSliceCommand(args);
     return;
   }
 
