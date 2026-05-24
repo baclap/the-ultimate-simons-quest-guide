@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "CV2 Dialog";
+  src:
+    url("./cv2-dialog.woff2") format("woff2"),
+    url("./cv2-dialog.woff") format("woff"),
+    url("./cv2-dialog.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.cv2-dialog-font {
+  font-family: "CV2 Dialog", monospace;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-rendering: geometricPrecision;
+}

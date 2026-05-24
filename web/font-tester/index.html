@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV2 Font Tester</title>
+  <link rel="stylesheet" href="../fonts/cv2-dialog.css">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #08080b;
+      --surface: #141216;
+      --surface-2: #1d1a1e;
+      --line: #40373b;
+      --ink: #f7eed8;
+      --muted: #aaa19b;
+      --red: #b4363c;
+      --green: #77916b;
+      --gold: #c7a766;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background:
+        linear-gradient(180deg, rgba(180, 54, 60, 0.08), transparent 240px),
+        var(--bg);
+      color: var(--ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    button,
+    textarea,
+    input {
+      font: inherit;
+    }
+
+    button {
+      min-width: 40px;
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface-2);
+      color: var(--ink);
+      cursor: pointer;
+      box-shadow: 0 8px 18px var(--shadow);
+    }
+
+    button:hover {
+      border-color: var(--gold);
+      color: #fff9e8;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .app {
+      width: min(1180px, calc(100vw - 32px));
+      min-height: 100vh;
+      margin: 0 auto;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 20px;
+      padding: 24px 0;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--red);
+      font-size: 18px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 40px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+    }
+
+    label,
+    output {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    input[type="range"] {
+      width: 150px;
+      accent-color: var(--red);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.35fr);
+      gap: 20px;
+      min-height: 0;
+    }
+
+    .panel {
+      min-width: 0;
+      min-height: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 12px;
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--green);
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .count {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: none;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 460px;
+      resize: none;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      outline: none;
+      background: var(--surface);
+      color: var(--ink);
+      line-height: 1.45;
+      box-shadow: 0 16px 28px var(--shadow);
+    }
+
+    textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .preview-wrap {
+      min-height: 460px;
+      overflow: auto;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(transparent 31px, rgba(255, 255, 255, 0.035) 32px),
+        var(--surface);
+      background-size: 32px 32px;
+      box-shadow: 0 16px 28px var(--shadow);
+    }
+
+    .preview {
+      margin: 0;
+      color: var(--ink);
+      font-size: var(--preview-size, 48px);
+      line-height: 1.18;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      letter-spacing: 0;
+    }
+
+    @media (max-width: 780px) {
+      .app {
+        width: min(100vw - 24px, 680px);
+        padding: 16px 0;
+      }
+
+      header {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .toolbar {
+        justify-content: space-between;
+      }
+
+      .control {
+        flex: 1 1 100%;
+      }
+
+      input[type="range"] {
+        width: 100%;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      textarea,
+      .preview-wrap {
+        min-height: 260px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1 class="cv2-dialog-font">CV2 FONT TESTER</h1>
+      <div class="toolbar" aria-label="Preview controls">
+        <div class="control">
+          <label for="size">Size</label>
+          <input id="size" type="range" min="18" max="96" step="2" value="48">
+          <output id="size-value" for="size">48</output>
+        </div>
+        <button id="reset" type="button" title="Reset text" aria-label="Reset text">↺</button>
+        <button id="clear" type="button" title="Clear text" aria-label="Clear text">×</button>
+      </div>
+    </header>
+    <main>
+      <section class="panel" aria-labelledby="input-title">
+        <div class="panel-title" id="input-title">
+          <span>Input</span>
+          <span class="count" id="count">0 chars</span>
+        </div>
+        <textarea id="text" spellcheck="false" autocomplete="off"></textarea>
+      </section>
+      <section class="panel" aria-labelledby="preview-title">
+        <div class="panel-title" id="preview-title">
+          <span>Preview</span>
+        </div>
+        <div class="preview-wrap">
+          <pre id="preview" class="preview cv2-dialog-font"></pre>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const defaultText = "WHAT A HORRIBLE NIGHT TO HAVE A CURSE!\n\nBUY A WHITE CRYSTAL?\nPRESS START.";
+    const text = document.querySelector("#text");
+    const preview = document.querySelector("#preview");
+    const count = document.querySelector("#count");
+    const size = document.querySelector("#size");
+    const sizeValue = document.querySelector("#size-value");
+    const reset = document.querySelector("#reset");
+    const clear = document.querySelector("#clear");
+
+    function render() {
+      preview.textContent = text.value;
+      count.textContent = `${text.value.length} chars`;
+    }
+
+    function updateSize() {
+      document.documentElement.style.setProperty("--preview-size", `${size.value}px`);
+      sizeValue.textContent = size.value;
+    }
+
+    text.value = defaultText;
+    render();
+    updateSize();
+
+    text.addEventListener("input", render);
+    size.addEventListener("input", updateSize);
+    reset.addEventListener("click", () => {
+      text.value = defaultText;
+      render();
+      text.focus();
+    });
+    clear.addEventListener("click", () => {
+      text.value = "";
+      render();
+      text.focus();
+    });
+  </script>
+</body>
+</html>

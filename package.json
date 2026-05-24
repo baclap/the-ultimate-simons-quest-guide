@@ -10,6 +10,7 @@
   "scripts": {
     "verify-rom": "node src/index.js verify-rom --rom roms/cv2.nes",
     "extract-chr": "node src/index.js extract-chr --rom roms/cv2.nes --out out/chr --scale 1",
+    "build:font": "python3 tools/build-web-font.py --rom roms/cv2.nes --out web/fonts",
     "manifest": "node src/index.js manifest --out out/manifest.json",
     "render-all": "node src/index.js render-all --rom roms/cv2.nes --out out --scale 1",
     "mesen:smoke": "node src/index.js mesen-capture --rom roms/cv2.nes --script tools/mesen/smoke-capture.lua --out out/mesen-smoke --timeout 10",
