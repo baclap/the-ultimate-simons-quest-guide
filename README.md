@@ -45,6 +45,20 @@ The current vertical slice includes:
   River 1 to Berkeley route from ROM-derived tile data at browser runtime
 - resolves human-facing labels through the Nintendo Power map naming policy
   while preserving `cv2r` source names
+- catalogs the Jova-to-Berkeley guide slice's actor rows with ROM offsets,
+  exact coordinates, day/night behavior, HP, decoded Jova text, and the
+  remaining sprite/merchant-routine gaps before NPC/enemy overlays ship
+- decodes the actor metasprite selector path, proves two Jova NPC sprite
+  bindings from runtime slot evidence, isolates the merchant text exception,
+  and keeps unresolved enemy sprite bindings explicitly research-gated
+- traces save-state actor slots and selector writes to prove several live enemy
+  ids, selectors, HP values, and the fixed-bank selector-stream path
+- decodes the fixed-bank actor selector-stream routine, maps six observed enemy
+  actor classes back to ROM selector records, and renders their animation strips
+  from ROM metasprite tables plus trace CHR/palette evidence
+- closes the current guide slice's actor-art coverage by resolving the remaining
+  Jova town NPC selector records, rendering guide-slice NPC/enemy sprites, and
+  proving the Jova sign as a no-sprite background fixture
 
 ## ROM Setup
 
@@ -99,6 +113,10 @@ npm run render:world:exterior
 npm run guide:slice:dead-river-berkeley
 npm run guide:web:build
 npm run guide:web:dev
+npm run trace:actors
+npm run analyze:actor-traces
+npm run decode:actor-selector-streams
+npm run decode:guide-actor-sprite-coverage
 ```
 
 You can also pass paths directly:
@@ -124,6 +142,10 @@ node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/trans
 node src/index.js decode-transition-routine --rom roms/cv2.nes --probes out/transition-probes/analysis.json --topology out/exterior-topology/topology.json --out out/transition-routine
 node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit
 node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas
+node src/index.js run-actor-traces --rom roms/cv2.nes --fixtures data/actor-trace-fixtures.json --out out/actor-traces
+node src/index.js analyze-actor-traces --fixtures data/actor-trace-fixtures.json --out out/actor-traces
+node src/index.js decode-actor-selector-streams --rom roms/cv2.nes --fixtures data/actor-trace-fixtures.json --traces out/actor-traces --out out/actor-selector-streams
+node src/index.js decode-guide-actor-sprite-coverage --rom roms/cv2.nes --out out/guide-actor-sprite-coverage
 ```
 
 ## Demos
@@ -154,6 +176,10 @@ demos/2026-05-20-transition-routine-bytes-demo/index.html
 demos/2026-05-20-transition-routine-decoder-demo/index.html
 demos/2026-05-20-world-composition-demo/index.html
 demos/2026-05-21-rom-unwound-lesson-demo/index.html
+demos/2026-06-15-rom-actor-evidence-demo/index.html
+demos/2026-06-16-actor-sprite-decode-demo/index.html
+demos/2026-06-16-actor-selector-stream-demo/index.html
+demos/2026-06-16-guide-actor-sprite-coverage-demo/index.html
 ```
 
 ## Next Milestone

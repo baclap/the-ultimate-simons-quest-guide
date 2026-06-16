@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "capturesRoot": "out/actor-traces",
+  "notes": [
+    "These probes use local Mesen save states as runtime evidence for actor slots, HP, selectors, and selector-write routines.",
+    "The save states are evidence fixtures, not source truth; promoted guide data still needs ROM-table/routine backing."
+  ],
+  "traces": [
+    {
+      "id": "jova-woods-day-idle",
+      "label": "Jova Woods day idle",
+      "state": "out/states/jova-woods.mss",
+      "traceFrames": 900,
+      "sampleEvery": 8
+    },
+    {
+      "id": "jova-woods-day-forward",
+      "label": "Jova Woods day, walking forward",
+      "state": "out/states/jova-woods.mss",
+      "inputs": "right:30:840",
+      "traceFrames": 900,
+      "sampleEvery": 8
+    },
+    {
+      "id": "jova-woods-night-forward",
+      "label": "Jova Woods night, walking forward",
+      "state": "out/states/jova-woods-night.mss",
+      "inputs": "right:30:840",
+      "traceFrames": 900,
+      "sampleEvery": 8
+    },
+    {
+      "id": "jova-town-night-forward",
+      "label": "Jova town night, walking forward",
+      "state": "out/states/jova-town-night.mss",
+      "inputs": "right:30:840",
+      "traceFrames": 900,
+      "sampleEvery": 8
+    },
+    {
+      "id": "dabis-path-day-idle",
+      "label": "Dabi's Path day idle",
+      "state": "out/states/dabis-path.mss",
+      "traceFrames": 600,
+      "sampleEvery": 8
+    },
+    {
+      "id": "dora-woods-part-2-day-idle",
+      "label": "Dora Woods part 2 day idle",
+      "state": "out/states/dora-woods-part-2.mss",
+      "traceFrames": 600,
+      "sampleEvery": 8
+    },
+    {
+      "id": "north-bridge-day-idle",
+      "label": "North Bridge day idle",
+      "state": "out/states/north-bridge-day.mss",
+      "traceFrames": 600,
+      "sampleEvery": 8
+    },
+    {
+      "id": "north-bridge-night-idle",
+      "label": "North Bridge night idle",
+      "state": "out/states/north-bridge-night.mss",
+      "traceFrames": 600,
+      "sampleEvery": 8
+    },
+    {
+      "id": "castlevania-bridge-day-idle",
+      "label": "Castlevania bridge day idle",
+      "state": "out/states/castlevania-bridge-day.mss",
+      "traceFrames": 600,
+      "sampleEvery": 8
+    },
+    {
+      "id": "castlevania-bridge-night-idle",
+      "label": "Castlevania bridge night idle",
+      "state": "out/states/castlevania-bridge-night.mss",
+      "traceFrames": 600,
+      "sampleEvery": 8
+    },
+    {
+      "id": "camilla-cemetery-day-idle",
+      "label": "Camilla Cemetery day idle",
+      "state": "out/states/camilla-cemetery-day.mss",
+      "traceFrames": 600,
+      "sampleEvery": 8
+    },
+    {
+      "id": "camilla-cemetery-night-idle",
+      "label": "Camilla Cemetery night idle",
+      "state": "out/states/camilla-cemetery-night.mss",
+      "traceFrames": 600,
+      "sampleEvery": 8
+    },
+    {
+      "id": "vrad-graveyard-day-idle",
+      "label": "Vrad Graveyard day idle",
+      "state": "out/states/vrad-graveyard-day.mss",
+      "traceFrames": 600,
+      "sampleEvery": 8
+    },
+    {
+      "id": "vrad-graveyard-night-idle",
+      "label": "Vrad Graveyard night idle",
+      "state": "out/states/vrad-graveyard-night.mss",
+      "traceFrames": 600,
+      "sampleEvery": 8
+    },
+    {
+      "id": "berkeley-mansion-interior-day-idle",
+      "label": "Berkeley Mansion interior day idle",
+      "state": "out/states/berkeley-mansion-interior-day.mss",
+      "traceFrames": 600,
+      "sampleEvery": 8
+    }
+  ]
+}

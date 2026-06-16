@@ -27,6 +27,10 @@ const { renderExteriorTopology } = require('./exterior-topology');
 const { renderExteriorComposition } = require('./exterior-composition');
 const { renderExteriorWorldComposition } = require('./exterior-world-composition');
 const { buildGuideSlice } = require('./guide-slice');
+const { decodeActorSelectorStreams } = require('./actor-selector-streams');
+const { decodeFishmanSpriteProof } = require('./fishman-sprite-proof');
+const { decodeGuideActorSpriteCoverage } = require('./guide-actor-sprite-coverage');
+const { analyzeActorTraces, runActorTraces } = require('./actor-traces');
 const { decodeTransitionRoutine } = require('./transition-routine-decoder');
 const {
   auditRenderRecipes,
@@ -94,6 +98,7 @@ function usage() {
     '  node src/index.js mesen-capture --rom roms/cv2.nes --script tools/mesen/smoke-capture.lua --out out/mesen-smoke',
     '  node src/index.js mesen-capture-screen --rom roms/cv2.nes --name jova-day --location Jova --variant day --access outdoor --out out/captures/jova-day',
     '  node src/index.js mesen-capture-screen --rom roms/cv2.nes --name jova-right-day --inputs start:240:20,start:2000:20,start:3500:20,right:3900:1200 --capture-frame 5200',
+    '  node src/index.js mesen-trace-actors --rom roms/cv2.nes --name jova-woods-day --state out/states/jova-woods.mss --trace-frames 600 --sample-every 4 --out out/actor-traces/jova-woods-day',
     '  node src/index.js mesen-capture-screen --rom roms/cv2.nes --name jova-woods-day --location "Jova Woods" --variant day --access outdoor --state out/states/jova-woods.mss --settle-frames 30 --out out/captures/jova-woods-day',
     '  node src/index.js render-ppu-capture --capture out/captures/jova-day --out out/captures/jova-day/background.png',
     '  node src/index.js decode-transfer --rom roms/cv2.nes --bank 4 --address 0x8000 --mirroring vertical --out out/transfer.bin',
@@ -112,6 +117,11 @@ function usage() {
     '  node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition',
     '  node src/index.js render-exterior-world-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --transition-rules out/transition-routine/decoder.json --out out/exterior-world-composition',
     '  node src/index.js build-guide-slice --rom roms/cv2.nes --slice data/guide-slices/dead-river-1-to-berkeley.json --atlas out/render-recipe-atlas/manifest.json --out web/guide-map/public/assets/slices/dead-river-1-to-berkeley',
+    '  node src/index.js run-actor-traces --rom roms/cv2.nes --fixtures data/actor-trace-fixtures.json --out out/actor-traces',
+    '  node src/index.js analyze-actor-traces --fixtures data/actor-trace-fixtures.json --out out/actor-traces',
+    '  node src/index.js decode-actor-selector-streams --rom roms/cv2.nes --fixtures data/actor-trace-fixtures.json --traces out/actor-traces --out out/actor-selector-streams',
+    '  node src/index.js decode-fishman-sprite-proof --rom roms/cv2.nes --out out/fishman-sprite-proof',
+    '  node src/index.js decode-guide-actor-sprite-coverage --rom roms/cv2.nes --out out/guide-actor-sprite-coverage',
     '  node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes',
     '  node src/index.js decode-transition-routine --rom roms/cv2.nes --probes out/transition-probes/analysis.json --topology out/exterior-topology/topology.json --out out/transition-routine',
     '  node src/index.js capture-render-recipe-fixtures --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json',
@@ -127,6 +137,7 @@ function usage() {
     '  render-all   Run verify-rom, extract-chr, and manifest together.',
     '  mesen-capture  Run a Mesen --testRunner Lua script with project output wiring.',
     '  mesen-capture-screen  Capture screenshot, PPU/CPU memory, and OAM artifacts.',
+    '  mesen-trace-actors  Trace runtime actor slots, actor RAM writes, and visible OAM from a save state.',
     '  render-ppu-capture  Render background PNG from captured PPU artifacts.',
     '  decode-transfer  Decode the fixed-bank PPU transfer stream used by routine $C6C0.',
     '  replay-ppu-buffer-trace  Replay traced $0700 NMI PPU buffer writes into nametable bytes.',
@@ -143,6 +154,11 @@ function usage() {
     '  render-exterior-composition  Compose a topology route from ROM-derived transition constraints.',
     '  render-exterior-world-composition  Compose all exterior topology areas from ROM-derived constraints.',
     '  build-guide-slice  Build a static WebGL guide-map slice manifest and ROM-derived tile data binary.',
+    '  run-actor-traces  Run Mesen save-state probes that trace actor slots and selector writes.',
+    '  analyze-actor-traces  Summarize existing actor trace outputs into analysis.json.',
+    '  decode-actor-selector-streams  Map traced actor selector writes back to fixed-bank ROM records and render metasprite strips.',
+    '  decode-fishman-sprite-proof  Prove fishman selector/color data from ROM and render sprite evidence.',
+    '  decode-guide-actor-sprite-coverage  Prove current guide-slice actor sprite coverage and render evidence sprites.',
     '  run-transition-probes  Trace scripted transition round trips from save states.',
     '  decode-transition-routine  Summarize transition routine bytes and placement/camera evidence.',
     '  capture-render-recipe-fixtures  Capture configured save-state probes for recipe auditing.',
@@ -295,6 +311,36 @@ function mesenCaptureScreen(args) {
       CV2MAP_INPUTS: inputs,
       CV2MAP_STATE_PATH: statePath,
       CV2MAP_SETTLE_FRAMES: String(settleFrames)
+    }
+  });
+  printJson(result);
+}
+
+function mesenTraceActors(args) {
+  const romPath = required(args, 'rom');
+  const name = args.name ? String(args.name) : 'actor-trace';
+  const label = args.label ? String(args.label) : name;
+  const outDir = args.out ? String(args.out) : path.join('out', 'actor-traces', name);
+  const scriptPath = args.script ? String(args.script) : path.join('tools', 'mesen', 'trace-actors.lua');
+  const timeout = numericOption(args, 'timeout', 45);
+  const inputs = args.inputs ? String(args.inputs) : '';
+  const statePath = args.state ? path.resolve(String(args.state)) : '';
+  const settleFrames = numericOption(args, 'settle-frames', 30);
+  const traceFrames = numericOption(args, 'trace-frames', 600);
+  const sampleEvery = numericOption(args, 'sample-every', 4);
+  const result = runMesenCapture({
+    romPath,
+    scriptPath,
+    outDir,
+    timeout,
+    env: {
+      CV2MAP_ACTOR_TRACE_ID: name,
+      CV2MAP_ACTOR_TRACE_LABEL: label,
+      CV2MAP_INPUTS: inputs,
+      CV2MAP_STATE_PATH: statePath,
+      CV2MAP_SETTLE_FRAMES: String(settleFrames),
+      CV2MAP_TRACE_FRAMES: String(traceFrames),
+      CV2MAP_SAMPLE_EVERY: String(sampleEvery)
     }
   });
   printJson(result);
@@ -770,6 +816,64 @@ function buildGuideSliceCommand(args) {
   });
 }
 
+function runActorTracesCommand(args) {
+  const romPath = required(args, 'rom');
+  printJson(runActorTraces({
+    romPath,
+    fixtureFile: args.fixtures ? String(args.fixtures) : undefined,
+    outDir: args.out ? String(args.out) : undefined,
+    only: args.only ? String(args.only) : undefined,
+    skipExisting: Boolean(args['skip-existing']),
+    timeout: numericOption(args, 'timeout', undefined)
+  }));
+}
+
+function analyzeActorTracesCommand(args) {
+  printJson(analyzeActorTraces({
+    fixtureFile: args.fixtures ? String(args.fixtures) : undefined,
+    outDir: args.out ? String(args.out) : undefined,
+    only: args.only ? String(args.only) : undefined
+  }));
+}
+
+function decodeActorSelectorStreamsCommand(args) {
+  const romPath = required(args, 'rom');
+  const outDir = args.out ? String(args.out) : path.join('out', 'actor-selector-streams');
+  const { buffer, info } = readRom(romPath);
+  printJson({
+    rom: describeRom(info),
+    actorSelectorStreams: decodeActorSelectorStreams(buffer, info, {
+      fixtureFile: args.fixtures ? String(args.fixtures) : undefined,
+      tracesDir: args.traces ? String(args.traces) : undefined,
+      outDir
+    })
+  });
+}
+
+function decodeFishmanSpriteProofCommand(args) {
+  const romPath = required(args, 'rom');
+  const outDir = args.out ? String(args.out) : path.join('out', 'fishman-sprite-proof');
+  const { buffer, info } = readRom(romPath);
+  printJson({
+    rom: describeRom(info),
+    fishmanSpriteProof: decodeFishmanSpriteProof(buffer, info, {
+      outDir
+    })
+  });
+}
+
+function decodeGuideActorSpriteCoverageCommand(args) {
+  const romPath = required(args, 'rom');
+  const outDir = args.out ? String(args.out) : path.join('out', 'guide-actor-sprite-coverage');
+  const { buffer, info } = readRom(romPath);
+  printJson({
+    rom: describeRom(info),
+    guideActorSpriteCoverage: decodeGuideActorSpriteCoverage(buffer, info, {
+      outDir
+    })
+  });
+}
+
 function renderJovaNativeCommand(args) {
   renderNativeBackgroundCommand(args, renderJovaNativeNametables, 0);
 }
@@ -814,6 +918,11 @@ function main() {
 
   if (command === 'mesen-capture-screen') {
     mesenCaptureScreen(args);
+    return;
+  }
+
+  if (command === 'mesen-trace-actors') {
+    mesenTraceActors(args);
     return;
   }
 
@@ -894,6 +1003,31 @@ function main() {
 
   if (command === 'build-guide-slice') {
     buildGuideSliceCommand(args);
+    return;
+  }
+
+  if (command === 'run-actor-traces') {
+    runActorTracesCommand(args);
+    return;
+  }
+
+  if (command === 'analyze-actor-traces') {
+    analyzeActorTracesCommand(args);
+    return;
+  }
+
+  if (command === 'decode-actor-selector-streams') {
+    decodeActorSelectorStreamsCommand(args);
+    return;
+  }
+
+  if (command === 'decode-fishman-sprite-proof') {
+    decodeFishmanSpriteProofCommand(args);
+    return;
+  }
+
+  if (command === 'decode-guide-actor-sprite-coverage') {
+    decodeGuideActorSpriteCoverageCommand(args);
     return;
   }
 

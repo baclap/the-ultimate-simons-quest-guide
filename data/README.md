@@ -15,6 +15,11 @@ Current files:
 - `render-recipe-fixtures.json`: committed manifest for save-state probes used
   to audit live CHR banks, palette selector output, and interior/exterior recipe
   families. See `docs/render-recipe-audit-notes.md`.
+- `actor-trace-fixtures.json`: committed manifest for save-state probes that
+  trace actor slots, selector writes, HP values, and visible OAM. See
+  `docs/actor-trace-notes.md`. The same fixtures feed
+  `npm run decode:actor-selector-streams`, which maps observed selector writes
+  back to fixed-bank ROM records and renders actor sprite strips.
 
 The exterior atlas is generated from `cv2r` metadata plus ROM table reads rather
 than maintained as a hand-authored `data/` JSON file. Run

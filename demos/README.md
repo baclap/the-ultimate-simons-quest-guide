@@ -68,3 +68,19 @@ Current demos:
   explaining how the ROM tooling decodes iNES structure, CHR tiles, palettes,
   background tables, render recipes, topology, transition probes, and world
   composition.
+- `2026-06-15-rom-actor-evidence-demo/`: actor catalog demo showing ROM-backed
+  NPC/enemy rows, exact row coordinates, day/night HP rules, Jova text, pinned
+  segment maps, and the unresolved sprite/merchant-routine gaps before
+  guide-map NPC/enemy overlays should ship.
+- `2026-06-16-actor-sprite-decode-demo/`: actor sprite decode evidence demo
+  showing the metasprite selector path, Simon calibration, two runtime-proven
+  Jova NPC sprite bindings, the merchant text exception, Veros id `$43`
+  chunks, and the remaining no-shortcut enemy sprite binding gap.
+- `2026-06-16-actor-selector-stream-demo/`: selector-stream milestone demo
+  showing six ROM-backed enemy actor records, rendered sprite strips, HP
+  observations, zero selector mismatches, and the remaining placement/text
+  milestones.
+- `2026-06-16-guide-actor-sprite-coverage-demo/`: guide actor sprite coverage
+  demo showing the closed Jova town NPC sprite gaps, the no-sprite sign fixture
+  proof, rendered guide-slice enemy sprites, and zero remaining actor-art gaps
+  for the current guide slice.
