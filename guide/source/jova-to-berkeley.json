@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "id": "jova-to-berkeley",
+  "label": "Town of Jova to Berkeley Mansion",
+  "summary": "First guide product slice from the opening town eastward to the first mansion door.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "presentation-authored"
+  },
+  "segments": [
+    {
+      "id": "town-of-jova",
+      "locationId": "obj00-area00-sub00-town-of-jova",
+      "label": "Town of Jova",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "jova-woods",
+      "locationId": "obj02-area00-sub00-jova-woods",
+      "label": "Jova Woods",
+      "x": 1024,
+      "y": 224
+    },
+    {
+      "id": "south-bridge",
+      "locationId": "obj02-area00-sub01-south-bridge",
+      "label": "South Bridge",
+      "x": 2048,
+      "y": 224
+    },
+    {
+      "id": "veros-woods-part-1",
+      "locationId": "obj02-area00-sub02-veros-woods-part-1",
+      "label": "Veros Woods - Part 1",
+      "x": 3072,
+      "y": 224
+    },
+    {
+      "id": "veros-woods-part-2",
+      "locationId": "obj02-area00-sub03-veros-woods-part-2",
+      "label": "Veros Woods - Part 2",
+      "x": 3584,
+      "y": 224
+    },
+    {
+      "id": "denis-woods-part-1",
+      "locationId": "obj02-area01-sub00-denis-woods-part-1",
+      "label": "Denis Woods - Part 1",
+      "x": 4096,
+      "y": 224
+    },
+    {
+      "id": "berkeley-mansion-door",
+      "locationId": "obj01-area01-sub00-berkeley-mansion-door",
+      "label": "Berkeley Mansion - Door",
+      "x": 4608,
+      "y": 224,
+      "validation": {
+        "capture": "out/captures/berkeley-mansion-door-day/background.png",
+        "atlasYOffset": 13,
+        "width": 256,
+        "height": 224,
+        "requiredDifferingPixels": 0
+      }
+    }
+  ]
+}

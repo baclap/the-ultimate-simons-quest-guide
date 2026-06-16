@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Castlevania II Perfect Guide Prototype</title>
+    <link rel="stylesheet" href="styles.css?v=layer-simplify6">
+  </head>
+  <body>
+    <main id="app" class="guide-shell">
+      <canvas id="map-canvas" aria-label="Castlevania II guide map"></canvas>
+      <div id="overlay-layer" class="overlay-layer" aria-hidden="false"></div>
+
+      <header class="topbar">
+        <div class="brand">
+          <strong>CV2 Perfect Guide</strong>
+          <span>Jova to Berkeley</span>
+        </div>
+        <div class="topbar-actions">
+          <button id="palette-toggle" type="button" class="compact-button">Night</button>
+          <button id="reset-view" type="button" class="compact-button">Reset</button>
+          <button id="options-toggle" type="button" class="compact-button">Options</button>
+        </div>
+      </header>
+
+      <aside id="options-panel" class="options-panel" aria-label="Guide display options" hidden>
+        <div class="panel-heading">
+          <strong>Guide Layers</strong>
+          <span>Choose which guide overlays are visible.</span>
+        </div>
+        <label><input id="toggle-labels" type="checkbox" checked> Show labels</label>
+        <label><input id="toggle-show-characters" type="checkbox" checked> Show characters</label>
+        <label><input id="toggle-highlight-doors" type="checkbox" checked> Highlight doors</label>
+        <label><input id="toggle-highlight-characters" type="checkbox" checked> Highlight characters</label>
+        <label><input id="toggle-highlight-map-objects" type="checkbox" checked> Highlight map objects</label>
+      </aside>
+
+      <section id="guide-card" class="guide-card" aria-live="polite">
+        <strong>Opening Slice</strong>
+        <p>Raw ROM-derived tile data is rendered through WebGL. Use the highlighted Berkeley door to open the first mansion interior.</p>
+      </section>
+
+      <div id="status" class="status">Loading raw guide data...</div>
+
+      <section id="portal-modal" class="portal-modal" hidden>
+        <div class="modal-backdrop" data-close-portal></div>
+        <article class="portal-card" role="dialog" aria-modal="true" aria-labelledby="portal-title">
+          <header>
+            <div>
+              <span class="eyebrow">Door Portal</span>
+              <h1 id="portal-title">Berkeley Mansion - Part 1</h1>
+            </div>
+            <button id="close-portal" type="button" class="icon-button" aria-label="Close portal">x</button>
+          </header>
+          <div class="portal-body">
+            <div class="scene-frame">
+              <canvas id="scene-canvas" aria-label="Berkeley Mansion interior scene"></canvas>
+            </div>
+            <div class="portal-copy">
+              <h2>What this proves</h2>
+              <p>The mansion is not a stitched neighbor of the exterior. It is a graph transition: the exterior door opens a separate ROM-rendered interior scene.</p>
+              <dl>
+                <div>
+                  <dt>Graphics source</dt>
+                  <dd>CHR + layout + metatiles + palette bytes</dd>
+                </div>
+                <div>
+                  <dt>Scene variant</dt>
+                  <dd>Fixed mansion palette</dd>
+                </div>
+                <div>
+                  <dt>Current guide claim</dt>
+                  <dd>Door relationship is guide-authored for the demo; interior pixels are ROM-derived.</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script type="module" src="app.js?v=layer-simplify6"></script>
+  </body>
+</html>

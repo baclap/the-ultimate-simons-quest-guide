@@ -1,0 +1,572 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #080807;
+  color: #f4eee4;
+  --panel: rgba(14, 14, 13, 0.88);
+  --panel-solid: #151512;
+  --line: rgba(255, 255, 255, 0.18);
+  --muted: #c7bfb1;
+  --gold: #ffd84a;
+  --gold-soft: rgba(255, 216, 74, 0.22);
+  --green: #78df9a;
+  --blue: #7ab7ff;
+  --red: #ff6b62;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.46);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  background: radial-gradient(circle at 50% 5%, #1c1b16 0, #080807 48%, #030303 100%);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.guide-shell {
+  position: relative;
+}
+
+#map-canvas,
+#scene-canvas {
+  display: block;
+  image-rendering: pixelated;
+}
+
+#map-canvas {
+  width: 100vw;
+  height: 100vh;
+  cursor: grab;
+  touch-action: none;
+}
+
+#map-canvas:active {
+  cursor: grabbing;
+}
+
+.overlay-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.topbar,
+.options-panel,
+.guide-card,
+.status {
+  position: fixed;
+  z-index: 20;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.topbar {
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 10px 9px 14px;
+}
+
+.brand {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.brand strong {
+  font-size: 15px;
+  letter-spacing: 0;
+}
+
+.brand span,
+.panel-heading span,
+.status,
+.guide-card p {
+  color: var(--muted);
+}
+
+.brand span,
+.panel-heading span {
+  font-size: 12px;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.compact-button,
+.icon-button {
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+  color: #fff7dd;
+  background: #24231f;
+}
+
+.compact-button {
+  min-width: 68px;
+  padding: 0 12px;
+}
+
+.compact-button:hover,
+.icon-button:hover {
+  background: #313027;
+}
+
+.options-panel {
+  top: 82px;
+  right: 14px;
+  width: min(300px, calc(100vw - 28px));
+  display: grid;
+  gap: 11px;
+  padding: 14px;
+  transform: translateX(0);
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.panel-heading {
+  display: grid;
+  gap: 3px;
+  padding-bottom: 4px;
+}
+
+.options-panel label {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  min-height: 26px;
+  color: #efe7d9;
+  font-size: 13px;
+}
+
+.options-panel input {
+  accent-color: var(--gold);
+}
+
+.guide-card {
+  left: 14px;
+  bottom: 14px;
+  width: min(410px, calc(100vw - 28px));
+  padding: 13px 14px;
+}
+
+.guide-card strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.guide-card p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.guide-card p + p {
+  margin-top: 7px;
+}
+
+.status {
+  right: 14px;
+  bottom: 14px;
+  max-width: min(440px, calc(100vw - 28px));
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.status:empty {
+  display: none;
+}
+
+.label-chip,
+.hotspot,
+.actor-hotspot {
+  position: absolute;
+  pointer-events: none;
+}
+
+.label-chip {
+  z-index: 8;
+  max-width: 154px;
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(10, 10, 9, 0.84);
+  color: #fff8e6;
+  font-size: 12px;
+  line-height: 1.2;
+  text-shadow: 0 1px 0 #000;
+  white-space: normal;
+}
+
+.hotspot {
+  z-index: 10;
+  appearance: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  outline: 2px solid var(--gold);
+  outline-offset: 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.88), 0 0 16px rgba(255, 216, 74, 0.42);
+  color: transparent;
+}
+
+.hotspot.is-clickable,
+.actor-hotspot {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.hotspot:hover,
+.hotspot:active,
+.hotspot:focus-visible {
+  background: transparent;
+  outline-color: #ffe87d;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.92), 0 0 22px rgba(255, 216, 74, 0.68);
+}
+
+.hotspot:focus-visible {
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.62),
+    0 0 22px rgba(255, 216, 74, 0.68);
+}
+
+.hotspot.is-highlight-hidden,
+.hotspot.is-highlight-hidden:hover,
+.hotspot.is-highlight-hidden:active {
+  outline-color: transparent;
+  box-shadow: none;
+}
+
+.hotspot.is-highlight-hidden:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.44);
+}
+
+.hotspot.is-exit {
+  border-style: dashed;
+}
+
+.actor-hotspot {
+  z-index: 12;
+  appearance: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  outline: 2px solid var(--blue);
+  outline-offset: 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.88), 0 0 14px rgba(122, 183, 255, 0.36);
+  color: transparent;
+}
+
+.actor-hotspot.is-enemy {
+  outline-color: var(--red);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.88), 0 0 14px rgba(255, 107, 98, 0.36);
+}
+
+.actor-hotspot.is-fixture {
+  outline-color: var(--green);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.88), 0 0 14px rgba(120, 223, 154, 0.34);
+}
+
+.actor-hotspot:hover,
+.actor-hotspot:active,
+.actor-hotspot:focus-visible {
+  background: transparent;
+  outline-color: #bfe0ff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.92), 0 0 22px rgba(122, 183, 255, 0.62);
+}
+
+.actor-hotspot.is-enemy:hover,
+.actor-hotspot.is-enemy:active,
+.actor-hotspot.is-enemy:focus-visible {
+  outline-color: #ffb0aa;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.92), 0 0 22px rgba(255, 107, 98, 0.62);
+}
+
+.actor-hotspot.is-fixture:hover,
+.actor-hotspot.is-fixture:active,
+.actor-hotspot.is-fixture:focus-visible {
+  outline-color: #c3f5d1;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.92), 0 0 22px rgba(120, 223, 154, 0.56);
+}
+
+.actor-hotspot.is-highlight-hidden,
+.actor-hotspot.is-highlight-hidden:hover,
+.actor-hotspot.is-highlight-hidden:active,
+.actor-hotspot.is-enemy.is-highlight-hidden,
+.actor-hotspot.is-enemy.is-highlight-hidden:hover,
+.actor-hotspot.is-enemy.is-highlight-hidden:active,
+.actor-hotspot.is-fixture.is-highlight-hidden,
+.actor-hotspot.is-fixture.is-highlight-hidden:hover,
+.actor-hotspot.is-fixture.is-highlight-hidden:active {
+  outline-color: transparent;
+  box-shadow: none;
+}
+
+.actor-hotspot.is-highlight-hidden:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.44);
+}
+
+.portal-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.portal-modal[hidden] {
+  display: none;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.portal-card {
+  position: relative;
+  width: min(1040px, calc(100vw - 40px));
+  max-height: calc(100vh - 40px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #14130f;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.portal-card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.portal-card h1,
+.portal-card h2 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.portal-card h1 {
+  font-size: 20px;
+}
+
+.portal-card h2 {
+  font-size: 14px;
+}
+
+.icon-button {
+  width: 34px;
+  min-width: 34px;
+  padding: 0;
+}
+
+.portal-body {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+}
+
+.scene-frame {
+  min-height: 360px;
+  background: #050505;
+  border-right: 1px solid var(--line);
+}
+
+#scene-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.portal-copy {
+  min-height: 0;
+  padding: 16px;
+  overflow: auto;
+}
+
+.portal-copy p,
+.portal-copy dd {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.portal-copy dl {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0 0;
+}
+
+.portal-copy dt {
+  margin-bottom: 3px;
+  color: #f7e8af;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.portal-copy dd {
+  margin: 0;
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  .topbar,
+  .options-panel,
+  .status {
+    backdrop-filter: blur(16px);
+  }
+
+  .topbar {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    min-height: 50px;
+    align-items: center;
+    padding: 8px 9px 8px 11px;
+  }
+
+  .brand strong {
+    font-size: 13px;
+  }
+
+  .brand span {
+    font-size: 11px;
+  }
+
+  .topbar-actions {
+    gap: 5px;
+  }
+
+  .compact-button {
+    min-width: 48px;
+    height: 36px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  .options-panel {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    width: 100vw;
+    max-height: 72vh;
+    gap: 10px;
+    padding: 16px 16px calc(18px + env(safe-area-inset-bottom));
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    overflow: auto;
+  }
+
+  .options-panel label {
+    min-height: 34px;
+    font-size: 14px;
+  }
+
+  .options-panel:not([hidden]) ~ .guide-card,
+  .options-panel:not([hidden]) ~ .status {
+    display: none;
+  }
+
+  .label-chip {
+    max-width: 126px;
+    font-size: 11px;
+  }
+
+  .guide-card {
+    left: 8px;
+    right: 8px;
+    bottom: 76px;
+    width: auto;
+    max-height: 28vh;
+    padding: 10px 11px;
+    overflow: auto;
+  }
+
+  .guide-card strong {
+    font-size: 13px;
+  }
+
+  .guide-card p {
+    font-size: 11px;
+  }
+
+  .status {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    font-size: 11px;
+  }
+
+  .portal-modal {
+    padding: 0;
+    align-items: end;
+  }
+
+  .portal-card {
+    width: 100vw;
+    max-height: 92vh;
+  }
+
+  .portal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .scene-frame {
+    min-height: 48vh;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .portal-card h1 {
+    font-size: 17px;
+  }
+}

@@ -1,0 +1,4493 @@
+{
+  "schemaVersion": 1,
+  "id": "jova-to-berkeley",
+  "label": "Town of Jova to Berkeley Mansion",
+  "summary": "First guide product slice from the opening town eastward to the first mansion door.",
+  "source": {
+    "sliceConfig": "guide/source/jova-to-berkeley.json",
+    "atlas": "out/render-recipe-atlas/manifest.json",
+    "renderer": "rust-wasm-webgl-tilemap-v1",
+    "notes": [
+      "Pixels are rendered in the browser from ROM-derived CHR, layout, metatile, and palette bytes.",
+      "Actor sprites are rendered in the browser from ROM-derived CHR, decoded metasprite selector records, and packed runtime sprite palette bytes.",
+      "Presentation coordinates are authored for player readability and are not ROM world coordinates.",
+      "No PNG map textures are emitted for this app slice."
+    ]
+  },
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "presentation-authored"
+  },
+  "world": {
+    "width": 4864,
+    "height": 672
+  },
+  "dataFile": "slice-data.bin",
+  "byteLength": 39416,
+  "chrSets": [
+    {
+      "id": "chr-00-01",
+      "banks": [
+        "0x00",
+        "0x01"
+      ],
+      "data": {
+        "offset": 0,
+        "length": 8192
+      },
+      "decodedAtlas": {
+        "width": 128,
+        "height": 256,
+        "tilesPerRow": 16,
+        "tileCount": 512
+      }
+    },
+    {
+      "id": "chr-02-03",
+      "banks": [
+        "0x02",
+        "0x03"
+      ],
+      "data": {
+        "offset": 13024,
+        "length": 8192
+      },
+      "decodedAtlas": {
+        "width": 128,
+        "height": 256,
+        "tilesPerRow": 16,
+        "tileCount": 512
+      }
+    },
+    {
+      "id": "chr-08-09",
+      "banks": [
+        "0x08",
+        "0x09"
+      ],
+      "data": {
+        "offset": 26624,
+        "length": 8192
+      },
+      "decodedAtlas": {
+        "width": 128,
+        "height": 256,
+        "tilesPerRow": 16,
+        "tileCount": 512
+      }
+    }
+  ],
+  "tileSets": [
+    {
+      "id": "tiles-4-841d-8461",
+      "tileBank": 4,
+      "tileSetAddress": "0x841D",
+      "tileBaseAddress": "0x8461",
+      "metatileTiles": {
+        "offset": 8192,
+        "length": 4096
+      },
+      "metatileAttributes": {
+        "offset": 12288,
+        "length": 256
+      }
+    },
+    {
+      "id": "tiles-4-8cf4-8d3a",
+      "tileBank": 4,
+      "tileSetAddress": "0x8CF4",
+      "tileBaseAddress": "0x8D3A",
+      "metatileTiles": {
+        "offset": 21216,
+        "length": 4096
+      },
+      "metatileAttributes": {
+        "offset": 25312,
+        "length": 256
+      }
+    },
+    {
+      "id": "tiles-4-8891-88d4",
+      "tileBank": 4,
+      "tileSetAddress": "0x8891",
+      "tileBaseAddress": "0x88D4",
+      "metatileTiles": {
+        "offset": 34816,
+        "length": 4096
+      },
+      "metatileAttributes": {
+        "offset": 38912,
+        "length": 256
+      }
+    }
+  ],
+  "palettes": [
+    {
+      "id": "town-of-jova-day",
+      "segmentId": "town-of-jova",
+      "variant": "day",
+      "paletteAddress": "0x9EA2",
+      "paletteBank": 4,
+      "data": {
+        "offset": 12992,
+        "length": 16
+      }
+    },
+    {
+      "id": "town-of-jova-night",
+      "segmentId": "town-of-jova",
+      "variant": "night",
+      "paletteAddress": "0x9E80",
+      "paletteBank": 4,
+      "data": {
+        "offset": 13008,
+        "length": 16
+      }
+    },
+    {
+      "id": "jova-woods-day",
+      "segmentId": "jova-woods",
+      "variant": "day",
+      "paletteAddress": "0x9FC6",
+      "paletteBank": 4,
+      "data": {
+        "offset": 25792,
+        "length": 16
+      }
+    },
+    {
+      "id": "jova-woods-night",
+      "segmentId": "jova-woods",
+      "variant": "night",
+      "paletteAddress": "0x9FF9",
+      "paletteBank": 4,
+      "data": {
+        "offset": 25808,
+        "length": 16
+      }
+    },
+    {
+      "id": "south-bridge-day",
+      "segmentId": "south-bridge",
+      "variant": "day",
+      "paletteAddress": "0xCAF3",
+      "data": {
+        "offset": 26048,
+        "length": 16
+      }
+    },
+    {
+      "id": "south-bridge-night",
+      "segmentId": "south-bridge",
+      "variant": "night",
+      "paletteAddress": "0xCB15",
+      "data": {
+        "offset": 26064,
+        "length": 16
+      }
+    },
+    {
+      "id": "veros-woods-part-1-day",
+      "segmentId": "veros-woods-part-1",
+      "variant": "day",
+      "paletteAddress": "0x9FD7",
+      "paletteBank": 4,
+      "data": {
+        "offset": 26192,
+        "length": 16
+      }
+    },
+    {
+      "id": "veros-woods-part-1-night",
+      "segmentId": "veros-woods-part-1",
+      "variant": "night",
+      "paletteAddress": "0x9FF9",
+      "paletteBank": 4,
+      "data": {
+        "offset": 26208,
+        "length": 16
+      }
+    },
+    {
+      "id": "veros-woods-part-2-day",
+      "segmentId": "veros-woods-part-2",
+      "variant": "day",
+      "paletteAddress": "0x9FD7",
+      "paletteBank": 4,
+      "data": {
+        "offset": 26448,
+        "length": 16
+      }
+    },
+    {
+      "id": "veros-woods-part-2-night",
+      "segmentId": "veros-woods-part-2",
+      "variant": "night",
+      "paletteAddress": "0x9FF9",
+      "paletteBank": 4,
+      "data": {
+        "offset": 26464,
+        "length": 16
+      }
+    },
+    {
+      "id": "denis-woods-part-1-day",
+      "segmentId": "denis-woods-part-1",
+      "variant": "day",
+      "paletteAddress": "0x9FD7",
+      "paletteBank": 4,
+      "data": {
+        "offset": 26592,
+        "length": 16
+      }
+    },
+    {
+      "id": "denis-woods-part-1-night",
+      "segmentId": "denis-woods-part-1",
+      "variant": "night",
+      "paletteAddress": "0x9FF9",
+      "paletteBank": 4,
+      "data": {
+        "offset": 26608,
+        "length": 16
+      }
+    },
+    {
+      "id": "berkeley-mansion-door-day",
+      "segmentId": "berkeley-mansion-door",
+      "variant": "day",
+      "paletteAddress": "0x9F5E",
+      "paletteBank": 4,
+      "data": {
+        "offset": 39224,
+        "length": 16
+      }
+    },
+    {
+      "id": "berkeley-mansion-door-night",
+      "segmentId": "berkeley-mansion-door",
+      "variant": "night",
+      "paletteAddress": "0x9F33",
+      "paletteBank": 4,
+      "data": {
+        "offset": 39240,
+        "length": 16
+      }
+    }
+  ],
+  "spritePalettes": [
+    {
+      "id": "town-day-sprites",
+      "label": "Town actor sprites, day",
+      "source": "out/captures/jova-day/ppu-3f00-3f1f-palettes.bin",
+      "data": {
+        "offset": 39256,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "town-night-sprites",
+      "label": "Town actor sprites, night",
+      "source": "out/captures/jova-town-night/ppu-3f00-3f1f-palettes.bin",
+      "data": {
+        "offset": 39272,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1A",
+        "0x2A",
+        "0x0F",
+        "0x0F",
+        "0x03",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "jova-woods-day-sprites",
+      "label": "Jova Woods sprites, day",
+      "source": "out/captures/jova-woods-day/ppu-3f00-3f1f-palettes.bin",
+      "data": {
+        "offset": 39288,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x15",
+        "0x35",
+        "0x0F",
+        "0x0F",
+        "0x21",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "jova-woods-night-sprites",
+      "label": "Jova Woods sprites, night",
+      "source": "out/captures/jova-woods-night/ppu-3f00-3f1f-palettes.bin",
+      "data": {
+        "offset": 39304,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x15",
+        "0x35",
+        "0x0F",
+        "0x0F",
+        "0x21",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "south-bridge-day-sprites",
+      "label": "South Bridge sprites, day",
+      "source": "out/fishman-sprite-proof/analysis.json#south-bridge-day",
+      "data": {
+        "offset": 39320,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x15",
+        "0x35",
+        "0x0F",
+        "0x0F",
+        "0x21",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "south-bridge-night-sprites",
+      "label": "South Bridge sprites, night",
+      "source": "out/fishman-sprite-proof/analysis.json#south-bridge-night",
+      "data": {
+        "offset": 39336,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x15",
+        "0x35",
+        "0x0F",
+        "0x0F",
+        "0x21",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "veros-woods-day-sprites",
+      "label": "Veros Woods sprites, day",
+      "source": "out/actor-traces/veros-woods-part-1-day/ppu-final-3f00-3f1f-palettes.bin",
+      "data": {
+        "offset": 39352,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x16",
+        "0x36",
+        "0x0F",
+        "0x0F",
+        "0x23",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "veros-woods-night-sprites",
+      "label": "Veros Woods sprites, night",
+      "source": "out/actor-traces/veros-woods-part-1-day/ppu-final-3f00-3f1f-palettes.bin",
+      "data": {
+        "offset": 39368,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x16",
+        "0x36",
+        "0x0F",
+        "0x0F",
+        "0x23",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "denis-woods-day-sprites",
+      "label": "Denis Woods sprites, day",
+      "source": "out/fishman-sprite-proof/analysis.json#denis-woods-part-1-day",
+      "data": {
+        "offset": 39384,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x16",
+        "0x36",
+        "0x0F",
+        "0x0F",
+        "0x23",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "denis-woods-night-sprites",
+      "label": "Denis Woods sprites, night",
+      "source": "out/fishman-sprite-proof/analysis.json#denis-woods-part-1-night",
+      "data": {
+        "offset": 39400,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x15",
+        "0x35",
+        "0x0F",
+        "0x0F",
+        "0x21",
+        "0x20",
+        "0x0F"
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "id": "town-of-jova",
+      "locationId": "obj00-area00-sub00-town-of-jova",
+      "label": "Town of Jova",
+      "sourceName": "Town of Jova",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 448
+      },
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 32,
+      "blockHeight": 14,
+      "tileWidth": 128,
+      "tileHeight": 56,
+      "crop": null,
+      "chrSet": "chr-00-01",
+      "tileSet": "tiles-4-841d-8461",
+      "layoutBlocks": {
+        "offset": 12544,
+        "length": 448
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "town-of-jova-day",
+        "night": "town-of-jova-night"
+      },
+      "atlasEntries": {
+        "day": "obj00-area00-sub00-town-of-jova-day",
+        "night": "obj00-area00-sub00-town-of-jova-night"
+      },
+      "recipeStatus": {
+        "day": "validated",
+        "night": "validated"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "jova-woods",
+      "locationId": "obj02-area00-sub00-jova-woods",
+      "label": "Jova Woods",
+      "sourceName": "Jova Woods",
+      "position": {
+        "x": 1024,
+        "y": 224,
+        "width": 1024,
+        "height": 224
+      },
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 32,
+      "blockHeight": 7,
+      "tileWidth": 128,
+      "tileHeight": 28,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 25568,
+        "length": 224
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "jova-woods-day",
+        "night": "jova-woods-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area00-sub00-jova-woods-day",
+        "night": "obj02-area00-sub00-jova-woods-night"
+      },
+      "recipeStatus": {
+        "day": "validated",
+        "night": "validated"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "south-bridge",
+      "locationId": "obj02-area00-sub01-south-bridge",
+      "label": "South Bridge",
+      "sourceName": "South Bridge",
+      "position": {
+        "x": 2048,
+        "y": 224,
+        "width": 1024,
+        "height": 224
+      },
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 32,
+      "blockHeight": 7,
+      "tileWidth": 128,
+      "tileHeight": 28,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 25824,
+        "length": 224
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "south-bridge-day",
+        "night": "south-bridge-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area00-sub01-south-bridge-day",
+        "night": "obj02-area00-sub01-south-bridge-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "veros-woods-part-1",
+      "locationId": "obj02-area00-sub02-veros-woods-part-1",
+      "label": "Veros Woods - Part 1",
+      "sourceName": "Veros Woods - Part 1",
+      "position": {
+        "x": 3072,
+        "y": 224,
+        "width": 512,
+        "height": 224
+      },
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 16,
+      "blockHeight": 7,
+      "tileWidth": 64,
+      "tileHeight": 28,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 26080,
+        "length": 112
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "veros-woods-part-1-day",
+        "night": "veros-woods-part-1-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area00-sub02-veros-woods-part-1-day",
+        "night": "obj02-area00-sub02-veros-woods-part-1-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "veros-woods-part-2",
+      "locationId": "obj02-area00-sub03-veros-woods-part-2",
+      "label": "Veros Woods - Part 2",
+      "sourceName": "Veros Woods - Part 2",
+      "position": {
+        "x": 3584,
+        "y": 224,
+        "width": 512,
+        "height": 448
+      },
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 16,
+      "blockHeight": 14,
+      "tileWidth": 64,
+      "tileHeight": 56,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 26224,
+        "length": 224
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "veros-woods-part-2-day",
+        "night": "veros-woods-part-2-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area00-sub03-veros-woods-part-2-day",
+        "night": "obj02-area00-sub03-veros-woods-part-2-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "denis-woods-part-1",
+      "locationId": "obj02-area01-sub00-denis-woods-part-1",
+      "label": "Denis Woods - Part 1",
+      "sourceName": "Denis Woods - Part 1",
+      "position": {
+        "x": 4096,
+        "y": 224,
+        "width": 512,
+        "height": 224
+      },
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 16,
+      "blockHeight": 7,
+      "tileWidth": 64,
+      "tileHeight": 28,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 26480,
+        "length": 112
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "denis-woods-part-1-day",
+        "night": "denis-woods-part-1-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area01-sub00-denis-woods-part-1-day",
+        "night": "obj02-area01-sub00-denis-woods-part-1-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "berkeley-mansion-door",
+      "locationId": "obj01-area01-sub00-berkeley-mansion-door",
+      "label": "Berkeley Mansion - Door",
+      "sourceName": "Berkeley Mansion - Door",
+      "position": {
+        "x": 4608,
+        "y": 224,
+        "width": 256,
+        "height": 224
+      },
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 8,
+      "blockHeight": 7,
+      "tileWidth": 32,
+      "tileHeight": 28,
+      "crop": null,
+      "chrSet": "chr-08-09",
+      "tileSet": "tiles-4-8891-88d4",
+      "layoutBlocks": {
+        "offset": 39168,
+        "length": 56
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "berkeley-mansion-door-day",
+        "night": "berkeley-mansion-door-night"
+      },
+      "atlasEntries": {
+        "day": "obj01-area01-sub00-berkeley-mansion-door-day",
+        "night": "obj01-area01-sub00-berkeley-mansion-door-night"
+      },
+      "recipeStatus": {
+        "day": "validated",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    }
+  ],
+  "actorClasses": [
+    {
+      "id": "jova-shepherd",
+      "label": "Jova shepherd",
+      "kind": "npc",
+      "actorId": "0xB5",
+      "chrSet": "chr-00-01",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "selectorRecord": {
+        "index": "0x0E",
+        "cpuAddress": "0xDDCC",
+        "fileOffset": "0x1DDDC",
+        "bytes": [
+          "0x01",
+          "0x24",
+          "0x0C"
+        ],
+        "selectors": [
+          "0x24",
+          "0x25"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x24",
+          "pointer": "0xB434",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0xA1",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xA3",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xA5",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xA7",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        },
+        {
+          "selector": "0x25",
+          "pointer": "0xB43B",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0xA9",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xAB",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xAD",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xAF",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 13,
+        "width": 16,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "proof": "ROM row id $B5 maps through live id $35 to animation record $0E, which emits selectors $24/$25."
+    },
+    {
+      "id": "jova-man",
+      "label": "Jova man",
+      "kind": "npc",
+      "actorId": "0xAA",
+      "chrSet": "chr-00-01",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "selectorRecord": {
+        "index": "0x0D",
+        "cpuAddress": "0xDDC9",
+        "fileOffset": "0x1DDD9",
+        "bytes": [
+          "0x01",
+          "0x22",
+          "0x0C"
+        ],
+        "selectors": [
+          "0x22",
+          "0x23"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x22",
+          "pointer": "0xB41F",
+          "status": "0x04",
+          "sprites": [
+            {
+              "tile": "0xC1",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xC3",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xC5",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xC7",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        },
+        {
+          "selector": "0x23",
+          "pointer": "0xB42D",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0xC9",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xCB",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xCD",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xCF",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 13,
+        "width": 16,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "proof": "ROM row id $AA maps through live id $2A to animation record $0D, which emits selectors $22/$23."
+    },
+    {
+      "id": "jova-a8",
+      "label": "Jova clue NPC",
+      "kind": "npc",
+      "actorId": "0xA8",
+      "chrSet": "chr-00-01",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "selectorRecord": {
+        "index": "0x0D",
+        "cpuAddress": "0xDDC9",
+        "fileOffset": "0x1DDD9",
+        "bytes": [
+          "0x01",
+          "0x22",
+          "0x0C"
+        ],
+        "selectors": [
+          "0x22",
+          "0x23"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x22",
+          "pointer": "0xB41F",
+          "status": "0x04",
+          "sprites": [
+            {
+              "tile": "0xC1",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xC3",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xC5",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xC7",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        },
+        {
+          "selector": "0x23",
+          "pointer": "0xB42D",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0xC9",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xCB",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xCD",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xCF",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 13,
+        "width": 16,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "proof": "ROM row id $A8 maps through the town high-bit path to the same town-man animation record $0D."
+    },
+    {
+      "id": "jova-merchant",
+      "label": "White-crystal merchant",
+      "kind": "npc",
+      "actorId": "0xAE",
+      "chrSet": "chr-00-01",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "selectorRecord": {
+        "index": "0x0B",
+        "cpuAddress": "0xDDC3",
+        "fileOffset": "0x1DDD3",
+        "bytes": [
+          "0x01",
+          "0x1E",
+          "0x0C"
+        ],
+        "selectors": [
+          "0x1E",
+          "0x1F"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x1E",
+          "pointer": "0xB23B",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x6F",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0x71",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0x73",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0x75",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        },
+        {
+          "selector": "0x1F",
+          "pointer": "0xB242",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x6F",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -18
+            },
+            {
+              "tile": "0x71",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -18
+            },
+            {
+              "tile": "0x77",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0x79",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -7,
+        "minY": -19,
+        "maxX": 7,
+        "maxY": 13,
+        "width": 14,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "proof": "ROM row id $AE maps through live id $2E to merchant animation record $0B, which emits selectors $1E/$1F."
+    },
+    {
+      "id": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "actorId": "0x03",
+      "chrSet": "chr-02-03",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "selectorRecord": {
+        "index": "0x05",
+        "cpuAddress": "0xDDB1",
+        "fileOffset": "0x1DDC1",
+        "bytes": [
+          "0x01",
+          "0x0E",
+          "0x10"
+        ],
+        "selectors": [
+          "0x0E",
+          "0x0F"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x0E",
+          "pointer": "0xB21F",
+          "status": "0x04",
+          "sprites": [
+            {
+              "tile": "0xB1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xB3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xB5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xB7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        },
+        {
+          "selector": "0x0F",
+          "pointer": "0xB22D",
+          "status": "0x04",
+          "sprites": [
+            {
+              "tile": "0xB1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -18
+            },
+            {
+              "tile": "0xB3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -18
+            },
+            {
+              "tile": "0xB9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xBB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 13,
+        "width": 16,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "proof": "ROM actor id $03 uses selector-stream record $05, proven by live actor traces and decoded fixed-bank selector bytes."
+    },
+    {
+      "id": "fishman",
+      "label": "Fishman",
+      "kind": "enemy",
+      "actorId": "0x04",
+      "chrSet": "chr-02-03",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "selectorRecord": {
+        "index": "0x06",
+        "cpuAddress": "0xDDB4",
+        "fileOffset": "0x1DDC4",
+        "bytes": [
+          "0x01",
+          "0x10",
+          "0x10"
+        ],
+        "selectors": [
+          "0x10",
+          "0x11"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x10",
+          "pointer": "0xB5EB",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0xD1",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xD3",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xD5",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xD7",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            }
+          ]
+        },
+        {
+          "selector": "0x11",
+          "pointer": "0xB5F2",
+          "status": "0x04",
+          "sprites": [
+            {
+              "tile": "0xD1",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -15
+            },
+            {
+              "tile": "0xD3",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -15
+            },
+            {
+              "tile": "0xD9",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xDB",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            }
+          ]
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -16,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 32
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -15,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 31,
+        "source": "chr-nonzero-pixels"
+      },
+      "proof": "ROM actor id $04 uses selector-stream record $06 for the body frames; the fishman proof supplies the segment sprite palettes."
+    },
+    {
+      "id": "werewolf",
+      "label": "Werewolf",
+      "kind": "enemy",
+      "actorId": "0x13",
+      "chrSet": "chr-02-03",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "selectorRecord": {
+        "index": "0x1E",
+        "cpuAddress": "0xDDFC",
+        "fileOffset": "0x1DE0C",
+        "bytes": [
+          "0x01",
+          "0x65",
+          "0x10"
+        ],
+        "selectors": [
+          "0x65",
+          "0x66"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x65",
+          "pointer": "0xB65D",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0xA1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xA3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xA5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xA7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        },
+        {
+          "selector": "0x66",
+          "pointer": "0xB664",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0xA9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xAB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xAD",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xAF",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 13,
+        "width": 16,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "proof": "ROM actor id $13 uses selector-stream record $1E, proven by live Jova Woods actor traces."
+    },
+    {
+      "id": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "actorId": "0x17",
+      "chrSet": "chr-00-01",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": {
+        "day": null,
+        "night": 2
+      },
+      "selectorRecord": {
+        "index": "0x37",
+        "cpuAddress": "0xDE47",
+        "fileOffset": "0x1DE57",
+        "bytes": [
+          "0x01",
+          "0x3F",
+          "0x10"
+        ],
+        "selectors": [
+          "0x3F",
+          "0x40"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x3F",
+          "pointer": "0xB3E6",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0xD1",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xD3",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xD5",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xD7",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        },
+        {
+          "selector": "0x40",
+          "pointer": "0xB3ED",
+          "status": "0x04",
+          "sprites": [
+            {
+              "tile": "0xD9",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -18
+            },
+            {
+              "tile": "0xDB",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -18
+            },
+            {
+              "tile": "0xD5",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xD7",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ]
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 13,
+        "width": 16,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "proof": "ROM actor id $17 is loaded by the town night actor gate and uses selector-stream record $37."
+    }
+  ],
+  "actors": [
+    {
+      "id": "jova-shepherd-50bc",
+      "classId": "jova-shepherd",
+      "label": "Jova shepherd",
+      "kind": "npc",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 4,
+      "tileY": 12,
+      "pixelX": 72,
+      "pixelY": 180,
+      "worldX": 72,
+      "worldY": 180,
+      "actorId": "0xB5",
+      "data": "0x38",
+      "hp": null,
+      "text": "first thing to do in this town is buy a white crystal.",
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 192,
+        "worldX": 64,
+        "worldY": 192
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050BC",
+        "rawBytes": [
+          "0x04",
+          "0x0C",
+          "0xB5",
+          "0x38"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-shepherd-50c0",
+      "classId": "jova-shepherd",
+      "label": "Jova shepherd",
+      "kind": "npc",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 4,
+      "tileY": 26,
+      "pixelX": 72,
+      "pixelY": 404,
+      "worldX": 72,
+      "worldY": 404,
+      "actorId": "0xB5",
+      "data": "0x3D",
+      "hp": null,
+      "text": "you have a friend in the town of aldra. go and see him.",
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 416,
+        "worldX": 64,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050C0",
+        "rawBytes": [
+          "0x04",
+          "0x1A",
+          "0xB5",
+          "0x3D"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-shepherd-50c4",
+      "classId": "jova-shepherd",
+      "label": "Jova shepherd",
+      "kind": "npc",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 8,
+      "tileY": 18,
+      "pixelX": 136,
+      "pixelY": 276,
+      "worldX": 136,
+      "worldY": 276,
+      "actorId": "0xB5",
+      "data": "0x3E",
+      "hp": null,
+      "text": "13 clues will solve dracula's riddle.",
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 288,
+        "worldX": 128,
+        "worldY": 288
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050C4",
+        "rawBytes": [
+          "0x08",
+          "0x12",
+          "0xB5",
+          "0x3E"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-sign-50c8",
+      "classId": null,
+      "label": "Jova sign",
+      "kind": "fixture",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {},
+      "tileX": 12,
+      "tileY": 26,
+      "pixelX": 200,
+      "pixelY": 404,
+      "worldX": 200,
+      "worldY": 404,
+      "actorId": "0xA4",
+      "data": "0x3A",
+      "hp": null,
+      "text": "turn right for the jova woods. left for belasco marsh.",
+      "visualTileRect": {
+        "x": 24,
+        "y": 48,
+        "width": 4,
+        "height": 4
+      },
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 416,
+        "worldX": 192,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050C8",
+        "rawBytes": [
+          "0x0C",
+          "0x1A",
+          "0xA4",
+          "0x3A"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-zombie-50cc",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 12,
+      "pixelX": 200,
+      "pixelY": 180,
+      "worldX": 200,
+      "worldY": 180,
+      "actorId": "0x17",
+      "data": "0x01",
+      "hp": {
+        "day": null,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 192,
+        "worldX": 192,
+        "worldY": 192
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050CC",
+        "rawBytes": [
+          "0x0C",
+          "0x0C",
+          "0x17",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-shepherd-50d0",
+      "classId": "jova-shepherd",
+      "label": "Jova shepherd",
+      "kind": "npc",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 20,
+      "tileY": 26,
+      "pixelX": 328,
+      "pixelY": 404,
+      "worldX": 328,
+      "worldY": 404,
+      "actorId": "0xB5",
+      "data": "0x41",
+      "hp": null,
+      "text": "a magic potion will destroy the wall of evil.",
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 416,
+        "worldX": 320,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050D0",
+        "rawBytes": [
+          "0x14",
+          "0x1A",
+          "0xB5",
+          "0x41"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-zombie-50d4",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 20,
+      "pixelX": 328,
+      "pixelY": 308,
+      "worldX": 328,
+      "worldY": 308,
+      "actorId": "0x17",
+      "data": "0x01",
+      "hp": {
+        "day": null,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 320,
+        "worldX": 320,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050D4",
+        "rawBytes": [
+          "0x14",
+          "0x14",
+          "0x17",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-man-50d8",
+      "classId": "jova-man",
+      "label": "Jova man",
+      "kind": "npc",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 24,
+      "tileY": 20,
+      "pixelX": 392,
+      "pixelY": 308,
+      "worldX": 392,
+      "worldY": 308,
+      "actorId": "0xAA",
+      "data": "0x44",
+      "hp": null,
+      "text": "rumor has it, the ferryman at dead river loves garlic.",
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 320,
+        "worldX": 384,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050D8",
+        "rawBytes": [
+          "0x18",
+          "0x14",
+          "0xAA",
+          "0x44"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-zombie-50dc",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 12,
+      "pixelX": 392,
+      "pixelY": 180,
+      "worldX": 392,
+      "worldY": 180,
+      "actorId": "0x17",
+      "data": "0x01",
+      "hp": {
+        "day": null,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 192,
+        "worldX": 384,
+        "worldY": 192
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050DC",
+        "rawBytes": [
+          "0x18",
+          "0x0C",
+          "0x17",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-zombie-50e0",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 28,
+      "tileY": 26,
+      "pixelX": 456,
+      "pixelY": 404,
+      "worldX": 456,
+      "worldY": 404,
+      "actorId": "0x17",
+      "data": "0x01",
+      "hp": {
+        "day": null,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 448,
+        "pixelY": 416,
+        "worldX": 448,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050E0",
+        "rawBytes": [
+          "0x1C",
+          "0x1A",
+          "0x17",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-shepherd-50e4",
+      "classId": "jova-shepherd",
+      "label": "Jova shepherd",
+      "kind": "npc",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 36,
+      "tileY": 12,
+      "pixelX": 584,
+      "pixelY": 180,
+      "worldX": 584,
+      "worldY": 180,
+      "actorId": "0xB5",
+      "data": "0x4C",
+      "hp": null,
+      "text": "a crooked trader is offering bum deals in this town.",
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 576,
+        "pixelY": 192,
+        "worldX": 576,
+        "worldY": 192
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050E4",
+        "rawBytes": [
+          "0x24",
+          "0x0C",
+          "0xB5",
+          "0x4C"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-man-50e8",
+      "classId": "jova-man",
+      "label": "Jova man",
+      "kind": "npc",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 40,
+      "tileY": 20,
+      "pixelX": 648,
+      "pixelY": 308,
+      "worldX": 648,
+      "worldY": 308,
+      "actorId": "0xAA",
+      "data": "0x4D",
+      "hp": null,
+      "text": "a flame is on top of the 6th tree in denis woods.",
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 640,
+        "pixelY": 320,
+        "worldX": 640,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050E8",
+        "rawBytes": [
+          "0x28",
+          "0x14",
+          "0xAA",
+          "0x4D"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-a8-50ec",
+      "classId": "jova-a8",
+      "label": "Jova clue NPC",
+      "kind": "npc",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 44,
+      "tileY": 26,
+      "pixelX": 712,
+      "pixelY": 404,
+      "worldX": 712,
+      "worldY": 404,
+      "actorId": "0xA8",
+      "data": "0x4E",
+      "hp": null,
+      "text": "clues to dracula's riddle are in the town of veros.",
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 704,
+        "pixelY": 416,
+        "worldX": 704,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050EC",
+        "rawBytes": [
+          "0x2C",
+          "0x1A",
+          "0xA8",
+          "0x4E"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-zombie-50f0",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 40,
+      "tileY": 20,
+      "pixelX": 648,
+      "pixelY": 308,
+      "worldX": 648,
+      "worldY": 308,
+      "actorId": "0x17",
+      "data": "0x01",
+      "hp": {
+        "day": null,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 640,
+        "pixelY": 320,
+        "worldX": 640,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050F0",
+        "rawBytes": [
+          "0x28",
+          "0x14",
+          "0x17",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-zombie-50f4",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 44,
+      "tileY": 12,
+      "pixelX": 712,
+      "pixelY": 180,
+      "worldX": 712,
+      "worldY": 180,
+      "actorId": "0x17",
+      "data": "0x01",
+      "hp": {
+        "day": null,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 704,
+        "pixelY": 192,
+        "worldX": 704,
+        "worldY": 192
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050F4",
+        "rawBytes": [
+          "0x2C",
+          "0x0C",
+          "0x17",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-merchant-50f8",
+      "classId": "jova-merchant",
+      "label": "White-crystal merchant",
+      "kind": "npc",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 52,
+      "tileY": 18,
+      "pixelX": 840,
+      "pixelY": 276,
+      "worldX": 840,
+      "worldY": 276,
+      "actorId": "0xAE",
+      "data": "0x07",
+      "hp": null,
+      "text": "buy a white crystal?",
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 832,
+        "pixelY": 288,
+        "worldX": 832,
+        "worldY": 288
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050F8",
+        "rawBytes": [
+          "0x34",
+          "0x12",
+          "0xAE",
+          "0x07"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-zombie-50fc",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 52,
+      "tileY": 18,
+      "pixelX": 840,
+      "pixelY": 276,
+      "worldX": 840,
+      "worldY": 276,
+      "actorId": "0x17",
+      "data": "0x01",
+      "hp": {
+        "day": null,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 832,
+        "pixelY": 288,
+        "worldX": 832,
+        "worldY": 288
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x050FC",
+        "rawBytes": [
+          "0x34",
+          "0x12",
+          "0x17",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-zombie-5100",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-jova",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 56,
+      "tileY": 12,
+      "pixelX": 904,
+      "pixelY": 180,
+      "worldX": 904,
+      "worldY": 180,
+      "actorId": "0x17",
+      "data": "0x01",
+      "hp": {
+        "day": null,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 896,
+        "pixelY": 192,
+        "worldX": 896,
+        "worldY": 192
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x05100",
+        "rawBytes": [
+          "0x38",
+          "0x0C",
+          "0x17",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-woods-werewolf-5ff4",
+      "classId": "werewolf",
+      "label": "Werewolf",
+      "kind": "enemy",
+      "segmentId": "jova-woods",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "jova-woods-day-sprites",
+        "night": "jova-woods-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 12,
+      "pixelX": 136,
+      "pixelY": 180,
+      "worldX": 1160,
+      "worldY": 404,
+      "actorId": "0x13",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 192,
+        "worldX": 1152,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x05FF4",
+        "rawBytes": [
+          "0x08",
+          "0x0C",
+          "0x13",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-woods-skeleton-5ff8",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "jova-woods",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "jova-woods-day-sprites",
+        "night": "jova-woods-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 12,
+      "pixelX": 200,
+      "pixelY": 180,
+      "worldX": 1224,
+      "worldY": 404,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 192,
+        "worldX": 1216,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x05FF8",
+        "rawBytes": [
+          "0x0C",
+          "0x0C",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-woods-werewolf-5ffc",
+      "classId": "werewolf",
+      "label": "Werewolf",
+      "kind": "enemy",
+      "segmentId": "jova-woods",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "jova-woods-day-sprites",
+        "night": "jova-woods-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 12,
+      "pixelX": 328,
+      "pixelY": 180,
+      "worldX": 1352,
+      "worldY": 404,
+      "actorId": "0x13",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 192,
+        "worldX": 1344,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x05FFC",
+        "rawBytes": [
+          "0x14",
+          "0x0C",
+          "0x13",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-woods-skeleton-6000",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "jova-woods",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "jova-woods-day-sprites",
+        "night": "jova-woods-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 10,
+      "pixelX": 392,
+      "pixelY": 148,
+      "worldX": 1416,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 160,
+        "worldX": 1408,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06000",
+        "rawBytes": [
+          "0x18",
+          "0x0A",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-woods-werewolf-6004",
+      "classId": "werewolf",
+      "label": "Werewolf",
+      "kind": "enemy",
+      "segmentId": "jova-woods",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "jova-woods-day-sprites",
+        "night": "jova-woods-night-sprites"
+      },
+      "tileX": 28,
+      "tileY": 8,
+      "pixelX": 456,
+      "pixelY": 116,
+      "worldX": 1480,
+      "worldY": 340,
+      "actorId": "0x13",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 448,
+        "pixelY": 128,
+        "worldX": 1472,
+        "worldY": 352
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06004",
+        "rawBytes": [
+          "0x1C",
+          "0x08",
+          "0x13",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-woods-skeleton-6008",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "jova-woods",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "jova-woods-day-sprites",
+        "night": "jova-woods-night-sprites"
+      },
+      "tileX": 40,
+      "tileY": 10,
+      "pixelX": 648,
+      "pixelY": 148,
+      "worldX": 1672,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 640,
+        "pixelY": 160,
+        "worldX": 1664,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06008",
+        "rawBytes": [
+          "0x28",
+          "0x0A",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-woods-skeleton-600c",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "jova-woods",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "jova-woods-day-sprites",
+        "night": "jova-woods-night-sprites"
+      },
+      "tileX": 44,
+      "tileY": 12,
+      "pixelX": 712,
+      "pixelY": 180,
+      "worldX": 1736,
+      "worldY": 404,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 704,
+        "pixelY": 192,
+        "worldX": 1728,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0600C",
+        "rawBytes": [
+          "0x2C",
+          "0x0C",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-woods-skeleton-6010",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "jova-woods",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "jova-woods-day-sprites",
+        "night": "jova-woods-night-sprites"
+      },
+      "tileX": 52,
+      "tileY": 10,
+      "pixelX": 840,
+      "pixelY": 148,
+      "worldX": 1864,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 832,
+        "pixelY": 160,
+        "worldX": 1856,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06010",
+        "rawBytes": [
+          "0x34",
+          "0x0A",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "jova-woods-skeleton-6014",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "jova-woods",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "jova-woods-day-sprites",
+        "night": "jova-woods-night-sprites"
+      },
+      "tileX": 60,
+      "tileY": 11,
+      "pixelX": 968,
+      "pixelY": 164,
+      "worldX": 1992,
+      "worldY": 388,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 960,
+        "pixelY": 176,
+        "worldX": 1984,
+        "worldY": 400
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06014",
+        "rawBytes": [
+          "0x3C",
+          "0x0B",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "south-bridge-skeleton-6019",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "south-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "south-bridge-day-sprites",
+        "night": "south-bridge-night-sprites"
+      },
+      "tileX": 4,
+      "tileY": 10,
+      "pixelX": 72,
+      "pixelY": 148,
+      "worldX": 2120,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 160,
+        "worldX": 2112,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06019",
+        "rawBytes": [
+          "0x04",
+          "0x0A",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "south-bridge-skeleton-601d",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "south-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "south-bridge-day-sprites",
+        "night": "south-bridge-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 9,
+      "pixelX": 200,
+      "pixelY": 132,
+      "worldX": 2248,
+      "worldY": 356,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 144,
+        "worldX": 2240,
+        "worldY": 368
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0601D",
+        "rawBytes": [
+          "0x0C",
+          "0x09",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "south-bridge-fishman-6021",
+      "classId": "fishman",
+      "label": "Fishman",
+      "kind": "enemy",
+      "segmentId": "south-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "south-bridge-day-sprites",
+        "night": "south-bridge-night-sprites"
+      },
+      "tileX": 14,
+      "tileY": 12,
+      "pixelX": 232,
+      "pixelY": 180,
+      "worldX": 2280,
+      "worldY": 404,
+      "actorId": "0x04",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 224,
+        "pixelY": 192,
+        "worldX": 2272,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06021",
+        "rawBytes": [
+          "0x0E",
+          "0x0C",
+          "0x04",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "south-bridge-fishman-6025",
+      "classId": "fishman",
+      "label": "Fishman",
+      "kind": "enemy",
+      "segmentId": "south-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "south-bridge-day-sprites",
+        "night": "south-bridge-night-sprites"
+      },
+      "tileX": 21,
+      "tileY": 12,
+      "pixelX": 344,
+      "pixelY": 180,
+      "worldX": 2392,
+      "worldY": 404,
+      "actorId": "0x04",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 336,
+        "pixelY": 192,
+        "worldX": 2384,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06025",
+        "rawBytes": [
+          "0x15",
+          "0x0C",
+          "0x04",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "south-bridge-fishman-6029",
+      "classId": "fishman",
+      "label": "Fishman",
+      "kind": "enemy",
+      "segmentId": "south-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "south-bridge-day-sprites",
+        "night": "south-bridge-night-sprites"
+      },
+      "tileX": 26,
+      "tileY": 12,
+      "pixelX": 424,
+      "pixelY": 180,
+      "worldX": 2472,
+      "worldY": 404,
+      "actorId": "0x04",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 416,
+        "pixelY": 192,
+        "worldX": 2464,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06029",
+        "rawBytes": [
+          "0x1A",
+          "0x0C",
+          "0x04",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "south-bridge-fishman-602d",
+      "classId": "fishman",
+      "label": "Fishman",
+      "kind": "enemy",
+      "segmentId": "south-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "south-bridge-day-sprites",
+        "night": "south-bridge-night-sprites"
+      },
+      "tileX": 37,
+      "tileY": 12,
+      "pixelX": 600,
+      "pixelY": 180,
+      "worldX": 2648,
+      "worldY": 404,
+      "actorId": "0x04",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 592,
+        "pixelY": 192,
+        "worldX": 2640,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0602D",
+        "rawBytes": [
+          "0x25",
+          "0x0C",
+          "0x04",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "south-bridge-fishman-6031",
+      "classId": "fishman",
+      "label": "Fishman",
+      "kind": "enemy",
+      "segmentId": "south-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "south-bridge-day-sprites",
+        "night": "south-bridge-night-sprites"
+      },
+      "tileX": 42,
+      "tileY": 12,
+      "pixelX": 680,
+      "pixelY": 180,
+      "worldX": 2728,
+      "worldY": 404,
+      "actorId": "0x04",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 672,
+        "pixelY": 192,
+        "worldX": 2720,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06031",
+        "rawBytes": [
+          "0x2A",
+          "0x0C",
+          "0x04",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "south-bridge-skeleton-6035",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "south-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "south-bridge-day-sprites",
+        "night": "south-bridge-night-sprites"
+      },
+      "tileX": 52,
+      "tileY": 9,
+      "pixelX": 840,
+      "pixelY": 132,
+      "worldX": 2888,
+      "worldY": 356,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 832,
+        "pixelY": 144,
+        "worldX": 2880,
+        "worldY": 368
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06035",
+        "rawBytes": [
+          "0x34",
+          "0x09",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "south-bridge-fishman-6039",
+      "classId": "fishman",
+      "label": "Fishman",
+      "kind": "enemy",
+      "segmentId": "south-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "south-bridge-day-sprites",
+        "night": "south-bridge-night-sprites"
+      },
+      "tileX": 53,
+      "tileY": 12,
+      "pixelX": 856,
+      "pixelY": 180,
+      "worldX": 2904,
+      "worldY": 404,
+      "actorId": "0x04",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 848,
+        "pixelY": 192,
+        "worldX": 2896,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06039",
+        "rawBytes": [
+          "0x35",
+          "0x0C",
+          "0x04",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "south-bridge-skeleton-603d",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "south-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "south-bridge-day-sprites",
+        "night": "south-bridge-night-sprites"
+      },
+      "tileX": 56,
+      "tileY": 10,
+      "pixelX": 904,
+      "pixelY": 148,
+      "worldX": 2952,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 896,
+        "pixelY": 160,
+        "worldX": 2944,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0603D",
+        "rawBytes": [
+          "0x38",
+          "0x0A",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-1-skeleton-6042",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "veros-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "veros-woods-day-sprites",
+        "night": "veros-woods-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 6,
+      "pixelX": 136,
+      "pixelY": 84,
+      "worldX": 3208,
+      "worldY": 308,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 96,
+        "worldX": 3200,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06042",
+        "rawBytes": [
+          "0x08",
+          "0x06",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-1-skeleton-6046",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "veros-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "veros-woods-day-sprites",
+        "night": "veros-woods-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 12,
+      "pixelX": 136,
+      "pixelY": 180,
+      "worldX": 3208,
+      "worldY": 404,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 192,
+        "worldX": 3200,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06046",
+        "rawBytes": [
+          "0x08",
+          "0x0C",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-1-skeleton-604e",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "veros-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "veros-woods-day-sprites",
+        "night": "veros-woods-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 6,
+      "pixelX": 328,
+      "pixelY": 84,
+      "worldX": 3400,
+      "worldY": 308,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 96,
+        "worldX": 3392,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0604E",
+        "rawBytes": [
+          "0x14",
+          "0x06",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-1-skeleton-6052",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "veros-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "veros-woods-day-sprites",
+        "night": "veros-woods-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 12,
+      "pixelX": 392,
+      "pixelY": 180,
+      "worldX": 3464,
+      "worldY": 404,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 192,
+        "worldX": 3456,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06052",
+        "rawBytes": [
+          "0x18",
+          "0x0C",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-1-skeleton-6056",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "veros-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "veros-woods-day-sprites",
+        "night": "veros-woods-night-sprites"
+      },
+      "tileX": 25,
+      "tileY": 6,
+      "pixelX": 408,
+      "pixelY": 84,
+      "worldX": 3480,
+      "worldY": 308,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 400,
+        "pixelY": 96,
+        "worldX": 3472,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06056",
+        "rawBytes": [
+          "0x19",
+          "0x06",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-1-skeleton-605a",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "veros-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "veros-woods-day-sprites",
+        "night": "veros-woods-night-sprites"
+      },
+      "tileX": 29,
+      "tileY": 8,
+      "pixelX": 472,
+      "pixelY": 116,
+      "worldX": 3544,
+      "worldY": 340,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 464,
+        "pixelY": 128,
+        "worldX": 3536,
+        "worldY": 352
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0605A",
+        "rawBytes": [
+          "0x1D",
+          "0x08",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-2-skeleton-605f",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "veros-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "veros-woods-day-sprites",
+        "night": "veros-woods-night-sprites"
+      },
+      "tileX": 4,
+      "tileY": 10,
+      "pixelX": 72,
+      "pixelY": 148,
+      "worldX": 3656,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 160,
+        "worldX": 3648,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0605F",
+        "rawBytes": [
+          "0x04",
+          "0x0A",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-2-skeleton-6063",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "veros-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "veros-woods-day-sprites",
+        "night": "veros-woods-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 11,
+      "pixelX": 136,
+      "pixelY": 164,
+      "worldX": 3720,
+      "worldY": 388,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 176,
+        "worldX": 3712,
+        "worldY": 400
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06063",
+        "rawBytes": [
+          "0x08",
+          "0x0B",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-2-skeleton-6067",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "veros-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "veros-woods-day-sprites",
+        "night": "veros-woods-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 12,
+      "pixelX": 200,
+      "pixelY": 180,
+      "worldX": 3784,
+      "worldY": 404,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 192,
+        "worldX": 3776,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06067",
+        "rawBytes": [
+          "0x0C",
+          "0x0C",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-2-skeleton-606f",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "veros-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "veros-woods-day-sprites",
+        "night": "veros-woods-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 10,
+      "pixelX": 328,
+      "pixelY": 148,
+      "worldX": 3912,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 160,
+        "worldX": 3904,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0606F",
+        "rawBytes": [
+          "0x14",
+          "0x0A",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-2-skeleton-6073",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "veros-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "veros-woods-day-sprites",
+        "night": "veros-woods-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 10,
+      "pixelX": 392,
+      "pixelY": 148,
+      "worldX": 3976,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 160,
+        "worldX": 3968,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06073",
+        "rawBytes": [
+          "0x18",
+          "0x0A",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-skeleton-6078",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 4,
+      "tileY": 10,
+      "pixelX": 72,
+      "pixelY": 148,
+      "worldX": 4168,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 160,
+        "worldX": 4160,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06078",
+        "rawBytes": [
+          "0x04",
+          "0x0A",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-fishman-607c",
+      "classId": "fishman",
+      "label": "Fishman",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 10,
+      "tileY": 12,
+      "pixelX": 168,
+      "pixelY": 180,
+      "worldX": 4264,
+      "worldY": 404,
+      "actorId": "0x04",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 160,
+        "pixelY": 192,
+        "worldX": 4256,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0607C",
+        "rawBytes": [
+          "0x0A",
+          "0x0C",
+          "0x04",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-skeleton-6080",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 10,
+      "pixelX": 328,
+      "pixelY": 148,
+      "worldX": 4424,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 160,
+        "worldX": 4416,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06080",
+        "rawBytes": [
+          "0x14",
+          "0x0A",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-skeleton-6084",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 10,
+      "pixelX": 392,
+      "pixelY": 148,
+      "worldX": 4488,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x01",
+      "hp": {
+        "day": 1,
+        "night": 2
+      },
+      "text": null,
+      "visualTileRect": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 160,
+        "worldX": 4480,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06084",
+        "rawBytes": [
+          "0x18",
+          "0x0A",
+          "0x03",
+          "0x01"
+        ],
+        "source": "rom-actor-row"
+      }
+    }
+  ],
+  "actorSummary": {
+    "classes": 8,
+    "placements": 52,
+    "npcs": 9,
+    "enemies": 42,
+    "fixtures": 1
+  },
+  "validations": [
+    {
+      "segmentId": "berkeley-mansion-door",
+      "capture": "out/captures/berkeley-mansion-door-day/background.png",
+      "atlasYOffset": 13,
+      "width": 256,
+      "height": 224,
+      "differingPixels": 0,
+      "requiredDifferingPixels": 0
+    }
+  ]
+}
