@@ -3,6 +3,8 @@
   "id": "berkeley-mansion-part-1",
   "label": "Berkeley Mansion - Part 1",
   "summary": "First mansion interior scene, packed as raw CHR, layout, metatile, and palette data for WebGL rendering.",
+  "layoutSample": null,
+  "availableLayouts": [],
   "source": {
     "sliceConfig": "guide/source/berkeley-mansion-part-1.json",
     "atlas": "out/render-recipe-atlas/manifest.json",
@@ -85,6 +87,7 @@
         "width": 1024,
         "height": 672
       },
+      "sourceId": "berkeley-mansion-part-1",
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 32,

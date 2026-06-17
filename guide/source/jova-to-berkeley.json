@@ -1,8 +1,9 @@
 {
   "schemaVersion": 1,
   "id": "jova-to-berkeley",
-  "label": "Town of Jova to Berkeley Mansion",
-  "summary": "First guide product slice from the opening town eastward to the first mansion door.",
+  "label": "Town of Jova to Aljiba Woods",
+  "summary": "Guide product slice from the opening town eastward through Veros, Dabi's Path, Aljiba Woods, and the Berkeley branch.",
+  "defaultLayout": "branch-continuous",
   "provenance": {
     "pixels": "rom-derived",
     "layout": "presentation-authored"
@@ -44,6 +45,48 @@
       "y": 224
     },
     {
+      "id": "town-of-veros",
+      "locationId": "obj00-area01-sub00-town-of-veros",
+      "label": "Town of Veros",
+      "x": 4608,
+      "y": 448
+    },
+    {
+      "id": "dabis-path-part-1",
+      "locationId": "obj02-area03-sub00-dabis-path-part-1",
+      "label": "Dabi's Path - Part 1",
+      "x": 6144,
+      "y": 224
+    },
+    {
+      "id": "dabis-path-part-2",
+      "locationId": "obj02-area03-sub01-dabis-path-part-2",
+      "label": "Dabi's Path - Part 2",
+      "x": 6656,
+      "y": 224
+    },
+    {
+      "id": "aljiba-woods-part-1",
+      "locationId": "obj02-area03-sub02-aljiba-woods-part-1",
+      "label": "Aljiba Woods - Part 1",
+      "x": 7168,
+      "y": 224
+    },
+    {
+      "id": "aljiba-woods-part-2",
+      "locationId": "obj02-area03-sub03-aljiba-woods-part-2",
+      "label": "Aljiba Woods - Part 2",
+      "x": 7680,
+      "y": 224
+    },
+    {
+      "id": "aljiba-woods-part-3",
+      "locationId": "obj02-area02-sub00-aljiba-woods-part-3",
+      "label": "Aljiba Woods - Part 3",
+      "x": 8192,
+      "y": 224
+    },
+    {
       "id": "denis-woods-part-1",
       "locationId": "obj02-area01-sub00-denis-woods-part-1",
       "label": "Denis Woods - Part 1",
@@ -63,6 +106,44 @@
         "height": 224,
         "requiredDifferingPixels": 0
       }
+    },
+    {
+      "id": "denis-woods-part-2",
+      "locationId": "obj02-area04-sub00-denis-woods-part-2",
+      "label": "Denis Woods - Part 2",
+      "x": 4864,
+      "y": 224
+    },
+    {
+      "id": "denis-woods-part-3",
+      "locationId": "obj02-area04-sub01-denis-woods-part-3",
+      "label": "Denis Woods - Part 3",
+      "x": 5632,
+      "y": 224
+    }
+  ],
+  "layoutSamples": [
+    {
+      "id": "branch-continuous",
+      "label": "Branch continuous",
+      "summary": "Keeps Berkeley -> Denis Woods -> Dabi's Path physically continuous while Town of Veros eases between the Veros Woods side and the Dabi's Path side of the lower projection gap based on the current view.",
+      "segments": [
+        { "sourceId": "town-of-jova", "x": 0, "y": 0 },
+        { "sourceId": "jova-woods", "x": 1024, "y": 224 },
+        { "sourceId": "south-bridge", "x": 2048, "y": 224 },
+        { "sourceId": "veros-woods-part-1", "x": 3072, "y": 224 },
+        { "sourceId": "veros-woods-part-2", "x": 3584, "y": 224 },
+        { "sourceId": "denis-woods-part-1", "x": 4096, "y": 224 },
+        { "sourceId": "berkeley-mansion-door", "x": 4608, "y": 224 },
+        { "sourceId": "denis-woods-part-2", "x": 4864, "y": 224 },
+        { "sourceId": "denis-woods-part-3", "x": 5632, "y": 224 },
+        { "sourceId": "town-of-veros", "x": 4608, "y": 448 },
+        { "sourceId": "dabis-path-part-1", "x": 6144, "y": 224 },
+        { "sourceId": "dabis-path-part-2", "x": 6656, "y": 224 },
+        { "sourceId": "aljiba-woods-part-1", "x": 7168, "y": 224 },
+        { "sourceId": "aljiba-woods-part-2", "x": 7680, "y": 224 },
+        { "sourceId": "aljiba-woods-part-3", "x": 8192, "y": 224 }
+      ]
     }
   ]
 }

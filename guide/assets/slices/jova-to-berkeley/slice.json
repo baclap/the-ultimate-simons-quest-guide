@@ -1,15 +1,29 @@
 {
   "schemaVersion": 1,
-  "id": "jova-to-berkeley",
-  "label": "Town of Jova to Berkeley Mansion",
-  "summary": "First guide product slice from the opening town eastward to the first mansion door.",
+  "id": "jova-to-berkeley-branch-continuous",
+  "label": "Town of Jova to Aljiba Woods",
+  "summary": "Keeps Berkeley -> Denis Woods -> Dabi's Path physically continuous while Town of Veros eases between the Veros Woods side and the Dabi's Path side of the lower projection gap based on the current view.",
+  "layoutSample": {
+    "id": "branch-continuous",
+    "label": "Branch continuous",
+    "summary": "Keeps Berkeley -> Denis Woods -> Dabi's Path physically continuous while Town of Veros eases between the Veros Woods side and the Dabi's Path side of the lower projection gap based on the current view.",
+    "markers": []
+  },
+  "availableLayouts": [
+    {
+      "id": "branch-continuous",
+      "label": "Branch continuous",
+      "summary": "Keeps Berkeley -> Denis Woods -> Dabi's Path physically continuous while Town of Veros eases between the Veros Woods side and the Dabi's Path side of the lower projection gap based on the current view."
+    }
+  ],
   "source": {
     "sliceConfig": "guide/source/jova-to-berkeley.json",
     "atlas": "out/render-recipe-atlas/manifest.json",
     "renderer": "rust-wasm-webgl-tilemap-v1",
     "notes": [
       "Pixels are rendered in the browser from ROM-derived CHR, layout, metatile, and palette bytes.",
-      "Actor sprites are rendered in the browser from ROM-derived CHR, decoded metasprite selector records, and packed runtime sprite palette bytes.",
+      "Actor sprites are rendered in the browser from ROM-derived CHR, decoded metasprite selector records, and ROM sprite palette fragments.",
+      "Breakable terrain overlays are scanned from ROM-expanded background tile signatures.",
       "Presentation coordinates are authored for player readability and are not ROM world coordinates.",
       "No PNG map textures are emitted for this app slice."
     ]
@@ -19,11 +33,11 @@
     "layout": "presentation-authored"
   },
   "world": {
-    "width": 4864,
+    "width": 8704,
     "height": 672
   },
   "dataFile": "slice-data.bin",
-  "byteLength": 39416,
+  "byteLength": 40992,
   "chrSets": [
     {
       "id": "chr-00-01",
@@ -273,15 +287,191 @@
         "offset": 39240,
         "length": 16
       }
+    },
+    {
+      "id": "denis-woods-part-2-day",
+      "segmentId": "denis-woods-part-2",
+      "variant": "day",
+      "paletteAddress": "0x9FD7",
+      "paletteBank": 4,
+      "data": {
+        "offset": 39424,
+        "length": 16
+      }
+    },
+    {
+      "id": "denis-woods-part-2-night",
+      "segmentId": "denis-woods-part-2",
+      "variant": "night",
+      "paletteAddress": "0x9FF9",
+      "paletteBank": 4,
+      "data": {
+        "offset": 39440,
+        "length": 16
+      }
+    },
+    {
+      "id": "denis-woods-part-3-day",
+      "segmentId": "denis-woods-part-3",
+      "variant": "day",
+      "paletteAddress": "0x9FD7",
+      "paletteBank": 4,
+      "data": {
+        "offset": 39568,
+        "length": 16
+      }
+    },
+    {
+      "id": "denis-woods-part-3-night",
+      "segmentId": "denis-woods-part-3",
+      "variant": "night",
+      "paletteAddress": "0x9FF9",
+      "paletteBank": 4,
+      "data": {
+        "offset": 39584,
+        "length": 16
+      }
+    },
+    {
+      "id": "town-of-veros-day",
+      "segmentId": "town-of-veros",
+      "variant": "day",
+      "paletteAddress": "0x9EB3",
+      "paletteBank": 4,
+      "data": {
+        "offset": 39824,
+        "length": 16
+      }
+    },
+    {
+      "id": "town-of-veros-night",
+      "segmentId": "town-of-veros",
+      "variant": "night",
+      "paletteAddress": "0x9E80",
+      "paletteBank": 4,
+      "data": {
+        "offset": 39840,
+        "length": 16
+      }
+    },
+    {
+      "id": "dabis-path-part-1-day",
+      "segmentId": "dabis-path-part-1",
+      "variant": "day",
+      "paletteAddress": "0xA00A",
+      "paletteBank": 4,
+      "data": {
+        "offset": 40080,
+        "length": 16
+      }
+    },
+    {
+      "id": "dabis-path-part-1-night",
+      "segmentId": "dabis-path-part-1",
+      "variant": "night",
+      "paletteAddress": "0xA00A",
+      "paletteBank": 4,
+      "data": {
+        "offset": 40096,
+        "length": 16
+      }
+    },
+    {
+      "id": "dabis-path-part-2-day",
+      "segmentId": "dabis-path-part-2",
+      "variant": "day",
+      "paletteAddress": "0xA00A",
+      "paletteBank": 4,
+      "data": {
+        "offset": 40224,
+        "length": 16
+      }
+    },
+    {
+      "id": "dabis-path-part-2-night",
+      "segmentId": "dabis-path-part-2",
+      "variant": "night",
+      "paletteAddress": "0xA00A",
+      "paletteBank": 4,
+      "data": {
+        "offset": 40240,
+        "length": 16
+      }
+    },
+    {
+      "id": "aljiba-woods-part-1-day",
+      "segmentId": "aljiba-woods-part-1",
+      "variant": "day",
+      "paletteAddress": "0x9FD7",
+      "paletteBank": 4,
+      "data": {
+        "offset": 40368,
+        "length": 16
+      }
+    },
+    {
+      "id": "aljiba-woods-part-1-night",
+      "segmentId": "aljiba-woods-part-1",
+      "variant": "night",
+      "paletteAddress": "0x9FF9",
+      "paletteBank": 4,
+      "data": {
+        "offset": 40384,
+        "length": 16
+      }
+    },
+    {
+      "id": "aljiba-woods-part-2-day",
+      "segmentId": "aljiba-woods-part-2",
+      "variant": "day",
+      "paletteAddress": "0x9FD7",
+      "paletteBank": 4,
+      "data": {
+        "offset": 40624,
+        "length": 16
+      }
+    },
+    {
+      "id": "aljiba-woods-part-2-night",
+      "segmentId": "aljiba-woods-part-2",
+      "variant": "night",
+      "paletteAddress": "0x9FF9",
+      "paletteBank": 4,
+      "data": {
+        "offset": 40640,
+        "length": 16
+      }
+    },
+    {
+      "id": "aljiba-woods-part-3-day",
+      "segmentId": "aljiba-woods-part-3",
+      "variant": "day",
+      "paletteAddress": "0x9FD7",
+      "paletteBank": 4,
+      "data": {
+        "offset": 40768,
+        "length": 16
+      }
+    },
+    {
+      "id": "aljiba-woods-part-3-night",
+      "segmentId": "aljiba-woods-part-3",
+      "variant": "night",
+      "paletteAddress": "0x9FF9",
+      "paletteBank": 4,
+      "data": {
+        "offset": 40784,
+        "length": 16
+      }
     }
   ],
   "spritePalettes": [
     {
       "id": "town-day-sprites",
       "label": "Town actor sprites, day",
-      "source": "out/captures/jova-day/ppu-3f00-3f1f-palettes.bin",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F2A..0x9F31",
       "data": {
-        "offset": 39256,
+        "offset": 40800,
         "length": 16
       },
       "bytes": [
@@ -306,9 +496,9 @@
     {
       "id": "town-night-sprites",
       "label": "Town actor sprites, night",
-      "source": "out/captures/jova-town-night/ppu-3f00-3f1f-palettes.bin",
+      "source": "rom:0xCAAE..0xCAB5+rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 39272,
+        "offset": 40816,
         "length": 16
       },
       "bytes": [
@@ -333,9 +523,9 @@
     {
       "id": "jova-woods-day-sprites",
       "label": "Jova Woods sprites, day",
-      "source": "out/captures/jova-woods-day/ppu-3f00-3f1f-palettes.bin",
+      "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 39288,
+        "offset": 40832,
         "length": 16
       },
       "bytes": [
@@ -360,9 +550,9 @@
     {
       "id": "jova-woods-night-sprites",
       "label": "Jova Woods sprites, night",
-      "source": "out/captures/jova-woods-night/ppu-3f00-3f1f-palettes.bin",
+      "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 39304,
+        "offset": 40848,
         "length": 16
       },
       "bytes": [
@@ -387,9 +577,9 @@
     {
       "id": "south-bridge-day-sprites",
       "label": "South Bridge sprites, day",
-      "source": "out/fishman-sprite-proof/analysis.json#south-bridge-day",
+      "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 39320,
+        "offset": 40864,
         "length": 16
       },
       "bytes": [
@@ -414,9 +604,9 @@
     {
       "id": "south-bridge-night-sprites",
       "label": "South Bridge sprites, night",
-      "source": "out/fishman-sprite-proof/analysis.json#south-bridge-night",
+      "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 39336,
+        "offset": 40880,
         "length": 16
       },
       "bytes": [
@@ -441,9 +631,9 @@
     {
       "id": "veros-woods-day-sprites",
       "label": "Veros Woods sprites, day",
-      "source": "out/actor-traces/veros-woods-part-1-day/ppu-final-3f00-3f1f-palettes.bin",
+      "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 39352,
+        "offset": 40896,
         "length": 16
       },
       "bytes": [
@@ -468,9 +658,9 @@
     {
       "id": "veros-woods-night-sprites",
       "label": "Veros Woods sprites, night",
-      "source": "out/actor-traces/veros-woods-part-1-day/ppu-final-3f00-3f1f-palettes.bin",
+      "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 39368,
+        "offset": 40912,
         "length": 16
       },
       "bytes": [
@@ -495,9 +685,9 @@
     {
       "id": "denis-woods-day-sprites",
       "label": "Denis Woods sprites, day",
-      "source": "out/fishman-sprite-proof/analysis.json#denis-woods-part-1-day",
+      "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 39384,
+        "offset": 40928,
         "length": 16
       },
       "bytes": [
@@ -522,9 +712,9 @@
     {
       "id": "denis-woods-night-sprites",
       "label": "Denis Woods sprites, night",
-      "source": "out/fishman-sprite-proof/analysis.json#denis-woods-part-1-night",
+      "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 39400,
+        "offset": 40944,
         "length": 16
       },
       "bytes": [
@@ -545,6 +735,60 @@
         "0x20",
         "0x0F"
       ]
+    },
+    {
+      "id": "dabis-path-day-sprites",
+      "label": "Dabi's Path sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom:0xCB38..0xCB3F",
+      "data": {
+        "offset": 40960,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x17",
+        "0x37",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "dabis-path-night-sprites",
+      "label": "Dabi's Path sprites, night (same ROM palette transfer as day)",
+      "source": "rom:0xCAAE..0xCAB5+rom:0xCB38..0xCB3F",
+      "data": {
+        "offset": 40976,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x17",
+        "0x37",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
     }
   ],
   "segments": [
@@ -559,6 +803,7 @@
         "width": 1024,
         "height": 448
       },
+      "sourceId": "town-of-jova",
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 32,
@@ -606,6 +851,7 @@
         "width": 1024,
         "height": 224
       },
+      "sourceId": "jova-woods",
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 32,
@@ -653,6 +899,7 @@
         "width": 1024,
         "height": 224
       },
+      "sourceId": "south-bridge",
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 32,
@@ -700,6 +947,7 @@
         "width": 512,
         "height": 224
       },
+      "sourceId": "veros-woods-part-1",
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 16,
@@ -747,6 +995,7 @@
         "width": 512,
         "height": 448
       },
+      "sourceId": "veros-woods-part-2",
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 16,
@@ -794,6 +1043,7 @@
         "width": 512,
         "height": 224
       },
+      "sourceId": "denis-woods-part-1",
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 16,
@@ -841,6 +1091,7 @@
         "width": 256,
         "height": 224
       },
+      "sourceId": "berkeley-mansion-door",
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 8,
@@ -875,6 +1126,611 @@
         "pixels": "rom-derived",
         "layout": "presentation-authored",
         "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "denis-woods-part-2",
+      "locationId": "obj02-area04-sub00-denis-woods-part-2",
+      "label": "Denis Woods - Part 2",
+      "sourceName": "Denis Woods - Part 2",
+      "position": {
+        "x": 4864,
+        "y": 224,
+        "width": 768,
+        "height": 224
+      },
+      "sourceId": "denis-woods-part-2",
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 24,
+      "blockHeight": 7,
+      "tileWidth": 96,
+      "tileHeight": 28,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 39256,
+        "length": 168
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "denis-woods-part-2-day",
+        "night": "denis-woods-part-2-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area04-sub00-denis-woods-part-2-day",
+        "night": "obj02-area04-sub00-denis-woods-part-2-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "denis-woods-part-3",
+      "locationId": "obj02-area04-sub01-denis-woods-part-3",
+      "label": "Denis Woods - Part 3",
+      "sourceName": "Denis Woods - Part 3",
+      "position": {
+        "x": 5632,
+        "y": 224,
+        "width": 512,
+        "height": 224
+      },
+      "sourceId": "denis-woods-part-3",
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 16,
+      "blockHeight": 7,
+      "tileWidth": 64,
+      "tileHeight": 28,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 39456,
+        "length": 112
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "denis-woods-part-3-day",
+        "night": "denis-woods-part-3-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area04-sub01-denis-woods-part-3-day",
+        "night": "obj02-area04-sub01-denis-woods-part-3-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "town-of-veros",
+      "locationId": "obj00-area01-sub00-town-of-veros",
+      "label": "Town of Veros",
+      "sourceName": "Town of Veros",
+      "position": {
+        "x": 4608,
+        "y": 448,
+        "width": 1024,
+        "height": 224
+      },
+      "sourceId": "town-of-veros",
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 32,
+      "blockHeight": 7,
+      "tileWidth": 128,
+      "tileHeight": 28,
+      "crop": null,
+      "chrSet": "chr-00-01",
+      "tileSet": "tiles-4-841d-8461",
+      "layoutBlocks": {
+        "offset": 39600,
+        "length": 224
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "town-of-veros-day",
+        "night": "town-of-veros-night"
+      },
+      "atlasEntries": {
+        "day": "obj00-area01-sub00-town-of-veros-day",
+        "night": "obj00-area01-sub00-town-of-veros-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "dabis-path-part-1",
+      "locationId": "obj02-area03-sub00-dabis-path-part-1",
+      "label": "Dabi's Path - Part 1",
+      "sourceName": "Dabis Path - Part 1",
+      "position": {
+        "x": 6144,
+        "y": 224,
+        "width": 512,
+        "height": 448
+      },
+      "sourceId": "dabis-path-part-1",
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 16,
+      "blockHeight": 14,
+      "tileWidth": 64,
+      "tileHeight": 56,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 39856,
+        "length": 224
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "dabis-path-part-1-day",
+        "night": "dabis-path-part-1-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area03-sub00-dabis-path-part-1-day",
+        "night": "obj02-area03-sub00-dabis-path-part-1-night"
+      },
+      "recipeStatus": {
+        "day": "validated",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "dabis-path-part-2",
+      "locationId": "obj02-area03-sub01-dabis-path-part-2",
+      "label": "Dabi's Path - Part 2",
+      "sourceName": "Dabis Path - Part 2",
+      "position": {
+        "x": 6656,
+        "y": 224,
+        "width": 512,
+        "height": 224
+      },
+      "sourceId": "dabis-path-part-2",
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 16,
+      "blockHeight": 7,
+      "tileWidth": 64,
+      "tileHeight": 28,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 40112,
+        "length": 112
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "dabis-path-part-2-day",
+        "night": "dabis-path-part-2-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area03-sub01-dabis-path-part-2-day",
+        "night": "obj02-area03-sub01-dabis-path-part-2-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "aljiba-woods-part-1",
+      "locationId": "obj02-area03-sub02-aljiba-woods-part-1",
+      "label": "Aljiba Woods - Part 1",
+      "sourceName": "Aljiba Woods - Part 1",
+      "position": {
+        "x": 7168,
+        "y": 224,
+        "width": 512,
+        "height": 224
+      },
+      "sourceId": "aljiba-woods-part-1",
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 16,
+      "blockHeight": 7,
+      "tileWidth": 64,
+      "tileHeight": 28,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 40256,
+        "length": 112
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "aljiba-woods-part-1-day",
+        "night": "aljiba-woods-part-1-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area03-sub02-aljiba-woods-part-1-day",
+        "night": "obj02-area03-sub02-aljiba-woods-part-1-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "aljiba-woods-part-2",
+      "locationId": "obj02-area03-sub03-aljiba-woods-part-2",
+      "label": "Aljiba Woods - Part 2",
+      "sourceName": "Aljiba Woods - Part 2",
+      "position": {
+        "x": 7680,
+        "y": 224,
+        "width": 512,
+        "height": 448
+      },
+      "sourceId": "aljiba-woods-part-2",
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 16,
+      "blockHeight": 14,
+      "tileWidth": 64,
+      "tileHeight": 56,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 40400,
+        "length": 224
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "aljiba-woods-part-2-day",
+        "night": "aljiba-woods-part-2-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area03-sub03-aljiba-woods-part-2-day",
+        "night": "obj02-area03-sub03-aljiba-woods-part-2-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "aljiba-woods-part-3",
+      "locationId": "obj02-area02-sub00-aljiba-woods-part-3",
+      "label": "Aljiba Woods - Part 3",
+      "sourceName": "Aljiba Woods - Part 3",
+      "position": {
+        "x": 8192,
+        "y": 224,
+        "width": 512,
+        "height": 224
+      },
+      "sourceId": "aljiba-woods-part-3",
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 16,
+      "blockHeight": 7,
+      "tileWidth": 64,
+      "tileHeight": 28,
+      "crop": null,
+      "chrSet": "chr-02-03",
+      "tileSet": "tiles-4-8cf4-8d3a",
+      "layoutBlocks": {
+        "offset": 40656,
+        "length": 112
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "aljiba-woods-part-3-day",
+        "night": "aljiba-woods-part-3-night"
+      },
+      "atlasEntries": {
+        "day": "obj02-area02-sub00-aljiba-woods-part-3-day",
+        "night": "obj02-area02-sub00-aljiba-woods-part-3-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "binary": "rom-derived-tile-data"
+      }
+    }
+  ],
+  "destructibleFixtures": [
+    {
+      "id": "veros-woods-part-1-destructible-4-20-4x2",
+      "label": "Breakable blocks",
+      "kind": "destructible-terrain",
+      "role": "breakable-terrain",
+      "segmentId": "veros-woods-part-1",
+      "tileRect": {
+        "x": 4,
+        "y": 20,
+        "width": 4,
+        "height": 2
+      },
+      "matchCount": 2,
+      "matches": [
+        {
+          "x": 4,
+          "y": 20,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 6,
+          "y": 20,
+          "width": 2,
+          "height": 2
+        }
+      ],
+      "linkedActorId": null,
+      "signatureId": "destructible-block-2x2",
+      "signatureLabel": "Destructible block",
+      "action": "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.",
+      "provenance": {
+        "source": "rom-expanded-background-tilemap",
+        "signatureTiles": [
+          [
+            "0xFB",
+            "0xFD"
+          ],
+          [
+            "0xFC",
+            "0xFE"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "denis-woods-part-2-destructible-36-20-4x2",
+      "label": "Breakable blocks",
+      "kind": "destructible-terrain",
+      "role": "breakable-terrain",
+      "segmentId": "denis-woods-part-2",
+      "tileRect": {
+        "x": 36,
+        "y": 20,
+        "width": 4,
+        "height": 2
+      },
+      "matchCount": 2,
+      "matches": [
+        {
+          "x": 36,
+          "y": 20,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 38,
+          "y": 20,
+          "width": 2,
+          "height": 2
+        }
+      ],
+      "linkedActorId": null,
+      "signatureId": "destructible-block-2x2",
+      "signatureLabel": "Destructible block",
+      "action": "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.",
+      "provenance": {
+        "source": "rom-expanded-background-tilemap",
+        "signatureTiles": [
+          [
+            "0xFB",
+            "0xFD"
+          ],
+          [
+            "0xFC",
+            "0xFE"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "dabis-path-part-2-destructible-2-20-2x4",
+      "label": "Sacred Flame",
+      "kind": "destructible-terrain",
+      "role": "secret-reward",
+      "segmentId": "dabis-path-part-2",
+      "tileRect": {
+        "x": 2,
+        "y": 20,
+        "width": 2,
+        "height": 4
+      },
+      "matchCount": 2,
+      "matches": [
+        {
+          "x": 2,
+          "y": 20,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 2,
+          "y": 22,
+          "width": 2,
+          "height": 2
+        }
+      ],
+      "linkedActorId": "dabis-2-sacred-flame-66b0",
+      "signatureId": "destructible-block-2x2",
+      "signatureLabel": "Destructible block",
+      "action": "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.",
+      "provenance": {
+        "source": "rom-expanded-background-tilemap",
+        "signatureTiles": [
+          [
+            "0xFB",
+            "0xFD"
+          ],
+          [
+            "0xFC",
+            "0xFE"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "dabis-path-part-2-destructible-48-20-4x2",
+      "label": "Breakable blocks",
+      "kind": "destructible-terrain",
+      "role": "breakable-terrain",
+      "segmentId": "dabis-path-part-2",
+      "tileRect": {
+        "x": 48,
+        "y": 20,
+        "width": 4,
+        "height": 2
+      },
+      "matchCount": 2,
+      "matches": [
+        {
+          "x": 48,
+          "y": 20,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 50,
+          "y": 20,
+          "width": 2,
+          "height": 2
+        }
+      ],
+      "linkedActorId": null,
+      "signatureId": "destructible-block-2x2",
+      "signatureLabel": "Destructible block",
+      "action": "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.",
+      "provenance": {
+        "source": "rom-expanded-background-tilemap",
+        "signatureTiles": [
+          [
+            "0xFB",
+            "0xFD"
+          ],
+          [
+            "0xFC",
+            "0xFE"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "aljiba-woods-part-1-destructible-10-24-2x2",
+      "label": "Hidden clue book",
+      "kind": "destructible-terrain",
+      "role": "secret-reward",
+      "segmentId": "aljiba-woods-part-1",
+      "tileRect": {
+        "x": 10,
+        "y": 24,
+        "width": 2,
+        "height": 2
+      },
+      "matchCount": 1,
+      "matches": [
+        {
+          "x": 10,
+          "y": 24,
+          "width": 2,
+          "height": 2
+        }
+      ],
+      "linkedActorId": "aljiba-1-book-66d5",
+      "signatureId": "destructible-block-2x2",
+      "signatureLabel": "Destructible block",
+      "action": "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.",
+      "provenance": {
+        "source": "rom-expanded-background-tilemap",
+        "signatureTiles": [
+          [
+            "0xFB",
+            "0xFD"
+          ],
+          [
+            "0xFC",
+            "0xFE"
+          ]
+        ]
       }
     }
   ],
@@ -944,7 +1800,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -19,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 16,
+            "height": 32,
+            "centroid": {
+              "x": 0.08395989974937343,
+              "y": -1.9536340852130325
+            },
+            "opaquePixels": 399,
+            "source": "chr-nonzero-pixels"
+          }
         },
         {
           "selector": "0x25",
@@ -987,7 +1857,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -18,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 15,
+            "height": 31,
+            "centroid": {
+              "x": 0.4435215946843854,
+              "y": -3.3538205980066444
+            },
+            "opaquePixels": 301,
+            "source": "chr-nonzero-pixels"
+          }
         }
       ],
       "bounds": {
@@ -1007,6 +1891,7 @@
         "height": 32,
         "source": "chr-nonzero-pixels"
       },
+      "selectorSource": "selector-stream-record",
       "proof": "ROM row id $B5 maps through live id $35 to animation record $0E, which emits selectors $24/$25."
     },
     {
@@ -1074,7 +1959,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -4,
+            "minY": -19,
+            "maxX": 6,
+            "maxY": 13,
+            "width": 10,
+            "height": 32,
+            "centroid": {
+              "x": 0.8543689320388349,
+              "y": -3.203883495145631
+            },
+            "opaquePixels": 206,
+            "source": "chr-nonzero-pixels"
+          }
         },
         {
           "selector": "0x23",
@@ -1117,7 +2016,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -18,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 16,
+            "height": 31,
+            "centroid": {
+              "x": 0.6543859649122807,
+              "y": -1.0368421052631578
+            },
+            "opaquePixels": 285,
+            "source": "chr-nonzero-pixels"
+          }
         }
       ],
       "bounds": {
@@ -1137,7 +2050,149 @@
         "height": 32,
         "source": "chr-nonzero-pixels"
       },
+      "selectorSource": "selector-stream-record",
       "proof": "ROM row id $AA maps through live id $2A to animation record $0D, which emits selectors $22/$23."
+    },
+    {
+      "id": "town-woman",
+      "label": "Town woman",
+      "kind": "npc",
+      "actorId": "0xA9",
+      "chrSet": "chr-00-01",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "selectorRecord": {
+        "index": "0x0A",
+        "cpuAddress": "0xDDC0",
+        "fileOffset": "0x1DDD0",
+        "bytes": [
+          "0x01",
+          "0x1C",
+          "0x0C"
+        ],
+        "selectors": [
+          "0x1C",
+          "0x1D"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x1C",
+          "pointer": "0xB3FB",
+          "status": "0x03",
+          "sprites": [
+            {
+              "tile": "0xE1",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xE3",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xE5",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": -3
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -4,
+            "minY": -19,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 12,
+            "height": 32,
+            "centroid": {
+              "x": 1.0625,
+              "y": -1.4609375
+            },
+            "opaquePixels": 256,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x1D",
+          "pointer": "0xB406",
+          "status": "0x03",
+          "sprites": [
+            {
+              "tile": "0xE1",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -18
+            },
+            {
+              "tile": "0xE7",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xE9",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": -3
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -4,
+            "minY": -18,
+            "maxX": 10,
+            "maxY": 13,
+            "width": 14,
+            "height": 31,
+            "centroid": {
+              "x": 1.4365079365079365,
+              "y": -1.0595238095238095
+            },
+            "opaquePixels": 252,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -4,
+        "minY": -19,
+        "maxX": 12,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -4,
+        "minY": -19,
+        "maxX": 10,
+        "maxY": 13,
+        "width": 14,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "ROM row id $A9 maps through live id $29; the shared town routine at 1:$8F50 selects animation record $0A, which emits selectors $1C/$1D."
     },
     {
       "id": "jova-a8",
@@ -1204,7 +2259,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -4,
+            "minY": -19,
+            "maxX": 6,
+            "maxY": 13,
+            "width": 10,
+            "height": 32,
+            "centroid": {
+              "x": 0.8543689320388349,
+              "y": -3.203883495145631
+            },
+            "opaquePixels": 206,
+            "source": "chr-nonzero-pixels"
+          }
         },
         {
           "selector": "0x23",
@@ -1247,7 +2316,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -18,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 16,
+            "height": 31,
+            "centroid": {
+              "x": 0.6543859649122807,
+              "y": -1.0368421052631578
+            },
+            "opaquePixels": 285,
+            "source": "chr-nonzero-pixels"
+          }
         }
       ],
       "bounds": {
@@ -1267,6 +2350,7 @@
         "height": 32,
         "source": "chr-nonzero-pixels"
       },
+      "selectorSource": "selector-stream-record",
       "proof": "ROM row id $A8 maps through the town high-bit path to the same town-man animation record $0D."
     },
     {
@@ -1334,7 +2418,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -19,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 32,
+            "centroid": {
+              "x": -1.1940063091482649,
+              "y": -1.5630914826498423
+            },
+            "opaquePixels": 317,
+            "source": "chr-nonzero-pixels"
+          }
         },
         {
           "selector": "0x1F",
@@ -1377,7 +2475,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -18,
+            "maxX": 6,
+            "maxY": 13,
+            "width": 13,
+            "height": 31,
+            "centroid": {
+              "x": -1.2564102564102564,
+              "y": -1.25
+            },
+            "opaquePixels": 312,
+            "source": "chr-nonzero-pixels"
+          }
         }
       ],
       "bounds": {
@@ -1397,7 +2509,211 @@
         "height": 32,
         "source": "chr-nonzero-pixels"
       },
+      "selectorSource": "selector-stream-record",
       "proof": "ROM row id $AE maps through live id $2E to merchant animation record $0B, which emits selectors $1E/$1F."
+    },
+    {
+      "id": "bat",
+      "label": "Bat",
+      "kind": "enemy",
+      "actorId": "0x01",
+      "chrSet": "chr-00-01",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "selectorRecord": {
+        "index": "0x08",
+        "cpuAddress": "0xDDBA",
+        "fileOffset": "0x1DDCA",
+        "bytes": [
+          "0x03",
+          "0x15",
+          "0x08"
+        ],
+        "selectors": [
+          "0x15",
+          "0x16",
+          "0x17",
+          "0x18"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x15",
+          "pointer": "0xB3D1",
+          "status": "0x02",
+          "sprites": [
+            {
+              "tile": "0x81",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x83",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -8,
+            "maxX": 8,
+            "maxY": 7,
+            "width": 15,
+            "height": 15,
+            "centroid": {
+              "x": 0.19444444444444445,
+              "y": -1.7222222222222223
+            },
+            "opaquePixels": 144,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x16",
+          "pointer": "0xB3D9",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0x85",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x87",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -4,
+            "maxX": 8,
+            "maxY": 7,
+            "width": 15,
+            "height": 11,
+            "centroid": {
+              "x": 1.0353535353535352,
+              "y": 0.9040404040404041
+            },
+            "opaquePixels": 99,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x17",
+          "pointer": "0xB3DE",
+          "status": "0x02",
+          "sprites": [
+            {
+              "tile": "0x89",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -2
+            },
+            {
+              "tile": "0x8B",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -2
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -2,
+            "maxX": 7,
+            "maxY": 14,
+            "width": 14,
+            "height": 16,
+            "centroid": {
+              "x": -0.4774436090225564,
+              "y": 5.635338345864661
+            },
+            "opaquePixels": 133,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x18",
+          "pointer": "0xB3D9",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0x85",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x87",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -4,
+            "maxX": 8,
+            "maxY": 7,
+            "width": 15,
+            "height": 11,
+            "centroid": {
+              "x": 1.0353535353535352,
+              "y": 0.9040404040404041
+            },
+            "opaquePixels": 99,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 24
+      },
+      "opaqueBounds": {
+        "minX": -7,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 14,
+        "width": 15,
+        "height": 22,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "ROM actor id $01 dispatches to 1:$8FAA, which writes selector-stream record $08 before normal actor rendering."
     },
     {
       "id": "skeleton",
@@ -1467,7 +2783,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -19,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 16,
+            "height": 32,
+            "centroid": {
+              "x": 0.030201342281879196,
+              "y": -4.060402684563758
+            },
+            "opaquePixels": 298,
+            "source": "chr-nonzero-pixels"
+          }
         },
         {
           "selector": "0x0F",
@@ -1510,7 +2840,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -18,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 16,
+            "height": 31,
+            "centroid": {
+              "x": -0.23654390934844194,
+              "y": -1.8371104815864023
+            },
+            "opaquePixels": 353,
+            "source": "chr-nonzero-pixels"
+          }
         }
       ],
       "bounds": {
@@ -1530,6 +2874,7 @@
         "height": 32,
         "source": "chr-nonzero-pixels"
       },
+      "selectorSource": "selector-stream-record",
       "proof": "ROM actor id $03 uses selector-stream record $05, proven by live actor traces and decoded fixed-bank selector bytes."
     },
     {
@@ -1600,7 +2945,21 @@
               "xOffset": 0,
               "yOffset": 0
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -15,
+            "maxX": 8,
+            "maxY": 16,
+            "width": 15,
+            "height": 31,
+            "centroid": {
+              "x": 0.9,
+              "y": 0.8130434782608695
+            },
+            "opaquePixels": 345,
+            "source": "chr-nonzero-pixels"
+          }
         },
         {
           "selector": "0x11",
@@ -1643,7 +3002,21 @@
               "xOffset": 0,
               "yOffset": 0
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -14,
+            "maxX": 8,
+            "maxY": 16,
+            "width": 16,
+            "height": 30,
+            "centroid": {
+              "x": 0.7272727272727273,
+              "y": 2.2058823529411766
+            },
+            "opaquePixels": 374,
+            "source": "chr-nonzero-pixels"
+          }
         }
       ],
       "bounds": {
@@ -1663,7 +3036,403 @@
         "height": 31,
         "source": "chr-nonzero-pixels"
       },
+      "selectorSource": "selector-stream-record",
       "proof": "ROM actor id $04 uses selector-stream record $06 for the body frames; the fishman proof supplies the segment sprite palettes."
+    },
+    {
+      "id": "eyeball",
+      "label": "Eyeball",
+      "kind": "enemy",
+      "actorId": "0x08",
+      "chrSet": "chr-02-03",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "selectorRecord": {
+        "index": "0x39",
+        "cpuAddress": "0xDE4D",
+        "fileOffset": "0x1DE5D",
+        "bytes": [
+          "0x01",
+          "0xC6",
+          "0x08"
+        ],
+        "selectors": [
+          "0xC6",
+          "0xC7"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0xC6",
+          "pointer": "0xB68E",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xF3",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xF5",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -8,
+            "maxX": 8,
+            "maxY": 8,
+            "width": 16,
+            "height": 16,
+            "centroid": {
+              "x": -0.05502392344497608,
+              "y": -0.0215311004784689
+            },
+            "opaquePixels": 209,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0xC7",
+          "pointer": "0xB693",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xF7",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xF9",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -7,
+            "maxX": 8,
+            "maxY": 8,
+            "width": 16,
+            "height": 15,
+            "centroid": {
+              "x": -0.10784313725490197,
+              "y": 0.696078431372549
+            },
+            "opaquePixels": 204,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 24
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 8,
+        "width": 16,
+        "height": 16,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "ROM actor id $08 dispatches to 1:$A7CA, which writes selector-stream record $39."
+    },
+    {
+      "id": "zigzag-bat",
+      "label": "Bat",
+      "kind": "enemy",
+      "actorId": "0x09",
+      "chrSet": "chr-02-03",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "selectorRecord": {
+        "index": "0x3A",
+        "cpuAddress": "0xDE50",
+        "fileOffset": "0x1DE60",
+        "bytes": [
+          "0x01",
+          "0xC8",
+          "0x10"
+        ],
+        "selectors": [
+          "0xC8",
+          "0xC9"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0xC8",
+          "pointer": "0xB698",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0x81",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x83",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -8,
+            "maxX": 5,
+            "maxY": 8,
+            "width": 13,
+            "height": 16,
+            "centroid": {
+              "x": -1.844,
+              "y": -0.044
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          },
+          "staticPreviewOffset": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "selector": "0xC9",
+          "pointer": "0xB69D",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0x85",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x87",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -8,
+            "maxX": 3,
+            "maxY": 6,
+            "width": 11,
+            "height": 14,
+            "centroid": {
+              "x": -2.9125,
+              "y": -1.175
+            },
+            "opaquePixels": 80,
+            "source": "chr-nonzero-pixels"
+          },
+          "staticPreviewOffset": {
+            "x": 0,
+            "y": 6
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 24
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 5,
+        "maxY": 8,
+        "width": 13,
+        "height": 16,
+        "source": "chr-nonzero-pixels"
+      },
+      "staticPreview": {
+        "mode": "flight-body-frame-offsets",
+        "anchor": "selector-frame-flight-body",
+        "axes": [
+          "y"
+        ],
+        "reason": "The ROM zigzag bat moves while flapping. Static guide placement offsets the second selector frame so the body does not appear to snap upward inside a fixed map marker.",
+        "source": "rom-selector-presentation-policy"
+      },
+      "previewOpaqueBounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 5,
+        "maxY": 12,
+        "width": 13,
+        "height": 20,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "ROM actor id $09 dispatches to 1:$A7F2, which writes selector-stream record $3A after its movement setup."
+    },
+    {
+      "id": "spider",
+      "label": "Spider",
+      "kind": "enemy",
+      "actorId": "0x0E",
+      "chrSet": "chr-02-03",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "selectorRecord": {
+        "index": "0x23",
+        "cpuAddress": "0xDE0B",
+        "fileOffset": "0x1DE1B",
+        "bytes": [
+          "0x01",
+          "0x2E",
+          "0x10"
+        ],
+        "selectors": [
+          "0x2E",
+          "0x2F"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x2E",
+          "pointer": "0xB249",
+          "status": "0x02",
+          "sprites": [
+            {
+              "tile": "0x8B",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x8B",
+              "attr": "0x42",
+              "palette": 2,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -8,
+            "maxX": 8,
+            "maxY": 8,
+            "width": 16,
+            "height": 16,
+            "centroid": {
+              "x": 0,
+              "y": 0.09090909090909091
+            },
+            "opaquePixels": 220,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x2F",
+          "pointer": "0xB252",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xBF",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xBF",
+              "attr": "0x42",
+              "palette": 2,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -8,
+            "maxX": 8,
+            "maxY": 8,
+            "width": 16,
+            "height": 16,
+            "centroid": {
+              "x": 0,
+              "y": -0.41346153846153844
+            },
+            "opaquePixels": 208,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 24
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 8,
+        "width": 16,
+        "height": 16,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "ROM actor id $0E dispatches to 1:$8425, which writes selector-stream record $23."
     },
     {
       "id": "werewolf",
@@ -1733,7 +3502,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -19,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 16,
+            "height": 32,
+            "centroid": {
+              "x": 1.0166666666666666,
+              "y": -3.236666666666667
+            },
+            "opaquePixels": 300,
+            "source": "chr-nonzero-pixels"
+          }
         },
         {
           "selector": "0x66",
@@ -1776,7 +3559,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -18,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 16,
+            "height": 31,
+            "centroid": {
+              "x": 0.32857142857142857,
+              "y": -1.8746031746031746
+            },
+            "opaquePixels": 315,
+            "source": "chr-nonzero-pixels"
+          }
         }
       ],
       "bounds": {
@@ -1796,6 +3593,7 @@
         "height": 32,
         "source": "chr-nonzero-pixels"
       },
+      "selectorSource": "selector-stream-record",
       "proof": "ROM actor id $13 uses selector-stream record $1E, proven by live Jova Woods actor traces."
     },
     {
@@ -1866,7 +3664,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -19,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 16,
+            "height": 32,
+            "centroid": {
+              "x": 0.9325068870523416,
+              "y": -3.2300275482093666
+            },
+            "opaquePixels": 363,
+            "source": "chr-nonzero-pixels"
+          }
         },
         {
           "selector": "0x40",
@@ -1909,7 +3721,21 @@
               "xOffset": 0,
               "yOffset": -3
             }
-          ]
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -18,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 16,
+            "height": 31,
+            "centroid": {
+              "x": 0.7413793103448276,
+              "y": -2.8315649867374004
+            },
+            "opaquePixels": 377,
+            "source": "chr-nonzero-pixels"
+          }
         }
       ],
       "bounds": {
@@ -1929,7 +3755,214 @@
         "height": 32,
         "source": "chr-nonzero-pixels"
       },
+      "selectorSource": "selector-stream-record",
       "proof": "ROM actor id $17 is loaded by the town night actor gate and uses selector-stream record $37."
+    },
+    {
+      "id": "sacred-flame-secret",
+      "label": "Sacred Flame",
+      "kind": "secret",
+      "actorId": "0x26",
+      "chrSet": "chr-02-03",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "selectorRecord": {
+        "index": "0x20",
+        "cpuAddress": "0xDE02",
+        "fileOffset": "0x1DE12",
+        "bytes": [
+          "0x01",
+          "0x78",
+          "0x08"
+        ],
+        "selectors": [
+          "0x78",
+          "0x79"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x78",
+          "pointer": "0xB2F8",
+          "status": "0x02",
+          "sprites": [
+            {
+              "tile": "0x5D",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -7,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x5D",
+              "attr": "0x41",
+              "palette": 1,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": -5,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -2,
+            "maxX": 3,
+            "maxY": 8,
+            "width": 10,
+            "height": 10,
+            "centroid": {
+              "x": -2,
+              "y": 3.3852459016393444
+            },
+            "opaquePixels": 122,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x79",
+          "pointer": "0xB301",
+          "status": "0x02",
+          "sprites": [
+            {
+              "tile": "0x5F",
+              "attr": "0x41",
+              "palette": 1,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": -7,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x5F",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -5,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": 0,
+            "maxX": 3,
+            "maxY": 8,
+            "width": 10,
+            "height": 8,
+            "centroid": {
+              "x": -2,
+              "y": 4.44
+            },
+            "opaquePixels": 100,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -7,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 15,
+        "height": 24
+      },
+      "opaqueBounds": {
+        "minX": -7,
+        "minY": -2,
+        "maxX": 3,
+        "maxY": 8,
+        "width": 10,
+        "height": 10,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "ROM actor id $26 dispatches through 1:$8335; that routine passes selector-record index $20 to fixed-bank $DED8, which emits metasprites $78/$79 for the sacred-flame reward fixture."
+    },
+    {
+      "id": "hidden-book-secret",
+      "label": "Hidden clue book",
+      "kind": "secret",
+      "actorId": "0x27",
+      "chrSet": "chr-02-03",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "selectorRecord": {
+        "index": "0x3B",
+        "cpuAddress": "0xDE53",
+        "fileOffset": "0x1DE63",
+        "bytes": [
+          "0x00",
+          "0x30",
+          "0x80"
+        ],
+        "selectors": [
+          "0x30"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x30",
+          "pointer": "0xB3B9",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0x42",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x44",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -6,
+            "minY": -8,
+            "maxX": 7,
+            "maxY": 8,
+            "width": 13,
+            "height": 16,
+            "centroid": {
+              "x": 0.47073170731707314,
+              "y": -0.026829268292682926
+            },
+            "opaquePixels": 205,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 24
+      },
+      "opaqueBounds": {
+        "minX": -6,
+        "minY": -8,
+        "maxX": 7,
+        "maxY": 8,
+        "width": 13,
+        "height": 16,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "ROM actor id $27 dispatches through 1:$8335; that routine passes selector-record index $3B to fixed-bank $DED8, which emits metasprite $30 for the book fixture."
     }
   ],
   "actors": [
@@ -1955,7 +3988,10 @@
       "data": "0x38",
       "hp": null,
       "text": "first thing to do in this town is buy a white crystal.",
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 64,
         "pixelY": 192,
@@ -2000,7 +4036,10 @@
       "data": "0x3D",
       "hp": null,
       "text": "you have a friend in the town of aldra. go and see him.",
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 64,
         "pixelY": 416,
@@ -2045,7 +4084,10 @@
       "data": "0x3E",
       "hp": null,
       "text": "13 clues will solve dracula's riddle.",
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 128,
         "pixelY": 288,
@@ -2089,12 +4131,15 @@
       "data": "0x3A",
       "hp": null,
       "text": "turn right for the jova woods. left for belasco marsh.",
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": {
         "x": 24,
         "y": 48,
         "width": 4,
         "height": 4
       },
+      "fixtureSignature": "townSign",
       "runtimeAnchor": {
         "pixelX": 192,
         "pixelY": 416,
@@ -2142,7 +4187,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 192,
         "pixelY": 192,
@@ -2187,7 +4235,10 @@
       "data": "0x41",
       "hp": null,
       "text": "a magic potion will destroy the wall of evil.",
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 320,
         "pixelY": 416,
@@ -2235,7 +4286,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 320,
         "pixelY": 320,
@@ -2280,7 +4334,10 @@
       "data": "0x44",
       "hp": null,
       "text": "rumor has it, the ferryman at dead river loves garlic.",
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 384,
         "pixelY": 320,
@@ -2328,7 +4385,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 384,
         "pixelY": 192,
@@ -2376,7 +4436,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 448,
         "pixelY": 416,
@@ -2421,7 +4484,10 @@
       "data": "0x4C",
       "hp": null,
       "text": "a crooked trader is offering bum deals in this town.",
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 576,
         "pixelY": 192,
@@ -2466,7 +4532,10 @@
       "data": "0x4D",
       "hp": null,
       "text": "a flame is on top of the 6th tree in denis woods.",
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 640,
         "pixelY": 320,
@@ -2511,7 +4580,10 @@
       "data": "0x4E",
       "hp": null,
       "text": "clues to dracula's riddle are in the town of veros.",
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 704,
         "pixelY": 416,
@@ -2559,7 +4631,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 640,
         "pixelY": 320,
@@ -2607,7 +4682,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 704,
         "pixelY": 192,
@@ -2652,7 +4730,10 @@
       "data": "0x07",
       "hp": null,
       "text": "buy a white crystal?",
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 832,
         "pixelY": 288,
@@ -2700,7 +4781,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 832,
         "pixelY": 288,
@@ -2748,7 +4832,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 896,
         "pixelY": 192,
@@ -2798,7 +4885,10 @@
         "night": 4
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 128,
         "pixelY": 192,
@@ -2848,7 +4938,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 192,
         "pixelY": 192,
@@ -2898,7 +4991,10 @@
         "night": 4
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 320,
         "pixelY": 192,
@@ -2948,7 +5044,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 384,
         "pixelY": 160,
@@ -2998,7 +5097,10 @@
         "night": 4
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 448,
         "pixelY": 128,
@@ -3048,7 +5150,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 640,
         "pixelY": 160,
@@ -3098,7 +5203,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 704,
         "pixelY": 192,
@@ -3148,7 +5256,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 832,
         "pixelY": 160,
@@ -3198,7 +5309,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 960,
         "pixelY": 176,
@@ -3248,7 +5362,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 64,
         "pixelY": 160,
@@ -3298,7 +5415,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 192,
         "pixelY": 144,
@@ -3348,7 +5468,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 224,
         "pixelY": 192,
@@ -3398,7 +5521,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 336,
         "pixelY": 192,
@@ -3448,7 +5574,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 416,
         "pixelY": 192,
@@ -3498,7 +5627,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 592,
         "pixelY": 192,
@@ -3548,7 +5680,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 672,
         "pixelY": 192,
@@ -3598,7 +5733,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 832,
         "pixelY": 144,
@@ -3648,7 +5786,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 848,
         "pixelY": 192,
@@ -3698,7 +5839,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 896,
         "pixelY": 160,
@@ -3748,7 +5892,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 128,
         "pixelY": 96,
@@ -3798,7 +5945,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 128,
         "pixelY": 192,
@@ -3848,7 +5998,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 320,
         "pixelY": 96,
@@ -3898,7 +6051,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 384,
         "pixelY": 192,
@@ -3948,7 +6104,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 400,
         "pixelY": 96,
@@ -3998,7 +6157,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 464,
         "pixelY": 128,
@@ -4048,7 +6210,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 64,
         "pixelY": 160,
@@ -4098,7 +6263,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 128,
         "pixelY": 176,
@@ -4148,7 +6316,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 192,
         "pixelY": 192,
@@ -4198,7 +6369,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 320,
         "pixelY": 160,
@@ -4248,7 +6422,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 384,
         "pixelY": 160,
@@ -4298,7 +6475,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 64,
         "pixelY": 160,
@@ -4348,7 +6528,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 160,
         "pixelY": 192,
@@ -4398,7 +6581,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 320,
         "pixelY": 160,
@@ -4448,7 +6634,10 @@
         "night": 2
       },
       "text": null,
+      "textEvidence": null,
+      "secret": null,
       "visualTileRect": null,
+      "fixtureSignature": null,
       "runtimeAnchor": {
         "pixelX": 384,
         "pixelY": 160,
@@ -4470,14 +6659,3889 @@
         ],
         "source": "rom-actor-row"
       }
+    },
+    {
+      "id": "veros-man-522a",
+      "classId": "jova-man",
+      "label": "Veros man",
+      "kind": "npc",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 4,
+      "tileY": 12,
+      "pixelX": 72,
+      "pixelY": 180,
+      "worldX": 4680,
+      "worldY": 628,
+      "actorId": "0xAA",
+      "data": "0x40",
+      "hp": null,
+      "text": "a rib can shield you from evil.",
+      "textEvidence": {
+        "pointerIndex": "0x40",
+        "tableFileOffset": "0x0CC12",
+        "ramPointer": "0x9468",
+        "fileOffset": "0x0D478",
+        "rawBytes": [
+          "0x01",
+          "0x00",
+          "0x12",
+          "0x09",
+          "0x02",
+          "0x00",
+          "0x03",
+          "0x01",
+          "0x0E",
+          "0xFE",
+          "0x13",
+          "0x08",
+          "0x09",
+          "0x05",
+          "0x0C",
+          "0x04",
+          "0x00",
+          "0x19",
+          "0x0F",
+          "0x15",
+          "0xFE",
+          "0x06",
+          "0x12",
+          "0x0F",
+          "0x0D",
+          "0x00",
+          "0x05",
+          "0x16",
+          "0x09",
+          "0x0C",
+          "0x1B"
+        ],
+        "decoded": "a rib can\nshield you\nfrom evil.",
+        "text": "a rib can shield you from evil.",
+        "source": "rom-text-pointer-table:0x0CB92"
+      },
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 192,
+        "worldX": 4672,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0522A",
+        "rawBytes": [
+          "0x04",
+          "0x0C",
+          "0xAA",
+          "0x40"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-bat-522e",
+      "classId": "bat",
+      "label": "Veros bat",
+      "kind": "enemy",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 4,
+      "tileY": 8,
+      "pixelX": 72,
+      "pixelY": 116,
+      "worldX": 4680,
+      "worldY": 564,
+      "actorId": "0x01",
+      "data": "0x02",
+      "hp": {
+        "day": null,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 128,
+        "worldX": 4672,
+        "worldY": 576
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0522E",
+        "rawBytes": [
+          "0x04",
+          "0x08",
+          "0x01",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-man-5232",
+      "classId": "jova-man",
+      "label": "Veros man",
+      "kind": "npc",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 12,
+      "tileY": 12,
+      "pixelX": 200,
+      "pixelY": 180,
+      "worldX": 4808,
+      "worldY": 628,
+      "actorId": "0xAA",
+      "data": "0x43",
+      "hp": null,
+      "text": "laurels in your soup enhances its aroma.",
+      "textEvidence": {
+        "pointerIndex": "0x43",
+        "tableFileOffset": "0x0CC18",
+        "ramPointer": "0x94ED",
+        "fileOffset": "0x0D4FD",
+        "rawBytes": [
+          "0x0C",
+          "0x01",
+          "0x15",
+          "0x12",
+          "0x05",
+          "0x0C",
+          "0x13",
+          "0x00",
+          "0x09",
+          "0x0E",
+          "0xFE",
+          "0x19",
+          "0x0F",
+          "0x15",
+          "0x12",
+          "0x00",
+          "0x13",
+          "0x0F",
+          "0x15",
+          "0x10",
+          "0xFE",
+          "0x05",
+          "0x0E",
+          "0x08",
+          "0x01",
+          "0x0E",
+          "0x03",
+          "0x05",
+          "0x13",
+          "0x00",
+          "0x09",
+          "0x14",
+          "0x13",
+          "0xFE",
+          "0x01",
+          "0x12",
+          "0x0F",
+          "0x0D",
+          "0x01",
+          "0x1B"
+        ],
+        "decoded": "laurels in\nyour soup\nenhances its\naroma.",
+        "text": "laurels in your soup enhances its aroma.",
+        "source": "rom-text-pointer-table:0x0CB92"
+      },
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 192,
+        "worldX": 4800,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x05232",
+        "rawBytes": [
+          "0x0C",
+          "0x0C",
+          "0xAA",
+          "0x43"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-sign-5236",
+      "classId": null,
+      "label": "Veros sign",
+      "kind": "fixture",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {},
+      "tileX": 13,
+      "tileY": 12,
+      "pixelX": 216,
+      "pixelY": 180,
+      "worldX": 4824,
+      "worldY": 628,
+      "actorId": "0xA4",
+      "data": "0x3B",
+      "hp": null,
+      "text": "turn right for dabi's path left for the veros woods.",
+      "textEvidence": {
+        "pointerIndex": "0x3B",
+        "tableFileOffset": "0x0CC08",
+        "ramPointer": "0x936A",
+        "fileOffset": "0x0D37A",
+        "rawBytes": [
+          "0x14",
+          "0x15",
+          "0x12",
+          "0x0E",
+          "0x00",
+          "0x12",
+          "0x09",
+          "0x07",
+          "0x08",
+          "0x14",
+          "0xFE",
+          "0x06",
+          "0x0F",
+          "0x12",
+          "0x00",
+          "0x04",
+          "0x01",
+          "0x02",
+          "0x09",
+          "0x1C",
+          "0x13",
+          "0xFE",
+          "0x10",
+          "0x01",
+          "0x14",
+          "0x08",
+          "0x00",
+          "0x0C",
+          "0x05",
+          "0x06",
+          "0x14",
+          "0xFE",
+          "0x06",
+          "0x0F",
+          "0x12",
+          "0x00",
+          "0x14",
+          "0x08",
+          "0x05",
+          "0xFE",
+          "0x16",
+          "0x05",
+          "0x12",
+          "0x0F",
+          "0x13",
+          "0x00",
+          "0x17",
+          "0x0F",
+          "0x0F",
+          "0x04",
+          "0x13",
+          "0x1B"
+        ],
+        "decoded": "turn right\nfor dabi's\npath left\nfor the\nveros woods.",
+        "text": "turn right for dabi's path left for the veros woods.",
+        "source": "rom-text-pointer-table:0x0CB92"
+      },
+      "secret": null,
+      "visualTileRect": {
+        "x": 24,
+        "y": 20,
+        "width": 4,
+        "height": 4
+      },
+      "fixtureSignature": "townSign",
+      "runtimeAnchor": {
+        "pixelX": 208,
+        "pixelY": 192,
+        "worldX": 4816,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x05236",
+        "rawBytes": [
+          "0x0D",
+          "0x0C",
+          "0xA4",
+          "0x3B"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-man-523a",
+      "classId": "jova-man",
+      "label": "Veros man",
+      "kind": "npc",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 20,
+      "tileY": 12,
+      "pixelX": 328,
+      "pixelY": 180,
+      "worldX": 4936,
+      "worldY": 628,
+      "actorId": "0xAA",
+      "data": "0x48",
+      "hp": null,
+      "text": "you look pale,my son. you must rest in the church.",
+      "textEvidence": {
+        "pointerIndex": "0x48",
+        "tableFileOffset": "0x0CC22",
+        "ramPointer": "0x95C4",
+        "fileOffset": "0x0D5D4",
+        "rawBytes": [
+          "0x19",
+          "0x0F",
+          "0x15",
+          "0x00",
+          "0x0C",
+          "0x0F",
+          "0x0F",
+          "0x0B",
+          "0xFE",
+          "0x10",
+          "0x01",
+          "0x0C",
+          "0x05",
+          "0x1E",
+          "0x0D",
+          "0x19",
+          "0x00",
+          "0x13",
+          "0x0F",
+          "0x0E",
+          "0x1B",
+          "0xFE",
+          "0x19",
+          "0x0F",
+          "0x15",
+          "0x00",
+          "0x0D",
+          "0x15",
+          "0x13",
+          "0x14",
+          "0xFE",
+          "0x12",
+          "0x05",
+          "0x13",
+          "0x14",
+          "0x00",
+          "0x09",
+          "0x0E",
+          "0x00",
+          "0x14",
+          "0x08",
+          "0x05",
+          "0xFE",
+          "0x03",
+          "0x08",
+          "0x15",
+          "0x12",
+          "0x03",
+          "0x08",
+          "0x1B"
+        ],
+        "decoded": "you look\npale,my son.\nyou must\nrest in the\nchurch.",
+        "text": "you look pale,my son. you must rest in the church.",
+        "source": "rom-text-pointer-table:0x0CB92"
+      },
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 192,
+        "worldX": 4928,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0523A",
+        "rawBytes": [
+          "0x14",
+          "0x0C",
+          "0xAA",
+          "0x48"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-woman-523e",
+      "classId": "town-woman",
+      "label": "Veros woman",
+      "kind": "npc",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 26,
+      "tileY": 12,
+      "pixelX": 424,
+      "pixelY": 180,
+      "worldX": 5032,
+      "worldY": 628,
+      "actorId": "0xA9",
+      "data": "0x4F",
+      "hp": null,
+      "text": "clues to dracula's riddle are in the town of alba.",
+      "textEvidence": {
+        "pointerIndex": "0x4F",
+        "tableFileOffset": "0x0CC30",
+        "ramPointer": "0x9706",
+        "fileOffset": "0x0D716",
+        "rawBytes": [
+          "0x03",
+          "0x0C",
+          "0x15",
+          "0x05",
+          "0x13",
+          "0x00",
+          "0x14",
+          "0x0F",
+          "0xFE",
+          "0x04",
+          "0x12",
+          "0x01",
+          "0x03",
+          "0x15",
+          "0x0C",
+          "0x01",
+          "0x1C",
+          "0x13",
+          "0xFE",
+          "0x12",
+          "0x09",
+          "0x04",
+          "0x04",
+          "0x0C",
+          "0x05",
+          "0x00",
+          "0x01",
+          "0x12",
+          "0x05",
+          "0xFE",
+          "0x09",
+          "0x0E",
+          "0x00",
+          "0x14",
+          "0x08",
+          "0x05",
+          "0x00",
+          "0x14",
+          "0x0F",
+          "0x17",
+          "0x0E",
+          "0xFE",
+          "0x0F",
+          "0x06",
+          "0x00",
+          "0x01",
+          "0x0C",
+          "0x02",
+          "0x01",
+          "0x1B"
+        ],
+        "decoded": "clues to\ndracula's\nriddle are\nin the town\nof alba.",
+        "text": "clues to dracula's riddle are in the town of alba.",
+        "source": "rom-text-pointer-table:0x0CB92"
+      },
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 416,
+        "pixelY": 192,
+        "worldX": 5024,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0523E",
+        "rawBytes": [
+          "0x1A",
+          "0x0C",
+          "0xA9",
+          "0x4F"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-zombie-5242",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 12,
+      "pixelX": 392,
+      "pixelY": 180,
+      "worldX": 5000,
+      "worldY": 628,
+      "actorId": "0x17",
+      "data": "0x02",
+      "hp": {
+        "day": null,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 192,
+        "worldX": 4992,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x05242",
+        "rawBytes": [
+          "0x18",
+          "0x0C",
+          "0x17",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-shepherd-5246",
+      "classId": "jova-shepherd",
+      "label": "Veros shepherd",
+      "kind": "npc",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 28,
+      "tileY": 12,
+      "pixelX": 456,
+      "pixelY": 180,
+      "worldX": 5064,
+      "worldY": 628,
+      "actorId": "0xB5",
+      "data": "0x50",
+      "hp": null,
+      "text": "clues to dracula's riddle are in berkeley mansion.",
+      "textEvidence": {
+        "pointerIndex": "0x50",
+        "tableFileOffset": "0x0CC32",
+        "ramPointer": "0x9739",
+        "fileOffset": "0x0D749",
+        "rawBytes": [
+          "0x03",
+          "0x0C",
+          "0x15",
+          "0x05",
+          "0x13",
+          "0x00",
+          "0x14",
+          "0x0F",
+          "0xFE",
+          "0x04",
+          "0x12",
+          "0x01",
+          "0x03",
+          "0x15",
+          "0x0C",
+          "0x01",
+          "0x1C",
+          "0x13",
+          "0xFE",
+          "0x12",
+          "0x09",
+          "0x04",
+          "0x04",
+          "0x0C",
+          "0x05",
+          "0x00",
+          "0x01",
+          "0x12",
+          "0x05",
+          "0xFE",
+          "0x09",
+          "0x0E",
+          "0x00",
+          "0x02",
+          "0x05",
+          "0x12",
+          "0x0B",
+          "0x05",
+          "0x0C",
+          "0x05",
+          "0x19",
+          "0xFE",
+          "0x0D",
+          "0x01",
+          "0x0E",
+          "0x13",
+          "0x09",
+          "0x0F",
+          "0x0E",
+          "0x1B"
+        ],
+        "decoded": "clues to\ndracula's\nriddle are\nin berkeley\nmansion.",
+        "text": "clues to dracula's riddle are in berkeley mansion.",
+        "source": "rom-text-pointer-table:0x0CB92"
+      },
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 448,
+        "pixelY": 192,
+        "worldX": 5056,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x05246",
+        "rawBytes": [
+          "0x1C",
+          "0x0C",
+          "0xB5",
+          "0x50"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-shepherd-524a",
+      "classId": "jova-shepherd",
+      "label": "Veros shepherd",
+      "kind": "npc",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 36,
+      "tileY": 12,
+      "pixelX": 584,
+      "pixelY": 180,
+      "worldX": 5192,
+      "worldY": 628,
+      "actorId": "0xB5",
+      "data": "0x39",
+      "hp": null,
+      "text": "you've got a friend waiting for you in the town of aljiba.",
+      "textEvidence": {
+        "pointerIndex": "0x39",
+        "tableFileOffset": "0x0CC04",
+        "ramPointer": "0x92F6",
+        "fileOffset": "0x0D306",
+        "rawBytes": [
+          "0x19",
+          "0x0F",
+          "0x15",
+          "0x1C",
+          "0x16",
+          "0x05",
+          "0x00",
+          "0x07",
+          "0x0F",
+          "0x14",
+          "0x00",
+          "0x01",
+          "0xFE",
+          "0x06",
+          "0x12",
+          "0x09",
+          "0x05",
+          "0x0E",
+          "0x04",
+          "0x00",
+          "0x17",
+          "0x01",
+          "0x09",
+          "0x14",
+          "0x46",
+          "0xFE",
+          "0x09",
+          "0x0E",
+          "0x07",
+          "0x00",
+          "0x06",
+          "0x0F",
+          "0x12",
+          "0x00",
+          "0x19",
+          "0x0F",
+          "0x15",
+          "0xFE",
+          "0x09",
+          "0x0E",
+          "0x00",
+          "0x14",
+          "0x08",
+          "0x05",
+          "0x00",
+          "0x14",
+          "0x0F",
+          "0x17",
+          "0x0E",
+          "0xFE",
+          "0x0F",
+          "0x06",
+          "0x00",
+          "0x01",
+          "0x0C",
+          "0x0A",
+          "0x09",
+          "0x02",
+          "0x01",
+          "0x1B"
+        ],
+        "decoded": "you've got a\nfriend wait-\ning for you\nin the town\nof aljiba.",
+        "text": "you've got a friend waiting for you in the town of aljiba.",
+        "source": "rom-text-pointer-table:0x0CB92"
+      },
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 576,
+        "pixelY": 192,
+        "worldX": 5184,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0524A",
+        "rawBytes": [
+          "0x24",
+          "0x0C",
+          "0xB5",
+          "0x39"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-zombie-524e",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 40,
+      "tileY": 12,
+      "pixelX": 648,
+      "pixelY": 180,
+      "worldX": 5256,
+      "worldY": 628,
+      "actorId": "0x17",
+      "data": "0x02",
+      "hp": {
+        "day": null,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 640,
+        "pixelY": 192,
+        "worldX": 5248,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0524E",
+        "rawBytes": [
+          "0x28",
+          "0x0C",
+          "0x17",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-zombie-5252",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 44,
+      "tileY": 12,
+      "pixelX": 712,
+      "pixelY": 180,
+      "worldX": 5320,
+      "worldY": 628,
+      "actorId": "0x17",
+      "data": "0x02",
+      "hp": {
+        "day": null,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 704,
+        "pixelY": 192,
+        "worldX": 5312,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x05252",
+        "rawBytes": [
+          "0x2C",
+          "0x0C",
+          "0x17",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-zombie-5256",
+      "classId": "zombie",
+      "label": "Zombie",
+      "kind": "enemy",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 52,
+      "tileY": 8,
+      "pixelX": 840,
+      "pixelY": 116,
+      "worldX": 5448,
+      "worldY": 564,
+      "actorId": "0x17",
+      "data": "0x02",
+      "hp": {
+        "day": null,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 832,
+        "pixelY": 128,
+        "worldX": 5440,
+        "worldY": 576
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x05256",
+        "rawBytes": [
+          "0x34",
+          "0x08",
+          "0x17",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "veros-bat-525a",
+      "classId": "bat",
+      "label": "Veros bat",
+      "kind": "enemy",
+      "segmentId": "town-of-veros",
+      "variants": [
+        "night"
+      ],
+      "paletteByVariant": {
+        "night": "town-night-sprites"
+      },
+      "tileX": 52,
+      "tileY": 12,
+      "pixelX": 840,
+      "pixelY": 180,
+      "worldX": 5448,
+      "worldY": 628,
+      "actorId": "0x01",
+      "data": "0x02",
+      "hp": {
+        "day": null,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 832,
+        "pixelY": 192,
+        "worldX": 5440,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0525A",
+        "rawBytes": [
+          "0x34",
+          "0x0C",
+          "0x01",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-3-spider-666a",
+      "classId": "spider",
+      "label": "Spider",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-3",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 6,
+      "pixelX": 136,
+      "pixelY": 84,
+      "worldX": 8328,
+      "worldY": 308,
+      "actorId": "0x0E",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 96,
+        "worldX": 8320,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0666A",
+        "rawBytes": [
+          "0x08",
+          "0x06",
+          "0x0E",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-3-skeleton-666e",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-3",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 12,
+      "pixelX": 200,
+      "pixelY": 180,
+      "worldX": 8392,
+      "worldY": 404,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 192,
+        "worldX": 8384,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0666E",
+        "rawBytes": [
+          "0x0C",
+          "0x0C",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-3-skeleton-6672",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-3",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 10,
+      "pixelX": 328,
+      "pixelY": 148,
+      "worldX": 8520,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 160,
+        "worldX": 8512,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06672",
+        "rawBytes": [
+          "0x14",
+          "0x0A",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-3-spider-6676",
+      "classId": "spider",
+      "label": "Spider",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-3",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 6,
+      "pixelX": 392,
+      "pixelY": 84,
+      "worldX": 8584,
+      "worldY": 308,
+      "actorId": "0x0E",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 96,
+        "worldX": 8576,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06676",
+        "rawBytes": [
+          "0x18",
+          "0x06",
+          "0x0E",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-3-skeleton-667a",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-3",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 28,
+      "tileY": 11,
+      "pixelX": 456,
+      "pixelY": 164,
+      "worldX": 8648,
+      "worldY": 388,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 448,
+        "pixelY": 176,
+        "worldX": 8640,
+        "worldY": 400
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0667A",
+        "rawBytes": [
+          "0x1C",
+          "0x0B",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-1-skeleton-6683",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 12,
+      "pixelX": 136,
+      "pixelY": 180,
+      "worldX": 6280,
+      "worldY": 404,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 192,
+        "worldX": 6272,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06683",
+        "rawBytes": [
+          "0x08",
+          "0x0C",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-1-eyeball-6687",
+      "classId": "eyeball",
+      "label": "Eyeball",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 18,
+      "pixelX": 136,
+      "pixelY": 276,
+      "worldX": 6280,
+      "worldY": 500,
+      "actorId": "0x08",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 288,
+        "worldX": 6272,
+        "worldY": 512
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06687",
+        "rawBytes": [
+          "0x08",
+          "0x12",
+          "0x08",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-1-skeleton-668b",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 24,
+      "pixelX": 136,
+      "pixelY": 372,
+      "worldX": 6280,
+      "worldY": 596,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 384,
+        "worldX": 6272,
+        "worldY": 608
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0668B",
+        "rawBytes": [
+          "0x08",
+          "0x18",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-1-eyeball-668f",
+      "classId": "eyeball",
+      "label": "Eyeball",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 6,
+      "pixelX": 200,
+      "pixelY": 84,
+      "worldX": 6344,
+      "worldY": 308,
+      "actorId": "0x08",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 96,
+        "worldX": 6336,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0668F",
+        "rawBytes": [
+          "0x0C",
+          "0x06",
+          "0x08",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-1-skeleton-6693",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 24,
+      "pixelX": 200,
+      "pixelY": 372,
+      "worldX": 6344,
+      "worldY": 596,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 384,
+        "worldX": 6336,
+        "worldY": 608
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06693",
+        "rawBytes": [
+          "0x0C",
+          "0x18",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-1-eyeball-669b",
+      "classId": "eyeball",
+      "label": "Eyeball",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 12,
+      "pixelX": 328,
+      "pixelY": 180,
+      "worldX": 6472,
+      "worldY": 404,
+      "actorId": "0x08",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 192,
+        "worldX": 6464,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0669B",
+        "rawBytes": [
+          "0x14",
+          "0x0C",
+          "0x08",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-1-skeleton-669f",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 26,
+      "pixelX": 328,
+      "pixelY": 404,
+      "worldX": 6472,
+      "worldY": 628,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 416,
+        "worldX": 6464,
+        "worldY": 640
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0669F",
+        "rawBytes": [
+          "0x14",
+          "0x1A",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-1-eyeball-66a3",
+      "classId": "eyeball",
+      "label": "Eyeball",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 6,
+      "pixelX": 392,
+      "pixelY": 84,
+      "worldX": 6536,
+      "worldY": 308,
+      "actorId": "0x08",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 96,
+        "worldX": 6528,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066A3",
+        "rawBytes": [
+          "0x18",
+          "0x06",
+          "0x08",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-1-skeleton-66a7",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 22,
+      "pixelX": 392,
+      "pixelY": 340,
+      "worldX": 6536,
+      "worldY": 564,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 352,
+        "worldX": 6528,
+        "worldY": 576
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066A7",
+        "rawBytes": [
+          "0x18",
+          "0x16",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-1-eyeball-66ab",
+      "classId": "eyeball",
+      "label": "Eyeball",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 28,
+      "tileY": 12,
+      "pixelX": 456,
+      "pixelY": 180,
+      "worldX": 6600,
+      "worldY": 404,
+      "actorId": "0x08",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 448,
+        "pixelY": 192,
+        "worldX": 6592,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066AB",
+        "rawBytes": [
+          "0x1C",
+          "0x0C",
+          "0x08",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-2-sacred-flame-66b0",
+      "classId": "sacred-flame-secret",
+      "label": "Sacred Flame",
+      "kind": "secret",
+      "segmentId": "dabis-path-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 1,
+      "tileY": 12,
+      "pixelX": 24,
+      "pixelY": 180,
+      "worldX": 6680,
+      "worldY": 404,
+      "actorId": "0x26",
+      "data": "0x76",
+      "hp": null,
+      "text": "you now possess the sacred flame.",
+      "textEvidence": {
+        "pointerIndex": "0x76",
+        "tableFileOffset": "0x0CC7E",
+        "ramPointer": "0x9C8E",
+        "fileOffset": "0x0DC9E",
+        "rawBytes": [
+          "0x19",
+          "0x0F",
+          "0x15",
+          "0x00",
+          "0x0E",
+          "0x0F",
+          "0x17",
+          "0xFE",
+          "0x10",
+          "0x0F",
+          "0x13",
+          "0x13",
+          "0x05",
+          "0x13",
+          "0x13",
+          "0xFE",
+          "0x14",
+          "0x08",
+          "0x05",
+          "0x00",
+          "0x13",
+          "0x01",
+          "0x03",
+          "0x12",
+          "0x05",
+          "0x04",
+          "0xFE",
+          "0x06",
+          "0x0C",
+          "0x01",
+          "0x0D",
+          "0x05",
+          "0x1B"
+        ],
+        "decoded": "you now\npossess\nthe sacred\nflame.",
+        "text": "you now possess the sacred flame.",
+        "source": "rom-text-pointer-table:0x0CB92"
+      },
+      "secret": {
+        "type": "destructible-reward",
+        "reward": "Sacred Flame",
+        "action": "Throw Holy Water at the marked stacked blocks, or equip Dracula's Nail and whip them, to reveal the Sacred Flame.",
+        "reveal": "The Sacred Flame appears after the stacked blocks are opened.",
+        "targetTileRects": [
+          {
+            "x": 2,
+            "y": 20,
+            "width": 2,
+            "height": 4,
+            "signature": "destructibleBlock2x4"
+          }
+        ],
+        "rewardSelectorRecord": "0x20",
+        "rewardSelectors": [
+          "0x78",
+          "0x79"
+        ],
+        "evidence": [
+          "Actor row 0x066B0: 01 0C 26 76",
+          "Actor id 0x26 uses item/fixture dispatch 1:$8335 and selector-record index $20.",
+          "Selector-record $20 expands to metasprite selectors $78/$79.",
+          "Holy Water is weapon index 4: fixed-bank 7:$F237-$F2D2 selects $4A bit $08, and 7:$D8C0 spawns projectile actor $33 for that selected weapon.",
+          "Dracula's Nail is inventory index 4: fixed-bank 7:$F275 maps $91 bit $08 to selected item $04, and 7:$D623 gates the block-hit routine on $4F == 04 before calling 7:$D3AC.",
+          "Text pointer index 0x76 decodes to the Sacred Flame pickup message."
+        ]
+      },
+      "visualTileRect": {
+        "x": 2,
+        "y": 20,
+        "width": 2,
+        "height": 4
+      },
+      "fixtureSignature": "destructibleBlock2x4",
+      "runtimeAnchor": {
+        "pixelX": 16,
+        "pixelY": 192,
+        "worldX": 6672,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066B0",
+        "rawBytes": [
+          "0x01",
+          "0x0C",
+          "0x26",
+          "0x76"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-2-eyeball-66b4",
+      "classId": "eyeball",
+      "label": "Eyeball",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 4,
+      "tileY": 4,
+      "pixelX": 72,
+      "pixelY": 52,
+      "worldX": 6728,
+      "worldY": 276,
+      "actorId": "0x08",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 64,
+        "worldX": 6720,
+        "worldY": 288
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066B4",
+        "rawBytes": [
+          "0x04",
+          "0x04",
+          "0x08",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-2-zigzag-bat-66b8",
+      "classId": "zigzag-bat",
+      "label": "Zigzag bat",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 4,
+      "tileY": 12,
+      "pixelX": 72,
+      "pixelY": 180,
+      "worldX": 6728,
+      "worldY": 404,
+      "actorId": "0x09",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 192,
+        "worldX": 6720,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066B8",
+        "rawBytes": [
+          "0x04",
+          "0x0C",
+          "0x09",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-2-eyeball-66bc",
+      "classId": "eyeball",
+      "label": "Eyeball",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 6,
+      "pixelX": 200,
+      "pixelY": 84,
+      "worldX": 6856,
+      "worldY": 308,
+      "actorId": "0x08",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 96,
+        "worldX": 6848,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066BC",
+        "rawBytes": [
+          "0x0C",
+          "0x06",
+          "0x08",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-2-zigzag-bat-66c0",
+      "classId": "zigzag-bat",
+      "label": "Zigzag bat",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 12,
+      "pixelX": 200,
+      "pixelY": 180,
+      "worldX": 6856,
+      "worldY": 404,
+      "actorId": "0x09",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 192,
+        "worldX": 6848,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066C0",
+        "rawBytes": [
+          "0x0C",
+          "0x0C",
+          "0x09",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-2-eyeball-66c4",
+      "classId": "eyeball",
+      "label": "Eyeball",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 6,
+      "pixelX": 328,
+      "pixelY": 84,
+      "worldX": 6984,
+      "worldY": 308,
+      "actorId": "0x08",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 96,
+        "worldX": 6976,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066C4",
+        "rawBytes": [
+          "0x14",
+          "0x06",
+          "0x08",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-2-zigzag-bat-66c8",
+      "classId": "zigzag-bat",
+      "label": "Zigzag bat",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 12,
+      "pixelX": 328,
+      "pixelY": 180,
+      "worldX": 6984,
+      "worldY": 404,
+      "actorId": "0x09",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 192,
+        "worldX": 6976,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066C8",
+        "rawBytes": [
+          "0x14",
+          "0x0C",
+          "0x09",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "dabis-2-zigzag-bat-66cc",
+      "classId": "zigzag-bat",
+      "label": "Zigzag bat",
+      "kind": "enemy",
+      "segmentId": "dabis-path-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "dabis-path-day-sprites",
+        "night": "dabis-path-night-sprites"
+      },
+      "tileX": 28,
+      "tileY": 12,
+      "pixelX": 456,
+      "pixelY": 180,
+      "worldX": 7112,
+      "worldY": 404,
+      "actorId": "0x09",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 448,
+        "pixelY": 192,
+        "worldX": 7104,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066CC",
+        "rawBytes": [
+          "0x1C",
+          "0x0C",
+          "0x09",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-1-spider-66d1",
+      "classId": "spider",
+      "label": "Spider",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 4,
+      "tileY": 4,
+      "pixelX": 72,
+      "pixelY": 52,
+      "worldX": 7240,
+      "worldY": 276,
+      "actorId": "0x0E",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 64,
+        "worldX": 7232,
+        "worldY": 288
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066D1",
+        "rawBytes": [
+          "0x04",
+          "0x04",
+          "0x0E",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-1-book-66d5",
+      "classId": "hidden-book-secret",
+      "label": "Hidden clue book",
+      "kind": "secret",
+      "segmentId": "aljiba-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 5,
+      "tileY": 13,
+      "pixelX": 88,
+      "pixelY": 196,
+      "worldX": 7256,
+      "worldY": 420,
+      "actorId": "0x27",
+      "data": "0x0D",
+      "hp": null,
+      "text": "to replenish earth,kneel by the lake with the blue crystal.",
+      "textEvidence": {
+        "pointerIndex": "0x0D",
+        "tableFileOffset": "0x0CBAC",
+        "ramPointer": "0x8E3C",
+        "fileOffset": "0x0CE4C",
+        "rawBytes": [
+          "0x14",
+          "0x0F",
+          "0x00",
+          "0x12",
+          "0x05",
+          "0x10",
+          "0x0C",
+          "0x05",
+          "0x0E",
+          "0x09",
+          "0x13",
+          "0x08",
+          "0xFE",
+          "0x05",
+          "0x01",
+          "0x12",
+          "0x14",
+          "0x08",
+          "0x00",
+          "0x1E",
+          "0x0B",
+          "0x0E",
+          "0x05",
+          "0x05",
+          "0x0C",
+          "0xFE",
+          "0x02",
+          "0x19",
+          "0x00",
+          "0x14",
+          "0x08",
+          "0x05",
+          "0x00",
+          "0x0C",
+          "0x01",
+          "0x0B",
+          "0x05",
+          "0xFE",
+          "0x17",
+          "0x09",
+          "0x14",
+          "0x08",
+          "0x00",
+          "0x14",
+          "0x08",
+          "0x05",
+          "0xFE",
+          "0x02",
+          "0x0C",
+          "0x15",
+          "0x05",
+          "0x00",
+          "0x03",
+          "0x12",
+          "0x19",
+          "0x13",
+          "0x14",
+          "0x01",
+          "0x0C",
+          "0x1B"
+        ],
+        "decoded": "to replenish\nearth ,kneel\nby the lake\nwith the\nblue crystal.",
+        "text": "to replenish earth,kneel by the lake with the blue crystal.",
+        "source": "rom-text-pointer-table:0x0CB92"
+      },
+      "secret": {
+        "type": "destructible-clue",
+        "reward": "Hidden clue book",
+        "action": "Throw Holy Water at the marked block, or equip Dracula's Eyeball, to reveal the hidden clue book.",
+        "reveal": "The clue book appears at the marked spot.",
+        "targetTileRects": [
+          {
+            "x": 10,
+            "y": 24,
+            "width": 2,
+            "height": 2,
+            "signature": "destructibleBlock2x2"
+          }
+        ],
+        "rewardSelectorRecord": "0x3B",
+        "rewardSelectors": [
+          "0x30"
+        ],
+        "evidence": [
+          "Actor row 0x066D5: 05 0D 27 0D",
+          "Actor id 0x27 uses item/fixture dispatch 1:$8335 and selector-record index $3B.",
+          "Selector-record $3B expands to metasprite selector $30.",
+          "Holy Water is weapon index 4: fixed-bank 7:$F237-$F2D2 selects $4A bit $08, and 7:$D8C0 spawns projectile actor $33 for that selected weapon.",
+          "Dracula's Eyeball is inventory index 3: fixed-bank 7:$F275 maps $91 bit $04 to selected item $03, and actor routine 1:$8335 clears the hidden flag when $4F == 03.",
+          "Text pointer index 0x0D decodes to the blue-crystal lake clue."
+        ]
+      },
+      "visualTileRect": {
+        "x": 10,
+        "y": 24,
+        "width": 2,
+        "height": 2
+      },
+      "fixtureSignature": "destructibleBlock2x2",
+      "runtimeAnchor": {
+        "pixelX": 80,
+        "pixelY": 208,
+        "worldX": 7248,
+        "worldY": 432
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066D5",
+        "rawBytes": [
+          "0x05",
+          "0x0D",
+          "0x27",
+          "0x0D"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-1-skeleton-66d9",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 8,
+      "pixelX": 136,
+      "pixelY": 116,
+      "worldX": 7304,
+      "worldY": 340,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 128,
+        "worldX": 7296,
+        "worldY": 352
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066D9",
+        "rawBytes": [
+          "0x08",
+          "0x08",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-1-spider-66dd",
+      "classId": "spider",
+      "label": "Spider",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 6,
+      "pixelX": 200,
+      "pixelY": 84,
+      "worldX": 7368,
+      "worldY": 308,
+      "actorId": "0x0E",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 96,
+        "worldX": 7360,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066DD",
+        "rawBytes": [
+          "0x0C",
+          "0x06",
+          "0x0E",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-1-spider-66e1",
+      "classId": "spider",
+      "label": "Spider",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 6,
+      "pixelX": 328,
+      "pixelY": 84,
+      "worldX": 7496,
+      "worldY": 308,
+      "actorId": "0x0E",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 96,
+        "worldX": 7488,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066E1",
+        "rawBytes": [
+          "0x14",
+          "0x06",
+          "0x0E",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-1-skeleton-66e5",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 10,
+      "pixelX": 392,
+      "pixelY": 148,
+      "worldX": 7560,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 160,
+        "worldX": 7552,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066E5",
+        "rawBytes": [
+          "0x18",
+          "0x0A",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-1-skeleton-66e9",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 28,
+      "tileY": 8,
+      "pixelX": 456,
+      "pixelY": 116,
+      "worldX": 7624,
+      "worldY": 340,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 448,
+        "pixelY": 128,
+        "worldX": 7616,
+        "worldY": 352
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066E9",
+        "rawBytes": [
+          "0x1C",
+          "0x08",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-2-skeleton-66ee",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 4,
+      "tileY": 8,
+      "pixelX": 72,
+      "pixelY": 116,
+      "worldX": 7752,
+      "worldY": 340,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 128,
+        "worldX": 7744,
+        "worldY": 352
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066EE",
+        "rawBytes": [
+          "0x04",
+          "0x08",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-2-skeleton-66f2",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 10,
+      "pixelX": 136,
+      "pixelY": 148,
+      "worldX": 7816,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 160,
+        "worldX": 7808,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066F2",
+        "rawBytes": [
+          "0x08",
+          "0x0A",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-2-skeleton-66f6",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 12,
+      "pixelX": 200,
+      "pixelY": 180,
+      "worldX": 7880,
+      "worldY": 404,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 192,
+        "worldX": 7872,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066F6",
+        "rawBytes": [
+          "0x0C",
+          "0x0C",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-2-skeleton-66fa",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 12,
+      "pixelX": 328,
+      "pixelY": 180,
+      "worldX": 8008,
+      "worldY": 404,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 192,
+        "worldX": 8000,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066FA",
+        "rawBytes": [
+          "0x14",
+          "0x0C",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "aljiba-2-skeleton-66fe",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "aljiba-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 10,
+      "pixelX": 392,
+      "pixelY": 148,
+      "worldX": 8072,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 160,
+        "worldX": 8064,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x066FE",
+        "rawBytes": [
+          "0x18",
+          "0x0A",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-2-skeleton-6703",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 4,
+      "tileY": 10,
+      "pixelX": 72,
+      "pixelY": 148,
+      "worldX": 4936,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 160,
+        "worldX": 4928,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06703",
+        "rawBytes": [
+          "0x04",
+          "0x0A",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-2-skeleton-6707",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 10,
+      "pixelX": 136,
+      "pixelY": 148,
+      "worldX": 5000,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 160,
+        "worldX": 4992,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06707",
+        "rawBytes": [
+          "0x08",
+          "0x0A",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-2-skeleton-670b",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 11,
+      "pixelX": 200,
+      "pixelY": 164,
+      "worldX": 5064,
+      "worldY": 388,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 176,
+        "worldX": 5056,
+        "worldY": 400
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0670B",
+        "rawBytes": [
+          "0x0C",
+          "0x0B",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-2-skeleton-670f",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 8,
+      "pixelX": 328,
+      "pixelY": 116,
+      "worldX": 5192,
+      "worldY": 340,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 128,
+        "worldX": 5184,
+        "worldY": 352
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0670F",
+        "rawBytes": [
+          "0x14",
+          "0x08",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-2-zigzag-bat-6713",
+      "classId": "zigzag-bat",
+      "label": "Zigzag bat",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 22,
+      "tileY": 12,
+      "pixelX": 360,
+      "pixelY": 180,
+      "worldX": 5224,
+      "worldY": 404,
+      "actorId": "0x09",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 352,
+        "pixelY": 192,
+        "worldX": 5216,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06713",
+        "rawBytes": [
+          "0x16",
+          "0x0C",
+          "0x09",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-2-skeleton-6717",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 6,
+      "pixelX": 392,
+      "pixelY": 84,
+      "worldX": 5256,
+      "worldY": 308,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 96,
+        "worldX": 5248,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06717",
+        "rawBytes": [
+          "0x18",
+          "0x06",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-2-skeleton-671f",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 36,
+      "tileY": 6,
+      "pixelX": 584,
+      "pixelY": 84,
+      "worldX": 5448,
+      "worldY": 308,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 576,
+        "pixelY": 96,
+        "worldX": 5440,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0671F",
+        "rawBytes": [
+          "0x24",
+          "0x06",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-2-skeleton-6727",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 40,
+      "tileY": 8,
+      "pixelX": 648,
+      "pixelY": 116,
+      "worldX": 5512,
+      "worldY": 340,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 640,
+        "pixelY": 128,
+        "worldX": 5504,
+        "worldY": 352
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06727",
+        "rawBytes": [
+          "0x28",
+          "0x08",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-2-skeleton-672b",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 44,
+      "tileY": 8,
+      "pixelX": 712,
+      "pixelY": 116,
+      "worldX": 5576,
+      "worldY": 340,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 704,
+        "pixelY": 128,
+        "worldX": 5568,
+        "worldY": 352
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0672B",
+        "rawBytes": [
+          "0x2C",
+          "0x08",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-2-zigzag-bat-672f",
+      "classId": "zigzag-bat",
+      "label": "Zigzag bat",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-2",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 45,
+      "tileY": 12,
+      "pixelX": 728,
+      "pixelY": 180,
+      "worldX": 5592,
+      "worldY": 404,
+      "actorId": "0x09",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 720,
+        "pixelY": 192,
+        "worldX": 5584,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0672F",
+        "rawBytes": [
+          "0x2D",
+          "0x0C",
+          "0x09",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-3-spider-6734",
+      "classId": "spider",
+      "label": "Spider",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-3",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 4,
+      "tileY": 6,
+      "pixelX": 72,
+      "pixelY": 84,
+      "worldX": 5704,
+      "worldY": 308,
+      "actorId": "0x0E",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 64,
+        "pixelY": 96,
+        "worldX": 5696,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06734",
+        "rawBytes": [
+          "0x04",
+          "0x06",
+          "0x0E",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-3-skeleton-6738",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-3",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 8,
+      "tileY": 12,
+      "pixelX": 136,
+      "pixelY": 180,
+      "worldX": 5768,
+      "worldY": 404,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 128,
+        "pixelY": 192,
+        "worldX": 5760,
+        "worldY": 416
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06738",
+        "rawBytes": [
+          "0x08",
+          "0x0C",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-3-spider-673c",
+      "classId": "spider",
+      "label": "Spider",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-3",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 12,
+      "tileY": 6,
+      "pixelX": 200,
+      "pixelY": 84,
+      "worldX": 5832,
+      "worldY": 308,
+      "actorId": "0x0E",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 192,
+        "pixelY": 96,
+        "worldX": 5824,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x0673C",
+        "rawBytes": [
+          "0x0C",
+          "0x06",
+          "0x0E",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-3-spider-6740",
+      "classId": "spider",
+      "label": "Spider",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-3",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 20,
+      "tileY": 6,
+      "pixelX": 328,
+      "pixelY": 84,
+      "worldX": 5960,
+      "worldY": 308,
+      "actorId": "0x0E",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 320,
+        "pixelY": 96,
+        "worldX": 5952,
+        "worldY": 320
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06740",
+        "rawBytes": [
+          "0x14",
+          "0x06",
+          "0x0E",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
+    },
+    {
+      "id": "denis-3-skeleton-6744",
+      "classId": "skeleton",
+      "label": "Skeleton",
+      "kind": "enemy",
+      "segmentId": "denis-woods-part-3",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "paletteByVariant": {
+        "day": "denis-woods-day-sprites",
+        "night": "denis-woods-night-sprites"
+      },
+      "tileX": 24,
+      "tileY": 10,
+      "pixelX": 392,
+      "pixelY": 148,
+      "worldX": 6024,
+      "worldY": 372,
+      "actorId": "0x03",
+      "data": "0x02",
+      "hp": {
+        "day": 2,
+        "night": 4
+      },
+      "text": null,
+      "textEvidence": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "runtimeAnchor": {
+        "pixelX": 384,
+        "pixelY": 160,
+        "worldX": 6016,
+        "worldY": 384
+      },
+      "drawAnchor": {
+        "offsetX": 8,
+        "offsetY": -12,
+        "source": "rom-row-16px-cell-visual-anchor"
+      },
+      "provenance": {
+        "rowOffset": "0x06744",
+        "rawBytes": [
+          "0x18",
+          "0x0A",
+          "0x03",
+          "0x02"
+        ],
+        "source": "rom-actor-row"
+      }
     }
   ],
+  "destructibleSummary": {
+    "fixtures": 5,
+    "rewardLinked": 2,
+    "breakableTerrain": 3
+  },
   "actorSummary": {
-    "classes": 8,
-    "placements": 52,
-    "npcs": 9,
-    "enemies": 42,
-    "fixtures": 1
+    "classes": 15,
+    "placements": 115,
+    "npcs": 15,
+    "enemies": 96,
+    "fixtures": 2,
+    "secrets": 2
   },
   "validations": [
     {
@@ -4488,6 +10552,118 @@
       "height": 224,
       "differingPixels": 0,
       "requiredDifferingPixels": 0
+    },
+    {
+      "type": "fixture-visual-tile-rect",
+      "actorId": "jova-sign-50c8",
+      "segmentId": "town-of-jova",
+      "signatureId": "town-sign-4x4",
+      "signatureLabel": "Town signpost",
+      "visualTileRect": {
+        "x": 24,
+        "y": 48,
+        "width": 4,
+        "height": 4
+      },
+      "matches": 16,
+      "expectedMatches": 16,
+      "status": "ok",
+      "source": "rom-expanded-background-tilemap",
+      "bestMatch": {
+        "rect": {
+          "x": 24,
+          "y": 48,
+          "width": 4,
+          "height": 4
+        },
+        "matches": 16,
+        "expectedMatches": 16
+      },
+      "mismatches": []
+    },
+    {
+      "type": "fixture-visual-tile-rect",
+      "actorId": "veros-sign-5236",
+      "segmentId": "town-of-veros",
+      "signatureId": "town-sign-4x4",
+      "signatureLabel": "Town signpost",
+      "visualTileRect": {
+        "x": 24,
+        "y": 20,
+        "width": 4,
+        "height": 4
+      },
+      "matches": 16,
+      "expectedMatches": 16,
+      "status": "ok",
+      "source": "rom-expanded-background-tilemap",
+      "bestMatch": {
+        "rect": {
+          "x": 24,
+          "y": 20,
+          "width": 4,
+          "height": 4
+        },
+        "matches": 16,
+        "expectedMatches": 16
+      },
+      "mismatches": []
+    },
+    {
+      "type": "fixture-visual-tile-rect",
+      "actorId": "dabis-2-sacred-flame-66b0",
+      "segmentId": "dabis-path-part-2",
+      "signatureId": "destructible-block-2x4",
+      "signatureLabel": "Stacked destructible blocks",
+      "visualTileRect": {
+        "x": 2,
+        "y": 20,
+        "width": 2,
+        "height": 4
+      },
+      "matches": 8,
+      "expectedMatches": 8,
+      "status": "ok",
+      "source": "rom-expanded-background-tilemap",
+      "bestMatch": {
+        "rect": {
+          "x": 2,
+          "y": 20,
+          "width": 2,
+          "height": 4
+        },
+        "matches": 8,
+        "expectedMatches": 8
+      },
+      "mismatches": []
+    },
+    {
+      "type": "fixture-visual-tile-rect",
+      "actorId": "aljiba-1-book-66d5",
+      "segmentId": "aljiba-woods-part-1",
+      "signatureId": "destructible-block-2x2",
+      "signatureLabel": "Destructible block",
+      "visualTileRect": {
+        "x": 10,
+        "y": 24,
+        "width": 2,
+        "height": 2
+      },
+      "matches": 4,
+      "expectedMatches": 4,
+      "status": "ok",
+      "source": "rom-expanded-background-tilemap",
+      "bestMatch": {
+        "rect": {
+          "x": 10,
+          "y": 24,
+          "width": 2,
+          "height": 2
+        },
+        "matches": 4,
+        "expectedMatches": 4
+      },
+      "mismatches": []
     }
   ]
 }

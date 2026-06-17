@@ -46,8 +46,8 @@ The current vertical slice includes:
 - resolves human-facing labels through the Nintendo Power map naming policy
   while preserving `cv2r` source names
 - catalogs the Jova-to-Berkeley guide slice's actor rows with ROM offsets,
-  exact coordinates, day/night behavior, HP, decoded Jova text, and the
-  remaining sprite/merchant-routine gaps before NPC/enemy overlays ship
+  exact coordinates, day/night behavior, HP, decoded text, selector records,
+  palette sources, and runtime-rendered NPC/enemy overlays
 - decodes the actor metasprite selector path, proves two Jova NPC sprite
   bindings from runtime slot evidence, isolates the merchant text exception,
   and keeps unresolved enemy sprite bindings explicitly research-gated

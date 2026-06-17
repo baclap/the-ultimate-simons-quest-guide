@@ -1,7 +1,8 @@
 import initWasm, { decode_chr_atlas, expand_segment_tilemap } from './vendor/guide-map-wasm/guide_map_wasm.js';
 
-const SLICE_URL = './assets/slices/jova-to-berkeley/slice.json?v=layer-simplify6';
-const SCENE_URL = './assets/scenes/berkeley-mansion-part-1/slice.json';
+const CACHE_KEY = 'secret-layer-toggle1';
+const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
+const SCENE_URL = `./assets/scenes/berkeley-mansion-part-1/slice.json?v=${CACHE_KEY}`;
 
 const NES_PALETTE = [
   [102, 102, 102], [0, 42, 136], [20, 18, 167], [59, 0, 164],
@@ -28,9 +29,47 @@ const ROUTE_SEGMENT_IDS = [
   'south-bridge',
   'veros-woods-part-1',
   'veros-woods-part-2',
+  'town-of-veros',
+  'dabis-path-part-1',
+  'dabis-path-part-2',
+  'aljiba-woods-part-1',
+  'aljiba-woods-part-2',
+  'aljiba-woods-part-3',
   'denis-woods-part-1',
-  'berkeley-mansion-door'
+  'berkeley-mansion-door',
+  'denis-woods-part-2',
+  'denis-woods-part-3'
 ];
+
+const OVERVIEW_LABEL_SCALE = 0.3;
+const OVERVIEW_LABEL_TEXT = new Map([
+  ['veros-woods-part-1', 'Veros Woods'],
+  ['dabis-path-part-1', "Dabi's Path"],
+  ['aljiba-woods-part-1', 'Aljiba Woods'],
+  ['denis-woods-part-1', 'Denis Woods'],
+  ['denis-woods-part-2', 'Denis Woods'],
+  ['berkeley-mansion-door', 'Berkeley Mansion']
+]);
+const OVERVIEW_LABEL_HIDDEN_IDS = new Set([
+  'veros-woods-part-2',
+  'dabis-path-part-2',
+  'aljiba-woods-part-2',
+  'aljiba-woods-part-3',
+  'denis-woods-part-3'
+]);
+const LABEL_BELOW_SEGMENT_IDS = new Set(['town-of-veros']);
+const LABEL_COLLISION_PADDING = 6;
+const LABEL_MAP_GAP = 10;
+const LABEL_LEADER_THRESHOLD = 3;
+
+const MIN_CAMERA_SCALE = 0.03;
+const FLOATING_VEROS_SEGMENT_ID = 'town-of-veros';
+const FLOATING_VEROS_LEFT_SEGMENT_ID = 'veros-woods-part-2';
+const FLOATING_VEROS_RIGHT_SEGMENT_ID = 'dabis-path-part-1';
+const FLOATING_VEROS_SIDE_HYSTERESIS = 96;
+const FLOATING_VEROS_EASE_MS = 180;
+const FLOATING_VEROS_FRAME_MS = 48;
+const FLOATING_VEROS_SNAP_EPSILON = 0.25;
 
 const HOTSPOTS = [
   {
@@ -57,8 +96,10 @@ const dom = {
   labelsToggle: document.querySelector('#toggle-labels'),
   highlightDoorsToggle: document.querySelector('#toggle-highlight-doors'),
   showCharactersToggle: document.querySelector('#toggle-show-characters'),
+  showSecretsToggle: document.querySelector('#toggle-show-secrets'),
   highlightCharactersToggle: document.querySelector('#toggle-highlight-characters'),
   highlightMapObjectsToggle: document.querySelector('#toggle-highlight-map-objects'),
+  highlightSecretsToggle: document.querySelector('#toggle-highlight-secrets'),
   portalModal: document.querySelector('#portal-modal'),
   closePortal: document.querySelector('#close-portal')
 };
@@ -102,10 +143,12 @@ in vec2 a_position;
 in vec2 a_uv;
 uniform vec2 u_resolution;
 uniform vec3 u_camera;
+uniform vec2 u_segment_offset;
 out vec2 v_uv;
 
 void main() {
-  vec2 screen = (a_position - u_camera.xy) * u_camera.z + (u_resolution * 0.5);
+  vec2 world_position = a_position + u_segment_offset;
+  vec2 screen = (world_position - u_camera.xy) * u_camera.z + (u_resolution * 0.5);
   vec2 clip = (screen / u_resolution) * 2.0 - 1.0;
   gl_Position = vec4(clip.x, -clip.y, 0.0, 1.0);
   v_uv = a_uv;
@@ -207,6 +250,53 @@ void main() {
   return program;
 }
 
+function createProjectionProgram(gl) {
+  const vertexSource = `#version 300 es
+in vec2 a_position;
+uniform vec2 u_resolution;
+uniform vec3 u_camera;
+uniform vec4 u_rect;
+out vec2 v_world;
+
+void main() {
+  v_world = u_rect.xy + a_position * u_rect.zw;
+  vec2 screen = (v_world - u_camera.xy) * u_camera.z + (u_resolution * 0.5);
+  vec2 clip = (screen / u_resolution) * 2.0 - 1.0;
+  gl_Position = vec4(clip.x, -clip.y, 0.0, 1.0);
+}
+`;
+
+  const fragmentSource = `#version 300 es
+precision highp float;
+
+in vec2 v_world;
+out vec4 out_color;
+
+void main() {
+  float diagonal = mod(v_world.x + v_world.y, 64.0);
+  float stripe = step(diagonal, 32.0);
+  vec3 base = vec3(0.032, 0.032, 0.030);
+  vec3 mark = vec3(0.230, 0.230, 0.214);
+  out_color = vec4(mix(base, mark, stripe * 0.42), 1.0);
+}
+`;
+
+  const program = assertGl(gl.createProgram(), 'projection program');
+  const vertex = compileShader(gl, gl.VERTEX_SHADER, vertexSource);
+  const fragment = compileShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
+  gl.attachShader(program, vertex);
+  gl.attachShader(program, fragment);
+  gl.linkProgram(program);
+  gl.deleteShader(vertex);
+  gl.deleteShader(fragment);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    const log = gl.getProgramInfoLog(program) || 'unknown projection program link error';
+    gl.deleteProgram(program);
+    throw new Error(log);
+  }
+  return program;
+}
+
 function createTexture(gl, width, height, internalFormat, format, data) {
   const texture = assertGl(gl.createTexture(), 'texture');
   gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -247,6 +337,21 @@ function createVertexBuffer(gl, segment) {
   return buffer;
 }
 
+function createUnitQuadBuffer(gl) {
+  const vertices = new Float32Array([
+    0, 0,
+    1, 0,
+    0, 1,
+    0, 1,
+    1, 0,
+    1, 1
+  ]);
+  const buffer = assertGl(gl.createBuffer(), 'unit quad buffer');
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+  return buffer;
+}
+
 function resizeCanvas(gl, canvas) {
   const dpr = Math.max(1, window.devicePixelRatio || 1);
   const width = Math.max(1, Math.floor(canvas.clientWidth * dpr));
@@ -260,7 +365,10 @@ function resizeCanvas(gl, canvas) {
 }
 
 function loadDataUrl(manifestUrl, dataFile) {
-  return new URL(dataFile, new URL(manifestUrl, window.location.href)).toString();
+  const manifest = new URL(manifestUrl, window.location.href);
+  const dataUrl = new URL(dataFile, manifest);
+  dataUrl.search = manifest.search;
+  return dataUrl.toString();
 }
 
 function numericByte(value) {
@@ -297,13 +405,14 @@ function pushSpriteQuad(vertices, x, y, tileIndex, paletteIndex, flipHorizontal,
   );
 }
 
-function pushSprite(vertices, actor, actorClass, frame, chrSet) {
+function pushSprite(vertices, actor, actorClass, frame, chrSet, displayOffset = { x: 0, y: 0 }) {
   const spriteHeight = actorClass.largeSprites ? 16 : 8;
+  const staticOffset = frame.staticPreviewOffset || { x: 0, y: 0 };
   for (const sprite of frame.sprites || []) {
     const tile = numericByte(sprite.tile);
     const palette = Number.isFinite(sprite.palette) ? sprite.palette : numericByte(sprite.attr) & 0x03;
-    const x = actor.worldX + sprite.xOffset;
-    const y = actor.worldY + sprite.yOffset;
+    const x = actor.worldX + displayOffset.x + staticOffset.x + sprite.xOffset;
+    const y = actor.worldY + displayOffset.y + staticOffset.y + sprite.yOffset;
 
     if (!actorClass.largeSprites) {
       pushSpriteQuad(
@@ -375,7 +484,7 @@ class ActorRenderer {
     this.chrSetById = new Map((manifest.chrSets || []).map((chrSet) => [chrSet.id, chrSet]));
   }
 
-  render(camera, variant, shouldRenderActor) {
+  render(camera, variant, shouldRenderActor, displayOffsetForSegment = () => ({ x: 0, y: 0 })) {
     const actors = this.manifest?.actors || [];
     if (actors.length === 0) {
       return;
@@ -410,7 +519,14 @@ class ActorRenderer {
         });
       }
       const frame = actorClass.frames[frameIndex % actorClass.frames.length];
-      pushSprite(batches.get(key).vertices, actor, actorClass, frame, chrSet);
+      pushSprite(
+        batches.get(key).vertices,
+        actor,
+        actorClass,
+        frame,
+        chrSet,
+        displayOffsetForSegment(actor.segmentId)
+      );
     }
 
     if (batches.size === 0) {
@@ -456,19 +572,30 @@ class TileRenderer {
       premultipliedAlpha: false
     }), 'WebGL2 context');
     this.program = createProgram(this.gl);
+    this.projectionProgram = createProjectionProgram(this.gl);
     this.locations = {
       position: this.gl.getAttribLocation(this.program, 'a_position'),
       uv: this.gl.getAttribLocation(this.program, 'a_uv'),
       resolution: assertGl(this.gl.getUniformLocation(this.program, 'u_resolution'), 'u_resolution'),
       camera: assertGl(this.gl.getUniformLocation(this.program, 'u_camera'), 'u_camera'),
+      segmentOffset: assertGl(this.gl.getUniformLocation(this.program, 'u_segment_offset'), 'u_segment_offset'),
       segmentSize: assertGl(this.gl.getUniformLocation(this.program, 'u_segment_size'), 'u_segment_size'),
       tilemap: assertGl(this.gl.getUniformLocation(this.program, 'u_tilemap'), 'u_tilemap'),
       chr: assertGl(this.gl.getUniformLocation(this.program, 'u_chr'), 'u_chr'),
       palette: assertGl(this.gl.getUniformLocation(this.program, 'u_palette'), 'u_palette')
     };
+    this.projectionLocations = {
+      position: this.gl.getAttribLocation(this.projectionProgram, 'a_position'),
+      resolution: assertGl(this.gl.getUniformLocation(this.projectionProgram, 'u_resolution'), 'projection u_resolution'),
+      camera: assertGl(this.gl.getUniformLocation(this.projectionProgram, 'u_camera'), 'projection u_camera'),
+      rect: assertGl(this.gl.getUniformLocation(this.projectionProgram, 'u_rect'), 'projection u_rect')
+    };
+    this.projectionVertexBuffer = createUnitQuadBuffer(this.gl);
     this.manifest = null;
     this.segments = [];
     this.segmentById = new Map();
+    this.segmentDisplayOffsets = new Map();
+    this.projectionRects = [];
     this.actorClassById = new Map();
     this.chrTextures = new Map();
     this.spritePaletteTextures = new Map();
@@ -477,12 +604,12 @@ class TileRenderer {
   }
 
   async load(manifestUrl) {
-    const manifestResponse = await fetch(manifestUrl);
+    const manifestResponse = await fetch(manifestUrl, { cache: 'no-store' });
     if (!manifestResponse.ok) {
       throw new Error(`Unable to load ${manifestUrl}`);
     }
     const manifest = await manifestResponse.json();
-    const dataResponse = await fetch(loadDataUrl(manifestUrl, manifest.dataFile));
+    const dataResponse = await fetch(loadDataUrl(manifestUrl, manifest.dataFile), { cache: 'no-store' });
     if (!dataResponse.ok) {
       throw new Error(`Unable to load ${manifest.dataFile}`);
     }
@@ -562,13 +689,13 @@ class TileRenderer {
       this.canvas.width / this.manifest.world.width,
       this.canvas.height / this.manifest.world.height
     ) * padding;
-    this.camera.scale = Math.max(0.08, this.camera.scale);
+    this.camera.scale = Math.max(MIN_CAMERA_SCALE, this.camera.scale);
   }
 
   zoomAt(screenX, screenY, nextScale) {
     const beforeX = this.camera.x + (screenX - this.canvas.width / 2) / this.camera.scale;
     const beforeY = this.camera.y + (screenY - this.canvas.height / 2) / this.camera.scale;
-    this.camera.scale = Math.max(0.08, Math.min(26, nextScale));
+    this.camera.scale = Math.max(MIN_CAMERA_SCALE, Math.min(26, nextScale));
     this.camera.x = beforeX - (screenX - this.canvas.width / 2) / this.camera.scale;
     this.camera.y = beforeY - (screenY - this.canvas.height / 2) / this.camera.scale;
   }
@@ -577,8 +704,10 @@ class TileRenderer {
     if (!this.manifest) return;
     const gl = this.gl;
     resizeCanvas(gl, this.canvas);
+    gl.disable(gl.BLEND);
     gl.clearColor(0.015, 0.015, 0.014, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
+    this.renderProjectionRects();
     gl.useProgram(this.program);
     gl.uniform2f(this.locations.resolution, this.canvas.width, this.canvas.height);
     gl.uniform3f(this.locations.camera, this.camera.x, this.camera.y, this.camera.scale);
@@ -602,6 +731,8 @@ class TileRenderer {
       gl.enableVertexAttribArray(this.locations.uv);
       gl.vertexAttribPointer(this.locations.uv, 2, gl.FLOAT, false, 16, 8);
       gl.uniform2f(this.locations.segmentSize, segment.record.position.width, segment.record.position.height);
+      const displayOffset = this.displayOffsetForSegment(segment.record.id);
+      gl.uniform2f(this.locations.segmentOffset, displayOffset.x, displayOffset.y);
       gl.activeTexture(gl.TEXTURE0);
       gl.bindTexture(gl.TEXTURE_2D, segment.tilemapTexture);
       gl.activeTexture(gl.TEXTURE1);
@@ -611,6 +742,31 @@ class TileRenderer {
       gl.drawArrays(gl.TRIANGLES, 0, 6);
     }
   }
+
+  renderProjectionRects() {
+    if (!this.projectionRects.length) {
+      return;
+    }
+    const gl = this.gl;
+    gl.useProgram(this.projectionProgram);
+    gl.uniform2f(this.projectionLocations.resolution, this.canvas.width, this.canvas.height);
+    gl.uniform3f(this.projectionLocations.camera, this.camera.x, this.camera.y, this.camera.scale);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.projectionVertexBuffer);
+    gl.enableVertexAttribArray(this.projectionLocations.position);
+    gl.vertexAttribPointer(this.projectionLocations.position, 2, gl.FLOAT, false, 8, 0);
+
+    for (const rect of this.projectionRects) {
+      if (rect.width <= 0 || rect.height <= 0) {
+        continue;
+      }
+      gl.uniform4f(this.projectionLocations.rect, rect.x, rect.y, rect.width, rect.height);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    }
+  }
+
+  displayOffsetForSegment(segmentId) {
+    return this.segmentDisplayOffsets.get(segmentId) || { x: 0, y: 0 };
+  }
 }
 
 const state = {
@@ -618,8 +774,10 @@ const state = {
   labels: true,
   highlightDoors: true,
   showCharacters: true,
+  showSecrets: true,
   highlightCharacters: true,
   highlightMapObjects: true,
+  highlightSecrets: true,
   portalOpen: false
 };
 
@@ -627,7 +785,19 @@ let mapRenderer;
 let sceneRenderer;
 let labels = [];
 let hotspots = [];
+let destructibleHotspots = [];
 let actorHotspots = [];
+let labelLeaderSvg;
+const floatingProjection = {
+  currentX: null,
+  lastFrameMs: null,
+  side: null,
+  targetX: null
+};
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
 
 function visibleBounds(segmentIds) {
   const segments = segmentIds
@@ -659,7 +829,7 @@ function focusBounds(bounds, padding = 0.84) {
     mapRenderer.canvas.width / safeWidth,
     mapRenderer.canvas.height / safeHeight
   ) * padding;
-  mapRenderer.camera.scale = Math.max(0.08, Math.min(12, mapRenderer.camera.scale));
+  mapRenderer.camera.scale = Math.max(MIN_CAMERA_SCALE, Math.min(12, mapRenderer.camera.scale));
 }
 
 function compactViewport() {
@@ -690,6 +860,98 @@ function worldRectToScreen(renderer, rect) {
   };
 }
 
+function visibleWorldRect(renderer) {
+  const safeScale = Math.max(0.0001, renderer.camera.scale);
+  return {
+    x: renderer.camera.x - renderer.canvas.width / (2 * safeScale),
+    y: renderer.camera.y - renderer.canvas.height / (2 * safeScale),
+    width: renderer.canvas.width / safeScale,
+    height: renderer.canvas.height / safeScale
+  };
+}
+
+function segmentDisplayOffset(segmentId) {
+  return mapRenderer?.displayOffsetForSegment(segmentId) || { x: 0, y: 0 };
+}
+
+function segmentDisplayPosition(segment) {
+  const offset = segmentDisplayOffset(segment.id);
+  return {
+    x: segment.position.x + offset.x,
+    y: segment.position.y + offset.y,
+    width: segment.position.width,
+    height: segment.position.height
+  };
+}
+
+function updateFloatingProjection() {
+  if (!mapRenderer?.manifest) return;
+  resizeCanvas(mapRenderer.gl, mapRenderer.canvas);
+  mapRenderer.projectionRects = [];
+
+  const floating = mapRenderer.segmentById.get(FLOATING_VEROS_SEGMENT_ID);
+  const left = mapRenderer.segmentById.get(FLOATING_VEROS_LEFT_SEGMENT_ID);
+  const right = mapRenderer.segmentById.get(FLOATING_VEROS_RIGHT_SEGMENT_ID);
+  if (!floating || !left || !right) {
+    return;
+  }
+
+  const corridorLeft = left.position.x + left.position.width;
+  const corridorRight = right.position.x;
+  mapRenderer.projectionRects = [{
+    x: corridorLeft,
+    y: floating.position.y,
+    width: corridorRight - corridorLeft,
+    height: floating.position.height
+  }];
+
+  const minX = corridorLeft;
+  const maxX = corridorRight - floating.position.width;
+  if (maxX < minX) {
+    mapRenderer.projectionRects = [];
+    mapRenderer.segmentDisplayOffsets.delete(floating.id);
+    floatingProjection.currentX = null;
+    floatingProjection.lastFrameMs = null;
+    floatingProjection.side = null;
+    floatingProjection.targetX = null;
+    return;
+  }
+
+  const corridorMidpoint = (corridorLeft + corridorRight) / 2;
+  let targetSide = floatingProjection.side
+    || (mapRenderer.camera.x >= corridorMidpoint ? 'right' : 'left');
+  if (mapRenderer.camera.x > corridorMidpoint + FLOATING_VEROS_SIDE_HYSTERESIS) {
+    targetSide = 'right';
+  } else if (mapRenderer.camera.x < corridorMidpoint - FLOATING_VEROS_SIDE_HYSTERESIS) {
+    targetSide = 'left';
+  }
+
+  const targetX = targetSide === 'right' ? maxX : minX;
+  const now = performance.now();
+  if (floatingProjection.currentX === null || floatingProjection.targetX === null) {
+    floatingProjection.currentX = targetX;
+  } else {
+    const lastFrameMs = floatingProjection.lastFrameMs ?? now;
+    const elapsedMs = clamp(now - lastFrameMs, 0, FLOATING_VEROS_FRAME_MS);
+    const blend = 1 - Math.exp(-elapsedMs / FLOATING_VEROS_EASE_MS);
+    floatingProjection.currentX += (targetX - floatingProjection.currentX) * blend;
+    if (Math.abs(targetX - floatingProjection.currentX) < FLOATING_VEROS_SNAP_EPSILON) {
+      floatingProjection.currentX = targetX;
+    }
+  }
+  floatingProjection.lastFrameMs = now;
+  floatingProjection.side = targetSide;
+  floatingProjection.targetX = targetX;
+
+  const displayX = clamp(floatingProjection.currentX, minX, maxX);
+  const displayY = floating.position.y;
+
+  mapRenderer.segmentDisplayOffsets.set(floating.id, {
+    x: displayX - floating.position.x,
+    y: displayY - floating.position.y
+  });
+}
+
 function hotspotWorldRect(hotspot) {
   if (!hotspot.tileRect) {
     return hotspot;
@@ -699,11 +961,27 @@ function hotspotWorldRect(hotspot) {
     return null;
   }
   const tileSize = segment.tileSize || 8;
+  const position = segmentDisplayPosition(segment);
   return {
-    x: segment.position.x + hotspot.tileRect.x * tileSize,
-    y: segment.position.y + hotspot.tileRect.y * tileSize,
+    x: position.x + hotspot.tileRect.x * tileSize,
+    y: position.y + hotspot.tileRect.y * tileSize,
     width: hotspot.tileRect.width * tileSize,
     height: hotspot.tileRect.height * tileSize
+  };
+}
+
+function destructibleFixtureWorldRect(fixture) {
+  const segment = mapRenderer.segmentById.get(fixture.segmentId);
+  if (!segment) {
+    return null;
+  }
+  const tileSize = segment.tileSize || 8;
+  const position = segmentDisplayPosition(segment);
+  return {
+    x: position.x + fixture.tileRect.x * tileSize,
+    y: position.y + fixture.tileRect.y * tileSize,
+    width: fixture.tileRect.width * tileSize,
+    height: fixture.tileRect.height * tileSize
   };
 }
 
@@ -716,9 +994,10 @@ function actorWorldRect(actor) {
     const segment = mapRenderer.segmentById.get(actor.segmentId);
     if (segment) {
       const tileSize = segment.tileSize || 8;
+      const position = segmentDisplayPosition(segment);
       return {
-        x: segment.position.x + actor.visualTileRect.x * tileSize,
-        y: segment.position.y + actor.visualTileRect.y * tileSize,
+        x: position.x + actor.visualTileRect.x * tileSize,
+        y: position.y + actor.visualTileRect.y * tileSize,
         width: actor.visualTileRect.width * tileSize,
         height: actor.visualTileRect.height * tileSize
       };
@@ -726,19 +1005,20 @@ function actorWorldRect(actor) {
   }
 
   const actorClass = actorClassFor(actor);
-  const bounds = actorClass?.opaqueBounds || actorClass?.bounds;
+  const bounds = actorClass?.previewOpaqueBounds || actorClass?.opaqueBounds || actorClass?.bounds;
+  const offset = segmentDisplayOffset(actor.segmentId);
   if (bounds) {
     return {
-      x: actor.worldX + bounds.minX,
-      y: actor.worldY + bounds.minY,
+      x: actor.worldX + offset.x + bounds.minX,
+      y: actor.worldY + offset.y + bounds.minY,
       width: bounds.width,
       height: bounds.height
     };
   }
 
   return {
-    x: actor.worldX - 8,
-    y: actor.worldY - 20,
+    x: actor.worldX + offset.x - 8,
+    y: actor.worldY + offset.y - 20,
     width: 16,
     height: 28
   };
@@ -752,20 +1032,29 @@ function actorIsMapObject(actor) {
   return actor.kind === 'fixture';
 }
 
+function actorIsSecret(actor) {
+  return actor.kind === 'secret';
+}
+
 function actorLayerVisible(actor) {
-  return actorIsMapObject(actor) || state.showCharacters;
+  return actorIsMapObject(actor) || actorIsSecret(actor) || state.showCharacters;
 }
 
 function actorHighlightVisible(actor) {
-  return actorIsMapObject(actor)
-    ? state.highlightMapObjects
-    : state.highlightCharacters;
+  if (actorIsMapObject(actor)) {
+    return state.highlightMapObjects;
+  }
+  if (actorIsSecret(actor)) {
+    return state.highlightSecrets;
+  }
+  return state.highlightCharacters;
 }
 
 function shouldRenderActor(actor) {
   return Boolean(actor.classId)
     && actorMatchesVariant(actor)
-    && actorLayerVisible(actor);
+    && actorLayerVisible(actor)
+    && (!actorIsSecret(actor) || state.showSecrets);
 }
 
 function shouldShowActorHotspot(actor) {
@@ -780,19 +1069,32 @@ function makeElement(className, tag = 'div') {
   return element;
 }
 
+function makeSvgElement(tagName, className) {
+  const element = document.createElementNS('http://www.w3.org/2000/svg', tagName);
+  if (className) {
+    element.setAttribute('class', className);
+  }
+  return element;
+}
+
 function buildOverlays() {
   dom.overlay.replaceChildren();
   labels = [];
   hotspots = [];
+  destructibleHotspots = [];
   actorHotspots = [];
+  labelLeaderSvg = makeSvgElement('svg', 'label-leaders');
+  dom.overlay.append(labelLeaderSvg);
 
   for (let index = 0; index < ROUTE_SEGMENT_IDS.length; index += 1) {
     const segmentId = ROUTE_SEGMENT_IDS[index];
     const segment = mapRenderer.segmentById.get(segmentId);
     if (!segment) continue;
     const label = makeElement('label-chip');
+    const leader = makeSvgElement('line', 'label-leader-line');
+    labelLeaderSvg.append(leader);
     label.textContent = segment.label;
-    labels.push({ element: label, segment, index });
+    labels.push({ element: label, leader, segment, index });
 
   }
 
@@ -808,6 +1110,18 @@ function buildOverlays() {
       element.addEventListener('click', () => updateGuideCard(hotspot.label, hotspot.note));
     }
     hotspots.push({ element, hotspot });
+  }
+
+  for (const fixture of mapRenderer.manifest.destructibleFixtures || []) {
+    if (fixture.role === 'secret-reward') {
+      continue;
+    }
+    const element = makeElement('destructible-hotspot', 'button');
+    element.type = 'button';
+    element.title = fixture.label;
+    element.setAttribute('aria-label', fixture.label);
+    element.addEventListener('click', () => showDestructibleFixtureCard(fixture));
+    destructibleHotspots.push({ element, fixture });
   }
 
   for (const actor of mapRenderer.manifest.actors || []) {
@@ -827,19 +1141,130 @@ function setRect(element, rect) {
   element.style.height = `${rect.height}px`;
 }
 
+function paddedRect(rect, padding) {
+  return {
+    left: rect.left - padding,
+    top: rect.top - padding,
+    right: rect.right + padding,
+    bottom: rect.bottom + padding
+  };
+}
+
+function rectsOverlap(a, b) {
+  return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+}
+
+function labelSide(segment) {
+  return LABEL_BELOW_SEGMENT_IDS.has(segment.id) ? 'below' : 'above';
+}
+
+function labelPlacement(segment) {
+  const position = segmentDisplayPosition(segment);
+  const side = labelSide(segment);
+  const centerX = position.x + position.width / 2;
+  const mapY = side === 'above' ? position.y : position.y + position.height;
+  const labelY = side === 'above'
+    ? position.y - LABEL_MAP_GAP
+    : position.y + position.height + LABEL_MAP_GAP;
+  return {
+    side,
+    labelAnchor: worldToScreen(mapRenderer, centerX, labelY),
+    mapAnchor: worldToScreen(mapRenderer, centerX, mapY)
+  };
+}
+
+function labelTransform(side, offsetY = 0) {
+  const base = side === 'above' ? 'translate(-50%, -100%)' : 'translate(-50%, 0)';
+  return `${base} translateY(${offsetY}px)`;
+}
+
+function shiftedRect(rect, offsetY) {
+  return {
+    left: rect.left,
+    top: rect.top + offsetY,
+    right: rect.right,
+    bottom: rect.bottom + offsetY
+  };
+}
+
+function updateLabelLeader(item) {
+  const line = item.leader;
+  if (!line) return;
+  if (item.element.hidden || Math.abs(item.offsetY || 0) < LABEL_LEADER_THRESHOLD) {
+    line.setAttribute('visibility', 'hidden');
+    return;
+  }
+
+  const rect = item.element.getBoundingClientRect();
+  const edgeY = item.side === 'above' ? rect.bottom : rect.top;
+  line.setAttribute('x1', `${rect.left + rect.width / 2}`);
+  line.setAttribute('y1', `${edgeY}`);
+  line.setAttribute('x2', `${item.mapAnchor.x}`);
+  line.setAttribute('y2', `${item.mapAnchor.y}`);
+  line.setAttribute('visibility', 'visible');
+}
+
+function separateOverlappingLabels() {
+  const accepted = [];
+  const visibleLabels = labels
+    .filter((item) => !item.element.hidden)
+    .sort((a, b) => (
+      a.labelAnchor.y - b.labelAnchor.y
+      || a.labelAnchor.x - b.labelAnchor.x
+      || a.index - b.index
+    ));
+
+  for (const item of visibleLabels) {
+    let offsetY = 0;
+    const direction = item.side === 'above' ? -1 : 1;
+    let rect = paddedRect(item.element.getBoundingClientRect(), LABEL_COLLISION_PADDING);
+
+    for (let attempt = 0; attempt < 12; attempt += 1) {
+      const overlap = accepted.find((acceptedRect) => rectsOverlap(rect, acceptedRect));
+      if (!overlap) break;
+      const nextOffset = direction < 0
+        ? overlap.top - rect.bottom - LABEL_COLLISION_PADDING
+        : overlap.bottom - rect.top + LABEL_COLLISION_PADDING;
+      offsetY += nextOffset || direction * (LABEL_COLLISION_PADDING + 1);
+      rect = shiftedRect(rect, nextOffset || direction * (LABEL_COLLISION_PADDING + 1));
+    }
+
+    item.offsetY = Math.round(offsetY);
+    item.element.style.transform = labelTransform(item.side, item.offsetY);
+    accepted.push(paddedRect(item.element.getBoundingClientRect(), LABEL_COLLISION_PADDING));
+  }
+
+  for (const item of labels) {
+    updateLabelLeader(item);
+  }
+}
+
 function updateOverlays() {
   if (!mapRenderer?.manifest) return;
 
+  const overviewLabels = mapRenderer.camera.scale < OVERVIEW_LABEL_SCALE;
+
   for (const item of labels) {
-    item.element.hidden = !state.labels;
-    if (!state.labels) continue;
-    const position = item.segment.position;
-    const above = item.index % 2 === 0;
-    const y = above ? position.y - 8 : position.y + position.height + 10;
-    const screen = worldToScreen(mapRenderer, position.x + position.width / 2, y);
-    item.element.style.left = `${screen.x}px`;
-    item.element.style.top = `${screen.y}px`;
-    item.element.style.transform = above ? 'translate(-50%, -100%)' : 'translate(-50%, 0)';
+    const hiddenInOverview = overviewLabels && OVERVIEW_LABEL_HIDDEN_IDS.has(item.segment.id);
+    item.element.hidden = !state.labels || hiddenInOverview;
+    if (!state.labels || hiddenInOverview) {
+      item.leader?.setAttribute('visibility', 'hidden');
+      continue;
+    }
+    item.element.textContent = overviewLabels
+      ? OVERVIEW_LABEL_TEXT.get(item.segment.id) || item.segment.label
+      : item.segment.label;
+    const placement = labelPlacement(item.segment);
+    item.side = placement.side;
+    item.labelAnchor = placement.labelAnchor;
+    item.mapAnchor = placement.mapAnchor;
+    item.offsetY = 0;
+    item.element.style.left = `${placement.labelAnchor.x}px`;
+    item.element.style.top = `${placement.labelAnchor.y}px`;
+    item.element.style.transform = labelTransform(placement.side);
+  }
+  if (state.labels) {
+    separateOverlappingLabels();
   }
 
   for (const item of hotspots) {
@@ -852,6 +1277,17 @@ function updateOverlays() {
     const rect = worldRectToScreen(mapRenderer, worldRect);
     setRect(item.element, rect);
     item.element.classList.toggle('is-highlight-hidden', !state.highlightDoors);
+  }
+
+  for (const item of destructibleHotspots) {
+    const worldRect = destructibleFixtureWorldRect(item.fixture);
+    if (!worldRect) {
+      item.element.hidden = true;
+      continue;
+    }
+    item.element.hidden = false;
+    setRect(item.element, worldRectToScreen(mapRenderer, worldRect));
+    item.element.classList.toggle('is-highlight-hidden', !state.highlightSecrets);
   }
 
   for (const item of actorHotspots) {
@@ -888,7 +1324,21 @@ function actorHpText(actor) {
   return `HP: ${currentHp} in ${state.variant}. Day HP ${day}; night HP ${night}.`;
 }
 
+function showDestructibleFixtureCard(fixture) {
+  const lines = [];
+  if (fixture.action) {
+    lines.push(fixture.action);
+  }
+  lines.push('These blocks are detected from the ROM-expanded background tilemap.');
+  updateGuideCard(fixture.label, lines);
+}
+
 function showActorCard(actor) {
+  if (actor.kind === 'secret') {
+    showSecretCard(actor);
+    return;
+  }
+
   const lines = [];
   if (actor.kind === 'enemy') {
     lines.push(actorHpText(actor));
@@ -901,12 +1351,36 @@ function showActorCard(actor) {
   updateGuideCard(actor.label, lines);
 }
 
+function showSecretCard(actor) {
+  const secret = actor.secret || {};
+  const lines = [];
+  if (secret.action) {
+    lines.push(secret.action);
+  }
+  if (secret.methodNote) {
+    lines.push(secret.methodNote);
+  }
+  if (secret.reward) {
+    lines.push(`Reward: ${secret.reward}.`);
+  }
+  if (actor.text) {
+    lines.push(`Message: "${actor.text}"`);
+  }
+  if (secret.reveal) {
+    lines.push(secret.reveal);
+  }
+
+  updateGuideCard(actor.label, lines.length ? lines : 'Secret details have not been decoded for this actor row.');
+}
+
 function syncControls() {
   dom.labelsToggle.checked = state.labels;
   dom.highlightDoorsToggle.checked = state.highlightDoors;
   dom.showCharactersToggle.checked = state.showCharacters;
+  dom.showSecretsToggle.checked = state.showSecrets;
   dom.highlightCharactersToggle.checked = state.highlightCharacters;
   dom.highlightMapObjectsToggle.checked = state.highlightMapObjects;
+  dom.highlightSecretsToggle.checked = state.highlightSecrets;
   dom.paletteToggle.textContent = state.variant === 'day' ? 'Night' : 'Day';
 }
 
@@ -1000,11 +1474,17 @@ function attachControls() {
   dom.showCharactersToggle.addEventListener('change', () => {
     state.showCharacters = dom.showCharactersToggle.checked;
   });
+  dom.showSecretsToggle.addEventListener('change', () => {
+    state.showSecrets = dom.showSecretsToggle.checked;
+  });
   dom.highlightCharactersToggle.addEventListener('change', () => {
     state.highlightCharacters = dom.highlightCharactersToggle.checked;
   });
   dom.highlightMapObjectsToggle.addEventListener('change', () => {
     state.highlightMapObjects = dom.highlightMapObjectsToggle.checked;
+  });
+  dom.highlightSecretsToggle.addEventListener('change', () => {
+    state.highlightSecrets = dom.highlightSecretsToggle.checked;
   });
   dom.closePortal.addEventListener('click', closePortal);
   dom.portalModal.addEventListener('click', (event) => {
@@ -1026,8 +1506,14 @@ function attachControls() {
 }
 
 function renderLoop() {
+  updateFloatingProjection();
   mapRenderer.render(state.variant);
-  mapRenderer.actorRenderer.render(mapRenderer.camera, state.variant, shouldRenderActor);
+  mapRenderer.actorRenderer.render(
+    mapRenderer.camera,
+    state.variant,
+    shouldRenderActor,
+    (segmentId) => mapRenderer.displayOffsetForSegment(segmentId)
+  );
   if (state.portalOpen) {
     sceneRenderer.render('fixed');
   }
@@ -1047,8 +1533,12 @@ async function main() {
   attachControls();
   buildOverlays();
   syncControls();
-  setStatus(`${mapManifest.label}: ${mapManifest.segments.length} exterior segments, ${mapManifest.actorSummary?.placements || 0} actors, and ${sceneManifest.label} scene rendered from raw data through WebGL.`);
-  updateGuideCard('Opening Slice', 'Raw ROM-derived tile data is rendered through WebGL. Use the highlighted Berkeley door to open the first mansion interior.');
+  const layoutLabel = mapManifest.layoutSample?.label || mapManifest.label;
+  setStatus(`${layoutLabel}: ${mapManifest.segments.length} exterior segments, ${mapManifest.actorSummary?.placements || 0} actors, and ${sceneManifest.label} scene rendered from raw data through WebGL.`);
+  updateGuideCard(
+    layoutLabel,
+    mapManifest.layoutSample?.summary || 'Raw ROM-derived tile data is rendered through WebGL. Use the highlighted Berkeley door to open the first mansion interior.'
+  );
   if (window.location.hash === '#berkeley-mansion') {
     openPortal();
   }

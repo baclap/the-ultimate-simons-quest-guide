@@ -811,7 +811,8 @@ function buildGuideSliceCommand(args) {
     guideSlice: buildGuideSlice(buffer, info, {
       sliceFile,
       atlasFile,
-      outDir
+      outDir,
+      layout: args.layout ? String(args.layout) : undefined
     })
   });
 }

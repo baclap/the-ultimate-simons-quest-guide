@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Castlevania II Perfect Guide Prototype</title>
-    <link rel="stylesheet" href="styles.css?v=layer-simplify6">
+    <link rel="stylesheet" href="styles.css?v=secret-layer-toggle1">
   </head>
   <body>
     <main id="app" class="guide-shell">
@@ -14,7 +17,7 @@
       <header class="topbar">
         <div class="brand">
           <strong>CV2 Perfect Guide</strong>
-          <span>Jova to Berkeley</span>
+          <span>Jova to Aljiba Woods</span>
         </div>
         <div class="topbar-actions">
           <button id="palette-toggle" type="button" class="compact-button">Night</button>
@@ -30,9 +33,11 @@
         </div>
         <label><input id="toggle-labels" type="checkbox" checked> Show labels</label>
         <label><input id="toggle-show-characters" type="checkbox" checked> Show characters</label>
+        <label><input id="toggle-show-secrets" type="checkbox" checked> Show secrets</label>
         <label><input id="toggle-highlight-doors" type="checkbox" checked> Highlight doors</label>
         <label><input id="toggle-highlight-characters" type="checkbox" checked> Highlight characters</label>
         <label><input id="toggle-highlight-map-objects" type="checkbox" checked> Highlight map objects</label>
+        <label><input id="toggle-highlight-secrets" type="checkbox" checked> Highlight secrets</label>
       </aside>
 
       <section id="guide-card" class="guide-card" aria-live="polite">
@@ -79,6 +84,6 @@
       </section>
     </main>
 
-    <script type="module" src="app.js?v=layer-simplify6"></script>
+    <script type="module" src="app.js?v=secret-layer-toggle1"></script>
   </body>
 </html>
