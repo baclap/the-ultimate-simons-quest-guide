@@ -7,45 +7,64 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Castlevania II Perfect Guide Prototype</title>
-    <link rel="stylesheet" href="styles.css?v=secret-layer-toggle1">
+    <link rel="stylesheet" href="styles.css?v=pan-inertia5">
   </head>
   <body>
     <main id="app" class="guide-shell">
-      <canvas id="map-canvas" aria-label="Castlevania II guide map"></canvas>
+      <canvas id="map-canvas" tabindex="0" aria-label="Castlevania II guide map"></canvas>
       <div id="overlay-layer" class="overlay-layer" aria-hidden="false"></div>
 
-      <header class="topbar">
-        <div class="brand">
-          <strong>CV2 Perfect Guide</strong>
-          <span>Jova to Aljiba Woods</span>
-        </div>
-        <div class="topbar-actions">
-          <button id="palette-toggle" type="button" class="compact-button">Night</button>
-          <button id="reset-view" type="button" class="compact-button">Reset</button>
-          <button id="options-toggle" type="button" class="compact-button">Options</button>
-        </div>
-      </header>
+      <div class="map-chrome" role="toolbar" aria-label="Guide controls">
+        <button id="palette-toggle" type="button" class="chrome-button" aria-pressed="false" aria-label="Switch to night palette" title="Switch to night palette">
+          <canvas id="palette-toggle-icon" class="chrome-icon" width="16" height="16" aria-hidden="true"></canvas>
+        </button>
+        <button id="options-toggle" type="button" class="chrome-button" aria-expanded="false" aria-controls="options-panel" aria-label="Show guide layers" title="Show guide layers">
+          <canvas id="options-toggle-icon" class="chrome-icon" width="16" height="16" aria-hidden="true"></canvas>
+        </button>
+      </div>
 
       <aside id="options-panel" class="options-panel" aria-label="Guide display options" hidden>
         <div class="panel-heading">
           <strong>Guide Layers</strong>
           <span>Choose which guide overlays are visible.</span>
         </div>
-        <label><input id="toggle-labels" type="checkbox" checked> Show labels</label>
-        <label><input id="toggle-show-characters" type="checkbox" checked> Show characters</label>
-        <label><input id="toggle-show-secrets" type="checkbox" checked> Show secrets</label>
-        <label><input id="toggle-highlight-doors" type="checkbox" checked> Highlight doors</label>
-        <label><input id="toggle-highlight-characters" type="checkbox" checked> Highlight characters</label>
-        <label><input id="toggle-highlight-map-objects" type="checkbox" checked> Highlight map objects</label>
-        <label><input id="toggle-highlight-secrets" type="checkbox" checked> Highlight secrets</label>
+        <fieldset>
+          <legend>Visibility</legend>
+          <label><input id="toggle-labels" type="checkbox" checked> Labels</label>
+          <label><input id="toggle-show-characters" type="checkbox" checked> Characters</label>
+          <label><input id="toggle-section-outlines" type="checkbox"> Map sections</label>
+          <label><input id="toggle-show-secrets" type="checkbox" checked> Secrets</label>
+        </fieldset>
+        <fieldset>
+          <legend>Highlights</legend>
+          <label><input id="toggle-highlight-doors" type="checkbox" checked> Doors</label>
+          <label><input id="toggle-highlight-characters" type="checkbox" checked> Characters</label>
+          <label><input id="toggle-highlight-map-objects" type="checkbox" checked> Map objects</label>
+          <label><input id="toggle-highlight-secrets" type="checkbox" checked> Secrets</label>
+        </fieldset>
       </aside>
 
-      <section id="guide-card" class="guide-card" aria-live="polite">
-        <strong>Opening Slice</strong>
-        <p>Raw ROM-derived tile data is rendered through WebGL. Use the highlighted Berkeley door to open the first mansion interior.</p>
+      <section id="guide-card" class="guide-card" aria-live="polite" hidden>
+        <div id="dialog-box" class="dialog-box" role="status">
+          <canvas id="dialog-frame-canvas" class="dialog-frame-canvas" aria-hidden="true"></canvas>
+          <p id="dialog-text" class="dialog-text"></p>
+          <button id="dialog-close" type="button" class="dialog-close" aria-label="Close dialog">
+            <canvas id="dialog-close-frame-canvas" class="dialog-close-frame-canvas" aria-hidden="true"></canvas>
+            <span aria-hidden="true">X</span>
+          </button>
+        </div>
       </section>
 
-      <div id="status" class="status">Loading raw guide data...</div>
+      <section id="guide-inspector" class="guide-inspector" aria-live="polite" hidden>
+        <header>
+          <strong id="guide-inspector-title"></strong>
+          <button id="guide-inspector-close" type="button" class="icon-button" aria-label="Close details">x</button>
+        </header>
+        <p id="guide-inspector-summary"></p>
+        <dl id="guide-inspector-list"></dl>
+      </section>
+
+      <div id="status" class="status"></div>
 
       <section id="portal-modal" class="portal-modal" hidden>
         <div class="modal-backdrop" data-close-portal></div>
@@ -84,6 +103,6 @@
       </section>
     </main>
 
-    <script type="module" src="app.js?v=secret-layer-toggle1"></script>
+    <script type="module" src="app.js?v=pan-inertia5"></script>
   </body>
 </html>

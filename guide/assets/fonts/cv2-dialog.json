@@ -1,0 +1,228 @@
+{
+  "family": "CV2 Dialog",
+  "basename": "cv2-dialog",
+  "sourceRom": "roms/cv2.nes",
+  "sourceRomSha256": "22ac359d66da2df940c9c309c8b1e29d0650700a58a9abd2ed5045d56a8c14dd",
+  "chrBank": "0x00",
+  "unitsPerEm": 1024,
+  "tileSize": 8,
+  "monospaceAdvance": 1024,
+  "characters": [
+    {
+      "character": " ",
+      "tileId": "0x00",
+      "glyph": "space"
+    },
+    {
+      "character": "A",
+      "tileId": "0x01",
+      "glyph": "A"
+    },
+    {
+      "character": "B",
+      "tileId": "0x02",
+      "glyph": "B"
+    },
+    {
+      "character": "C",
+      "tileId": "0x03",
+      "glyph": "C"
+    },
+    {
+      "character": "D",
+      "tileId": "0x04",
+      "glyph": "D"
+    },
+    {
+      "character": "E",
+      "tileId": "0x05",
+      "glyph": "E"
+    },
+    {
+      "character": "F",
+      "tileId": "0x06",
+      "glyph": "F"
+    },
+    {
+      "character": "G",
+      "tileId": "0x07",
+      "glyph": "G"
+    },
+    {
+      "character": "H",
+      "tileId": "0x08",
+      "glyph": "H"
+    },
+    {
+      "character": "I",
+      "tileId": "0x09",
+      "glyph": "I"
+    },
+    {
+      "character": "J",
+      "tileId": "0x0A",
+      "glyph": "J"
+    },
+    {
+      "character": "K",
+      "tileId": "0x0B",
+      "glyph": "K"
+    },
+    {
+      "character": "L",
+      "tileId": "0x0C",
+      "glyph": "L"
+    },
+    {
+      "character": "M",
+      "tileId": "0x0D",
+      "glyph": "M"
+    },
+    {
+      "character": "N",
+      "tileId": "0x0E",
+      "glyph": "N"
+    },
+    {
+      "character": "O",
+      "tileId": "0x0F",
+      "glyph": "O"
+    },
+    {
+      "character": "P",
+      "tileId": "0x10",
+      "glyph": "P"
+    },
+    {
+      "character": "Q",
+      "tileId": "0x11",
+      "glyph": "Q"
+    },
+    {
+      "character": "R",
+      "tileId": "0x12",
+      "glyph": "R"
+    },
+    {
+      "character": "S",
+      "tileId": "0x13",
+      "glyph": "S"
+    },
+    {
+      "character": "T",
+      "tileId": "0x14",
+      "glyph": "T"
+    },
+    {
+      "character": "U",
+      "tileId": "0x15",
+      "glyph": "U"
+    },
+    {
+      "character": "V",
+      "tileId": "0x16",
+      "glyph": "V"
+    },
+    {
+      "character": "W",
+      "tileId": "0x17",
+      "glyph": "W"
+    },
+    {
+      "character": "X",
+      "tileId": "0x18",
+      "glyph": "X"
+    },
+    {
+      "character": "Y",
+      "tileId": "0x19",
+      "glyph": "Y"
+    },
+    {
+      "character": "Z",
+      "tileId": "0x1A",
+      "glyph": "Z"
+    },
+    {
+      "character": "0",
+      "tileId": "0x36",
+      "glyph": "zero"
+    },
+    {
+      "character": "1",
+      "tileId": "0x37",
+      "glyph": "one"
+    },
+    {
+      "character": "2",
+      "tileId": "0x38",
+      "glyph": "two"
+    },
+    {
+      "character": "3",
+      "tileId": "0x39",
+      "glyph": "three"
+    },
+    {
+      "character": "4",
+      "tileId": "0x3A",
+      "glyph": "four"
+    },
+    {
+      "character": "5",
+      "tileId": "0x3B",
+      "glyph": "five"
+    },
+    {
+      "character": "6",
+      "tileId": "0x3C",
+      "glyph": "six"
+    },
+    {
+      "character": "7",
+      "tileId": "0x3D",
+      "glyph": "seven"
+    },
+    {
+      "character": "8",
+      "tileId": "0x3E",
+      "glyph": "eight"
+    },
+    {
+      "character": "9",
+      "tileId": "0x3F",
+      "glyph": "nine"
+    },
+    {
+      "character": ".",
+      "tileId": "0x1B",
+      "glyph": "period"
+    },
+    {
+      "character": ",",
+      "tileId": "0x1E",
+      "glyph": "comma"
+    },
+    {
+      "character": "'",
+      "tileId": "0x1C",
+      "glyph": "quotesingle"
+    },
+    {
+      "character": "!",
+      "tileId": "0x40",
+      "glyph": "exclam"
+    },
+    {
+      "character": "-",
+      "tileId": "0x46",
+      "glyph": "hyphen"
+    },
+    {
+      "character": "?",
+      "tileId": "0x5D",
+      "glyph": "question"
+    }
+  ],
+  "lowercaseAliases": true
+}

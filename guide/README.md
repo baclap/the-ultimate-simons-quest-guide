@@ -67,15 +67,19 @@ dialogue text, and palette source are backed by ROM-derived evidence:
 
 - Town of Veros includes its day NPC rows, sign row, and night enemy rows. The
   woman uses ROM row id `$A9`, live id `$29`, and selector record `$0A`; the
-  bats use actor id `$01` and selector record `$08`.
-- Bat sprite tiles, palettes, and selector frames remain ROM-derived. Because
-  the game pairs zigzag-bat flaps with movement, that static map preview applies
-  presentation-only selector-frame offsets so the frozen guide marker reads more
-  like a steady body with flapping wings. The Veros town bat is temporarily left
-  unadjusted for visual comparison.
+  guide labels actor id `$01` / selector record `$08` as a Crow.
+- Crow/Bat sprite tiles, palettes, and selector frames remain ROM-derived.
+  Because the game pairs zigzag-bat flaps with movement, that static map preview
+  applies presentation-only selector-frame offsets so the frozen guide marker
+  reads more like a steady body with flapping wings.
 - Actor sprite colors are packed from ROM palette fragments: the shared sprite
   palette half at fixed-bank `$CAAE` plus area/variant-specific fragments such
   as `$CB26`, `$CB2F`, `$CB38`, `$CB5C`, and bank `4:$9F2A`.
+- Grounded enemy placements start from the ROM actor row and guide visual
+  anchor, then the slice builder validates the actor foot tiles against the
+  expanded ROM background tilemap. Unsupported placements are snapped by the
+  smallest unambiguous horizontal offset that lands on palette `0`/`1` terrain;
+  the generated manifest records the before/after support evidence.
 - Dabi's Path includes skeletons, eyeballs, zigzag bats, and the sacred-flame
   fixture. Dabi day and night use the same ROM sprite-palette fragment and the
   same ROM background palette transfer address, so the actor palette source is

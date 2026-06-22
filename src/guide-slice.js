@@ -29,6 +29,8 @@ const ACTOR_CELL_SIZE = 16;
 // Actor rows store the runtime anchor on a 16px grid; the guide draws at the visual spawn-cell anchor.
 const ACTOR_DRAW_ANCHOR_OFFSET_X = ACTOR_CELL_SIZE / 2;
 const ACTOR_DRAW_ANCHOR_OFFSET_Y = -12;
+const GROUND_SUPPORT_PALETTES = new Set([0, 1]);
+const GROUND_SUPPORT_SNAP_CANDIDATE_OFFSETS_X = [-32, -24, -16, -8, 0, 8, 16, 24, 32];
 
 const FIXTURE_TILE_SIGNATURES = {
   townSign: {
@@ -250,8 +252,8 @@ const ACTOR_CLASSES = [
     proof: 'ROM row id $AE maps through live id $2E to merchant animation record $0B, which emits selectors $1E/$1F.'
   },
   {
-    id: 'bat',
-    label: 'Bat',
+    id: 'crow',
+    label: 'Crow',
     kind: 'enemy',
     actorId: 0x01,
     selectorRecordIndex: 0x08,
@@ -262,6 +264,7 @@ const ACTOR_CLASSES = [
     id: 'skeleton',
     label: 'Skeleton',
     kind: 'enemy',
+    placement: 'grounded',
     actorId: 0x03,
     selectorRecordIndex: 0x05,
     chrBanks: [0x02, 0x03],
@@ -317,6 +320,7 @@ const ACTOR_CLASSES = [
     id: 'werewolf',
     label: 'Werewolf',
     kind: 'enemy',
+    placement: 'grounded',
     actorId: 0x13,
     selectorRecordIndex: 0x1e,
     chrBanks: [0x02, 0x03],
@@ -327,6 +331,7 @@ const ACTOR_CLASSES = [
     id: 'zombie',
     label: 'Zombie',
     kind: 'enemy',
+    placement: 'grounded',
     actorId: 0x17,
     selectorRecordIndex: 0x37,
     chrBanks: [0x00, 0x01],
@@ -453,7 +458,7 @@ const GUIDE_ACTORS = [
   { id: 'denis-skeleton-6084', classId: 'skeleton', segmentId: 'denis-woods-part-1', offset: 0x6084, bytes: [0x18, 0x0a, 0x03, 0x01], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
 
   { id: 'veros-man-522a', classId: 'jova-man', label: 'Veros man', segmentId: 'town-of-veros', offset: 0x522a, bytes: [0x04, 0x0c, 0xaa, 0x40], variants: ['day'], paletteByVariant: { day: 'town-day-sprites' } },
-  { id: 'veros-bat-522e', classId: 'bat', label: 'Veros bat', segmentId: 'town-of-veros', offset: 0x522e, bytes: [0x04, 0x08, 0x01, 0x02], variants: ['night'], paletteByVariant: { night: 'town-night-sprites' } },
+  { id: 'veros-crow-522e', classId: 'crow', segmentId: 'town-of-veros', offset: 0x522e, bytes: [0x04, 0x08, 0x01, 0x02], variants: ['night'], paletteByVariant: { night: 'town-night-sprites' } },
   { id: 'veros-man-5232', classId: 'jova-man', label: 'Veros man', segmentId: 'town-of-veros', offset: 0x5232, bytes: [0x0c, 0x0c, 0xaa, 0x43], variants: ['day'], paletteByVariant: { day: 'town-day-sprites' } },
   { id: 'veros-sign-5236', classId: null, label: 'Veros sign', kind: 'fixture', segmentId: 'town-of-veros', offset: 0x5236, bytes: [0x0d, 0x0c, 0xa4, 0x3b], variants: ['day', 'night'], visualTileRect: { x: 24, y: 20, width: 4, height: 4 }, fixtureSignature: 'townSign' },
   { id: 'veros-man-523a', classId: 'jova-man', label: 'Veros man', segmentId: 'town-of-veros', offset: 0x523a, bytes: [0x14, 0x0c, 0xaa, 0x48], variants: ['day'], paletteByVariant: { day: 'town-day-sprites' } },
@@ -464,7 +469,7 @@ const GUIDE_ACTORS = [
   { id: 'veros-zombie-524e', classId: 'zombie', segmentId: 'town-of-veros', offset: 0x524e, bytes: [0x28, 0x0c, 0x17, 0x02], variants: ['night'], paletteByVariant: { night: 'town-night-sprites' } },
   { id: 'veros-zombie-5252', classId: 'zombie', segmentId: 'town-of-veros', offset: 0x5252, bytes: [0x2c, 0x0c, 0x17, 0x02], variants: ['night'], paletteByVariant: { night: 'town-night-sprites' } },
   { id: 'veros-zombie-5256', classId: 'zombie', segmentId: 'town-of-veros', offset: 0x5256, bytes: [0x34, 0x08, 0x17, 0x02], variants: ['night'], paletteByVariant: { night: 'town-night-sprites' } },
-  { id: 'veros-bat-525a', classId: 'bat', label: 'Veros bat', segmentId: 'town-of-veros', offset: 0x525a, bytes: [0x34, 0x0c, 0x01, 0x02], variants: ['night'], paletteByVariant: { night: 'town-night-sprites' } },
+  { id: 'veros-crow-525a', classId: 'crow', segmentId: 'town-of-veros', offset: 0x525a, bytes: [0x34, 0x0c, 0x01, 0x02], variants: ['night'], paletteByVariant: { night: 'town-night-sprites' } },
 
   { id: 'aljiba-3-spider-666a', classId: 'spider', segmentId: 'aljiba-woods-part-3', offset: 0x666a, bytes: [0x08, 0x06, 0x0e, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
   { id: 'aljiba-3-skeleton-666e', classId: 'skeleton', segmentId: 'aljiba-woods-part-3', offset: 0x666e, bytes: [0x0c, 0x0c, 0x03, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
@@ -497,12 +502,12 @@ const GUIDE_ACTORS = [
     fixtureSignature: 'destructibleBlock2x4'
   },
   { id: 'dabis-2-eyeball-66b4', classId: 'eyeball', segmentId: 'dabis-path-part-2', offset: 0x66b4, bytes: [0x04, 0x04, 0x08, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'dabis-path-day-sprites', night: 'dabis-path-night-sprites' } },
-  { id: 'dabis-2-zigzag-bat-66b8', classId: 'zigzag-bat', label: 'Zigzag bat', segmentId: 'dabis-path-part-2', offset: 0x66b8, bytes: [0x04, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'dabis-path-day-sprites', night: 'dabis-path-night-sprites' } },
+  { id: 'dabis-2-zigzag-bat-66b8', classId: 'zigzag-bat', segmentId: 'dabis-path-part-2', offset: 0x66b8, bytes: [0x04, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'dabis-path-day-sprites', night: 'dabis-path-night-sprites' } },
   { id: 'dabis-2-eyeball-66bc', classId: 'eyeball', segmentId: 'dabis-path-part-2', offset: 0x66bc, bytes: [0x0c, 0x06, 0x08, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'dabis-path-day-sprites', night: 'dabis-path-night-sprites' } },
-  { id: 'dabis-2-zigzag-bat-66c0', classId: 'zigzag-bat', label: 'Zigzag bat', segmentId: 'dabis-path-part-2', offset: 0x66c0, bytes: [0x0c, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'dabis-path-day-sprites', night: 'dabis-path-night-sprites' } },
+  { id: 'dabis-2-zigzag-bat-66c0', classId: 'zigzag-bat', segmentId: 'dabis-path-part-2', offset: 0x66c0, bytes: [0x0c, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'dabis-path-day-sprites', night: 'dabis-path-night-sprites' } },
   { id: 'dabis-2-eyeball-66c4', classId: 'eyeball', segmentId: 'dabis-path-part-2', offset: 0x66c4, bytes: [0x14, 0x06, 0x08, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'dabis-path-day-sprites', night: 'dabis-path-night-sprites' } },
-  { id: 'dabis-2-zigzag-bat-66c8', classId: 'zigzag-bat', label: 'Zigzag bat', segmentId: 'dabis-path-part-2', offset: 0x66c8, bytes: [0x14, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'dabis-path-day-sprites', night: 'dabis-path-night-sprites' } },
-  { id: 'dabis-2-zigzag-bat-66cc', classId: 'zigzag-bat', label: 'Zigzag bat', segmentId: 'dabis-path-part-2', offset: 0x66cc, bytes: [0x1c, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'dabis-path-day-sprites', night: 'dabis-path-night-sprites' } },
+  { id: 'dabis-2-zigzag-bat-66c8', classId: 'zigzag-bat', segmentId: 'dabis-path-part-2', offset: 0x66c8, bytes: [0x14, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'dabis-path-day-sprites', night: 'dabis-path-night-sprites' } },
+  { id: 'dabis-2-zigzag-bat-66cc', classId: 'zigzag-bat', segmentId: 'dabis-path-part-2', offset: 0x66cc, bytes: [0x1c, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'dabis-path-day-sprites', night: 'dabis-path-night-sprites' } },
 
   { id: 'aljiba-1-spider-66d1', classId: 'spider', segmentId: 'aljiba-woods-part-1', offset: 0x66d1, bytes: [0x04, 0x04, 0x0e, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
   {
@@ -534,12 +539,12 @@ const GUIDE_ACTORS = [
   { id: 'denis-2-skeleton-6707', classId: 'skeleton', segmentId: 'denis-woods-part-2', offset: 0x6707, bytes: [0x08, 0x0a, 0x03, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
   { id: 'denis-2-skeleton-670b', classId: 'skeleton', segmentId: 'denis-woods-part-2', offset: 0x670b, bytes: [0x0c, 0x0b, 0x03, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
   { id: 'denis-2-skeleton-670f', classId: 'skeleton', segmentId: 'denis-woods-part-2', offset: 0x670f, bytes: [0x14, 0x08, 0x03, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
-  { id: 'denis-2-zigzag-bat-6713', classId: 'zigzag-bat', label: 'Zigzag bat', segmentId: 'denis-woods-part-2', offset: 0x6713, bytes: [0x16, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
+  { id: 'denis-2-zigzag-bat-6713', classId: 'zigzag-bat', segmentId: 'denis-woods-part-2', offset: 0x6713, bytes: [0x16, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
   { id: 'denis-2-skeleton-6717', classId: 'skeleton', segmentId: 'denis-woods-part-2', offset: 0x6717, bytes: [0x18, 0x06, 0x03, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
   { id: 'denis-2-skeleton-671f', classId: 'skeleton', segmentId: 'denis-woods-part-2', offset: 0x671f, bytes: [0x24, 0x06, 0x03, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
   { id: 'denis-2-skeleton-6727', classId: 'skeleton', segmentId: 'denis-woods-part-2', offset: 0x6727, bytes: [0x28, 0x08, 0x03, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
   { id: 'denis-2-skeleton-672b', classId: 'skeleton', segmentId: 'denis-woods-part-2', offset: 0x672b, bytes: [0x2c, 0x08, 0x03, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
-  { id: 'denis-2-zigzag-bat-672f', classId: 'zigzag-bat', label: 'Zigzag bat', segmentId: 'denis-woods-part-2', offset: 0x672f, bytes: [0x2d, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
+  { id: 'denis-2-zigzag-bat-672f', classId: 'zigzag-bat', segmentId: 'denis-woods-part-2', offset: 0x672f, bytes: [0x2d, 0x0c, 0x09, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
 
   { id: 'denis-3-spider-6734', classId: 'spider', segmentId: 'denis-woods-part-3', offset: 0x6734, bytes: [0x04, 0x06, 0x0e, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
   { id: 'denis-3-skeleton-6738', classId: 'skeleton', segmentId: 'denis-woods-part-3', offset: 0x6738, bytes: [0x08, 0x0c, 0x03, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
@@ -1116,6 +1121,185 @@ function validateFixtureVisualRects(actors, segmentTilemapsById) {
   return validations;
 }
 
+function groundSupportBounds(actor, actorClass, offsetX = 0) {
+  const bounds = actorClass.previewOpaqueBounds || actorClass.opaqueBounds || actorClass.bounds;
+  if (!bounds) {
+    return null;
+  }
+  const pixelLeft = actor.pixelX + offsetX + bounds.minX;
+  const pixelRight = actor.pixelX + offsetX + bounds.maxX;
+  const pixelFoot = actor.pixelY + bounds.maxY;
+  return {
+    pixelLeft,
+    pixelRight,
+    pixelFoot,
+    tileLeft: Math.floor(pixelLeft / TILE_SIZE),
+    tileRight: Math.ceil(pixelRight / TILE_SIZE) - 1,
+    tileY: Math.floor(pixelFoot / TILE_SIZE)
+  };
+}
+
+function isGroundSupportTile(entry) {
+  return entry != null
+    && entry.tile !== 0
+    && GROUND_SUPPORT_PALETTES.has(entry.palette);
+}
+
+function groundSupportScore(actor, actorClass, expandedTilemap, offsetX) {
+  const bounds = groundSupportBounds(actor, actorClass, offsetX);
+  if (!bounds || bounds.tileRight < bounds.tileLeft) {
+    return null;
+  }
+
+  const tiles = [];
+  let supportedTiles = 0;
+  let totalTiles = 0;
+  for (let x = bounds.tileLeft; x <= bounds.tileRight; x += 1) {
+    const entry = tilemapEntry(expandedTilemap, x, bounds.tileY);
+    const supports = isGroundSupportTile(entry);
+    tiles.push({
+      x,
+      y: bounds.tileY,
+      tile: entry ? hex(entry.tile, 2) : null,
+      palette: entry?.palette ?? null,
+      supports
+    });
+    totalTiles += 1;
+    if (supports) {
+      supportedTiles += 1;
+    }
+  }
+
+  return {
+    offsetX,
+    pixelLeft: bounds.pixelLeft,
+    pixelRight: bounds.pixelRight,
+    pixelFoot: bounds.pixelFoot,
+    tileLeft: bounds.tileLeft,
+    tileRight: bounds.tileRight,
+    tileY: bounds.tileY,
+    supportedTiles,
+    totalTiles,
+    supportRatio: totalTiles === 0 ? 0 : supportedTiles / totalTiles,
+    status: supportedTiles === totalTiles ? 'supported' : 'unsupported',
+    tiles
+  };
+}
+
+function publicGroundSupportScore(score) {
+  return {
+    offsetX: score.offsetX,
+    pixelLeft: score.pixelLeft,
+    pixelRight: score.pixelRight,
+    pixelFoot: score.pixelFoot,
+    tileLeft: score.tileLeft,
+    tileRight: score.tileRight,
+    tileY: score.tileY,
+    supportedTiles: score.supportedTiles,
+    totalTiles: score.totalTiles,
+    supportRatio: score.supportRatio,
+    status: score.status,
+    tiles: score.tiles
+  };
+}
+
+function chooseGroundSupportCandidate(actor, candidates) {
+  const current = candidates.find((candidate) => candidate.offsetX === 0);
+  if (!current) {
+    throw new Error(`${actor.id} ground support validation did not evaluate offset 0`);
+  }
+  if (current.status === 'supported') {
+    return {
+      status: 'supported',
+      current,
+      selected: current
+    };
+  }
+
+  const supportedCandidates = candidates
+    .filter((candidate) => candidate.status === 'supported')
+    .sort((a, b) => Math.abs(a.offsetX) - Math.abs(b.offsetX) || a.offsetX - b.offsetX);
+  if (supportedCandidates.length === 0) {
+    throw new Error(
+      `${actor.id} has no supported ground placement near current x=${actor.pixelX}; current support ${current.supportedTiles}/${current.totalTiles}`
+    );
+  }
+
+  const selected = supportedCandidates[0];
+  const equivalent = supportedCandidates.filter((candidate) => Math.abs(candidate.offsetX) === Math.abs(selected.offsetX));
+  if (equivalent.length > 1) {
+    throw new Error(
+      `${actor.id} has ambiguous ground support candidates: ${equivalent.map((candidate) => candidate.offsetX).join(', ')}`
+    );
+  }
+
+  return {
+    status: 'snapped',
+    current,
+    selected
+  };
+}
+
+function applyGroundSupportSnaps(actors, actorClassById, segmentById, segmentTilemapsById) {
+  const validations = [];
+
+  for (const actor of actors) {
+    const actorClass = actor.classId ? actorClassById.get(actor.classId) : null;
+    if (actorClass?.placement !== 'grounded' || actor.visualTileRect) {
+      continue;
+    }
+
+    const expandedTilemap = segmentTilemapsById.get(actor.segmentId);
+    const segment = segmentById.get(actor.segmentId);
+    if (!expandedTilemap || !segment) {
+      throw new Error(`${actor.id} references missing segment/tilemap for ground support validation`);
+    }
+
+    const candidates = GROUND_SUPPORT_SNAP_CANDIDATE_OFFSETS_X
+      .map((offsetX) => groundSupportScore(actor, actorClass, expandedTilemap, offsetX))
+      .filter(Boolean);
+    const result = chooseGroundSupportCandidate(actor, candidates);
+    const offsetX = result.selected.offsetX;
+
+    if (offsetX !== 0) {
+      actor.pixelX += offsetX;
+      actor.worldX += offsetX;
+      actor.drawAnchor.baseOffsetX = actor.drawAnchor.offsetX;
+      actor.drawAnchor.offsetX += offsetX;
+      actor.drawAnchor.supportSnapOffsetX = offsetX;
+      actor.drawAnchor.source = 'rom-row-16px-cell-visual-anchor+rom-expanded-ground-support-snap';
+    }
+
+    actor.staticPlacement = {
+      type: 'ground-support',
+      status: result.status,
+      offsetX,
+      source: 'rom-expanded-background-tilemap',
+      supportPalettes: Array.from(GROUND_SUPPORT_PALETTES),
+      current: publicGroundSupportScore(result.current),
+      selected: publicGroundSupportScore(result.selected)
+    };
+
+    validations.push({
+      type: 'actor-ground-support',
+      actorId: actor.id,
+      actorClassId: actor.classId,
+      segmentId: actor.segmentId,
+      status: result.status,
+      selectedOffsetX: offsetX,
+      source: 'rom-expanded-background-tilemap',
+      supportPalettes: Array.from(GROUND_SUPPORT_PALETTES),
+      current: publicGroundSupportScore(result.current),
+      selected: publicGroundSupportScore(result.selected),
+      candidates: result.status === 'snapped'
+        ? candidates.map(publicGroundSupportScore)
+        : undefined
+    });
+  }
+
+  return validations;
+}
+
 function paletteBytesFromEntry(rom, info, entry) {
   const recipe = entry.recipe;
   return readBackgroundPalette(rom, info, {
@@ -1542,6 +1726,7 @@ function buildActorClass(rom, info, addChrSet, actorClass) {
     id: actorClass.id,
     label: actorClass.label,
     kind: actorClass.kind,
+    placement: actorClass.placement || null,
     actorId: hex(actorClass.actorId, 2),
     chrSet: chrSet.id,
     largeSprites: true,
@@ -1858,6 +2043,8 @@ function addPalette(segmentId, variant, entry) {
     }
   }
   const actors = actorsForSlice.map((actor) => buildActorPlacement(rom, info, actorClassById, segmentById, actor));
+  const groundSupportValidations = applyGroundSupportSnaps(actors, actorClassById, segmentById, segmentTilemapsById);
+  validations.push(...groundSupportValidations);
   validations.push(...validateFixtureVisualRects(actors, segmentTilemapsById));
   const destructibleFixtures = buildDestructibleFixtures(segments, segmentTilemapsById, actors);
 
@@ -1914,7 +2101,9 @@ function addPalette(segmentId, variant, entry) {
       npcs: actors.filter((actor) => actor.kind === 'npc').length,
       enemies: actors.filter((actor) => actor.kind === 'enemy').length,
       fixtures: actors.filter((actor) => actor.kind === 'fixture').length,
-      secrets: actors.filter((actor) => actor.kind === 'secret').length
+      secrets: actors.filter((actor) => actor.kind === 'secret').length,
+      groundSupportChecked: groundSupportValidations.length,
+      groundSupportSnapped: groundSupportValidations.filter((validation) => validation.status === 'snapped').length
     },
     validations
   };
