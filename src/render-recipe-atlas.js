@@ -369,12 +369,26 @@ function exteriorVariantsForLocation(loc) {
 
 function accessForLocation(loc) {
   if (loc.objset === 1) {
-    return 'mansion-door';
+    return / - Door$/.test(loc.name) ? 'mansion-door' : 'mansion-interior';
   }
   if (loc.objset === 5) {
     return 'final-area';
   }
   return 'outdoor';
+}
+
+function isInteriorCandidate(loc) {
+  if (loc.objset === 0) {
+    return loc.area >= 0x07;
+  }
+  if (loc.objset === 1) {
+    return !/ - Door$/.test(loc.name);
+  }
+  return false;
+}
+
+function interiorVariantsForLocation(_loc) {
+  return ['fixed'];
 }
 
 function findManifestLocation(manifest, context) {
@@ -403,8 +417,25 @@ function buildRecipeInputs(manifest, auditEvidence) {
       source: 'exterior-atlas-candidate'
     })));
 
+  const interiorManifestInputs = manifest.locations
+    .filter(isInteriorCandidate)
+    .flatMap((loc) => interiorVariantsForLocation(loc).map((variant) => ({
+      id: `${locationId(loc)}-${variant}`,
+      locationId: locationId(loc),
+      name: loc.name,
+      loc,
+      layoutContext: {
+        objset: loc.objset,
+        area: loc.area,
+        submap: loc.submap || 0
+      },
+      access: accessForLocation(loc),
+      variant,
+      source: 'interior-manifest-candidate'
+    })));
+
   const interiorInputs = [];
-  const seen = new Set(exteriorInputs.map((input) => contextKey(input.layoutContext, input.variant)));
+  const seen = new Set([...exteriorInputs, ...interiorManifestInputs].map((input) => contextKey(input.layoutContext, input.variant)));
   for (const fixture of auditEvidence.fixtures) {
     if (!['town-interior', 'mansion-interior'].includes(fixture.access)) {
       continue;
@@ -448,14 +479,16 @@ function buildRecipeInputs(manifest, auditEvidence) {
     });
   }
 
-  return [...exteriorInputs, ...interiorInputs];
+  return [...exteriorInputs, ...interiorManifestInputs, ...interiorInputs];
 }
 
 function resolvedPaletteContextForInput(input, runtimeContextResolver) {
   if (input.source !== 'exterior-atlas-candidate') {
     return {
       ...input.layoutContext,
-      source: 'live-audit-runtime-context'
+      source: input.source === 'recipe-audit-interior-probe'
+        ? 'live-audit-runtime-context'
+        : 'rom-interior-context'
     };
   }
 
@@ -715,6 +748,7 @@ function buildRenderRecipeAtlas(rom, info, opts = {}) {
       notes: [
         'Validated entries have exact save-state recipe probes.',
         'Projected entries reuse a validated family recipe but still need representative pixel validation.',
+        'Interior manifest entries are ROM-table-promoted candidates; exact per-submap fixture validation is still required before treating a new interior as final guide truth.',
         'Diagnostic entries render from remaining inferred families and should not be treated as pixel-perfect.'
       ]
     },

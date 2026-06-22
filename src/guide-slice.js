@@ -6,6 +6,7 @@ const { readPrgByte } = require('./background');
 const { BACKGROUND_TABLE_BANK } = require('./background-context');
 const { decodeMetaspriteSelector, decodeSelectorRecordAt } = require('./actor-selector-streams');
 const { renderLayoutSegment } = require('./layout-segments');
+const { buildManifest } = require('./manifest');
 const { readBackgroundPalette, CHR_4KB_BANK_SIZE } = require('./native-image');
 const { readPng } = require('./png');
 
@@ -81,6 +82,18 @@ const FIXTURE_TILE_SIGNATURES = {
   }
 };
 
+const FALSE_PLATFORM_METATILE_SIGNATURES = [
+  {
+    id: 'berkeley-mansion-false-platform-3b',
+    label: 'False platform',
+    tileSetAddress: 0x8891,
+    metatile: 0x3b,
+    visualReferenceMetatile: 0x01,
+    visibleTileRect: { x: 0, y: 0, width: 4, height: 2 },
+    source: 'rom-layout-metatile-and-terrain-thresholds'
+  }
+];
+
 const ACTOR_PALETTE_SOURCES = [
   {
     id: 'town-day-sprites',
@@ -154,6 +167,13 @@ const ACTOR_PALETTE_SOURCES = [
     label: "Dabi's Path sprites, night (same ROM palette transfer as day)",
     type: 'rom-sprite-palette',
     variantAddress: 0xcb38
+  },
+  {
+    id: 'mansion-fixed-sprites',
+    label: 'Mansion interior sprites, fixed palette',
+    type: 'rom-sprite-palette',
+    variantAddress: 0x9f6f,
+    variantBank: 4
   }
 ];
 
@@ -244,7 +264,7 @@ const ACTOR_CLASSES = [
   },
   {
     id: 'jova-merchant',
-    label: 'White-crystal merchant',
+    label: 'White Crystal Merchant',
     kind: 'npc',
     actorId: 0xae,
     selectorRecordIndex: 0x0b,
@@ -253,12 +273,12 @@ const ACTOR_CLASSES = [
   },
   {
     id: 'crow',
-    label: 'Crow',
+    label: 'Raven',
     kind: 'enemy',
     actorId: 0x01,
     selectorRecordIndex: 0x08,
     chrBanks: [0x00, 0x01],
-    proof: 'ROM actor id $01 dispatches to 1:$8FAA, which writes selector-stream record $08 before normal actor rendering.'
+    proof: 'ROM actor id $01 dispatches to 1:$8FAA, which writes selector-stream record $08 before normal actor rendering. The rendered bird sprite matches the English manual enemy "Raven".'
   },
   {
     id: 'skeleton',
@@ -273,26 +293,26 @@ const ACTOR_CLASSES = [
   },
   {
     id: 'fishman',
-    label: 'Fishman',
+    label: 'The Fish Man',
     kind: 'enemy',
     actorId: 0x04,
     selectorRecordIndex: 0x06,
     chrBanks: [0x02, 0x03],
     hp: { day: 1, night: 2 },
-    proof: 'ROM actor id $04 uses selector-stream record $06 for the body frames; the fishman proof supplies the segment sprite palettes.'
+    proof: 'ROM actor id $04 uses selector-stream record $06 for the body frames; the fishman proof supplies the segment sprite palettes. The rendered amphibious humanoid sprite matches the English manual enemy "The Fish Man".'
   },
   {
     id: 'eyeball',
-    label: 'Eyeball',
+    label: 'Ghostly Eyeball',
     kind: 'enemy',
     actorId: 0x08,
     selectorRecordIndex: 0x39,
     chrBanks: [0x02, 0x03],
-    proof: 'ROM actor id $08 dispatches to 1:$A7CA, which writes selector-stream record $39.'
+    proof: 'ROM actor id $08 dispatches to 1:$A7CA, which writes selector-stream record $39. The rendered flying eyeball sprite matches the English manual enemy "Ghostly Eyeball".'
   },
   {
     id: 'zigzag-bat',
-    label: 'Bat',
+    label: 'Vampire Bat',
     kind: 'enemy',
     actorId: 0x09,
     selectorRecordIndex: 0x3a,
@@ -305,38 +325,38 @@ const ACTOR_CLASSES = [
       },
       reason: 'The ROM zigzag bat moves while flapping. Static guide placement offsets the second selector frame so the body does not appear to snap upward inside a fixed map marker.'
     },
-    proof: 'ROM actor id $09 dispatches to 1:$A7F2, which writes selector-stream record $3A after its movement setup.'
+    proof: 'ROM actor id $09 dispatches to 1:$A7F2, which writes selector-stream record $3A after its movement setup. The rendered bat sprite matches the English manual enemy "Vampire Bat".'
   },
   {
     id: 'spider',
-    label: 'Spider',
+    label: 'The Spider',
     kind: 'enemy',
     actorId: 0x0e,
     selectorRecordIndex: 0x23,
     chrBanks: [0x02, 0x03],
-    proof: 'ROM actor id $0E dispatches to 1:$8425, which writes selector-stream record $23.'
+    proof: 'ROM actor id $0E dispatches to 1:$8425, which writes selector-stream record $23. The rendered spider sprite matches the English manual enemy "The Spider".'
   },
   {
     id: 'werewolf',
-    label: 'Werewolf',
+    label: 'The Wolf Man',
     kind: 'enemy',
     placement: 'grounded',
     actorId: 0x13,
     selectorRecordIndex: 0x1e,
     chrBanks: [0x02, 0x03],
     hp: { day: 2, night: 4 },
-    proof: 'ROM actor id $13 uses selector-stream record $1E, proven by live Jova Woods actor traces.'
+    proof: 'ROM actor id $13 uses selector-stream record $1E, proven by live Jova Woods actor traces. The Jova Woods humanoid wolf sprite matches the English manual enemy "The Wolf Man".'
   },
   {
     id: 'zombie',
-    label: 'Zombie',
+    label: 'The Zombie',
     kind: 'enemy',
     placement: 'grounded',
     actorId: 0x17,
     selectorRecordIndex: 0x37,
     chrBanks: [0x00, 0x01],
     hp: { day: null, night: 2 },
-    proof: 'ROM actor id $17 is loaded by the town night actor gate and uses selector-stream record $37.'
+    proof: 'ROM actor id $17 is loaded by the town night actor gate and uses selector-stream record $37. The rendered town night enemy sprite matches the English manual enemy "The Zombie".'
   },
   {
     id: 'sacred-flame-secret',
@@ -355,8 +375,110 @@ const ACTOR_CLASSES = [
     selectorRecordIndex: 0x3b,
     chrBanks: [0x02, 0x03],
     proof: 'ROM actor id $27 dispatches through 1:$8335; that routine passes selector-record index $3B to fixed-bank $DED8, which emits metasprite $30 for the book fixture.'
+  },
+  {
+    id: 'mansion-skeleton',
+    label: 'Skeleton',
+    kind: 'enemy',
+    placement: 'grounded',
+    actorId: 0x03,
+    selectorRecordIndex: 0x05,
+    chrBanks: [0x08, 0x09],
+    hp: { day: 2, night: 2 },
+    proof: 'Berkeley Mansion actor rows use actor id $03 with row HP $02. The shared selector-stream record $05 emits selectors $0E/$0F; the mansion scene supplies ROM CHR banks $08/$09 and fixed mansion sprite palette bytes.'
+  },
+  {
+    id: 'mansion-spear-knight',
+    label: 'Spear knight',
+    kind: 'enemy',
+    placement: 'grounded',
+    actorId: 0x05,
+    selectorRecordIndex: 0x13,
+    chrBanks: [0x08, 0x09],
+    hp: { day: 2, night: 2 },
+    proof: 'Berkeley Mansion runtime trace proves actor id $05 with selectors $35/$36 and HP $02; fixed-bank selector record $13 expands to those selectors.'
+  },
+  {
+    id: 'mansion-bone-thrower',
+    label: 'Bone thrower',
+    kind: 'enemy',
+    actorId: 0x0d,
+    selectorRecordIndex: 0x05,
+    chrBanks: [0x08, 0x09],
+    hp: { day: 2, night: 2 },
+    proof: 'Actor dispatch entry $0D initializes through selector-stream record $05, the same skeleton-body selectors used by the bone-thrower rows; Berkeley rows carry HP $02.'
+  },
+  {
+    id: 'mansion-gargoyle',
+    label: 'The Gargoyle',
+    kind: 'enemy',
+    actorId: 0x0f,
+    selectorRecordIndex: 0x12,
+    chrBanks: [0x08, 0x09],
+    hp: { day: 2, night: 2 },
+    proof: 'Actor dispatch entry $0F initializes selector-stream record $12, which expands to selectors $31/$32; Berkeley rows carry HP $02. The rendered winged mansion enemy sprite matches the English manual enemy "The Gargoyle".'
+  },
+  {
+    id: 'blob',
+    label: 'Blob',
+    kind: 'enemy',
+    actorId: 0x1f,
+    selectors: [0x3c, 0x3d],
+    chrBanks: [0x08, 0x09],
+    hp: { day: 1, night: 1 },
+    proof: 'Actor dispatch entry $1F initializes through the direct fixed-bank $DED0 selector path with selector $3C, then the $97D3 state machine advances the neutral animation to selector $3D. Whole-ROM actor inventory finds the same actor id in Berkeley, Brahm, and Bodley mansions, so the guide uses a generic name rather than a Berkeley-specific label.'
+  },
+  {
+    id: 'mansion-book',
+    label: 'Clue book',
+    kind: 'secret',
+    actorId: 0x27,
+    selectorRecordIndex: 0x3b,
+    chrBanks: [0x08, 0x09],
+    proof: 'ROM actor id $27 dispatches through 1:$8335; that routine passes selector-record index $3B to fixed-bank $DED8, which emits metasprite selector $30.'
+  },
+  {
+    id: 'oak-stake-merchant',
+    label: 'Oak Stake Merchant',
+    kind: 'npc',
+    actorId: 0xae,
+    selectorRecordIndex: 0x0b,
+    chrBanks: [0x08, 0x09],
+    proof: 'ROM row id $AE maps through live id $2E to the merchant selector table. The oak-stake merchant row data selects the $0B animation record in the mansion context.'
+  },
+  {
+    id: 'dracula-rib-orb',
+    label: "Dracula's Rib",
+    kind: 'secret',
+    actorId: 0x25,
+    selectors: [0x3b],
+    chrBanks: [0x08, 0x09],
+    paletteCycle: {
+      values: [1, 2, 3, 0],
+      frameDurationMs: 1000 / 60,
+      source: 'out/actor-traces/berkeley-mansion-orb-cadence samples out/states/berkeley-mansion-orb.mss every frame and proves OAM palette bits 1/2/3/0 at one NES-frame cadence.'
+    },
+    drawAnchor: {
+      offsetX: 0,
+      offsetY: -12,
+      source: 'out/states/berkeley-mansion-orb.mss OAM proof: pre-stake orb selector $3B renders tiles $EC/$EE at screen x $C8/$D0 from row x $3D.'
+    },
+    proof: 'Actor row $05B99 is the pre-stake Dracula\'s Rib orb. The Berkeley orb save-state trace proves live selector $3B with OAM tiles $EC/$EE at screen x $C8/$D0, blinking every NES frame through OAM palette bits $01/$02/$03/$00. Selector $A1 belongs to the post-stake reveal sequence and is not part of the pre-stake blink.'
   }
 ];
+
+const BERKELEY_ACTOR_CLASS_BY_ID = new Map([
+  [0x03, 'mansion-skeleton'],
+  [0x05, 'mansion-spear-knight'],
+  [0x0d, 'mansion-bone-thrower'],
+  [0x0f, 'mansion-gargoyle'],
+  [0x1f, 'blob'],
+  [0x25, 'dracula-rib-orb'],
+  [0x27, 'mansion-book'],
+  [0xae, 'oak-stake-merchant']
+]);
+
+const BERKELEY_SECRET_ACTOR_IDS = new Set([0x25, 0x27]);
 
 const SECRET_DETAILS = {
   'dabis-2-sacred-flame-66b0': {
@@ -396,8 +518,289 @@ const SECRET_DETAILS = {
       "Dracula's Eyeball is inventory index 3: fixed-bank 7:$F275 maps $91 bit $04 to selected item $03, and actor routine 1:$8335 clears the hidden flag when $4F == 03.",
       'Text pointer index 0x0D decodes to the blue-crystal lake clue.'
     ]
+  },
+  'berkeley-mansion-part-2-orb-5b99': {
+    type: 'oak-stake-orb',
+    reward: "Dracula's Rib",
+    action: "Use an Oak Stake here to reveal Dracula's Rib.",
+    evidence: [
+      'Actor row 0x05B99: 3D 15 25 18',
+      'The berkeley-mansion-orb save-state captures prove pre-stake selector $3B rendered as OAM tiles $EC/$EE at screen x $C8/$D0.',
+      'Frame-by-frame trace out/actor-traces/berkeley-mansion-orb-cadence proves the orb blink cycles OAM palette bits 1/2/3/0 once per NES frame.',
+      'Actor id 0x25 uses fixed-bank $DED0 direct selector writes for the orb room sequence.',
+      'Text pointer index 0x18 decodes to the Dracula\'s Rib pickup message.'
+    ]
   }
 };
+
+const SECRET_FEATURE_DEFINITIONS = [
+  {
+    id: 'berkeley-mansion-part-1-hidden-platform-5ad8',
+    label: 'Hidden platform',
+    kind: 'secret',
+    effect: 'moving-platform',
+    segmentId: 'berkeley-mansion-part-1',
+    offset: 0x5ad8,
+    bytes: [0x05, 0x28, 0x22, 0xa4],
+    selector: 0x43,
+    chrBanks: [0x08, 0x09],
+    variants: ['fixed'],
+    paletteByVariant: { fixed: 'mansion-fixed-sprites' },
+    placement: {
+      type: 'runtime-viewport-match',
+      screenX: 0x50,
+      screenYMin: 0x70,
+      screenYMax: 0xc0,
+      viewportOffsetX: 0,
+      viewportOffsetY: 435,
+      worldX: 0x50,
+      worldY: 627,
+      source: 'Actor trace observes live actor $22 at screen X $50 and screen Y $70-$C0; matching out/captures/berkeley-mansion-interior-day/background.png against the ROM-rendered Part 1 atlas places that viewport at x=0,y=435, making the bottom anchor 435+$C0=627.'
+    },
+    condition: {
+      type: 'selected-crystal',
+      selectedItemRam: '0x004F',
+      selectedItemValue: '0x06',
+      inventoryRam: '0x0091',
+      crystalTierMask: '0x60',
+      qualifyingItems: ['white-crystal', 'blue-crystal', 'red-crystal'],
+      guideVisibility: 'Shown when the guide Secrets layer is visible.',
+      playerFacing: 'Visible with White Crystal or better.'
+    },
+    motion: {
+      type: 'linear-ping-pong',
+      axis: 'y',
+      minOffsetX: 0,
+      maxOffsetX: 0,
+      minOffsetY: -80,
+      maxOffsetY: 0,
+      speedPixelsPerFrame: 0.5,
+      frameDurationMs: 1000 / 60,
+      reversalFrames: 160,
+      source: 'ROM row data $A4 selects the vertical motion branch for actor id $22; runtime traces observe selector $43 moving between screen Y $70-$C0 at 0.5 px/frame.'
+    },
+    dialog: {
+      tone: 'guide-authored',
+      text: 'Hidden platform\n----------\nVisible with White Crystal or better.'
+    },
+    provenance: {
+      row: 'rom-actor-control-row',
+      routine: 'bank 1:$854B, motion branch 1:$85FE',
+      selector: 'metasprite selector $43',
+      validation: 'out/actor-traces/berkeley-mansion-interior-day-idle'
+    }
+  }
+];
+
+const MENU_ITEM_ICON_CHR_BANKS = [0x00, 0x01];
+const MENU_ITEM_ICON_PALETTE = ['0x0F', '0x11', '0x20', '0x15'];
+const MENU_ITEM_ICON_TABLE_EVIDENCE = 'Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.';
+const MENU_ITEM_CAPTURE_EVIDENCE = 'Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.';
+
+const GUIDE_ITEMS = {
+  'white-crystal': {
+    id: 'white-crystal',
+    label: 'White Crystal',
+    aliases: ['White Crystal'],
+    iconTile: 0x5e,
+    manualText: 'The White Crystal offers a weakened source of magic power.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Items, page 11.',
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'ROM sale table triple at file offset $1ED3A is $5E $00 $50, linking tile $5E to the white crystal sale row.'
+    ]
+  },
+  'blue-crystal': {
+    id: 'blue-crystal',
+    label: 'Blue Crystal',
+    aliases: ['Blue Crystal'],
+    iconTile: 0x6e,
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE
+    ]
+  },
+  'red-crystal': {
+    id: 'red-crystal',
+    label: 'Red Crystal',
+    aliases: ['Red Crystal'],
+    iconTile: 0x5f,
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE
+    ]
+  },
+  'oak-stake': {
+    id: 'oak-stake',
+    label: 'The Oak Stake',
+    aliases: ['The Oak Stake', 'Oak Stake'],
+    iconTile: 0x59,
+    manualText: 'You\'ll need the Oak Stake to collect Dracula\'s corpse at the mansions.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Weapons, page 10.',
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'ROM sale table triple at file offset $1ED37 is $59 $00 $50, linking tile $59 to the oak stake sale row.'
+    ]
+  },
+  'holy-water': {
+    id: 'holy-water',
+    label: 'Holy Water',
+    aliases: ['Holy Water', 'Magic Potion'],
+    iconTile: 0x57,
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'The guide secret proof decodes Holy Water as weapon index 4 and the block-breaking projectile path; the Jova NPC text uses "magic potion" for that block-breaking item behavior.'
+    ]
+  },
+  'sacred-flame': {
+    id: 'sacred-flame',
+    label: 'Sacred Flame',
+    aliases: ['Sacred Flame'],
+    iconTile: 0x69,
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE
+    ]
+  },
+  'dracula-rib': {
+    id: 'dracula-rib',
+    label: "Dracula's Rib",
+    aliases: ["Dracula's Rib"],
+    iconTile: 0x4e,
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.'
+    ]
+  },
+  'dracula-eyeball': {
+    id: 'dracula-eyeball',
+    label: "Dracula's Eyeball",
+    aliases: ["Dracula's Eyeball"],
+    iconTile: 0x50,
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.'
+    ]
+  },
+  'dracula-nail': {
+    id: 'dracula-nail',
+    label: "Dracula's Nail",
+    aliases: ["Dracula's Nail"],
+    iconTile: 0x51,
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.'
+    ]
+  },
+  garlic: {
+    id: 'garlic',
+    label: 'Garlic',
+    aliases: ['Garlic'],
+    iconTile: 0x6d,
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE
+    ]
+  },
+  laurels: {
+    id: 'laurels',
+    label: 'Laurels',
+    aliases: ['Laurels', 'Laurel'],
+    iconTile: 0x58,
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE
+    ]
+  }
+};
+
+const GUIDE_ITEM_OFFERS = {
+  'white-crystal': {
+    itemId: 'white-crystal',
+    roleLabel: 'White Crystal Merchant',
+    costHearts: 50,
+    priceSource: 'ROM sale table at file offset $1ED3A: $5E $00 $50.'
+  },
+  'oak-stake': {
+    itemId: 'oak-stake',
+    roleLabel: 'Oak Stake Merchant',
+    costHearts: 50,
+    priceSource: 'ROM sale table at file offset $1ED37: $59 $00 $50.'
+  }
+};
+
+const GUIDE_ITEM_ICONS = {
+  heart: {
+    id: 'heart',
+    label: 'Heart',
+    iconTile: 0x61,
+    evidence: [
+      'Start-menu PPU capture out/captures/game-menu-jova-woods-start shows the heart currency glyph at tile $61 with background palette slot 3.'
+    ]
+  }
+};
+
+function publicGuideItem(item) {
+  return {
+    ...item,
+    iconTile: hex(item.iconTile, 2)
+  };
+}
+
+function publicItemOffer(offer) {
+  if (!offer) {
+    return null;
+  }
+  const item = GUIDE_ITEMS[offer.itemId];
+  if (!item) {
+    throw new Error(`Unknown guide item offer ${offer.itemId}`);
+  }
+  return {
+    itemId: item.id,
+    itemLabel: item.label,
+    iconTile: hex(item.iconTile, 2),
+    roleLabel: offer.roleLabel,
+    costHearts: offer.costHearts,
+    priceSource: offer.priceSource,
+    manualText: item.manualText,
+    manualSource: item.manualSource,
+    evidence: item.evidence
+  };
+}
+
+function inferredItemOffer(actor) {
+  if (actor.itemOffer) {
+    return publicItemOffer(actor.itemOffer);
+  }
+  if (actor.classId === 'oak-stake-merchant' || actor.itemType === 'oakRib' || actor.itemType === 'oakStake') {
+    return publicItemOffer(GUIDE_ITEM_OFFERS['oak-stake']);
+  }
+  if (actor.itemType === 'whiteCrystal') {
+    return publicItemOffer(GUIDE_ITEM_OFFERS['white-crystal']);
+  }
+  return null;
+}
+
+function buildItemIconManifest(addChrSet) {
+  const chrSet = addChrSet(MENU_ITEM_ICON_CHR_BANKS);
+  return {
+    chrSet: chrSet.id,
+    palette: MENU_ITEM_ICON_PALETTE,
+    source: {
+      capture: 'out/captures/game-menu-jova-woods-start',
+      manual: 'https://www.nintendo.co.jp/clv/manuals/en/pdf/CLV-P-NABXE.pdf',
+      saleTable: 'rom-file:0x1ED25'
+    },
+    items: Object.fromEntries(Object.entries(GUIDE_ITEMS).map(([id, item]) => [id, publicGuideItem(item)])),
+    icons: Object.fromEntries(Object.entries(GUIDE_ITEM_ICONS).map(([id, icon]) => [id, publicGuideItem(icon)]))
+  };
+}
 
 const GUIDE_ACTORS = [
   { id: 'jova-shepherd-50bc', classId: 'jova-shepherd', segmentId: 'town-of-jova', offset: 0x50bc, bytes: [0x04, 0x0c, 0xb5, 0x38], variants: ['day'], text: 'first thing to do in this town is buy a white crystal.', paletteByVariant: { day: 'town-day-sprites' } },
@@ -415,7 +818,7 @@ const GUIDE_ACTORS = [
   { id: 'jova-a8-50ec', classId: 'jova-a8', segmentId: 'town-of-jova', offset: 0x50ec, bytes: [0x2c, 0x1a, 0xa8, 0x4e], variants: ['day'], text: "clues to dracula's riddle are in the town of veros.", paletteByVariant: { day: 'town-day-sprites' } },
   { id: 'jova-zombie-50f0', classId: 'zombie', segmentId: 'town-of-jova', offset: 0x50f0, bytes: [0x28, 0x14, 0x17, 0x01], variants: ['night'], paletteByVariant: { night: 'town-night-sprites' } },
   { id: 'jova-zombie-50f4', classId: 'zombie', segmentId: 'town-of-jova', offset: 0x50f4, bytes: [0x2c, 0x0c, 0x17, 0x01], variants: ['night'], paletteByVariant: { night: 'town-night-sprites' } },
-  { id: 'jova-merchant-50f8', classId: 'jova-merchant', segmentId: 'town-of-jova', offset: 0x50f8, bytes: [0x34, 0x12, 0xae, 0x07], variants: ['day'], text: 'buy a white crystal?', paletteByVariant: { day: 'town-day-sprites' } },
+  { id: 'jova-merchant-50f8', classId: 'jova-merchant', segmentId: 'town-of-jova', offset: 0x50f8, bytes: [0x34, 0x12, 0xae, 0x07], variants: ['day'], text: 'buy a white crystal?', paletteByVariant: { day: 'town-day-sprites' }, itemOffer: GUIDE_ITEM_OFFERS['white-crystal'] },
   { id: 'jova-zombie-50fc', classId: 'zombie', segmentId: 'town-of-jova', offset: 0x50fc, bytes: [0x34, 0x12, 0x17, 0x01], variants: ['night'], paletteByVariant: { night: 'town-night-sprites' } },
   { id: 'jova-zombie-5100', classId: 'zombie', segmentId: 'town-of-jova', offset: 0x5100, bytes: [0x38, 0x0c, 0x17, 0x01], variants: ['night'], paletteByVariant: { night: 'town-night-sprites' } },
 
@@ -552,6 +955,82 @@ const GUIDE_ACTORS = [
   { id: 'denis-3-spider-6740', classId: 'spider', segmentId: 'denis-woods-part-3', offset: 0x6740, bytes: [0x14, 0x06, 0x0e, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } },
   { id: 'denis-3-skeleton-6744', classId: 'skeleton', segmentId: 'denis-woods-part-3', offset: 0x6744, bytes: [0x18, 0x0a, 0x03, 0x02], variants: ['day', 'night'], paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' } }
 ];
+
+function contextFromLocationId(locationId) {
+  const match = String(locationId || '').match(/^obj([0-9a-f]{2})-area([0-9a-f]{2})-sub([0-9a-f]{2})/i);
+  if (!match) {
+    return null;
+  }
+  return {
+    objset: Number.parseInt(match[1], 16),
+    area: Number.parseInt(match[2], 16),
+    submap: Number.parseInt(match[3], 16)
+  };
+}
+
+function slugForId(value) {
+  return String(value)
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function materializeManifestActors(sliceConfig) {
+  const config = sliceConfig.actorMaterialization;
+  if (!config || config.source !== 'manifest-location-actors') {
+    return [];
+  }
+
+  const manifest = buildManifest();
+  const locationsByContext = new Map(manifest.locations.map((location) => [
+    [location.objset, location.area, location.submap || 0].join(':'),
+    location
+  ]));
+  const actors = [];
+
+  for (const segment of sliceConfig.segments || []) {
+    const context = contextFromLocationId(segment.locationId);
+    if (!context) {
+      throw new Error(`Cannot materialize actors for ${segment.id}: unsupported locationId ${segment.locationId}`);
+    }
+    const location = locationsByContext.get([context.objset, context.area, context.submap].join(':'));
+    if (!location) {
+      throw new Error(`Cannot materialize actors for ${segment.id}: no manifest location for ${segment.locationId}`);
+    }
+
+    for (const row of location.actors || []) {
+      const classId = BERKELEY_ACTOR_CLASS_BY_ID.get(row.id);
+      if (!classId) {
+        throw new Error(`No guide actor class for ${location.name} row ${row.pointerHex} actor ${row.idHex}`);
+      }
+      const kind = BERKELEY_SECRET_ACTOR_IDS.has(row.id)
+        ? 'secret'
+        : row.kind === 'enemy'
+        ? 'enemy'
+        : (row.kind === 'npc' ? 'npc' : 'fixture');
+      const slugName = row.id === 0x1f ? 'Blob' : (row.name || `actor-${row.idHex}`);
+      actors.push({
+        id: `${segment.id}-${slugForId(slugName)}-${Number(row.pointer).toString(16)}`,
+        classId,
+        kind,
+        segmentId: segment.id,
+        offset: row.pointer,
+        bytes: [row.x, row.y, row.id, row.data],
+        variants: segment.variants || ['fixed'],
+        hp: kind === 'enemy' ? { day: row.data, night: row.data } : undefined,
+        paletteByVariant: config.paletteByVariant || { fixed: 'mansion-fixed-sprites' },
+        textFromRom: kind !== 'enemy',
+        textPointerIndex: row.textPointer != null ? row.data : undefined,
+        textFileOffset: row.textPointer,
+        itemType: row.itemType,
+        inventoryItem: row.holdsItem ? row.itemType : undefined
+      });
+    }
+  }
+
+  return actors;
+}
 
 function parseHex(value) {
   if (Number.isInteger(value)) {
@@ -787,10 +1266,20 @@ function readMetatileSet(rom, info, metadata) {
   const tileBank = metadata.tileBank;
   const tileSetAddress = parseHex(metadata.tileSetAddress);
   const tileBaseAddress = parseHex(metadata.tileBaseAddress);
+  const auxiliaryAddress = metadata.derivation?.tileSet?.auxiliaryAddress
+    ? parseHex(metadata.derivation.tileSet.auxiliaryAddress)
+    : null;
+  const auxiliaryReadOpts = auxiliaryAddress == null
+    ? null
+    : (auxiliaryAddress < 0xc000 ? { bank: BACKGROUND_TABLE_BANK } : {});
   return {
     tileBank,
     tileSetAddress,
     tileBaseAddress,
+    collisionThresholdAddress: auxiliaryAddress,
+    collisionThresholds: auxiliaryAddress == null
+      ? null
+      : readPrgBytes(rom, info, auxiliaryAddress, 3, auxiliaryReadOpts),
     metatileTiles: readPrgBytes(rom, info, tileBaseAddress, METATILE_TILE_BYTES, { bank: tileBank }),
     metatileAttributes: readPrgBytes(rom, info, tileSetAddress + 1, METATILE_ATTRIBUTE_BYTES, { bank: tileBank })
   };
@@ -801,7 +1290,7 @@ function paletteBits(attribute, tileRow, tileCol) {
   return (attribute >> (quadrant * 2)) & 0x03;
 }
 
-function expandSegmentTilemap(layoutBlocks, metatileTiles, metatileAttributes, blockWidth, blockHeight) {
+function expandSegmentTilemap(layoutBlocks, metatileTiles, metatileAttributes, blockWidth, blockHeight, opts = {}) {
   const tileWidth = blockWidth * BLOCK_TILES;
   const tileHeight = blockHeight * BLOCK_TILES;
   const tilemap = Buffer.alloc(tileWidth * tileHeight * 4);
@@ -830,7 +1319,17 @@ function expandSegmentTilemap(layoutBlocks, metatileTiles, metatileAttributes, b
   return {
     tilemap,
     tileWidth,
-    tileHeight
+    tileHeight,
+    blockWidth,
+    blockHeight,
+    layoutBlocks: Buffer.from(layoutBlocks),
+    metatileTiles,
+    metatileAttributes,
+    tileSetAddress: opts.tileSetAddress,
+    tileBaseAddress: opts.tileBaseAddress,
+    collisionThresholdAddress: opts.collisionThresholdAddress,
+    collisionThresholds: opts.collisionThresholds,
+    chrPatterns: opts.chrPatterns
   };
 }
 
@@ -1007,6 +1506,10 @@ function groupFixtureRects(rects) {
   return groups.sort((a, b) => a.rect.y - b.rect.y || a.rect.x - b.rect.x);
 }
 
+function rectKey(rect) {
+  return `${rect.x},${rect.y},${rect.width},${rect.height}`;
+}
+
 function rectsEqual(a, b) {
   return a?.x === b?.x
     && a?.y === b?.y
@@ -1020,6 +1523,167 @@ function findSecretForDestructibleRect(segmentId, rect, actors) {
     && actor.segmentId === segmentId
     && actor.secret?.targetTileRects?.some((target) => rectsEqual(target, rect))
   )) || null;
+}
+
+function metatileTileRows(metatileTiles, blockIndex, startRow = 0, rowCount = BLOCK_TILES) {
+  const rows = [];
+  for (let row = startRow; row < startRow + rowCount; row += 1) {
+    const tiles = [];
+    for (let col = 0; col < BLOCK_TILES; col += 1) {
+      tiles.push(metatileTiles[blockIndex * 16 + row * BLOCK_TILES + col] || 0);
+    }
+    rows.push(tiles);
+  }
+  return rows;
+}
+
+function tilePatternEquals(patterns, tileA, tileB) {
+  if (!patterns) {
+    return tileA === tileB;
+  }
+  const startA = tileA * 16;
+  const startB = tileB * 16;
+  for (let offset = 0; offset < 16; offset += 1) {
+    if (patterns[startA + offset] !== patterns[startB + offset]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function metatileVisualRowsMatch(expandedTilemap, signature) {
+  const rect = signature.visibleTileRect;
+  const candidateAttribute = expandedTilemap.metatileAttributes[signature.metatile] || 0;
+  const referenceAttribute = expandedTilemap.metatileAttributes[signature.visualReferenceMetatile] || 0;
+
+  for (let row = rect.y; row < rect.y + rect.height; row += 1) {
+    for (let col = rect.x; col < rect.x + rect.width; col += 1) {
+      const candidateTile = expandedTilemap.metatileTiles[signature.metatile * 16 + row * BLOCK_TILES + col] || 0;
+      const referenceTile = expandedTilemap.metatileTiles[signature.visualReferenceMetatile * 16 + row * BLOCK_TILES + col] || 0;
+      if (!tilePatternEquals(expandedTilemap.chrPatterns, candidateTile, referenceTile)) {
+        return false;
+      }
+      if (paletteBits(candidateAttribute, row, col) !== paletteBits(referenceAttribute, row, col)) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+function terrainValueForTile(tileIndex, thresholds) {
+  if (!thresholds || thresholds.length < 3) {
+    return null;
+  }
+  if (tileIndex < thresholds[0]) {
+    return 0;
+  }
+  if (tileIndex < thresholds[1]) {
+    return 3;
+  }
+  if (tileIndex < thresholds[2]) {
+    return 2;
+  }
+  return 1;
+}
+
+function metatileTerrainRows(expandedTilemap, signature, blockIndex) {
+  const rect = signature.visibleTileRect;
+  const rows = [];
+  for (let row = rect.y; row < rect.y + rect.height; row += 1) {
+    const values = [];
+    for (let col = rect.x; col < rect.x + rect.width; col += 1) {
+      const tile = expandedTilemap.metatileTiles[blockIndex * 16 + row * BLOCK_TILES + col] || 0;
+      values.push(terrainValueForTile(tile, expandedTilemap.collisionThresholds));
+    }
+    rows.push(values);
+  }
+  return rows;
+}
+
+function allTerrainRowsEqual(rows, expected) {
+  return rows.every((row) => row.every((value) => value === expected));
+}
+
+function verifyFalsePlatformMetatile(expandedTilemap, signature) {
+  if (expandedTilemap.tileSetAddress !== signature.tileSetAddress) {
+    return null;
+  }
+  if (!expandedTilemap.collisionThresholds) {
+    throw new Error(`${signature.id} requires collision threshold bytes for tile set ${hex(signature.tileSetAddress, 4)}`);
+  }
+  if (!metatileVisualRowsMatch(expandedTilemap, signature)) {
+    throw new Error(
+      `${signature.id} metatile ${hex(signature.metatile, 2)} no longer visually matches reference metatile ${hex(signature.visualReferenceMetatile, 2)}`
+    );
+  }
+
+  const candidateTerrain = metatileTerrainRows(expandedTilemap, signature, signature.metatile);
+  if (!allTerrainRowsEqual(candidateTerrain, 0)) {
+    throw new Error(`${signature.id} metatile ${hex(signature.metatile, 2)} is not collision-empty in the visible rows`);
+  }
+
+  const referenceTerrain = metatileTerrainRows(expandedTilemap, signature, signature.visualReferenceMetatile);
+  if (allTerrainRowsEqual(referenceTerrain, 0)) {
+    throw new Error(`${signature.id} reference metatile ${hex(signature.visualReferenceMetatile, 2)} is unexpectedly collision-empty`);
+  }
+
+  return {
+    metatile: signature.metatile,
+    visualReferenceMetatile: signature.visualReferenceMetatile,
+    candidateTiles: metatileTileRows(
+      expandedTilemap.metatileTiles,
+      signature.metatile,
+      signature.visibleTileRect.y,
+      signature.visibleTileRect.height
+    ),
+    referenceTiles: metatileTileRows(
+      expandedTilemap.metatileTiles,
+      signature.visualReferenceMetatile,
+      signature.visibleTileRect.y,
+      signature.visibleTileRect.height
+    ),
+    candidateTerrain,
+    referenceTerrain
+  };
+}
+
+function findFalsePlatformMetatileCandidates(expandedTilemap) {
+  const candidates = [];
+
+  for (const signature of FALSE_PLATFORM_METATILE_SIGNATURES) {
+    const proof = verifyFalsePlatformMetatile(expandedTilemap, signature);
+    if (!proof) {
+      continue;
+    }
+
+    for (let blockY = 0; blockY < expandedTilemap.blockHeight; blockY += 1) {
+      for (let blockX = 0; blockX < expandedTilemap.blockWidth; blockX += 1) {
+        const blockIndex = expandedTilemap.layoutBlocks[blockY * expandedTilemap.blockWidth + blockX] || 0;
+        if (blockIndex !== signature.metatile) {
+          continue;
+        }
+        candidates.push({
+          rect: {
+            x: blockX * BLOCK_TILES + signature.visibleTileRect.x,
+            y: blockY * BLOCK_TILES + signature.visibleTileRect.y,
+            width: signature.visibleTileRect.width,
+            height: signature.visibleTileRect.height
+          },
+          block: {
+            x: blockX,
+            y: blockY,
+            metatile: signature.metatile
+          },
+          signatures: [signature],
+          proof
+        });
+      }
+    }
+  }
+
+  return candidates;
 }
 
 function buildDestructibleFixtures(segments, segmentTilemapsById, actors) {
@@ -1038,7 +1702,7 @@ function buildDestructibleFixtures(segments, segmentTilemapsById, actors) {
       const role = linkedSecret ? 'secret-reward' : 'breakable-terrain';
       fixtures.push({
         id: `${segment.id}-destructible-${group.rect.x}-${group.rect.y}-${group.rect.width}x${group.rect.height}`,
-        label: role === 'secret-reward' ? linkedSecret.label : 'Breakable blocks',
+        label: 'Breakable blocks',
         kind: 'destructible-terrain',
         role,
         segmentId: segment.id,
@@ -1052,6 +1716,60 @@ function buildDestructibleFixtures(segments, segmentTilemapsById, actors) {
         provenance: {
           source: signature.source,
           signatureTiles: signature.tiles.map((row) => publicBytes(row))
+        }
+      });
+    }
+
+    const falsePlatformCandidates = findFalsePlatformMetatileCandidates(expandedTilemap);
+    const falsePlatformCandidateByKey = new Map(
+      falsePlatformCandidates.map((candidate) => [rectKey(candidate.rect), candidate])
+    );
+    const falsePlatformGroups = groupFixtureRects(
+      falsePlatformCandidates.map((candidate) => candidate.rect)
+    );
+
+    for (const group of falsePlatformGroups) {
+      const matchedSignatures = Array.from(new Map(group.matches
+        .flatMap((rect) => falsePlatformCandidateByKey.get(rectKey(rect))?.signatures || [])
+        .map((matchedSignature) => [matchedSignature.id, matchedSignature])).values())
+        .sort((a, b) => a.id.localeCompare(b.id));
+      const matchedProofs = group.matches
+        .map((rect) => falsePlatformCandidateByKey.get(rectKey(rect))?.proof)
+        .filter(Boolean);
+      const matchedBlocks = group.matches
+        .map((rect) => falsePlatformCandidateByKey.get(rectKey(rect))?.block)
+        .filter(Boolean);
+
+      fixtures.push({
+        id: `${segment.id}-false-platform-${group.rect.x}-${group.rect.y}-${group.rect.width}x${group.rect.height}`,
+        label: 'False platform',
+        kind: 'false-platform',
+        role: 'false-platform',
+        segmentId: segment.id,
+        tileRect: group.rect,
+        matchCount: group.matchCount,
+        matches: group.matches,
+        blocks: matchedBlocks.map((block) => ({
+          x: block.x,
+          y: block.y,
+          metatile: hex(block.metatile, 2)
+        })),
+        signatureIds: matchedSignatures.map((matchedSignature) => matchedSignature.id),
+        action: 'This floor looks solid, but Simon falls through it.',
+        provenance: {
+          source: 'rom-layout-metatile-and-terrain-thresholds',
+          collisionLookup: 'fixed-bank terrain builder 7:$EB6E-$EB95 classifies each rendered tile through the object-set auxiliary threshold table; lookup 7:$E979-$EA10 then reads those packed terrain values.',
+          tileSetAddress: hex(expandedTilemap.tileSetAddress, 4),
+          collisionThresholdAddress: hex(expandedTilemap.collisionThresholdAddress, 4),
+          collisionThresholds: publicBytes(expandedTilemap.collisionThresholds),
+          metatileProofs: matchedProofs.map((proof) => ({
+            metatile: hex(proof.metatile, 2),
+            visualReferenceMetatile: hex(proof.visualReferenceMetatile, 2),
+            candidateTiles: proof.candidateTiles.map((row) => publicBytes(row)),
+            referenceTiles: proof.referenceTiles.map((row) => publicBytes(row)),
+            candidateTerrain: proof.candidateTerrain,
+            referenceTerrain: proof.referenceTerrain
+          }))
         }
       });
     }
@@ -1327,6 +2045,17 @@ function bankedCpuToFileOffset(info, cpuAddress, bank) {
   return info.prgStart + bank * 0x4000 + (cpuAddress - 0x8000);
 }
 
+function textCpuToFileOffset(info, cpuAddress, bank) {
+  if (cpuAddress >= 0xc000 && cpuAddress <= 0xffff) {
+    const fixedBank = info.prgRomBanks - 1;
+    return info.prgStart + fixedBank * 0x4000 + (cpuAddress - 0xc000);
+  }
+  if (cpuAddress >= 0x8000 && cpuAddress <= 0xbfff && bank != null) {
+    return bankedCpuToFileOffset(info, cpuAddress, bank);
+  }
+  throw new Error(`Text CPU pointer ${hex(cpuAddress, 4)} requires an explicit PRG bank`);
+}
+
 function normalizeDialogText(text) {
   return text
     .replace(/-\n/g, '')
@@ -1370,6 +2099,65 @@ function decodeRomDialogText(rom, info, pointerIndex) {
     decoded,
     text: normalizeDialogText(decoded),
     source: `rom-text-pointer-table:${hex(TEXT_POINTER_TABLE_FILE_OFFSET, 5)}`
+  };
+}
+
+function decodeRomDialogTextAtPointer(rom, info, cpuPointer, bank) {
+  const fileOffset = textCpuToFileOffset(info, cpuPointer, bank);
+  const rawBytes = [];
+  let decoded = '';
+  for (let offset = fileOffset; offset < rom.length; offset += 1) {
+    const byte = rom[offset];
+    if (byte === TEXT_END_BYTE) {
+      break;
+    }
+    const character = TEXT_CHAR_BY_BYTE.get(byte);
+    if (character == null) {
+      throw new Error(
+        `Text pointer ${hex(cpuPointer, 4)} at ${hex(offset, 5)} contains undecoded byte ${hex(byte, 2)}`
+      );
+    }
+    rawBytes.push(byte);
+    decoded += character;
+  }
+
+  return {
+    ramPointer: hex(cpuPointer, 4),
+    bank: bank == null ? null : bank,
+    fileOffset: hex(fileOffset, 5),
+    rawBytes: publicBytes(rawBytes),
+    decoded,
+    text: normalizeDialogText(decoded),
+    source: bank == null
+      ? `rom-fixed:${hex(cpuPointer, 4)}`
+      : `rom-bank${bank}:${hex(cpuPointer, 4)}`
+  };
+}
+
+function decodeRomDialogTextAtFileOffset(rom, fileOffset) {
+  const rawBytes = [];
+  let decoded = '';
+  for (let offset = fileOffset; offset < rom.length; offset += 1) {
+    const byte = rom[offset];
+    if (byte === TEXT_END_BYTE) {
+      break;
+    }
+    const character = TEXT_CHAR_BY_BYTE.get(byte);
+    if (character == null) {
+      throw new Error(
+        `Text file offset ${hex(fileOffset, 5)} at ${hex(offset, 5)} contains undecoded byte ${hex(byte, 2)}`
+      );
+    }
+    rawBytes.push(byte);
+    decoded += character;
+  }
+
+  return {
+    fileOffset: hex(fileOffset, 5),
+    rawBytes: publicBytes(rawBytes),
+    decoded,
+    text: normalizeDialogText(decoded),
+    source: `rom-file:${hex(fileOffset, 5)}`
   };
 }
 
@@ -1689,6 +2477,14 @@ function publicSprite(sprite) {
 }
 
 function actorClassSelectors(rom, info, actorClass) {
+  if (actorClass.selectors) {
+    return {
+      selectorRecord: null,
+      selectors: actorClass.selectors,
+      source: 'direct-selector-list'
+    };
+  }
+
   const selectorRecord = decodeSelectorRecordAt(
     rom,
     info,
@@ -1701,9 +2497,33 @@ function actorClassSelectors(rom, info, actorClass) {
   };
 }
 
+function spriteWithPalette(sprite, palette) {
+  const attr = (parseHex(sprite.attr) & 0xfc) | (palette & 0x03);
+  return {
+    ...sprite,
+    attr: hex(attr, 2),
+    palette
+  };
+}
+
+function applyPaletteCycle(frames, paletteCycle) {
+  if (!paletteCycle) {
+    return frames;
+  }
+  return frames.flatMap((frame) => paletteCycle.values.map((palette, index) => ({
+    ...frame,
+    sprites: frame.sprites.map((sprite) => spriteWithPalette(sprite, palette)),
+    paletteCycle: {
+      index,
+      palette,
+      source: paletteCycle.source
+    }
+  })));
+}
+
 function buildActorClass(rom, info, addChrSet, actorClass) {
   const selectorSource = actorClassSelectors(rom, info, actorClass);
-  const frames = selectorSource.selectors.map((selector) => {
+  const decodedFrames = selectorSource.selectors.map((selector) => {
     const decoded = decodeMetaspriteSelector(rom, info, selector);
     return {
       selector: hex(selector, 2),
@@ -1712,6 +2532,7 @@ function buildActorClass(rom, info, addChrSet, actorClass) {
       sprites: decoded.sprites.map(publicSprite)
     };
   });
+  const frames = applyPaletteCycle(decodedFrames, actorClass.paletteCycle);
   const chrSet = addChrSet(actorClass.chrBanks);
   const patterns = readChrPair(rom, info, actorClass.chrBanks);
   const frameOpaqueBounds = frames.map((frame) => actorFrameOpaqueBounds(frame, patterns));
@@ -1732,13 +2553,22 @@ function buildActorClass(rom, info, addChrSet, actorClass) {
     largeSprites: true,
     spriteHeight: SPRITE_HEIGHT,
     hp: actorClass.hp || null,
-    selectorRecord: {
+    drawAnchor: actorClass.drawAnchor || null,
+    frameDurationMs: actorClass.frameDurationMs || actorClass.paletteCycle?.frameDurationMs || null,
+    ...(actorClass.paletteCycle ? {
+      paletteCycle: {
+        values: actorClass.paletteCycle.values,
+        frameDurationMs: actorClass.paletteCycle.frameDurationMs,
+        source: actorClass.paletteCycle.source
+      }
+    } : {}),
+    selectorRecord: selectorSource.selectorRecord ? {
       index: hex(actorClass.selectorRecordIndex, 2),
       cpuAddress: hex(selectorSource.selectorRecord.cpuAddress, 4),
       fileOffset: hex(selectorSource.selectorRecord.fileOffset, 5),
       bytes: publicBytes(selectorSource.selectorRecord.bytes),
       selectors: selectorSource.selectorRecord.selectors.map((selector) => hex(selector, 2))
-    },
+    } : null,
     frames: publicFrames,
     bounds: actorFrameBounds(frames),
     opaqueBounds: actorOpaqueUnion(frameOpaqueBounds),
@@ -1756,6 +2586,88 @@ function buildActorClass(rom, info, addChrSet, actorClass) {
     selectorSource: selectorSource.source,
     proof: actorClass.proof
   };
+}
+
+function buildSecretFeature(rom, info, addChrSet, segmentById, definition) {
+  const segment = segmentById.get(definition.segmentId);
+  if (!segment) {
+    return null;
+  }
+
+  const bytes = assertRomBytes(rom, definition.offset, definition.bytes);
+  const decoded = decodeMetaspriteSelector(rom, info, definition.selector);
+  const frame = {
+    selector: hex(definition.selector, 2),
+    pointer: hex(decoded.pointer.target, 4),
+    status: hex(decoded.status, 2),
+    sprites: decoded.sprites.map(publicSprite)
+  };
+  const chrSet = addChrSet(definition.chrBanks);
+  const patterns = readChrPair(rom, info, definition.chrBanks);
+  const opaqueBounds = actorFrameOpaqueBounds(frame, patterns);
+  const bounds = actorFrameBounds([frame]);
+  const runtimePixelX = bytes[0] * ACTOR_CELL_SIZE;
+  const runtimePixelY = bytes[1] * ACTOR_CELL_SIZE;
+  const placement = definition.placement || {};
+  const pixelX = Number.isFinite(placement.worldX)
+    ? placement.worldX - segment.position.x
+    : runtimePixelX;
+  const pixelY = Number.isFinite(placement.worldY)
+    ? placement.worldY - segment.position.y
+    : runtimePixelY;
+
+  return {
+    id: definition.id,
+    label: definition.label,
+    kind: definition.kind || 'secret',
+    effect: definition.effect,
+    segmentId: definition.segmentId,
+    variants: definition.variants || ['day', 'night'],
+    tileX: bytes[0],
+    tileY: bytes[1],
+    pixelX,
+    pixelY,
+    worldX: segment.position.x + pixelX,
+    worldY: segment.position.y + pixelY,
+    actorId: hex(bytes[2], 2),
+    data: hex(bytes[3], 2),
+    condition: definition.condition,
+    motion: definition.motion,
+    dialog: definition.dialog,
+    render: {
+      type: 'metasprite-selector',
+      selector: hex(definition.selector, 2),
+      chrSet: chrSet.id,
+      largeSprites: true,
+      spriteHeight: SPRITE_HEIGHT,
+      paletteByVariant: definition.paletteByVariant || {},
+      frames: [{
+        ...frame,
+        opaqueBounds
+      }],
+      bounds,
+      opaqueBounds
+    },
+    provenance: {
+      rowOffset: hex(definition.offset, 5),
+      rawBytes: publicBytes(bytes),
+      runtimeAnchor: {
+        pixelX: runtimePixelX,
+        pixelY: runtimePixelY,
+        worldX: segment.position.x + runtimePixelX,
+        worldY: segment.position.y + runtimePixelY,
+        note: 'Raw actor/control row anchor retained for provenance; visible placement may be supplied by decoded runtime placement evidence.'
+      },
+      placement: definition.placement,
+      ...definition.provenance
+    }
+  };
+}
+
+function buildSecretFeatures(rom, info, addChrSet, segmentById) {
+  return SECRET_FEATURE_DEFINITIONS
+    .map((definition) => buildSecretFeature(rom, info, addChrSet, segmentById, definition))
+    .filter(Boolean);
 }
 
 function actorPlacementHp(actor, actorClass, kind, bytes) {
@@ -1787,16 +2699,26 @@ function buildActorPlacement(rom, info, classById, segmentById, actor) {
   const label = actor.label || actorClass.label;
   const hp = actorPlacementHp(actor, actorClass, kind, bytes);
   const shouldDecodeText = actor.textPointerIndex != null
+    || actor.textFileOffset != null
+    || actor.textPointerAddress != null
     || actor.textFromRom === true
     || (!actor.text && (kind === 'npc' || kind === 'fixture' || kind === 'secret'));
   const textEvidence = shouldDecodeText
-    ? decodeRomDialogText(rom, info, actor.textPointerIndex ?? bytes[3])
+    ? (actor.textFileOffset != null
+      ? decodeRomDialogTextAtFileOffset(rom, actor.textFileOffset)
+      : actor.textPointerAddress != null
+      ? decodeRomDialogTextAtPointer(rom, info, actor.textPointerAddress, actor.textPointerBank)
+      : decodeRomDialogText(rom, info, actor.textPointerIndex ?? bytes[3]))
     : null;
   const text = actor.text || textEvidence?.text || null;
   const runtimePixelX = bytes[0] * ACTOR_CELL_SIZE;
   const runtimePixelY = bytes[1] * ACTOR_CELL_SIZE;
-  const drawPixelX = runtimePixelX + ACTOR_DRAW_ANCHOR_OFFSET_X;
-  const drawPixelY = runtimePixelY + ACTOR_DRAW_ANCHOR_OFFSET_Y;
+  const drawAnchor = actor.drawAnchor || actorClass?.drawAnchor || {};
+  const drawOffsetX = drawAnchor.offsetX ?? ACTOR_DRAW_ANCHOR_OFFSET_X;
+  const drawOffsetY = drawAnchor.offsetY ?? ACTOR_DRAW_ANCHOR_OFFSET_Y;
+  const drawPixelX = runtimePixelX + drawOffsetX;
+  const drawPixelY = runtimePixelY + drawOffsetY;
+  const itemOffer = inferredItemOffer(actor);
   return {
     id: actor.id,
     classId: actor.classId,
@@ -1816,6 +2738,7 @@ function buildActorPlacement(rom, info, classById, segmentById, actor) {
     hp,
     text,
     textEvidence,
+    itemOffer,
     secret: SECRET_DETAILS[actor.id] || null,
     visualTileRect: actor.visualTileRect || null,
     fixtureSignature: actor.fixtureSignature || null,
@@ -1826,9 +2749,9 @@ function buildActorPlacement(rom, info, classById, segmentById, actor) {
       worldY: segment.position.y + runtimePixelY
     },
     drawAnchor: {
-      offsetX: ACTOR_DRAW_ANCHOR_OFFSET_X,
-      offsetY: ACTOR_DRAW_ANCHOR_OFFSET_Y,
-      source: 'rom-row-16px-cell-visual-anchor'
+      offsetX: drawOffsetX,
+      offsetY: drawOffsetY,
+      source: drawAnchor.source || 'rom-row-16px-cell-visual-anchor'
     },
     provenance: {
       rowOffset: hex(actor.offset, 5),
@@ -1969,7 +2892,14 @@ function addPalette(segmentId, variant, entry) {
       rawTileSet.metatileTiles,
       rawTileSet.metatileAttributes,
       blockMatrix.blockWidth,
-      blockMatrix.blockHeight
+      blockMatrix.blockHeight,
+      {
+        tileSetAddress: rawTileSet.tileSetAddress,
+        tileBaseAddress: rawTileSet.tileBaseAddress,
+        collisionThresholdAddress: rawTileSet.collisionThresholdAddress,
+        collisionThresholds: rawTileSet.collisionThresholds,
+        chrPatterns: readChrPair(rom, info, segment.templates[segment.template].chrBanks)
+      }
     ));
     const palettesByVariant = {};
     const atlasEntriesByVariant = {};
@@ -2032,17 +2962,23 @@ function addPalette(segmentId, variant, entry) {
   }
 
   const segmentById = new Map(segments.map((segment) => [segment.id, segment]));
-  const actorsForSlice = GUIDE_ACTORS.filter((actor) => segmentById.has(actor.segmentId));
+  const materializedActors = materializeManifestActors(sliceConfig);
+  const actorsForSlice = [
+    ...GUIDE_ACTORS,
+    ...materializedActors
+  ].filter((actor) => segmentById.has(actor.segmentId));
+  const secretFeatures = buildSecretFeatures(rom, info, addChrSet, segmentById);
   const actorClasses = actorsForSlice.length > 0
     ? ACTOR_CLASSES.map((actorClass) => buildActorClass(rom, info, addChrSet, actorClass))
     : [];
   const actorClassById = new Map(actorClasses.map((actorClass) => [actorClass.id, actorClass]));
-  if (actorsForSlice.length > 0) {
+  if (actorsForSlice.length > 0 || secretFeatures.length > 0) {
     for (const source of ACTOR_PALETTE_SOURCES) {
       addSpritePalette(source);
     }
   }
   const actors = actorsForSlice.map((actor) => buildActorPlacement(rom, info, actorClassById, segmentById, actor));
+  const itemIcons = buildItemIconManifest(addChrSet);
   const groundSupportValidations = applyGroundSupportSnaps(actors, actorClassById, segmentById, segmentTilemapsById);
   validations.push(...groundSupportValidations);
   validations.push(...validateFixtureVisualRects(actors, segmentTilemapsById));
@@ -2073,7 +3009,8 @@ function addPalette(segmentId, variant, entry) {
       notes: [
         'Pixels are rendered in the browser from ROM-derived CHR, layout, metatile, and palette bytes.',
         'Actor sprites are rendered in the browser from ROM-derived CHR, decoded metasprite selector records, and ROM sprite palette fragments.',
-        'Breakable terrain overlays are scanned from ROM-expanded background tile signatures.',
+        'Breakable terrain overlays are scanned from ROM-expanded background tile signatures; false platforms are decoded from ROM layout metatiles and terrain threshold bytes.',
+        'Conditional secret features are promoted from ROM actor/control rows and decoded game routines, then rendered from ROM-derived sprite data.',
         'Presentation coordinates are authored for player readability and are not ROM world coordinates.',
         'No PNG map textures are emitted for this app slice.'
       ]
@@ -2088,12 +3025,19 @@ function addPalette(segmentId, variant, entry) {
     spritePalettes,
     segments,
     destructibleFixtures,
+    secretFeatures,
+    itemIcons,
     actorClasses,
     actors,
     destructibleSummary: {
       fixtures: destructibleFixtures.length,
       rewardLinked: destructibleFixtures.filter((fixture) => fixture.role === 'secret-reward').length,
-      breakableTerrain: destructibleFixtures.filter((fixture) => fixture.role === 'breakable-terrain').length
+      breakableTerrain: destructibleFixtures.filter((fixture) => fixture.role === 'breakable-terrain').length,
+      falsePlatforms: destructibleFixtures.filter((fixture) => fixture.role === 'false-platform').length
+    },
+    secretFeatureSummary: {
+      features: secretFeatures.length,
+      movingPlatforms: secretFeatures.filter((feature) => feature.effect === 'moving-platform').length
     },
     actorSummary: {
       classes: actorClasses.length,
@@ -2120,6 +3064,7 @@ function addPalette(segmentId, variant, entry) {
       chrSets: chrSets.length,
       tileSets: tileSets.length,
       palettes: palettes.length,
+      secretFeatures: secretFeatures.length,
       validations: validations.length,
       world
     }

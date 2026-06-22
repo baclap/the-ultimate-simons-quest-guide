@@ -2,8 +2,8 @@
 
 The render recipe atlas is the first step from isolated recipe probes toward
 full-map rendering. It uses the audited save-state evidence to resolve render
-recipes, then applies those recipes to every current exterior candidate plus
-the captured interior probe contexts.
+recipes, then applies those recipes to every current exterior candidate,
+promoted mansion/town interior candidate, and captured interior probe context.
 
 ## Commands
 
@@ -22,7 +22,9 @@ npm run render:recipe-atlas
 
 - `validated`: this exact atlas context and variant has a save-state probe.
 - `projected`: the context uses a recipe family validated elsewhere in the
-  same object set and access type.
+  same object set and access type. A projected interior can be rendered for
+  research, but a promoted guide destination should get per-submap fixture or
+  transition/capture evidence before its recipe is treated as final.
 - `diagnostic`: the image renders, but the family still needs representative
   save-state evidence before promotion. The current atlas has no diagnostic
   entries.
@@ -30,14 +32,14 @@ npm run render:recipe-atlas
 
 ## Current Result
 
-The current atlas renders 112 entries without blocked/error cases:
+The current atlas renders 151 entries without blocked/error cases:
 
 - 23 validated
-- 89 projected
+- 128 projected
 - 0 diagnostic
 - 56 day variants
 - 54 night variants
-- 2 fixed variants
+- 41 fixed variants
 
 The resolver derives palettes through the ROM selector table at `2:$F7C5` and
 the transfer pointer table at `7:$8895`. CHR banks come from exact probe
@@ -53,6 +55,14 @@ Objset `5` is now validated too. Castlevania's final area is a fixed-palette
 area, not a day/night exterior; its probe resolves live CHR banks `0B/0C` and
 palette transfer `$57 -> 4:$A150`.
 
+Interior atlas entries are generated for mansion/town interior manifest
+candidates so a full interior can be built from ROM layout tables once its
+research artifact accounts for the room inventory. These entries must still be
+interpreted per submap: Berkeley Mansion Part 1 is exact-fixture validated by
+the current save state, while Berkeley Mansion Part 2 is rendered from the same
+ROM recipe family and remains `projected` until a Part 2 runtime capture or
+transition probe validates that exact submap.
+
 ## Interpretation
 
 This milestone intentionally separates "rendered" from "proven pixel-perfect."
@@ -61,6 +71,7 @@ same recipe resolver used by validated areas. If a projected area still looks
 wrong, that is evidence about a missing recipe rule, not a hidden per-area
 override.
 
-The next validation work should focus on crop/layout parity for remaining
-inferred mansion-door templates and on coordinate-aware composition. The broad
-recipe atlas no longer has a deferred or diagnostic render family.
+The next validation work should focus on per-promoted-interior fixture coverage,
+runtime transition/alignment probes, crop/layout parity for remaining inferred
+mansion-door templates, and coordinate-aware composition. The broad recipe atlas
+no longer has a deferred or diagnostic render family.

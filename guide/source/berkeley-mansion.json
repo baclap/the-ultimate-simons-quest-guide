@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "berkeley-mansion",
+  "label": "Berkeley Mansion",
+  "summary": "Whole Berkeley Mansion interior scene, packed as raw CHR, layout, metatile, and palette data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "rom-entry-room-chain",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "fixed": "mansion-fixed-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "berkeley-mansion-part-1",
+      "locationId": "obj01-area07-sub00-berkeley-mansion-part-1",
+      "label": "Berkeley Mansion 1",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "berkeley-mansion-part-2",
+      "locationId": "obj01-area07-sub01-berkeley-mansion-part-2",
+      "label": "Berkeley Mansion 2",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 1024,
+      "y": 0
+    }
+  ]
+}

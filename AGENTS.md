@@ -53,6 +53,25 @@ supports it.
 - "Good enough" is not a standard for game facts. A fact is either proven,
   unproven, or intentionally out of scope.
 
+## ROM-First Mechanics And Secret Features
+
+- For gameplay-affecting features, do not infer behavior from appearance. This
+  includes false floors, hidden platforms, breakable blocks, moving platforms,
+  ferry behavior, kneeling reveals, hidden items, doors, actor placement,
+  collision, and traversal rules.
+- Visual similarity, screenshots, existing maps, and intuition are leads only.
+  Before rendering or highlighting a special feature in the guide, identify the
+  ROM source: actor/control row, layout/metatile bytes, collision or terrain
+  classification, state/routine branch, item flag check, movement routine,
+  selector, palette, and animation cadence as applicable.
+- Runtime traces and save states validate decoded ROM behavior; they should not
+  replace ROM decoding unless the result is explicitly marked provisional.
+- Do not promote guessed overlays. If the ROM source is not understood yet,
+  leave the feature out, mark it as unproven, or create a documented research
+  task instead.
+- If a visual overlay highlights something, there should be a path back to the
+  bytes or runtime behavior that justify it.
+
 ## Graphics Rule
 
 - In the interactive guide, game graphics must be rendered at runtime from
@@ -73,6 +92,34 @@ supports it.
   explanatory copy.
 - When useful, carry provenance through data files, docs, and UI copy so future
   work can distinguish ROM evidence from guide design.
+
+## Secret Classification
+
+- Use the guide's `Secrets` layer for player-discoverable hidden or conditional
+  things by default, even when their implementation differs internally.
+  Breakable blocks, hidden books, false platforms, item-revealed platforms,
+  hidden routes, conditional ferries, and conditional platform behavior may all
+  be secrets.
+- Create a new internal data model only when ROM behavior requires different
+  rendering, motion, hit testing, or provenance, but keep the player-facing
+  layer taxonomy simple unless the UX clearly needs a new category.
+- Separate visibility from highlighting where useful: a secret may be rendered
+  as game graphics while its outline remains controlled by a highlight option.
+
+## Dynamic Entity Placement
+
+- Moving actors, conditional features, and control-row-driven objects must not
+  use raw actor row X/Y blindly. Decode whether the row is a placement row,
+  control row, state initializer, routine parameter, or other behavior trigger.
+- For moving or conditional features, prove the visible path: anchor, min/max
+  position, sprite/metasprite offsets, cadence, viewport/world alignment, and
+  collision or interaction bounds when relevant.
+- Store raw row coordinates separately from proven visible placement when they
+  differ. Raw bytes are provenance; they are not automatically render
+  coordinates.
+- When a full map is composed from multiple room/submap renders, validate actor
+  and feature placement against the same viewport or transition alignment used
+  to validate the background.
 
 ## Completeness And Unknowns
 
@@ -105,6 +152,9 @@ supports it.
 - If a one-off investigation is necessary, turn durable findings into project
   documentation or production pipeline logic before treating the milestone as
   complete.
+- If an investigation produces incorrect `out/` artifacts, delete them or
+  clearly supersede them before finishing. Stale proof folders should not remain
+  as plausible evidence.
 
 ## Guide UX Expectations
 
@@ -132,7 +182,7 @@ supports it.
 - Prefer pipelines that cross-check themselves using multiple kinds of evidence:
   ROM table decoding, generated manifests, fixture signatures, emulator
   savestates/traces, rendered comparisons, and browser verification.
-- If a visual overlay highlights something, there should be a path back to the
-  bytes or runtime behavior that justify it.
+- For overlays and highlighted mechanics, follow the ROM-first mechanics rules
+  above in addition to browser verification.
 - Run focused syntax/build checks for touched code and browser-check guide UI
   changes when practical.

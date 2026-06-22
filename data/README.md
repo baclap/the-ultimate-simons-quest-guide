@@ -14,12 +14,25 @@ Current files:
   alias. See `docs/runtime-context-mapping-notes.md`.
 - `render-recipe-fixtures.json`: committed manifest for save-state probes used
   to audit live CHR banks, palette selector output, and interior/exterior recipe
-  families. See `docs/render-recipe-audit-notes.md`.
+  families. Interior guide destinations still need per-promoted-submap proof in
+  addition to any family recipe projection. See
+  `docs/render-recipe-audit-notes.md` and
+  `docs/interior-map-research-standard.md`.
 - `actor-trace-fixtures.json`: committed manifest for save-state probes that
   trace actor slots, selector writes, HP values, and visible OAM. See
   `docs/actor-trace-notes.md`. The same fixtures feed
   `npm run decode:actor-selector-streams`, which maps observed selector writes
-  back to fixed-bank ROM records and renders actor sprite strips.
+  back to fixed-bank ROM records and renders actor sprite strips. Interior
+  research artifacts should also scan the raw actor table rows from the ROM and
+  compare promoted guide rows against those bytes so control/non-visible rows
+  are explicitly accounted for.
+- `transition-probes.json`: committed manifest for runtime transition probes.
+  Interior entry/exit alignment should add targeted probes here before a
+  composed interior relationship is treated as final Simon/scroll placement
+  truth.
+- `guide/source/*.json`: guide scene definitions. Interior sources should point
+  at full interior maps only after a generated proof artifact inventories all
+  submaps, render recipes, actor/fixture rows, and entry/exit relationships.
 
 The exterior atlas is generated from `cv2r` metadata plus ROM table reads rather
 than maintained as a hand-authored `data/` JSON file. Run

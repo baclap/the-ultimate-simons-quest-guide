@@ -132,6 +132,19 @@ blue game dialog sits below it and overlaps by one tile so the blue top border
 replaces the grey bottom border. The bundle has one shared close control.
 Low-level evidence and provenance stay outside the game-style boxes.
 
+Item merchants use the same stacked bundle. The grey box names the merchant role
+and cost, while the decoded blue box preserves the ROM merchant line. Currency
+is rendered with the start-menu heart tile, not with a text substitute; durable
+item-icon evidence lives in `docs/guide-item-affordances.md`.
+
+Promoted item names inside guide-authored grey dialog body text remain
+selectable HTML text, but render in the guide item accent color and get a
+ROM-rendered start-menu icon directly after the item phrase. The treatment does
+not apply to decoded blue game dialogs or to grey dialog titles above the
+horizontal rule. This is presentation only: the dialog layout still normalizes
+and wraps the source text deterministically, and the manifest text is not
+mutated.
+
 Breakable terrain uses the concise game-dialog template:
 
 ```text

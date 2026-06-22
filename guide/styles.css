@@ -8,6 +8,7 @@
   --line: rgba(255, 255, 255, 0.18);
   --muted: #c7bfb1;
   --gold: #ffd84a;
+  --dialog-item: #ffd84a;
   --gold-soft: rgba(255, 216, 74, 0.22);
   --blue: #7ab7ff;
   --red: #ff6b62;
@@ -55,7 +56,8 @@ select {
 button:focus-visible,
 input:focus-visible,
 summary:focus-visible,
-#map-canvas:focus-visible {
+#map-canvas:focus-visible,
+#scene-canvas:focus-visible {
   outline: 3px solid rgba(255, 254, 255, 0.78);
   outline-offset: 3px;
 }
@@ -82,15 +84,32 @@ summary:focus-visible,
   image-rendering: pixelated;
 }
 
-#map-canvas {
+.map-surface {
+  position: fixed;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   cursor: grab;
   touch-action: none;
 }
 
-#map-canvas:active {
+.map-surface:active {
   cursor: grabbing;
+}
+
+.view-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease;
+}
+
+.view-transition.is-active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .overlay-layer {
@@ -298,6 +317,25 @@ summary:focus-visible,
   user-select: text;
 }
 
+.dialog-item-text {
+  color: var(--dialog-item);
+}
+
+.dialog-item-mention {
+  display: inline-flex;
+  align-items: center;
+  line-height: inherit;
+  vertical-align: middle;
+}
+
+.dialog-inline-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  image-rendering: pixelated;
+  pointer-events: none;
+  vertical-align: middle;
+}
+
 .dialog-close {
   --dialog-close-size: calc(var(--dialog-tile) * 3);
   --dialog-close-glyph-nudge: 0.5px;
@@ -427,7 +465,9 @@ summary:focus-visible,
 .segment-outline,
 .hotspot,
 .destructible-hotspot,
-.actor-hotspot {
+.secret-feature-hotspot,
+.actor-hotspot,
+.item-badge {
   position: absolute;
   pointer-events: none;
 }
@@ -509,7 +549,9 @@ summary:focus-visible,
 
 .hotspot,
 .destructible-hotspot,
-.actor-hotspot {
+.secret-feature-hotspot,
+.actor-hotspot,
+.item-badge {
   appearance: none;
   touch-action: none;
   padding: 0;
@@ -521,14 +563,18 @@ summary:focus-visible,
 
 .hotspot.is-clickable,
 .destructible-hotspot,
-.actor-hotspot {
+.secret-feature-hotspot,
+.actor-hotspot,
+.item-badge {
   pointer-events: auto;
   cursor: pointer;
 }
 
 .hotspot::before,
 .destructible-hotspot::before,
-.actor-hotspot::before {
+.secret-feature-hotspot::before,
+.actor-hotspot::before,
+.item-badge::before {
   content: "";
   position: absolute;
   left: var(--hotspot-x, 0);
@@ -595,6 +641,33 @@ summary:focus-visible,
 }
 
 .destructible-hotspot.is-highlight-hidden:focus-visible::before {
+  outline-color: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.38);
+}
+
+.secret-feature-hotspot {
+  z-index: 14;
+}
+
+.secret-feature-hotspot::before {
+  outline-color: var(--secret);
+}
+
+.secret-feature-hotspot:hover::before,
+.secret-feature-hotspot:active::before,
+.secret-feature-hotspot:focus-visible::before {
+  outline-color: #b6ffc7;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.92), 0 0 12px rgba(57, 255, 106, 0.46);
+}
+
+.secret-feature-hotspot.is-highlight-hidden::before,
+.secret-feature-hotspot.is-highlight-hidden:hover::before,
+.secret-feature-hotspot.is-highlight-hidden:active::before {
+  outline-color: transparent;
+  box-shadow: none;
+}
+
+.secret-feature-hotspot.is-highlight-hidden:focus-visible::before {
   outline-color: rgba(255, 255, 255, 0.86);
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.38);
 }
@@ -685,121 +758,46 @@ summary:focus-visible,
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.38);
 }
 
-.portal-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: grid;
-  place-items: center;
-  padding: 20px;
+.item-badge {
+  z-index: 22;
 }
 
-.portal-modal[hidden] {
-  display: none;
+.item-badge::before {
+  z-index: 3;
+  outline-color: var(--blue);
 }
 
-.modal-backdrop {
+.item-badge-frame-canvas,
+.item-badge-icon-canvas {
   position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.68);
-}
-
-.portal-card {
-  position: relative;
-  width: min(1040px, calc(100vw - 40px));
-  max-height: calc(100vh - 40px);
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: #14130f;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-.portal-card header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--line);
-}
-
-.eyebrow {
   display: block;
-  margin-bottom: 3px;
-  color: var(--gold);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  image-rendering: pixelated;
+  pointer-events: none;
 }
 
-.portal-card h1,
-.portal-card h2 {
-  margin: 0;
-  letter-spacing: 0;
+.item-badge:hover::before,
+.item-badge:active::before,
+.item-badge:focus-visible::before {
+  outline-color: #bfe0ff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.92), 0 0 12px rgba(122, 183, 255, 0.46);
 }
 
-.portal-card h1 {
-  font-size: 20px;
+.item-badge.is-highlight-hidden::before,
+.item-badge.is-highlight-hidden:hover::before,
+.item-badge.is-highlight-hidden:active::before {
+  outline-color: transparent;
+  box-shadow: none;
 }
 
-.portal-card h2 {
-  font-size: 14px;
+.item-badge.is-highlight-hidden:focus-visible::before {
+  outline-color: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.38);
 }
 
 .icon-button {
   width: 34px;
   min-width: 34px;
   padding: 0;
-}
-
-.portal-body {
-  min-height: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
-}
-
-.scene-frame {
-  min-height: 360px;
-  background: #050505;
-  border-right: 1px solid var(--line);
-}
-
-#scene-canvas {
-  width: 100%;
-  height: 100%;
-}
-
-.portal-copy {
-  min-height: 0;
-  padding: 16px;
-  overflow: auto;
-}
-
-.portal-copy p,
-.portal-copy dd {
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-.portal-copy dl {
-  display: grid;
-  gap: 12px;
-  margin: 16px 0 0;
-}
-
-.portal-copy dt {
-  margin-bottom: 3px;
-  color: #f7e8af;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.portal-copy dd {
-  margin: 0;
-  font-size: 13px;
 }
 
 @media (max-width: 760px) {
@@ -856,29 +854,5 @@ summary:focus-visible,
     top: auto;
     bottom: 8px;
     font-size: 11px;
-  }
-
-  .portal-modal {
-    padding: 0;
-    align-items: end;
-  }
-
-  .portal-card {
-    width: 100vw;
-    max-height: 92vh;
-  }
-
-  .portal-body {
-    grid-template-columns: 1fr;
-  }
-
-  .scene-frame {
-    min-height: 48vh;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .portal-card h1 {
-    font-size: 17px;
   }
 }

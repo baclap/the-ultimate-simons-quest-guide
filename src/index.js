@@ -37,6 +37,10 @@ const {
   captureRenderRecipeFixtures
 } = require('./render-recipe-audit');
 const { renderRecipeAtlas } = require('./render-recipe-atlas');
+const {
+  analyzeInteriorMap,
+  writeInteriorMapResearch
+} = require('./interior-map-research');
 const { runTransitionProbes } = require('./transition-probes');
 const {
   createRuntimeContextResolver,
@@ -127,6 +131,7 @@ function usage() {
     '  node src/index.js capture-render-recipe-fixtures --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json',
     '  node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit',
     '  node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas',
+    '  node src/index.js analyze-interior-map --rom roms/cv2.nes --id berkeley-mansion --objset 0x01 --area 0x07 --atlas out/render-recipe-atlas/manifest.json --out out/interior-map-research/berkeley-mansion.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --descriptor-file data/background-descriptors.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
     '',
@@ -164,6 +169,7 @@ function usage() {
     '  capture-render-recipe-fixtures  Capture configured save-state probes for recipe auditing.',
     '  audit-render-recipes  Audit live capture evidence against ROM-derived render recipe tables.',
     '  render-recipe-atlas  Render validated/projected atlas variants from audited render recipes.',
+    '  analyze-interior-map  Inventory and validate an interior map before guide scene generation.',
     '  render-jova-native  Alias for render-background-native --descriptor jova-day.',
     '  render-jova-woods-native  Alias for render-background-native --descriptor jova-woods-day.'
   ].join('\n');
@@ -800,6 +806,29 @@ function renderRecipeAtlasCommand(args) {
   });
 }
 
+function analyzeInteriorMapCommand(args) {
+  const romPath = required(args, 'rom');
+  const outFile = args.out ? String(args.out) : path.join('out', 'interior-map-research', `${args.id || 'interior-map'}.json`);
+  const objset = requiredIntegerOption(args, 'objset');
+  const area = requiredIntegerOption(args, 'area');
+  const { buffer, info } = readRom(romPath);
+  const analysis = analyzeInteriorMap(buffer, info, {
+    id: args.id ? String(args.id) : undefined,
+    objset,
+    area,
+    atlasFile: args.atlas ? String(args.atlas) : undefined
+  });
+  writeInteriorMapResearch(outFile, analysis);
+  printJson({
+    rom: describeRom(info),
+    interiorMapResearch: {
+      output: path.resolve(outFile),
+      summary: analysis.summary,
+      composition: analysis.composition
+    }
+  });
+}
+
 function buildGuideSliceCommand(args) {
   const romPath = required(args, 'rom');
   const sliceFile = required(args, 'slice');
@@ -1054,6 +1083,11 @@ function main() {
 
   if (command === 'render-recipe-atlas') {
     renderRecipeAtlasCommand(args);
+    return;
+  }
+
+  if (command === 'analyze-interior-map') {
+    analyzeInteriorMapCommand(args);
     return;
   }
 
