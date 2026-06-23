@@ -74,7 +74,11 @@ const ROUTE_CONTEXTS = [
 ];
 
 function hex(value, width = 2) {
-  return `0x${Number(value).toString(16).toUpperCase().padStart(width, '0')}`;
+  const number = Number(value);
+  if (!Number.isInteger(number)) {
+    throw new Error(`cannot format invalid hex value: ${value}`);
+  }
+  return `0x${number.toString(16).toUpperCase().padStart(width, '0')}`;
 }
 
 function readSwitchableByte(rom, info, cpuAddress, bank = BANK_1) {

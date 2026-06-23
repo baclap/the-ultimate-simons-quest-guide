@@ -741,6 +741,269 @@
   },
   "actorClasses": [
     {
+      "id": "simon-belmont",
+      "label": "Simon Belmont",
+      "kind": "player",
+      "placement": null,
+      "actorId": null,
+      "chrSet": "chr-00-01",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": 360,
+      "selectorRecord": null,
+      "frames": [
+        {
+          "selector": "0x04",
+          "pointer": "0xB172",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x03",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x05",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x07",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 1
+            },
+            {
+              "tile": "0x09",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 1
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -14,
+            "maxX": 8,
+            "maxY": 16,
+            "width": 16,
+            "height": 30,
+            "centroid": {
+              "x": 0.25,
+              "y": 1.1284722222222223
+            },
+            "opaquePixels": 288,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x01",
+          "pointer": "0xB179",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x0B",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x0D",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x0F",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 1
+            },
+            {
+              "tile": "0x11",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 1
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -15,
+            "maxX": 4,
+            "maxY": 16,
+            "width": 11,
+            "height": 31,
+            "centroid": {
+              "x": -1.3625592417061612,
+              "y": -0.6374407582938388
+            },
+            "opaquePixels": 211,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x02",
+          "pointer": "0xB180",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x13",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x15",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x17",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 1
+            },
+            {
+              "tile": "0x19",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 1
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -14,
+            "maxX": 8,
+            "maxY": 16,
+            "width": 16,
+            "height": 30,
+            "centroid": {
+              "x": -0.057692307692307696,
+              "y": 0.9262820512820513
+            },
+            "opaquePixels": 312,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x03",
+          "pointer": "0xB179",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x0B",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x0D",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x0F",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 1
+            },
+            {
+              "tile": "0x11",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 1
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -15,
+            "maxX": 4,
+            "maxY": 16,
+            "width": 11,
+            "height": 31,
+            "centroid": {
+              "x": -1.3625592417061612,
+              "y": -0.6374407582938388
+            },
+            "opaquePixels": 211,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -15,
+        "maxX": 8,
+        "maxY": 17,
+        "width": 16,
+        "height": 32
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -15,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 31,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "direct-selector-list",
+      "proof": "Metasprite selector $04 decodes to Simon standing tiles $03/$05/$07/$09; selectors $01/$02/$03 decode to the ROM player walking frames observed in player-slot trace writes. OAM captures from Jova start and interior-entry transitions show selector $04 at the documented spawn positions."
+    },
+    {
       "id": "jova-shepherd",
       "label": "Jova shepherd",
       "kind": "npc",
@@ -4568,6 +4831,65 @@
   ],
   "actors": [
     {
+      "id": "veros-church-simon-spawn",
+      "classId": "simon-belmont",
+      "label": "Simon Belmont",
+      "kind": "player",
+      "segmentId": "veros-church",
+      "variants": [
+        "day"
+      ],
+      "paletteByVariant": {
+        "day": "town-day-sprites"
+      },
+      "tileX": 1,
+      "tileY": 11,
+      "pixelX": 16,
+      "pixelY": 177,
+      "worldX": 16,
+      "worldY": 177,
+      "actorId": null,
+      "data": null,
+      "hp": null,
+      "text": null,
+      "textEvidence": null,
+      "guideDialog": {
+        "tone": "guide-authored",
+        "text": "Simon Belmont\n----------\nOn a quest to uncover Count Dracula's five missing body parts.",
+        "source": "Nintendo Castlevania II: Simon's Quest instruction manual, Basic Play, page 3."
+      },
+      "itemOffer": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "flipHorizontal": true,
+      "runtimeAnchor": {
+        "pixelX": 16,
+        "pixelY": 177,
+        "worldX": 16,
+        "worldY": 177
+      },
+      "drawAnchor": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "source": "rom-runtime-spawn-selector-anchor"
+      },
+      "provenance": {
+        "source": "rom-runtime-spawn-evidence",
+        "evidence": [
+          "Town interior entry transition probes set Simon at raw OAM x=8/16 and y=174/190 after entering the room.",
+          "The PPU renderer draws OAM Y as raw+1; selector $04 offsets place the standing-frame screen anchor at (16,190).",
+          "The ROM-derived guide background matches the town-interior capture at guideY=captureY-13, so the guide-space anchor is (16,177)."
+        ],
+        "placement": {
+          "pixelX": 16,
+          "pixelY": 177,
+          "worldX": 16,
+          "worldY": 177
+        }
+      }
+    },
+    {
       "id": "veros-church-priest-4eed",
       "classId": "town-priest",
       "label": "Priest",
@@ -4628,6 +4950,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 128,
         "pixelY": 128,
@@ -4667,8 +4990,8 @@
     "movingPlatforms": 0
   },
   "actorSummary": {
-    "classes": 25,
-    "placements": 1,
+    "classes": 26,
+    "placements": 2,
     "npcs": 1,
     "enemies": 0,
     "fixtures": 0,

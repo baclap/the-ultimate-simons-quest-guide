@@ -251,6 +251,15 @@ const TEXT_CHAR_BY_BYTE = new Map([
 
 const ACTOR_CLASSES = [
   {
+    id: 'simon-belmont',
+    label: 'Simon Belmont',
+    kind: 'player',
+    selectors: [0x04, 0x01, 0x02, 0x03],
+    chrBanks: [0x00, 0x01],
+    frameDurationMs: 360,
+    proof: 'Metasprite selector $04 decodes to Simon standing tiles $03/$05/$07/$09; selectors $01/$02/$03 decode to the ROM player walking frames observed in player-slot trace writes. OAM captures from Jova start and interior-entry transitions show selector $04 at the documented spawn positions.'
+  },
+  {
     id: 'jova-shepherd',
     label: 'Jova shepherd',
     kind: 'npc',
@@ -965,6 +974,141 @@ function buildItemIconManifest(addChrSet) {
   };
 }
 
+const SIMON_SPAWN_CLASS_ID = 'simon-belmont';
+const SIMON_GUIDE_DIALOG = {
+  tone: 'guide-authored',
+  text: "Simon Belmont\n----------\nOn a quest to uncover Count Dracula's five missing body parts.",
+  source: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Basic Play, page 3.'
+};
+
+function simonSpawn({
+  id,
+  segmentId,
+  variants = ['day'],
+  paletteByVariant,
+  pixelX,
+  pixelY,
+  flipHorizontal = true,
+  evidence
+}) {
+  return {
+    id,
+    classId: SIMON_SPAWN_CLASS_ID,
+    label: 'Simon Belmont',
+    kind: 'player',
+    segmentId,
+    variants,
+    paletteByVariant,
+    placement: { pixelX, pixelY },
+    flipHorizontal,
+    guideDialog: SIMON_GUIDE_DIALOG,
+    provenance: {
+      source: 'rom-runtime-spawn-evidence',
+      evidence
+    }
+  };
+}
+
+const GUIDE_SIMON_SPAWNS = [
+  simonSpawn({
+    id: 'overworld-simon-start',
+    segmentId: 'town-of-jova',
+    variants: ['day', 'night'],
+    paletteByVariant: { day: 'town-day-sprites', night: 'town-night-sprites' },
+    pixelX: 128,
+    pixelY: 177,
+    flipHorizontal: false,
+    evidence: [
+      'Start-flow capture out/captures/jova-day is generated from the ROM and shows Simon using selector $04 at raw OAM x=120/128 and y=128/144.',
+      'The PPU renderer draws OAM Y as raw+1; selector $04 offsets x=-8/0 and y=-15/1 place the rendered screen anchor at (128,144).',
+      'The ROM-derived guide background matches the Jova capture at guideY=captureY+33, so the guide-space anchor is (128,177).'
+    ]
+  }),
+  simonSpawn({
+    id: 'berkeley-mansion-simon-spawn',
+    segmentId: 'berkeley-mansion-part-1',
+    variants: ['fixed'],
+    paletteByVariant: { fixed: 'mansion-fixed-sprites' },
+    pixelX: 16,
+    pixelY: 625,
+    evidence: [
+      'The mansion entry routine indexes $F7A6 by area-$06; Berkeley area $07 reads byte $02, placing the initial camera on the third 224 px vertical screen.',
+      'Berkeley entry OAM captures show selector $04 at raw OAM x=8/16 and y=174/190; rendered screen anchor is (16,190).',
+      'The ROM-derived guide background matches the Berkeley capture at guideY=captureY+435, so the full-map guide-space anchor is (16,625).'
+    ]
+  }),
+  simonSpawn({
+    id: 'jova-church-simon-spawn',
+    segmentId: 'jova-church',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry transition probes set Simon at raw OAM x=8/16 and y=174/190 after entering the room.',
+      'The PPU renderer draws OAM Y as raw+1; selector $04 offsets place the standing-frame screen anchor at (16,190).',
+      'The ROM-derived guide background matches the town-interior capture at guideY=captureY-13, so the guide-space anchor is (16,177).'
+    ]
+  }),
+  simonSpawn({
+    id: 'jova-thorn-whip-room-simon-spawn',
+    segmentId: 'jova-thorn-whip-room',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry transition probes set Simon at raw OAM x=8/16 and y=174/190 after entering the room.',
+      'The PPU renderer draws OAM Y as raw+1; selector $04 offsets place the standing-frame screen anchor at (16,190).',
+      'The ROM-derived guide background matches the town-interior capture at guideY=captureY-13, so the guide-space anchor is (16,177).'
+    ]
+  }),
+  simonSpawn({
+    id: 'jova-holy-water-room-simon-spawn',
+    segmentId: 'jova-holy-water-room',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry transition probes set Simon at raw OAM x=8/16 and y=174/190 after entering the room.',
+      'The PPU renderer draws OAM Y as raw+1; selector $04 offsets place the standing-frame screen anchor at (16,190).',
+      'The ROM-derived guide background matches the town-interior capture at guideY=captureY-13, so the guide-space anchor is (16,177).'
+    ]
+  }),
+  simonSpawn({
+    id: 'veros-dagger-room-simon-spawn',
+    segmentId: 'veros-dagger-entry',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry code zeroes the interior camera state before jumping to the entry handler; the Veros dagger map composes the entry submap first.',
+      'Town interior entry transition probes and the rendered capture-to-guide background match place the standing-frame guide-space selector anchor at (16,177).'
+    ]
+  }),
+  simonSpawn({
+    id: 'veros-church-simon-spawn',
+    segmentId: 'veros-church',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry transition probes set Simon at raw OAM x=8/16 and y=174/190 after entering the room.',
+      'The PPU renderer draws OAM Y as raw+1; selector $04 offsets place the standing-frame screen anchor at (16,190).',
+      'The ROM-derived guide background matches the town-interior capture at guideY=captureY-13, so the guide-space anchor is (16,177).'
+    ]
+  }),
+  simonSpawn({
+    id: 'veros-chain-whip-room-simon-spawn',
+    segmentId: 'veros-chain-whip-room',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry code zeroes the interior camera state before jumping to the entry handler, so the full guide map keeps the single Simon marker on the entry screen.',
+      'Town interior entry transition probes and the rendered capture-to-guide background match place the standing-frame guide-space selector anchor at (16,177).'
+    ]
+  })
+];
+
 const GUIDE_ACTORS = [
   { id: 'jova-shepherd-50bc', classId: 'jova-shepherd', segmentId: 'town-of-jova', offset: 0x50bc, bytes: [0x04, 0x0c, 0xb5, 0x38], variants: ['day'], text: 'first thing to do in this town is buy a white crystal.', paletteByVariant: { day: 'town-day-sprites' } },
   { id: 'jova-shepherd-50c0', classId: 'jova-shepherd', segmentId: 'town-of-jova', offset: 0x50c0, bytes: [0x04, 0x1a, 0xb5, 0x3d], variants: ['day'], text: 'you have a friend in the town of aldra. go and see him.', paletteByVariant: { day: 'town-day-sprites' } },
@@ -1405,6 +1549,9 @@ function parseHex(value) {
 }
 
 function hex(value, width = 2) {
+  if (value == null || Number.isNaN(Number(value))) {
+    return null;
+  }
   return `0x${Number(value).toString(16).toUpperCase().padStart(width, '0')}`;
 }
 
@@ -3046,7 +3193,8 @@ function actorPlacementHp(actor, actorClass, kind, bytes) {
 }
 
 function buildActorPlacement(rom, info, classById, segmentById, actor) {
-  const bytes = assertRomBytes(rom, actor.offset, actor.bytes);
+  const hasRomRow = actor.offset != null && Array.isArray(actor.bytes);
+  const bytes = hasRomRow ? assertRomBytes(rom, actor.offset, actor.bytes) : null;
   const actorClass = actor.classId ? classById.get(actor.classId) : null;
   const segment = segmentById.get(actor.segmentId);
   if (!segment) {
@@ -3071,13 +3219,31 @@ function buildActorPlacement(rom, info, classById, segmentById, actor) {
       : decodeRomDialogText(rom, info, actor.textPointerIndex ?? bytes[3]))
     : null;
   const text = actor.text || textEvidence?.text || null;
-  const runtimePixelX = bytes[0] * ACTOR_CELL_SIZE;
-  const runtimePixelY = bytes[1] * ACTOR_CELL_SIZE;
   const drawAnchor = actor.drawAnchor || actorClass?.drawAnchor || {};
-  const drawOffsetX = drawAnchor.offsetX ?? ACTOR_DRAW_ANCHOR_OFFSET_X;
-  const drawOffsetY = drawAnchor.offsetY ?? ACTOR_DRAW_ANCHOR_OFFSET_Y;
-  const drawPixelX = runtimePixelX + drawOffsetX;
-  const drawPixelY = runtimePixelY + drawOffsetY;
+  const drawOffsetX = drawAnchor.offsetX ?? (hasRomRow ? ACTOR_DRAW_ANCHOR_OFFSET_X : 0);
+  const drawOffsetY = drawAnchor.offsetY ?? (hasRomRow ? ACTOR_DRAW_ANCHOR_OFFSET_Y : 0);
+  const placement = actor.placement || {};
+  const placedPixelX = Number.isFinite(placement.worldX)
+    ? placement.worldX - segment.position.x
+    : placement.pixelX;
+  const placedPixelY = Number.isFinite(placement.worldY)
+    ? placement.worldY - segment.position.y
+    : placement.pixelY;
+  if (!hasRomRow && (!Number.isFinite(placedPixelX) || !Number.isFinite(placedPixelY))) {
+    throw new Error(`Actor ${actor.id} must provide explicit placement when it is not backed by a ROM actor row`);
+  }
+  const runtimePixelX = bytes
+    ? bytes[0] * ACTOR_CELL_SIZE
+    : (Number.isFinite(actor.runtimeAnchor?.pixelX)
+      ? actor.runtimeAnchor.pixelX
+      : placedPixelX);
+  const runtimePixelY = bytes
+    ? bytes[1] * ACTOR_CELL_SIZE
+    : (Number.isFinite(actor.runtimeAnchor?.pixelY)
+      ? actor.runtimeAnchor.pixelY
+      : placedPixelY);
+  const drawPixelX = Number.isFinite(placedPixelX) ? placedPixelX : runtimePixelX + drawOffsetX;
+  const drawPixelY = Number.isFinite(placedPixelY) ? placedPixelY : runtimePixelY + drawOffsetY;
   const itemOffer = inferredItemOffer(actor);
   return {
     id: actor.id,
@@ -3087,14 +3253,14 @@ function buildActorPlacement(rom, info, classById, segmentById, actor) {
     segmentId: actor.segmentId,
     variants: actor.variants || ['day', 'night'],
     paletteByVariant: actor.paletteByVariant || {},
-    tileX: bytes[0],
-    tileY: bytes[1],
+    tileX: bytes ? bytes[0] : Math.floor(runtimePixelX / ACTOR_CELL_SIZE),
+    tileY: bytes ? bytes[1] : Math.floor(runtimePixelY / ACTOR_CELL_SIZE),
     pixelX: drawPixelX,
     pixelY: drawPixelY,
     worldX: segment.position.x + drawPixelX,
     worldY: segment.position.y + drawPixelY,
-    actorId: hex(bytes[2], 2),
-    data: hex(bytes[3], 2),
+    actorId: bytes ? hex(bytes[2], 2) : (actor.actorId != null ? hex(actor.actorId, 2) : null),
+    data: bytes ? hex(bytes[3], 2) : (actor.data != null ? hex(actor.data, 2) : null),
     hp,
     text,
     textEvidence,
@@ -3103,6 +3269,7 @@ function buildActorPlacement(rom, info, classById, segmentById, actor) {
     secret: SECRET_DETAILS[actor.id] || null,
     visualTileRect: actor.visualTileRect || null,
     fixtureSignature: actor.fixtureSignature || null,
+    flipHorizontal: Boolean(actor.flipHorizontal),
     runtimeAnchor: {
       pixelX: runtimePixelX,
       pixelY: runtimePixelY,
@@ -3112,13 +3279,23 @@ function buildActorPlacement(rom, info, classById, segmentById, actor) {
     drawAnchor: {
       offsetX: drawOffsetX,
       offsetY: drawOffsetY,
-      source: drawAnchor.source || 'rom-row-16px-cell-visual-anchor'
+      source: drawAnchor.source || (hasRomRow ? 'rom-row-16px-cell-visual-anchor' : 'rom-runtime-spawn-selector-anchor')
     },
-    provenance: {
-      rowOffset: hex(actor.offset, 5),
-      rawBytes: publicBytes(bytes),
-      source: 'rom-actor-row'
-    }
+    provenance: hasRomRow
+      ? {
+        rowOffset: hex(actor.offset, 5),
+        rawBytes: publicBytes(bytes),
+        source: 'rom-actor-row'
+      }
+      : {
+        ...(actor.provenance || {}),
+        placement: {
+          pixelX: drawPixelX,
+          pixelY: drawPixelY,
+          worldX: segment.position.x + drawPixelX,
+          worldY: segment.position.y + drawPixelY
+        }
+      }
   };
 }
 
@@ -3325,6 +3502,7 @@ function addPalette(segmentId, variant, entry) {
   const segmentById = new Map(segments.map((segment) => [segment.id, segment]));
   const materializedActors = materializeManifestActors(sliceConfig);
   const actorsForSlice = [
+    ...GUIDE_SIMON_SPAWNS,
     ...GUIDE_ACTORS,
     ...materializedActors
   ].filter((actor) => segmentById.has(actor.segmentId));

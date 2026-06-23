@@ -30,7 +30,12 @@ function parseHex(value) {
 }
 
 function hex(value, width = 2) {
-  if (!Number.isInteger(value)) return undefined;
+  if (value == null) {
+    return undefined;
+  }
+  if (!Number.isInteger(value)) {
+    throw new Error(`cannot format invalid hex value: ${value}`);
+  }
   return `0x${value.toString(16).toUpperCase().padStart(width, '0')}`;
 }
 

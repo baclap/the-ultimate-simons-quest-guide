@@ -6,9 +6,9 @@ import {
   isCv2DialogRuleLine,
   normalizeCv2DialogText,
   renderCv2DialogFrameToRgba
-} from './dialog.js?v=dracula-rib-item-text';
+} from './dialog.js?v=spawn-camera-desktop';
 
-const CACHE_KEY = 'dracula-rib-item-text';
+const CACHE_KEY = 'spawn-camera-desktop';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
 const OVERWORLD_VIEW_ID = 'overworld';
@@ -21,6 +21,10 @@ const VEROS_CHURCH_VIEW_ID = 'veros-church';
 const VEROS_CHAIN_WHIP_ROOM_VIEW_ID = 'veros-chain-whip-room';
 const VIEW_TRANSITION_MS = 140;
 const VIEW_TRANSITION_HOLD_MS = 40;
+const NES_SCREEN_WIDTH = 256;
+const NES_SCREEN_HEIGHT = 224;
+const MOBILE_SPAWN_CAMERA_PADDING = 0.94;
+const DESKTOP_SPAWN_CAMERA_PADDING = 0.47;
 
 const ROUTE_SEGMENT_IDS = [
   'town-of-jova',
@@ -612,7 +616,9 @@ function pushSprite(vertices, actor, actorClass, frame, chrSet, displayOffset = 
   for (const sprite of frame.sprites || []) {
     const tile = numericByte(sprite.tile);
     const palette = Number.isFinite(sprite.palette) ? sprite.palette : numericByte(sprite.attr) & 0x03;
-    const x = actor.worldX + displayOffset.x + staticOffset.x + sprite.xOffset;
+    const flipHorizontal = actor.flipHorizontal ? !sprite.flipHorizontal : sprite.flipHorizontal;
+    const xOffset = actor.flipHorizontal ? -sprite.xOffset - 8 : sprite.xOffset;
+    const x = actor.worldX + displayOffset.x + staticOffset.x + xOffset;
     const y = actor.worldY + displayOffset.y + staticOffset.y + sprite.yOffset;
 
     if (!actorClass.largeSprites) {
@@ -622,7 +628,7 @@ function pushSprite(vertices, actor, actorClass, frame, chrSet, displayOffset = 
         y,
         tile,
         palette,
-        sprite.flipHorizontal,
+        flipHorizontal,
         sprite.flipVertical,
         chrSet
       );
@@ -639,7 +645,7 @@ function pushSprite(vertices, actor, actorClass, frame, chrSet, displayOffset = 
       y,
       topTile,
       palette,
-      sprite.flipHorizontal,
+      flipHorizontal,
       sprite.flipVertical,
       chrSet
     );
@@ -649,7 +655,7 @@ function pushSprite(vertices, actor, actorClass, frame, chrSet, displayOffset = 
       y + spriteHeight / 2,
       bottomTile,
       palette,
-      sprite.flipHorizontal,
+      flipHorizontal,
       sprite.flipVertical,
       chrSet
     );
@@ -1261,12 +1267,51 @@ function focusVisibleRoute() {
   focusActiveView({ reset: true });
 }
 
+function playerSpawnActor(view = currentView()) {
+  const renderer = view.renderer;
+  return renderer?.manifest?.actors?.find((actor) => actor.kind === 'player') || null;
+}
+
+function actorWorldPoint(actor, renderer = activeRenderer()) {
+  const offset = segmentDisplayOffset(actor.segmentId, renderer);
+  return {
+    x: actor.worldX + offset.x,
+    y: actor.worldY + offset.y
+  };
+}
+
+function spawnFocusBounds(view = currentView(), renderer = view.renderer) {
+  const actor = playerSpawnActor(view);
+  if (!actor || !renderer) {
+    return null;
+  }
+  const segment = renderer.segmentById.get(actor.segmentId);
+  if (!segment) {
+    return null;
+  }
+
+  const segmentPosition = segmentDisplayPosition(segment, renderer);
+  const point = actorWorldPoint(actor, renderer);
+  const width = Math.min(NES_SCREEN_WIDTH, segmentPosition.width);
+  const height = Math.min(NES_SCREEN_HEIGHT, segmentPosition.height);
+  const maxX = segmentPosition.x + segmentPosition.width - width;
+  const maxY = segmentPosition.y + segmentPosition.height - height;
+  const screenX = Math.floor((point.x - segmentPosition.x) / NES_SCREEN_WIDTH);
+  const screenY = Math.floor((point.y - segmentPosition.y) / NES_SCREEN_HEIGHT);
+
+  return {
+    x: clamp(segmentPosition.x + screenX * NES_SCREEN_WIDTH, segmentPosition.x, maxX),
+    y: clamp(segmentPosition.y + screenY * NES_SCREEN_HEIGHT, segmentPosition.y, maxY),
+    width,
+    height
+  };
+}
+
 function focusActiveView({ reset = true, view = currentView() } = {}) {
   if (!reset || !view.renderer) return;
-  const padding = view.id === OVERWORLD_VIEW_ID
-    ? (compactViewport() ? 0.78 : 0.88)
-    : (compactViewport() ? 0.86 : 0.9);
-  focusBounds(viewBounds(view), padding, view.renderer);
+  const bounds = spawnFocusBounds(view, view.renderer) || viewBounds(view);
+  const padding = compactViewport() ? MOBILE_SPAWN_CAMERA_PADDING : DESKTOP_SPAWN_CAMERA_PADDING;
+  focusBounds(bounds, padding, view.renderer);
   clampGuideCamera(view.renderer);
 }
 
@@ -2719,7 +2764,11 @@ class Cv2DialogRenderer {
       : [];
     this.renderTextElement(surface, displayLines, itemMentions, inlineIcons, scale);
     const spokenText = dialogText.replace(/[.?!]+$/, '');
-    surface.box.setAttribute('aria-label', `${model.title}. ${spokenText}.`);
+    const titleText = model.title || '';
+    const ariaText = titleText && titleText.toUpperCase() !== spokenText.toUpperCase()
+      ? `${titleText}. ${spokenText}.`
+      : `${spokenText}.`;
+    surface.box.setAttribute('aria-label', ariaText);
     return {
       dialogText,
       fullText: layout.lines.join(' ')
@@ -3093,6 +3142,16 @@ function showStackedActorGuideCard(actor) {
 function showActorCard(actor) {
   if (actor.kind === 'secret') {
     showSecretCard(actor);
+    return;
+  }
+
+  if (actor.kind === 'player') {
+    showGuideCard({
+      title: actor.label,
+      dialogText: actor.guideDialog?.text || actor.label,
+      dialogTone: actor.guideDialog?.tone || GUIDE_AUTHORED_DIALOG_TONE,
+      anchorWorldRect: () => actorWorldRect(actor)
+    });
     return;
   }
 
@@ -3733,11 +3792,9 @@ async function main() {
     itemIconRenderer
   );
   labelRenderer = new Cv2LabelRenderer(glyphs, dialogAtlas);
-  focusBounds(viewBounds(MAP_VIEWS[OVERWORLD_VIEW_ID], mapRenderer), compactViewport() ? 0.78 : 0.88, mapRenderer);
-  clampGuideCamera(mapRenderer);
   state.activeViewId = OVERWORLD_VIEW_ID;
   await ensureViewLoaded(state.activeViewId);
-  setActiveView(state.activeViewId);
+  setActiveView(state.activeViewId, { resetCamera: true });
   attachInput();
   attachControls();
   setStatus('');

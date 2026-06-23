@@ -1747,6 +1747,269 @@
   },
   "actorClasses": [
     {
+      "id": "simon-belmont",
+      "label": "Simon Belmont",
+      "kind": "player",
+      "placement": null,
+      "actorId": null,
+      "chrSet": "chr-00-01",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": 360,
+      "selectorRecord": null,
+      "frames": [
+        {
+          "selector": "0x04",
+          "pointer": "0xB172",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x03",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x05",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x07",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 1
+            },
+            {
+              "tile": "0x09",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 1
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -14,
+            "maxX": 8,
+            "maxY": 16,
+            "width": 16,
+            "height": 30,
+            "centroid": {
+              "x": 0.25,
+              "y": 1.1284722222222223
+            },
+            "opaquePixels": 288,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x01",
+          "pointer": "0xB179",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x0B",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x0D",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x0F",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 1
+            },
+            {
+              "tile": "0x11",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 1
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -15,
+            "maxX": 4,
+            "maxY": 16,
+            "width": 11,
+            "height": 31,
+            "centroid": {
+              "x": -1.3625592417061612,
+              "y": -0.6374407582938388
+            },
+            "opaquePixels": 211,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x02",
+          "pointer": "0xB180",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x13",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x15",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x17",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 1
+            },
+            {
+              "tile": "0x19",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 1
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -14,
+            "maxX": 8,
+            "maxY": 16,
+            "width": 16,
+            "height": 30,
+            "centroid": {
+              "x": -0.057692307692307696,
+              "y": 0.9262820512820513
+            },
+            "opaquePixels": 312,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x03",
+          "pointer": "0xB179",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x0B",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x0D",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -15
+            },
+            {
+              "tile": "0x0F",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 1
+            },
+            {
+              "tile": "0x11",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 1
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -15,
+            "maxX": 4,
+            "maxY": 16,
+            "width": 11,
+            "height": 31,
+            "centroid": {
+              "x": -1.3625592417061612,
+              "y": -0.6374407582938388
+            },
+            "opaquePixels": 211,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -15,
+        "maxX": 8,
+        "maxY": 17,
+        "width": 16,
+        "height": 32
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -15,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 31,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "direct-selector-list",
+      "proof": "Metasprite selector $04 decodes to Simon standing tiles $03/$05/$07/$09; selectors $01/$02/$03 decode to the ROM player walking frames observed in player-slot trace writes. OAM captures from Jova start and interior-entry transitions show selector $04 at the documented spawn positions."
+    },
+    {
       "id": "jova-shepherd",
       "label": "Jova shepherd",
       "kind": "npc",
@@ -5574,6 +5837,65 @@
   ],
   "actors": [
     {
+      "id": "berkeley-mansion-simon-spawn",
+      "classId": "simon-belmont",
+      "label": "Simon Belmont",
+      "kind": "player",
+      "segmentId": "berkeley-mansion-part-1",
+      "variants": [
+        "fixed"
+      ],
+      "paletteByVariant": {
+        "fixed": "mansion-fixed-sprites"
+      },
+      "tileX": 1,
+      "tileY": 39,
+      "pixelX": 16,
+      "pixelY": 625,
+      "worldX": 16,
+      "worldY": 625,
+      "actorId": null,
+      "data": null,
+      "hp": null,
+      "text": null,
+      "textEvidence": null,
+      "guideDialog": {
+        "tone": "guide-authored",
+        "text": "Simon Belmont\n----------\nOn a quest to uncover Count Dracula's five missing body parts.",
+        "source": "Nintendo Castlevania II: Simon's Quest instruction manual, Basic Play, page 3."
+      },
+      "itemOffer": null,
+      "secret": null,
+      "visualTileRect": null,
+      "fixtureSignature": null,
+      "flipHorizontal": true,
+      "runtimeAnchor": {
+        "pixelX": 16,
+        "pixelY": 625,
+        "worldX": 16,
+        "worldY": 625
+      },
+      "drawAnchor": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "source": "rom-runtime-spawn-selector-anchor"
+      },
+      "provenance": {
+        "source": "rom-runtime-spawn-evidence",
+        "evidence": [
+          "The mansion entry routine indexes $F7A6 by area-$06; Berkeley area $07 reads byte $02, placing the initial camera on the third 224 px vertical screen.",
+          "Berkeley entry OAM captures show selector $04 at raw OAM x=8/16 and y=174/190; rendered screen anchor is (16,190).",
+          "The ROM-derived guide background matches the Berkeley capture at guideY=captureY+435, so the full-map guide-space anchor is (16,625)."
+        ],
+        "placement": {
+          "pixelX": 16,
+          "pixelY": 625,
+          "worldX": 16,
+          "worldY": 625
+        }
+      }
+    },
+    {
       "id": "berkeley-mansion-part-1-spear-knight-5ad4",
       "classId": "mansion-spear-knight",
       "label": "spear knight",
@@ -5604,6 +5926,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 64,
         "pixelY": 224,
@@ -5767,6 +6090,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 128,
         "pixelY": 256,
@@ -5888,6 +6212,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 128,
         "pixelY": 320,
@@ -6009,6 +6334,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 192,
         "pixelY": 128,
@@ -6130,6 +6456,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 192,
         "pixelY": 480,
@@ -6293,6 +6620,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 320,
         "pixelY": 224,
@@ -6346,6 +6674,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 320,
         "pixelY": 384,
@@ -6399,6 +6728,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 384,
         "pixelY": 128,
@@ -6520,6 +6850,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 384,
         "pixelY": 480,
@@ -6641,6 +6972,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 384,
         "pixelY": 608,
@@ -6762,6 +7094,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 448,
         "pixelY": 224,
@@ -6815,6 +7148,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 448,
         "pixelY": 384,
@@ -6868,6 +7202,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 576,
         "pixelY": 224,
@@ -6921,6 +7256,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 576,
         "pixelY": 384,
@@ -6974,6 +7310,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 640,
         "pixelY": 128,
@@ -7095,6 +7432,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 640,
         "pixelY": 384,
@@ -7148,6 +7486,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 640,
         "pixelY": 480,
@@ -7269,6 +7608,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 704,
         "pixelY": 224,
@@ -7322,6 +7662,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 704,
         "pixelY": 608,
@@ -7375,6 +7716,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 832,
         "pixelY": 192,
@@ -7496,6 +7838,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 832,
         "pixelY": 608,
@@ -7617,6 +7960,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 896,
         "pixelY": 96,
@@ -7738,6 +8082,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 960,
         "pixelY": 192,
@@ -7859,6 +8204,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 960,
         "pixelY": 544,
@@ -8039,6 +8385,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 992,
         "pixelY": 192,
@@ -8146,6 +8493,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 16,
         "pixelY": 192,
@@ -8199,6 +8547,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 64,
         "pixelY": 608,
@@ -8293,6 +8642,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 112,
         "pixelY": 192,
@@ -8346,6 +8696,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 128,
         "pixelY": 544,
@@ -8509,6 +8860,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 192,
         "pixelY": 96,
@@ -8562,6 +8914,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 192,
         "pixelY": 608,
@@ -8615,6 +8968,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 320,
         "pixelY": 448,
@@ -8736,6 +9090,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 320,
         "pixelY": 544,
@@ -8899,6 +9254,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 320,
         "pixelY": 608,
@@ -9062,6 +9418,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 384,
         "pixelY": 96,
@@ -9115,6 +9472,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 384,
         "pixelY": 352,
@@ -9236,6 +9594,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 448,
         "pixelY": 192,
@@ -9357,6 +9716,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 448,
         "pixelY": 288,
@@ -9478,6 +9838,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 448,
         "pixelY": 608,
@@ -9641,6 +10002,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 640,
         "pixelY": 288,
@@ -9762,6 +10124,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 640,
         "pixelY": 480,
@@ -9883,6 +10246,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 640,
         "pixelY": 576,
@@ -10004,6 +10368,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 704,
         "pixelY": 352,
@@ -10057,6 +10422,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 704,
         "pixelY": 416,
@@ -10178,6 +10544,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 704,
         "pixelY": 608,
@@ -10344,6 +10711,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 736,
         "pixelY": 352,
@@ -10397,6 +10765,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 832,
         "pixelY": 608,
@@ -10450,6 +10819,7 @@
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 896,
         "pixelY": 608,
@@ -10549,6 +10919,7 @@
       },
       "visualTileRect": null,
       "fixtureSignature": null,
+      "flipHorizontal": false,
       "runtimeAnchor": {
         "pixelX": 976,
         "pixelY": 336,
@@ -10588,8 +10959,8 @@
     "movingPlatforms": 1
   },
   "actorSummary": {
-    "classes": 25,
-    "placements": 49,
+    "classes": 26,
+    "placements": 50,
     "npcs": 1,
     "enemies": 44,
     "fixtures": 0,

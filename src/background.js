@@ -25,7 +25,11 @@ function parseHexByte(value) {
 }
 
 function toHex(value, width = 4) {
-  return value.toString(16).toUpperCase().padStart(width, '0');
+  const number = Number(value);
+  if (!Number.isInteger(number)) {
+    throw new Error(`cannot format invalid hex value: ${value}`);
+  }
+  return number.toString(16).toUpperCase().padStart(width, '0');
 }
 
 function cpuAddressToPrgOffset(info, cpuAddress, opts = {}) {

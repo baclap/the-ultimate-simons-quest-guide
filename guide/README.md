@@ -123,6 +123,10 @@ dialogue text, and palette source are backed by ROM-derived evidence:
 - The only actor-like rows intentionally excluded from the character layer are
   the documented `$43` rendering-control rows. They are not NPCs/enemies and do
   not represent visible guide characters.
+- Simon Belmont spawn markers are guide-authored character-layer markers backed
+  by ROM/runtime transition evidence rather than ROM actor rows. The sprite
+  source, spawn anchors, and per-view placements are documented in
+  `docs/simon-spawn-marker-notes.md`.
 - Berkeley Mansion is generated from the interior research standard in
   `docs/interior-map-research-standard.md`. The whole-mansion scene promotes 49
   mansion actor rows: 44 enemies, 4 fixtures, and 1 NPC. The proof artifact also
