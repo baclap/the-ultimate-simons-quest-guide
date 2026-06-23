@@ -32,9 +32,12 @@ Current promoted menu item tiles:
 | Dracula's Rib | `$4E` | Fixed-bank start-menu body-part table `7:$F033` orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring. |
 | Dracula's Eyeball | `$50` | Fixed-bank start-menu body-part table `7:$F033` orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring. |
 | Dracula's Nail | `$51` | Fixed-bank start-menu body-part table `7:$F033` orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring. |
+| Dagger | `$54` | Fixed-bank weapon/crystal start-menu table `7:$F038`; ROM sale-table triple at file offset `$1ED31` is `$54 $00 $50`. |
 | Holy Water | `$57` | Fixed-bank weapon/crystal start-menu table `7:$F038`; the guide secret proof decodes Holy Water as the block-breaking projectile path. |
 | Laurels | `$58` | Fixed-bank carry-item menu branch loads tile `$58` before drawing through `7:$EB9C`. |
 | Oak Stake | `$59` | Start-menu PPU capture `out/captures/game-menu-jova-woods-start`; ROM sale-table triple at file offset `$1ED37` is `$59 $00 $50`. |
+| Thorn Whip | `$5B` | Fixed-bank weapon/crystal start-menu table `7:$F038`; ROM sale-table triple at file offset `$1ED3D` is `$5B $01 $00`. |
+| Chain Whip | `$5B` | Fixed-bank weapon/crystal start-menu table `7:$F038`; ROM sale-table triple at file offset `$1ED40` is `$5B $01 $50`. |
 | White Crystal | `$5E` | Start-menu PPU capture `out/captures/game-menu-jova-woods-start`; ROM sale-table triple at file offset `$1ED3A` is `$5E $00 $50`. |
 | Heart currency | `$61` | Start-menu PPU capture `out/captures/game-menu-jova-woods-start` shows the heart glyph in the menu price/status row. |
 | Sacred Flame | `$69` | Fixed-bank weapon/crystal start-menu table `7:$F038`. |
@@ -47,7 +50,8 @@ reference because the ROM-backed guide proof identifies Holy Water as the
 block-breaking weapon used for that player-facing behavior.
 
 The current merchant prices come from the ROM sale table, not from the manual.
-The `$00 $50` bytes in the promoted sale rows are decoded as `50` hearts.
+The promoted rows currently decode `$00 $50` as `50` hearts and `$01 $00` as
+`100` hearts; Veros adds `$01 $50` as `150` hearts.
 
 The current item explanation text comes from the Nintendo-hosted English NES
 manual PDF:
@@ -56,7 +60,9 @@ manual PDF:
 https://www.nintendo.co.jp/clv/manuals/en/pdf/CLV-P-NABXE.pdf
 ```
 
-- Magic Weapons, page 10: Oak Stake.
+- Magic Weapons, page 10: Dagger, Oak Stake.
+- Magic Weapons, page 10: Thorn Whip, Holy Water, Oak Stake.
+- Magic Weapons, page 10: Chain Whip.
 - Magic Items, page 11: White Crystal.
 
 Future item-giver work should add an `itemOffer` to the promoted actor source,

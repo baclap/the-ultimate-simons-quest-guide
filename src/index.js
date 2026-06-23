@@ -132,6 +132,8 @@ function usage() {
     '  node src/index.js audit-render-recipes --rom roms/cv2.nes --fixtures data/render-recipe-fixtures.json --out out/render-recipe-audit',
     '  node src/index.js render-recipe-atlas --rom roms/cv2.nes --audit out/render-recipe-audit/audit.json --out out/render-recipe-atlas',
     '  node src/index.js analyze-interior-map --rom roms/cv2.nes --id berkeley-mansion --objset 0x01 --area 0x07 --atlas out/render-recipe-atlas/manifest.json --out out/interior-map-research/berkeley-mansion.json',
+    '  node src/index.js analyze-interior-map --rom roms/cv2.nes --id jova-interiors --objset 0x00 --areas 0x07,0x08,0x09 --atlas out/render-recipe-atlas/manifest.json --out out/interior-map-research/jova-interiors.json',
+    '  node src/index.js analyze-interior-map --rom roms/cv2.nes --id veros-interiors --objset 0x00 --areas 0x07,0x0A,0x0B --atlas out/render-recipe-atlas/manifest.json --out out/interior-map-research/veros-interiors.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --descriptor-file data/background-descriptors.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
     '',
@@ -210,6 +212,29 @@ function requiredIntegerOption(args, name) {
     throw new Error(`missing required --${name}`);
   }
   return parsed;
+}
+
+function integerListOption(args, name) {
+  if (args[name] == null || args[name] === true) {
+    return null;
+  }
+  const values = String(args[name])
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean)
+    .map((value) => {
+      const parsed = value.startsWith('0x') || value.startsWith('0X')
+        ? Number.parseInt(value.slice(2), 16)
+        : Number.parseInt(value, 10);
+      if (!Number.isFinite(parsed)) {
+        throw new Error(`--${name} must be a comma-separated list of integers`);
+      }
+      return parsed;
+    });
+  if (values.length === 0) {
+    throw new Error(`--${name} must include at least one integer`);
+  }
+  return values;
 }
 
 function verifyRom(args) {
@@ -810,12 +835,14 @@ function analyzeInteriorMapCommand(args) {
   const romPath = required(args, 'rom');
   const outFile = args.out ? String(args.out) : path.join('out', 'interior-map-research', `${args.id || 'interior-map'}.json`);
   const objset = requiredIntegerOption(args, 'objset');
-  const area = requiredIntegerOption(args, 'area');
+  const areas = integerListOption(args, 'areas');
+  const area = areas ? undefined : requiredIntegerOption(args, 'area');
   const { buffer, info } = readRom(romPath);
   const analysis = analyzeInteriorMap(buffer, info, {
     id: args.id ? String(args.id) : undefined,
     objset,
     area,
+    areas,
     atlasFile: args.atlas ? String(args.atlas) : undefined
   });
   writeInteriorMapResearch(outFile, analysis);

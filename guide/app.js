@@ -6,14 +6,19 @@ import {
   isCv2DialogRuleLine,
   normalizeCv2DialogText,
   renderCv2DialogFrameToRgba
-} from './dialog.js?v=dialog-inline-icon-align';
+} from './dialog.js?v=dracula-rib-item-text';
 
-const CACHE_KEY = 'dialog-inline-icon-align';
+const CACHE_KEY = 'dracula-rib-item-text';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
-const SCENE_URL = `./assets/scenes/berkeley-mansion/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
 const OVERWORLD_VIEW_ID = 'overworld';
 const BERKELEY_MANSION_VIEW_ID = 'berkeley-mansion';
+const JOVA_CHURCH_VIEW_ID = 'jova-church';
+const JOVA_THORN_WHIP_ROOM_VIEW_ID = 'jova-thorn-whip-room';
+const JOVA_HOLY_WATER_ROOM_VIEW_ID = 'jova-holy-water-room';
+const VEROS_DAGGER_ROOM_VIEW_ID = 'veros-dagger-room';
+const VEROS_CHURCH_VIEW_ID = 'veros-church';
+const VEROS_CHAIN_WHIP_ROOM_VIEW_ID = 'veros-chain-whip-room';
 const VIEW_TRANSITION_MS = 140;
 const VIEW_TRANSITION_HOLD_MS = 40;
 
@@ -165,6 +170,61 @@ const MAP_VIEWS = {
     ariaLabel: 'Berkeley Mansion interior map',
     supportsPalette: false,
     fixedVariant: 'fixed',
+    sceneUrl: `./assets/scenes/berkeley-mansion/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [JOVA_CHURCH_VIEW_ID]: {
+    id: JOVA_CHURCH_VIEW_ID,
+    label: 'Jova Church',
+    ariaLabel: 'Jova Church interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/jova-church/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [JOVA_THORN_WHIP_ROOM_VIEW_ID]: {
+    id: JOVA_THORN_WHIP_ROOM_VIEW_ID,
+    label: 'Jova Thorn Whip Room',
+    ariaLabel: 'Jova Thorn Whip Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/jova-thorn-whip-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [JOVA_HOLY_WATER_ROOM_VIEW_ID]: {
+    id: JOVA_HOLY_WATER_ROOM_VIEW_ID,
+    label: 'Jova Holy Water Room',
+    ariaLabel: 'Jova Holy Water Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/jova-holy-water-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [VEROS_DAGGER_ROOM_VIEW_ID]: {
+    id: VEROS_DAGGER_ROOM_VIEW_ID,
+    label: 'Veros Dagger Room',
+    ariaLabel: 'Veros Dagger Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/veros-dagger-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [VEROS_CHURCH_VIEW_ID]: {
+    id: VEROS_CHURCH_VIEW_ID,
+    label: 'Veros Church',
+    ariaLabel: 'Veros Church interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/veros-church/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [VEROS_CHAIN_WHIP_ROOM_VIEW_ID]: {
+    id: VEROS_CHAIN_WHIP_ROOM_VIEW_ID,
+    label: 'Veros Chain Whip Room',
+    ariaLabel: 'Veros Chain Whip Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/veros-chain-whip-room/slice.json?v=${CACHE_KEY}`,
     renderer: null
   }
 };
@@ -183,18 +243,6 @@ const FLOATING_VEROS_SIDE_HYSTERESIS = 96;
 const FLOATING_VEROS_EASE_MS = 180;
 const FLOATING_VEROS_FRAME_MS = 48;
 const FLOATING_VEROS_SNAP_EPSILON = 0.25;
-
-const HOTSPOTS = [
-  {
-    id: 'berkeley-door',
-    type: 'door',
-    segmentId: 'berkeley-mansion-door',
-    label: 'Enter Berkeley Mansion',
-    tileRect: { x: 13, y: 16, width: 6, height: 8 },
-    note: 'Door to Berkeley Mansion.',
-    opensView: BERKELEY_MANSION_VIEW_ID
-  }
-];
 
 const dom = {
   mapCanvas: document.querySelector('#map-canvas'),
@@ -1061,6 +1109,8 @@ const state = {
 
 let mapRenderer;
 let sceneRenderer;
+let loadedSceneViewId = null;
+const sceneLoadPromises = new Map();
 let dialogRenderer;
 let labelRenderer;
 let itemIconRenderer;
@@ -1076,6 +1126,7 @@ let destructibleHotspots = [];
 let actorHotspots = [];
 let secretFeatureHotspots = [];
 let itemBadges = [];
+let doorItemBadges = [];
 let labelLeaderSvg;
 const overlayActionByElement = new WeakMap();
 const floatingProjection = {
@@ -1108,24 +1159,42 @@ function activeRenderer() {
   return currentView().renderer;
 }
 
+async function ensureViewLoaded(viewId) {
+  const view = MAP_VIEWS[viewId] || MAP_VIEWS[OVERWORLD_VIEW_ID];
+  if (view.id === OVERWORLD_VIEW_ID) {
+    return mapRenderer;
+  }
+  if (!view.sceneUrl) {
+    return view.renderer;
+  }
+  if (loadedSceneViewId === view.id && view.renderer === sceneRenderer) {
+    return sceneRenderer;
+  }
+  if (!sceneLoadPromises.has(view.id)) {
+    const loadPromise = sceneRenderer.load(view.sceneUrl).then(() => {
+      for (const candidate of Object.values(MAP_VIEWS)) {
+        if (candidate.id !== OVERWORLD_VIEW_ID) {
+          candidate.renderer = null;
+        }
+      }
+      view.renderer = sceneRenderer;
+      loadedSceneViewId = view.id;
+      return sceneRenderer;
+    }).finally(() => {
+      // The scene canvas is shared, so a completed load is not reusable after another view loads.
+      if (sceneLoadPromises.get(view.id) === loadPromise) {
+        sceneLoadPromises.delete(view.id);
+      }
+    });
+    sceneLoadPromises.set(view.id, loadPromise);
+  }
+  return sceneLoadPromises.get(view.id);
+}
+
 function activeVariant(view = currentView()) {
   return view.supportsPalette
     ? state.variant
     : view.fixedVariant || view.defaultVariant || 'fixed';
-}
-
-function viewHash(viewId) {
-  return viewId === OVERWORLD_VIEW_ID ? '' : `#view=${encodeURIComponent(viewId)}`;
-}
-
-function viewIdFromHash(hash = window.location.hash) {
-  if (!hash) {
-    return OVERWORLD_VIEW_ID;
-  }
-  const normalized = hash.startsWith('#') ? hash.slice(1) : hash;
-  const params = new URLSearchParams(normalized);
-  const viewId = params.get('view');
-  return MAP_VIEWS[viewId] ? viewId : OVERWORLD_VIEW_ID;
 }
 
 function wait(ms) {
@@ -1629,6 +1698,10 @@ function secretFeatureMatchesVariant(feature) {
   return (feature.variants || ['day', 'night']).includes(activeVariant());
 }
 
+function hotspotMatchesVariant(hotspot) {
+  return (hotspot.variants || ['day', 'night']).includes(activeVariant());
+}
+
 function actorIsMapObject(actor) {
   return actor.kind === 'fixture';
 }
@@ -1701,7 +1774,8 @@ function overlayElements() {
     ...destructibleHotspots.map((item) => item.element),
     ...actorHotspots.map((item) => item.element),
     ...secretFeatureHotspots.map((item) => item.element),
-    ...itemBadges.map((item) => item.element)
+    ...itemBadges.map((item) => item.element),
+    ...doorItemBadges.map((item) => item.element)
   ].filter((element) => !element.hidden && element.getClientRects().length > 0);
 }
 
@@ -1736,11 +1810,11 @@ function overlayPriority(element) {
   if (element.classList.contains('item-badge')) {
     return 70;
   }
+  if (element.classList.contains('hotspot') && element.classList.contains('is-clickable')) {
+    return 60;
+  }
   if (element.classList.contains('actor-hotspot') && element.classList.contains('is-npc')) {
     return 50;
-  }
-  if (element.classList.contains('hotspot') && element.classList.contains('is-clickable')) {
-    return 40;
   }
   if (element.classList.contains('actor-hotspot') && element.classList.contains('is-secret')) {
     return 32;
@@ -1775,6 +1849,9 @@ function resolveOverlayClickTarget(event, fallback) {
 
   const hitRect = fallback.getBoundingClientRect();
   if (!containsPoint(hitRect, event.clientX, event.clientY)) {
+    return fallback;
+  }
+  if (fallback.classList.contains('hotspot') && fallback.classList.contains('is-clickable')) {
     return fallback;
   }
 
@@ -1833,6 +1910,7 @@ function buildOverlays() {
   actorHotspots = [];
   secretFeatureHotspots = [];
   itemBadges = [];
+  doorItemBadges = [];
   labelLeaderSvg = makeSvgElement('svg', 'label-leaders');
   dom.overlay.append(labelLeaderSvg);
 
@@ -1859,17 +1937,18 @@ function buildOverlays() {
 
   }
 
-  const viewHotspots = view.hasDoorHotspots ? HOTSPOTS : [];
+  const viewHotspots = view.hasDoorHotspots ? (renderer.manifest.doorHotspots || []) : [];
   for (const hotspot of viewHotspots) {
     const element = makeElement(`hotspot is-${hotspot.type}`, 'button');
+    const itemLabel = hotspot.itemReward?.itemLabel;
+    const accessibleLabel = itemLabel ? `${hotspot.label}; contains ${itemLabel}` : hotspot.label;
     element.type = 'button';
-    element.title = hotspot.label;
-    element.setAttribute('aria-label', hotspot.label);
+    element.title = itemLabel ? `${hotspot.label} (${itemLabel})` : hotspot.label;
+    element.setAttribute('aria-label', accessibleLabel);
     if (hotspot.opensView) {
       element.classList.add('is-clickable');
       addGuardedClick(element, () => enterView(hotspot.opensView, {
-        sourceElement: element,
-        push: true
+        sourceElement: element
       }));
     } else {
       addGuardedClick(element, () => showGuideInspector({
@@ -1880,6 +1959,22 @@ function buildOverlays() {
       }));
     }
     hotspots.push({ element, hotspot });
+
+    if (hotspot.itemReward) {
+      const badge = makeElement('item-badge is-door-badge', 'button');
+      const frameCanvas = document.createElement('canvas');
+      const iconCanvas = document.createElement('canvas');
+      badge.type = 'button';
+      badge.title = `${hotspot.itemReward.itemLabel} in ${hotspot.label.replace(/^Enter\s+/i, '')}`;
+      badge.setAttribute('aria-label', `${hotspot.itemReward.itemLabel} details`);
+      frameCanvas.className = 'item-badge-frame-canvas';
+      iconCanvas.className = 'item-badge-icon-canvas';
+      frameCanvas.setAttribute('aria-hidden', 'true');
+      iconCanvas.setAttribute('aria-hidden', 'true');
+      badge.append(frameCanvas, iconCanvas);
+      addGuardedClick(badge, () => showItemRewardCard(hotspot));
+      doorItemBadges.push({ element: badge, hotspot, frameCanvas, iconCanvas, renderedKey: null });
+    }
   }
 
   for (const fixture of renderer.manifest.destructibleFixtures || []) {
@@ -1909,7 +2004,7 @@ function buildOverlays() {
     actorHotspots.push({ element, actor });
 
     if (actor.itemOffer) {
-      const badge = makeElement('item-badge', 'button');
+      const badge = makeElement('item-badge is-character-badge', 'button');
       const frameCanvas = document.createElement('canvas');
       const iconCanvas = document.createElement('canvas');
       badge.type = 'button';
@@ -1958,20 +2053,38 @@ function itemBadgeVisualRect(actor, scale) {
     return null;
   }
   const actorRect = worldRectToScreen(renderer, actorWorldRect(actor));
+  return itemBadgeRectForAnchor(actorRect, scale);
+}
+
+function itemBadgeRectForAnchor(anchorRect, scale) {
   const size = ITEM_BADGE_TILE_COLUMNS * 8 * scale;
   return {
-    left: actorRect.left + actorRect.width / 2 - size / 2,
-    top: actorRect.top - ITEM_BADGE_GAP_PX - size,
+    left: anchorRect.left + anchorRect.width / 2 - size / 2,
+    top: anchorRect.top - ITEM_BADGE_GAP_PX - size,
     width: size,
     height: size
   };
 }
 
+function doorItemBadgeVisualRect(hotspot, scale) {
+  const renderer = activeRenderer();
+  const worldRect = hotspotWorldRect(hotspot);
+  if (!renderer || !worldRect) {
+    return null;
+  }
+  return itemBadgeRectForAnchor(worldRectToScreen(renderer, worldRect), scale);
+}
+
+function itemBadgeItemId(item) {
+  return item.actor?.itemOffer?.itemId || item.hotspot?.itemReward?.itemId || null;
+}
+
 function renderItemBadge(item, scale, placement) {
-  if (!dialogRenderer || !itemIconRenderer || !item.actor.itemOffer) {
+  const itemId = itemBadgeItemId(item);
+  if (!dialogRenderer || !itemIconRenderer || !itemId) {
     return;
   }
-  const key = `${item.actor.itemOffer.itemId}:${scale}`;
+  const key = `${itemId}:${scale}`;
   const frameSize = ITEM_BADGE_TILE_COLUMNS * 8 * scale;
   const iconSize = 8 * scale;
   if (item.renderedKey !== key) {
@@ -1987,7 +2100,7 @@ function renderItemBadge(item, scale, placement) {
     context.putImageData(new ImageData(rendered.rgba, rendered.width, rendered.height), 0, 0);
     item.frameCanvas.style.width = `${frameSize}px`;
     item.frameCanvas.style.height = `${frameSize}px`;
-    itemIconRenderer.renderIcon(item.iconCanvas, item.actor.itemOffer.itemId, scale);
+    itemIconRenderer.renderIcon(item.iconCanvas, itemId, scale);
     item.renderedKey = key;
   }
   item.frameCanvas.style.left = `${placement.visualX}px`;
@@ -2148,7 +2261,7 @@ function updateOverlays() {
 
   for (const item of hotspots) {
     const worldRect = hotspotWorldRect(item.hotspot);
-    if (!worldRect) {
+    if (!hotspotMatchesVariant(item.hotspot) || !worldRect) {
       item.element.hidden = true;
       continue;
     }
@@ -2189,7 +2302,7 @@ function updateOverlays() {
   }
 
   for (const item of itemBadges) {
-    const visible = Boolean(item.actor.itemOffer) && shouldShowActorHotspot(item.actor);
+    const visible = state.labels && Boolean(item.actor.itemOffer) && shouldShowActorHotspot(item.actor);
     item.element.hidden = !visible;
     if (!visible) continue;
     const scale = itemBadgeScale(renderer);
@@ -2200,7 +2313,22 @@ function updateOverlays() {
     }
     const placement = setHitRect(item.element, rect);
     renderItemBadge(item, scale, placement);
-    item.element.classList.toggle('is-highlight-hidden', !actorHighlightVisible(item.actor));
+    item.element.classList.toggle('is-highlight-hidden', !state.highlightCharacters);
+  }
+
+  for (const item of doorItemBadges) {
+    const visible = state.labels && Boolean(item.hotspot.itemReward) && hotspotMatchesVariant(item.hotspot);
+    item.element.hidden = !visible;
+    if (!visible) continue;
+    const scale = itemBadgeScale(renderer);
+    const rect = doorItemBadgeVisualRect(item.hotspot, scale);
+    if (!rect) {
+      item.element.hidden = true;
+      continue;
+    }
+    const placement = setHitRect(item.element, rect);
+    renderItemBadge(item, scale, placement);
+    item.element.classList.toggle('is-highlight-hidden', !state.highlightDoors);
   }
 }
 
@@ -2894,20 +3022,33 @@ function itemOfferCostIcon(offer) {
   };
 }
 
-function showItemOfferCard(actor) {
-  const offer = actor.itemOffer;
-  if (!offer) {
+function showItemDetailsCard({ item, anchorWorldRect }) {
+  if (!item) {
     return;
   }
   showGuideCard({
-    title: offer.itemLabel,
+    title: item.itemLabel,
     dialogText: [
-      offer.itemLabel,
+      item.itemLabel,
       '----------',
-      offer.manualText || 'Guide details for this item are not attached yet.'
+      item.manualText || 'Guide details for this item are not attached yet.'
     ].join('\n'),
     dialogTone: GUIDE_AUTHORED_DIALOG_TONE,
+    anchorWorldRect
+  });
+}
+
+function showItemOfferCard(actor) {
+  showItemDetailsCard({
+    item: actor.itemOffer,
     anchorWorldRect: () => actorWorldRect(actor)
+  });
+}
+
+function showItemRewardCard(hotspot) {
+  showItemDetailsCard({
+    item: hotspot.itemReward,
+    anchorWorldRect: () => hotspotWorldRect(hotspot)
   });
 }
 
@@ -2922,6 +3063,24 @@ function showItemMerchantCard(actor) {
         dialogText: itemOfferMerchantText(offer),
         dialogTone: GUIDE_AUTHORED_DIALOG_TONE,
         inlineIcons: [itemOfferCostIcon(offer)]
+      },
+      {
+        title: actor.label,
+        dialogText: actor.text
+      }
+    ]
+  });
+}
+
+function showStackedActorGuideCard(actor) {
+  showGuideCard({
+    title: actor.label,
+    anchorWorldRect: () => actorWorldRect(actor),
+    dialogs: [
+      {
+        title: actor.label,
+        dialogText: actor.guideDialog.text,
+        dialogTone: actor.guideDialog.tone || GUIDE_AUTHORED_DIALOG_TONE
       },
       {
         title: actor.label,
@@ -2949,6 +3108,11 @@ function showActorCard(actor) {
 
   if (actor.itemOffer && actor.text) {
     showItemMerchantCard(actor);
+    return;
+  }
+
+  if (actor.guideDialog && actor.text) {
+    showStackedActorGuideCard(actor);
     return;
   }
 
@@ -3050,15 +3214,15 @@ function syncControls() {
   dom.optionsToggle.setAttribute('aria-expanded', dom.optionsPanel.hidden ? 'false' : 'true');
 }
 
-function setRouteState(viewId, mode = 'replace', fromViewId = null) {
-  const url = new URL(window.location.href);
-  url.hash = viewHash(viewId);
-  const stateValue = { viewId, fromViewId };
-  if (mode === 'push') {
-    window.history.pushState(stateValue, '', url);
-  } else {
-    window.history.replaceState(stateValue, '', url);
-  }
+function syncLayerStateFromControls() {
+  state.labels = dom.labelsToggle.checked;
+  state.sectionOutlines = dom.sectionOutlinesToggle.checked;
+  state.highlightDoors = dom.highlightDoorsToggle.checked;
+  state.showCharacters = dom.showCharactersToggle.checked;
+  state.showSecrets = dom.showSecretsToggle.checked;
+  state.highlightCharacters = dom.highlightCharactersToggle.checked;
+  state.highlightMapObjects = dom.highlightMapObjectsToggle.checked;
+  state.highlightSecrets = dom.highlightSecretsToggle.checked;
 }
 
 function setActiveView(viewId, { resetCamera = false } = {}) {
@@ -3090,6 +3254,8 @@ async function transitionToView(viewId, { resetCamera = false, focusTarget = nul
   dom.viewTransition.classList.add('is-active');
   await wait(VIEW_TRANSITION_MS);
   if (token !== viewTransitionToken) return;
+  await ensureViewLoaded(view.id);
+  if (token !== viewTransitionToken) return;
   setActiveView(view.id, { resetCamera });
   await wait(VIEW_TRANSITION_HOLD_MS);
   if (token !== viewTransitionToken) return;
@@ -3105,18 +3271,13 @@ async function transitionToView(viewId, { resetCamera = false, focusTarget = nul
   }
 }
 
-function enterView(viewId, { sourceElement = null, push = false, replace = false } = {}) {
+function enterView(viewId, { sourceElement = null } = {}) {
   const nextView = MAP_VIEWS[viewId] ? viewId : OVERWORLD_VIEW_ID;
   if (nextView === state.activeViewId) {
     return;
   }
   if (sourceElement) {
     pendingReturnFocus = sourceElement;
-  }
-  if (push) {
-    setRouteState(nextView, 'push', state.activeViewId);
-  } else if (replace) {
-    setRouteState(nextView, 'replace', null);
   }
   transitionToView(nextView, {
     resetCamera: nextView !== OVERWORLD_VIEW_ID,
@@ -3132,30 +3293,7 @@ function leaveView() {
   if (state.activeViewId === OVERWORLD_VIEW_ID) {
     return;
   }
-  if (window.history.state?.viewId === state.activeViewId
-    && window.history.state?.fromViewId === OVERWORLD_VIEW_ID
-    && window.history.length > 1) {
-    window.history.back();
-    return;
-  }
-  enterView(OVERWORLD_VIEW_ID, { replace: true });
-}
-
-function syncViewFromLocation({ replaceState = false } = {}) {
-  const viewId = viewIdFromHash();
-  if (replaceState || !window.history.state?.viewId) {
-    setRouteState(viewId, 'replace');
-  }
-  if (viewId !== state.activeViewId) {
-    transitionToView(viewId, {
-      resetCamera: viewId !== OVERWORLD_VIEW_ID,
-      focusTarget: viewId === OVERWORLD_VIEW_ID ? pendingReturnFocus : dom.paletteToggle
-    }).then(() => {
-      if (viewId === OVERWORLD_VIEW_ID) {
-        pendingReturnFocus = null;
-      }
-    });
-  }
+  enterView(OVERWORLD_VIEW_ID);
 }
 
 function attachInput() {
@@ -3165,16 +3303,30 @@ function attachInput() {
   let pinchStartScale = 1;
   let dragHistory = [];
   let gestureRenderer = null;
-  const mapInteractionTargets = [dom.mapCanvas, dom.sceneCanvas, dom.overlay];
+  let gestureStartedOnDialog = false;
+  const mapInteractionTargets = [dom.mapCanvas, dom.sceneCanvas, dom.overlay, dom.guideCard];
+  const mapGestureSelector = '.hotspot, .destructible-hotspot, .secret-feature-hotspot, .actor-hotspot, .item-badge';
+  const dialogGestureSelector = '.guide-card';
   const modernUiSelector = '.map-chrome, .options-panel, .guide-card, .guide-inspector, .status';
 
-  function canStartMapGesture(target) {
+  function isDialogGestureTarget(target) {
+    return target instanceof Element && Boolean(target.closest(dialogGestureSelector));
+  }
+
+  function canStartMapGesture(event) {
     const renderer = activeRenderer();
+    const { target } = event;
     if (!(target instanceof Element)) {
       return false;
     }
+    if (isDialogGestureTarget(target)) {
+      if (target.closest('.dialog-close')) {
+        return false;
+      }
+      return event.pointerType !== 'mouse';
+    }
     return target === renderer?.canvas
-      || Boolean(target.closest('.hotspot, .destructible-hotspot, .secret-feature-hotspot, .actor-hotspot, .item-badge'));
+      || Boolean(target.closest(mapGestureSelector));
   }
 
   function canWheelZoomMap(target) {
@@ -3275,6 +3427,11 @@ function attachInput() {
       recordDragSample(time, renderer);
       return;
     }
+    if (gestureStartedOnDialog && pointers.size === 1) {
+      lastCentroid = nextCentroid;
+      resetDragHistory(time, renderer);
+      return;
+    }
     const dpr = Math.max(1, window.devicePixelRatio || 1);
     const cameraDeltaX = -((nextCentroid.x - lastCentroid.x) * dpr) / renderer.camera.scale;
     const cameraDeltaY = -((nextCentroid.y - lastCentroid.y) * dpr) / renderer.camera.scale;
@@ -3290,15 +3447,21 @@ function attachInput() {
   }
 
   function onPointerDown(event) {
-    if (state.transitioning || event.button !== 0 || !canStartMapGesture(event.target)) {
+    if (state.transitioning || event.button !== 0 || !canStartMapGesture(event)) {
       return;
     }
     const renderer = activeRenderer();
     if (!renderer) return;
+    const startsOnDialog = isDialogGestureTarget(event.target);
     gestureRenderer = renderer;
+    gestureStartedOnDialog = gestureStartedOnDialog || startsOnDialog;
     stopPanInertia();
     resetDragHistory(eventTimeMs(event), renderer);
-    const captureTarget = event.target instanceof Element ? event.target : renderer.canvas;
+    const captureTarget = startsOnDialog
+      ? dom.guideCard
+      : event.target instanceof Element
+        ? event.target
+        : renderer.canvas;
     if (captureTarget.setPointerCapture) {
       captureTarget.setPointerCapture(event.pointerId);
     }
@@ -3308,6 +3471,9 @@ function attachInput() {
 
   function onPointerMove(event) {
     if (!pointers.has(event.pointerId)) return;
+    if (event.cancelable) {
+      event.preventDefault();
+    }
     const renderer = gestureRenderer || activeRenderer();
     if (!renderer) return;
     const events = pointers.size === 1 && typeof event.getCoalescedEvents === 'function'
@@ -3336,12 +3502,18 @@ function attachInput() {
   function onPointerEnd(event) {
     const wasSinglePointer = pointers.size === 1;
     const renderer = gestureRenderer || activeRenderer();
-    const captureTarget = event.target instanceof Element ? event.target : renderer?.canvas;
-    if (captureTarget.hasPointerCapture?.(event.pointerId)) {
-      captureTarget.releasePointerCapture(event.pointerId);
+    const captureTargets = [
+      dom.guideCard,
+      event.target instanceof Element ? event.target : null,
+      renderer?.canvas
+    ].filter(Boolean);
+    for (const captureTarget of captureTargets) {
+      if (captureTarget.hasPointerCapture?.(event.pointerId)) {
+        captureTarget.releasePointerCapture(event.pointerId);
+      }
     }
     pointers.delete(event.pointerId);
-    if (renderer && event.type === 'pointerup' && wasSinglePointer && pointers.size === 0) {
+    if (renderer && event.type === 'pointerup' && wasSinglePointer && pointers.size === 0 && !gestureStartedOnDialog) {
       const velocity = releaseVelocity(eventTimeMs(event), renderer);
       startPanInertia(velocity.x, velocity.y, renderer);
     } else {
@@ -3351,6 +3523,7 @@ function attachInput() {
     resetGesture();
     if (pointers.size === 0) {
       gestureRenderer = null;
+      gestureStartedOnDialog = false;
     }
   }
 
@@ -3361,13 +3534,22 @@ function attachInput() {
   window.addEventListener('pointerup', onPointerEnd);
   window.addEventListener('pointercancel', onPointerEnd);
 
-  for (const target of [dom.mapCanvas, dom.sceneCanvas]) {
+  for (const target of [dom.mapCanvas, dom.sceneCanvas, dom.guideCard]) {
     target.addEventListener('lostpointercapture', (event) => {
       pointers.delete(event.pointerId);
       if (pointers.size === 0) {
         gestureRenderer = null;
+        gestureStartedOnDialog = false;
       }
     });
+  }
+
+  for (const nativeGestureEvent of ['gesturestart', 'gesturechange', 'gestureend']) {
+    window.addEventListener(nativeGestureEvent, (event) => {
+      if (event.cancelable) {
+        event.preventDefault();
+      }
+    }, { passive: false });
   }
 
   window.addEventListener('wheel', (event) => {
@@ -3426,6 +3608,7 @@ function attachControls() {
     if (currentView().supportsPalette) {
       state.variant = state.variant === 'day' ? 'night' : 'day';
       syncControls();
+      updateOverlays();
       renderGuideInspector();
     } else {
       leaveView();
@@ -3484,11 +3667,10 @@ function attachControls() {
     renderGuideCard();
     renderGuideInspector();
   });
-  window.addEventListener('popstate', () => syncViewFromLocation());
-  window.addEventListener('hashchange', () => syncViewFromLocation({ replaceState: true }));
 }
 
 function renderLoop() {
+  syncLayerStateFromControls();
   applyPanInertia();
   const view = currentView();
   const renderer = view.renderer;
@@ -3524,9 +3706,7 @@ async function main() {
   mapRenderer = new TileRenderer(dom.mapCanvas);
   sceneRenderer = new TileRenderer(dom.sceneCanvas);
   await mapRenderer.load(SLICE_URL);
-  await sceneRenderer.load(SCENE_URL);
   MAP_VIEWS[OVERWORLD_VIEW_ID].renderer = mapRenderer;
-  MAP_VIEWS[BERKELEY_MANSION_VIEW_ID].renderer = sceneRenderer;
   const fontResponse = await fetch(FONT_URL, { cache: 'no-store' });
   if (!fontResponse.ok) {
     throw new Error(`Unable to load ${FONT_URL}`);
@@ -3538,9 +3718,9 @@ async function main() {
   if (!dialogAtlas) {
     throw new Error('Guide slice does not include decoded CHR data for the CV2 dialog renderer.');
   }
-  const itemIconManifest = mapRenderer.manifest.itemIcons || sceneRenderer.manifest.itemIcons || null;
+  const itemIconManifest = mapRenderer.manifest.itemIcons || null;
   const itemIconAtlas = itemIconManifest?.chrSet
-    ? (mapRenderer.decodedChrAtlases.get(itemIconManifest.chrSet) || sceneRenderer.decodedChrAtlases.get(itemIconManifest.chrSet) || dialogAtlas)
+    ? (mapRenderer.decodedChrAtlases.get(itemIconManifest.chrSet) || dialogAtlas)
     : dialogAtlas;
   itemIconRenderer = new Cv2ItemIconRenderer(itemIconAtlas, itemIconManifest);
   dialogRenderer = new Cv2DialogRenderer(
@@ -3555,9 +3735,9 @@ async function main() {
   labelRenderer = new Cv2LabelRenderer(glyphs, dialogAtlas);
   focusBounds(viewBounds(MAP_VIEWS[OVERWORLD_VIEW_ID], mapRenderer), compactViewport() ? 0.78 : 0.88, mapRenderer);
   clampGuideCamera(mapRenderer);
-  state.activeViewId = viewIdFromHash();
-  setActiveView(state.activeViewId, { resetCamera: state.activeViewId !== OVERWORLD_VIEW_ID });
-  setRouteState(state.activeViewId, 'replace');
+  state.activeViewId = OVERWORLD_VIEW_ID;
+  await ensureViewLoaded(state.activeViewId);
+  setActiveView(state.activeViewId);
   attachInput();
   attachControls();
   setStatus('');

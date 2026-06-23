@@ -23,9 +23,10 @@ Current files:
   `docs/actor-trace-notes.md`. The same fixtures feed
   `npm run decode:actor-selector-streams`, which maps observed selector writes
   back to fixed-bank ROM records and renders actor sprite strips. Interior
-  research artifacts should also scan the raw actor table rows from the ROM and
-  compare promoted guide rows against those bytes so control/non-visible rows
-  are explicitly accounted for.
+  research artifacts should also scan raw actor tables when a table boundary is
+  known, or byte-check every manifest actor row pointer directly for simple
+  single-room interiors, so control/non-visible rows are explicitly accounted
+  for and no row is silently promoted or omitted.
 - `transition-probes.json`: committed manifest for runtime transition probes.
   Interior entry/exit alignment should add targeted probes here before a
   composed interior relationship is treated as final Simon/scroll placement
@@ -33,6 +34,9 @@ Current files:
 - `guide/source/*.json`: guide scene definitions. Interior sources should point
   at full interior maps only after a generated proof artifact inventories all
   submaps, render recipes, actor/fixture rows, and entry/exit relationships.
+  Door target view mappings belong in guide source, but the target contexts
+  should come from ROM door tables and the visible hit locations should come
+  from ROM-expanded tile signatures or documented validation artifacts.
 
 The exterior atlas is generated from `cv2r` metadata plus ROM table reads rather
 than maintained as a hand-authored `data/` JSON file. Run

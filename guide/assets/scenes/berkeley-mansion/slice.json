@@ -12,6 +12,7 @@
     "notes": [
       "Pixels are rendered in the browser from ROM-derived CHR, layout, metatile, and palette bytes.",
       "Actor sprites are rendered in the browser from ROM-derived CHR, decoded metasprite selector records, and ROM sprite palette fragments.",
+      "Door hotspots are emitted from ROM manifest door targets and ROM-expanded background signatures unless a validated exterior door hitbox is explicitly documented.",
       "Breakable terrain overlays are scanned from ROM-expanded background tile signatures; false platforms are decoded from ROM layout metatiles and terrain threshold bytes.",
       "Conditional secret features are promoted from ROM actor/control rows and decoded game routines, then rendered from ROM-derived sprite data.",
       "Presentation coordinates are authored for player readability and are not ROM world coordinates.",
@@ -566,6 +567,7 @@
       }
     }
   ],
+  "doorHotspots": [],
   "destructibleFixtures": [
     {
       "id": "berkeley-mansion-part-1-destructible-124-20-2x4",
@@ -1588,6 +1590,53 @@
           "ROM sale table triple at file offset $1ED37 is $59 $00 $50, linking tile $59 to the oak stake sale row."
         ]
       },
+      "dagger": {
+        "id": "dagger",
+        "label": "The Dagger",
+        "aliases": [
+          "The Dagger",
+          "Dagger"
+        ],
+        "iconTile": "0x54",
+        "manualText": "The dagger can be thrown to kill distant enemy creatures.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
+        "evidence": [
+          "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+          "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
+          "ROM sale table triple at file offset $1ED31 is $54 $00 $50, linking tile $54 to the Dagger sale row."
+        ]
+      },
+      "thorn-whip": {
+        "id": "thorn-whip",
+        "label": "Thorn Whip",
+        "aliases": [
+          "Thorn Whip"
+        ],
+        "iconTile": "0x5B",
+        "manualText": "The Thorn Whip is stronger than the Leather Whip.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
+        "evidence": [
+          "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+          "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
+          "ROM sale table triple at file offset $1ED3D is $5B $01 $00, linking tile $5B to the Thorn Whip sale row."
+        ]
+      },
+      "chain-whip": {
+        "id": "chain-whip",
+        "label": "The Chain Whip",
+        "aliases": [
+          "The Chain Whip",
+          "Chain Whip"
+        ],
+        "iconTile": "0x5B",
+        "manualText": "The Chain Whip is stronger than the Thorn Whip.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
+        "evidence": [
+          "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+          "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
+          "ROM sale table triple at file offset $1ED40 is $5B $01 $50, linking tile $5B to the Chain Whip sale row."
+        ]
+      },
       "holy-water": {
         "id": "holy-water",
         "label": "Holy Water",
@@ -1596,9 +1645,12 @@
           "Magic Potion"
         ],
         "iconTile": "0x57",
+        "manualText": "Holy Water disintegrates walls and floors which conceal weapons and items.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
+          "ROM sale table triple at file offset $1ED2E is $57 $00 $50, linking tile $57 to the Holy Water sale row.",
           "The guide secret proof decodes Holy Water as weapon index 4 and the block-breaking projectile path; the Jova NPC text uses \"magic potion\" for that block-breaking item behavior."
         ]
       },
@@ -1621,10 +1673,13 @@
           "Dracula's Rib"
         ],
         "iconTile": "0x4E",
+        "manualText": "The rib bone will make the ordinary hero feel like a spineless coward.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
-          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring."
+          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.",
+          "The Jova NPC clue text decodes to \"a rib can shield you from evil.\""
         ]
       },
       "dracula-eyeball": {
@@ -2482,6 +2537,168 @@
       },
       "selectorSource": "selector-stream-record",
       "proof": "ROM row id $AE maps through live id $2E to merchant animation record $0B, which emits selectors $1E/$1F."
+    },
+    {
+      "id": "town-priest",
+      "label": "Priest",
+      "kind": "npc",
+      "placement": null,
+      "actorId": "0xAD",
+      "chrSet": "chr-00-01",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "selectorRecord": {
+        "index": "0x0C",
+        "cpuAddress": "0xDDC6",
+        "fileOffset": "0x1DDD6",
+        "bytes": [
+          "0x01",
+          "0x20",
+          "0x0C"
+        ],
+        "selectors": [
+          "0x20",
+          "0x21"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x20",
+          "pointer": "0xB411",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x91",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0x93",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0x95",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0x97",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -6,
+            "minY": -19,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 13,
+            "height": 32,
+            "centroid": {
+              "x": -0.23548387096774193,
+              "y": -1.538709677419355
+            },
+            "opaquePixels": 310,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x21",
+          "pointer": "0xB418",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x99",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0x9B",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0x9D",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0x9F",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -6,
+            "minY": -18,
+            "maxX": 6,
+            "maxY": 13,
+            "width": 12,
+            "height": 31,
+            "centroid": {
+              "x": -0.4143835616438356,
+              "y": -1.3082191780821917
+            },
+            "opaquePixels": 292,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -6,
+        "minY": -19,
+        "maxX": 7,
+        "maxY": 13,
+        "width": 13,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "ROM row id $AD maps through the town high-bit NPC path to the priest animation record $0C in the same town-interior CHR/palette family as Jova."
     },
     {
       "id": "crow",
@@ -3966,6 +4183,92 @@
       "proof": "ROM actor id $27 dispatches through 1:$8335; that routine passes selector-record index $3B to fixed-bank $DED8, which emits metasprite $30 for the book fixture."
     },
     {
+      "id": "town-book",
+      "label": "Clue book",
+      "kind": "fixture",
+      "placement": null,
+      "actorId": "0x27",
+      "chrSet": "chr-00-01",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "selectorRecord": {
+        "index": "0x3B",
+        "cpuAddress": "0xDE53",
+        "fileOffset": "0x1DE63",
+        "bytes": [
+          "0x00",
+          "0x30",
+          "0x80"
+        ],
+        "selectors": [
+          "0x30"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x30",
+          "pointer": "0xB3B9",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0x42",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x44",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -6,
+            "minY": -8,
+            "maxX": 7,
+            "maxY": 8,
+            "width": 13,
+            "height": 16,
+            "centroid": {
+              "x": 0.47073170731707314,
+              "y": -0.026829268292682926
+            },
+            "opaquePixels": 205,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 24
+      },
+      "opaqueBounds": {
+        "minX": -6,
+        "minY": -8,
+        "maxX": 7,
+        "maxY": 8,
+        "width": 13,
+        "height": 16,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "ROM actor id $27 dispatches through 1:$8335; the Veros Chain Whip room row uses selector-record index $3B in a town-interior context with CHR banks $00/$01."
+    },
+    {
       "id": "mansion-skeleton",
       "label": "Skeleton",
       "kind": "enemy",
@@ -5273,7 +5576,7 @@
     {
       "id": "berkeley-mansion-part-1-spear-knight-5ad4",
       "classId": "mansion-spear-knight",
-      "label": "Spear knight",
+      "label": "spear knight",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -5296,6 +5599,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -5435,7 +5739,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5adc",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -5458,6 +5762,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -5555,7 +5860,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5ae0",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -5578,6 +5883,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -5675,7 +5981,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5ae4",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -5698,6 +6004,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -5795,7 +6102,7 @@
     {
       "id": "berkeley-mansion-part-1-spear-knight-5ae8",
       "classId": "mansion-spear-knight",
-      "label": "Spear knight",
+      "label": "spear knight",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -5818,6 +6125,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -5980,6 +6288,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6009,7 +6318,7 @@
     {
       "id": "berkeley-mansion-part-1-gargoyle-5af0",
       "classId": "mansion-gargoyle",
-      "label": "The Gargoyle",
+      "label": "gargoyle",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -6032,6 +6341,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6061,7 +6371,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5af4",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -6084,6 +6394,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6181,7 +6492,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5af8",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -6204,6 +6515,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6301,7 +6613,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5afc",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -6324,6 +6636,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6444,6 +6757,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6496,6 +6810,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6548,6 +6863,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6600,6 +6916,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6629,7 +6946,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5b10",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -6652,6 +6969,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6772,6 +7090,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6801,7 +7120,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5b18",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -6824,6 +7143,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6944,6 +7264,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -6973,7 +7294,7 @@
     {
       "id": "berkeley-mansion-part-1-gargoyle-5b20",
       "classId": "mansion-gargoyle",
-      "label": "The Gargoyle",
+      "label": "gargoyle",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -6996,6 +7317,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -7025,7 +7347,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5b24",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -7048,6 +7370,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -7145,7 +7468,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5b28",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -7168,6 +7491,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -7265,7 +7589,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5b2c",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -7288,6 +7612,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -7385,7 +7710,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5b30",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -7408,6 +7733,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -7505,7 +7831,7 @@
     {
       "id": "berkeley-mansion-part-1-skeleton-5b34",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-1",
       "variants": [
@@ -7528,6 +7854,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -7623,7 +7950,7 @@
       }
     },
     {
-      "id": "berkeley-mansion-part-1-book-5b38",
+      "id": "berkeley-mansion-part-1-clue-book-5b38",
       "classId": "mansion-book",
       "label": "Clue book",
       "kind": "secret",
@@ -7707,6 +8034,7 @@
         "text": "a symbol of evil will appaer when you strike the stake.",
         "source": "rom-file:0x0D05C"
       },
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -7734,7 +8062,7 @@
       }
     },
     {
-      "id": "berkeley-mansion-part-2-book-5b3d",
+      "id": "berkeley-mansion-part-2-clue-book-5b3d",
       "classId": "mansion-book",
       "label": "Clue book",
       "kind": "secret",
@@ -7813,6 +8141,7 @@
         "text": "destroy the curse and you'll rule brahm's mansion.",
         "source": "rom-file:0x0D094"
       },
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -7842,7 +8171,7 @@
     {
       "id": "berkeley-mansion-part-2-gargoyle-5b41",
       "classId": "mansion-gargoyle",
-      "label": "The Gargoyle",
+      "label": "gargoyle",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -7865,6 +8194,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -7894,7 +8224,7 @@
     {
       "id": "berkeley-mansion-part-2-merchant-5b45",
       "classId": "oak-stake-merchant",
-      "label": "Oak Stake Merchant",
+      "label": "Merchant",
       "kind": "npc",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -7944,6 +8274,7 @@
         "text": "invest in an oak stake?",
         "source": "rom-file:0x0D044"
       },
+      "guideDialog": null,
       "itemOffer": {
         "itemId": "oak-stake",
         "itemLabel": "The Oak Stake",
@@ -7987,7 +8318,7 @@
     {
       "id": "berkeley-mansion-part-2-spear-knight-5b49",
       "classId": "mansion-spear-knight",
-      "label": "Spear knight",
+      "label": "spear knight",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -8010,6 +8341,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -8149,7 +8481,7 @@
     {
       "id": "berkeley-mansion-part-2-bone-thrower-5b4d",
       "classId": "mansion-bone-thrower",
-      "label": "Bone thrower",
+      "label": "bone thrower",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -8172,6 +8504,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -8201,7 +8534,7 @@
     {
       "id": "berkeley-mansion-part-2-gargoyle-5b51",
       "classId": "mansion-gargoyle",
-      "label": "The Gargoyle",
+      "label": "gargoyle",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -8224,6 +8557,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -8253,7 +8587,7 @@
     {
       "id": "berkeley-mansion-part-2-skeleton-5b55",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -8276,6 +8610,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -8373,7 +8708,7 @@
     {
       "id": "berkeley-mansion-part-2-spear-knight-5b59",
       "classId": "mansion-spear-knight",
-      "label": "Spear knight",
+      "label": "spear knight",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -8396,6 +8731,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -8535,7 +8871,7 @@
     {
       "id": "berkeley-mansion-part-2-spear-knight-5b5d",
       "classId": "mansion-spear-knight",
-      "label": "Spear knight",
+      "label": "spear knight",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -8558,6 +8894,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -8697,7 +9034,7 @@
     {
       "id": "berkeley-mansion-part-2-bone-thrower-5b61",
       "classId": "mansion-bone-thrower",
-      "label": "Bone thrower",
+      "label": "bone thrower",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -8720,6 +9057,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -8749,7 +9087,7 @@
     {
       "id": "berkeley-mansion-part-2-skeleton-5b65",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -8772,6 +9110,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -8869,7 +9208,7 @@
     {
       "id": "berkeley-mansion-part-2-skeleton-5b69",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -8892,6 +9231,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -8989,7 +9329,7 @@
     {
       "id": "berkeley-mansion-part-2-skeleton-5b6d",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -9012,6 +9352,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -9109,7 +9450,7 @@
     {
       "id": "berkeley-mansion-part-2-spear-knight-5b71",
       "classId": "mansion-spear-knight",
-      "label": "Spear knight",
+      "label": "spear knight",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -9132,6 +9473,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -9271,7 +9613,7 @@
     {
       "id": "berkeley-mansion-part-2-skeleton-5b75",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -9294,6 +9636,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -9391,7 +9734,7 @@
     {
       "id": "berkeley-mansion-part-2-skeleton-5b79",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -9414,6 +9757,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -9511,7 +9855,7 @@
     {
       "id": "berkeley-mansion-part-2-skeleton-5b7d",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -9534,6 +9878,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -9654,6 +9999,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -9683,7 +10029,7 @@
     {
       "id": "berkeley-mansion-part-2-skeleton-5b85",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -9706,6 +10052,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -9803,7 +10150,7 @@
     {
       "id": "berkeley-mansion-part-2-skeleton-5b89",
       "classId": "mansion-skeleton",
-      "label": "Skeleton",
+      "label": "skeleton",
       "kind": "enemy",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -9826,6 +10173,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -9921,7 +10269,7 @@
       }
     },
     {
-      "id": "berkeley-mansion-part-2-book-5b8d",
+      "id": "berkeley-mansion-part-2-clue-book-5b8d",
       "classId": "mansion-book",
       "label": "Clue book",
       "kind": "secret",
@@ -9991,6 +10339,7 @@
         "text": "a flame flickers inside the ring of fire.",
         "source": "rom-file:0x0D0C7"
       },
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -10043,6 +10392,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -10095,6 +10445,7 @@
       },
       "text": null,
       "textEvidence": null,
+      "guideDialog": null,
       "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
@@ -10124,7 +10475,7 @@
     {
       "id": "berkeley-mansion-part-2-orb-5b99",
       "classId": "dracula-rib-orb",
-      "label": "Dracula's Rib",
+      "label": "orb",
       "kind": "secret",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -10182,6 +10533,7 @@
         "text": "you now prossess dracula's rib.",
         "source": "rom-file:0x0CF9C"
       },
+      "guideDialog": null,
       "itemOffer": null,
       "secret": {
         "type": "oak-stake-orb",
@@ -10226,12 +10578,17 @@
     "breakableTerrain": 5,
     "falsePlatforms": 5
   },
+  "doorSummary": {
+    "hotspots": 0,
+    "viewLinks": 0,
+    "dayOnly": 0
+  },
   "secretFeatureSummary": {
     "features": 1,
     "movingPlatforms": 1
   },
   "actorSummary": {
-    "classes": 23,
+    "classes": 25,
     "placements": 49,
     "npcs": 1,
     "enemies": 44,

@@ -41,6 +41,8 @@ body,
   height: 100%;
   margin: 0;
   overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
 }
 
 body {
@@ -260,6 +262,7 @@ summary:focus-visible,
   display: grid;
   justify-items: center;
   gap: 8px;
+  touch-action: none;
 }
 
 .guide-card.is-dialog-bundle {
@@ -544,7 +547,7 @@ summary:focus-visible,
 }
 
 .hotspot.is-clickable {
-  z-index: 16;
+  z-index: 20;
 }
 
 .hotspot,
@@ -767,6 +770,31 @@ summary:focus-visible,
   outline-color: var(--blue);
 }
 
+.item-badge.is-door-badge::before {
+  outline-color: var(--gold);
+}
+
+body:has(#toggle-labels:not(:checked)) .item-badge {
+  display: none !important;
+}
+
+body:has(#toggle-highlight-characters:not(:checked)) .item-badge.is-character-badge::before,
+body:has(#toggle-highlight-doors:not(:checked)) .item-badge.is-door-badge::before {
+  outline-color: transparent;
+  box-shadow: none;
+}
+
+body:has(#toggle-highlight-characters:not(:checked)) .item-badge.is-character-badge:focus-visible::before,
+body:has(#toggle-highlight-doors:not(:checked)) .item-badge.is-door-badge:focus-visible::before {
+  outline-color: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.38);
+}
+
+.item-badge.is-door-badge {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
 .item-badge-frame-canvas,
 .item-badge-icon-canvas {
   position: absolute;
@@ -780,6 +808,13 @@ summary:focus-visible,
 .item-badge:focus-visible::before {
   outline-color: #bfe0ff;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.92), 0 0 12px rgba(122, 183, 255, 0.46);
+}
+
+.item-badge.is-door-badge:hover::before,
+.item-badge.is-door-badge:active::before,
+.item-badge.is-door-badge:focus-visible::before {
+  outline-color: #ffe87d;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.92), 0 0 12px rgba(255, 216, 74, 0.48);
 }
 
 .item-badge.is-highlight-hidden::before,

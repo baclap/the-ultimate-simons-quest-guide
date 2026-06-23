@@ -54,6 +54,30 @@ const FIXTURE_TILE_SIGNATURES = {
     ],
     source: 'rom-expanded-background-tilemap'
   },
+  townDoor: {
+    id: 'town-door-4x6',
+    label: 'Town door',
+    width: 4,
+    height: 6,
+    tiles: [
+      [0xad, 0x00, 0x00, 0x9d],
+      [0x94, 0x00, 0x00, 0x97],
+      [0x94, 0x00, 0x00, 0x97],
+      [0x94, 0x00, 0x00, 0x97],
+      [0x94, 0xf0, 0xf0, 0x97],
+      [0xaa, 0x8e, 0x8f, 0xab]
+    ],
+    palettes: [
+      [1, 1, 1, 1],
+      [1, 1, 1, 1],
+      [1, 1, 1, 1],
+      [1, 1, 1, 1],
+      [1, 1, 1, 1],
+      [1, 1, 1, 1]
+    ],
+    hitboxInsetTiles: { x: -1, y: -2, width: 2, height: 2 },
+    source: 'rom-expanded-background-tilemap'
+  },
   destructibleBlock2x2: {
     id: 'destructible-block-2x2',
     label: 'Destructible block',
@@ -272,6 +296,15 @@ const ACTOR_CLASSES = [
     proof: 'ROM row id $AE maps through live id $2E to merchant animation record $0B, which emits selectors $1E/$1F.'
   },
   {
+    id: 'town-priest',
+    label: 'Priest',
+    kind: 'npc',
+    actorId: 0xad,
+    selectorRecordIndex: 0x0c,
+    chrBanks: [0x00, 0x01],
+    proof: 'ROM row id $AD maps through the town high-bit NPC path to the priest animation record $0C in the same town-interior CHR/palette family as Jova.'
+  },
+  {
     id: 'crow',
     label: 'Raven',
     kind: 'enemy',
@@ -377,6 +410,15 @@ const ACTOR_CLASSES = [
     proof: 'ROM actor id $27 dispatches through 1:$8335; that routine passes selector-record index $3B to fixed-bank $DED8, which emits metasprite $30 for the book fixture.'
   },
   {
+    id: 'town-book',
+    label: 'Clue book',
+    kind: 'fixture',
+    actorId: 0x27,
+    selectorRecordIndex: 0x3b,
+    chrBanks: [0x00, 0x01],
+    proof: 'ROM actor id $27 dispatches through 1:$8335; the Veros Chain Whip room row uses selector-record index $3B in a town-interior context with CHR banks $00/$01.'
+  },
+  {
     id: 'mansion-skeleton',
     label: 'Skeleton',
     kind: 'enemy',
@@ -479,6 +521,20 @@ const BERKELEY_ACTOR_CLASS_BY_ID = new Map([
 ]);
 
 const BERKELEY_SECRET_ACTOR_IDS = new Set([0x25, 0x27]);
+
+const TOWN_INTERIOR_ACTOR_CLASS_BY_ID = new Map([
+  [0xad, 'town-priest'],
+  [0xae, 'jova-merchant'],
+  [0x27, 'town-book']
+]);
+
+const TOWN_INTERIOR_ACTOR_LABEL_BY_ITEM_TYPE = new Map([
+  ['thorn', 'Thorn Whip Merchant'],
+  ['holyWater', 'Holy Water Merchant'],
+  ['whiteCrystal', 'White Crystal Merchant'],
+  ['dagger', 'Dagger Merchant'],
+  ['chain', 'Chain Whip Merchant']
+]);
 
 const SECRET_DETAILS = {
   'dabis-2-sacred-flame-66b0': {
@@ -644,14 +700,56 @@ const GUIDE_ITEMS = {
       'ROM sale table triple at file offset $1ED37 is $59 $00 $50, linking tile $59 to the oak stake sale row.'
     ]
   },
+  dagger: {
+    id: 'dagger',
+    label: 'The Dagger',
+    aliases: ['The Dagger', 'Dagger'],
+    iconTile: 0x54,
+    manualText: 'The dagger can be thrown to kill distant enemy creatures.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Weapons, page 10.',
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'ROM sale table triple at file offset $1ED31 is $54 $00 $50, linking tile $54 to the Dagger sale row.'
+    ]
+  },
+  'thorn-whip': {
+    id: 'thorn-whip',
+    label: 'Thorn Whip',
+    aliases: ['Thorn Whip'],
+    iconTile: 0x5b,
+    manualText: 'The Thorn Whip is stronger than the Leather Whip.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Weapons, page 10.',
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'ROM sale table triple at file offset $1ED3D is $5B $01 $00, linking tile $5B to the Thorn Whip sale row.'
+    ]
+  },
+  'chain-whip': {
+    id: 'chain-whip',
+    label: 'The Chain Whip',
+    aliases: ['The Chain Whip', 'Chain Whip'],
+    iconTile: 0x5b,
+    manualText: 'The Chain Whip is stronger than the Thorn Whip.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Weapons, page 10.',
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'ROM sale table triple at file offset $1ED40 is $5B $01 $50, linking tile $5B to the Chain Whip sale row.'
+    ]
+  },
   'holy-water': {
     id: 'holy-water',
     label: 'Holy Water',
     aliases: ['Holy Water', 'Magic Potion'],
     iconTile: 0x57,
+    manualText: 'Holy Water disintegrates walls and floors which conceal weapons and items.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Weapons, page 10.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'ROM sale table triple at file offset $1ED2E is $57 $00 $50, linking tile $57 to the Holy Water sale row.',
       'The guide secret proof decodes Holy Water as weapon index 4 and the block-breaking projectile path; the Jova NPC text uses "magic potion" for that block-breaking item behavior.'
     ]
   },
@@ -670,10 +768,13 @@ const GUIDE_ITEMS = {
     label: "Dracula's Rib",
     aliases: ["Dracula's Rib"],
     iconTile: 0x4e,
+    manualText: 'The rib bone will make the ordinary hero feel like a spineless coward.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Count Dracula\'s Missing Pieces, page 9.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
-      'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.'
+      'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.',
+      'The Jova NPC clue text decodes to "a rib can shield you from evil."'
     ]
   },
   'dracula-eyeball': {
@@ -732,6 +833,30 @@ const GUIDE_ITEM_OFFERS = {
     roleLabel: 'Oak Stake Merchant',
     costHearts: 50,
     priceSource: 'ROM sale table at file offset $1ED37: $59 $00 $50.'
+  },
+  'thorn-whip': {
+    itemId: 'thorn-whip',
+    roleLabel: 'Thorn Whip Merchant',
+    costHearts: 100,
+    priceSource: 'ROM sale table at file offset $1ED3D: $5B $01 $00.'
+  },
+  dagger: {
+    itemId: 'dagger',
+    roleLabel: 'Dagger Merchant',
+    costHearts: 50,
+    priceSource: 'ROM sale table at file offset $1ED31: $54 $00 $50.'
+  },
+  'chain-whip': {
+    itemId: 'chain-whip',
+    roleLabel: 'Chain Whip Merchant',
+    costHearts: 150,
+    priceSource: 'ROM sale table at file offset $1ED40: $5B $01 $50.'
+  },
+  'holy-water': {
+    itemId: 'holy-water',
+    roleLabel: 'Holy Water Merchant',
+    costHearts: 50,
+    priceSource: 'ROM sale table at file offset $1ED2E: $57 $00 $50.'
   }
 };
 
@@ -774,6 +899,32 @@ function publicItemOffer(offer) {
   };
 }
 
+function publicItemReward(reward) {
+  if (!reward) {
+    return null;
+  }
+  const itemId = typeof reward === 'string' ? reward : reward.itemId;
+  const item = GUIDE_ITEMS[itemId];
+  if (!item) {
+    throw new Error(`Unknown guide item reward ${itemId}`);
+  }
+  return {
+    itemId: item.id,
+    itemLabel: item.label,
+    iconTile: hex(item.iconTile, 2),
+    manualText: item.manualText,
+    manualSource: item.manualSource,
+    evidence: [
+      ...(item.evidence || []),
+      ...(
+        typeof reward === 'object' && reward.evidence
+          ? [reward.evidence]
+          : []
+      )
+    ]
+  };
+}
+
 function inferredItemOffer(actor) {
   if (actor.itemOffer) {
     return publicItemOffer(actor.itemOffer);
@@ -783,6 +934,18 @@ function inferredItemOffer(actor) {
   }
   if (actor.itemType === 'whiteCrystal') {
     return publicItemOffer(GUIDE_ITEM_OFFERS['white-crystal']);
+  }
+  if (actor.itemType === 'thorn') {
+    return publicItemOffer(GUIDE_ITEM_OFFERS['thorn-whip']);
+  }
+  if (actor.itemType === 'dagger') {
+    return publicItemOffer(GUIDE_ITEM_OFFERS.dagger);
+  }
+  if (actor.itemType === 'chain') {
+    return publicItemOffer(GUIDE_ITEM_OFFERS['chain-whip']);
+  }
+  if (actor.itemType === 'holyWater') {
+    return publicItemOffer(GUIDE_ITEM_OFFERS['holy-water']);
   }
   return null;
 }
@@ -989,6 +1152,52 @@ function materializeManifestActors(sliceConfig) {
   ]));
   const actors = [];
 
+  function classIdForManifestRow(context, row) {
+    if (context.objset === 0 && context.area >= 0x07) {
+      return TOWN_INTERIOR_ACTOR_CLASS_BY_ID.get(row.id);
+    }
+    if (context.objset === 1) {
+      return BERKELEY_ACTOR_CLASS_BY_ID.get(row.id);
+    }
+    return null;
+  }
+
+  function kindForManifestRow(context, row) {
+    if (context.objset === 1 && BERKELEY_SECRET_ACTOR_IDS.has(row.id)) {
+      return 'secret';
+    }
+    return row.kind === 'enemy'
+      ? 'enemy'
+      : (row.kind === 'npc' ? 'npc' : 'fixture');
+  }
+
+  function labelForManifestRow(row) {
+    if (row.id === 0xad) {
+      return 'Priest';
+    }
+    if (row.id === 0xae && row.itemType) {
+      return TOWN_INTERIOR_ACTOR_LABEL_BY_ITEM_TYPE.get(row.itemType) || 'Merchant';
+    }
+    if (row.id === 0x27) {
+      return 'Clue book';
+    }
+    if (row.id === 0x1f) {
+      return 'Blob';
+    }
+    return row.name || null;
+  }
+
+  function guideDialogForManifestRow(row) {
+    if (row.id === 0xad) {
+      return {
+        text: "Priest\n----------\nRefills Simon's health meter to full health.",
+        tone: 'guide-authored',
+        source: 'guide-authored-priest-service-summary'
+      };
+    }
+    return null;
+  }
+
   for (const segment of sliceConfig.segments || []) {
     const context = contextFromLocationId(segment.locationId);
     if (!context) {
@@ -1000,19 +1209,17 @@ function materializeManifestActors(sliceConfig) {
     }
 
     for (const row of location.actors || []) {
-      const classId = BERKELEY_ACTOR_CLASS_BY_ID.get(row.id);
+      const classId = classIdForManifestRow(context, row);
       if (!classId) {
         throw new Error(`No guide actor class for ${location.name} row ${row.pointerHex} actor ${row.idHex}`);
       }
-      const kind = BERKELEY_SECRET_ACTOR_IDS.has(row.id)
-        ? 'secret'
-        : row.kind === 'enemy'
-        ? 'enemy'
-        : (row.kind === 'npc' ? 'npc' : 'fixture');
-      const slugName = row.id === 0x1f ? 'Blob' : (row.name || `actor-${row.idHex}`);
+      const kind = kindForManifestRow(context, row);
+      const label = labelForManifestRow(row);
+      const slugName = label || `actor-${row.idHex}`;
       actors.push({
         id: `${segment.id}-${slugForId(slugName)}-${Number(row.pointer).toString(16)}`,
         classId,
+        label,
         kind,
         segmentId: segment.id,
         offset: row.pointer,
@@ -1023,6 +1230,7 @@ function materializeManifestActors(sliceConfig) {
         textFromRom: kind !== 'enemy',
         textPointerIndex: row.textPointer != null ? row.data : undefined,
         textFileOffset: row.textPointer,
+        guideDialog: guideDialogForManifestRow(row),
         itemType: row.itemType,
         inventoryItem: row.holdsItem ? row.itemType : undefined
       });
@@ -1030,6 +1238,158 @@ function materializeManifestActors(sliceConfig) {
   }
 
   return actors;
+}
+
+function bareLocationIdFromContext(context) {
+  return [
+    `obj${Number(context.objset).toString(16).padStart(2, '0')}`,
+    `area${Number(context.area).toString(16).padStart(2, '0')}`,
+    `sub${Number(context.submap || 0).toString(16).padStart(2, '0')}`
+  ].join('-');
+}
+
+function bareLocationIdFromLocation(location) {
+  return bareLocationIdFromContext({
+    objset: location.objset,
+    area: location.area,
+    submap: location.submap || 0
+  });
+}
+
+function doorTargetViewRecord(targetViews, targetId) {
+  const record = targetViews?.[targetId];
+  if (!record) {
+    return null;
+  }
+  return typeof record === 'string'
+    ? { viewId: record }
+    : record;
+}
+
+function tileRectFromSignatureRect(signature, rect) {
+  const inset = signature.hitboxInsetTiles || { x: 0, y: 0, width: 0, height: 0 };
+  return {
+    x: rect.x + inset.x,
+    y: rect.y + inset.y,
+    width: rect.width + inset.width,
+    height: rect.height + inset.height
+  };
+}
+
+function sourceDoorsForLocation(location) {
+  if (Array.isArray(location.doors)) {
+    return location.doors;
+  }
+  return location.doors?.data || [];
+}
+
+function buildDoorHotspots(sliceConfig, segments, segmentTilemapsById) {
+  const config = sliceConfig.doorHotspotMaterialization;
+  if (!config || config.source !== 'manifest-location-doors') {
+    return [];
+  }
+
+  const manifest = buildManifest();
+  const locationsByContext = new Map(manifest.locations.map((location) => [
+    [location.objset, location.area, location.submap || 0].join(':'),
+    location
+  ]));
+  const policies = config.segmentPolicies || {};
+  const targetViews = config.targetViews || {};
+  const hotspots = [];
+
+  for (const segment of segments) {
+    const policy = policies[segment.id];
+    if (!policy) {
+      continue;
+    }
+    const context = contextFromLocationId(segment.locationId);
+    if (!context) {
+      throw new Error(`Cannot materialize door hotspots for ${segment.id}: unsupported locationId ${segment.locationId}`);
+    }
+    const location = locationsByContext.get([context.objset, context.area, context.submap].join(':'));
+    if (!location) {
+      throw new Error(`Cannot materialize door hotspots for ${segment.id}: no manifest location for ${segment.locationId}`);
+    }
+    const segmentTargetViews = {
+      ...targetViews,
+      ...(policy.targetViews || {})
+    };
+    const doors = sourceDoorsForLocation(location)
+      .map((door) => ({
+        ...door,
+        targetId: bareLocationIdFromContext(door.target || {})
+      }))
+      .filter((door) => doorTargetViewRecord(segmentTargetViews, door.targetId));
+    if (doors.length === 0) {
+      continue;
+    }
+
+    let tileRects = [];
+    let signature = null;
+    if (policy.signature) {
+      signature = FIXTURE_TILE_SIGNATURES[policy.signature];
+      if (!signature) {
+        throw new Error(`${segment.id} door policy references unknown fixture signature ${policy.signature}`);
+      }
+      const expandedTilemap = segmentTilemapsById.get(segment.id);
+      if (!expandedTilemap) {
+        throw new Error(`${segment.id} door policy requires an expanded tilemap`);
+      }
+      const matches = findFixtureSignatureRects(expandedTilemap, signature)
+        .sort((a, b) => a.x - b.x || a.y - b.y);
+      if (policy.expectedMatches != null && matches.length !== policy.expectedMatches) {
+        throw new Error(`${segment.id} expected ${policy.expectedMatches} ${signature.id} matches, found ${matches.length}`);
+      }
+      if (matches.length < doors.length) {
+        throw new Error(`${segment.id} found ${matches.length} ${signature.id} matches for ${doors.length} manifest doors`);
+      }
+      tileRects = matches.map((rect) => ({
+        tileRect: tileRectFromSignatureRect(signature, rect),
+        signatureRect: rect
+      }));
+    } else {
+      tileRects = policy.manualTileRects || [];
+    }
+
+    for (let index = 0; index < doors.length; index += 1) {
+      const door = doors[index];
+      const target = doorTargetViewRecord(segmentTargetViews, door.targetId);
+      const manual = tileRects.find((rect) => (
+        rect.target === door.targetId ||
+        (rect.pointerIndex != null && rect.pointerIndex === door.pointerIndex)
+      ));
+      const rectRecord = manual || tileRects[index];
+      if (!rectRecord?.tileRect) {
+        throw new Error(`${segment.id} has no tileRect for door ${door.name}`);
+      }
+
+      hotspots.push({
+        id: `${segment.id}-door-${slugForId(door.name || door.targetId)}`,
+        type: 'door',
+        kind: 'door',
+        segmentId: segment.id,
+        label: target.label || `Enter ${door.name || door.targetId}`,
+        tileRect: rectRecord.tileRect,
+        opensView: target.viewId,
+        itemReward: publicItemReward(target.itemReward),
+        variants: policy.variants || segment.variants || ['day', 'night'],
+        note: target.note || null,
+        provenance: {
+          source: signature ? 'rom-door-table-and-expanded-background-signature' : 'rom-door-table-and-authored-hitbox',
+          doorName: door.name || null,
+          pointerIndex: door.pointerIndex ?? null,
+          sourceLocation: bareLocationIdFromLocation(location),
+          targetLocation: door.targetId,
+          signatureId: signature?.id || null,
+          signatureRect: rectRecord.signatureRect || null,
+          evidence: rectRecord.evidence || policy.evidence || null
+        }
+      });
+    }
+  }
+
+  return hotspots;
 }
 
 function parseHex(value) {
@@ -2738,6 +3098,7 @@ function buildActorPlacement(rom, info, classById, segmentById, actor) {
     hp,
     text,
     textEvidence,
+    guideDialog: actor.guideDialog || null,
     itemOffer,
     secret: SECRET_DETAILS[actor.id] || null,
     visualTileRect: actor.visualTileRect || null,
@@ -2983,6 +3344,7 @@ function addPalette(segmentId, variant, entry) {
   validations.push(...groundSupportValidations);
   validations.push(...validateFixtureVisualRects(actors, segmentTilemapsById));
   const destructibleFixtures = buildDestructibleFixtures(segments, segmentTilemapsById, actors);
+  const doorHotspots = buildDoorHotspots(sliceConfig, segments, segmentTilemapsById);
 
   const world = segments.reduce((bounds, segment) => ({
     width: Math.max(bounds.width, segment.position.x + segment.position.width),
@@ -3009,6 +3371,7 @@ function addPalette(segmentId, variant, entry) {
       notes: [
         'Pixels are rendered in the browser from ROM-derived CHR, layout, metatile, and palette bytes.',
         'Actor sprites are rendered in the browser from ROM-derived CHR, decoded metasprite selector records, and ROM sprite palette fragments.',
+        'Door hotspots are emitted from ROM manifest door targets and ROM-expanded background signatures unless a validated exterior door hitbox is explicitly documented.',
         'Breakable terrain overlays are scanned from ROM-expanded background tile signatures; false platforms are decoded from ROM layout metatiles and terrain threshold bytes.',
         'Conditional secret features are promoted from ROM actor/control rows and decoded game routines, then rendered from ROM-derived sprite data.',
         'Presentation coordinates are authored for player readability and are not ROM world coordinates.',
@@ -3024,6 +3387,7 @@ function addPalette(segmentId, variant, entry) {
     palettes,
     spritePalettes,
     segments,
+    doorHotspots,
     destructibleFixtures,
     secretFeatures,
     itemIcons,
@@ -3034,6 +3398,11 @@ function addPalette(segmentId, variant, entry) {
       rewardLinked: destructibleFixtures.filter((fixture) => fixture.role === 'secret-reward').length,
       breakableTerrain: destructibleFixtures.filter((fixture) => fixture.role === 'breakable-terrain').length,
       falsePlatforms: destructibleFixtures.filter((fixture) => fixture.role === 'false-platform').length
+    },
+    doorSummary: {
+      hotspots: doorHotspots.length,
+      viewLinks: doorHotspots.filter((hotspot) => hotspot.opensView).length,
+      dayOnly: doorHotspots.filter((hotspot) => Array.isArray(hotspot.variants) && hotspot.variants.length === 1 && hotspot.variants[0] === 'day').length
     },
     secretFeatureSummary: {
       features: secretFeatures.length,
@@ -3064,6 +3433,7 @@ function addPalette(segmentId, variant, entry) {
       chrSets: chrSets.length,
       tileSets: tileSets.length,
       palettes: palettes.length,
+      doorHotspots: doorHotspots.length,
       secretFeatures: secretFeatures.length,
       validations: validations.length,
       world

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "jova-church",
+  "label": "Jova Church",
+  "summary": "Town of Jova church interior scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "single-room-town-interior",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "day": "town-day-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "jova-church",
+      "locationId": "obj00-area07-sub00-church",
+      "label": "Jova Church",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

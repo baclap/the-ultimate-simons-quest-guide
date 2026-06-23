@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "veros-dagger-room",
+  "label": "Veros Dagger Room",
+  "summary": "Town of Veros Dagger interior scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "entry-room-chain-horizontal",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "day": "town-day-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "veros-dagger-entry",
+      "locationId": "obj00-area0a-sub00-veros-empty-room-before-dagger",
+      "label": "Veros Dagger Entry",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "veros-dagger-room",
+      "locationId": "obj00-area0a-sub01-veros-dagger-room",
+      "label": "Veros Dagger Room",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 256,
+      "y": 0
+    }
+  ]
+}

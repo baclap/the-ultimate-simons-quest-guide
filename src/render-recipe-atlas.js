@@ -368,6 +368,9 @@ function exteriorVariantsForLocation(loc) {
 }
 
 function accessForLocation(loc) {
+  if (loc.objset === 0 && loc.area >= 0x07) {
+    return 'town-interior';
+  }
   if (loc.objset === 1) {
     return / - Door$/.test(loc.name) ? 'mansion-door' : 'mansion-interior';
   }
@@ -387,7 +390,10 @@ function isInteriorCandidate(loc) {
   return false;
 }
 
-function interiorVariantsForLocation(_loc) {
+function interiorVariantsForLocation(loc) {
+  if (loc.objset === 0) {
+    return ['day'];
+  }
   return ['fixed'];
 }
 

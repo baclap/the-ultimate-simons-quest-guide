@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "veros-chain-whip-room",
+  "label": "Veros Chain Whip Room",
+  "summary": "Town of Veros Chain Whip merchant room scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "single-room-town-interior",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "day": "town-day-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "veros-chain-whip-room",
+      "locationId": "obj00-area0b-sub00-veros-chain-whip-room",
+      "label": "Veros Chain Whip Room",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

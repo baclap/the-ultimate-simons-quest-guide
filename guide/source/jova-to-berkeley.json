@@ -8,6 +8,85 @@
     "pixels": "rom-derived",
     "layout": "presentation-authored"
   },
+  "doorHotspotMaterialization": {
+    "source": "manifest-location-doors",
+    "targetViews": {
+      "obj00-area08-sub00": {
+        "viewId": "jova-thorn-whip-room",
+        "label": "Enter Jova Thorn Whip Room",
+        "itemReward": {
+          "itemId": "thorn-whip",
+          "evidence": "The generated Jova Thorn Whip Room scene promotes the ROM merchant row with the Thorn Whip sale-table item offer."
+        }
+      },
+      "obj00-area07-sub00": {
+        "viewId": "jova-church",
+        "label": "Enter Jova Church"
+      },
+      "obj00-area09-sub00": {
+        "viewId": "jova-holy-water-room",
+        "label": "Enter Jova Holy Water Room",
+        "itemReward": {
+          "itemId": "holy-water",
+          "evidence": "The generated Jova Holy Water Room scene promotes the ROM merchant row with the Holy Water sale-table item offer."
+        }
+      },
+      "obj00-area0a-sub00": {
+        "viewId": "veros-dagger-room",
+        "label": "Enter Veros Dagger Room",
+        "itemReward": {
+          "itemId": "dagger",
+          "evidence": "The generated Veros Dagger Room scene promotes the ROM merchant row with the Dagger sale-table item offer."
+        }
+      },
+      "obj00-area0b-sub00": {
+        "viewId": "veros-chain-whip-room",
+        "label": "Enter Veros Chain Whip Room",
+        "itemReward": {
+          "itemId": "chain-whip",
+          "evidence": "The generated Veros Chain Whip Room scene promotes the ROM merchant row with the Chain Whip sale-table item offer."
+        }
+      },
+      "obj01-area07-sub00": {
+        "viewId": "berkeley-mansion",
+        "label": "Enter Berkeley Mansion",
+        "itemReward": {
+          "itemId": "dracula-rib",
+          "evidence": "The generated Berkeley Mansion scene promotes Dracula's Rib orb and its ROM-backed reveal behavior."
+        }
+      }
+    },
+    "segmentPolicies": {
+      "town-of-jova": {
+        "signature": "townDoor",
+        "expectedMatches": 3,
+        "variants": ["day"],
+        "evidence": "Town door targets come from the ROM manifest door table; tile rectangles are derived by matching the town-door signature in the expanded Town of Jova background tilemap."
+      },
+      "town-of-veros": {
+        "signature": "townDoor",
+        "expectedMatches": 3,
+        "variants": ["day"],
+        "targetViews": {
+          "obj00-area07-sub00": {
+            "viewId": "veros-church",
+            "label": "Enter Veros Church"
+          }
+        },
+        "evidence": "Town door targets come from the ROM manifest door table; tile rectangles are derived by matching the town-door signature in the expanded Town of Veros background tilemap. The church target reuses the shared ROM church interior while opening a Veros-labeled guide scene."
+      },
+      "berkeley-mansion-door": {
+        "variants": ["day", "night"],
+        "manualTileRects": [
+          {
+            "target": "obj01-area07-sub00",
+            "tileRect": { "x": 13, "y": 16, "width": 6, "height": 8 },
+            "evidence": "Existing Berkeley exterior door hitbox aligned to the validated Berkeley mansion door capture out/captures/berkeley-mansion-door-day/background.png."
+          }
+        ]
+      }
+    }
+  },
   "segments": [
     {
       "id": "town-of-jova",

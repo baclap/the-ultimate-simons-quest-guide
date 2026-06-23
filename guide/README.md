@@ -36,8 +36,8 @@ The first product slice covers:
 
 `Town of Jova -> Jova Woods -> South Bridge -> Veros Woods -> Town of Veros -> Dabi's Path -> Aljiba Woods`
 
-It also keeps the Denis Woods -> Berkeley Mansion branch visible as the first
-door/interior destination. The current guide uses the branch-continuous projection:
+It also includes the three Town of Jova daytime doors and the Denis Woods ->
+Berkeley Mansion branch as map-swap destinations. The current guide uses the branch-continuous projection:
 Berkeley -> Denis Woods -> Dabi's Path is physically continuous, while Town of
 Veros eases between the Veros Woods side and the Dabi's Path side of the lower
 projection space based on the current camera view. Subtle grey stripes mark
@@ -54,8 +54,11 @@ It demonstrates the core guide language:
   sprites;
 - layer controls for labels, character visibility, door highlights, character
   highlights, and map-object highlights;
-- a Berkeley Mansion door hotspot that opens the full Berkeley Mansion interior
-  as a WebGL-rendered raw-data scene;
+- ROM-backed door hotspots: the Jova town doors are generated from the manifest
+  door table plus expanded-background door signatures and are daytime-only,
+  while the Berkeley door opens the full Berkeley Mansion scene;
+- full-screen interior map swaps for Jova Church, the Jova Thorn Whip room, the
+  Jova Holy Water room, and Berkeley Mansion;
 - a branch-continuous exterior projection with camera-aware Veros placement.
 
 The route layout in this prototype is presentation-authored. The pixels are not.
@@ -131,6 +134,16 @@ dialogue text, and palette source are backed by ROM-derived evidence:
   Part 1 has exact save-state render recipe validation; Part 2 is rendered from
   ROM layout/table evidence and remains marked projected until a Part 2 runtime
   transition/capture probe is added.
+- The Town of Jova interiors also follow the interior research standard. The
+  proof artifact `out/interior-map-research/jova-interiors.json` inventories
+  Church, Thorn Whip room, and Holy Water room as independent single-room
+  destinations, byte-checks all three ROM actor row pointers, and promotes the
+  priest/merchant rows without silent omissions.
+- The Town of Veros interiors follow the same standard. The proof artifact
+  `out/interior-map-research/veros-interiors.json` inventories Veros Church,
+  the two-room Dagger destination, and the Chain Whip room. It byte-checks the
+  priest, Dagger merchant, Chain Whip merchant, and clue-book rows, and uses the
+  ROM `entryRoom` chain for the Dagger room composition.
 
 ## Local Preview
 
@@ -139,8 +152,12 @@ From the repo root, build the raw slice packs and serve the directory:
 ```sh
 npm run render:recipe-atlas
 npm run analyze:interior:berkeley
+npm run analyze:interior:jova
+npm run analyze:interior:veros
 node src/index.js build-guide-slice --rom roms/cv2.nes --slice guide/source/jova-to-berkeley.json --layout branch-continuous --atlas out/render-recipe-atlas/manifest.json --out guide/assets/slices/jova-to-berkeley
 npm run guide:scene:berkeley-mansion
+npm run guide:scenes:jova
+npm run guide:scenes:veros
 python3 -m http.server 4177 --directory guide
 ```
 
@@ -152,9 +169,10 @@ Then open `http://localhost:4177/`.
   flows, and later-route actors are still future work.
 - Discovery mode and evidence labels are intentionally deferred until they can
   be applied consistently across the map instead of partially.
-- Door placement and door destinations are guide-authored presentation for this
-  demo, while promoted interior maps must follow
-  `docs/interior-map-research-standard.md`.
+- Door hit rectangles are guide-facing controls, but their target destinations
+  should come from ROM-backed door tables and their visible door locations
+  should be derived from ROM-expanded background signatures or documented
+  validation artifacts.
 - The guide does not yet decode every interior door, shop, church, mansion, or
   special transition. Those should be added as provenance-backed graph edges
   with transition/alignment artifacts over time.

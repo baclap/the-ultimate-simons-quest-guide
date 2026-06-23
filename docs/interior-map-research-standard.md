@@ -81,3 +81,56 @@ as the crystal-gated moving platform and emitted through the guide
 mechanics should follow the same path: prove the control row/routine first,
 document the condition and motion/effect, then promote it through a generic
 secret feature record.
+
+## Town Of Jova Interior Baseline
+
+The three Town of Jova doors are independent daytime-only interior
+destinations, generated through:
+
+```sh
+npm run render:recipe-atlas
+npm run analyze:interior:jova
+npm run guide:scenes:jova
+```
+
+The current proof artifact is
+`out/interior-map-research/jova-interiors.json`. It inventories
+`obj00-area07-sub00` Church, `obj00-area08-sub00` Jova Thorn Whip Room, and
+`obj00-area09-sub00` Jova Holy Water Room. These rooms are not composed into one
+map; each one is a single-room destination reached from the Town of Jova door
+table. The artifact byte-checks each promoted manifest actor row directly at
+its ROM pointer: one priest row (`$AD`) and two merchant rows (`$AE`).
+
+Jova town door hotspots are generated from the exterior location's ROM door
+table and the expanded-background `town-door-4x6` tile signature. The runtime
+marks those hotspots as day-only because town doors are inaccessible in the
+night exterior state. Future shops/churches should use this same pattern:
+prove the room inventory and actor rows first, then wire exterior doors through
+ROM-backed door target records rather than browser-only links.
+
+## Town Of Veros Interior Baseline
+
+The three Town of Veros doors are daytime-only guide destinations generated
+through:
+
+```sh
+npm run render:recipe-atlas
+npm run analyze:interior:veros
+npm run guide:scenes:veros
+```
+
+The current proof artifact is
+`out/interior-map-research/veros-interiors.json`. It inventories
+`obj00-area07-sub00` Church, the two-submap Dagger destination
+`obj00-area0A-sub00` / `obj00-area0A-sub01`, and `obj00-area0B-sub00` Veros
+Chain Whip Room. The artifact byte-checks all four promoted actor/fixture rows
+against their ROM pointers: one priest row (`$AD`), two merchant rows (`$AE`),
+and one clue-book fixture row (`$27`).
+
+Veros Dagger is the first promoted town interior with an entry-room chain. Its
+composition uses the ROM manifest `entryRoom` relationship from
+`Veros - Dagger Room` back to `Veros - Empty Room Before Dagger`, placing the
+merchant room as the next horizontal room. Church and Chain Whip remain
+single-room destinations. Veros exterior door hotspots come from the Town of
+Veros ROM door table and the expanded-background `town-door-4x6` tile
+signature; they are day-only like the Jova doors.

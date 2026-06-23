@@ -234,6 +234,40 @@ cadence. The guide draw anchor remains `x + 0`, `y - 12`: the sprite tiles land
 at local X `968/976` and the visible orb sits on the platform. Selector `$A1` is
 part of the later reveal sequence, not part of the pre-stake blink.
 
+## Town Interior Promotion
+
+Town interiors are promoted shop/church destinations. The
+generated research artifact `out/interior-map-research/jova-interiors.json`
+accounts for all three current rows by byte-checking the manifest row pointers
+against the ROM:
+
+| Location | Actor id | Guide class | Evidence expectation |
+| --- | --- | --- | --- |
+| Church | `$AD` | Priest | Town high-bit NPC path, selector record `$0C`, CHR banks `$00/$01`, town-interior day sprite palette, text decoded from ROM file offset `$0D233`. |
+| Thorn Whip Room | `$AE` | Thorn Whip Merchant | Merchant selector record `$0B`, CHR banks `$00/$01`, item type `thorn`, ROM text pointer `$0D25F`, and ROM sale-table row `$5B $01 $00`. |
+| Holy Water Room | `$AE` | Holy Water Merchant | Merchant selector record `$0B`, CHR banks `$00/$01`, item type `holyWater`, ROM text pointer `$0D2B7`, and ROM sale-table row `$57 $00 $50`. |
+
+These rooms are independent single-room interiors. They do not need
+multi-submap alignment proof, but their exterior door links still come from the
+Town of Jova ROM door table and the expanded-background door signature.
+
+The Town of Veros proof artifact
+`out/interior-map-research/veros-interiors.json` uses the same byte-check rule
+for all four promoted rows:
+
+| Location | Actor id | Guide class | Evidence expectation |
+| --- | --- | --- | --- |
+| Church | `$AD` | Priest | Shared town church row; selector record `$0C`, CHR banks `$00/$01`, town-interior day sprite palette, text decoded from ROM file offset `$0D233`. |
+| Dagger Room | `$AE` | Dagger Merchant | Merchant selector record `$0B`, CHR banks `$00/$01`, item type `dagger`, ROM text pointer `$0D2A0`, and ROM sale-table row `$54 $00 $50`. |
+| Chain Whip Room | `$AE` | Chain Whip Merchant | Merchant selector record `$0B`, CHR banks `$00/$01`, item type `chain`, ROM text pointer `$0D271`, and ROM sale-table row `$5B $01 $50`. |
+| Chain Whip Room | `$27` | Town clue book | Town-interior clue-book fixture, selector record `$3B`, CHR banks `$00/$01`, and ROM text pointer `$0D4C6`. |
+
+Veros Dagger is a two-submap destination: `obj00-area0A-sub00` is the empty
+entry room and `obj00-area0A-sub01` is linked by the ROM manifest `entryRoom`
+relationship as the Dagger merchant room. The guide composes that entry chain
+horizontally as a single destination. Veros Church and Veros Chain Whip are
+single-room destinations.
+
 Future interiors must follow the same promotion rule before their rows appear in
 the guide: actor class, HP/data semantics, selector or direct-selector path,
 sprite CHR/palette, text pointer behavior, and fixture behavior should be

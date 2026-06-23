@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "jova-thorn-whip-room",
+  "label": "Jova Thorn Whip Room",
+  "summary": "Town of Jova Thorn Whip merchant room scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "single-room-town-interior",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "day": "town-day-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "jova-thorn-whip-room",
+      "locationId": "obj00-area08-sub00-jova-thorn-whip-room",
+      "label": "Jova Thorn Whip Room",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

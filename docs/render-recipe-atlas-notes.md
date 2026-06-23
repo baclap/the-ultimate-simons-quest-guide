@@ -32,14 +32,14 @@ npm run render:recipe-atlas
 
 ## Current Result
 
-The current atlas renders 151 entries without blocked/error cases:
+The current atlas renders 149 entries without blocked/error cases:
 
 - 23 validated
-- 128 projected
+- 126 projected
 - 0 diagnostic
-- 56 day variants
+- 79 day variants
 - 54 night variants
-- 41 fixed variants
+- 16 fixed variants
 
 The resolver derives palettes through the ROM selector table at `2:$F7C5` and
 the transfer pointer table at `7:$8895`. CHR banks come from exact probe
@@ -57,11 +57,13 @@ palette transfer `$57 -> 4:$A150`.
 
 Interior atlas entries are generated for mansion/town interior manifest
 candidates so a full interior can be built from ROM layout tables once its
-research artifact accounts for the room inventory. These entries must still be
-interpreted per submap: Berkeley Mansion Part 1 is exact-fixture validated by
-the current save state, while Berkeley Mansion Part 2 is rendered from the same
-ROM recipe family and remains `projected` until a Part 2 runtime capture or
-transition probe validates that exact submap.
+research artifact accounts for the room inventory. Town interiors are day-only
+entries because their exterior doors are inaccessible at night. Mansion
+interiors remain fixed-palette entries unless later evidence proves otherwise.
+These entries must still be interpreted per submap: Berkeley Mansion Part 1 is
+exact-fixture validated by the current save state, while Berkeley Mansion Part 2
+is rendered from the same ROM recipe family and remains `projected` until a
+Part 2 runtime capture or transition probe validates that exact submap.
 
 ## Interpretation
 
