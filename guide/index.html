@@ -20,6 +20,9 @@
         <button id="palette-toggle" type="button" class="chrome-button" aria-pressed="false" aria-label="Switch to night palette" title="Switch to night palette">
           <canvas id="palette-toggle-icon" class="chrome-icon" width="16" height="16" aria-hidden="true"></canvas>
         </button>
+        <button id="reset-toggle" type="button" class="chrome-button" aria-label="Reset guide to Jova spawn" title="Reset guide to Jova spawn">
+          <canvas id="reset-toggle-icon" class="chrome-icon" width="16" height="16" aria-hidden="true"></canvas>
+        </button>
         <button id="options-toggle" type="button" class="chrome-button" aria-expanded="false" aria-controls="options-panel" aria-label="Show guide layers" title="Show guide layers">
           <canvas id="options-toggle-icon" class="chrome-icon" width="16" height="16" aria-hidden="true"></canvas>
         </button>
@@ -34,7 +37,7 @@
           <legend>Visibility</legend>
           <label><input id="toggle-labels" type="checkbox" checked> Labels</label>
           <label><input id="toggle-show-characters" type="checkbox" checked> Characters</label>
-          <label><input id="toggle-section-outlines" type="checkbox"> Map sections</label>
+          <label><input id="toggle-section-outlines" type="checkbox" checked> Map sections</label>
           <label><input id="toggle-show-secrets" type="checkbox" checked> Secrets</label>
         </fieldset>
         <fieldset>
@@ -70,6 +73,6 @@
 
     </main>
 
-    <script type="module" src="app.js?v=spawn-camera-desktop"></script>
+    <script type="module" src="app.js?v=reset-control"></script>
   </body>
 </html>

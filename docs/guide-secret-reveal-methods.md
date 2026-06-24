@@ -47,9 +47,9 @@ the reward blocks.
 
 ## False Platform Terrain Scan
 
-The guide slice builder scans ROM layout metatiles for mansion floor chunks that
-look like ordinary walkable platforms but classify as empty terrain. Berkeley's
-false platforms use metatile `$3B`.
+The guide slice builder scans ROM layout metatiles for mansion chunks that look
+like ordinary solid terrain but classify as empty terrain. Floor-shaped false
+platforms use metatile `$3B`; wall-shaped false passages use metatile `$32`.
 
 ```text
 Metatile $01, normal platform:
@@ -63,21 +63,41 @@ D9 DB D9 DB
 DA DC DA DC
 00 00 00 00
 00 00 00 00
+
+Metatile $40, normal solid wall:
+F6 F8 F6 F8
+F7 F9 F7 F9
+F6 F8 F6 F8
+F7 F9 F7 F9
+
+Metatile $32, false wall:
+D9 DB 00 00
+DA DC 00 00
+D9 DB 00 00
+DA DC 00 00
 ```
 
 CHR tiles `$D9/$DB/$DA/$DC` are pixel-identical to `$F6/$F8/$F7/$F9` in the
 mansion CHR banks, and both metatiles use palette attribute `$00`. The guide
-therefore highlights only the visible top two tile rows of each `$3B` block.
-Adjacent matches are grouped into guide fixtures, share the same Secrets
-visibility and Secrets Highlight controls as breakable terrain, and show a grey
-guide dialog.
+therefore highlights only the visible top two tile rows of each `$3B` block and
+the visible left two tile columns of each `$32` block. Adjacent matches are
+grouped into guide fixtures, share the same Secrets visibility and Secrets
+Highlight controls as breakable terrain, and show a grey guide dialog.
 
-The current whole-Berkeley scene emits 5 grouped false-platform fixtures:
+The current whole-Berkeley scene emits 6 grouped false-terrain fixtures:
 
 - Berkeley Mansion 1: tile rect `x=88,y=12,width=4,height=2`.
 - Berkeley Mansion 2: tile rects `x=72,y=60,width=4,height=2`,
   `x=8,y=68,width=4,height=2`, `x=24,y=68,width=4,height=2`, and
   `x=32,y=68,width=4,height=2`.
+- Berkeley Mansion 2 false wall: tile rect `x=96,y=68,width=2,height=4`.
+
+The current whole-Lauber scene emits 4 grouped false-terrain fixtures:
+
+- Lauber Mansion 1 false wall: tile rect `x=80,y=72,width=2,height=8`.
+- Lauber Mansion 2 false platforms: tile rects
+  `x=100,y=68,width=4,height=2`, `x=108,y=68,width=4,height=2`, and
+  `x=116,y=68,width=4,height=2`.
 
 ROM-backed evidence:
 
@@ -91,6 +111,10 @@ ROM-backed evidence:
   classify as terrain value `2`.
 - False-platform metatile `$3B` uses visible tiles `$D9/$DB/$DA/$DC`, which
   render the same pixels but classify as terrain value `0`.
+- Ordinary solid-wall metatile `$40` uses visible tiles `$F6/$F8/$F7/$F9`,
+  which classify as terrain value `2`.
+- False-wall metatile `$32` uses visible tiles `$D9/$DB/$DA/$DC`, which render
+  the same pixels in the visible half but classify as terrain value `0`.
 
 Meaning:
 
@@ -128,22 +152,36 @@ Holy Water reveals the flame through the weapon/projectile interaction. Dracula'
 Nail reveals it by letting Simon break the blocks with the whip while the Nail
 is equipped.
 
-## Aljiba Woods Part 1: Hidden Clue Book
+## Hidden Clue Books
 
-Player-facing claim:
+Player-facing claim for guide books with an attached destructible group:
 
-> Throw Holy Water at the marked block, or equip Dracula's Eyeball, to reveal
-> the hidden clue book.
+> Throw Holy Water at the marked blocks, or equip Dracula's Eyeball, to reveal
+> this hidden clue book.
+
+Fallback player-facing claim when a future `$27` row has no ROM-expanded
+destructible group at its reveal anchor:
+
+> Equip Dracula's Eyeball to reveal this hidden clue book.
 
 ROM-backed evidence:
 
 - Actor row `0x066D5` is `05 0D 27 0D`.
-- Actor id `0x27` is the hidden book fixture. It dispatches through bank
-  `1:$8335`.
+- Whole-ROM manifest audit finds 13 actor id `0x27` rows. They all dispatch
+  through bank `1:$8335`; there is no separate visible-book actor.
 - Routine `1:$8335` passes selector-record index `$3B` to the fixed-bank sprite
   setup path at `$DED8`; selector record `$3B` expands to reward metasprite
   selector `$30`.
-- Text pointer index `$0D` decodes to the blue-crystal lake clue.
+- The fourth row byte selects the ROM clue text pointer. It is not a
+  visible-vs-hidden mode.
+- Text pointer index `$0D` for the Aljiba Woods row decodes to the blue-crystal
+  lake clue.
+- During guide generation, each promoted `$27` hidden clue-book actor is checked
+  against grouped destructible `FB FD / FC FE` background signatures in its
+  ROM-expanded segment tilemap. If the book's reveal anchor lands inside exactly
+  one destructible group, the generated actor record carries that group as its
+  `targetTileRects` link and the destructible fixture is promoted to
+  `role=secret-reward`.
 - Holy Water follows the same weapon/projectile path described above:
   `7:$F237-$F2D2` selects `$4A` bit `$08`, and `7:$D8C0` spawns projectile
   actor `$33`.
@@ -153,8 +191,11 @@ ROM-backed evidence:
 
 Meaning:
 
-Holy Water exposes the book by opening the marked block. Dracula's Eyeball
-reveals the hidden book directly as a visibility effect.
+Actor `$27` is the ROM's hidden clue-book actor. Dracula's Eyeball reveals these
+books directly as a visibility effect. The same ROM-expanded destructible terrain
+scan links books to their breakable-block reveal path when the block group is
+present at the reveal anchor; those linked books get the extra Holy Water copy in
+the grey guide dialog.
 
 ## Berkeley Mansion Part 1: Hidden Moving Platform
 
@@ -192,3 +233,115 @@ In the game, the platform behavior is gated by having a crystal selected; White,
 Blue, or Red Crystal all qualify through the same selected item slot. The guide
 does not simulate equipped inventory, so the platform is shown whenever the
 Secrets layer is visible and its card uses the simpler player-facing wording.
+
+## Yuba Lake Path: Moving Platforms
+
+ROM-backed evidence:
+
+- Raw ROM row `0x06765` is `29 0D 22 45`.
+- Raw ROM row `0x0676D` is `37 0D 22 46`.
+- Actor id `$22` dispatches to bank `1:$854B` and writes metasprite selector
+  `$43`, the same one-screen platform selector proven for the Berkeley hidden
+  platform.
+- Selector `$43` decodes to four large sprites using tiles `$F6/$F8`.
+- Row data low nibble `$5` selects setup branch `1:$859A`, which stores
+  positive X velocity and zero Y velocity. The row anchor is the left endpoint.
+- Row data low nibble `$6` selects setup branch `1:$859E`, which stores
+  negative X velocity and zero Y velocity. The row anchor is the right endpoint.
+- Both rows use high nibble `$40`; runtime branch `1:$8616` reloads that value
+  into the reversal timer, so each platform travels 64 pixels horizontally
+  before reversing.
+- The rendered guide placement applies the `$22` platform-family visible anchor
+  convention proven by the Berkeley runtime trace: raw row X is the visible
+  anchor X and visible Y is row Y minus 13 pixels.
+
+Meaning:
+
+The two Yuba Lake Path platforms are visible moving platforms, not secrets.
+They render regardless of the guide Secrets layer and use ROM-defined
+horizontal ping-pong paths.
+
+## Yuba Lake: Blue Crystal Kneel Route
+
+Player-facing claim:
+
+> Kneel by Yuba Lake with Blue Crystal or better to reveal the Lauber Mansion
+> route.
+
+ROM-backed evidence:
+
+- The reveal detector at bank `1:$A760` checks area RAM `$50 == $05` and
+  submap RAM `$51 & $7F == $01`, identifying Yuba Lake.
+- The follow-up branch at bank `1:$A780` checks selected item RAM
+  `$004F == $06`, the shared crystal selected-item slot.
+- The same branch checks inventory RAM `$0091 & $60 >= $40`, so Blue Crystal
+  and Red Crystal qualify. White Crystal alone does not satisfy this route.
+- The branch also checks Simon state RAM `$03D8 == $03`, the kneeling/ducking
+  state, before setting route state RAM `$56 = $01`.
+- The routine does not check Simon's X/Y position within the Yuba Lake submap.
+  The guide therefore highlights the Yuba Lake screen as the kneel interaction
+  zone rather than guessing a smaller spot.
+- The guide does not simulate equipment state. The Yuba Lake Path and the upper
+  Yuba Lake screen remain visible normally. The lower Yuba Lake continuation is
+  emitted as a ROM-derived crop of `obj02-area05-sub01` and tagged
+  `visibilityLayer: "secrets"`, and the Lauber Mansion door segment remains
+  tagged `visibilityLayer: "secrets"`.
+
+Meaning:
+
+The Yuba/Lauber branch is a real ROM-gated route, not ordinary continuous
+exterior geography. The guide presents it as a Secrets-controlled branch so the
+main route stays uncluttered and the hidden path can be revealed on demand.
+Its world placement is guide-authored composition backed by ROM topology, not a
+fully decoded transition-height solver. The left boundary transition for
+`obj02-area05` uses bytes `$FA $00 $03`, linking the Yuba Lake Path back to
+area `obj02-area03`/Aljiba Woods, and the right boundary transition for
+`obj02-area05-sub01` leads to `obj01-area02-sub00`/Lauber Mansion Door. The
+authored guide layout aligns Yuba Lake Path to the lower-right exit band of
+`obj02-area03-sub03` (`aljiba-woods-part-2`) at `y=448`, renders Yuba Lake as
+two ROM-derived crops, and aligns the Lauber Mansion Door segment to the bottom
+Yuba Lake screen at `y=672`.
+
+## Camilla Cemetery: Secret Merchant
+
+Player-facing claim:
+
+> Drop Garlic in Camilla Cemetery to reveal the hidden merchant. He gives Simon
+> the Silver Knife.
+
+ROM-backed evidence:
+
+- Raw ROM row `0x06F32` is `04 0C 9E 06`.
+- The manifest row's high-bit actor id `$9E` maps to live actor id `$1E`.
+- Actor dispatch table entry `$1E` points to bank `1:$B1BD`.
+- The initialization branch at `1:$B1BD-$B1CE` sets actor state RAM
+  `$03D8,x = $40`, sets hidden flag bit `$20` in `$03C6,x`, and initializes
+  selector-record index `$0B` through the fixed-bank sprite setup path.
+- Selector-record `$0B` expands to metasprite selectors `$1E/$1F`, so the guide
+  renders the hidden merchant as an animated ROM-derived actor rather than a
+  static `$1E` frame.
+- The reveal detector at `1:$B1DD-$B1EB` scans actor slots `$03-$05` by reading
+  `$03B4,Y` and comparing each live actor id to `$09`.
+- When actor `$09` is found, `1:$B1EC` advances state RAM `$0444,x`,
+  `1:$B1EF-$B1F4` clears hidden flag bit `$20` from `$03C6,x`, and
+  `1:$B1F7-$B1F9` sets timer RAM `$0456,x = $20`.
+- Actor `$09` dispatches to bank `1:$A7F2` and initializes selector-record
+  index `$3A`. In normal enemy contexts this id is also used by the Vampire Bat,
+  so the guide documents the cemetery trigger as a local transient dropped-item
+  actor, not a global actor-name identity.
+- ROM item/menu evidence links Garlic to tile `$6D`, and the project already
+  promotes Garlic sale rows from the ROM sale table. The cemetery routine is the
+  hidden-person side of that Garlic behavior.
+- Text pointer `$0CED8` decodes to the merchant's game dialog:
+  `i'll give you this silver knife to save your neck.`
+- The Silver Knife badge uses start-menu icon tile `$55` from the fixed-bank
+  weapon/crystal menu icon table.
+
+Meaning:
+
+The Camilla person is not an always-visible NPC. The guide promotes the row as a
+`secretFeatures` entry, renders the ROM-derived merchant sprite only when the
+Secrets layer is visible, keeps highlighting on the Secrets highlight option,
+and shows a Silver Knife item badge when Labels are visible. The guide dialog is
+the standard grey/blue stack: grey guide-authored reveal/reward explanation
+above the blue ROM dialog.

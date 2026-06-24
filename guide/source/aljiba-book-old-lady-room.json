@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "aljiba-book-old-lady-room",
+  "label": "Aljiba Book And Old Lady Room",
+  "summary": "Town of Aljiba book and old-lady interior chain, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "entry-room-chain-horizontal",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "day": "town-day-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "aljiba-book-entry",
+      "locationId": "obj00-area0d-sub00-aljiba-book-room-before-old-lady",
+      "label": "Aljiba Book Room",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "aljiba-old-lady-room",
+      "locationId": "obj00-area0d-sub01-aljiba-old-lady-room",
+      "label": "Aljiba Old Lady Room",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 256,
+      "y": 0
+    }
+  ]
+}

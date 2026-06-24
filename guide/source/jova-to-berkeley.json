@@ -1,12 +1,20 @@
 {
   "schemaVersion": 1,
   "id": "jova-to-berkeley",
-  "label": "Town of Jova to Aljiba Woods",
-  "summary": "Guide product slice from the opening town eastward through Veros, Dabi's Path, Aljiba Woods, and the Berkeley branch.",
+  "label": "Town of Jova to Camilla Cemetery",
+  "summary": "Guide product slice from the opening town eastward through Veros, Dabi's Path, Aljiba, Camilla Cemetery, and the Berkeley/Lauber branches.",
   "defaultLayout": "branch-continuous",
   "provenance": {
     "pixels": "rom-derived",
     "layout": "presentation-authored"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "includeSegmentIds": [
+      "town-of-aljiba",
+      "yuba-lake-path",
+      "camilla-cemetery"
+    ]
   },
   "doorHotspotMaterialization": {
     "source": "manifest-location-doors",
@@ -54,6 +62,34 @@
           "itemId": "dracula-rib",
           "evidence": "The generated Berkeley Mansion scene promotes Dracula's Rib orb and its ROM-backed reveal behavior."
         }
+      },
+      "obj00-area0c-sub00": {
+        "viewId": "aljiba-garlic-room",
+        "label": "Enter Aljiba Garlic Room",
+        "itemReward": {
+          "itemId": "garlic",
+          "evidence": "The generated Aljiba Garlic Room scene promotes the ROM merchant row with the Garlic sale-table item offer."
+        }
+      },
+      "obj00-area0d-sub00": {
+        "viewId": "aljiba-book-old-lady-room",
+        "label": "Enter Aljiba Book And Old Lady Room"
+      },
+      "obj00-area0e-sub00": {
+        "viewId": "aljiba-laurels-room",
+        "label": "Enter Aljiba Laurels Room",
+        "itemReward": {
+          "itemId": "laurels",
+          "evidence": "The generated Aljiba Laurels Room scene promotes the ROM merchant row with the Laurels sale-table item offer."
+        }
+      },
+      "obj01-area08-sub00": {
+        "viewId": "lauber-mansion",
+        "label": "Enter Lauber Mansion",
+        "itemReward": {
+          "itemId": "dracula-heart",
+          "evidence": "The generated Lauber Mansion scene promotes Dracula's Heart orb from ROM actor row $05C4B."
+        }
       }
     },
     "segmentPolicies": {
@@ -75,6 +111,12 @@
         },
         "evidence": "Town door targets come from the ROM manifest door table; tile rectangles are derived by matching the town-door signature in the expanded Town of Veros background tilemap. The church target reuses the shared ROM church interior while opening a Veros-labeled guide scene."
       },
+      "town-of-aljiba": {
+        "signature": "townDoor",
+        "expectedMatches": 3,
+        "variants": ["day"],
+        "evidence": "Town door targets come from the ROM manifest door table; tile rectangles are derived by matching the town-door signature in the expanded Town of Aljiba background tilemap."
+      },
       "berkeley-mansion-door": {
         "variants": ["day", "night"],
         "manualTileRects": [
@@ -82,6 +124,16 @@
             "target": "obj01-area07-sub00",
             "tileRect": { "x": 13, "y": 16, "width": 6, "height": 8 },
             "evidence": "Existing Berkeley exterior door hitbox aligned to the validated Berkeley mansion door capture out/captures/berkeley-mansion-door-day/background.png."
+          }
+        ]
+      },
+      "lauber-mansion-door": {
+        "variants": ["day", "night"],
+        "manualTileRects": [
+          {
+            "target": "obj01-area08-sub00",
+            "tileRect": { "x": 13, "y": 16, "width": 6, "height": 8 },
+            "evidence": "Lauber mansion door uses the same mansion-door tile hitbox signature as the validated Berkeley exterior mansion door, applied to the ROM-rendered Lauber door segment."
           }
         ]
       }
@@ -166,6 +218,52 @@
       "y": 224
     },
     {
+      "id": "town-of-aljiba",
+      "locationId": "obj00-area02-sub00-town-of-aljiba",
+      "label": "Town of Aljiba",
+      "x": 8704,
+      "y": 0
+    },
+    {
+      "id": "camilla-cemetery",
+      "locationId": "obj03-area00-sub00-camilla-cemetery",
+      "label": "Camilla Cemetery",
+      "x": 9728,
+      "y": 224
+    },
+    {
+      "id": "yuba-lake-path",
+      "locationId": "obj02-area05-sub00-yuba-lake-path",
+      "label": "Yuba Lake Path",
+      "x": 8192,
+      "y": 448
+    },
+    {
+      "id": "yuba-lake",
+      "locationId": "obj02-area05-sub01-yuba-lake",
+      "label": "Yuba Lake",
+      "x": 9216,
+      "y": 448,
+      "crop": { "x": 0, "y": 0, "width": 256, "height": 224 }
+    },
+    {
+      "id": "yuba-lake-revealed-route",
+      "locationId": "obj02-area05-sub01-yuba-lake",
+      "label": "Yuba Lake revealed route",
+      "x": 9216,
+      "y": 672,
+      "crop": { "x": 0, "y": 224, "width": 256, "height": 224 },
+      "visibilityLayer": "secrets"
+    },
+    {
+      "id": "lauber-mansion-door",
+      "locationId": "obj01-area02-sub00-lauber-mansion-door",
+      "label": "Lauber Mansion - Door",
+      "x": 9472,
+      "y": 704,
+      "visibilityLayer": "secrets"
+    },
+    {
       "id": "denis-woods-part-1",
       "locationId": "obj02-area01-sub00-denis-woods-part-1",
       "label": "Denis Woods - Part 1",
@@ -205,7 +303,7 @@
     {
       "id": "branch-continuous",
       "label": "Branch continuous",
-      "summary": "Keeps Berkeley -> Denis Woods -> Dabi's Path physically continuous while Town of Veros eases between the Veros Woods side and the Dabi's Path side of the lower projection gap based on the current view.",
+      "summary": "Keeps Berkeley -> Denis Woods -> Dabi's Path physically continuous while continuing the main eastward route through Aljiba to Camilla Cemetery. The Yuba Lake/Lauber branch is a Secrets-gated presentation of the ROM-backed Blue Crystal kneel reveal.",
       "segments": [
         { "sourceId": "town-of-jova", "x": 0, "y": 0 },
         { "sourceId": "jova-woods", "x": 1024, "y": 224 },
@@ -221,7 +319,13 @@
         { "sourceId": "dabis-path-part-2", "x": 6656, "y": 224 },
         { "sourceId": "aljiba-woods-part-1", "x": 7168, "y": 224 },
         { "sourceId": "aljiba-woods-part-2", "x": 7680, "y": 224 },
-        { "sourceId": "aljiba-woods-part-3", "x": 8192, "y": 224 }
+        { "sourceId": "aljiba-woods-part-3", "x": 8192, "y": 224 },
+        { "sourceId": "town-of-aljiba", "x": 8704, "y": 0 },
+        { "sourceId": "camilla-cemetery", "x": 9728, "y": 224 },
+        { "sourceId": "yuba-lake-path", "x": 8192, "y": 448 },
+        { "sourceId": "yuba-lake", "x": 9216, "y": 448 },
+        { "sourceId": "yuba-lake-revealed-route", "x": 9216, "y": 672 },
+        { "sourceId": "lauber-mansion-door", "x": 9472, "y": 672 }
       ]
     }
   ]

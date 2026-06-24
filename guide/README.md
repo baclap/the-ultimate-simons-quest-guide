@@ -34,10 +34,11 @@ application whose primary surface should feel like looking at the real game.
 
 The first product slice covers:
 
-`Town of Jova -> Jova Woods -> South Bridge -> Veros Woods -> Town of Veros -> Dabi's Path -> Aljiba Woods`
+`Town of Jova -> Jova Woods -> South Bridge -> Veros Woods -> Town of Veros -> Dabi's Path -> Aljiba Woods -> Town of Aljiba -> Camilla Cemetery`
 
-It also includes the three Town of Jova daytime doors and the Denis Woods ->
-Berkeley Mansion branch as map-swap destinations. The current guide uses the branch-continuous projection:
+It also includes the Town of Jova, Town of Veros, and Town of Aljiba daytime
+doors plus the Denis Woods -> Berkeley Mansion branch and the Blue Crystal
+Yuba Lake -> Lauber Mansion secret branch as map-swap destinations. The current guide uses the branch-continuous projection:
 Berkeley -> Denis Woods -> Dabi's Path is physically continuous, while Town of
 Veros eases between the Veros Woods side and the Dabi's Path side of the lower
 projection space based on the current camera view. Subtle grey stripes mark
@@ -56,9 +57,11 @@ It demonstrates the core guide language:
   highlights, and map-object highlights;
 - ROM-backed door hotspots: the Jova town doors are generated from the manifest
   door table plus expanded-background door signatures and are daytime-only,
-  while the Berkeley door opens the full Berkeley Mansion scene;
+  the Veros and Aljiba town doors follow the same daytime-only pattern, while
+  the Berkeley/Lauber mansion doors open full mansion scenes;
 - full-screen interior map swaps for Jova Church, the Jova Thorn Whip room, the
-  Jova Holy Water room, and Berkeley Mansion;
+  Jova Holy Water room, Veros interiors, Aljiba interiors, Berkeley Mansion,
+  and Lauber Mansion;
 - a branch-continuous exterior projection with camera-aware Veros placement.
 
 The route layout in this prototype is presentation-authored. The pixels are not.
@@ -87,9 +90,25 @@ dialogue text, and palette source are backed by ROM-derived evidence:
   fixture. Dabi day and night use the same ROM sprite-palette fragment and the
   same ROM background palette transfer address, so the actor palette source is
   shared intentionally rather than guessed.
-- Aljiba Woods includes skeletons, spiders, and the hidden clue-book fixture.
+- Aljiba Woods includes skeletons, spiders, and the hidden clue-book actor.
   These screens use the same day/night sprite palette families proven for the
   Denis/Aljiba exterior palette transfer addresses.
+- Town of Aljiba is promoted from ROM manifest rows: day NPCs/sign/crystal
+  exchange, night zombies, and three day-only interior doors. The Blue Crystal
+  exchange merchant uses the ROM merchant selector table and carries a
+  trade-for-White-Crystal item affordance.
+- Camilla Cemetery promotes the ROM secret merchant as a `secretFeatures`
+  entry, not as an always-visible character. It appears with the Secrets layer,
+  carries a Silver Knife item badge with Labels, and uses a grey/blue stacked
+  dialog backed by the reveal routine and ROM text pointer. Dead Hand rows and
+  Blob rows remain ordinary enemy actors. The first Blob row uses the raw ROM
+  actor bytes for placement because the manifest normalizes its Y byte
+  differently from the source row.
+- The Yuba Lake/Lauber branch is tagged as a Secrets-gated route. ROM code at
+  bank `1:$A760-$A79F` proves the route reveal requires Yuba Lake, selected
+  crystal slot `$004F == $06`, crystal-tier bits `$0091 & $60 >= $40`, and
+  Simon kneeling. Low-level proof is in
+  `docs/guide-secret-reveal-methods.md`.
 - Denis Woods Part 2/3 includes skeletons, spiders, and zigzag bats.
 - Standard NPC/sign/book/item text is decoded from the ROM text pointer table at
   file offset `0xCB92`; the manifest carries the pointer index, table offset,
@@ -148,6 +167,18 @@ dialogue text, and palette source are backed by ROM-derived evidence:
   the two-room Dagger destination, and the Chain Whip room. It byte-checks the
   priest, Dagger merchant, Chain Whip merchant, and clue-book rows, and uses the
   ROM `entryRoom` chain for the Dagger room composition.
+- The Town of Aljiba interiors follow the same standard. The proof artifact
+  `out/interior-map-research/aljiba-interiors.json` inventories the Garlic
+  room, Book/Old Lady destination, and Laurels destination, byte-checking all
+  merchant/book/old-lady rows.
+- Lauber Mansion follows the mansion standard. The proof artifact
+  `out/interior-map-research/lauber-mansion.json` inventories Part 1, Part 2,
+  and the manifest-exposed Lauber -> Laruba Wrong Warp submap. The guide scene
+  promotes the normal Part 1/Part 2 destination and renders the `$21`
+  platform-control row as a normal moving platform with its ROM-decoded
+  horizontal path. The scene retains the raw row anchor as provenance while
+  rendering the visible path with the mansion platform actor-slot/OAM anchor
+  correction proven by the Berkeley `$22` platform trace.
 
 ## Local Preview
 
@@ -158,10 +189,14 @@ npm run render:recipe-atlas
 npm run analyze:interior:berkeley
 npm run analyze:interior:jova
 npm run analyze:interior:veros
-node src/index.js build-guide-slice --rom roms/cv2.nes --slice guide/source/jova-to-berkeley.json --layout branch-continuous --atlas out/render-recipe-atlas/manifest.json --out guide/assets/slices/jova-to-berkeley
+npm run analyze:interior:aljiba
+npm run analyze:interior:lauber
+npm run guide:slice:jova-to-berkeley
 npm run guide:scene:berkeley-mansion
 npm run guide:scenes:jova
 npm run guide:scenes:veros
+npm run guide:scenes:aljiba
+npm run guide:scene:lauber-mansion
 python3 -m http.server 4177 --directory guide
 ```
 

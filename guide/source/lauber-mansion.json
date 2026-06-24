@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "lauber-mansion",
+  "label": "Lauber Mansion",
+  "summary": "Whole Lauber Mansion interior scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "rom-entry-room-chain",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "fixed": "mansion-fixed-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "lauber-mansion-part-1",
+      "locationId": "obj01-area08-sub00-lauber-mansion-part-1",
+      "label": "Lauber Mansion 1",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "lauber-mansion-part-2",
+      "locationId": "obj01-area08-sub01-lauber-mansion-part-2",
+      "label": "Lauber Mansion 2",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 768,
+      "y": 0
+    }
+  ],
+  "excludedSubmaps": [
+    {
+      "locationId": "obj01-area08-sub02-lauber-laruba-wrong-warp",
+      "reason": "ROM manifest exposes this as Lauber -> Laruba Wrong Warp with no actor rows; it is inventoried by the interior research artifact but is not part of the normal Lauber Mansion destination map."
+    }
+  ]
+}

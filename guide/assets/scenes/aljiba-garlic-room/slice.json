@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "veros-church",
-  "label": "Veros Church",
-  "summary": "Town of Veros church interior scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "id": "aljiba-garlic-room",
+  "label": "Aljiba Garlic Room",
+  "summary": "Town of Aljiba Garlic merchant room scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
   "layoutSample": null,
   "availableLayouts": [],
   "source": {
-    "sliceConfig": "guide/source/veros-church.json",
+    "sliceConfig": "guide/source/aljiba-garlic-room.json",
     "atlas": "out/render-recipe-atlas/manifest.json",
     "renderer": "rust-wasm-webgl-tilemap-v1",
     "notes": [
@@ -27,10 +27,10 @@
   },
   "world": {
     "width": 256,
-    "height": 224
+    "height": 448
   },
   "dataFile": "slice-data.bin",
-  "byteLength": 37432,
+  "byteLength": 37488,
   "chrSets": [
     {
       "id": "chr-00-01",
@@ -56,7 +56,7 @@
         "0x03"
       ],
       "data": {
-        "offset": 12616,
+        "offset": 12672,
         "length": 8192
       },
       "decodedAtlas": {
@@ -73,7 +73,7 @@
         "0x09"
       ],
       "data": {
-        "offset": 20808,
+        "offset": 20864,
         "length": 8192
       },
       "decodedAtlas": {
@@ -90,7 +90,7 @@
         "0x05"
       ],
       "data": {
-        "offset": 29000,
+        "offset": 29056,
         "length": 8192
       },
       "decodedAtlas": {
@@ -119,13 +119,13 @@
   ],
   "palettes": [
     {
-      "id": "veros-church-day",
-      "segmentId": "veros-church",
+      "id": "aljiba-garlic-room-day",
+      "segmentId": "aljiba-garlic-room",
       "variant": "day",
-      "paletteAddress": "0x9F19",
+      "paletteAddress": "0x9E91",
       "paletteBank": 4,
       "data": {
-        "offset": 12600,
+        "offset": 12656,
         "length": 16
       }
     }
@@ -136,7 +136,7 @@
       "label": "Town actor sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F2A..0x9F31",
       "data": {
-        "offset": 37192,
+        "offset": 37248,
         "length": 16
       },
       "bytes": [
@@ -163,7 +163,7 @@
       "label": "Town actor sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 37208,
+        "offset": 37264,
         "length": 16
       },
       "bytes": [
@@ -190,7 +190,7 @@
       "label": "Jova Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 37224,
+        "offset": 37280,
         "length": 16
       },
       "bytes": [
@@ -217,7 +217,7 @@
       "label": "Jova Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 37240,
+        "offset": 37296,
         "length": 16
       },
       "bytes": [
@@ -244,7 +244,7 @@
       "label": "South Bridge sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 37256,
+        "offset": 37312,
         "length": 16
       },
       "bytes": [
@@ -271,7 +271,7 @@
       "label": "South Bridge sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 37272,
+        "offset": 37328,
         "length": 16
       },
       "bytes": [
@@ -298,7 +298,7 @@
       "label": "Veros Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 37288,
+        "offset": 37344,
         "length": 16
       },
       "bytes": [
@@ -325,7 +325,7 @@
       "label": "Veros Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 37304,
+        "offset": 37360,
         "length": 16
       },
       "bytes": [
@@ -352,7 +352,7 @@
       "label": "Denis Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 37320,
+        "offset": 37376,
         "length": 16
       },
       "bytes": [
@@ -379,7 +379,7 @@
       "label": "Denis Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 37336,
+        "offset": 37392,
         "length": 16
       },
       "bytes": [
@@ -406,7 +406,7 @@
       "label": "Dabi's Path sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 37352,
+        "offset": 37408,
         "length": 16
       },
       "bytes": [
@@ -433,7 +433,7 @@
       "label": "Dabi's Path sprites, night (same ROM palette transfer as day)",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 37368,
+        "offset": 37424,
         "length": 16
       },
       "bytes": [
@@ -460,7 +460,7 @@
       "label": "Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F6F..0x9F76",
       "data": {
-        "offset": 37384,
+        "offset": 37440,
         "length": 16
       },
       "bytes": [
@@ -487,7 +487,7 @@
       "label": "Camilla Cemetery sprites, day",
       "source": "out/actor-traces/camilla-cemetery-day-idle/ppu-final-3f00-3f1f-palettes.bin",
       "data": {
-        "offset": 37400,
+        "offset": 37456,
         "length": 16
       },
       "bytes": [
@@ -514,7 +514,7 @@
       "label": "Camilla Cemetery sprites, night",
       "source": "out/actor-traces/camilla-cemetery-night-idle/ppu-final-3f00-3f1f-palettes.bin",
       "data": {
-        "offset": 37416,
+        "offset": 37472,
         "length": 16
       },
       "bytes": [
@@ -539,43 +539,43 @@
   ],
   "segments": [
     {
-      "id": "veros-church",
-      "locationId": "obj00-area07-sub00-church",
-      "label": "Veros Church",
-      "sourceName": "Church",
+      "id": "aljiba-garlic-room",
+      "locationId": "obj00-area0c-sub00-aljiba-garlic-room",
+      "label": "Aljiba Garlic Room",
+      "sourceName": "Aljiba - Garlic Room",
       "position": {
         "x": 0,
         "y": 0,
         "width": 256,
-        "height": 224
+        "height": 448
       },
-      "sourceId": "veros-church",
+      "sourceId": "aljiba-garlic-room",
       "visibilityLayer": null,
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 8,
-      "blockHeight": 7,
+      "blockHeight": 14,
       "tileWidth": 32,
-      "tileHeight": 28,
+      "tileHeight": 56,
       "crop": null,
       "chrSet": "chr-00-01",
       "tileSet": "tiles-4-841d-8461",
       "layoutBlocks": {
         "offset": 12544,
-        "length": 56
+        "length": 112
       },
       "variants": [
         "day"
       ],
       "defaultVariant": "day",
       "palettes": {
-        "day": "veros-church-day"
+        "day": "aljiba-garlic-room-day"
       },
       "atlasEntries": {
-        "day": "obj00-area07-sub00-church-day"
+        "day": "obj00-area0c-sub00-aljiba-garlic-room-day"
       },
       "recipeStatus": {
-        "day": "validated"
+        "day": "projected"
       },
       "provenance": {
         "pixels": "rom-derived",
@@ -585,7 +585,122 @@
     }
   ],
   "doorHotspots": [],
-  "destructibleFixtures": [],
+  "destructibleFixtures": [
+    {
+      "id": "aljiba-garlic-room-destructible-12-24-12x2",
+      "label": "Breakable blocks",
+      "kind": "destructible-terrain",
+      "role": "breakable-terrain",
+      "segmentId": "aljiba-garlic-room",
+      "tileRect": {
+        "x": 12,
+        "y": 24,
+        "width": 12,
+        "height": 2
+      },
+      "matchCount": 6,
+      "matches": [
+        {
+          "x": 12,
+          "y": 24,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 14,
+          "y": 24,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 16,
+          "y": 24,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 18,
+          "y": 24,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 20,
+          "y": 24,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 22,
+          "y": 24,
+          "width": 2,
+          "height": 2
+        }
+      ],
+      "linkedActorId": null,
+      "signatureId": "destructible-block-2x2",
+      "signatureLabel": "Destructible block",
+      "action": "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.",
+      "provenance": {
+        "source": "rom-expanded-background-tilemap",
+        "signatureTiles": [
+          [
+            "0xFB",
+            "0xFD"
+          ],
+          [
+            "0xFC",
+            "0xFE"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "aljiba-garlic-room-destructible-24-44-4x2",
+      "label": "Breakable blocks",
+      "kind": "destructible-terrain",
+      "role": "breakable-terrain",
+      "segmentId": "aljiba-garlic-room",
+      "tileRect": {
+        "x": 24,
+        "y": 44,
+        "width": 4,
+        "height": 2
+      },
+      "matchCount": 2,
+      "matches": [
+        {
+          "x": 24,
+          "y": 44,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 26,
+          "y": 44,
+          "width": 2,
+          "height": 2
+        }
+      ],
+      "linkedActorId": null,
+      "signatureId": "destructible-block-2x2",
+      "signatureLabel": "Destructible block",
+      "action": "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.",
+      "provenance": {
+        "source": "rom-expanded-background-tilemap",
+        "signatureTiles": [
+          [
+            "0xFB",
+            "0xFD"
+          ],
+          [
+            "0xFC",
+            "0xFE"
+          ]
+        ]
+      }
+    }
+  ],
   "secretFeatures": [],
   "itemIcons": {
     "chrSet": "chr-00-01",
@@ -5959,11 +6074,11 @@
   ],
   "actors": [
     {
-      "id": "veros-church-simon-spawn",
+      "id": "aljiba-garlic-room-simon-spawn",
       "classId": "simon-belmont",
       "label": "Simon Belmont",
       "kind": "player",
-      "segmentId": "veros-church",
+      "segmentId": "aljiba-garlic-room",
       "variants": [
         "day"
       ],
@@ -6005,9 +6120,8 @@
       "provenance": {
         "source": "rom-runtime-spawn-evidence",
         "evidence": [
-          "Town interior entry transition probes set Simon at raw OAM x=8/16 and y=174/190 after entering the room.",
-          "The PPU renderer draws OAM Y as raw+1; selector $04 offsets place the standing-frame screen anchor at (16,190).",
-          "The ROM-derived guide background matches the town-interior capture at guideY=captureY-13, so the guide-space anchor is (16,177)."
+          "Town interior entry code zeroes the interior camera state before jumping to the entry handler.",
+          "The shared town-interior transition evidence places the standing-frame guide-space selector anchor at (16,177)."
         ],
         "placement": {
           "pixelX": 16,
@@ -6018,72 +6132,85 @@
       }
     },
     {
-      "id": "veros-church-priest-4eed",
-      "classId": "town-priest",
-      "label": "Priest",
+      "id": "aljiba-garlic-room-garlic-merchant-51ef",
+      "classId": "jova-merchant",
+      "label": "Garlic Merchant",
       "kind": "npc",
-      "segmentId": "veros-church",
+      "segmentId": "aljiba-garlic-room",
       "variants": [
         "day"
       ],
       "paletteByVariant": {
         "day": "town-day-sprites"
       },
-      "tileX": 8,
-      "tileY": 8,
-      "pixelX": 136,
-      "pixelY": 116,
-      "worldX": 136,
-      "worldY": 116,
-      "actorId": "0xAD",
-      "data": "0x31",
+      "tileX": 12,
+      "tileY": 26,
+      "pixelX": 200,
+      "pixelY": 404,
+      "worldX": 200,
+      "worldY": 404,
+      "actorId": "0xAE",
+      "data": "0x02",
       "hp": null,
-      "text": "rest here for a while.",
+      "text": "will you buy some garlic?",
       "textEvidence": {
-        "fileOffset": "0x0D233",
+        "fileOffset": "0x0D201",
         "rawBytes": [
-          "0x12",
-          "0x05",
-          "0x13",
-          "0x14",
-          "0x00",
-          "0x08",
-          "0x05",
-          "0x12",
-          "0x05",
-          "0xFE",
-          "0x06",
-          "0x0F",
-          "0x12",
-          "0x00",
-          "0x01",
-          "0x00",
           "0x17",
-          "0x08",
           "0x09",
           "0x0C",
+          "0x0C",
+          "0x00",
+          "0x19",
+          "0x0F",
+          "0x15",
+          "0x00",
+          "0x02",
+          "0x15",
+          "0x19",
+          "0xFE",
+          "0x13",
+          "0x0F",
+          "0x0D",
           "0x05",
-          "0x1B"
+          "0x00",
+          "0x07",
+          "0x01",
+          "0x12",
+          "0x0C",
+          "0x09",
+          "0x03",
+          "0x5D"
         ],
-        "decoded": "rest here\nfor a while.",
-        "text": "rest here for a while.",
-        "source": "rom-file:0x0D233"
+        "decoded": "will you buy\nsome garlic?",
+        "text": "will you buy some garlic?",
+        "source": "rom-file:0x0D201"
       },
-      "guideDialog": {
-        "text": "Priest\n----------\nRefills Simon's health meter to full health.",
-        "tone": "guide-authored",
-        "source": "guide-authored-priest-service-summary"
+      "guideDialog": null,
+      "itemOffer": {
+        "itemId": "garlic",
+        "itemLabel": "Garlic",
+        "iconTile": "0x6D",
+        "roleLabel": "Garlic Merchant",
+        "costHearts": 50,
+        "priceSource": "ROM sale table at file offset $1ED2B: $6D $00 $50.",
+        "manualText": "Use Garlic at certain graveyards to call hidden merchants.",
+        "manualSource": "Guide-authored from ROM NPC/item behavior; the Aljiba sale row and cemetery secret merchant are ROM-backed.",
+        "evidence": [
+          "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+          "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
+          "ROM sale table triple at file offset $1ED2B is $6D $00 $50, linking tile $6D to a Garlic sale row."
+        ]
       },
-      "itemOffer": null,
       "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
       "flipHorizontal": false,
       "runtimeAnchor": {
-        "pixelX": 128,
-        "pixelY": 128,
-        "worldX": 128,
-        "worldY": 128
+        "pixelX": 192,
+        "pixelY": 416,
+        "worldX": 192,
+        "worldY": 416
       },
       "drawAnchor": {
         "offsetX": 8,
@@ -6091,21 +6218,21 @@
         "source": "rom-row-16px-cell-visual-anchor"
       },
       "provenance": {
-        "rowOffset": "0x04EED",
+        "rowOffset": "0x051EF",
         "rawBytes": [
-          "0x08",
-          "0x08",
-          "0xAD",
-          "0x31"
+          "0x0C",
+          "0x1A",
+          "0xAE",
+          "0x02"
         ],
         "source": "rom-actor-row"
       }
     }
   ],
   "destructibleSummary": {
-    "fixtures": 0,
+    "fixtures": 2,
     "rewardLinked": 0,
-    "breakableTerrain": 0,
+    "breakableTerrain": 2,
     "falsePlatforms": 0
   },
   "doorSummary": {

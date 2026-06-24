@@ -159,6 +159,11 @@ that place and the location is needed to distinguish it from another visually or
 mechanically similar class. If the same actor id appears in multiple places,
 the guide name must remain generic.
 
+Generated guide scenes enforce this at build time: enemy display labels must
+come from the canonical actor-class label, not the source manifest row name. A
+row source name such as "mansion bat" may remain in research artifacts as source
+metadata, but it must not become player-facing UI text.
+
 Actor id `$1F` is the current example. It was first promoted while building
 Berkeley Mansion and temporarily named "Mansion blob", but a whole-ROM actor
 inventory finds the same id in Berkeley, Brahm, and Bodley mansions. Until an
@@ -180,6 +185,7 @@ clear enough to claim an official name.
 | `$04` | `fishman` | The Fish Man | Manual match | The amphibious humanoid sprite matches the manual's "The Fish Man". |
 | `$08` | `eyeball` | Ghostly Eyeball | Manual match | The flying eyeball sprite matches the manual's "Ghostly Eyeball". |
 | `$09` | `zigzag-bat` | Vampire Bat | Manual match | The flying bat sprite matches the manual's "Vampire Bat". |
+| `$11` | `mansion-bat` | Vampire Bat | Manual match | The mansion bat actor uses a different ROM actor id/selector context from `$09`, but the rendered bat class matches the same manual "Vampire Bat" enemy name. |
 | `$0E` | `spider` | The Spider | Manual match | The hanging/crawling spider sprite matches the manual's "The Spider". |
 | `$13` | `werewolf` | The Wolf Man | Manual match | The Jova Woods humanoid wolf sprite matches the manual's "The Wolf Man". |
 | `$17` | `zombie` | The Zombie | Manual match | The town night humanoid sprite matches the manual's "The Zombie". |
@@ -203,7 +209,7 @@ documented `$22` moving-platform control row at ROM file offset `$5AD8`.
 | `$0D` | Bone thrower | 2 | Dispatch entry `$0D` initializes selector record `$05`; rows carry HP `$02`. |
 | `$0F` | The Gargoyle | 4 | Dispatch entry `$0F` initializes selector record `$12`. |
 | `$1F` | Blob | 10 | Direct `$DED0` selector path, not a normal selector-stream record; neutral animation uses selectors `$3C/$3D`. |
-| `$27` | Clue book | 3 | Selector record `$3B`; text decoded from ROM file offsets. |
+| `$27` | Hidden clue book | 3 | Shared hidden-book routine `1:$8335`; selector record `$3B`; text decoded from ROM file offsets; each generated book is linked to the ROM-expanded destructible group at its reveal anchor. |
 | `$AE` | Oak-stake merchant | 1 | High-bit merchant row maps to live id `$2E`; selector record `$0B`; text decoded from ROM file offset `$0D044`. |
 | `$25` | Dracula's Rib orb | 1 | Direct `$DED0` selector path for the orb sequence; pre-stake save-state OAM proves selector `$3B` and the class-specific anchor; text decoded from ROM file offset `$0CF9C`. |
 | `$22` | Secret feature | 1 | ROM row `$05 $28 $22 $A4` at file offset `$5AD8`; promoted through `secretFeatures` as the crystal-gated moving platform rather than the normal actor layer. |
@@ -260,13 +266,63 @@ for all four promoted rows:
 | Church | `$AD` | Priest | Shared town church row; selector record `$0C`, CHR banks `$00/$01`, town-interior day sprite palette, text decoded from ROM file offset `$0D233`. |
 | Dagger Room | `$AE` | Dagger Merchant | Merchant selector record `$0B`, CHR banks `$00/$01`, item type `dagger`, ROM text pointer `$0D2A0`, and ROM sale-table row `$54 $00 $50`. |
 | Chain Whip Room | `$AE` | Chain Whip Merchant | Merchant selector record `$0B`, CHR banks `$00/$01`, item type `chain`, ROM text pointer `$0D271`, and ROM sale-table row `$5B $01 $50`. |
-| Chain Whip Room | `$27` | Town clue book | Town-interior clue-book fixture, selector record `$3B`, CHR banks `$00/$01`, and ROM text pointer `$0D4C6`. |
+| Chain Whip Room | `$27` | Hidden clue book | Shared hidden-book routine `1:$8335`, selector record `$3B`, CHR banks `$00/$01`, ROM text pointer `$0D4C6`, and a ROM-expanded destructible group at the reveal anchor. |
 
 Veros Dagger is a two-submap destination: `obj00-area0A-sub00` is the empty
 entry room and `obj00-area0A-sub01` is linked by the ROM manifest `entryRoom`
 relationship as the Dagger merchant room. The guide composes that entry chain
 horizontally as a single destination. Veros Church and Veros Chain Whip are
 single-room destinations.
+
+The Town of Aljiba proof artifact
+`out/interior-map-research/aljiba-interiors.json` uses the same byte-check rule
+for all four promoted rows:
+
+| Location | Actor id | Guide class | Evidence expectation |
+| --- | --- | --- | --- |
+| Garlic Room | `$AE` | Garlic Merchant | Merchant selector record `$0B`, CHR banks `$00/$01`, item type `garlicAljiba`, ROM text pointer `$0D201`, and ROM sale-table row `$6D $00 $50`. |
+| Book Room | `$27` | Hidden clue book | Shared hidden-book routine `1:$8335`, selector record `$3B`, CHR banks `$00/$01`, ROM text pointer `$0D99D`, and a ROM-expanded destructible group at the reveal anchor. |
+| Old Lady Room | `$AC` | Old Lady | High-bit town NPC path to live id `$2C`; direct selector `$28`; text decoded from ROM file offset `$0D92B`. |
+| Laurels Room | `$AE` | Laurels Merchant | Merchant selector record `$0B`, CHR banks `$00/$01`, item type `laurelsAljiba`, ROM text pointer `$0D21B`, and ROM sale-table row `$58 $00 $50`. |
+
+Aljiba Garlic is a single-room destination. The Book/Old Lady and Laurels
+destinations use ROM manifest `entryRoom` chains and are composed horizontally.
+
+## Lauber Mansion And Camilla Cemetery Coverage
+
+Lauber Mansion is inventoried by
+`out/interior-map-research/lauber-mansion.json`. It accounts for 45 raw rows:
+44 promoted actor rows plus one moving-platform control row promoted through
+`secretFeatures`.
+
+| Actor id | Guide class | Rows | Evidence expectation |
+| --- | --- | ---: | --- |
+| `$03` | Skeleton | 22 | ROM row id plus selector record `$05`; mansion CHR/palette comes from the fixed interior recipe. |
+| `$05` | Spear knight | 6 | Selector record `$13`; Lauber rows carry HP `$04`. |
+| `$0D` | Bone thrower | 5 | Dispatch entry `$0D` initializes selector record `$05`; Lauber rows carry HP `$04`. |
+| `$0F` | The Gargoyle | 2 | Dispatch entry `$0F` initializes selector record `$12`; Lauber rows carry HP `$04`. |
+| `$11` | Vampire Bat | 5 | Dispatch entry `$11` initializes selector record `$07`, selectors `$12/$13`, in the mansion CHR context. |
+| `$AE` | Oak-stake merchant | 1 | High-bit merchant row maps to live id `$2E`; selector record `$0B`; item type `oakHeart`; text decoded from ROM file offset `$0D044`. |
+| `$25` | Dracula's Heart orb | 1 | Direct `$DED0` selector path with selector `$3B`; text/data `$19` selects the Dracula's Heart pickup message. |
+| `$27` | Hidden clue book | 2 | Shared hidden-book routine `1:$8335`; selector record `$3B`; text decoded from ROM file offsets `$0D0F1` and `$0D11D`; each generated book is linked to the ROM-expanded destructible group at its reveal anchor. |
+| `$21` | Moving platform | 1 | ROM row `$24 $25 $21 $85` at file offset `$5C2B`; dispatches to bank `1:$854B`, initializes platform selector `$51`, uses setup branch `1:$859A`, and uses motion branch `1:$8616`. Setup branch `$859A` stores positive X velocity, so the row anchor is the left endpoint; row data high nibble `$80` is the reversal timer, so the platform moves horizontally 128 pixels rightward before reversing. The raw row anchor is retained as provenance; visible guide placement applies the same `(0,-13)` mansion platform actor-slot/OAM anchor correction proven by the Berkeley `$22` moving-platform trace. |
+
+Camilla Cemetery is promoted into the exterior slice from ROM manifest rows,
+runtime/static selector proof, and secret-feature proof:
+
+| Actor id | Guide class | Rows | Evidence expectation |
+| --- | --- | ---: | --- |
+| `$9E` | Secret Merchant | 1 | Promoted through `secretFeatures`, not the ordinary character layer. ROM row `$06F32` maps `$9E` to live actor `$1E`; routine `1:$B1BD` hides the merchant until actor slots `$03-$05` contain transient actor `$09`, then clears hidden bit `$20` from `$03C6,x`. The initialization branch loads selector-record `$0B`, which emits merchant selectors `$1E/$1F`; the reward text pointer `$0CED8` gives the Silver Knife dialog, and PPU pattern-table captures match CHR banks `$04/$05`. |
+| `$38` | Dead Hand | 5 | Camilla day/night traces prove selector record `$17`, selectors `$8E/$8F`, OAM tile pairs `$89/$9F` and `$FB/$FD`, HP `$08`, and PPU pattern-table CHR banks `$04/$05`. |
+| `$41` | Blob | 2 | Dispatch entry `$41` at bank `1:$B119` initializes direct selector `$C3`; the state routine at `1:$B13F` toggles selector RAM `$0300,x` between `$C3/$C4` for neutral animation; Camilla captures prove PPU pattern-table CHR banks `$04/$05`; raw ROM bytes are used for placement when the manifest row normalizes Y differently. |
+
+Yuba Lake Path contains two `$22` moving-platform control rows not exposed by
+the generic manifest actor list. They are promoted through `secretFeatures`
+because they are actor-like ROM control rows rather than enemies/NPCs.
+
+| Actor id | Guide class | Rows | Evidence expectation |
+| --- | --- | ---: | --- |
+| `$22` | Moving platform | 2 | ROM rows `$29 $0D $22 $45` at `$06765` and `$37 $0D $22 $46` dispatch to bank `1:$854B`, initialize selector `$43`, use setup branches `1:$859A`/`1:$859E`, and use runtime branch `1:$8616` for 64-pixel horizontal ping-pong motion. |
 
 Future interiors must follow the same promotion rule before their rows appear in
 the guide: actor class, HP/data semantics, selector or direct-selector path,

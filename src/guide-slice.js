@@ -114,6 +114,19 @@ const FALSE_PLATFORM_METATILE_SIGNATURES = [
     metatile: 0x3b,
     visualReferenceMetatile: 0x01,
     visibleTileRect: { x: 0, y: 0, width: 4, height: 2 },
+    action: 'This floor looks solid, but Simon falls through it.',
+    dialogText: 'False platform\n----------\nThis floor looks solid, but Simon falls through it.',
+    source: 'rom-layout-metatile-and-terrain-thresholds'
+  },
+  {
+    id: 'mansion-false-wall-32',
+    label: 'False wall',
+    tileSetAddress: 0x8891,
+    metatile: 0x32,
+    visualReferenceMetatile: 0x40,
+    visibleTileRect: { x: 0, y: 0, width: 2, height: 4 },
+    action: 'These blocks look solid, but Simon can walk through them.',
+    dialogText: 'False wall\n----------\nThese blocks look solid, but Simon can walk through them.',
     source: 'rom-layout-metatile-and-terrain-thresholds'
   }
 ];
@@ -198,6 +211,18 @@ const ACTOR_PALETTE_SOURCES = [
     type: 'rom-sprite-palette',
     variantAddress: 0x9f6f,
     variantBank: 4
+  },
+  {
+    id: 'camilla-cemetery-day-sprites',
+    label: 'Camilla Cemetery sprites, day',
+    type: 'palette-capture',
+    file: 'out/actor-traces/camilla-cemetery-day-idle/ppu-final-3f00-3f1f-palettes.bin'
+  },
+  {
+    id: 'camilla-cemetery-night-sprites',
+    label: 'Camilla Cemetery sprites, night',
+    type: 'palette-capture',
+    file: 'out/actor-traces/camilla-cemetery-night-idle/ppu-final-3f00-3f1f-palettes.bin'
   }
 ];
 
@@ -303,6 +328,24 @@ const ACTOR_CLASSES = [
     selectorRecordIndex: 0x0b,
     chrBanks: [0x00, 0x01],
     proof: 'ROM row id $AE maps through live id $2E to merchant animation record $0B, which emits selectors $1E/$1F.'
+  },
+  {
+    id: 'blue-crystal-merchant',
+    label: 'Blue Crystal Merchant',
+    kind: 'npc',
+    actorId: 0xaf,
+    selectorRecordIndex: 0x0f,
+    chrBanks: [0x00, 0x01],
+    proof: 'ROM row id $AF maps through live id $2F to the shared merchant routine at bank 1:$83CC. The merchant selector table at 1:$83F3 stores selector-record index $0F for live id $2F.'
+  },
+  {
+    id: 'town-old-lady',
+    label: 'Old Lady',
+    kind: 'npc',
+    actorId: 0xac,
+    selectors: [0x28],
+    chrBanks: [0x00, 0x01],
+    proof: 'ROM row id $AC maps through live id $2C. Dispatch target bank 1:$8F7D initializes through fixed-bank $DED0 with direct metasprite selector $28.'
   },
   {
     id: 'town-priest',
@@ -416,16 +459,16 @@ const ACTOR_CLASSES = [
     actorId: 0x27,
     selectorRecordIndex: 0x3b,
     chrBanks: [0x02, 0x03],
-    proof: 'ROM actor id $27 dispatches through 1:$8335; that routine passes selector-record index $3B to fixed-bank $DED8, which emits metasprite $30 for the book fixture.'
+    proof: "ROM actor id $27 dispatches through 1:$8335; that routine initializes selector-record $3B and clears the reveal flag when selected item $4F is Dracula's Eyeball."
   },
   {
     id: 'town-book',
-    label: 'Clue book',
-    kind: 'fixture',
+    label: 'Hidden clue book',
+    kind: 'secret',
     actorId: 0x27,
     selectorRecordIndex: 0x3b,
     chrBanks: [0x00, 0x01],
-    proof: 'ROM actor id $27 dispatches through 1:$8335; the Veros Chain Whip room row uses selector-record index $3B in a town-interior context with CHR banks $00/$01.'
+    proof: "ROM actor id $27 dispatches through 1:$8335; that routine initializes selector-record $3B and clears the reveal flag when selected item $4F is Dracula's Eyeball. Town-interior rows use CHR banks $00/$01."
   },
   {
     id: 'mansion-skeleton',
@@ -470,6 +513,16 @@ const ACTOR_CLASSES = [
     proof: 'Actor dispatch entry $0F initializes selector-stream record $12, which expands to selectors $31/$32; Berkeley rows carry HP $02. The rendered winged mansion enemy sprite matches the English manual enemy "The Gargoyle".'
   },
   {
+    id: 'mansion-bat',
+    label: 'Vampire Bat',
+    kind: 'enemy',
+    actorId: 0x11,
+    selectorRecordIndex: 0x07,
+    chrBanks: [0x08, 0x09],
+    hp: { day: 4, night: 4 },
+    proof: 'Actor dispatch entry $11 at bank 1:$9934 initializes selector-stream record $07, which expands to selectors $12/$13 in the mansion CHR context; Lauber rows carry HP $04.'
+  },
+  {
     id: 'blob',
     label: 'Blob',
     kind: 'enemy',
@@ -481,12 +534,12 @@ const ACTOR_CLASSES = [
   },
   {
     id: 'mansion-book',
-    label: 'Clue book',
+    label: 'Hidden clue book',
     kind: 'secret',
     actorId: 0x27,
     selectorRecordIndex: 0x3b,
     chrBanks: [0x08, 0x09],
-    proof: 'ROM actor id $27 dispatches through 1:$8335; that routine passes selector-record index $3B to fixed-bank $DED8, which emits metasprite selector $30.'
+    proof: "ROM actor id $27 dispatches through 1:$8335; that routine initializes selector-record $3B and clears the reveal flag when selected item $4F is Dracula's Eyeball. Mansion rows use CHR banks $08/$09."
   },
   {
     id: 'oak-stake-merchant',
@@ -515,14 +568,63 @@ const ACTOR_CLASSES = [
       source: 'out/states/berkeley-mansion-orb.mss OAM proof: pre-stake orb selector $3B renders tiles $EC/$EE at screen x $C8/$D0 from row x $3D.'
     },
     proof: 'Actor row $05B99 is the pre-stake Dracula\'s Rib orb. The Berkeley orb save-state trace proves live selector $3B with OAM tiles $EC/$EE at screen x $C8/$D0, blinking every NES frame through OAM palette bits $01/$02/$03/$00. Selector $A1 belongs to the post-stake reveal sequence and is not part of the pre-stake blink.'
+  },
+  {
+    id: 'dracula-heart-orb',
+    label: "Dracula's Heart",
+    kind: 'secret',
+    actorId: 0x25,
+    selectors: [0x3b],
+    chrBanks: [0x08, 0x09],
+    paletteCycle: {
+      values: [1, 2, 3, 0],
+      frameDurationMs: 1000 / 60,
+      source: 'Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Lauber row data/text selects Dracula\'s Heart.'
+    },
+    drawAnchor: {
+      offsetX: 0,
+      offsetY: -12,
+      source: 'Actor id $25 orb visible placement uses the same pre-stake selector $3B draw anchor proven for the Berkeley Rib orb.'
+    },
+    proof: 'Lauber Mansion actor row $05C4B uses actor id $25 with text/data $19. Actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence.'
+  },
+  {
+    id: 'secret-merchant',
+    label: 'Secret Merchant',
+    kind: 'npc',
+    actorId: 0x9e,
+    selectorRecordIndex: 0x0b,
+    chrBanks: [0x04, 0x05],
+    proof: 'Camilla Cemetery row id $9E maps to live actor $1E. The reveal routine initializes selector-record index $0B, which emits merchant selectors $1E/$1F; Camilla day/night PPU pattern-table captures match CHR banks $04/$05.'
+  },
+  {
+    id: 'dead-hand',
+    label: 'Dead Hand',
+    kind: 'enemy',
+    actorId: 0x38,
+    selectorRecordIndex: 0x17,
+    chrBanks: [0x04, 0x05],
+    hp: { day: 8, night: 8 },
+    proof: 'Camilla Cemetery day/night traces prove actor id $38 with selector-stream record $17, selectors $8E/$8F, HP $08, and PPU pattern-table CHR banks $04/$05.'
+  },
+  {
+    id: 'cemetery-blob',
+    label: 'Blob',
+    kind: 'enemy',
+    actorId: 0x41,
+    selectors: [0xc3, 0xc4],
+    chrBanks: [0x04, 0x05],
+    hp: { day: 8, night: 8 },
+    proof: 'Actor dispatch entry $41 at bank 1:$B119 initializes through fixed-bank $DED0 with direct metasprite selector $C3; the follow-up state routine at bank 1:$B13F toggles actor selector RAM $0300,x between $C3 and $C4 for the neutral animation before later movement states. Camilla Cemetery rows carry HP $08 and use PPU pattern-table CHR banks $04/$05.'
   }
 ];
 
-const BERKELEY_ACTOR_CLASS_BY_ID = new Map([
+const MANSION_ACTOR_CLASS_BY_ID = new Map([
   [0x03, 'mansion-skeleton'],
   [0x05, 'mansion-spear-knight'],
   [0x0d, 'mansion-bone-thrower'],
   [0x0f, 'mansion-gargoyle'],
+  [0x11, 'mansion-bat'],
   [0x1f, 'blob'],
   [0x25, 'dracula-rib-orb'],
   [0x27, 'mansion-book'],
@@ -532,9 +634,30 @@ const BERKELEY_ACTOR_CLASS_BY_ID = new Map([
 const BERKELEY_SECRET_ACTOR_IDS = new Set([0x25, 0x27]);
 
 const TOWN_INTERIOR_ACTOR_CLASS_BY_ID = new Map([
+  [0xac, 'town-old-lady'],
   [0xad, 'town-priest'],
   [0xae, 'jova-merchant'],
   [0x27, 'town-book']
+]);
+
+const TOWN_EXTERIOR_ACTOR_CLASS_BY_ID = new Map([
+  [0xa4, null],
+  [0xa9, 'town-woman'],
+  [0xaa, 'jova-man'],
+  [0xaf, 'blue-crystal-merchant'],
+  [0xb5, 'jova-shepherd'],
+  [0x17, 'zombie']
+]);
+
+const OUTDOOR_OBJSET2_ACTOR_CLASS_BY_ID = new Map([
+  [0x03, 'skeleton'],
+  [0x08, 'eyeball']
+]);
+
+const CAMILLA_CEMETERY_ACTOR_CLASS_BY_ID = new Map([
+  [0x9e, 'secret-merchant'],
+  [0x38, 'dead-hand'],
+  [0x41, 'cemetery-blob']
 ]);
 
 const TOWN_INTERIOR_ACTOR_LABEL_BY_ITEM_TYPE = new Map([
@@ -542,7 +665,10 @@ const TOWN_INTERIOR_ACTOR_LABEL_BY_ITEM_TYPE = new Map([
   ['holyWater', 'Holy Water Merchant'],
   ['whiteCrystal', 'White Crystal Merchant'],
   ['dagger', 'Dagger Merchant'],
-  ['chain', 'Chain Whip Merchant']
+  ['chain', 'Chain Whip Merchant'],
+  ['garlicAljiba', 'Garlic Merchant'],
+  ['laurelsAljiba', 'Laurels Merchant'],
+  ['blueCrystal', 'Blue Crystal Merchant']
 ]);
 
 const SECRET_DETAILS = {
@@ -568,7 +694,7 @@ const SECRET_DETAILS = {
   'aljiba-1-book-66d5': {
     type: 'destructible-clue',
     reward: 'Hidden clue book',
-    action: "Throw Holy Water at the marked block, or equip Dracula's Eyeball, to reveal the hidden clue book.",
+    action: "Throw Holy Water at the marked blocks, or equip Dracula's Eyeball, to reveal this hidden clue book.",
     reveal: 'The clue book appears at the marked spot.',
     targetTileRects: [
       { x: 10, y: 24, width: 2, height: 2, signature: 'destructibleBlock2x2' }
@@ -595,10 +721,100 @@ const SECRET_DETAILS = {
       'Actor id 0x25 uses fixed-bank $DED0 direct selector writes for the orb room sequence.',
       'Text pointer index 0x18 decodes to the Dracula\'s Rib pickup message.'
     ]
+  },
+  'lauber-mansion-part-2-dracula-s-heart-5c4b': {
+    type: 'oak-stake-orb',
+    reward: "Dracula's Heart",
+    action: "Use an Oak Stake here to reveal Dracula's Heart.",
+    evidence: [
+      'Actor row 0x05C4B: 3D 15 25 19',
+      'Actor id 0x25 uses fixed-bank $DED0 direct selector writes for the orb room sequence.',
+      'Text pointer index 0x19 decodes to the Dracula\'s Heart pickup message.'
+    ]
   }
 };
 
+const DEFAULT_HIDDEN_CLUE_BOOK_ACTION = "Equip Dracula's Eyeball to reveal this hidden clue book.";
+const HIDDEN_CLUE_BOOK_DESTRUCTIBLE_ACTION = "Throw Holy Water at the marked blocks, or equip Dracula's Eyeball, to reveal this hidden clue book.";
+
+function defaultSecretDetailsForActor(actor, bytes) {
+  if (!bytes || bytes[2] !== 0x27) {
+    return null;
+  }
+  return {
+    type: 'hidden-clue-book',
+    reward: 'Hidden clue book',
+    action: DEFAULT_HIDDEN_CLUE_BOOK_ACTION,
+    reveal: 'The clue book appears when Dracula\'s Eyeball is equipped.',
+    rewardSelectorRecord: '0x3B',
+    rewardSelectors: ['0x30'],
+    evidence: [
+      `Actor row ${hex(actor.offset, 5)}: ${publicBytes(bytes).join(' ')}`,
+      'Actor id 0x27 dispatches through bank 1:$8335.',
+      'Routine 1:$8335 initializes selector-record index $3B and later toggles the reveal flag based on selected item $4F.',
+      "Dracula's Eyeball is inventory index 3; the fixed-bank inventory selector maps it to selected item $03.",
+      'When $4F == 03, routine 1:$8335 clears the $08 reveal flag from actor flags $03C6,x.'
+    ]
+  };
+}
+
 const SECRET_FEATURE_DEFINITIONS = [
+  {
+    id: 'camilla-cemetery-secret-merchant-6f32',
+    label: 'Secret Merchant',
+    kind: 'secret',
+    effect: 'conditional-npc',
+    segmentId: 'camilla-cemetery',
+    offset: 0x6f32,
+    bytes: [0x04, 0x0c, 0x9e, 0x06],
+    selectorRecordIndex: 0x0b,
+    chrBanks: [0x04, 0x05],
+    variants: ['day', 'night'],
+    paletteByVariant: { day: 'camilla-cemetery-day-sprites', night: 'camilla-cemetery-night-sprites' },
+    placement: {
+      type: 'rom-row-16px-cell-visual-anchor',
+      offsetX: ACTOR_DRAW_ANCHOR_OFFSET_X,
+      offsetY: ACTOR_DRAW_ANCHOR_OFFSET_Y,
+      source: 'The Camilla Cemetery $9E row uses the standard actor visual anchor: row cell x/y plus (+8,-12), matching the prior ROM-manifest actor placement.'
+    },
+    condition: {
+      type: 'dropped-garlic-actor',
+      triggerActorId: '0x09',
+      triggerActorSlots: ['0x03', '0x04', '0x05'],
+      actorStateRam: '0x0444',
+      hiddenFlagRam: '0x03C6',
+      revealTimerRam: '0x0456',
+      guideVisibility: 'Shown when the guide Secrets layer is visible.',
+      playerFacing: 'Drop Garlic in Camilla Cemetery.'
+    },
+    dialogs: [
+      {
+        title: 'Secret Merchant',
+        dialogText: 'Secret Merchant\n----------\nDrop Garlic in Camilla Cemetery to reveal this hidden merchant. He gives Simon the Silver Knife.',
+        dialogTone: 'guide-authored'
+      },
+      {
+        title: 'Secret Merchant',
+        dialogText: "i'll give you this silver knife to save your neck."
+      }
+    ],
+    itemReward: {
+      itemId: 'silver-knife',
+      evidence: 'Camilla Cemetery secret merchant row $06F32 uses text pointer $0CED8, whose decoded ROM dialog gives Simon the Silver Knife.'
+    },
+    provenance: {
+      row: 'rom-actor-row',
+      routine: 'bank 1:$B1BD',
+      selector: 'selector-record $0B, metasprite selectors $1E/$1F',
+      reveal: [
+        'Actor row $06F32 is $04 $0C $9E $06.',
+        'The actor dispatch masks row id $9E to live id $1E; dispatch table entry $1E points to bank 1:$B1BD.',
+        'Initialization branch 1:$B1C2-$B1CE loads selector-record index $0B through fixed-bank $DED8, which emits metasprite selectors $1E/$1F.',
+        'Routine 1:$B1DD-$B1EB scans actor slots $03-$05 for live actor id $09.',
+        'When actor $09 is present, 1:$B1EC increments state RAM $0444,x, 1:$B1EF-$B1F4 clears hidden flag bit $20 from $03C6,x, and 1:$B1F7-$B1F9 sets reveal timer $0456,x to $20.'
+      ]
+    }
+  },
   {
     id: 'berkeley-mansion-part-1-hidden-platform-5ad8',
     label: 'Hidden platform',
@@ -654,6 +870,156 @@ const SECRET_FEATURE_DEFINITIONS = [
       selector: 'metasprite selector $43',
       validation: 'out/actor-traces/berkeley-mansion-interior-day-idle'
     }
+  },
+  {
+    id: 'lauber-mansion-part-2-moving-platform-5c2b',
+    label: 'Moving platform',
+    kind: 'platform',
+    interactive: false,
+    visibilityLayer: 'always',
+    highlightLayer: 'none',
+    effect: 'moving-platform',
+    segmentId: 'lauber-mansion-part-2',
+    offset: 0x5c2b,
+    bytes: [0x24, 0x25, 0x21, 0x85],
+    selector: 0x51,
+    chrBanks: [0x08, 0x09],
+    variants: ['fixed'],
+    paletteByVariant: { fixed: 'mansion-fixed-sprites' },
+    placement: {
+      type: 'rom-row-anchor-with-platform-visible-anchor',
+      offsetX: 0,
+      offsetY: -13,
+      source: 'ROM row $05C2B uses tile anchor x=$24,y=$25 in Lauber Part 2. This moving-platform control row shares the mansion platform anchor convention proven by the Berkeley $22 trace: raw row anchor is retained as provenance, while visible guide placement is row anchor plus (0,-13) to match the runtime actor-slot/OAM screen anchor. Selector $51 draws a 2x2 platform around that visible anchor; setup branch $859A stores positive X velocity, so the row anchor is the left endpoint and the platform moves right before reversing.'
+    },
+    motion: {
+      type: 'linear-ping-pong',
+      axis: 'x',
+      minOffsetX: 0,
+      maxOffsetX: 128,
+      minOffsetY: 0,
+      maxOffsetY: 0,
+      speedPixelsPerFrame: 1,
+      frameDurationMs: 1000 / 60,
+      reversalFrames: 128,
+      source: 'ROM row data $85 selects motion index $5. Setup branch 1:$859A writes X velocity +1 and Y velocity 0 through fixed-bank $E04F, making the row anchor the left endpoint. Runtime branch 1:$8616 reloads the high nibble $80 into $0456, calls fixed-bank $E027 to negate horizontal velocity at reversal, then decrements/moves through $85CB -> $E0F4. The resulting path is a 128-pixel horizontal ping-pong from the row anchor rightward.'
+    },
+    dialog: null,
+    provenance: {
+      row: 'rom-actor-control-row',
+      routine: 'bank 1:$854B, setup branch 1:$859A, motion branch 1:$8616',
+      selector: 'metasprite selector $51',
+      motion: 'fixed-bank $E04F stores velocity; fixed-bank $E027 reverses horizontal velocity; fixed-bank $E0F4 applies actor movement'
+    }
+  },
+  {
+    id: 'yuba-lake-blue-crystal-kneel-route',
+    label: 'Yuba Lake reveal',
+    kind: 'secret',
+    effect: 'guide-hotspot',
+    segmentId: 'yuba-lake',
+    variants: ['day', 'night'],
+    bounds: { x: 0, y: 0, width: 256, height: 224 },
+    visibilityLayer: 'secrets',
+    highlightLayer: 'secrets',
+    condition: {
+      playerFacing: 'Kneel on the Yuba Lake screen with Blue Crystal or Red Crystal selected.'
+    },
+    dialog: {
+      tone: 'guide-authored',
+      text: 'Yuba Lake reveal\n----------\nKneel on this screen with Blue Crystal or Red Crystal selected.'
+    },
+    provenance: {
+      source: 'rom-routine',
+      routine: 'bank 1:$A760-$A7B7',
+      evidence: [
+        'Bank 1:$A76B-$A779 checks area RAM $50 == $05 and submap RAM $51 & $7F == $01, identifying Yuba Lake.',
+        'Bank 1:$A789-$A7A0 checks selected item RAM $004F == $06, inventory RAM $0091 & $60 >= $40, and Simon state RAM $03D8 == $03 before setting route state RAM $56 = $01.',
+        'The routine does not check Simon X/Y within the submap, so the guide highlights the Yuba Lake screen rather than a guessed smaller kneeling spot.'
+      ]
+    }
+  },
+  {
+    id: 'yuba-lake-path-left-moving-platform-6765',
+    label: 'Moving platform',
+    kind: 'platform',
+    interactive: false,
+    visibilityLayer: 'always',
+    highlightLayer: 'none',
+    effect: 'moving-platform',
+    segmentId: 'yuba-lake-path',
+    offset: 0x6765,
+    bytes: [0x29, 0x0d, 0x22, 0x45],
+    selector: 0x43,
+    chrBanks: [0x02, 0x03],
+    variants: ['day', 'night'],
+    paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' },
+    placement: {
+      type: 'rom-row-anchor-with-platform-visible-anchor',
+      offsetX: 0,
+      offsetY: -13,
+      source: 'Yuba Lake Path actor row $06765 uses actor id $22 with row anchor x=$29,y=$0D. The $22 platform family uses raw row X as visible anchor X and the same -13px visible Y anchor correction proven by the Berkeley $22 runtime trace.'
+    },
+    motion: {
+      type: 'linear-ping-pong',
+      axis: 'x',
+      minOffsetX: 0,
+      maxOffsetX: 64,
+      minOffsetY: 0,
+      maxOffsetY: 0,
+      speedPixelsPerFrame: 1,
+      frameDurationMs: 1000 / 60,
+      reversalFrames: 64,
+      source: 'Row data $45 selects setup branch 1:$859A, which stores X velocity +1 and Y velocity 0. Runtime branch 1:$8616 reloads the high nibble $40 into the reversal timer, so this platform travels 64 pixels rightward from the row anchor before reversing.'
+    },
+    dialog: null,
+    provenance: {
+      row: 'rom-actor-control-row',
+      routine: 'bank 1:$854B, setup branch 1:$859A, motion branch 1:$8616',
+      selector: 'metasprite selector $43',
+      motion: 'fixed-bank $E04F stores velocity; fixed-bank $E027 reverses horizontal velocity; fixed-bank $E0F4 applies actor movement'
+    }
+  },
+  {
+    id: 'yuba-lake-path-right-moving-platform-676d',
+    label: 'Moving platform',
+    kind: 'platform',
+    interactive: false,
+    visibilityLayer: 'always',
+    highlightLayer: 'none',
+    effect: 'moving-platform',
+    segmentId: 'yuba-lake-path',
+    offset: 0x676d,
+    bytes: [0x37, 0x0d, 0x22, 0x46],
+    selector: 0x43,
+    chrBanks: [0x02, 0x03],
+    variants: ['day', 'night'],
+    paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' },
+    placement: {
+      type: 'rom-row-anchor-with-platform-visible-anchor',
+      offsetX: 0,
+      offsetY: -13,
+      source: 'Yuba Lake Path actor row $0676D uses actor id $22 with row anchor x=$37,y=$0D. The $22 platform family uses raw row X as visible anchor X and the same -13px visible Y anchor correction proven by the Berkeley $22 runtime trace.'
+    },
+    motion: {
+      type: 'linear-ping-pong',
+      axis: 'x',
+      minOffsetX: -64,
+      maxOffsetX: 0,
+      minOffsetY: 0,
+      maxOffsetY: 0,
+      speedPixelsPerFrame: 1,
+      frameDurationMs: 1000 / 60,
+      reversalFrames: 64,
+      source: 'Row data $46 selects setup branch 1:$859E, which stores X velocity -1 and Y velocity 0. Runtime branch 1:$8616 reloads the high nibble $40 into the reversal timer, so this platform travels 64 pixels leftward from the row anchor before reversing.'
+    },
+    dialog: null,
+    provenance: {
+      row: 'rom-actor-control-row',
+      routine: 'bank 1:$854B, setup branch 1:$859E, motion branch 1:$8616',
+      selector: 'metasprite selector $43',
+      motion: 'fixed-bank $E04F stores velocity; fixed-bank $E027 reverses horizontal velocity; fixed-bank $E0F4 applies actor movement'
+    }
   }
 ];
 
@@ -681,9 +1047,12 @@ const GUIDE_ITEMS = {
     label: 'Blue Crystal',
     aliases: ['Blue Crystal'],
     iconTile: 0x6e,
+    manualText: 'Kneel by Yuba Lake with the Blue Crystal or a stronger crystal to reveal the route to Lauber Mansion.',
+    manualSource: 'Guide-authored from ROM routine at bank 1:$A780: selected item $004F == $06, crystal-tier bits $0091 & $60 >= $40, and Simon kneeling at Yuba Lake.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
-      MENU_ITEM_ICON_TABLE_EVIDENCE
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'The Yuba Lake reveal routine checks selected item RAM $004F == $06 and inventory crystal-tier mask $0091 & $60 >= $40 before revealing the route.'
     ]
   },
   'red-crystal': {
@@ -772,6 +1141,20 @@ const GUIDE_ITEMS = {
       MENU_ITEM_ICON_TABLE_EVIDENCE
     ]
   },
+  'silver-knife': {
+    id: 'silver-knife',
+    label: 'Silver Knife',
+    aliases: ['Silver Knife'],
+    iconTile: 0x55,
+    manualText: 'The Silver Knife can be thrown to kill distant enemy creatures.',
+    manualSource: 'Guide-authored from the ROM reward and knife-family weapon behavior; the committed proof does not attach separate manual copy for the Silver Knife.',
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'Fixed-bank weapon/crystal start-menu table at 7:$F038 maps the knife-family menu icon for Silver Knife to tile $55.',
+      'Camilla Cemetery secret merchant row $06F32 decodes text pointer $0CED8 to the Silver Knife reward dialog.'
+    ]
+  },
   'dracula-rib': {
     id: 'dracula-rib',
     label: "Dracula's Rib",
@@ -784,6 +1167,20 @@ const GUIDE_ITEMS = {
       MENU_ITEM_ICON_TABLE_EVIDENCE,
       'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.',
       'The Jova NPC clue text decodes to "a rib can shield you from evil."'
+    ]
+  },
+  'dracula-heart': {
+    id: 'dracula-heart',
+    label: "Dracula's Heart",
+    aliases: ["Dracula's Heart"],
+    iconTile: 0x4f,
+    manualText: "Dracula's Heart is one of Count Dracula's five missing body parts.",
+    manualSource: 'Guide-authored summary; start-menu body-part icon order is ROM-derived.',
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.',
+      'Lauber Mansion actor row $05C4B uses actor id $25 and text/data $19 for the Dracula\'s Heart orb.'
     ]
   },
   'dracula-eyeball': {
@@ -813,9 +1210,12 @@ const GUIDE_ITEMS = {
     label: 'Garlic',
     aliases: ['Garlic'],
     iconTile: 0x6d,
+    manualText: 'Use Garlic at certain graveyards to call hidden merchants.',
+    manualSource: 'Guide-authored from ROM NPC/item behavior; the Aljiba sale row and cemetery secret merchant are ROM-backed.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
-      MENU_ITEM_ICON_TABLE_EVIDENCE
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'ROM sale table triple at file offset $1ED2B is $6D $00 $50, linking tile $6D to a Garlic sale row.'
     ]
   },
   laurels: {
@@ -823,14 +1223,23 @@ const GUIDE_ITEMS = {
     label: 'Laurels',
     aliases: ['Laurels', 'Laurel'],
     iconTile: 0x58,
+    manualText: 'Laurels protect Simon from poisonous marsh damage for a short time.',
+    manualSource: 'Guide-authored from item behavior; the Aljiba sale row is ROM-backed.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
-      MENU_ITEM_ICON_TABLE_EVIDENCE
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'ROM sale table triple at file offset $1ED25 is $58 $00 $50, linking tile $58 to a Laurels sale row.'
     ]
   }
 };
 
 const GUIDE_ITEM_OFFERS = {
+  'blue-crystal': {
+    itemId: 'blue-crystal',
+    roleLabel: 'Blue Crystal Merchant',
+    costLabel: 'Trade White Crystal',
+    priceSource: 'Crystal exchange NPC row $517C has actor id $AF/data $03 and text pointer $D85E; dispatch uses the crystal merchant selector path.'
+  },
   'white-crystal': {
     itemId: 'white-crystal',
     roleLabel: 'White Crystal Merchant',
@@ -866,6 +1275,18 @@ const GUIDE_ITEM_OFFERS = {
     roleLabel: 'Holy Water Merchant',
     costHearts: 50,
     priceSource: 'ROM sale table at file offset $1ED2E: $57 $00 $50.'
+  },
+  garlic: {
+    itemId: 'garlic',
+    roleLabel: 'Garlic Merchant',
+    costHearts: 50,
+    priceSource: 'ROM sale table at file offset $1ED2B: $6D $00 $50.'
+  },
+  laurels: {
+    itemId: 'laurels',
+    roleLabel: 'Laurels Merchant',
+    costHearts: 50,
+    priceSource: 'ROM sale table at file offset $1ED25: $58 $00 $50.'
   }
 };
 
@@ -901,6 +1322,7 @@ function publicItemOffer(offer) {
     iconTile: hex(item.iconTile, 2),
     roleLabel: offer.roleLabel,
     costHearts: offer.costHearts,
+    costLabel: offer.costLabel,
     priceSource: offer.priceSource,
     manualText: item.manualText,
     manualSource: item.manualSource,
@@ -941,6 +1363,12 @@ function inferredItemOffer(actor) {
   if (actor.classId === 'oak-stake-merchant' || actor.itemType === 'oakRib' || actor.itemType === 'oakStake') {
     return publicItemOffer(GUIDE_ITEM_OFFERS['oak-stake']);
   }
+  if (actor.itemType === 'oakHeart') {
+    return publicItemOffer(GUIDE_ITEM_OFFERS['oak-stake']);
+  }
+  if (actor.classId === 'blue-crystal-merchant' || actor.itemType === 'blueCrystal') {
+    return publicItemOffer(GUIDE_ITEM_OFFERS['blue-crystal']);
+  }
   if (actor.itemType === 'whiteCrystal') {
     return publicItemOffer(GUIDE_ITEM_OFFERS['white-crystal']);
   }
@@ -955,6 +1383,12 @@ function inferredItemOffer(actor) {
   }
   if (actor.itemType === 'holyWater') {
     return publicItemOffer(GUIDE_ITEM_OFFERS['holy-water']);
+  }
+  if (actor.itemType === 'garlicAljiba') {
+    return publicItemOffer(GUIDE_ITEM_OFFERS.garlic);
+  }
+  if (actor.itemType === 'laurelsAljiba') {
+    return publicItemOffer(GUIDE_ITEM_OFFERS.laurels);
   }
   return null;
 }
@@ -1105,6 +1539,51 @@ const GUIDE_SIMON_SPAWNS = [
     evidence: [
       'Town interior entry code zeroes the interior camera state before jumping to the entry handler, so the full guide map keeps the single Simon marker on the entry screen.',
       'Town interior entry transition probes and the rendered capture-to-guide background match place the standing-frame guide-space selector anchor at (16,177).'
+    ]
+  }),
+  simonSpawn({
+    id: 'aljiba-garlic-room-simon-spawn',
+    segmentId: 'aljiba-garlic-room',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry code zeroes the interior camera state before jumping to the entry handler.',
+      'The shared town-interior transition evidence places the standing-frame guide-space selector anchor at (16,177).'
+    ]
+  }),
+  simonSpawn({
+    id: 'aljiba-book-old-lady-room-simon-spawn',
+    segmentId: 'aljiba-book-entry',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry code zeroes the interior camera state before jumping to the entry handler; the Aljiba book/old-lady map composes the entry submap first.',
+      'The shared town-interior transition evidence places the standing-frame guide-space selector anchor at (16,177).'
+    ]
+  }),
+  simonSpawn({
+    id: 'aljiba-laurels-room-simon-spawn',
+    segmentId: 'aljiba-laurels-entry',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry code zeroes the interior camera state before jumping to the entry handler; the Aljiba laurels map composes the entry submap first.',
+      'The shared town-interior transition evidence places the standing-frame guide-space selector anchor at (16,177).'
+    ]
+  }),
+  simonSpawn({
+    id: 'lauber-mansion-simon-spawn',
+    segmentId: 'lauber-mansion-part-1',
+    variants: ['fixed'],
+    paletteByVariant: { fixed: 'mansion-fixed-sprites' },
+    pixelX: 16,
+    pixelY: 625,
+    evidence: [
+      'Mansion entry transition code uses the same left-edge standing-frame entry anchor family as Berkeley Mansion.',
+      'Lauber Part 1 is rendered in the same full-height mansion guide-space convention as Berkeley, so the entry marker is placed at the left edge of the lower entry floor.'
     ]
   })
 ];
@@ -1283,7 +1762,7 @@ function slugForId(value) {
     .replace(/^-+|-+$/g, '');
 }
 
-function materializeManifestActors(sliceConfig) {
+function materializeManifestActors(sliceConfig, rom) {
   const config = sliceConfig.actorMaterialization;
   if (!config || config.source !== 'manifest-location-actors') {
     return [];
@@ -1300,13 +1779,31 @@ function materializeManifestActors(sliceConfig) {
     if (context.objset === 0 && context.area >= 0x07) {
       return TOWN_INTERIOR_ACTOR_CLASS_BY_ID.get(row.id);
     }
+    if (context.objset === 0) {
+      return TOWN_EXTERIOR_ACTOR_CLASS_BY_ID.get(row.id);
+    }
     if (context.objset === 1) {
-      return BERKELEY_ACTOR_CLASS_BY_ID.get(row.id);
+      if (row.id === 0x25 && row.data === 0x19) {
+        return 'dracula-heart-orb';
+      }
+      return MANSION_ACTOR_CLASS_BY_ID.get(row.id);
+    }
+    if (context.objset === 2) {
+      return OUTDOOR_OBJSET2_ACTOR_CLASS_BY_ID.get(row.id);
+    }
+    if (context.objset === 3 && context.area === 0x00 && context.submap === 0x00) {
+      return CAMILLA_CEMETERY_ACTOR_CLASS_BY_ID.get(row.id);
     }
     return null;
   }
 
   function kindForManifestRow(context, row) {
+    if (row.id === 0x27) {
+      return 'secret';
+    }
+    if (context.objset === 3 && context.area === 0x00 && context.submap === 0x00 && row.id === 0x9e) {
+      return 'secret';
+    }
     if (context.objset === 1 && BERKELEY_SECRET_ACTOR_IDS.has(row.id)) {
       return 'secret';
     }
@@ -1315,7 +1812,57 @@ function materializeManifestActors(sliceConfig) {
       : (row.kind === 'npc' ? 'npc' : 'fixture');
   }
 
-  function labelForManifestRow(row) {
+  function variantsForManifestRow(context, row, segment) {
+    if (context.objset === 0 && context.area < 0x07) {
+      if (row.id === 0x17) {
+        return ['night'];
+      }
+      if (row.id === 0xa4) {
+        return ['day', 'night'];
+      }
+      return ['day'];
+    }
+    if (context.objset === 2 || context.objset === 3) {
+      return ['day', 'night'];
+    }
+    if (context.objset === 1) {
+      return ['fixed'];
+    }
+    return segment.variants || ['fixed'];
+  }
+
+  function paletteByVariantForManifestRow(context, row, segment) {
+    if (config.paletteByVariant) {
+      return config.paletteByVariant;
+    }
+    if (context.objset === 0) {
+      return { day: 'town-day-sprites', night: 'town-night-sprites' };
+    }
+    if (context.objset === 1) {
+      return { fixed: 'mansion-fixed-sprites' };
+    }
+    if (context.objset === 2) {
+      return { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' };
+    }
+    if (context.objset === 3 && context.area === 0x00 && context.submap === 0x00) {
+      return { day: 'camilla-cemetery-day-sprites', night: 'camilla-cemetery-night-sprites' };
+    }
+    return segment.paletteByVariant || {};
+  }
+
+  function labelForManifestRow(row, kind) {
+    if (kind === 'enemy') {
+      return null;
+    }
+    if (row.id === 0xa4) {
+      return row.name ? `${row.name[0].toUpperCase()}${row.name.slice(1)}` : 'Sign';
+    }
+    if (row.id === 0xaf) {
+      return 'Blue Crystal Merchant';
+    }
+    if (row.id === 0xac) {
+      return 'Old Lady';
+    }
     if (row.id === 0xad) {
       return 'Priest';
     }
@@ -1323,10 +1870,13 @@ function materializeManifestActors(sliceConfig) {
       return TOWN_INTERIOR_ACTOR_LABEL_BY_ITEM_TYPE.get(row.itemType) || 'Merchant';
     }
     if (row.id === 0x27) {
-      return 'Clue book';
+      return 'Hidden clue book';
     }
     if (row.id === 0x1f) {
       return 'Blob';
+    }
+    if (row.id === 0x25 && row.data === 0x19) {
+      return "Dracula's Heart";
     }
     return row.name || null;
   }
@@ -1342,7 +1892,17 @@ function materializeManifestActors(sliceConfig) {
     return null;
   }
 
+  function fixtureSignatureForManifestRow(row) {
+    if (row.id === 0xa4) {
+      return 'townSign';
+    }
+    return null;
+  }
+
   for (const segment of sliceConfig.segments || []) {
+    if (Array.isArray(config.includeSegmentIds) && !config.includeSegmentIds.includes(segment.id)) {
+      continue;
+    }
     const context = contextFromLocationId(segment.locationId);
     if (!context) {
       throw new Error(`Cannot materialize actors for ${segment.id}: unsupported locationId ${segment.locationId}`);
@@ -1353,13 +1913,25 @@ function materializeManifestActors(sliceConfig) {
     }
 
     for (const row of location.actors || []) {
+      if (context.objset === 3 && context.area === 0x00 && context.submap === 0x00 && row.id === 0x9e) {
+        continue;
+      }
+      const rowBytes = Number.isInteger(row.pointer)
+        ? Array.from(rom.subarray(row.pointer, row.pointer + 4))
+        : [row.x, row.y, row.id, row.data];
+      if (rowBytes.length !== 4) {
+        throw new Error(`Cannot read raw actor bytes for ${location.name} row ${row.pointerHex}`);
+      }
       const classId = classIdForManifestRow(context, row);
-      if (!classId) {
+      if (!classId && row.id !== 0xa4) {
         throw new Error(`No guide actor class for ${location.name} row ${row.pointerHex} actor ${row.idHex}`);
       }
       const kind = kindForManifestRow(context, row);
-      const label = labelForManifestRow(row);
-      const slugName = label || `actor-${row.idHex}`;
+      const label = labelForManifestRow(row, kind);
+      const slugName = label || classId || `actor-${row.idHex}`;
+      const rowItemType = row.id === 0xaf
+        ? 'blueCrystal'
+        : row.itemType;
       actors.push({
         id: `${segment.id}-${slugForId(slugName)}-${Number(row.pointer).toString(16)}`,
         classId,
@@ -1367,16 +1939,17 @@ function materializeManifestActors(sliceConfig) {
         kind,
         segmentId: segment.id,
         offset: row.pointer,
-        bytes: [row.x, row.y, row.id, row.data],
-        variants: segment.variants || ['fixed'],
-        hp: kind === 'enemy' ? { day: row.data, night: row.data } : undefined,
-        paletteByVariant: config.paletteByVariant || { fixed: 'mansion-fixed-sprites' },
+        bytes: rowBytes,
+        variants: variantsForManifestRow(context, row, segment),
+        hp: kind === 'enemy' ? { day: rowBytes[3], night: rowBytes[3] } : undefined,
+        paletteByVariant: paletteByVariantForManifestRow(context, row, segment),
         textFromRom: kind !== 'enemy',
-        textPointerIndex: row.textPointer != null ? row.data : undefined,
+        textPointerIndex: row.textPointer != null ? rowBytes[3] : undefined,
         textFileOffset: row.textPointer,
         guideDialog: guideDialogForManifestRow(row),
-        itemType: row.itemType,
-        inventoryItem: row.holdsItem ? row.itemType : undefined
+        fixtureSignature: fixtureSignatureForManifestRow(row),
+        itemType: rowItemType,
+        inventoryItem: row.holdsItem ? rowItemType : undefined
       });
     }
   }
@@ -1966,6 +2539,11 @@ function findFixtureSignatureRects(expandedTilemap, signature) {
   return rects;
 }
 
+function destructibleBlockGroupsForTilemap(expandedTilemap) {
+  const signature = FIXTURE_TILE_SIGNATURES.destructibleBlock2x2;
+  return groupFixtureRects(findFixtureSignatureRects(expandedTilemap, signature));
+}
+
 function rectsTouchOrOverlap(a, b) {
   const aRight = a.x + a.width;
   const bRight = b.x + b.width;
@@ -2030,6 +2608,101 @@ function findSecretForDestructibleRect(segmentId, rect, actors) {
     && actor.segmentId === segmentId
     && actor.secret?.targetTileRects?.some((target) => rectsEqual(target, rect))
   )) || null;
+}
+
+function tilePointInsideRect(point, rect) {
+  return point.x >= rect.x
+    && point.x < rect.x + rect.width
+    && point.y >= rect.y
+    && point.y < rect.y + rect.height;
+}
+
+function hiddenClueBookAnchorTile(actor) {
+  return {
+    x: Math.floor(actor.pixelX / TILE_SIZE),
+    y: Math.floor(actor.pixelY / TILE_SIZE)
+  };
+}
+
+function applyHiddenClueBookDestructibleLinks(actors, segmentTilemapsById) {
+  const validations = [];
+  const groupCache = new Map();
+
+  function groupsForSegment(segmentId) {
+    if (!groupCache.has(segmentId)) {
+      const expandedTilemap = segmentTilemapsById.get(segmentId);
+      groupCache.set(
+        segmentId,
+        expandedTilemap ? destructibleBlockGroupsForTilemap(expandedTilemap) : []
+      );
+    }
+    return groupCache.get(segmentId);
+  }
+
+  for (const actor of actors) {
+    if (
+      actor.kind !== 'secret'
+      || actor.actorId !== '0x27'
+      || !actor.secret
+      || actor.secret.targetTileRects?.length
+    ) {
+      continue;
+    }
+
+    const anchorTile = hiddenClueBookAnchorTile(actor);
+    const matches = groupsForSegment(actor.segmentId)
+      .filter((group) => tilePointInsideRect(anchorTile, group.rect));
+
+    if (matches.length > 1) {
+      throw new Error(
+        `${actor.id} hidden clue book anchor ${anchorTile.x},${anchorTile.y} matches multiple destructible groups: `
+        + matches.map((match) => rectKey(match.rect)).join('; ')
+      );
+    }
+
+    if (matches.length === 0) {
+      validations.push({
+        type: 'hidden-clue-book-destructible-link',
+        actorId: actor.id,
+        segmentId: actor.segmentId,
+        status: 'no-destructible-group-at-anchor',
+        anchorTile,
+        source: 'rom-expanded-background-tilemap'
+      });
+      continue;
+    }
+
+    const group = matches[0];
+    actor.secret = {
+      ...actor.secret,
+      type: 'destructible-clue',
+      action: HIDDEN_CLUE_BOOK_DESTRUCTIBLE_ACTION,
+      reveal: 'The clue book appears at the marked spot.',
+      targetTileRects: [
+        {
+          ...group.rect,
+          signature: 'destructibleBlock2x2'
+        }
+      ],
+      evidence: [
+        ...(actor.secret.evidence || []),
+        `ROM-expanded background tilemap groups destructible block signature FB FD / FC FE at tile rect ${rectKey(group.rect)} containing reveal anchor ${anchorTile.x},${anchorTile.y}.`
+      ]
+    };
+
+    validations.push({
+      type: 'hidden-clue-book-destructible-link',
+      actorId: actor.id,
+      segmentId: actor.segmentId,
+      status: 'linked',
+      anchorTile,
+      targetTileRect: group.rect,
+      matchCount: group.matchCount,
+      source: 'rom-expanded-background-tilemap'
+    });
+  }
+
+  return validations;
 }
 
 function metatileTileRows(metatileTiles, blockIndex, startRow = 0, rowCount = BLOCK_TILES) {
@@ -2203,7 +2876,7 @@ function buildDestructibleFixtures(segments, segmentTilemapsById, actors) {
       continue;
     }
 
-    const groups = groupFixtureRects(findFixtureSignatureRects(expandedTilemap, signature));
+    const groups = destructibleBlockGroupsForTilemap(expandedTilemap);
     for (const group of groups) {
       const linkedSecret = findSecretForDestructibleRect(segment.id, group.rect, actors);
       const role = linkedSecret ? 'secret-reward' : 'breakable-terrain';
@@ -2246,10 +2919,11 @@ function buildDestructibleFixtures(segments, segmentTilemapsById, actors) {
       const matchedBlocks = group.matches
         .map((rect) => falsePlatformCandidateByKey.get(rectKey(rect))?.block)
         .filter(Boolean);
+      const primarySignature = matchedSignatures[0];
 
       fixtures.push({
         id: `${segment.id}-false-platform-${group.rect.x}-${group.rect.y}-${group.rect.width}x${group.rect.height}`,
-        label: 'False platform',
+        label: primarySignature?.label || 'False platform',
         kind: 'false-platform',
         role: 'false-platform',
         segmentId: segment.id,
@@ -2262,7 +2936,8 @@ function buildDestructibleFixtures(segments, segmentTilemapsById, actors) {
           metatile: hex(block.metatile, 2)
         })),
         signatureIds: matchedSignatures.map((matchedSignature) => matchedSignature.id),
-        action: 'This floor looks solid, but Simon falls through it.',
+        action: primarySignature?.action || 'This floor looks solid, but Simon falls through it.',
+        dialogText: primarySignature?.dialogText || null,
         provenance: {
           source: 'rom-layout-metatile-and-terrain-thresholds',
           collisionLookup: 'fixed-bank terrain builder 7:$EB6E-$EB95 classifies each rendered tile through the object-set auxiliary threshold table; lookup 7:$E979-$EA10 then reads those packed terrain values.',
@@ -2342,6 +3017,42 @@ function validateFixtureVisualRects(actors, segmentTilemapsById) {
         `${actor.id} visualTileRect ${JSON.stringify(actor.visualTileRect)} does not match ${signature.id} (${score.matches}/${score.total})${suggestion}`
       );
     }
+  }
+  return validations;
+}
+
+function applyFixtureSignatureSnaps(actors, segmentTilemapsById) {
+  const validations = [];
+  for (const actor of actors) {
+    if (!actor.fixtureSignature || actor.visualTileRect) {
+      continue;
+    }
+    const signature = FIXTURE_TILE_SIGNATURES[actor.fixtureSignature];
+    if (!signature) {
+      throw new Error(`${actor.id} references unknown fixture signature ${actor.fixtureSignature}`);
+    }
+    const expandedTilemap = segmentTilemapsById.get(actor.segmentId);
+    if (!expandedTilemap) {
+      throw new Error(`${actor.id} references missing expanded tilemap for ${actor.segmentId}`);
+    }
+    const best = findBestFixtureSignatureRect(actor, signature, expandedTilemap);
+    if (!best || best.matches !== best.total) {
+      const summary = best ? `${best.matches}/${best.total} at ${JSON.stringify(best.rect)}` : 'no candidate';
+      throw new Error(`${actor.id} could not snap to ${signature.id}; best nearby match is ${summary}`);
+    }
+    actor.visualTileRect = best.rect;
+    validations.push({
+      type: 'fixture-visual-tile-rect-snap',
+      actorId: actor.id,
+      segmentId: actor.segmentId,
+      signatureId: signature.id,
+      signatureLabel: signature.label,
+      visualTileRect: actor.visualTileRect,
+      matches: best.matches,
+      expectedMatches: best.total,
+      status: 'snapped',
+      source: signature.source
+    });
   }
   return validations;
 }
@@ -2992,6 +3703,14 @@ function actorClassSelectors(rom, info, actorClass) {
     };
   }
 
+  if (actorClass.selector != null) {
+    return {
+      selectorRecord: null,
+      selectors: [actorClass.selector],
+      source: 'direct-selector'
+    };
+  }
+
   const selectorRecord = decodeSelectorRecordAt(
     rom,
     info,
@@ -3101,32 +3820,71 @@ function buildSecretFeature(rom, info, addChrSet, segmentById, definition) {
     return null;
   }
 
+  if (definition.effect === 'guide-hotspot') {
+    const bounds = definition.bounds || { x: 0, y: 0, width: segment.position.width, height: segment.position.height };
+    return {
+      id: definition.id,
+      label: definition.label,
+      kind: definition.kind || 'secret',
+      interactive: definition.interactive !== false,
+      effect: definition.effect,
+      segmentId: definition.segmentId,
+      variants: definition.variants || ['day', 'night'],
+      pixelX: bounds.x,
+      pixelY: bounds.y,
+      worldX: segment.position.x + bounds.x,
+      worldY: segment.position.y + bounds.y,
+      bounds,
+      condition: definition.condition,
+      dialog: definition.dialog,
+      dialogs: definition.dialogs || null,
+      itemReward: publicItemReward(definition.itemReward),
+      visibilityLayer: definition.visibilityLayer || (definition.kind === 'secret' ? 'secrets' : 'always'),
+      highlightLayer: definition.highlightLayer || (definition.kind === 'secret' ? 'secrets' : 'none'),
+      render: null,
+      provenance: definition.provenance || null
+    };
+  }
+
   const bytes = assertRomBytes(rom, definition.offset, definition.bytes);
-  const decoded = decodeMetaspriteSelector(rom, info, definition.selector);
-  const frame = {
-    selector: hex(definition.selector, 2),
-    pointer: hex(decoded.pointer.target, 4),
-    status: hex(decoded.status, 2),
-    sprites: decoded.sprites.map(publicSprite)
-  };
+  const selectorSource = actorClassSelectors(rom, info, definition);
+  const frames = selectorSource.selectors.map((selector) => {
+    const decoded = decodeMetaspriteSelector(rom, info, selector);
+    return {
+      selector: hex(selector, 2),
+      pointer: hex(decoded.pointer.target, 4),
+      status: hex(decoded.status, 2),
+      sprites: decoded.sprites.map(publicSprite)
+    };
+  });
   const chrSet = addChrSet(definition.chrBanks);
   const patterns = readChrPair(rom, info, definition.chrBanks);
-  const opaqueBounds = actorFrameOpaqueBounds(frame, patterns);
-  const bounds = actorFrameBounds([frame]);
+  const frameOpaqueBounds = frames.map((frame) => actorFrameOpaqueBounds(frame, patterns));
+  const publicFrames = frames.map((frame, index) => ({
+    ...frame,
+    opaqueBounds: frameOpaqueBounds[index]
+  }));
+  const bounds = actorFrameBounds(frames);
+  const opaqueBounds = actorOpaqueUnion(frameOpaqueBounds);
   const runtimePixelX = bytes[0] * ACTOR_CELL_SIZE;
   const runtimePixelY = bytes[1] * ACTOR_CELL_SIZE;
   const placement = definition.placement || {};
   const pixelX = Number.isFinite(placement.worldX)
     ? placement.worldX - segment.position.x
-    : runtimePixelX;
+    : (Number.isFinite(placement.pixelX)
+      ? placement.pixelX
+      : runtimePixelX + (Number.isFinite(placement.offsetX) ? placement.offsetX : 0));
   const pixelY = Number.isFinite(placement.worldY)
     ? placement.worldY - segment.position.y
-    : runtimePixelY;
+    : (Number.isFinite(placement.pixelY)
+      ? placement.pixelY
+      : runtimePixelY + (Number.isFinite(placement.offsetY) ? placement.offsetY : 0));
 
   return {
     id: definition.id,
     label: definition.label,
     kind: definition.kind || 'secret',
+    interactive: definition.interactive !== false,
     effect: definition.effect,
     segmentId: definition.segmentId,
     variants: definition.variants || ['day', 'night'],
@@ -3141,17 +3899,27 @@ function buildSecretFeature(rom, info, addChrSet, segmentById, definition) {
     condition: definition.condition,
     motion: definition.motion,
     dialog: definition.dialog,
+    dialogs: definition.dialogs || null,
+    itemReward: publicItemReward(definition.itemReward),
+    visibilityLayer: definition.visibilityLayer || (definition.kind === 'secret' ? 'secrets' : 'always'),
+    highlightLayer: definition.highlightLayer || (definition.kind === 'secret' ? 'secrets' : 'none'),
     render: {
       type: 'metasprite-selector',
-      selector: hex(definition.selector, 2),
+      selector: definition.selector != null ? hex(definition.selector, 2) : null,
+      selectorRecord: selectorSource.selectorRecord ? {
+        index: hex(definition.selectorRecordIndex, 2),
+        cpuAddress: hex(selectorSource.selectorRecord.cpuAddress, 4),
+        fileOffset: hex(selectorSource.selectorRecord.fileOffset, 5),
+        bytes: publicBytes(selectorSource.selectorRecord.bytes),
+        selectors: selectorSource.selectorRecord.selectors.map((selector) => hex(selector, 2))
+      } : null,
+      selectorSource: selectorSource.source,
       chrSet: chrSet.id,
       largeSprites: true,
       spriteHeight: SPRITE_HEIGHT,
       paletteByVariant: definition.paletteByVariant || {},
-      frames: [{
-        ...frame,
-        opaqueBounds
-      }],
+      frameDurationMs: definition.frameDurationMs || null,
+      frames: publicFrames,
       bounds,
       opaqueBounds
     },
@@ -3175,6 +3943,45 @@ function buildSecretFeatures(rom, info, addChrSet, segmentById) {
   return SECRET_FEATURE_DEFINITIONS
     .map((definition) => buildSecretFeature(rom, info, addChrSet, segmentById, definition))
     .filter(Boolean);
+}
+
+function validateCanonicalEnemyLabels(actors, actorClassById) {
+  const checked = [];
+  const mismatches = [];
+  for (const actor of actors) {
+    if (actor.kind !== 'enemy' || !actor.classId) {
+      continue;
+    }
+    const actorClass = actorClassById.get(actor.classId);
+    if (!actorClass) {
+      continue;
+    }
+    checked.push(actor.id);
+    if (actor.label !== actorClass.label) {
+      mismatches.push({
+        actorId: actor.id,
+        classId: actor.classId,
+        label: actor.label,
+        expectedLabel: actorClass.label
+      });
+    }
+  }
+
+  if (mismatches.length > 0) {
+    throw new Error(
+      `Enemy display labels must use canonical actor-class labels: ${mismatches
+        .map((item) => `${item.actorId} has ${JSON.stringify(item.label)}, expected ${JSON.stringify(item.expectedLabel)}`)
+        .join('; ')}`
+    );
+  }
+
+  return [{
+    type: 'canonical-enemy-labels',
+    status: 'ok',
+    checked: checked.length,
+    source: 'actor-class-labels',
+    note: 'Enemy display names are canonical class labels, not source manifest row names or location-derived labels.'
+  }];
 }
 
 function actorPlacementHp(actor, actorClass, kind, bytes) {
@@ -3266,7 +4073,7 @@ function buildActorPlacement(rom, info, classById, segmentById, actor) {
     textEvidence,
     guideDialog: actor.guideDialog || null,
     itemOffer,
-    secret: SECRET_DETAILS[actor.id] || null,
+    secret: SECRET_DETAILS[actor.id] || defaultSecretDetailsForActor(actor, bytes),
     visualTileRect: actor.visualTileRect || null,
     fixtureSignature: actor.fixtureSignature || null,
     flipHorizontal: Boolean(actor.flipHorizontal),
@@ -3476,6 +4283,7 @@ function addPalette(segmentId, variant, entry) {
       },
       sourceId: segmentConfig.sourceId || segmentConfig.id,
       sameLocationAs: segmentConfig.sameLocationAs,
+      visibilityLayer: segmentConfig.visibilityLayer || null,
       blockSize: BLOCK_SIZE,
       tileSize: TILE_SIZE,
       blockWidth: blockMatrix.blockWidth,
@@ -3500,7 +4308,7 @@ function addPalette(segmentId, variant, entry) {
   }
 
   const segmentById = new Map(segments.map((segment) => [segment.id, segment]));
-  const materializedActors = materializeManifestActors(sliceConfig);
+  const materializedActors = materializeManifestActors(sliceConfig, rom);
   const actorsForSlice = [
     ...GUIDE_SIMON_SPAWNS,
     ...GUIDE_ACTORS,
@@ -3518,9 +4326,12 @@ function addPalette(segmentId, variant, entry) {
   }
   const actors = actorsForSlice.map((actor) => buildActorPlacement(rom, info, actorClassById, segmentById, actor));
   const itemIcons = buildItemIconManifest(addChrSet);
+  validations.push(...validateCanonicalEnemyLabels(actors, actorClassById));
   const groundSupportValidations = applyGroundSupportSnaps(actors, actorClassById, segmentById, segmentTilemapsById);
   validations.push(...groundSupportValidations);
+  validations.push(...applyFixtureSignatureSnaps(actors, segmentTilemapsById));
   validations.push(...validateFixtureVisualRects(actors, segmentTilemapsById));
+  validations.push(...applyHiddenClueBookDestructibleLinks(actors, segmentTilemapsById));
   const destructibleFixtures = buildDestructibleFixtures(segments, segmentTilemapsById, actors);
   const doorHotspots = buildDoorHotspots(sliceConfig, segments, segmentTilemapsById);
 

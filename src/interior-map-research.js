@@ -13,22 +13,31 @@ const BERKELEY_ACTOR_TABLE_START_BY_SUBMAP = new Map([
   [1, 0x5b3d]
 ]);
 
+const LAUBER_ACTOR_TABLE_START_BY_SUBMAP = new Map([
+  [0, 0x5ba2],
+  [1, 0x5c07],
+  [2, 0x5c57]
+]);
+
 const BERKELEY_ACTOR_COVERAGE = new Map([
   [0x03, { classId: 'mansion-skeleton', status: 'promoted', evidence: 'ROM row id $03, selector record $05, fixed mansion CHR/palette.' }],
   [0x05, { classId: 'mansion-spear-knight', status: 'promoted', evidence: 'Berkeley runtime trace observes id $05 selectors $35/$36; selector record $13.' }],
   [0x0d, { classId: 'mansion-bone-thrower', status: 'promoted', evidence: 'Dispatch entry $0D initializes selector record $05; Berkeley rows carry HP $02.' }],
   [0x0f, { classId: 'mansion-gargoyle', status: 'promoted', evidence: 'Dispatch entry $0F initializes selector record $12.' }],
+  [0x11, { classId: 'mansion-bat', status: 'promoted', evidence: 'Dispatch entry $11 initializes selector record $07; Lauber rows carry HP $04.' }],
   [0x1f, { classId: 'blob', status: 'promoted-direct-selector', evidence: 'Dispatch entry $1F uses direct $DED0 selector path with selector $3C during initialization and selector $3D during neutral animation.' }],
+  [0x21, { classId: null, status: 'control', evidence: 'Lauber row $05C2B dispatches to platform-control routine bank 1:$854B and initializes selector $51. Row data $85 selects setup branch 1:$859A and motion branch 1:$8616, producing a 128-pixel horizontal ping-pong platform promoted through guide secretFeatures rather than the normal actor layer.' }],
   [0x22, { classId: null, status: 'control', evidence: 'ROM row is the Part 1 crystal-gated moving-platform control row at $5AD8; it is promoted through guide secretFeatures rather than the normal actor layer.' }],
   [0x25, { classId: 'dracula-rib-orb', status: 'promoted-direct-selector', evidence: 'Dispatch entry $25 uses direct $DED0 selector writes during the orb sequence.' }],
-  [0x27, { classId: 'mansion-book', status: 'promoted', evidence: 'Dispatch entry $27 uses selector record $3B; text is decoded from ROM file offsets.' }],
+  [0x27, { classId: 'mansion-book', status: 'promoted', evidence: "Dispatch entry $27 uses the shared hidden-book routine, selector record $3B, and Dracula's Eyeball reveal gate; text is decoded from ROM file offsets." }],
   [0xae, { classId: 'oak-stake-merchant', status: 'promoted', evidence: 'High-bit merchant row maps to live id $2E and merchant selector record $0B; text decoded from ROM file offset.' }]
 ]);
 
 const TOWN_INTERIOR_ACTOR_COVERAGE = new Map([
   [0xad, { classId: 'town-priest', status: 'promoted', evidence: 'Town-interior priest row maps through live id $2D to selector record $0C using CHR banks $00/$01 and the town-interior day sprite palette.' }],
   [0xae, { classId: 'jova-merchant', status: 'promoted', evidence: 'Town-interior merchant row maps through live id $2E to selector record $0B using CHR banks $00/$01; item type and price are decoded from the ROM sale/text metadata.' }],
-  [0x27, { classId: 'town-book', status: 'promoted', evidence: 'Town-interior clue-book row uses actor id $27 and selector record $3B with the town-interior CHR/palette family; text decodes from the ROM text pointer.' }]
+  [0xac, { classId: 'town-old-lady', status: 'promoted-direct-selector', evidence: 'Town old-lady row maps through live id $2C to direct selector $28 using CHR banks $00/$01.' }],
+  [0x27, { classId: 'town-book', status: 'promoted', evidence: "Town-interior hidden clue-book row uses actor id $27, the shared Dracula's Eyeball reveal gate, and selector record $3B with the town-interior CHR/palette family; text decodes from the ROM text pointer." }]
 ]);
 
 function hex(value, width = 2) {
@@ -86,6 +95,13 @@ function coverageForActorId(actorId, loc) {
     };
   }
   if (loc?.objset === 1) {
+    if (loc.area === 0x08 && actorId === 0x25) {
+      return {
+        classId: 'dracula-heart-orb',
+        status: 'promoted-direct-selector',
+        evidence: 'Lauber Mansion row $05C4B uses actor id $25 with text/data $19; the shared orb routine renders selector $3B for Dracula\'s Heart.'
+      };
+    }
     return BERKELEY_ACTOR_COVERAGE.get(actorId) || {
       classId: null,
       status: 'unmapped',
@@ -359,7 +375,9 @@ function analyzeInteriorMap(rom, info, opts = {}) {
     const locationId = guideLocationId(loc);
     const startOffset = loc.objset === 1 && loc.area === 0x07
       ? BERKELEY_ACTOR_TABLE_START_BY_SUBMAP.get(loc.submap || 0)
-      : null;
+      : (loc.objset === 1 && loc.area === 0x08
+        ? LAUBER_ACTOR_TABLE_START_BY_SUBMAP.get(loc.submap || 0)
+        : null);
     const table = startOffset == null
       ? {
         source: 'manifest-rom-row-pointers',

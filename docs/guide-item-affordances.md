@@ -33,6 +33,7 @@ Current promoted menu item tiles:
 | Dracula's Eyeball | `$50` | Fixed-bank start-menu body-part table `7:$F033` orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring. |
 | Dracula's Nail | `$51` | Fixed-bank start-menu body-part table `7:$F033` orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring. |
 | Dagger | `$54` | Fixed-bank weapon/crystal start-menu table `7:$F038`; ROM sale-table triple at file offset `$1ED31` is `$54 $00 $50`. |
+| Silver Knife | `$55` | Fixed-bank weapon/crystal start-menu table `7:$F038`; Camilla Cemetery secret merchant text pointer `$0CED8` gives the Silver Knife reward. |
 | Holy Water | `$57` | Fixed-bank weapon/crystal start-menu table `7:$F038`; the guide secret proof decodes Holy Water as the block-breaking projectile path. |
 | Laurels | `$58` | Fixed-bank carry-item menu branch loads tile `$58` before drawing through `7:$EB9C`. |
 | Oak Stake | `$59` | Start-menu PPU capture `out/captures/game-menu-jova-woods-start`; ROM sale-table triple at file offset `$1ED37` is `$59 $00 $50`. |

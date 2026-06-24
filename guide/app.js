@@ -6,9 +6,9 @@ import {
   isCv2DialogRuleLine,
   normalizeCv2DialogText,
   renderCv2DialogFrameToRgba
-} from './dialog.js?v=spawn-camera-desktop';
+} from './dialog.js?v=reset-control';
 
-const CACHE_KEY = 'spawn-camera-desktop';
+const CACHE_KEY = 'reset-control';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
 const OVERWORLD_VIEW_ID = 'overworld';
@@ -19,6 +19,10 @@ const JOVA_HOLY_WATER_ROOM_VIEW_ID = 'jova-holy-water-room';
 const VEROS_DAGGER_ROOM_VIEW_ID = 'veros-dagger-room';
 const VEROS_CHURCH_VIEW_ID = 'veros-church';
 const VEROS_CHAIN_WHIP_ROOM_VIEW_ID = 'veros-chain-whip-room';
+const ALJIBA_GARLIC_ROOM_VIEW_ID = 'aljiba-garlic-room';
+const ALJIBA_BOOK_OLD_LADY_ROOM_VIEW_ID = 'aljiba-book-old-lady-room';
+const ALJIBA_LAURELS_ROOM_VIEW_ID = 'aljiba-laurels-room';
+const LAUBER_MANSION_VIEW_ID = 'lauber-mansion';
 const VIEW_TRANSITION_MS = 140;
 const VIEW_TRANSITION_HOLD_MS = 40;
 const NES_SCREEN_WIDTH = 256;
@@ -38,6 +42,11 @@ const ROUTE_SEGMENT_IDS = [
   'aljiba-woods-part-1',
   'aljiba-woods-part-2',
   'aljiba-woods-part-3',
+  'town-of-aljiba',
+  'camilla-cemetery',
+  'yuba-lake-path',
+  'yuba-lake',
+  'lauber-mansion-door',
   'denis-woods-part-1',
   'berkeley-mansion-door',
   'denis-woods-part-2',
@@ -51,7 +60,8 @@ const OVERVIEW_LABEL_TEXT = new Map([
   ['aljiba-woods-part-1', 'Aljiba Woods'],
   ['denis-woods-part-1', 'Denis Woods'],
   ['denis-woods-part-2', 'Denis Woods'],
-  ['berkeley-mansion-door', 'Berkeley Mansion']
+  ['berkeley-mansion-door', 'Berkeley Mansion'],
+  ['lauber-mansion-door', 'Lauber Mansion']
 ]);
 const OVERVIEW_LABEL_HIDDEN_IDS = new Set([
   'veros-woods-part-2',
@@ -60,7 +70,15 @@ const OVERVIEW_LABEL_HIDDEN_IDS = new Set([
   'aljiba-woods-part-3',
   'denis-woods-part-3'
 ]);
-const LABEL_BELOW_SEGMENT_IDS = new Set(['town-of-veros']);
+const LABEL_BELOW_SEGMENT_IDS = new Set([
+  'town-of-veros',
+  'yuba-lake-path',
+  'yuba-lake',
+  'lauber-mansion-door'
+]);
+const LABEL_BOUNDS_SEGMENT_IDS = new Map([
+  ['yuba-lake', ['yuba-lake', 'yuba-lake-revealed-route']]
+]);
 const LABEL_COLLISION_PADDING = 6;
 const LABEL_MAP_GAP = 10;
 const LABEL_LEADER_THRESHOLD = 3;
@@ -153,13 +171,31 @@ const CHROME_ICONS = {
     '................',
     '................',
     '................'
+  ],
+  reset: [
+    '......W.........',
+    '.....WW.........',
+    '....WWWWWW......',
+    '.....WW...WW....',
+    '...W..W.....W...',
+    '..W..........W..',
+    '..W..........W..',
+    '.W............W.',
+    '.W............W.',
+    '.W............W.',
+    '.W............W.',
+    '..W..........W..',
+    '..W..........W..',
+    '...W........W...',
+    '....WW....WW....',
+    '......WWWW......'
   ]
 };
 
 const MAP_VIEWS = {
   [OVERWORLD_VIEW_ID]: {
     id: OVERWORLD_VIEW_ID,
-    label: 'Town of Jova to Aljiba Woods',
+    label: 'Town of Jova to Camilla Cemetery',
     ariaLabel: 'Castlevania II exterior guide map',
     supportsPalette: true,
     defaultVariant: 'day',
@@ -230,6 +266,42 @@ const MAP_VIEWS = {
     fixedVariant: 'day',
     sceneUrl: `./assets/scenes/veros-chain-whip-room/slice.json?v=${CACHE_KEY}`,
     renderer: null
+  },
+  [ALJIBA_GARLIC_ROOM_VIEW_ID]: {
+    id: ALJIBA_GARLIC_ROOM_VIEW_ID,
+    label: 'Aljiba Garlic Room',
+    ariaLabel: 'Aljiba Garlic Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/aljiba-garlic-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [ALJIBA_BOOK_OLD_LADY_ROOM_VIEW_ID]: {
+    id: ALJIBA_BOOK_OLD_LADY_ROOM_VIEW_ID,
+    label: 'Aljiba Book And Old Lady Room',
+    ariaLabel: 'Aljiba Book and Old Lady interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/aljiba-book-old-lady-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [ALJIBA_LAURELS_ROOM_VIEW_ID]: {
+    id: ALJIBA_LAURELS_ROOM_VIEW_ID,
+    label: 'Aljiba Laurels Room',
+    ariaLabel: 'Aljiba Laurels Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/aljiba-laurels-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [LAUBER_MANSION_VIEW_ID]: {
+    id: LAUBER_MANSION_VIEW_ID,
+    label: 'Lauber Mansion',
+    ariaLabel: 'Lauber Mansion interior map',
+    supportsPalette: false,
+    fixedVariant: 'fixed',
+    sceneUrl: `./assets/scenes/lauber-mansion/slice.json?v=${CACHE_KEY}`,
+    renderer: null
   }
 };
 
@@ -267,6 +339,8 @@ const dom = {
   guideInspectorClose: document.querySelector('#guide-inspector-close'),
   paletteToggle: document.querySelector('#palette-toggle'),
   paletteToggleIcon: document.querySelector('#palette-toggle-icon'),
+  resetToggle: document.querySelector('#reset-toggle'),
+  resetToggleIcon: document.querySelector('#reset-toggle-icon'),
   optionsToggle: document.querySelector('#options-toggle'),
   optionsToggleIcon: document.querySelector('#options-toggle-icon'),
   optionsPanel: document.querySelector('#options-panel'),
@@ -1102,7 +1176,7 @@ class TileRenderer {
 const state = {
   variant: 'day',
   labels: true,
-  sectionOutlines: false,
+  sectionOutlines: true,
   highlightDoors: true,
   showCharacters: true,
   showSecrets: true,
@@ -1112,6 +1186,35 @@ const state = {
   activeViewId: OVERWORLD_VIEW_ID,
   transitioning: false
 };
+
+const DEFAULT_GUIDE_STATE = {
+  variant: 'day',
+  labels: true,
+  sectionOutlines: true,
+  highlightDoors: true,
+  showCharacters: true,
+  showSecrets: true,
+  highlightCharacters: true,
+  highlightMapObjects: true,
+  highlightSecrets: true
+};
+
+const VIEW_OPTION_DEFINITIONS = [
+  { key: 'labels', code: 'labels' },
+  { key: 'sectionOutlines', code: 'sections' },
+  { key: 'showCharacters', code: 'characters' },
+  { key: 'showSecrets', code: 'secrets' },
+  { key: 'highlightDoors', code: 'doors' },
+  { key: 'highlightCharacters', code: 'characterHighlights' },
+  { key: 'highlightMapObjects', code: 'mapObjects' },
+  { key: 'highlightSecrets', code: 'secretHighlights' }
+];
+const URL_STATE_SAVE_DELAY_MS = 1200;
+const URL_CAMERA_POSITION_DIGITS = 1;
+const URL_CAMERA_SCALE_DIGITS = 3;
+let urlStateSaveTimer = null;
+let urlStateTrackingReady = false;
+let lastUrlStateSignature = null;
 
 let mapRenderer;
 let sceneRenderer;
@@ -1133,6 +1236,7 @@ let actorHotspots = [];
 let secretFeatureHotspots = [];
 let itemBadges = [];
 let doorItemBadges = [];
+let secretFeatureItemBadges = [];
 let labelLeaderSvg;
 const overlayActionByElement = new WeakMap();
 const floatingProjection = {
@@ -1163,6 +1267,181 @@ function viewForRenderer(renderer) {
 
 function activeRenderer() {
   return currentView().renderer;
+}
+
+function formatUrlNumber(value, digits) {
+  return String(Number(value.toFixed(digits)));
+}
+
+function parseFiniteUrlNumber(value) {
+  if (value == null || value === '') {
+    return null;
+  }
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function cameraStateFromParams(params, prefix = '') {
+  const x = parseFiniteUrlNumber(params.get(`${prefix}x`));
+  const y = parseFiniteUrlNumber(params.get(`${prefix}y`));
+  const scale = parseFiniteUrlNumber(params.get(`${prefix}z`) ?? params.get(`${prefix}scale`));
+  return x == null || y == null || scale == null
+    ? null
+    : { x, y, scale };
+}
+
+function cameraStateFromRenderer(renderer) {
+  return renderer?.camera
+    ? {
+      x: renderer.camera.x,
+      y: renderer.camera.y,
+      scale: renderer.camera.scale
+    }
+    : null;
+}
+
+function cameraStateUrlEntries(prefix, camera) {
+  if (!camera) {
+    return [];
+  }
+  return [
+    [`${prefix}x`, formatUrlNumber(camera.x, URL_CAMERA_POSITION_DIGITS)],
+    [`${prefix}y`, formatUrlNumber(camera.y, URL_CAMERA_POSITION_DIGITS)],
+    [`${prefix}z`, formatUrlNumber(camera.scale, URL_CAMERA_SCALE_DIGITS)]
+  ];
+}
+
+function currentViewOptionCodes() {
+  return VIEW_OPTION_DEFINITIONS
+    .filter((definition) => Boolean(state[definition.key]))
+    .map((definition) => definition.code);
+}
+
+function parseUrlViewState() {
+  const rawHash = window.location.hash.replace(/^#/, '');
+  if (!rawHash || !rawHash.includes('=')) {
+    return null;
+  }
+  const params = new URLSearchParams(rawHash);
+  const knownKeys = ['view', 'x', 'y', 'z', 'scale', 'owx', 'owy', 'owz', 'owscale', 'palette', 'variant', 'opts'];
+  if (!knownKeys.some((key) => params.has(key))) {
+    return null;
+  }
+
+  const requestedViewId = params.get('view') || OVERWORLD_VIEW_ID;
+  const viewId = MAP_VIEWS[requestedViewId] ? requestedViewId : OVERWORLD_VIEW_ID;
+  const palette = params.get('palette') || params.get('variant');
+  const opts = params.has('opts')
+    ? new Set(params.get('opts').split(/[,.]/).map((item) => item.trim()).filter(Boolean))
+    : null;
+
+  return {
+    viewId,
+    camera: cameraStateFromParams(params),
+    overworldCamera: cameraStateFromParams(params, 'ow'),
+    variant: palette === 'day' || palette === 'night' ? palette : null,
+    options: opts
+  };
+}
+
+function applyUrlViewOptions(options) {
+  if (!options) return;
+  for (const definition of VIEW_OPTION_DEFINITIONS) {
+    state[definition.key] = options.has(definition.code);
+  }
+}
+
+function applyUrlCameraState(renderer, camera) {
+  if (!renderer || !camera) return;
+  renderer.camera.x = camera.x;
+  renderer.camera.y = camera.y;
+  renderer.camera.scale = Math.max(MIN_CAMERA_SCALE, Math.min(26, camera.scale));
+  clampGuideCamera(renderer);
+}
+
+function encodeUrlViewState() {
+  const renderer = activeRenderer();
+  if (!renderer) {
+    return null;
+  }
+  const params = [
+    ['view', state.activeViewId],
+    ...cameraStateUrlEntries('', cameraStateFromRenderer(renderer)),
+    ['palette', state.variant],
+    ['opts', currentViewOptionCodes().join('.')]
+  ];
+  if (state.activeViewId !== OVERWORLD_VIEW_ID) {
+    params.push(...cameraStateUrlEntries('ow', cameraStateFromRenderer(mapRenderer)));
+  }
+  return params
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join('&');
+}
+
+function replaceUrlViewState(signature) {
+  if (!signature || signature === lastUrlStateSignature) {
+    return;
+  }
+  const url = new URL(window.location.href);
+  url.hash = signature;
+  try {
+    window.history.replaceState(window.history.state, '', url.toString());
+    lastUrlStateSignature = signature;
+  } catch (error) {
+    console.warn('Unable to update guide URL state.', error);
+  }
+}
+
+function scheduleUrlViewStateSave() {
+  if (!urlStateTrackingReady || urlStateSaveTimer != null) {
+    return;
+  }
+  urlStateSaveTimer = window.setTimeout(() => {
+    urlStateSaveTimer = null;
+    replaceUrlViewState(encodeUrlViewState());
+  }, URL_STATE_SAVE_DELAY_MS);
+}
+
+function saveUrlViewStateNow() {
+  if (!urlStateTrackingReady) {
+    return;
+  }
+  if (urlStateSaveTimer != null) {
+    window.clearTimeout(urlStateSaveTimer);
+    urlStateSaveTimer = null;
+  }
+  replaceUrlViewState(encodeUrlViewState());
+}
+
+function clearUrlViewState() {
+  if (urlStateSaveTimer != null) {
+    window.clearTimeout(urlStateSaveTimer);
+    urlStateSaveTimer = null;
+  }
+  const signature = encodeUrlViewState();
+  const url = new URL(window.location.href);
+  url.hash = '';
+  try {
+    window.history.replaceState(window.history.state, '', url.toString());
+    lastUrlStateSignature = signature;
+  } catch (error) {
+    console.warn('Unable to clear guide URL state.', error);
+  }
+}
+
+function observeUrlViewState() {
+  if (!urlStateTrackingReady) {
+    return;
+  }
+  const signature = encodeUrlViewState();
+  if (signature && signature !== lastUrlStateSignature) {
+    scheduleUrlViewStateSave();
+  }
+}
+
+function primeUrlViewStateTracking() {
+  lastUrlStateSignature = encodeUrlViewState();
+  urlStateTrackingReady = true;
 }
 
 async function ensureViewLoaded(viewId) {
@@ -1211,7 +1490,7 @@ function visibleBounds(segmentIds, renderer = activeRenderer()) {
   if (!renderer) return undefined;
   const segments = segmentIds
     .map((segmentId) => renderer.segmentById.get(segmentId))
-    .filter(Boolean);
+    .filter((segment) => segment && segmentRecordVisible(segment));
   if (segments.length === 0) {
     return undefined;
   }
@@ -1522,6 +1801,43 @@ function segmentDisplayPosition(segment, renderer = activeRenderer()) {
   };
 }
 
+function segmentRecordVisible(segment) {
+  if (!segment) return false;
+  if (segment.visibilityLayer === 'secrets') {
+    return state.showSecrets;
+  }
+  return true;
+}
+
+function labelDisplayPosition(segment, renderer = activeRenderer()) {
+  const groupIds = LABEL_BOUNDS_SEGMENT_IDS.get(segment.id);
+  if (!groupIds?.length || !renderer) {
+    return segmentDisplayPosition(segment, renderer);
+  }
+  const rects = groupIds
+    .map((segmentId) => renderer.segmentById.get(segmentId))
+    .filter((groupSegment) => groupSegment && segmentRecordVisible(groupSegment))
+    .map((groupSegment) => segmentDisplayPosition(groupSegment, renderer));
+  if (rects.length === 0) {
+    return segmentDisplayPosition(segment, renderer);
+  }
+  const minX = Math.min(...rects.map((rect) => rect.x));
+  const minY = Math.min(...rects.map((rect) => rect.y));
+  const maxX = Math.max(...rects.map((rect) => rect.x + rect.width));
+  const maxY = Math.max(...rects.map((rect) => rect.y + rect.height));
+  return {
+    x: minX,
+    y: minY,
+    width: maxX - minX,
+    height: maxY - minY
+  };
+}
+
+function segmentIdVisible(segmentId, renderer = activeRenderer()) {
+  if (!renderer) return false;
+  return segmentRecordVisible(renderer.segmentById.get(segmentId));
+}
+
 function updateFloatingProjection() {
   if (!mapRenderer?.manifest) return;
   resizeCanvas(mapRenderer.gl, mapRenderer.canvas);
@@ -1674,10 +1990,18 @@ function secretFeatureWorldPosition(feature, now = performance.now()) {
 
 function secretFeatureWorldRect(feature) {
   const renderer = activeRenderer();
+  const offset = segmentDisplayOffset(feature.segmentId, renderer);
+  if (feature.bounds) {
+    return {
+      x: feature.worldX + offset.x,
+      y: feature.worldY + offset.y,
+      width: feature.bounds.width,
+      height: feature.bounds.height
+    };
+  }
   const render = feature.render || {};
   const bounds = render.opaqueBounds || render.bounds;
   const position = secretFeatureWorldPosition(feature);
-  const offset = segmentDisplayOffset(feature.segmentId, renderer);
   if (bounds) {
     return {
       x: position.worldX + offset.x + bounds.minX,
@@ -1744,7 +2068,8 @@ function secretFeatureMatchesVariant(feature) {
 }
 
 function hotspotMatchesVariant(hotspot) {
-  return (hotspot.variants || ['day', 'night']).includes(activeVariant());
+  return (hotspot.variants || ['day', 'night']).includes(activeVariant())
+    && segmentIdVisible(hotspot.segmentId);
 }
 
 function actorIsMapObject(actor) {
@@ -1772,25 +2097,46 @@ function actorHighlightVisible(actor) {
 function shouldRenderActor(actor) {
   return Boolean(actor.classId)
     && actorMatchesVariant(actor)
+    && segmentIdVisible(actor.segmentId)
     && actorLayerVisible(actor)
     && (!actorIsSecret(actor) || state.showSecrets);
 }
 
 function shouldShowActorHotspot(actor) {
   return actorMatchesVariant(actor)
+    && segmentIdVisible(actor.segmentId)
     && actorLayerVisible(actor)
     && (!actorIsSecret(actor) || state.showSecrets);
 }
 
+function secretFeatureLayerVisible(feature) {
+  const visibilityLayer = feature.visibilityLayer || (feature.kind === 'secret' ? 'secrets' : 'always');
+  if (visibilityLayer === 'secrets') {
+    return state.showSecrets;
+  }
+  return true;
+}
+
+function secretFeatureHighlightVisible(feature) {
+  const highlightLayer = feature.highlightLayer || (feature.kind === 'secret' ? 'secrets' : 'none');
+  if (highlightLayer === 'secrets') {
+    return state.highlightSecrets;
+  }
+  return false;
+}
+
 function shouldRenderSecretFeature(feature) {
-  return state.showSecrets
+  return secretFeatureLayerVisible(feature)
     && secretFeatureMatchesVariant(feature)
-    && feature.effect === 'moving-platform';
+    && segmentIdVisible(feature.segmentId)
+    && Boolean(feature.render?.frames?.length);
 }
 
 function shouldShowSecretFeatureHotspot(feature) {
-  return state.showSecrets
-    && secretFeatureMatchesVariant(feature);
+  return feature.interactive !== false
+    && secretFeatureLayerVisible(feature)
+    && secretFeatureMatchesVariant(feature)
+    && segmentIdVisible(feature.segmentId);
 }
 
 function makeElement(className, tag = 'div') {
@@ -1820,7 +2166,8 @@ function overlayElements() {
     ...actorHotspots.map((item) => item.element),
     ...secretFeatureHotspots.map((item) => item.element),
     ...itemBadges.map((item) => item.element),
-    ...doorItemBadges.map((item) => item.element)
+    ...doorItemBadges.map((item) => item.element),
+    ...secretFeatureItemBadges.map((item) => item.element)
   ].filter((element) => !element.hidden && element.getClientRects().length > 0);
 }
 
@@ -1956,6 +2303,7 @@ function buildOverlays() {
   secretFeatureHotspots = [];
   itemBadges = [];
   doorItemBadges = [];
+  secretFeatureItemBadges = [];
   labelLeaderSvg = makeSvgElement('svg', 'label-leaders');
   dom.overlay.append(labelLeaderSvg);
 
@@ -2038,6 +2386,25 @@ function buildOverlays() {
     element.setAttribute('aria-label', feature.label);
     addGuardedClick(element, () => showSecretFeatureCard(feature));
     secretFeatureHotspots.push({ element, feature });
+
+    if (feature.itemReward) {
+      const badge = makeElement('item-badge is-secret-badge', 'button');
+      const frameCanvas = document.createElement('canvas');
+      const iconCanvas = document.createElement('canvas');
+      badge.type = 'button';
+      badge.title = `${feature.itemReward.itemLabel} details`;
+      badge.setAttribute('aria-label', `${feature.itemReward.itemLabel} details`);
+      frameCanvas.className = 'item-badge-frame-canvas';
+      iconCanvas.className = 'item-badge-icon-canvas';
+      frameCanvas.setAttribute('aria-hidden', 'true');
+      iconCanvas.setAttribute('aria-hidden', 'true');
+      badge.append(frameCanvas, iconCanvas);
+      addGuardedClick(badge, () => showItemDetailsCard({
+        item: feature.itemReward,
+        anchorWorldRect: () => secretFeatureWorldRect(feature)
+      }));
+      secretFeatureItemBadges.push({ element: badge, feature, frameCanvas, iconCanvas, renderedKey: null });
+    }
   }
 
   for (const actor of renderer.manifest.actors || []) {
@@ -2120,8 +2487,20 @@ function doorItemBadgeVisualRect(hotspot, scale) {
   return itemBadgeRectForAnchor(worldRectToScreen(renderer, worldRect), scale);
 }
 
+function secretFeatureItemBadgeVisualRect(feature, scale) {
+  const renderer = activeRenderer();
+  const worldRect = secretFeatureWorldRect(feature);
+  if (!renderer || !worldRect) {
+    return null;
+  }
+  return itemBadgeRectForAnchor(worldRectToScreen(renderer, worldRect), scale);
+}
+
 function itemBadgeItemId(item) {
-  return item.actor?.itemOffer?.itemId || item.hotspot?.itemReward?.itemId || null;
+  return item.actor?.itemOffer?.itemId
+    || item.hotspot?.itemReward?.itemId
+    || item.feature?.itemReward?.itemId
+    || null;
 }
 
 function renderItemBadge(item, scale, placement) {
@@ -2175,7 +2554,7 @@ function labelSide(segment) {
 
 function labelPlacement(segment) {
   const renderer = activeRenderer();
-  const position = segmentDisplayPosition(segment, renderer);
+  const position = labelDisplayPosition(segment, renderer);
   const side = labelSide(segment);
   const centerX = position.x + position.width / 2;
   const mapY = side === 'above' ? position.y : position.y + position.height;
@@ -2267,8 +2646,8 @@ function updateOverlays() {
   if (!renderer?.manifest) return;
 
   for (const item of sectionOutlines) {
-    item.element.hidden = !state.sectionOutlines;
-    if (!state.sectionOutlines) {
+    item.element.hidden = !state.sectionOutlines || !segmentRecordVisible(item.segment);
+    if (!state.sectionOutlines || !segmentRecordVisible(item.segment)) {
       continue;
     }
     const rect = worldRectToScreen(renderer, segmentDisplayPosition(item.segment, renderer));
@@ -2282,8 +2661,9 @@ function updateOverlays() {
 
   for (const item of labels) {
     const hiddenInOverview = overviewLabels && OVERVIEW_LABEL_HIDDEN_IDS.has(item.segment.id);
-    item.element.hidden = !state.labels || hiddenInOverview;
-    if (!state.labels || hiddenInOverview) {
+    const hiddenByLayer = !segmentRecordVisible(item.segment);
+    item.element.hidden = !state.labels || hiddenInOverview || hiddenByLayer;
+    if (!state.labels || hiddenInOverview || hiddenByLayer) {
       item.leader?.setAttribute('visibility', 'hidden');
       continue;
     }
@@ -2318,7 +2698,7 @@ function updateOverlays() {
 
   for (const item of destructibleHotspots) {
     const worldRect = destructibleFixtureWorldRect(item.fixture);
-    if (!state.showSecrets || !worldRect) {
+    if (!state.showSecrets || !segmentIdVisible(item.fixture.segmentId) || !worldRect) {
       item.element.hidden = true;
       continue;
     }
@@ -2335,7 +2715,7 @@ function updateOverlays() {
     }
     item.element.hidden = false;
     setHitRect(item.element, worldRectToScreen(renderer, secretFeatureWorldRect(item.feature)));
-    item.element.classList.toggle('is-highlight-hidden', !state.highlightSecrets);
+    item.element.classList.toggle('is-highlight-hidden', !secretFeatureHighlightVisible(item.feature));
   }
 
   for (const item of actorHotspots) {
@@ -2374,6 +2754,21 @@ function updateOverlays() {
     const placement = setHitRect(item.element, rect);
     renderItemBadge(item, scale, placement);
     item.element.classList.toggle('is-highlight-hidden', !state.highlightDoors);
+  }
+
+  for (const item of secretFeatureItemBadges) {
+    const visible = state.labels && Boolean(item.feature.itemReward) && shouldShowSecretFeatureHotspot(item.feature);
+    item.element.hidden = !visible;
+    if (!visible) continue;
+    const scale = itemBadgeScale(renderer);
+    const rect = secretFeatureItemBadgeVisualRect(item.feature, scale);
+    if (!rect) {
+      item.element.hidden = true;
+      continue;
+    }
+    const placement = setHitRect(item.element, rect);
+    renderItemBadge(item, scale, placement);
+    item.element.classList.toggle('is-highlight-hidden', !secretFeatureHighlightVisible(item.feature));
   }
 }
 
@@ -3027,13 +3422,22 @@ function showDestructibleFixtureCard(fixture) {
   const action = fixture.action || "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.";
   showGuideCard({
     title: fixture.label,
-    dialogText: `${fixture.label}\n----------\n${action}`,
+    dialogText: fixture.dialogText || `${fixture.label}\n----------\n${action}`,
     dialogTone: GUIDE_AUTHORED_DIALOG_TONE,
     anchorWorldRect: () => destructibleFixtureWorldRect(fixture)
   });
 }
 
 function showSecretFeatureCard(feature) {
+  if (Array.isArray(feature.dialogs) && feature.dialogs.length > 0) {
+    showGuideCard({
+      title: feature.label,
+      dialogs: feature.dialogs,
+      anchorWorldRect: () => secretFeatureWorldRect(feature)
+    });
+    return;
+  }
+
   showGuideCard({
     title: feature.label,
     dialogText: feature.dialog?.text || `${feature.label}\n----------\n${feature.condition?.playerFacing || 'Secret guide detail.'}`,
@@ -3052,6 +3456,9 @@ function secretGuideDialogText(actor) {
 }
 
 function itemOfferCostLine(offer) {
+  if (offer.costLabel) {
+    return offer.costLabel;
+  }
   return `Cost - ${offer.costHearts}`;
 }
 
@@ -3064,6 +3471,9 @@ function itemOfferMerchantText(offer) {
 }
 
 function itemOfferCostIcon(offer) {
+  if (!Number.isFinite(offer.costHearts)) {
+    return null;
+  }
   return {
     iconId: ITEM_BADGE_HEART_ICON_ID,
     lineText: itemOfferCostLine(offer).toUpperCase(),
@@ -3111,7 +3521,7 @@ function showItemMerchantCard(actor) {
         title: offer.roleLabel,
         dialogText: itemOfferMerchantText(offer),
         dialogTone: GUIDE_AUTHORED_DIALOG_TONE,
-        inlineIcons: [itemOfferCostIcon(offer)]
+        inlineIcons: [itemOfferCostIcon(offer)].filter(Boolean)
       },
       {
         title: actor.label,
@@ -3266,6 +3676,9 @@ function syncControls() {
     dom.paletteToggle.title = 'Return to exterior map';
     dom.paletteToggle.setAttribute('aria-pressed', 'false');
   }
+  drawChromeIcon(dom.resetToggleIcon, CHROME_ICONS.reset);
+  dom.resetToggle.setAttribute('aria-label', 'Reset guide to Jova spawn');
+  dom.resetToggle.title = 'Reset guide to Jova spawn';
   drawChromeIcon(dom.optionsToggleIcon, CHROME_ICONS.layers);
   const layersLabel = dom.optionsPanel.hidden ? 'Show guide layers' : 'Hide guide layers';
   dom.optionsToggle.setAttribute('aria-label', layersLabel);
@@ -3345,6 +3758,7 @@ function enterView(viewId, { sourceElement = null } = {}) {
     if (nextView === OVERWORLD_VIEW_ID) {
       pendingReturnFocus = null;
     }
+    saveUrlViewStateNow();
   });
 }
 
@@ -3353,6 +3767,56 @@ function leaveView() {
     return;
   }
   enterView(OVERWORLD_VIEW_ID);
+}
+
+function restoreDefaultGuideState() {
+  Object.assign(state, DEFAULT_GUIDE_STATE);
+}
+
+async function resetGuideToDefault() {
+  stopPanInertia();
+  hideGuideCard();
+  hideGuideInspector();
+  dom.optionsPanel.hidden = true;
+  pendingReturnFocus = null;
+  restoreDefaultGuideState();
+  syncControls();
+
+  if (state.activeViewId === OVERWORLD_VIEW_ID) {
+    setActiveView(OVERWORLD_VIEW_ID, { resetCamera: true });
+    activeRenderer()?.canvas?.focus({ preventScroll: true });
+  } else {
+    await transitionToView(OVERWORLD_VIEW_ID, {
+      resetCamera: true,
+      focusTarget: dom.resetToggle
+    });
+  }
+
+  syncControls();
+  updateOverlays();
+  clearUrlViewState();
+}
+
+async function initializeActiveViewFromUrl() {
+  const urlState = parseUrlViewState();
+  state.activeViewId = OVERWORLD_VIEW_ID;
+  await ensureViewLoaded(OVERWORLD_VIEW_ID);
+  setActiveView(OVERWORLD_VIEW_ID, { resetCamera: true });
+
+  if (urlState) {
+    if (urlState.variant) {
+      state.variant = urlState.variant;
+    }
+    applyUrlViewOptions(urlState.options);
+    applyUrlCameraState(mapRenderer, urlState.overworldCamera);
+    await ensureViewLoaded(urlState.viewId);
+    setActiveView(urlState.viewId, { resetCamera: !urlState.camera });
+    applyUrlCameraState(activeRenderer(), urlState.camera);
+    syncControls();
+    updateOverlays();
+  }
+
+  primeUrlViewStateTracking();
 }
 
 function attachInput() {
@@ -3673,6 +4137,9 @@ function attachControls() {
       leaveView();
     }
   });
+  dom.resetToggle.addEventListener('click', () => {
+    resetGuideToDefault();
+  });
   dom.optionsToggle.addEventListener('click', () => {
     dom.optionsPanel.hidden = !dom.optionsPanel.hidden;
     syncControls();
@@ -3737,7 +4204,7 @@ function renderLoop() {
     updateFloatingProjection();
   }
   const variant = activeVariant(view);
-  renderer.render(variant);
+  renderer.render(variant, segmentRecordVisible);
   renderer.secretFeatureRenderer.render(
     renderer.camera,
     variant,
@@ -3757,6 +4224,7 @@ function renderLoop() {
     placeAnchoredPanel(dom.guideCard, activeGuideModel, 'above');
   }
   placeAnchoredPanel(dom.guideInspector, activeInspectorModel, 'right');
+  observeUrlViewState();
   requestAnimationFrame(renderLoop);
 }
 
@@ -3792,9 +4260,7 @@ async function main() {
     itemIconRenderer
   );
   labelRenderer = new Cv2LabelRenderer(glyphs, dialogAtlas);
-  state.activeViewId = OVERWORLD_VIEW_ID;
-  await ensureViewLoaded(state.activeViewId);
-  setActiveView(state.activeViewId, { resetCamera: true });
+  await initializeActiveViewFromUrl();
   attachInput();
   attachControls();
   setStatus('');

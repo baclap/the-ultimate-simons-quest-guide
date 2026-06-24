@@ -125,7 +125,7 @@ The current proof artifact is
 `obj00-area0A-sub00` / `obj00-area0A-sub01`, and `obj00-area0B-sub00` Veros
 Chain Whip Room. The artifact byte-checks all four promoted actor/fixture rows
 against their ROM pointers: one priest row (`$AD`), two merchant rows (`$AE`),
-and one clue-book fixture row (`$27`).
+and one hidden clue-book row (`$27`).
 
 Veros Dagger is the first promoted town interior with an entry-room chain. Its
 composition uses the ROM manifest `entryRoom` relationship from
@@ -134,3 +134,50 @@ merchant room as the next horizontal room. Church and Chain Whip remain
 single-room destinations. Veros exterior door hotspots come from the Town of
 Veros ROM door table and the expanded-background `town-door-4x6` tile
 signature; they are day-only like the Jova doors.
+
+## Town Of Aljiba Interior Baseline
+
+The three Town of Aljiba doors are daytime-only guide destinations generated
+through:
+
+```sh
+npm run render:recipe-atlas
+npm run analyze:interior:aljiba
+npm run guide:scenes:aljiba
+```
+
+The current proof artifact is
+`out/interior-map-research/aljiba-interiors.json`. It inventories the Garlic
+room, the two-submap Book/Old Lady destination, and the two-submap Laurels
+destination. The artifact byte-checks every promoted row at its ROM pointer:
+two merchant rows (`$AE`), one hidden clue-book row (`$27`), and one old-lady row
+(`$AC`). The two multi-room destinations use ROM manifest `entryRoom`
+relationships for horizontal composition.
+
+## Lauber Mansion Baseline
+
+Lauber Mansion is generated through:
+
+```sh
+npm run render:recipe-atlas
+npm run analyze:interior:lauber
+npm run guide:scene:lauber-mansion
+```
+
+The current proof artifact is
+`out/interior-map-research/lauber-mansion.json`. It inventories
+`obj01-area08-sub00`, `obj01-area08-sub01`, and the manifest-exposed
+`obj01-area08-sub02` Lauber -> Laruba Wrong Warp submap. The guide scene
+promotes Part 1 and Part 2 as the normal Lauber Mansion destination and
+documents the wrong-warp submap as excluded from normal destination rendering.
+
+The artifact accounts for 45 raw rows: 44 promoted actor rows and one `$21`
+platform-control row at ROM file offset `$5C2B`. The `$21` row dispatches to
+bank `1:$854B`, initializes selector `$51`, and is promoted through
+`secretFeatures` as a normal moving platform. Row data `$85` selects setup
+branch `1:$859A` and motion branch `1:$8616`; the high nibble `$80` is the
+horizontal reversal timer. Setup branch `$859A` stores positive X velocity, so
+the row anchor is the left endpoint and the rendered path extends rightward
+before reversing. The guide preserves the raw row anchor separately from visible
+placement; the rendered path applies the mansion platform actor-slot/OAM anchor
+correction proven by the Berkeley `$22` moving-platform trace.
