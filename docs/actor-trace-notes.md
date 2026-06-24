@@ -141,6 +141,55 @@ The current no-shortcut path is therefore:
 4. Add targeted probes only where a class or context has not appeared in the
    current evidence.
 
+## Enemy HP Standard
+
+Guide enemy HP must be generated from the ROM actor row and the ROM HP
+initializer, not copied from a class default or guessed from another enemy. The
+fourth actor-row byte is the base HP byte.
+
+ROM-backed rule:
+
+- PRG bank `1`, CPU `$8117-$8147` loads the row HP byte from RAM `$93`, checks
+  the night flag at RAM `$0082`, skips known exceptions, applies the
+  night-strength `ASL` path when the active context qualifies, then stores the
+  result to actor HP RAM `$04C2,x`.
+- The ROM exception list skips night doubling for actor ids `$21`, `$22`,
+  `$25-$27`, `$2D-$2F`, `$34`, and for object set `$01`. Do not create
+  additional HP exceptions from idle traces; verify the initializer branch or a
+  write from PC `$814A`.
+- Runtime traces confirm the standard exterior rule: Jova Woods Skeleton row HP
+  `$01` becomes day HP `1` and night HP `2`; Jova Woods Wolf Man row HP `$02`
+  becomes day HP `2` and night HP `4`; North Bridge Skeleton row HP `$0F`
+  becomes day HP `15` and night HP `30`.
+- Camilla Cemetery follows the same standard exterior rule. Full movement
+  traces from `out/states/camilla-cemetery-day.mss` and
+  `out/states/camilla-cemetery-night.mss` with `right:30:2600` capture Dead
+  Hand HP writes from PC `$814A`: day writes `$08`, night writes `$10`. Cemetery
+  Blob actor id `$41` is not in the ROM exception list, so its row HP `$08`
+  yields day HP `8` and night HP `16`.
+- Town night-only enemies should still use that ROM night-strength result for
+  their `night` value; their `day` value remains `null` because the actor is not
+  loaded during the day.
+- Mansion/interior enemies are a fixed-context exception. The same ROM routine
+  checks object set RAM `$0030`; object set `$01` skips night doubling, so
+  Berkeley and Lauber mansion enemies use the row HP byte for both displayed day
+  and night values.
+
+The guide build emits an `enemy-hp-evidence` validation for every generated
+scene. Enemy placements must carry an HP policy and evidence record; builds fail
+if any enemy is missing audited HP evidence or if generated day/night HP no
+longer matches its policy.
+
+The whole-ROM enemy atlas applies the same rule to every manifest enemy row:
+
+```sh
+npm run build:enemy-atlas
+```
+
+`data/enemy-atlas.json` currently validates 494 enemy rows. It should be used as
+the first lookup table for future route work, but it does not replace
+route-specific placement validation.
+
 ## Enemy Naming Standard
 
 Enemy display names should be stable class names, not labels derived from the
@@ -169,6 +218,11 @@ Berkeley Mansion and temporarily named "Mansion blob", but a whole-ROM actor
 inventory finds the same id in Berkeley, Brahm, and Bodley mansions. Until an
 official manual-name match is proven for that sprite, the guide-facing name is
 "Blob".
+
+The whole-ROM enemy atlas carries proven manual names and unproven manual
+candidates separately. Do not promote a candidate from
+`data/enemy-atlas.json` into guide-facing text until its manual illustration and
+ROM-rendered sprite class are matched with evidence.
 
 ## Current Enemy Name Audit
 
@@ -313,8 +367,8 @@ runtime/static selector proof, and secret-feature proof:
 | Actor id | Guide class | Rows | Evidence expectation |
 | --- | --- | ---: | --- |
 | `$9E` | Secret Merchant | 1 | Promoted through `secretFeatures`, not the ordinary character layer. ROM row `$06F32` maps `$9E` to live actor `$1E`; routine `1:$B1BD` hides the merchant until actor slots `$03-$05` contain transient actor `$09`, then clears hidden bit `$20` from `$03C6,x`. The initialization branch loads selector-record `$0B`, which emits merchant selectors `$1E/$1F`; the reward text pointer `$0CED8` gives the Silver Knife dialog, and PPU pattern-table captures match CHR banks `$04/$05`. |
-| `$38` | Dead Hand | 5 | Camilla day/night traces prove selector record `$17`, selectors `$8E/$8F`, OAM tile pairs `$89/$9F` and `$FB/$FD`, HP `$08`, and PPU pattern-table CHR banks `$04/$05`. |
-| `$41` | Blob | 2 | Dispatch entry `$41` at bank `1:$B119` initializes direct selector `$C3`; the state routine at `1:$B13F` toggles selector RAM `$0300,x` between `$C3/$C4` for neutral animation; Camilla captures prove PPU pattern-table CHR banks `$04/$05`; raw ROM bytes are used for placement when the manifest row normalizes Y differently. |
+| `$38` | Dead Hand | 5 | Camilla day/night traces prove selector record `$17`, selectors `$8E/$8F`, OAM tile pairs `$89/$9F` and `$FB/$FD`, day HP `$08`, night HP `$10`, and PPU pattern-table CHR banks `$04/$05`. |
+| `$41` | Blob | 2 | Dispatch entry `$41` at bank `1:$B119` initializes direct selector `$C3`; the state routine at `1:$B13F` toggles selector RAM `$0300,x` between `$C3/$C4` for neutral animation; Camilla captures prove PPU pattern-table CHR banks `$04/$05`; actor id `$41` is not in the ROM HP initializer exception list, so row HP `$08` uses the standard day `$08` / night `$10` values; raw ROM bytes are used for placement when the manifest row normalizes Y differently. |
 
 Yuba Lake Path contains two `$22` moving-platform control rows not exposed by
 the generic manifest actor list. They are promoted through `secretFeatures`

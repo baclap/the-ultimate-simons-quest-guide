@@ -27,6 +27,12 @@ Current files:
   known, or byte-check every manifest actor row pointer directly for simple
   single-room interiors, so control/non-visible rows are explicitly accounted
   for and no row is silently promoted or omitted.
+- `enemy-atlas.json`: generated whole-ROM enemy inventory. It byte-checks every
+  manifest enemy row, derives day/night HP from the ROM initializer rule,
+  resolves sprite palette bytes through the render-recipe atlas, records
+  selector/metasprite evidence where the actor routine is decoded, and keeps
+  manual-name candidates separate from proven manual names. Rebuild with
+  `npm run build:enemy-atlas`; see `docs/enemy-atlas-notes.md`.
 - `transition-probes.json`: committed manifest for runtime transition probes.
   Interior entry/exit alignment should add targeted probes here before a
   composed interior relationship is treated as final Simon/scroll placement

@@ -76,6 +76,7 @@
     "trace:actors": "node src/index.js run-actor-traces --rom roms/cv2.nes --fixtures data/actor-trace-fixtures.json --out out/actor-traces",
     "analyze:actor-traces": "node src/index.js analyze-actor-traces --fixtures data/actor-trace-fixtures.json --out out/actor-traces",
     "decode:actor-selector-streams": "node src/index.js decode-actor-selector-streams --rom roms/cv2.nes --fixtures data/actor-trace-fixtures.json --traces out/actor-traces --out out/actor-selector-streams",
+    "build:enemy-atlas": "node src/index.js build-enemy-atlas --rom roms/cv2.nes --atlas out/render-recipe-atlas/manifest.json --out data/enemy-atlas.json",
     "decode:fishman-sprite-proof": "node src/index.js decode-fishman-sprite-proof --rom roms/cv2.nes --out out/fishman-sprite-proof",
     "decode:guide-actor-sprite-coverage": "node src/index.js decode-guide-actor-sprite-coverage --rom roms/cv2.nes --out out/guide-actor-sprite-coverage",
     "probe:transitions": "node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes",

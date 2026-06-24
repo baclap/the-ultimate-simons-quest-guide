@@ -28,6 +28,7 @@ const { renderExteriorComposition } = require('./exterior-composition');
 const { renderExteriorWorldComposition } = require('./exterior-world-composition');
 const { buildGuideSlice } = require('./guide-slice');
 const { decodeActorSelectorStreams } = require('./actor-selector-streams');
+const { buildEnemyAtlas, writeEnemyAtlas } = require('./enemy-atlas');
 const { decodeFishmanSpriteProof } = require('./fishman-sprite-proof');
 const { decodeGuideActorSpriteCoverage } = require('./guide-actor-sprite-coverage');
 const { analyzeActorTraces, runActorTraces } = require('./actor-traces');
@@ -124,6 +125,7 @@ function usage() {
     '  node src/index.js run-actor-traces --rom roms/cv2.nes --fixtures data/actor-trace-fixtures.json --out out/actor-traces',
     '  node src/index.js analyze-actor-traces --fixtures data/actor-trace-fixtures.json --out out/actor-traces',
     '  node src/index.js decode-actor-selector-streams --rom roms/cv2.nes --fixtures data/actor-trace-fixtures.json --traces out/actor-traces --out out/actor-selector-streams',
+    '  node src/index.js build-enemy-atlas --rom roms/cv2.nes --atlas out/render-recipe-atlas/manifest.json --out data/enemy-atlas.json',
     '  node src/index.js decode-fishman-sprite-proof --rom roms/cv2.nes --out out/fishman-sprite-proof',
     '  node src/index.js decode-guide-actor-sprite-coverage --rom roms/cv2.nes --out out/guide-actor-sprite-coverage',
     '  node src/index.js run-transition-probes --rom roms/cv2.nes --fixtures data/transition-probes.json --topology out/exterior-topology/topology.json --out out/transition-probes',
@@ -164,6 +166,7 @@ function usage() {
     '  run-actor-traces  Run Mesen save-state probes that trace actor slots and selector writes.',
     '  analyze-actor-traces  Summarize existing actor trace outputs into analysis.json.',
     '  decode-actor-selector-streams  Map traced actor selector writes back to fixed-bank ROM records and render metasprite strips.',
+    '  build-enemy-atlas  Inventory every ROM enemy row and attach HP, palette, sprite, manual-name, and location evidence.',
     '  decode-fishman-sprite-proof  Prove fishman selector/color data from ROM and render sprite evidence.',
     '  decode-guide-actor-sprite-coverage  Prove current guide-slice actor sprite coverage and render evidence sprites.',
     '  run-transition-probes  Trace scripted transition round trips from save states.',
@@ -907,6 +910,22 @@ function decodeActorSelectorStreamsCommand(args) {
   });
 }
 
+function buildEnemyAtlasCommand(args) {
+  const romPath = required(args, 'rom');
+  const atlasPath = args.atlas ? String(args.atlas) : path.join('out', 'render-recipe-atlas', 'manifest.json');
+  const outFile = args.out ? String(args.out) : path.join('data', 'enemy-atlas.json');
+  const { buffer, info } = readRom(romPath);
+  const atlas = buildEnemyAtlas(buffer, info, {
+    atlasPath
+  });
+  writeEnemyAtlas(outFile, atlas);
+  printJson({
+    output: outFile,
+    summary: atlas.summary,
+    validations: atlas.validations
+  });
+}
+
 function decodeFishmanSpriteProofCommand(args) {
   const romPath = required(args, 'rom');
   const outDir = args.out ? String(args.out) : path.join('out', 'fishman-sprite-proof');
@@ -1075,6 +1094,11 @@ function main() {
 
   if (command === 'decode-actor-selector-streams') {
     decodeActorSelectorStreamsCommand(args);
+    return;
+  }
+
+  if (command === 'build-enemy-atlas') {
+    buildEnemyAtlasCommand(args);
     return;
   }
 
