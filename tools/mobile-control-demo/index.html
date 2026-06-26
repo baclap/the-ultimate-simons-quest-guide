@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>CV2 Mobile Control Demo</title>
+    <link rel="stylesheet" href="./styles.css?v=rom-physics-v22-corner-guard">
+  </head>
+  <body>
+    <main class="app-shell">
+      <canvas id="scene-canvas" aria-label="Castlevania II mobile control test scene"></canvas>
+
+      <section class="top-hud" aria-live="polite">
+        <div>
+          <span class="hud-label">Input</span>
+          <strong id="input-readout">idle</strong>
+        </div>
+        <div>
+          <span class="hud-label">Physics</span>
+          <strong id="physics-readout">rom-traced</strong>
+        </div>
+        <div class="build-card">
+          <span class="hud-label">Build</span>
+          <strong id="version-readout">loading</strong>
+        </div>
+      </section>
+
+      <section class="bottom-hud">
+        <button id="motion-button" type="button">Motion</button>
+        <div class="meters" aria-hidden="true">
+          <div class="meter">
+            <span>Tilt</span>
+            <i id="tilt-meter"></i>
+          </div>
+          <div class="meter">
+            <span>Action</span>
+            <i id="action-meter"></i>
+          </div>
+        </div>
+      </section>
+
+      <button id="settings-button" class="settings-button" type="button" aria-label="Settings" aria-controls="settings-modal" aria-expanded="false" title="Settings">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22">
+          <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"></path>
+          <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.05.05a2 2 0 0 1-2.83 2.83l-.05-.05A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 1.55V21a2 2 0 0 1-4 0v-.05a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.88.34l-.05.05a2 2 0 0 1-2.83-2.83l.05-.05A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 0 1 0-4h.05A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88l-.05-.05a2 2 0 0 1 2.83-2.83l.05.05A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 0 1 4 0v.05A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.88-.34l.05-.05a2 2 0 0 1 2.83 2.83l-.05.05A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 0 1 0 4h-.05A1.7 1.7 0 0 0 19.4 15Z"></path>
+        </svg>
+      </button>
+
+      <div id="settings-modal" class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden>
+        <section class="settings-panel">
+          <header>
+            <h2 id="settings-title">Settings</h2>
+            <button id="settings-close" class="settings-close" type="button" aria-label="Close" title="Close">
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </button>
+          </header>
+
+          <label class="setting-row" for="tilt-threshold">
+            <span>Tilt threshold</span>
+            <output id="tilt-threshold-value" for="tilt-threshold">0.50</output>
+            <input id="tilt-threshold" type="range" min="0.08" max="0.50" step="0.01" value="0.50">
+          </label>
+
+          <label class="setting-row" for="flick-pitch-threshold">
+            <span>Flick rotation</span>
+            <output id="flick-pitch-threshold-value" for="flick-pitch-threshold">80</output>
+            <input id="flick-pitch-threshold" type="range" min="40" max="130" step="1" value="80">
+          </label>
+
+          <label class="setting-row" for="flick-acceleration-threshold">
+            <span>Flick thrust</span>
+            <output id="flick-acceleration-threshold-value" for="flick-acceleration-threshold">5.0</output>
+            <input id="flick-acceleration-threshold" type="range" min="2.0" max="6.0" step="0.1" value="5.0">
+          </label>
+
+          <button id="settings-reset" class="settings-reset" type="button">Reset</button>
+        </section>
+      </div>
+
+      <div class="landscape-lock" role="status">
+        <strong>Portrait only</strong>
+      </div>
+    </main>
+
+    <script type="module" src="./app.js?v=rom-physics-v22-corner-guard"></script>
+  </body>
+</html>
