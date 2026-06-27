@@ -6,13 +6,14 @@ import {
   isCv2DialogRuleLine,
   normalizeCv2DialogText,
   renderCv2DialogFrameToRgba
-} from './dialog.js?v=overlay-core-fix';
+} from './dialog.js?v=brahm-label-placement';
 
-const CACHE_KEY = 'overlay-core-fix';
+const CACHE_KEY = 'brahm-label-placement';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
 const OVERWORLD_VIEW_ID = 'overworld';
 const BERKELEY_MANSION_VIEW_ID = 'berkeley-mansion';
+const BRAHM_MANSION_VIEW_ID = 'brahm-mansion';
 const JOVA_CHURCH_VIEW_ID = 'jova-church';
 const JOVA_THORN_WHIP_ROOM_VIEW_ID = 'jova-thorn-whip-room';
 const JOVA_HOLY_WATER_ROOM_VIEW_ID = 'jova-holy-water-room';
@@ -115,6 +116,8 @@ const LABEL_BELOW_SEGMENT_IDS = new Set([
   'vrad-mountain-part-1',
   'storigoi-graveyard',
   'brahm-mansion-door',
+  'brahm-mansion-death-fight',
+  'brahm-mansion-orb-room',
   'dead-river-to-brahm',
   'town-of-veros',
   'yuba-lake-path',
@@ -271,6 +274,15 @@ const MAP_VIEWS = {
     supportsPalette: false,
     fixedVariant: 'fixed',
     sceneUrl: `./assets/scenes/berkeley-mansion/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [BRAHM_MANSION_VIEW_ID]: {
+    id: BRAHM_MANSION_VIEW_ID,
+    label: "Brahm's Mansion",
+    ariaLabel: "Brahm's Mansion interior map",
+    supportsPalette: false,
+    fixedVariant: 'fixed',
+    sceneUrl: `./assets/scenes/brahm-mansion/slice.json?v=${CACHE_KEY}`,
     renderer: null
   },
   [JOVA_CHURCH_VIEW_ID]: {
@@ -2882,7 +2894,9 @@ function rectsOverlap(a, b) {
 }
 
 function labelSide(segment) {
-  return LABEL_BELOW_SEGMENT_IDS.has(segment.id) ? 'below' : 'above';
+  return LABEL_BELOW_SEGMENT_IDS.has(segment.id) || LABEL_BELOW_SEGMENT_IDS.has(segment.sourceId)
+    ? 'below'
+    : 'above';
 }
 
 function labelPlacement(segment) {

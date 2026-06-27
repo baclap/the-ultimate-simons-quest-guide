@@ -77,6 +77,14 @@
           "evidence": "The generated Berkeley Mansion scene promotes Dracula's Rib orb and its ROM-backed reveal behavior."
         }
       },
+      "obj01-area09-sub00": {
+        "viewId": "brahm-mansion",
+        "label": "Enter Brahm's Mansion",
+        "itemReward": {
+          "itemId": "dracula-eyeball",
+          "evidence": "The generated Brahm's Mansion scene promotes Dracula's Eyeball orb from ROM actor row $05CE3."
+        }
+      },
       "obj00-area0c-sub00": {
         "viewId": "aljiba-garlic-room",
         "label": "Enter Aljiba Garlic Room",
@@ -202,6 +210,16 @@
             "target": "obj01-area08-sub00",
             "tileRect": { "x": 13, "y": 16, "width": 6, "height": 8 },
             "evidence": "Lauber mansion door uses the same mansion-door tile hitbox signature as the validated Berkeley exterior mansion door, applied to the ROM-rendered Lauber door segment."
+          }
+        ]
+      },
+      "brahm-mansion-door": {
+        "variants": ["day", "night"],
+        "manualTileRects": [
+          {
+            "target": "obj01-area09-sub00",
+            "tileRect": { "x": 13, "y": 16, "width": 6, "height": 8 },
+            "evidence": "Brahm mansion door uses the same mansion-door tile hitbox signature as the validated Berkeley exterior mansion door, applied to the ROM-rendered Brahm door segment."
           }
         ]
       }

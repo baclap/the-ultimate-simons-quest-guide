@@ -179,6 +179,12 @@ dialogue text, and palette source are backed by ROM-derived evidence:
   horizontal path. The scene retains the raw row anchor as provenance while
   rendering the visible path with the mansion platform actor-slot/OAM anchor
   correction proven by the Berkeley `$22` platform trace.
+- Brahm's Mansion follows the mansion standard. The proof artifact
+  `out/interior-map-research/brahm-mansion.json` inventories Part 1, Part 2,
+  Death Fight, and Orb Room as one entry-room-chain destination. The guide scene
+  promotes all 33 raw rows, including Death's decoded static body marker and the
+  Dracula's Eyeball orb row `$05CE3`. Death Fight and Orb Room are bottom-aligned
+  to Part 2 from ROM-derived layout block openings, not top-aligned.
 
 ## Local Preview
 
@@ -191,12 +197,14 @@ npm run analyze:interior:jova
 npm run analyze:interior:veros
 npm run analyze:interior:aljiba
 npm run analyze:interior:lauber
+npm run analyze:interior:brahm
 npm run guide:slice:jova-to-berkeley
 npm run guide:scene:berkeley-mansion
 npm run guide:scenes:jova
 npm run guide:scenes:veros
 npm run guide:scenes:aljiba
 npm run guide:scene:lauber-mansion
+npm run guide:scene:brahm-mansion
 python3 -m http.server 4177 --directory guide
 ```
 

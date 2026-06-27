@@ -34,6 +34,7 @@ Current promoted menu item tiles:
 | Dracula's Nail | `$51` | Fixed-bank start-menu body-part table `7:$F033` orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring. |
 | Dagger | `$54` | Fixed-bank weapon/crystal start-menu table `7:$F038`; ROM sale-table triple at file offset `$1ED31` is `$54 $00 $50`. |
 | Silver Knife | `$55` | Fixed-bank weapon/crystal start-menu table `7:$F038`; Camilla Cemetery secret merchant text pointer `$0CED8` gives the Silver Knife reward. |
+| Gold Knife | `$6F` | Fixed-bank weapon/crystal start-menu table `7:$F038`; Brahm Mansion Death row `$05CDE` text pointer `$0DCC0` gives the Golden Knife reward. |
 | Holy Water | `$57` | Fixed-bank weapon/crystal start-menu table `7:$F038`; the guide secret proof decodes Holy Water as the block-breaking projectile path. |
 | Laurels | `$58` | Fixed-bank carry-item menu branch loads tile `$58` before drawing through `7:$EB9C`. |
 | Oak Stake | `$59` | Start-menu PPU capture `out/captures/game-menu-jova-woods-start`; ROM sale-table triple at file offset `$1ED37` is `$59 $00 $50`. |
@@ -64,7 +65,7 @@ manual PDF:
 https://www.nintendo.co.jp/clv/manuals/en/pdf/CLV-P-NABXE.pdf
 ```
 
-- Magic Weapons, page 10: Dagger, Oak Stake.
+- Magic Weapons, page 10: Dagger, Gold Knife, Oak Stake.
 - Magic Weapons, page 10: Thorn Whip, Holy Water, Oak Stake.
 - Magic Weapons, page 10: Chain Whip.
 - Magic Items, page 11: White Crystal.

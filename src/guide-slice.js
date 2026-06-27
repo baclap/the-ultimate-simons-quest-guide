@@ -679,6 +679,16 @@ const ACTOR_CLASSES = [
     proof: 'Actor dispatch entry $11 at bank 1:$9934 initializes selector-stream record $07, which expands to selectors $12/$13 in the mansion CHR context; Lauber rows carry HP $04.'
   },
   {
+    id: 'death',
+    label: 'Death',
+    kind: 'enemy',
+    actorId: 0x44,
+    selectors: [0x44, 0x45],
+    chrBanks: [0x08, 0x09],
+    hp: { day: 128, night: 128 },
+    proof: 'Brahm Mansion actor row $05CDE is bytes $08 $08 $44 $80. The whole-ROM enemy atlas proves actor id $44 dispatches to bank 1:$9E1B, initializes direct body selector $44, writes follow-up body selector $45, and uses fixed interior HP 128 from row data $80. Death scythe/projectile behavior is not represented as a separate static guide marker.'
+  },
+  {
     id: 'blob',
     label: 'Slimey BarSinister',
     kind: 'enemy',
@@ -743,6 +753,25 @@ const ACTOR_CLASSES = [
       source: 'Actor id $25 orb visible placement uses the same pre-stake selector $3B draw anchor proven for the Berkeley Rib orb.'
     },
     proof: 'Lauber Mansion actor row $05C4B uses actor id $25 with text/data $19. Actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence.'
+  },
+  {
+    id: 'dracula-eyeball-orb',
+    label: "Dracula's Eyeball",
+    kind: 'secret',
+    actorId: 0x25,
+    selectors: [0x3b],
+    chrBanks: [0x08, 0x09],
+    paletteCycle: {
+      values: [1, 2, 3, 0],
+      frameDurationMs: 1000 / 60,
+      source: 'Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Brahm row data/text selects Dracula\'s Eyeball.'
+    },
+    drawAnchor: {
+      offsetX: 0,
+      offsetY: -12,
+      source: 'Actor id $25 orb visible placement uses the same pre-stake selector $3B draw anchor proven for the Berkeley Rib orb.'
+    },
+    proof: 'Brahm Mansion actor row $05CE3 uses actor id $25 with text/data $1A. Text pointer index $1A decodes at ROM file $0CFDE to the Dracula\'s Eyeball pickup message, and actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence.'
   },
   {
     id: 'secret-merchant',
@@ -871,6 +900,7 @@ const MANSION_ACTOR_CLASS_BY_ID = new Map([
   [0x1f, 'blob'],
   [0x25, 'dracula-rib-orb'],
   [0x27, 'mansion-book'],
+  [0x44, 'death'],
   [0xae, 'oak-stake-merchant']
 ]);
 
@@ -907,6 +937,26 @@ const CAMILLA_CEMETERY_ACTOR_CLASS_BY_ID = new Map([
   [0x38, 'dead-hand'],
   [0x41, 'outdoor-blob']
 ]);
+
+function mansionOrbClassIdForData(data) {
+  if (data === 0x19) {
+    return 'dracula-heart-orb';
+  }
+  if (data === 0x1a) {
+    return 'dracula-eyeball-orb';
+  }
+  return 'dracula-rib-orb';
+}
+
+function mansionOrbLabelForData(data) {
+  if (data === 0x19) {
+    return "Dracula's Heart";
+  }
+  if (data === 0x1a) {
+    return "Dracula's Eyeball";
+  }
+  return null;
+}
 
 const OUTDOOR_OBJSET3_ACTOR_CLASS_BY_ID = new Map([
   [0x03, 'skeleton-objset3'],
@@ -1054,6 +1104,16 @@ const SECRET_DETAILS = {
       'Actor row 0x05C4B: 3D 15 25 19',
       'Actor id 0x25 uses fixed-bank $DED0 direct selector writes for the orb room sequence.',
       'Text pointer index 0x19 decodes to the Dracula\'s Heart pickup message.'
+    ]
+  },
+  'brahm-mansion-orb-room-dracula-s-eyeball-5ce3': {
+    type: 'oak-stake-orb',
+    reward: "Dracula's Eyeball",
+    action: "Use an Oak Stake here to reveal Dracula's Eyeball.",
+    evidence: [
+      'Actor row 0x05CE3: 0D 07 25 1A',
+      'Actor id 0x25 uses fixed-bank $DED0 direct selector writes for the orb room sequence.',
+      'Text pointer index 0x1A decodes at ROM file $0CFDE to the Dracula\'s Eyeball pickup message.'
     ]
   }
 };
@@ -1691,6 +1751,20 @@ const GUIDE_ITEMS = {
       'Camilla Cemetery secret merchant row $06F32 decodes text pointer $0CED8 to the Silver Knife reward dialog.'
     ]
   },
+  'golden-knife': {
+    id: 'golden-knife',
+    label: 'The Gold Knife',
+    aliases: ['The Gold Knife', 'Gold Knife', 'Golden Knife'],
+    iconTile: 0x6f,
+    manualText: 'This is your strongest knife, and it has a mysterious power.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Weapons, page 10.',
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'Fixed-bank weapon/crystal start-menu table at file offset $1F048 maps the third weapon slot to tile $6F for the Gold Knife.',
+      'Brahm Mansion Death row $05CDE has text pointer $0DCC0, whose decoded ROM dialog gives Simon the Golden Knife.'
+    ]
+  },
   'dracula-rib': {
     id: 'dracula-rib',
     label: "Dracula's Rib",
@@ -1729,7 +1803,8 @@ const GUIDE_ITEMS = {
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
-      'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.'
+      'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.',
+      'Brahm Mansion actor row $05CE3 uses actor id $25 and text/data $1A for the Dracula\'s Eyeball orb.'
     ]
   },
   'dracula-nail': {
@@ -2422,8 +2497,8 @@ function materializeManifestActors(sliceConfig, rom) {
       return TOWN_EXTERIOR_ACTOR_CLASS_BY_ID.get(row.id);
     }
     if (context.objset === 1) {
-      if (row.id === 0x25 && row.data === 0x19) {
-        return 'dracula-heart-orb';
+      if (row.id === 0x25) {
+        return mansionOrbClassIdForData(row.data);
       }
       return MANSION_ACTOR_CLASS_BY_ID.get(row.id);
     }
@@ -2541,8 +2616,8 @@ function materializeManifestActors(sliceConfig, rom) {
     if (row.id === 0x1f) {
       return 'Slimey BarSinister';
     }
-    if (row.id === 0x25 && row.data === 0x19) {
-      return "Dracula's Heart";
+    if (row.id === 0x25) {
+      return mansionOrbLabelForData(row.data);
     }
     if (row.id === 0xbc) {
       return 'Ferry Man';
@@ -2660,6 +2735,11 @@ function materializeManifestActors(sliceConfig, rom) {
         rowItemReward = {
           itemId: 'silk-bag',
           evidence: 'Storigoi Graveyard row $06F88 uses text pointer $CEBE, whose decoded ROM dialog gives Simon a Silk Bag; the reward routine at ROM file $06E17 sets RAM $92 bit 0.'
+        };
+      } else if (context.objset === 1 && context.area === 0x09 && row.id === 0x44 && row.holdsItem) {
+        rowItemReward = {
+          itemId: 'golden-knife',
+          evidence: 'Brahm Mansion Death row $05CDE has holdsItem set in the ROM manifest and text pointer $0DCC0 decodes to "you now possess the golden knife."'
         };
       }
       const variants = variantsForManifestRow(context, row, segment);

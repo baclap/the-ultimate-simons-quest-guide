@@ -181,3 +181,42 @@ the row anchor is the left endpoint and the rendered path extends rightward
 before reversing. The guide preserves the raw row anchor separately from visible
 placement; the rendered path applies the mansion platform actor-slot/OAM anchor
 correction proven by the Berkeley `$22` moving-platform trace.
+
+## Brahm Mansion Baseline
+
+Brahm's Mansion is generated through:
+
+```sh
+npm run render:recipe-atlas
+npm run analyze:interior:brahm
+npm run guide:scene:brahm-mansion
+```
+
+The current proof artifact is
+`out/interior-map-research/brahm-mansion.json`. It inventories all four manifest
+submaps in the normal Brahm destination: Part 1, Part 2, Death Fight, and Orb
+Room. The ROM manifest `entryRoom` chain links Part 2, Death Fight, and Orb
+Room back to Part 1. The screen records for Brahm's branch expose layout
+indices `$0A`, `$0B`, and `$0C` in order for Part 2, Death Fight, and Orb Room.
+The one-screen Death Fight and Orb Room are bottom-aligned against Part 2 at
+`y = 672` (`896 - 224`), not top-aligned: the ROM-derived layout block grid has
+Part 2's right edge open at block row 26, Death Fight's left and right edges
+open at local block row 5, and the Orb Room's left edge open at local block row
+5. Top-aligning the one-screen rooms places those openings against solid blocks;
+bottom-aligning them lines all three openings up on the same world row.
+
+The artifact accounts for 33 raw rows with no silent omissions: 29 enemies, 3
+fixtures, and 1 NPC. Actor ids `$03`, `$05`, `$0F`, `$11`, `$1F`, `$27`, and
+`$AE` reuse the proven mansion actor classes from Berkeley/Lauber. Brahm adds
+Death at row `$05CDE` (`08 08 44 80`): the whole-ROM enemy atlas proves actor
+id `$44`, direct body selectors `$44/$45`, fixed mansion CHR/palette, and row
+HP `$80` = 128. Death's scythe/projectile behavior remains outside the current
+static actor marker and should be decoded separately before adding any
+projectile overlay. The same row carries the ROM item flag/text pointer for the
+Golden Knife reward dialog at `$0DCC0`, so the guide promotes Death as the Gold
+Knife reward source.
+
+The Orb Room row `$05CE3` (`0D 07 25 1A`) uses the shared actor `$25` orb
+routine. Text pointer index `$1A` resolves to ROM file `$0CFDE` and decodes to
+the Dracula's Eyeball pickup message, so Brahm's orb is promoted as Dracula's
+Eyeball rather than inheriting Berkeley's Rib label.

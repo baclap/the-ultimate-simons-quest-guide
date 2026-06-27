@@ -3580,6 +3580,49 @@
       }
     },
     {
+      "id": "brahm-mansion-door-door-brahm-mansion-door",
+      "type": "door",
+      "kind": "door",
+      "segmentId": "brahm-mansion-door",
+      "label": "Enter Brahm's Mansion",
+      "tileRect": {
+        "x": 13,
+        "y": 16,
+        "width": 6,
+        "height": 8
+      },
+      "opensView": "brahm-mansion",
+      "itemReward": {
+        "itemId": "dracula-eyeball",
+        "itemLabel": "Dracula's Eyeball",
+        "iconTile": "0x50",
+        "manualText": "When it comes to the most frightening piece, the eyes have it.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9.",
+        "evidence": [
+          "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+          "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
+          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.",
+          "Brahm Mansion actor row $05CE3 uses actor id $25 and text/data $1A for the Dracula's Eyeball orb.",
+          "The generated Brahm's Mansion scene promotes Dracula's Eyeball orb from ROM actor row $05CE3."
+        ]
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "note": null,
+      "provenance": {
+        "source": "rom-door-table-and-authored-hitbox",
+        "doorName": "Brahm Mansion - Door",
+        "pointerIndex": null,
+        "sourceLocation": "obj01-area03-sub00",
+        "targetLocation": "obj01-area09-sub00",
+        "signatureId": null,
+        "signatureRect": null,
+        "evidence": "Brahm mansion door uses the same mansion-door tile hitbox signature as the validated Berkeley exterior mansion door, applied to the ROM-rendered Brahm door segment."
+      }
+    },
+    {
       "id": "town-of-jova-door-jova-thorn-whip-door",
       "type": "door",
       "kind": "door",
@@ -11661,12 +11704,12 @@
           "Red Crystal"
         ],
         "iconTile": "0x5F",
+        "manualText": "You must have the Red Crystal before you enter Dracula's Castle.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C."
-        ],
-        "manualText": "You must have the Red Crystal before you enter Dracula's Castle.",
-        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11."
+        ]
       },
       "oak-stake": {
         "id": "oak-stake",
@@ -11770,12 +11813,12 @@
           "Sacred Flame"
         ],
         "iconTile": "0x69",
+        "manualText": "The flame weakens the creatures' evil powers.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C."
-        ],
-        "manualText": "The flame weakens the creatures' evil powers.",
-        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10."
+        ]
       },
       "diamond": {
         "id": "diamond",
@@ -11827,6 +11870,24 @@
           "Camilla Cemetery secret merchant row $06F32 decodes text pointer $0CED8 to the Silver Knife reward dialog."
         ]
       },
+      "golden-knife": {
+        "id": "golden-knife",
+        "label": "The Gold Knife",
+        "aliases": [
+          "The Gold Knife",
+          "Gold Knife",
+          "Golden Knife"
+        ],
+        "iconTile": "0x6F",
+        "manualText": "This is your strongest knife, and it has a mysterious power.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
+        "evidence": [
+          "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+          "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
+          "Fixed-bank weapon/crystal start-menu table at file offset $1F048 maps the third weapon slot to tile $6F for the Gold Knife.",
+          "Brahm Mansion Death row $05CDE has text pointer $0DCC0, whose decoded ROM dialog gives Simon the Golden Knife."
+        ]
+      },
       "dracula-rib": {
         "id": "dracula-rib",
         "label": "Dracula's Rib",
@@ -11866,13 +11927,14 @@
           "Dracula's Eyeball"
         ],
         "iconTile": "0x50",
+        "manualText": "When it comes to the most frightening piece, the eyes have it.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
-          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring."
-        ],
-        "manualText": "When it comes to the most frightening piece, the eyes have it.",
-        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9."
+          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.",
+          "Brahm Mansion actor row $05CE3 uses actor id $25 and text/data $1A for the Dracula's Eyeball orb."
+        ]
       },
       "dracula-nail": {
         "id": "dracula-nail",
@@ -11881,13 +11943,13 @@
           "Dracula's Nail"
         ],
         "iconTile": "0x51",
+        "manualText": "The nail is the symbol of evil power.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
           "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring."
-        ],
-        "manualText": "The nail is the symbol of evil power.",
-        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9."
+        ]
       },
       "garlic": {
         "id": "garlic",
@@ -17110,6 +17172,275 @@
       "proof": "Actor dispatch entry $11 at bank 1:$9934 initializes selector-stream record $07, which expands to selectors $12/$13 in the mansion CHR context; Lauber rows carry HP $04."
     },
     {
+      "id": "death",
+      "label": "Death",
+      "kind": "enemy",
+      "placement": null,
+      "actorId": "0x44",
+      "chrSet": "chr-08-09",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": {
+        "day": 128,
+        "night": 128
+      },
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "selectorRecord": null,
+      "frames": [
+        {
+          "selector": "0x44",
+          "pointer": "0xB58E",
+          "status": "0x0B",
+          "sprites": [
+            {
+              "tile": "0xD3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xD5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xD7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xD9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -20,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xDB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xE1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xE3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xE5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": 8
+            },
+            {
+              "tile": "0xE7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": 8
+            },
+            {
+              "tile": "0xE9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": 8
+            },
+            {
+              "tile": "0xD1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -20,
+              "yOffset": -24
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -20,
+            "minY": -24,
+            "maxX": 12,
+            "maxY": 24,
+            "width": 32,
+            "height": 48,
+            "centroid": {
+              "x": -0.5497560975609757,
+              "y": -2.006341463414634
+            },
+            "opaquePixels": 1025,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x45",
+          "pointer": "0xB5B1",
+          "status": "0x0A",
+          "sprites": [
+            {
+              "tile": "0xEB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xED",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xEF",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xF1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xF3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xF5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xF7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 12,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xE5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": 8
+            },
+            {
+              "tile": "0xE7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": 8
+            },
+            {
+              "tile": "0xE9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": 8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -12,
+            "minY": -24,
+            "maxX": 20,
+            "maxY": 24,
+            "width": 32,
+            "height": 48,
+            "centroid": {
+              "x": 0.9847290640394089,
+              "y": -0.41724137931034483
+            },
+            "opaquePixels": 1015,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -20,
+        "minY": -24,
+        "maxX": 20,
+        "maxY": 24,
+        "width": 40,
+        "height": 48
+      },
+      "opaqueBounds": {
+        "minX": -20,
+        "minY": -24,
+        "maxX": 20,
+        "maxY": 24,
+        "width": 40,
+        "height": 48,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "direct-selector-list",
+      "proof": "Brahm Mansion actor row $05CDE is bytes $08 $08 $44 $80. The whole-ROM enemy atlas proves actor id $44 dispatches to bank 1:$9E1B, initializes direct body selector $44, writes follow-up body selector $45, and uses fixed interior HP 128 from row data $80. Death scythe/projectile behavior is not represented as a separate static guide marker."
+    },
+    {
       "id": "blob",
       "label": "Slimey BarSinister",
       "kind": "enemy",
@@ -17922,6 +18253,231 @@
       },
       "selectorSource": "direct-selector-list",
       "proof": "Lauber Mansion actor row $05C4B uses actor id $25 with text/data $19. Actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence."
+    },
+    {
+      "id": "dracula-eyeball-orb",
+      "label": "Dracula's Eyeball",
+      "kind": "secret",
+      "placement": null,
+      "actorId": "0x25",
+      "chrSet": "chr-08-09",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": {
+        "offsetX": 0,
+        "offsetY": -12,
+        "source": "Actor id $25 orb visible placement uses the same pre-stake selector $3B draw anchor proven for the Berkeley Rib orb."
+      },
+      "frameDurationMs": 16.666666666666668,
+      "paletteCycle": {
+        "values": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "frameDurationMs": 16.666666666666668,
+        "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Brahm row data/text selects Dracula's Eyeball."
+      },
+      "selectorRecord": null,
+      "frames": [
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 0,
+            "palette": 1,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Brahm row data/text selects Dracula's Eyeball."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 1,
+            "palette": 2,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Brahm row data/text selects Dracula's Eyeball."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 2,
+            "palette": 3,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Brahm row data/text selects Dracula's Eyeball."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 3,
+            "palette": 0,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Brahm row data/text selects Dracula's Eyeball."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -3,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 19
+      },
+      "opaqueBounds": {
+        "minX": -7,
+        "minY": -1,
+        "maxX": 7,
+        "maxY": 13,
+        "width": 14,
+        "height": 14,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "direct-selector-list",
+      "proof": "Brahm Mansion actor row $05CE3 uses actor id $25 with text/data $1A. Text pointer index $1A decodes at ROM file $0CFDE to the Dracula's Eyeball pickup message, and actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence."
     },
     {
       "id": "secret-merchant",
@@ -39435,12 +39991,12 @@
         "roleLabel": "Red Crystal Merchant",
         "costLabel": "Trade Blue Crystal",
         "priceSource": "Crystal exchange NPC row $5135 has actor id $AF/data $04 and text pointer $D893; dispatch uses the crystal merchant selector path.",
+        "manualText": "You must have the Red Crystal before you enter Dracula's Castle.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C."
-        ],
-        "manualText": "You must have the Red Crystal before you enter Dracula's Castle.",
-        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11."
+        ]
       },
       "itemReward": null,
       "secret": null,
@@ -48093,8 +48649,8 @@
     "falsePlatforms": 0
   },
   "doorSummary": {
-    "hotspots": 17,
-    "viewLinks": 17,
+    "hotspots": 18,
+    "viewLinks": 18,
     "dayOnly": 15
   },
   "secretFeatureSummary": {
@@ -48102,7 +48658,7 @@
     "movingPlatforms": 13
   },
   "actorSummary": {
-    "classes": 50,
+    "classes": 52,
     "placements": 246,
     "npcs": 40,
     "enemies": 196,

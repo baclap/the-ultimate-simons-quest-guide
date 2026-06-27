@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "brahm-mansion",
+  "label": "Brahm's Mansion",
+  "summary": "Whole Brahm's Mansion interior scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "rom-entry-room-chain",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "fixed": "mansion-fixed-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "brahm-mansion-part-1",
+      "locationId": "obj01-area09-sub00-brahm-s-mansion-part-1",
+      "label": "Brahm's Mansion 1",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "brahm-mansion-part-2",
+      "locationId": "obj01-area09-sub01-brahm-s-mansion-part-2",
+      "label": "Brahm's Mansion 2",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 768,
+      "y": 0
+    },
+    {
+      "id": "brahm-mansion-death-fight",
+      "locationId": "obj01-area09-sub02-brahm-s-mansion-death-fight",
+      "label": "Brahm's Mansion Death Fight",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 1024,
+      "y": 672
+    },
+    {
+      "id": "brahm-mansion-orb-room",
+      "locationId": "obj01-area09-sub03-brahm-s-mansion-orb-room",
+      "label": "Brahm's Mansion Orb Room",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 1280,
+      "y": 672
+    }
+  ]
+}

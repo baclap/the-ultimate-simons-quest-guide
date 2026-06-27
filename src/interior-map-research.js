@@ -30,6 +30,7 @@ const BERKELEY_ACTOR_COVERAGE = new Map([
   [0x22, { classId: null, status: 'control', evidence: 'ROM row is the Part 1 crystal-gated moving-platform control row at $5AD8; it is promoted through guide secretFeatures rather than the normal actor layer.' }],
   [0x25, { classId: 'dracula-rib-orb', status: 'promoted-direct-selector', evidence: 'Dispatch entry $25 uses direct $DED0 selector writes during the orb sequence.' }],
   [0x27, { classId: 'mansion-book', status: 'promoted', evidence: "Dispatch entry $27 uses the shared hidden-book routine, selector record $3B, and Dracula's Eyeball reveal gate; text is decoded from ROM file offsets." }],
+  [0x44, { classId: 'death', status: 'promoted-direct-selector-partial-boss', evidence: 'Brahm Mansion row $05CDE uses actor id $44/data $80. The whole-ROM enemy atlas proves Death body selectors $44/$45 and fixed interior HP 128; scythe/projectile behavior is outside the static actor marker.' }],
   [0xae, { classId: 'oak-stake-merchant', status: 'promoted', evidence: 'High-bit merchant row maps to live id $2E and merchant selector record $0B; text decoded from ROM file offset.' }]
 ]);
 
@@ -86,7 +87,25 @@ function atlasEntryFor(atlas, loc) {
   return atlas.entries.find((entry) => entry.id === id);
 }
 
-function coverageForActorId(actorId, loc) {
+function mansionOrbCoverageForRow(row) {
+  if (row?.data === 0x19) {
+    return {
+      classId: 'dracula-heart-orb',
+      status: 'promoted-direct-selector',
+      evidence: 'Lauber Mansion row $05C4B uses actor id $25 with text/data $19; the shared orb routine renders selector $3B for Dracula\'s Heart.'
+    };
+  }
+  if (row?.data === 0x1a) {
+    return {
+      classId: 'dracula-eyeball-orb',
+      status: 'promoted-direct-selector',
+      evidence: 'Brahm Mansion row $05CE3 uses actor id $25 with text/data $1A; text pointer index $1A decodes at ROM file $0CFDE to the Dracula\'s Eyeball pickup message.'
+    };
+  }
+  return BERKELEY_ACTOR_COVERAGE.get(0x25);
+}
+
+function coverageForActorId(actorId, loc, row = null) {
   if (loc?.objset === 0 && loc.area >= 0x07) {
     return TOWN_INTERIOR_ACTOR_COVERAGE.get(actorId) || {
       classId: null,
@@ -95,12 +114,8 @@ function coverageForActorId(actorId, loc) {
     };
   }
   if (loc?.objset === 1) {
-    if (loc.area === 0x08 && actorId === 0x25) {
-      return {
-        classId: 'dracula-heart-orb',
-        status: 'promoted-direct-selector',
-        evidence: 'Lauber Mansion row $05C4B uses actor id $25 with text/data $19; the shared orb routine renders selector $3B for Dracula\'s Heart.'
-      };
+    if (actorId === 0x25) {
+      return mansionOrbCoverageForRow(row);
     }
     return BERKELEY_ACTOR_COVERAGE.get(actorId) || {
       classId: null,
@@ -121,7 +136,7 @@ function publicActorRow(row, loc) {
   const byteMatch = raw
     ? expectedBytes.every((byte, index) => byte === raw.bytes[index])
     : false;
-  const coverage = coverageForActorId(row.id, loc);
+  const coverage = coverageForActorId(row.id, loc, row);
   return {
     pointer: hex(row.pointer, 5),
     kind: row.kind,
@@ -146,7 +161,7 @@ function publicActorRow(row, loc) {
 }
 
 function publicRawActorRow(row, loc) {
-  const coverage = coverageForActorId(row.id, loc);
+  const coverage = coverageForActorId(row.id, loc, row);
   return {
     pointer: row.pointerHex,
     x: row.x,
@@ -229,7 +244,7 @@ function actorSummary(locations, rawTablesByLocationId) {
   const promoted = [];
   for (const { row, loc } of rawRows) {
     rawByActorId[row.idHex] = (rawByActorId[row.idHex] || 0) + 1;
-    const coverage = coverageForActorId(row.id, loc);
+    const coverage = coverageForActorId(row.id, loc, row);
     if (coverage.status === 'unmapped') {
       unmapped.push(row);
     } else if (coverage.status === 'control') {
@@ -242,7 +257,7 @@ function actorSummary(locations, rawTablesByLocationId) {
   const silentRawRows = rawRows
     .filter(({ row, loc }) => (
       !manifestPointers.has(row.pointer) &&
-      coverageForActorId(row.id, loc).status !== 'control'
+      coverageForActorId(row.id, loc, row).status !== 'control'
     ))
     .map(({ row }) => row);
   const missingRawRows = rows.filter((row) => !row.rawActorRow);
@@ -289,6 +304,7 @@ function computeComposition(locations, atlasEntriesByLocationId) {
     const roots = sorted.filter((loc) => !loc.entryRoom);
     const placements = [];
     let cursorX = 0;
+    let maxComposedHeight = 0;
 
     if (roots.length !== 1) {
       status = 'blocked';
@@ -311,20 +327,37 @@ function computeComposition(locations, atlasEntriesByLocationId) {
           notes.push(`${loc.name} entryRoom ${entryTarget || '(missing)'} does not resolve inside its interior area.`);
         }
       }
+      const width = atlasEntry?.width || null;
+      const height = atlasEntry?.height || null;
+      let y = 0;
+      let alignmentEvidence = null;
+      if (
+        index > 0 &&
+        width != null &&
+        height != null &&
+        maxComposedHeight > height
+      ) {
+        y = maxComposedHeight - height;
+        alignmentEvidence = 'Room is shorter than the established interior branch height, so it is bottom-aligned to the branch page; verify branch-specific edge openings in the corresponding research notes.';
+      }
       placements.push({
         locationId: id,
         name: loc.name,
         submap: loc.submap || 0,
         entryRoom: loc.entryRoom || null,
         x: cursorX,
-        y: 0,
-        width: atlasEntry?.width || null,
-        height: atlasEntry?.height || null,
+        y,
+        width,
+        height,
         placementEvidence: index === 0
           ? 'Root interior submap; no cross-room composition required for this placement.'
-          : `ROM manifest entryRoom links this submap to ${loc.entryRoom}; composed as the next horizontal room in the interior chain.`
+          : [
+              `ROM manifest entryRoom links this submap to ${loc.entryRoom}; composed as the next horizontal room in the interior chain.`,
+              alignmentEvidence
+            ].filter(Boolean).join(' ')
       });
-      cursorX += atlasEntry?.width || 0;
+      cursorX += width || 0;
+      maxComposedHeight = Math.max(maxComposedHeight, height || 0);
     }
 
     return {
@@ -428,10 +461,10 @@ function analyzeInteriorMap(rom, info, opts = {}) {
         terminatorOffset: rawTable.terminatorOffsetHex,
         rows: rawTable.rows.length,
         promotedRows: rawTable.rows.filter((row) => {
-          const coverage = coverageForActorId(row.id, loc);
+          const coverage = coverageForActorId(row.id, loc, row);
           return coverage && coverage.status !== 'control';
         }).length,
-        controlRows: rawTable.rows.filter((row) => coverageForActorId(row.id, loc).status === 'control').length,
+        controlRows: rawTable.rows.filter((row) => coverageForActorId(row.id, loc, row).status === 'control').length,
         source: rawTable.source,
         ...(rawTable.startOffsetHex ? { startOffset: rawTable.startOffsetHex } : {}),
         ...(rawTable.terminatorOffsetHex ? { terminatorOffset: rawTable.terminatorOffsetHex } : {})
