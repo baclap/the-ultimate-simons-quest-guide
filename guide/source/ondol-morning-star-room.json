@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "ondol-morning-star-room",
+  "label": "Ondol Morning Star Room",
+  "summary": "Town of Ondol Morning Star merchant room scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "entry-room-chain-horizontal",
+    "research": "out/interior-map-research/ondol-interiors.json"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "day": "town-day-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "ondol-morning-star-entry",
+      "locationId": "obj00-area11-sub00-ondol-empty-room-before-morning-star",
+      "label": "Ondol Morning Star Entry",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "ondol-morning-star-room",
+      "locationId": "obj00-area11-sub01-ondol-morning-star-room",
+      "label": "Ondol Morning Star Room",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 256,
+      "y": 0
+    }
+  ]
+}

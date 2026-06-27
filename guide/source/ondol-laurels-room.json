@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "ondol-laurels-room",
+  "label": "Ondol Laurels Room",
+  "summary": "Town of Ondol Laurels merchant room scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "entry-room-chain-horizontal-with-explicit-middle-room",
+    "research": "out/interior-map-research/ondol-interiors.json",
+    "note": "ROM manifest metadata links the final Laurels room to the first empty room; the middle empty room is an explicit same-area submap with no entryRoom label, so the guide source preserves it as the middle room in submap order."
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "day": "town-day-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "ondol-laurels-entry-1",
+      "locationId": "obj00-area13-sub00-ondol-empty-room-before-laurels-1",
+      "label": "Ondol Laurels Entry 1",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "ondol-laurels-entry-2",
+      "locationId": "obj00-area13-sub01-ondol-empty-room-before-laurels-2",
+      "label": "Ondol Laurels Entry 2",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 256,
+      "y": 0
+    },
+    {
+      "id": "ondol-laurels-room",
+      "locationId": "obj00-area13-sub02-ondol-laurels-room",
+      "label": "Ondol Laurels Room",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 512,
+      "y": 0
+    }
+  ]
+}

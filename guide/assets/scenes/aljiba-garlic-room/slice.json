@@ -5837,7 +5837,7 @@
       "spriteHeight": 16,
       "hp": {
         "day": 8,
-        "night": 8
+        "night": 16
       },
       "drawAnchor": null,
       "frameDurationMs": null,
@@ -5953,7 +5953,7 @@
         "source": "chr-nonzero-pixels"
       },
       "selectorSource": "selector-stream-record",
-      "proof": "Camilla Cemetery day/night traces prove actor id $38 with selector-stream record $17, selectors $8E/$8F, HP $08, and PPU pattern-table CHR banks $04/$05."
+      "proof": "Camilla Cemetery day/night traces prove actor id $38 with selector-stream record $17, selectors $8E/$8F, day HP $08, night HP $10, and PPU pattern-table CHR banks $04/$05."
     },
     {
       "id": "cemetery-blob",
@@ -5966,7 +5966,7 @@
       "spriteHeight": 16,
       "hp": {
         "day": 8,
-        "night": 8
+        "night": 16
       },
       "drawAnchor": null,
       "frameDurationMs": null,
@@ -6069,7 +6069,7 @@
         "source": "chr-nonzero-pixels"
       },
       "selectorSource": "direct-selector-list",
-      "proof": "Actor dispatch entry $41 at bank 1:$B119 initializes through fixed-bank $DED0 with direct metasprite selector $C3; the follow-up state routine at bank 1:$B13F toggles actor selector RAM $0300,x between $C3 and $C4 for the neutral animation before later movement states. Camilla Cemetery rows carry HP $08 and use PPU pattern-table CHR banks $04/$05."
+      "proof": "Actor dispatch entry $41 at bank 1:$B119 initializes through fixed-bank $DED0 with direct metasprite selector $C3; the follow-up state routine at bank 1:$B13F toggles actor selector RAM $0300,x between $C3 and $C4 for the neutral animation before later movement states. Camilla Cemetery rows carry HP $08; actor id $41 is not in the ROM HP initializer exception list, so the standard night-strength path yields night HP $10. Camilla captures prove PPU pattern-table CHR banks $04/$05."
     }
   ],
   "actors": [
@@ -6094,6 +6094,7 @@
       "actorId": null,
       "data": null,
       "hp": null,
+      "hpEvidence": null,
       "text": null,
       "textEvidence": null,
       "guideDialog": {
@@ -6152,6 +6153,7 @@
       "actorId": "0xAE",
       "data": "0x02",
       "hp": null,
+      "hpEvidence": null,
       "text": "will you buy some garlic?",
       "textEvidence": {
         "fileOffset": "0x0D201",
@@ -6261,6 +6263,13 @@
       "checked": 0,
       "source": "actor-class-labels",
       "note": "Enemy display names are canonical class labels, not source manifest row names or location-derived labels."
+    },
+    {
+      "type": "enemy-hp-evidence",
+      "status": "ok",
+      "checked": 0,
+      "byPolicy": {},
+      "source": "rom-actor-row-data-byte+rom-hp-init-routine+runtime-trace-confirmation"
     }
   ]
 }

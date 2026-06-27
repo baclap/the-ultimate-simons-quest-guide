@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-24T23:09:58.697Z",
+  "generatedAt": "2026-06-27T00:29:26.824Z",
   "source": {
     "rom": {
       "file": "roms/cv2.nes",
@@ -91,15 +91,15 @@
       "fixed-interior-row-hp": 191
     },
     "spriteDecodeStatuses": {
-      "dispatch-routine-selector-proof": 27,
+      "dispatch-routine-selector-proof": 26,
       "partial-static-dispatch-proof": 1,
-      "dispatch-routine-local-selector-table-proof": 1,
+      "dispatch-routine-local-selector-table-proof": 2,
       "direct-selector-state-machine-partial": 3,
       "direct-selector-partial": 2
     },
     "manualNameStatuses": {
-      "manual-match-proven": 9,
-      "manual-match-unproven": 25
+      "manual-match-proven": 21,
+      "manual-match-unproven": 13
     }
   },
   "validations": [
@@ -384,13 +384,11 @@
     },
     {
       "actorId": "0x02",
-      "displayName": "Leech",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
-      "manualNameCandidates": [
-        "The Ghastly Leech"
-      ],
+      "displayName": "The Ghastly Leech",
+      "manualName": "The Ghastly Leech",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered leech class used by actor id $02 matches the English manual enemy illustration labeled \"The Ghastly Leech\". Actor $02 initializes selector-stream record $1C, which emits upright curled leech selectors $61/$62.",
+      "manualNameCandidates": [],
       "cv2r": {
         "name": "leech",
         "pos": 3,
@@ -2509,13 +2507,11 @@
     },
     {
       "actorId": "0x06",
-      "displayName": "Lizardman",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
-      "manualNameCandidates": [
-        "The Two-Headed Creature"
-      ],
+      "displayName": "The Two-Headed Creature",
+      "manualName": "The Two-Headed Creature",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered hunched two-headed humanoid class used by actor id $06 matches the English manual enemy illustration labeled \"The Two-Headed Creature\".",
+      "manualNameCandidates": [],
       "cv2r": {
         "name": "lizardman",
         "pos": 2,
@@ -3434,13 +3430,11 @@
     },
     {
       "actorId": "0x0A",
-      "displayName": "Medusa",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
-      "manualNameCandidates": [
-        "Medusa Head"
-      ],
+      "displayName": "Medusa Head",
+      "manualName": "Medusa Head",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered head class used by actor id $0A matches the English manual enemy illustration labeled \"Medusa Head\".",
+      "manualNameCandidates": [],
       "cv2r": {
         "name": "medusa",
         "pos": 1,
@@ -5541,13 +5535,11 @@
     },
     {
       "actorId": "0x12",
-      "displayName": "Wolf",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
-      "manualNameCandidates": [
-        "The Wolf"
-      ],
+      "displayName": "The Wolf",
+      "manualName": "The Wolf",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered quadruped wolf class used by actor id $12 matches the English manual enemy illustration labeled \"The Wolf\".",
+      "manualNameCandidates": [],
       "cv2r": {
         "name": "wolf",
         "pos": 2,
@@ -6147,13 +6139,11 @@
     },
     {
       "actorId": "0x15",
-      "displayName": "Mudman",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
-      "manualNameCandidates": [
-        "The Mud Man"
-      ],
+      "displayName": "The Mud Man",
+      "manualName": "The Mud Man",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered mud-rising class used by actor id $15 matches the English manual enemy illustration labeled \"The Mud Man\". The actor writes visible selectors $59/$5A/$5B from the local routine table at bank 1:$A3E4.",
+      "manualNameCandidates": [],
       "cv2r": {
         "name": "mudman",
         "pos": 2,
@@ -6198,8 +6188,8 @@
         "night"
       ],
       "spriteModel": {
-        "status": "dispatch-routine-selector-proof",
-        "note": "Selector evidence is decoded from the actor dispatch target in PRG bank 1 and then resolved through the fixed-bank metasprite pointer tables.",
+        "status": "dispatch-routine-local-selector-table-proof",
+        "note": "The Mud Man writes animation selectors from the local ROM table at bank 1:$A3E4 through STA $0300,x; the table bytes are $00/$59/$5A/$5B, with $00 as the hidden/no-sprite state and $59/$5A/$5B as the visible frames. The static scan also sees selector-record $1A in the adjacent lizardman initialization path, but that is not the visible Mud Man sprite model.",
         "dispatch": {
           "tableAddress": "0x81D3",
           "tableBank": 1,
@@ -6223,181 +6213,162 @@
             }
           ]
         },
-        "selectorRecords": [
+        "selectorRecords": [],
+        "directSelectors": [
           {
-            "recordIndex": 26,
-            "recordIndexHex": "0x1A",
-            "cpuAddress": "0xDDF0",
-            "fileOffset": "0x1DE00",
-            "bytes": [
-              "0x01",
-              "0x5D",
-              "0x10"
-            ],
-            "frameLimit": 1,
-            "baseSelector": "0x5D",
-            "sidecar": "0x10",
-            "selectors": [
-              "0x5D",
-              "0x5E"
-            ],
-            "metasprites": [
-              {
-                "selector": "0x5D",
-                "pointer": {
-                  "pointerTable": "0xAC30",
-                  "pointerIndex": 93,
-                  "pointerAddress": "0xACEA",
-                  "target": "0xB622",
-                  "fileOffset": "0x03632"
-                },
-                "status": "0x05",
-                "count": 5,
-                "usesSharedShape": false,
-                "shapePointer": null,
-                "sprites": [
-                  {
-                    "index": 0,
-                    "tile": "0xE1",
-                    "attr": "0x02",
-                    "xOffset": -16,
-                    "yOffset": -19,
-                    "reusePreviousAttr": false,
-                    "raw": {
-                      "x": "0xF0",
-                      "y": "0xDA"
-                    }
-                  },
-                  {
-                    "index": 1,
-                    "tile": "0xE3",
-                    "attr": "0x02",
-                    "xOffset": -8,
-                    "yOffset": -19,
-                    "reusePreviousAttr": true,
-                    "raw": {
-                      "x": "0xF8",
-                      "y": "0xDB"
-                    }
-                  },
-                  {
-                    "index": 2,
-                    "tile": "0xE5",
-                    "attr": "0x02",
-                    "xOffset": 0,
-                    "yOffset": -19,
-                    "reusePreviousAttr": true,
-                    "raw": {
-                      "x": "0x00",
-                      "y": "0xDB"
-                    }
-                  },
-                  {
-                    "index": 3,
-                    "tile": "0xE7",
-                    "attr": "0x02",
-                    "xOffset": -8,
-                    "yOffset": -3,
-                    "reusePreviousAttr": true,
-                    "raw": {
-                      "x": "0xF8",
-                      "y": "0xFB"
-                    }
-                  },
-                  {
-                    "index": 4,
-                    "tile": "0xE9",
-                    "attr": "0x02",
-                    "xOffset": 0,
-                    "yOffset": -3,
-                    "reusePreviousAttr": true,
-                    "raw": {
-                      "x": "0x00",
-                      "y": "0xFB"
-                    }
-                  }
-                ]
+            "selector": "0x59",
+            "metasprite": {
+              "selector": "0x59",
+              "pointer": {
+                "pointerTable": "0xAC30",
+                "pointerIndex": 89,
+                "pointerAddress": "0xACE2",
+                "target": "0xB60E",
+                "fileOffset": "0x0361E"
               },
-              {
-                "selector": "0x5E",
-                "pointer": {
-                  "pointerTable": "0xAC30",
-                  "pointerIndex": 94,
-                  "pointerAddress": "0xACEC",
-                  "target": "0xB633",
-                  "fileOffset": "0x03643"
-                },
-                "status": "0x85",
-                "count": 5,
-                "usesSharedShape": true,
-                "shapePointer": "0xB622",
-                "sprites": [
-                  {
-                    "index": 0,
-                    "tile": "0xEB",
-                    "attr": "0x02",
-                    "xOffset": -16,
-                    "yOffset": -19,
-                    "reusePreviousAttr": false,
-                    "raw": {
-                      "x": "0xF0",
-                      "y": "0xDA"
-                    }
-                  },
-                  {
-                    "index": 1,
-                    "tile": "0xED",
-                    "attr": "0x02",
-                    "xOffset": -8,
-                    "yOffset": -19,
-                    "reusePreviousAttr": true,
-                    "raw": {
-                      "x": "0xF8",
-                      "y": "0xDB"
-                    }
-                  },
-                  {
-                    "index": 2,
-                    "tile": "0xE5",
-                    "attr": "0x02",
-                    "xOffset": 0,
-                    "yOffset": -19,
-                    "reusePreviousAttr": true,
-                    "raw": {
-                      "x": "0x00",
-                      "y": "0xDB"
-                    }
-                  },
-                  {
-                    "index": 3,
-                    "tile": "0xEF",
-                    "attr": "0x02",
-                    "xOffset": -8,
-                    "yOffset": -3,
-                    "reusePreviousAttr": true,
-                    "raw": {
-                      "x": "0xF8",
-                      "y": "0xFB"
-                    }
-                  },
-                  {
-                    "index": 4,
-                    "tile": "0xF1",
-                    "attr": "0x02",
-                    "xOffset": 0,
-                    "yOffset": -3,
-                    "reusePreviousAttr": true,
-                    "raw": {
-                      "x": "0x00",
-                      "y": "0xFB"
-                    }
+              "status": "0x02",
+              "count": 2,
+              "usesSharedShape": false,
+              "shapePointer": null,
+              "sprites": [
+                {
+                  "index": 0,
+                  "tile": "0xC1",
+                  "attr": "0x03",
+                  "xOffset": -8,
+                  "yOffset": -3,
+                  "reusePreviousAttr": false,
+                  "raw": {
+                    "x": "0xF8",
+                    "y": "0xFA"
                   }
-                ]
-              }
-            ]
+                },
+                {
+                  "index": 1,
+                  "tile": "0xC3",
+                  "attr": "0x03",
+                  "xOffset": 0,
+                  "yOffset": -3,
+                  "reusePreviousAttr": true,
+                  "raw": {
+                    "x": "0x00",
+                    "y": "0xFB"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "selector": "0x5A",
+            "metasprite": {
+              "selector": "0x5A",
+              "pointer": {
+                "pointerTable": "0xAC30",
+                "pointerIndex": 90,
+                "pointerAddress": "0xACE4",
+                "target": "0xB616",
+                "fileOffset": "0x03626"
+              },
+              "status": "0x82",
+              "count": 2,
+              "usesSharedShape": true,
+              "shapePointer": "0xB60E",
+              "sprites": [
+                {
+                  "index": 0,
+                  "tile": "0xC5",
+                  "attr": "0x03",
+                  "xOffset": -8,
+                  "yOffset": -3,
+                  "reusePreviousAttr": false,
+                  "raw": {
+                    "x": "0xF8",
+                    "y": "0xFA"
+                  }
+                },
+                {
+                  "index": 1,
+                  "tile": "0xC7",
+                  "attr": "0x03",
+                  "xOffset": 0,
+                  "yOffset": -3,
+                  "reusePreviousAttr": true,
+                  "raw": {
+                    "x": "0x00",
+                    "y": "0xFB"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "selector": "0x5B",
+            "metasprite": {
+              "selector": "0x5B",
+              "pointer": {
+                "pointerTable": "0xAC30",
+                "pointerIndex": 91,
+                "pointerAddress": "0xACE6",
+                "target": "0xB61B",
+                "fileOffset": "0x0362B"
+              },
+              "status": "0x84",
+              "count": 4,
+              "usesSharedShape": true,
+              "shapePointer": "0xB21F",
+              "sprites": [
+                {
+                  "index": 0,
+                  "tile": "0xC9",
+                  "attr": "0x03",
+                  "xOffset": -8,
+                  "yOffset": -19,
+                  "reusePreviousAttr": false,
+                  "raw": {
+                    "x": "0xF8",
+                    "y": "0xDA"
+                  }
+                },
+                {
+                  "index": 1,
+                  "tile": "0xCB",
+                  "attr": "0x03",
+                  "xOffset": 0,
+                  "yOffset": -19,
+                  "reusePreviousAttr": true,
+                  "raw": {
+                    "x": "0x00",
+                    "y": "0xDB"
+                  }
+                },
+                {
+                  "index": 2,
+                  "tile": "0xCD",
+                  "attr": "0x03",
+                  "xOffset": -8,
+                  "yOffset": -3,
+                  "reusePreviousAttr": true,
+                  "raw": {
+                    "x": "0xF8",
+                    "y": "0xFB"
+                  }
+                },
+                {
+                  "index": 3,
+                  "tile": "0xCF",
+                  "attr": "0x03",
+                  "xOffset": 0,
+                  "yOffset": -3,
+                  "reusePreviousAttr": true,
+                  "raw": {
+                    "x": "0x00",
+                    "y": "0xFB"
+                  }
+                }
+              ]
+            }
           }
-        ],
-        "directSelectors": []
+        ]
       },
       "occurrenceIndexes": [
         343,
@@ -8164,13 +8135,11 @@
     },
     {
       "actorId": "0x1F",
-      "displayName": "Blob",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
-      "manualNameCandidates": [
-        "Slimey BarSinister"
-      ],
+      "displayName": "Slimey BarSinister",
+      "manualName": "Slimey BarSinister",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered mansion blob class used by actor id $1F matches the English manual enemy illustration labeled \"Slimey BarSinister\".",
+      "manualNameCandidates": [],
       "cv2r": {
         "name": "mansion blob",
         "pos": 2,
@@ -8432,13 +8401,11 @@
     },
     {
       "actorId": "0x38",
-      "displayName": "Dead Hand",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
-      "manualNameCandidates": [
-        "The Zombie Hand"
-      ],
+      "displayName": "The Zombie Hand",
+      "manualName": "The Zombie Hand",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered hand-from-ground class used by actor id $38 matches the English manual enemy illustration labeled \"The Zombie Hand\".",
+      "manualNameCandidates": [],
       "cv2r": {
         "name": "dead hand",
         "pos": 4,
@@ -8626,10 +8593,10 @@
     },
     {
       "actorId": "0x39",
-      "displayName": "Ghost",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
+      "displayName": "The Pirate Skeleton",
+      "manualName": "The Pirate Skeleton",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered guide-facing frames for actor id $39 use selector-stream record $3F, which emits skull-in-flame selectors $E6/$E7 matching the English manual enemy illustration labeled \"The Pirate Skeleton\".",
       "manualNameCandidates": [],
       "cv2r": {
         "name": "ghost",
@@ -9123,13 +9090,11 @@
     },
     {
       "actorId": "0x3A",
-      "displayName": "Mummy",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
-      "manualNameCandidates": [
-        "The Mummy"
-      ],
+      "displayName": "The Mummy",
+      "manualName": "The Mummy",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered mummy class used by actor id $3A matches the English manual enemy illustration labeled \"The Mummy\".",
+      "manualNameCandidates": [],
       "cv2r": {
         "name": "mummy",
         "pos": 2,
@@ -10221,13 +10186,11 @@
     },
     {
       "actorId": "0x3F",
-      "displayName": "Flower",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
-      "manualNameCandidates": [
-        "Man-Eating Plant"
-      ],
+      "displayName": "Man-Eating Plant",
+      "manualName": "Man-Eating Plant",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered plant class used by actor id $3F matches the English manual enemy illustration labeled \"Man-Eating Plant\".",
+      "manualNameCandidates": [],
       "cv2r": {
         "name": "flower",
         "pos": 2,
@@ -11048,13 +11011,11 @@
     },
     {
       "actorId": "0x41",
-      "displayName": "Blob",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
-      "manualNameCandidates": [
-        "Slimey BarSinister"
-      ],
+      "displayName": "Slimey BarSinister",
+      "manualName": "Slimey BarSinister",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered outdoor blob class used by actor id $41 matches the English manual enemy illustration labeled \"Slimey BarSinister\". The whole-ROM atlas finds this actor in Camilla Cemetery, Storigoi Graveyard, and Sadam Woods.",
+      "manualNameCandidates": [],
       "cv2r": {
         "name": "blob",
         "pos": 2,
@@ -11123,7 +11084,7 @@
       ],
       "spriteModel": {
         "status": "direct-selector-state-machine-partial",
-        "note": "Cemetery blob initializes through fixed-bank $DED0 with selector $C3; the state routine toggles neutral animation selectors $C3/$C4 before later movement states.",
+        "note": "Slimey BarSinister initializes through fixed-bank $DED0 with selector $C3; the state routine toggles neutral animation selectors $C3/$C4 before later movement states.",
         "dispatch": {
           "tableAddress": "0x81D3",
           "tableBank": 1,
@@ -11926,13 +11887,11 @@
     },
     {
       "actorId": "0x4A",
-      "displayName": "Bone dragon",
-      "manualName": null,
-      "manualNameStatus": "manual-match-unproven",
-      "manualNameEvidence": "No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.",
-      "manualNameCandidates": [
-        "Dragon Bones"
-      ],
+      "displayName": "Dragon Bones",
+      "manualName": "Dragon Bones",
+      "manualNameStatus": "manual-match-proven",
+      "manualNameEvidence": "The ROM-rendered bone-dragon head and neck composite used by actor id $4A matches the English manual enemy illustration labeled \"Dragon Bones\".",
+      "manualNameCandidates": [],
       "cv2r": {
         "name": "bone dragon",
         "pos": 2,
@@ -11978,7 +11937,7 @@
       ],
       "spriteModel": {
         "status": "direct-selector-partial",
-        "note": "Bone dragon writes direct selector $56 in its initialization branch; projectile/spawn behavior is not fully unfolded in this atlas.",
+        "note": "Dragon Bones writes direct selector $56 in its initialization branch; projectile/spawn behavior is not fully unfolded in this atlas.",
         "dispatch": {
           "tableAddress": "0x81D3",
           "tableBank": 1,

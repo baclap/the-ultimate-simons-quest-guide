@@ -39,11 +39,14 @@ Current promoted menu item tiles:
 | Oak Stake | `$59` | Start-menu PPU capture `out/captures/game-menu-jova-woods-start`; ROM sale-table triple at file offset `$1ED37` is `$59 $00 $50`. |
 | Thorn Whip | `$5B` | Fixed-bank weapon/crystal start-menu table `7:$F038`; ROM sale-table triple at file offset `$1ED3D` is `$5B $01 $00`. |
 | Chain Whip | `$5B` | Fixed-bank weapon/crystal start-menu table `7:$F038`; ROM sale-table triple at file offset `$1ED40` is `$5B $01 $50`. |
+| Morning Star | `$5B` | Fixed-bank weapon/crystal start-menu table `7:$F038`; ROM sale-table triple at file offset `$1ED43` is `$5B $02 $00`. |
+| Silk Bag | `$5C` | Fixed-bank start-menu branch `7:$F199` checks RAM `$92` bit `0`; when set, it loads tile `$5C` and draws through `7:$EB9C`. Storigoi Graveyard reward routine `$06E17` sets the same bit. |
 | White Crystal | `$5E` | Start-menu PPU capture `out/captures/game-menu-jova-woods-start`; ROM sale-table triple at file offset `$1ED3A` is `$5E $00 $50`. |
 | Heart currency | `$61` | Start-menu PPU capture `out/captures/game-menu-jova-woods-start` shows the heart glyph in the menu price/status row. |
 | Sacred Flame | `$69` | Fixed-bank weapon/crystal start-menu table `7:$F038`. |
 | Garlic | `$6D` | Fixed-bank carry-item menu branch loads tile `$6D` before drawing through `7:$EB9C`. |
 | Blue Crystal | `$6E` | Fixed-bank weapon/crystal start-menu table `7:$F038`. |
+| Diamond | `$70` | Vrad Mountain row `$0684F` sets RAM `$4A` bit `4`; the fixed-bank weapon/item menu table at file offset `$1F048` maps that bit to tile `$70`. |
 | Red Crystal | `$5F` | Fixed-bank weapon/crystal start-menu table `7:$F038`. |
 
 The current inline matcher treats the Jova "magic potion" line as a Holy Water
@@ -66,7 +69,8 @@ https://www.nintendo.co.jp/clv/manuals/en/pdf/CLV-P-NABXE.pdf
 - Magic Weapons, page 10: Chain Whip.
 - Magic Items, page 11: White Crystal.
 
-Future item-giver work should add an `itemOffer` to the promoted actor source,
-not hand-code browser-only UI. At minimum, each offer should name the item, the
-menu icon tile, the merchant/item role, the price evidence when a price exists,
-and the manual or ROM text evidence used for the item explanation.
+Future item-giver work should add an `itemOffer` or `itemReward` to the
+promoted actor/source definition, not hand-code browser-only UI. At minimum,
+each item affordance should name the item, the menu icon tile, the merchant/item
+role when applicable, the price evidence when a price exists, and the manual or
+ROM text evidence used for the item explanation.

@@ -88,10 +88,20 @@ const MANUAL_NAME_EVIDENCE = new Map([
     status: 'manual-match-proven',
     evidence: 'The ROM-rendered bird class used by actor id $01 matches the manual enemy illustration labeled "Raven".'
   }],
+  [0x02, {
+    manualName: 'The Ghastly Leech',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered leech class used by actor id $02 matches the English manual enemy illustration labeled "The Ghastly Leech". Actor $02 initializes selector-stream record $1C, which emits upright curled leech selectors $61/$62.'
+  }],
   [0x04, {
     manualName: 'The Fish Man',
     status: 'manual-match-proven',
     evidence: 'The ROM-rendered amphibious humanoid class used by actor id $04 matches the manual enemy illustration labeled "The Fish Man".'
+  }],
+  [0x06, {
+    manualName: 'The Two-Headed Creature',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered hunched two-headed humanoid class used by actor id $06 matches the English manual enemy illustration labeled "The Two-Headed Creature".'
   }],
   [0x08, {
     manualName: 'Ghostly Eyeball',
@@ -123,16 +133,64 @@ const MANUAL_NAME_EVIDENCE = new Map([
     status: 'manual-match-proven',
     evidence: 'The ROM-rendered humanoid wolf class used by actor id $13 matches the manual enemy illustration labeled "The Wolf Man".'
   }],
+  [0x0a, {
+    manualName: 'Medusa Head',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered head class used by actor id $0A matches the English manual enemy illustration labeled "Medusa Head".'
+  }],
+  [0x12, {
+    manualName: 'The Wolf',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered quadruped wolf class used by actor id $12 matches the English manual enemy illustration labeled "The Wolf".'
+  }],
+  [0x15, {
+    manualName: 'The Mud Man',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered mud-rising class used by actor id $15 matches the English manual enemy illustration labeled "The Mud Man". The actor writes visible selectors $59/$5A/$5B from the local routine table at bank 1:$A3E4.'
+  }],
   [0x17, {
     manualName: 'The Zombie',
     status: 'manual-match-proven',
     evidence: 'The ROM-rendered town night humanoid class used by actor id $17 matches the manual enemy illustration labeled "The Zombie".'
+  }],
+  [0x1f, {
+    manualName: 'Slimey BarSinister',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered mansion blob class used by actor id $1F matches the English manual enemy illustration labeled "Slimey BarSinister".'
+  }],
+  [0x38, {
+    manualName: 'The Zombie Hand',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered hand-from-ground class used by actor id $38 matches the English manual enemy illustration labeled "The Zombie Hand".'
+  }],
+  [0x39, {
+    manualName: 'The Pirate Skeleton',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered guide-facing frames for actor id $39 use selector-stream record $3F, which emits skull-in-flame selectors $E6/$E7 matching the English manual enemy illustration labeled "The Pirate Skeleton".'
+  }],
+  [0x3a, {
+    manualName: 'The Mummy',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered mummy class used by actor id $3A matches the English manual enemy illustration labeled "The Mummy".'
+  }],
+  [0x3f, {
+    manualName: 'Man-Eating Plant',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered plant class used by actor id $3F matches the English manual enemy illustration labeled "Man-Eating Plant".'
+  }],
+  [0x41, {
+    manualName: 'Slimey BarSinister',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered outdoor blob class used by actor id $41 matches the English manual enemy illustration labeled "Slimey BarSinister". The whole-ROM atlas finds this actor in Camilla Cemetery, Storigoi Graveyard, and Sadam Woods.'
+  }],
+  [0x4a, {
+    manualName: 'Dragon Bones',
+    status: 'manual-match-proven',
+    evidence: 'The ROM-rendered bone-dragon head and neck composite used by actor id $4A matches the English manual enemy illustration labeled "Dragon Bones".'
   }]
 ]);
 
 const MANUAL_NAME_CANDIDATES = new Map([
-  [0x02, ['The Ghastly Leech']],
-  [0x06, ['The Two-Headed Creature']],
   [0x0a, ['Medusa Head']],
   [0x10, ['The Skull']],
   [0x12, ['The Wolf']],
@@ -150,39 +208,39 @@ const MANUAL_NAME_CANDIDATES = new Map([
 
 const GENERIC_DISPLAY_NAMES = new Map([
   [0x01, 'Raven'],
-  [0x02, 'Leech'],
+  [0x02, 'The Ghastly Leech'],
   [0x03, 'Skeleton'],
   [0x04, 'The Fish Man'],
   [0x05, 'Spear knight'],
-  [0x06, 'Lizardman'],
+  [0x06, 'The Two-Headed Creature'],
   [0x08, 'Ghostly Eyeball'],
   [0x09, 'Vampire Bat'],
-  [0x0a, 'Medusa'],
+  [0x0a, 'Medusa Head'],
   [0x0d, 'Bone thrower'],
   [0x0e, 'The Spider'],
   [0x0f, 'The Gargoyle'],
   [0x10, 'Floating skull'],
   [0x11, 'Vampire Bat'],
-  [0x12, 'Wolf'],
+  [0x12, 'The Wolf'],
   [0x13, 'The Wolf Man'],
-  [0x15, 'Mudman'],
+  [0x15, 'The Mud Man'],
   [0x16, 'Grabber'],
   [0x17, 'The Zombie'],
   [0x18, 'Swamp ghoul'],
   [0x1b, 'Eagle'],
   [0x1d, 'Fire ghoul'],
-  [0x1f, 'Blob'],
-  [0x38, 'Dead Hand'],
-  [0x39, 'Ghost'],
-  [0x3a, 'Mummy'],
+  [0x1f, 'Slimey BarSinister'],
+  [0x38, 'The Zombie Hand'],
+  [0x39, 'The Pirate Skeleton'],
+  [0x3a, 'The Mummy'],
   [0x3b, 'Harpy'],
   [0x3e, 'Rock'],
-  [0x3f, 'Flower'],
+  [0x3f, 'Man-Eating Plant'],
   [0x40, 'High jump leech'],
-  [0x41, 'Blob'],
+  [0x41, 'Slimey BarSinister'],
   [0x42, 'Camilla'],
   [0x44, 'Death'],
-  [0x4a, 'Bone dragon']
+  [0x4a, 'Dragon Bones']
 ]);
 
 const SPRITE_MODEL_OVERRIDES = new Map([
@@ -201,9 +259,15 @@ const SPRITE_MODEL_OVERRIDES = new Map([
     note: 'Swamp ghoul writes animation selectors from the local ROM table at bank 1:$AF12 through STA $0300,x; the visible table bytes are $C0/$C1/$C2.',
     directSelectors: [0xc0, 0xc1, 0xc2]
   }],
+  [0x15, {
+    status: 'dispatch-routine-local-selector-table-proof',
+    note: 'The Mud Man writes animation selectors from the local ROM table at bank 1:$A3E4 through STA $0300,x; the table bytes are $00/$59/$5A/$5B, with $00 as the hidden/no-sprite state and $59/$5A/$5B as the visible frames. The static scan also sees selector-record $1A in the adjacent lizardman initialization path, but that is not the visible Mud Man sprite model.',
+    suppressScannedSelectorRecordIndices: [0x1a],
+    directSelectors: [0x59, 0x5a, 0x5b]
+  }],
   [0x41, {
     status: 'direct-selector-state-machine-partial',
-    note: 'Cemetery blob initializes through fixed-bank $DED0 with selector $C3; the state routine toggles neutral animation selectors $C3/$C4 before later movement states.',
+    note: 'Slimey BarSinister initializes through fixed-bank $DED0 with selector $C3; the state routine toggles neutral animation selectors $C3/$C4 before later movement states.',
     directSelectors: [0xc3, 0xc4]
   }],
   [0x42, {
@@ -218,13 +282,12 @@ const SPRITE_MODEL_OVERRIDES = new Map([
   }],
   [0x4a, {
     status: 'direct-selector-partial',
-    note: 'Bone dragon writes direct selector $56 in its initialization branch; projectile/spawn behavior is not fully unfolded in this atlas.',
+    note: 'Dragon Bones writes direct selector $56 in its initialization branch; projectile/spawn behavior is not fully unfolded in this atlas.',
     directSelectors: [0x56]
   }]
 ]);
 
 const SPRITE_MODEL_BLOCKERS = new Map([
-  [0x15, 'Mudman uses a state table in its dispatch routine; decode the table writes before claiming the full metasprite sequence.'],
   [0x3b, 'Harpy dispatch is state-driven; decode any $DD8B selector-record setup calls before claiming the full metasprite sequence.']
 ]);
 
@@ -608,6 +671,9 @@ function decodeSpriteModel(rom, info, actorId) {
   if (override) {
     status = override.status;
     note = override.note;
+    for (const recordIndex of override.suppressScannedSelectorRecordIndices || []) {
+      selectorRecordIndices.delete(recordIndex);
+    }
     for (const recordIndex of override.selectorRecordIndices || []) {
       selectorRecordIndices.add(recordIndex);
     }

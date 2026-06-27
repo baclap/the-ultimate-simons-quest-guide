@@ -1,0 +1,4823 @@
+{
+  "schemaVersion": 1,
+  "id": "deborah-cliff-tornado-transport-path",
+  "label": "Deborah Cliff tornado transport path",
+  "sourceTrace": "out/actor-traces/deborah-tornado-sprite-probe/actor-slots.tsv",
+  "traceFrameRange": {
+    "start": 257,
+    "end": 785
+  },
+  "emulatorFrameRange": {
+    "start": 287,
+    "end": 815
+  },
+  "frameDurationMs": 16.666666666666668,
+  "actor": {
+    "slot": 17,
+    "activeId": "0x1C",
+    "selector": "0x9C",
+    "chrBanks": [
+      "0x06",
+      "0x07"
+    ],
+    "tiles": [
+      "0xC5",
+      "0xC7",
+      "0xC9",
+      "0xCB",
+      "0xCD",
+      "0xCF"
+    ]
+  },
+  "source": "Generated from Mesen actor-slot trace after decoding the Deborah condition routine at PRG bank 1:$A91D-$A991.",
+  "presentation": {
+    "interpolate": true,
+    "smoothing": [
+      {
+        "type": "jam-to-cliff-curved-bridge",
+        "frameRange": {
+          "start": 305,
+          "end": 324
+        },
+        "anchorFrames": {
+          "start": 304,
+          "resume": 325
+        },
+        "rawResumeFrame": 345,
+        "compressionFrames": 20,
+        "replacedRawCliffFrames": {
+          "start": 341,
+          "end": 344
+        },
+        "startTangentPxPerFrame": {
+          "x": -2.55,
+          "y": 1.35
+        },
+        "endTangentPxPerFrame": {
+          "x": -2.75,
+          "y": 0.35
+        },
+        "reason": "The raw trace exposes the NES internal screen-wrap handoff between Jam Wasteland and the Deborah Cliff wall screen, then holds before cliff motion resumes. The guide bridges the section boundary with a short Hermite-style curve that follows the incoming Jam slope and settles into the early Cliff slope, compressing the raw hold frames so the animation reads as one continuous motion.",
+        "rawHandoffWindow": [
+          {
+            "frame": 305,
+            "segmentId": "deborah-cliff",
+            "x": 14,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 306,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 307,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 308,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 309,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 310,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 311,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 312,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 313,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 314,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 315,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 316,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 317,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 318,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 319,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 320,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 321,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 322,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 323,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 324,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 325,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 326,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 327,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 328,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 329,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 330,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 331,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 332,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 333,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 334,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 335,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 336,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 337,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 338,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 339,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          },
+          {
+            "frame": 340,
+            "segmentId": "deborah-cliff",
+            "x": 234,
+            "y": 170,
+            "facing": 1,
+            "context": "4/1/128"
+          }
+        ],
+        "bridgeMinJump": 1,
+        "bridgeMaxJump": 3,
+        "postBridgeMaxJump": 3
+      }
+    ],
+    "note": "Runtime sprite graphics and broad path come from ROM/runtime evidence. The Jam-to-Cliff screen-wrap handoff is presentation-smoothed and timeline-compressed so the guide animation reads as one continuous motion."
+  },
+  "points": [
+    {
+      "frame": 0,
+      "segmentId": "jam-wasteland",
+      "x": 239,
+      "y": 127,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 1,
+      "segmentId": "jam-wasteland",
+      "x": 238,
+      "y": 127,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 2,
+      "segmentId": "jam-wasteland",
+      "x": 237,
+      "y": 127,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 3,
+      "segmentId": "jam-wasteland",
+      "x": 237,
+      "y": 127,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 4,
+      "segmentId": "jam-wasteland",
+      "x": 236,
+      "y": 126,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 5,
+      "segmentId": "jam-wasteland",
+      "x": 235,
+      "y": 126,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 6,
+      "segmentId": "jam-wasteland",
+      "x": 234,
+      "y": 126,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 7,
+      "segmentId": "jam-wasteland",
+      "x": 234,
+      "y": 126,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 8,
+      "segmentId": "jam-wasteland",
+      "x": 233,
+      "y": 125,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 9,
+      "segmentId": "jam-wasteland",
+      "x": 232,
+      "y": 125,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 10,
+      "segmentId": "jam-wasteland",
+      "x": 231,
+      "y": 125,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 11,
+      "segmentId": "jam-wasteland",
+      "x": 231,
+      "y": 125,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 12,
+      "segmentId": "jam-wasteland",
+      "x": 230,
+      "y": 124,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 13,
+      "segmentId": "jam-wasteland",
+      "x": 229,
+      "y": 124,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 14,
+      "segmentId": "jam-wasteland",
+      "x": 228,
+      "y": 124,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 15,
+      "segmentId": "jam-wasteland",
+      "x": 228,
+      "y": 124,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 16,
+      "segmentId": "jam-wasteland",
+      "x": 227,
+      "y": 123,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 17,
+      "segmentId": "jam-wasteland",
+      "x": 226,
+      "y": 123,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 18,
+      "segmentId": "jam-wasteland",
+      "x": 225,
+      "y": 123,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 19,
+      "segmentId": "jam-wasteland",
+      "x": 225,
+      "y": 123,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 20,
+      "segmentId": "jam-wasteland",
+      "x": 224,
+      "y": 122,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 21,
+      "segmentId": "jam-wasteland",
+      "x": 223,
+      "y": 122,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 22,
+      "segmentId": "jam-wasteland",
+      "x": 222,
+      "y": 122,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 23,
+      "segmentId": "jam-wasteland",
+      "x": 222,
+      "y": 122,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 24,
+      "segmentId": "jam-wasteland",
+      "x": 221,
+      "y": 121,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 25,
+      "segmentId": "jam-wasteland",
+      "x": 220,
+      "y": 121,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 26,
+      "segmentId": "jam-wasteland",
+      "x": 219,
+      "y": 121,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 27,
+      "segmentId": "jam-wasteland",
+      "x": 219,
+      "y": 121,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 28,
+      "segmentId": "jam-wasteland",
+      "x": 218,
+      "y": 120,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 29,
+      "segmentId": "jam-wasteland",
+      "x": 217,
+      "y": 120,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 30,
+      "segmentId": "jam-wasteland",
+      "x": 216,
+      "y": 120,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 31,
+      "segmentId": "jam-wasteland",
+      "x": 216,
+      "y": 120,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 32,
+      "segmentId": "jam-wasteland",
+      "x": 215,
+      "y": 119,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 33,
+      "segmentId": "jam-wasteland",
+      "x": 214,
+      "y": 119,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 34,
+      "segmentId": "jam-wasteland",
+      "x": 213,
+      "y": 119,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 35,
+      "segmentId": "jam-wasteland",
+      "x": 213,
+      "y": 119,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 36,
+      "segmentId": "jam-wasteland",
+      "x": 212,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 37,
+      "segmentId": "jam-wasteland",
+      "x": 211,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 38,
+      "segmentId": "jam-wasteland",
+      "x": 210,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 39,
+      "segmentId": "jam-wasteland",
+      "x": 210,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 40,
+      "segmentId": "jam-wasteland",
+      "x": 209,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 41,
+      "segmentId": "jam-wasteland",
+      "x": 208,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 42,
+      "segmentId": "jam-wasteland",
+      "x": 207,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 43,
+      "segmentId": "jam-wasteland",
+      "x": 207,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 44,
+      "segmentId": "jam-wasteland",
+      "x": 206,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 45,
+      "segmentId": "jam-wasteland",
+      "x": 205,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 46,
+      "segmentId": "jam-wasteland",
+      "x": 204,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 47,
+      "segmentId": "jam-wasteland",
+      "x": 204,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 48,
+      "segmentId": "jam-wasteland",
+      "x": 203,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 49,
+      "segmentId": "jam-wasteland",
+      "x": 202,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 50,
+      "segmentId": "jam-wasteland",
+      "x": 201,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 51,
+      "segmentId": "jam-wasteland",
+      "x": 201,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 52,
+      "segmentId": "jam-wasteland",
+      "x": 200,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 53,
+      "segmentId": "jam-wasteland",
+      "x": 199,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 54,
+      "segmentId": "jam-wasteland",
+      "x": 198,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 55,
+      "segmentId": "jam-wasteland",
+      "x": 198,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 56,
+      "segmentId": "jam-wasteland",
+      "x": 197,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 57,
+      "segmentId": "jam-wasteland",
+      "x": 196,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 58,
+      "segmentId": "jam-wasteland",
+      "x": 195,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 59,
+      "segmentId": "jam-wasteland",
+      "x": 195,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 60,
+      "segmentId": "jam-wasteland",
+      "x": 194,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 61,
+      "segmentId": "jam-wasteland",
+      "x": 193,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 62,
+      "segmentId": "jam-wasteland",
+      "x": 192,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 63,
+      "segmentId": "jam-wasteland",
+      "x": 192,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 64,
+      "segmentId": "jam-wasteland",
+      "x": 191,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 65,
+      "segmentId": "jam-wasteland",
+      "x": 190,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 66,
+      "segmentId": "jam-wasteland",
+      "x": 189,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 67,
+      "segmentId": "jam-wasteland",
+      "x": 189,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 68,
+      "segmentId": "jam-wasteland",
+      "x": 188,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 69,
+      "segmentId": "jam-wasteland",
+      "x": 187,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 70,
+      "segmentId": "jam-wasteland",
+      "x": 186,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 71,
+      "segmentId": "jam-wasteland",
+      "x": 186,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 72,
+      "segmentId": "jam-wasteland",
+      "x": 185,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 73,
+      "segmentId": "jam-wasteland",
+      "x": 184,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 74,
+      "segmentId": "jam-wasteland",
+      "x": 183,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 75,
+      "segmentId": "jam-wasteland",
+      "x": 183,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 76,
+      "segmentId": "jam-wasteland",
+      "x": 182,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 77,
+      "segmentId": "jam-wasteland",
+      "x": 181,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 78,
+      "segmentId": "jam-wasteland",
+      "x": 180,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 79,
+      "segmentId": "jam-wasteland",
+      "x": 180,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 80,
+      "segmentId": "jam-wasteland",
+      "x": 179,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 81,
+      "segmentId": "jam-wasteland",
+      "x": 178,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 82,
+      "segmentId": "jam-wasteland",
+      "x": 177,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 83,
+      "segmentId": "jam-wasteland",
+      "x": 177,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 84,
+      "segmentId": "jam-wasteland",
+      "x": 176,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 85,
+      "segmentId": "jam-wasteland",
+      "x": 175,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 86,
+      "segmentId": "jam-wasteland",
+      "x": 174,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 87,
+      "segmentId": "jam-wasteland",
+      "x": 174,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 88,
+      "segmentId": "jam-wasteland",
+      "x": 173,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 89,
+      "segmentId": "jam-wasteland",
+      "x": 172,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 90,
+      "segmentId": "jam-wasteland",
+      "x": 171,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 91,
+      "segmentId": "jam-wasteland",
+      "x": 171,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 92,
+      "segmentId": "jam-wasteland",
+      "x": 170,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 93,
+      "segmentId": "jam-wasteland",
+      "x": 169,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 94,
+      "segmentId": "jam-wasteland",
+      "x": 168,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 95,
+      "segmentId": "jam-wasteland",
+      "x": 168,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 96,
+      "segmentId": "jam-wasteland",
+      "x": 167,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 97,
+      "segmentId": "jam-wasteland",
+      "x": 166,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 98,
+      "segmentId": "jam-wasteland",
+      "x": 165,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 99,
+      "segmentId": "jam-wasteland",
+      "x": 165,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 100,
+      "segmentId": "jam-wasteland",
+      "x": 164,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 101,
+      "segmentId": "jam-wasteland",
+      "x": 163,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 102,
+      "segmentId": "jam-wasteland",
+      "x": 162,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 103,
+      "segmentId": "jam-wasteland",
+      "x": 162,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 104,
+      "segmentId": "jam-wasteland",
+      "x": 161,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 105,
+      "segmentId": "jam-wasteland",
+      "x": 160,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 106,
+      "segmentId": "jam-wasteland",
+      "x": 159,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 107,
+      "segmentId": "jam-wasteland",
+      "x": 159,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 108,
+      "segmentId": "jam-wasteland",
+      "x": 158,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 109,
+      "segmentId": "jam-wasteland",
+      "x": 157,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 110,
+      "segmentId": "jam-wasteland",
+      "x": 156,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 111,
+      "segmentId": "jam-wasteland",
+      "x": 156,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 112,
+      "segmentId": "jam-wasteland",
+      "x": 155,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 113,
+      "segmentId": "jam-wasteland",
+      "x": 154,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 114,
+      "segmentId": "jam-wasteland",
+      "x": 153,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 115,
+      "segmentId": "jam-wasteland",
+      "x": 153,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 116,
+      "segmentId": "jam-wasteland",
+      "x": 152,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 117,
+      "segmentId": "jam-wasteland",
+      "x": 151,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 118,
+      "segmentId": "jam-wasteland",
+      "x": 150,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 119,
+      "segmentId": "jam-wasteland",
+      "x": 150,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 120,
+      "segmentId": "jam-wasteland",
+      "x": 149,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 121,
+      "segmentId": "jam-wasteland",
+      "x": 148,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 122,
+      "segmentId": "jam-wasteland",
+      "x": 147,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 123,
+      "segmentId": "jam-wasteland",
+      "x": 147,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 124,
+      "segmentId": "jam-wasteland",
+      "x": 146,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 125,
+      "segmentId": "jam-wasteland",
+      "x": 145,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 126,
+      "segmentId": "jam-wasteland",
+      "x": 144,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 127,
+      "segmentId": "jam-wasteland",
+      "x": 144,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 128,
+      "segmentId": "jam-wasteland",
+      "x": 143,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 129,
+      "segmentId": "jam-wasteland",
+      "x": 142,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 130,
+      "segmentId": "jam-wasteland",
+      "x": 141,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 131,
+      "segmentId": "jam-wasteland",
+      "x": 141,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 132,
+      "segmentId": "jam-wasteland",
+      "x": 140,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 133,
+      "segmentId": "jam-wasteland",
+      "x": 139,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 134,
+      "segmentId": "jam-wasteland",
+      "x": 138,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 135,
+      "segmentId": "jam-wasteland",
+      "x": 138,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 136,
+      "segmentId": "jam-wasteland",
+      "x": 137,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 137,
+      "segmentId": "jam-wasteland",
+      "x": 136,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 138,
+      "segmentId": "jam-wasteland",
+      "x": 135,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 139,
+      "segmentId": "jam-wasteland",
+      "x": 135,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 140,
+      "segmentId": "jam-wasteland",
+      "x": 134,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 141,
+      "segmentId": "jam-wasteland",
+      "x": 133,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 142,
+      "segmentId": "jam-wasteland",
+      "x": 132,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 143,
+      "segmentId": "jam-wasteland",
+      "x": 132,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 144,
+      "segmentId": "jam-wasteland",
+      "x": 131,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 145,
+      "segmentId": "jam-wasteland",
+      "x": 130,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 146,
+      "segmentId": "jam-wasteland",
+      "x": 129,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 147,
+      "segmentId": "jam-wasteland",
+      "x": 129,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 148,
+      "segmentId": "jam-wasteland",
+      "x": 128,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 149,
+      "segmentId": "jam-wasteland",
+      "x": 127,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 150,
+      "segmentId": "jam-wasteland",
+      "x": 126,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 151,
+      "segmentId": "jam-wasteland",
+      "x": 126,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 152,
+      "segmentId": "jam-wasteland",
+      "x": 125,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 153,
+      "segmentId": "jam-wasteland",
+      "x": 124,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 154,
+      "segmentId": "jam-wasteland",
+      "x": 123,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 155,
+      "segmentId": "jam-wasteland",
+      "x": 123,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 156,
+      "segmentId": "jam-wasteland",
+      "x": 122,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 157,
+      "segmentId": "jam-wasteland",
+      "x": 121,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 158,
+      "segmentId": "jam-wasteland",
+      "x": 120,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 159,
+      "segmentId": "jam-wasteland",
+      "x": 120,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 160,
+      "segmentId": "jam-wasteland",
+      "x": 119,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 161,
+      "segmentId": "jam-wasteland",
+      "x": 118,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 162,
+      "segmentId": "jam-wasteland",
+      "x": 117,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 163,
+      "segmentId": "jam-wasteland",
+      "x": 117,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 164,
+      "segmentId": "jam-wasteland",
+      "x": 116,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 165,
+      "segmentId": "jam-wasteland",
+      "x": 115,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 166,
+      "segmentId": "jam-wasteland",
+      "x": 114,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 167,
+      "segmentId": "jam-wasteland",
+      "x": 114,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 168,
+      "segmentId": "jam-wasteland",
+      "x": 113,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 169,
+      "segmentId": "jam-wasteland",
+      "x": 112,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 170,
+      "segmentId": "jam-wasteland",
+      "x": 111,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 171,
+      "segmentId": "jam-wasteland",
+      "x": 111,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 172,
+      "segmentId": "jam-wasteland",
+      "x": 110,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 173,
+      "segmentId": "jam-wasteland",
+      "x": 109,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 174,
+      "segmentId": "jam-wasteland",
+      "x": 108,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 175,
+      "segmentId": "jam-wasteland",
+      "x": 108,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 176,
+      "segmentId": "jam-wasteland",
+      "x": 107,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 177,
+      "segmentId": "jam-wasteland",
+      "x": 106,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 178,
+      "segmentId": "jam-wasteland",
+      "x": 105,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 179,
+      "segmentId": "jam-wasteland",
+      "x": 105,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 180,
+      "segmentId": "jam-wasteland",
+      "x": 104,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 181,
+      "segmentId": "jam-wasteland",
+      "x": 103,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 182,
+      "segmentId": "jam-wasteland",
+      "x": 102,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 183,
+      "segmentId": "jam-wasteland",
+      "x": 102,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 184,
+      "segmentId": "jam-wasteland",
+      "x": 101,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 185,
+      "segmentId": "jam-wasteland",
+      "x": 100,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 186,
+      "segmentId": "jam-wasteland",
+      "x": 99,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 187,
+      "segmentId": "jam-wasteland",
+      "x": 99,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 188,
+      "segmentId": "jam-wasteland",
+      "x": 98,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 189,
+      "segmentId": "jam-wasteland",
+      "x": 97,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 190,
+      "segmentId": "jam-wasteland",
+      "x": 96,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 191,
+      "segmentId": "jam-wasteland",
+      "x": 96,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 192,
+      "segmentId": "jam-wasteland",
+      "x": 95,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 193,
+      "segmentId": "jam-wasteland",
+      "x": 94,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 194,
+      "segmentId": "jam-wasteland",
+      "x": 93,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 195,
+      "segmentId": "jam-wasteland",
+      "x": 93,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 196,
+      "segmentId": "jam-wasteland",
+      "x": 92,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 197,
+      "segmentId": "jam-wasteland",
+      "x": 91,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 198,
+      "segmentId": "jam-wasteland",
+      "x": 90,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 199,
+      "segmentId": "jam-wasteland",
+      "x": 90,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 200,
+      "segmentId": "jam-wasteland",
+      "x": 89,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 201,
+      "segmentId": "jam-wasteland",
+      "x": 88,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 202,
+      "segmentId": "jam-wasteland",
+      "x": 87,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 203,
+      "segmentId": "jam-wasteland",
+      "x": 87,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 204,
+      "segmentId": "jam-wasteland",
+      "x": 86,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 205,
+      "segmentId": "jam-wasteland",
+      "x": 85,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 206,
+      "segmentId": "jam-wasteland",
+      "x": 84,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 207,
+      "segmentId": "jam-wasteland",
+      "x": 84,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 208,
+      "segmentId": "jam-wasteland",
+      "x": 83,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 209,
+      "segmentId": "jam-wasteland",
+      "x": 82,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 210,
+      "segmentId": "jam-wasteland",
+      "x": 81,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 211,
+      "segmentId": "jam-wasteland",
+      "x": 81,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 212,
+      "segmentId": "jam-wasteland",
+      "x": 80,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 213,
+      "segmentId": "jam-wasteland",
+      "x": 79,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 214,
+      "segmentId": "jam-wasteland",
+      "x": 78,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 215,
+      "segmentId": "jam-wasteland",
+      "x": 78,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 216,
+      "segmentId": "jam-wasteland",
+      "x": 77,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 217,
+      "segmentId": "jam-wasteland",
+      "x": 76,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 218,
+      "segmentId": "jam-wasteland",
+      "x": 75,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 219,
+      "segmentId": "jam-wasteland",
+      "x": 75,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 220,
+      "segmentId": "jam-wasteland",
+      "x": 74,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 221,
+      "segmentId": "jam-wasteland",
+      "x": 73,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 222,
+      "segmentId": "jam-wasteland",
+      "x": 72,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 223,
+      "segmentId": "jam-wasteland",
+      "x": 72,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 224,
+      "segmentId": "jam-wasteland",
+      "x": 71,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 225,
+      "segmentId": "jam-wasteland",
+      "x": 70,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 226,
+      "segmentId": "jam-wasteland",
+      "x": 69,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 227,
+      "segmentId": "jam-wasteland",
+      "x": 69,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 228,
+      "segmentId": "jam-wasteland",
+      "x": 68,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 229,
+      "segmentId": "jam-wasteland",
+      "x": 67,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 230,
+      "segmentId": "jam-wasteland",
+      "x": 66,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 231,
+      "segmentId": "jam-wasteland",
+      "x": 66,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 232,
+      "segmentId": "jam-wasteland",
+      "x": 65,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 233,
+      "segmentId": "jam-wasteland",
+      "x": 64,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 234,
+      "segmentId": "jam-wasteland",
+      "x": 63,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 235,
+      "segmentId": "jam-wasteland",
+      "x": 63,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 236,
+      "segmentId": "jam-wasteland",
+      "x": 62,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 237,
+      "segmentId": "jam-wasteland",
+      "x": 61,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 238,
+      "segmentId": "jam-wasteland",
+      "x": 60,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 239,
+      "segmentId": "jam-wasteland",
+      "x": 60,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 240,
+      "segmentId": "jam-wasteland",
+      "x": 59,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 241,
+      "segmentId": "jam-wasteland",
+      "x": 58,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 242,
+      "segmentId": "jam-wasteland",
+      "x": 57,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 243,
+      "segmentId": "jam-wasteland",
+      "x": 57,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 244,
+      "segmentId": "jam-wasteland",
+      "x": 56,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 245,
+      "segmentId": "jam-wasteland",
+      "x": 55,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 246,
+      "segmentId": "jam-wasteland",
+      "x": 54,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 247,
+      "segmentId": "jam-wasteland",
+      "x": 54,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 248,
+      "segmentId": "jam-wasteland",
+      "x": 53,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 249,
+      "segmentId": "jam-wasteland",
+      "x": 52,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 250,
+      "segmentId": "jam-wasteland",
+      "x": 51,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 251,
+      "segmentId": "jam-wasteland",
+      "x": 51,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 252,
+      "segmentId": "jam-wasteland",
+      "x": 50,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 253,
+      "segmentId": "jam-wasteland",
+      "x": 49,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 254,
+      "segmentId": "jam-wasteland",
+      "x": 48,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 255,
+      "segmentId": "jam-wasteland",
+      "x": 48,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 256,
+      "segmentId": "jam-wasteland",
+      "x": 47,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 257,
+      "segmentId": "jam-wasteland",
+      "x": 46,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 258,
+      "segmentId": "jam-wasteland",
+      "x": 45,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 259,
+      "segmentId": "jam-wasteland",
+      "x": 45,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 260,
+      "segmentId": "jam-wasteland",
+      "x": 44,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 261,
+      "segmentId": "jam-wasteland",
+      "x": 43,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 262,
+      "segmentId": "jam-wasteland",
+      "x": 42,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 263,
+      "segmentId": "jam-wasteland",
+      "x": 42,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 264,
+      "segmentId": "jam-wasteland",
+      "x": 41,
+      "y": 117,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 265,
+      "segmentId": "jam-wasteland",
+      "x": 40,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 266,
+      "segmentId": "jam-wasteland",
+      "x": 39,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 267,
+      "segmentId": "jam-wasteland",
+      "x": 39,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 268,
+      "segmentId": "jam-wasteland",
+      "x": 40,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 269,
+      "segmentId": "jam-wasteland",
+      "x": 41,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 270,
+      "segmentId": "jam-wasteland",
+      "x": 42,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 271,
+      "segmentId": "jam-wasteland",
+      "x": 43,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 272,
+      "segmentId": "jam-wasteland",
+      "x": 44,
+      "y": 119,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 273,
+      "segmentId": "jam-wasteland",
+      "x": 45,
+      "y": 119,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 274,
+      "segmentId": "jam-wasteland",
+      "x": 46,
+      "y": 120,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 275,
+      "segmentId": "jam-wasteland",
+      "x": 47,
+      "y": 121,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 276,
+      "segmentId": "jam-wasteland",
+      "x": 47,
+      "y": 122,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 277,
+      "segmentId": "jam-wasteland",
+      "x": 48,
+      "y": 123,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 278,
+      "segmentId": "jam-wasteland",
+      "x": 48,
+      "y": 125,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 279,
+      "segmentId": "jam-wasteland",
+      "x": 49,
+      "y": 126,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 280,
+      "segmentId": "jam-wasteland",
+      "x": 49,
+      "y": 128,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 281,
+      "segmentId": "jam-wasteland",
+      "x": 49,
+      "y": 129,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 282,
+      "segmentId": "jam-wasteland",
+      "x": 49,
+      "y": 131,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 283,
+      "segmentId": "jam-wasteland",
+      "x": 49,
+      "y": 133,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 284,
+      "segmentId": "jam-wasteland",
+      "x": 49,
+      "y": 134,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 285,
+      "segmentId": "jam-wasteland",
+      "x": 49,
+      "y": 136,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 286,
+      "segmentId": "jam-wasteland",
+      "x": 49,
+      "y": 138,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 287,
+      "segmentId": "jam-wasteland",
+      "x": 48,
+      "y": 140,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 288,
+      "segmentId": "jam-wasteland",
+      "x": 47,
+      "y": 142,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 289,
+      "segmentId": "jam-wasteland",
+      "x": 46,
+      "y": 144,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 290,
+      "segmentId": "jam-wasteland",
+      "x": 45,
+      "y": 146,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 291,
+      "segmentId": "jam-wasteland",
+      "x": 44,
+      "y": 148,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 292,
+      "segmentId": "jam-wasteland",
+      "x": 43,
+      "y": 150,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 293,
+      "segmentId": "jam-wasteland",
+      "x": 41,
+      "y": 152,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 294,
+      "segmentId": "jam-wasteland",
+      "x": 40,
+      "y": 154,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 295,
+      "segmentId": "jam-wasteland",
+      "x": 38,
+      "y": 156,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 296,
+      "segmentId": "jam-wasteland",
+      "x": 36,
+      "y": 157,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 297,
+      "segmentId": "jam-wasteland",
+      "x": 34,
+      "y": 159,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 298,
+      "segmentId": "jam-wasteland",
+      "x": 32,
+      "y": 161,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 299,
+      "segmentId": "jam-wasteland",
+      "x": 30,
+      "y": 162,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 300,
+      "segmentId": "jam-wasteland",
+      "x": 27,
+      "y": 164,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 301,
+      "segmentId": "jam-wasteland",
+      "x": 25,
+      "y": 165,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 302,
+      "segmentId": "jam-wasteland",
+      "x": 22,
+      "y": 167,
+      "facing": 1,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 303,
+      "segmentId": "jam-wasteland",
+      "x": 20,
+      "y": 168,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 304,
+      "segmentId": "jam-wasteland",
+      "x": 17,
+      "y": 169,
+      "facing": 0,
+      "context": "4/1/129"
+    },
+    {
+      "frame": 305,
+      "segmentId": "jam-wasteland",
+      "x": 14,
+      "y": 170,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 306,
+      "segmentId": "jam-wasteland",
+      "x": 12,
+      "y": 171,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 307,
+      "segmentId": "jam-wasteland",
+      "x": 9,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 308,
+      "segmentId": "jam-wasteland",
+      "x": 7,
+      "y": 173,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 309,
+      "segmentId": "jam-wasteland",
+      "x": 5,
+      "y": 173,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 310,
+      "segmentId": "jam-wasteland",
+      "x": 2,
+      "y": 173,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 311,
+      "segmentId": "deborah-cliff",
+      "x": 256,
+      "y": 173,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 312,
+      "segmentId": "deborah-cliff",
+      "x": 253,
+      "y": 173,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 313,
+      "segmentId": "deborah-cliff",
+      "x": 251,
+      "y": 173,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 314,
+      "segmentId": "deborah-cliff",
+      "x": 249,
+      "y": 173,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 315,
+      "segmentId": "deborah-cliff",
+      "x": 246,
+      "y": 173,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 316,
+      "segmentId": "deborah-cliff",
+      "x": 244,
+      "y": 173,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 317,
+      "segmentId": "deborah-cliff",
+      "x": 241,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 318,
+      "segmentId": "deborah-cliff",
+      "x": 239,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 319,
+      "segmentId": "deborah-cliff",
+      "x": 236,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 320,
+      "segmentId": "deborah-cliff",
+      "x": 234,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 321,
+      "segmentId": "deborah-cliff",
+      "x": 231,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 322,
+      "segmentId": "deborah-cliff",
+      "x": 228,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 323,
+      "segmentId": "deborah-cliff",
+      "x": 226,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 324,
+      "segmentId": "deborah-cliff",
+      "x": 223,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128;presentation-smoothing=jam-to-cliff-curved-bridge",
+      "presentationSmoothing": "jam-to-cliff-curved-bridge"
+    },
+    {
+      "frame": 325,
+      "segmentId": "deborah-cliff",
+      "x": 220,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 345,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 326,
+      "segmentId": "deborah-cliff",
+      "x": 217,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 346,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 327,
+      "segmentId": "deborah-cliff",
+      "x": 214,
+      "y": 172,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 347,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 328,
+      "segmentId": "deborah-cliff",
+      "x": 211,
+      "y": 171,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 348,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 329,
+      "segmentId": "deborah-cliff",
+      "x": 208,
+      "y": 171,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 349,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 330,
+      "segmentId": "deborah-cliff",
+      "x": 205,
+      "y": 170,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 350,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 331,
+      "segmentId": "deborah-cliff",
+      "x": 202,
+      "y": 170,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 351,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 332,
+      "segmentId": "deborah-cliff",
+      "x": 199,
+      "y": 169,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 352,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 333,
+      "segmentId": "deborah-cliff",
+      "x": 196,
+      "y": 168,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 353,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 334,
+      "segmentId": "deborah-cliff",
+      "x": 194,
+      "y": 167,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 354,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 335,
+      "segmentId": "deborah-cliff",
+      "x": 191,
+      "y": 166,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 355,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 336,
+      "segmentId": "deborah-cliff",
+      "x": 189,
+      "y": 164,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 356,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 337,
+      "segmentId": "deborah-cliff",
+      "x": 186,
+      "y": 163,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 357,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 338,
+      "segmentId": "deborah-cliff",
+      "x": 184,
+      "y": 161,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 358,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 339,
+      "segmentId": "deborah-cliff",
+      "x": 182,
+      "y": 160,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 359,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 340,
+      "segmentId": "deborah-cliff",
+      "x": 180,
+      "y": 158,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 360,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 341,
+      "segmentId": "deborah-cliff",
+      "x": 178,
+      "y": 156,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 361,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 342,
+      "segmentId": "deborah-cliff",
+      "x": 176,
+      "y": 154,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 362,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 343,
+      "segmentId": "deborah-cliff",
+      "x": 174,
+      "y": 153,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 363,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 344,
+      "segmentId": "deborah-cliff",
+      "x": 173,
+      "y": 151,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 364,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 345,
+      "segmentId": "deborah-cliff",
+      "x": 171,
+      "y": 149,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 365,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 346,
+      "segmentId": "deborah-cliff",
+      "x": 170,
+      "y": 147,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 366,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 347,
+      "segmentId": "deborah-cliff",
+      "x": 169,
+      "y": 145,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 367,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 348,
+      "segmentId": "deborah-cliff",
+      "x": 168,
+      "y": 143,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 368,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 349,
+      "segmentId": "deborah-cliff",
+      "x": 167,
+      "y": 141,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 369,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 350,
+      "segmentId": "deborah-cliff",
+      "x": 167,
+      "y": 139,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 370,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 351,
+      "segmentId": "deborah-cliff",
+      "x": 166,
+      "y": 137,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 371,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 352,
+      "segmentId": "deborah-cliff",
+      "x": 166,
+      "y": 135,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 372,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 353,
+      "segmentId": "deborah-cliff",
+      "x": 166,
+      "y": 133,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 373,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 354,
+      "segmentId": "deborah-cliff",
+      "x": 166,
+      "y": 131,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 374,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 355,
+      "segmentId": "deborah-cliff",
+      "x": 166,
+      "y": 130,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 375,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 356,
+      "segmentId": "deborah-cliff",
+      "x": 166,
+      "y": 128,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 376,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 357,
+      "segmentId": "deborah-cliff",
+      "x": 166,
+      "y": 127,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 377,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 358,
+      "segmentId": "deborah-cliff",
+      "x": 167,
+      "y": 125,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 378,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 359,
+      "segmentId": "deborah-cliff",
+      "x": 167,
+      "y": 124,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 379,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 360,
+      "segmentId": "deborah-cliff",
+      "x": 168,
+      "y": 123,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 380,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 361,
+      "segmentId": "deborah-cliff",
+      "x": 168,
+      "y": 122,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 381,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 362,
+      "segmentId": "deborah-cliff",
+      "x": 169,
+      "y": 121,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 382,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 363,
+      "segmentId": "deborah-cliff",
+      "x": 170,
+      "y": 120,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 383,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 364,
+      "segmentId": "deborah-cliff",
+      "x": 171,
+      "y": 119,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 384,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 365,
+      "segmentId": "deborah-cliff",
+      "x": 172,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 385,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 366,
+      "segmentId": "deborah-cliff",
+      "x": 173,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 386,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 367,
+      "segmentId": "deborah-cliff",
+      "x": 174,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 387,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 368,
+      "segmentId": "deborah-cliff",
+      "x": 175,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 388,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 369,
+      "segmentId": "deborah-cliff",
+      "x": 176,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 389,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 370,
+      "segmentId": "deborah-cliff",
+      "x": 177,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 390,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 371,
+      "segmentId": "deborah-cliff",
+      "x": 178,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 391,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 372,
+      "segmentId": "deborah-cliff",
+      "x": 178,
+      "y": 119,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 392,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 373,
+      "segmentId": "deborah-cliff",
+      "x": 179,
+      "y": 119,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 393,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 374,
+      "segmentId": "deborah-cliff",
+      "x": 180,
+      "y": 120,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 394,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 375,
+      "segmentId": "deborah-cliff",
+      "x": 181,
+      "y": 121,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 395,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 376,
+      "segmentId": "deborah-cliff",
+      "x": 182,
+      "y": 122,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 396,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 377,
+      "segmentId": "deborah-cliff",
+      "x": 182,
+      "y": 123,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 397,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 378,
+      "segmentId": "deborah-cliff",
+      "x": 183,
+      "y": 124,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 398,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 379,
+      "segmentId": "deborah-cliff",
+      "x": 183,
+      "y": 126,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 399,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 380,
+      "segmentId": "deborah-cliff",
+      "x": 184,
+      "y": 127,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 400,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 381,
+      "segmentId": "deborah-cliff",
+      "x": 184,
+      "y": 129,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 401,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 382,
+      "segmentId": "deborah-cliff",
+      "x": 184,
+      "y": 130,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 402,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 383,
+      "segmentId": "deborah-cliff",
+      "x": 184,
+      "y": 132,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 403,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 384,
+      "segmentId": "deborah-cliff",
+      "x": 184,
+      "y": 134,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 404,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 385,
+      "segmentId": "deborah-cliff",
+      "x": 184,
+      "y": 136,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 405,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 386,
+      "segmentId": "deborah-cliff",
+      "x": 183,
+      "y": 138,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 406,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 387,
+      "segmentId": "deborah-cliff",
+      "x": 183,
+      "y": 139,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 407,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 388,
+      "segmentId": "deborah-cliff",
+      "x": 182,
+      "y": 141,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 408,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 389,
+      "segmentId": "deborah-cliff",
+      "x": 181,
+      "y": 143,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 409,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 390,
+      "segmentId": "deborah-cliff",
+      "x": 180,
+      "y": 145,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 410,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 391,
+      "segmentId": "deborah-cliff",
+      "x": 179,
+      "y": 147,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 411,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 392,
+      "segmentId": "deborah-cliff",
+      "x": 178,
+      "y": 149,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 412,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 393,
+      "segmentId": "deborah-cliff",
+      "x": 177,
+      "y": 151,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 413,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 394,
+      "segmentId": "deborah-cliff",
+      "x": 175,
+      "y": 153,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 414,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 395,
+      "segmentId": "deborah-cliff",
+      "x": 173,
+      "y": 155,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 415,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 396,
+      "segmentId": "deborah-cliff",
+      "x": 171,
+      "y": 157,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 416,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 397,
+      "segmentId": "deborah-cliff",
+      "x": 169,
+      "y": 159,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 417,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 398,
+      "segmentId": "deborah-cliff",
+      "x": 167,
+      "y": 160,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 418,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 399,
+      "segmentId": "deborah-cliff",
+      "x": 165,
+      "y": 162,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 419,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 400,
+      "segmentId": "deborah-cliff",
+      "x": 163,
+      "y": 163,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 420,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 401,
+      "segmentId": "deborah-cliff",
+      "x": 160,
+      "y": 165,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 421,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 402,
+      "segmentId": "deborah-cliff",
+      "x": 158,
+      "y": 166,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 422,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 403,
+      "segmentId": "deborah-cliff",
+      "x": 155,
+      "y": 167,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 423,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 404,
+      "segmentId": "deborah-cliff",
+      "x": 153,
+      "y": 168,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 424,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 405,
+      "segmentId": "deborah-cliff",
+      "x": 150,
+      "y": 169,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 425,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 406,
+      "segmentId": "deborah-cliff",
+      "x": 147,
+      "y": 170,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 426,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 407,
+      "segmentId": "deborah-cliff",
+      "x": 144,
+      "y": 171,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 427,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 408,
+      "segmentId": "deborah-cliff",
+      "x": 141,
+      "y": 171,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 428,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 409,
+      "segmentId": "deborah-cliff",
+      "x": 138,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 429,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 410,
+      "segmentId": "deborah-cliff",
+      "x": 135,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 430,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 411,
+      "segmentId": "deborah-cliff",
+      "x": 132,
+      "y": 172,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 431,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 412,
+      "segmentId": "deborah-cliff",
+      "x": 129,
+      "y": 172,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 432,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 413,
+      "segmentId": "deborah-cliff",
+      "x": 126,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 433,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 414,
+      "segmentId": "deborah-cliff",
+      "x": 123,
+      "y": 171,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 434,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 415,
+      "segmentId": "deborah-cliff",
+      "x": 120,
+      "y": 171,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 435,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 416,
+      "segmentId": "deborah-cliff",
+      "x": 118,
+      "y": 170,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 436,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 417,
+      "segmentId": "deborah-cliff",
+      "x": 115,
+      "y": 169,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 437,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 418,
+      "segmentId": "deborah-cliff",
+      "x": 112,
+      "y": 168,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 438,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 419,
+      "segmentId": "deborah-cliff",
+      "x": 109,
+      "y": 167,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 439,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 420,
+      "segmentId": "deborah-cliff",
+      "x": 107,
+      "y": 166,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 440,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 421,
+      "segmentId": "deborah-cliff",
+      "x": 104,
+      "y": 165,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 441,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 422,
+      "segmentId": "deborah-cliff",
+      "x": 102,
+      "y": 163,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 442,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 423,
+      "segmentId": "deborah-cliff",
+      "x": 99,
+      "y": 162,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 443,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 424,
+      "segmentId": "deborah-cliff",
+      "x": 97,
+      "y": 160,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 444,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 425,
+      "segmentId": "deborah-cliff",
+      "x": 95,
+      "y": 159,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 445,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 426,
+      "segmentId": "deborah-cliff",
+      "x": 93,
+      "y": 157,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 446,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 427,
+      "segmentId": "deborah-cliff",
+      "x": 91,
+      "y": 155,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 447,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 428,
+      "segmentId": "deborah-cliff",
+      "x": 90,
+      "y": 153,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 448,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 429,
+      "segmentId": "deborah-cliff",
+      "x": 88,
+      "y": 151,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 449,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 430,
+      "segmentId": "deborah-cliff",
+      "x": 87,
+      "y": 149,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 450,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 431,
+      "segmentId": "deborah-cliff",
+      "x": 85,
+      "y": 147,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 451,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 432,
+      "segmentId": "deborah-cliff",
+      "x": 84,
+      "y": 145,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 452,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 433,
+      "segmentId": "deborah-cliff",
+      "x": 83,
+      "y": 143,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 453,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 434,
+      "segmentId": "deborah-cliff",
+      "x": 82,
+      "y": 141,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 454,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 435,
+      "segmentId": "deborah-cliff",
+      "x": 82,
+      "y": 139,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 455,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 436,
+      "segmentId": "deborah-cliff",
+      "x": 81,
+      "y": 138,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 456,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 437,
+      "segmentId": "deborah-cliff",
+      "x": 81,
+      "y": 136,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 457,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 438,
+      "segmentId": "deborah-cliff",
+      "x": 80,
+      "y": 134,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 458,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 439,
+      "segmentId": "deborah-cliff",
+      "x": 80,
+      "y": 132,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 459,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 440,
+      "segmentId": "deborah-cliff",
+      "x": 80,
+      "y": 130,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 460,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 441,
+      "segmentId": "deborah-cliff",
+      "x": 80,
+      "y": 129,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 461,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 442,
+      "segmentId": "deborah-cliff",
+      "x": 81,
+      "y": 127,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 462,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 443,
+      "segmentId": "deborah-cliff",
+      "x": 81,
+      "y": 126,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 463,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 444,
+      "segmentId": "deborah-cliff",
+      "x": 82,
+      "y": 124,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 464,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 445,
+      "segmentId": "deborah-cliff",
+      "x": 82,
+      "y": 123,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 465,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 446,
+      "segmentId": "deborah-cliff",
+      "x": 83,
+      "y": 122,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 466,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 447,
+      "segmentId": "deborah-cliff",
+      "x": 84,
+      "y": 121,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 467,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 448,
+      "segmentId": "deborah-cliff",
+      "x": 84,
+      "y": 120,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 468,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 449,
+      "segmentId": "deborah-cliff",
+      "x": 85,
+      "y": 119,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 469,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 450,
+      "segmentId": "deborah-cliff",
+      "x": 86,
+      "y": 119,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 470,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 451,
+      "segmentId": "deborah-cliff",
+      "x": 87,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 471,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 452,
+      "segmentId": "deborah-cliff",
+      "x": 88,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 472,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 453,
+      "segmentId": "deborah-cliff",
+      "x": 89,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 473,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 454,
+      "segmentId": "deborah-cliff",
+      "x": 90,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 474,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 455,
+      "segmentId": "deborah-cliff",
+      "x": 91,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 475,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 456,
+      "segmentId": "deborah-cliff",
+      "x": 92,
+      "y": 118,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 476,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 457,
+      "segmentId": "deborah-cliff",
+      "x": 93,
+      "y": 118,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 477,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 458,
+      "segmentId": "deborah-cliff",
+      "x": 94,
+      "y": 119,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 478,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 459,
+      "segmentId": "deborah-cliff",
+      "x": 95,
+      "y": 120,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 479,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 460,
+      "segmentId": "deborah-cliff",
+      "x": 95,
+      "y": 121,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 480,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 461,
+      "segmentId": "deborah-cliff",
+      "x": 96,
+      "y": 122,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 481,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 462,
+      "segmentId": "deborah-cliff",
+      "x": 97,
+      "y": 123,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 482,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 463,
+      "segmentId": "deborah-cliff",
+      "x": 97,
+      "y": 124,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 483,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 464,
+      "segmentId": "deborah-cliff",
+      "x": 98,
+      "y": 125,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 484,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 465,
+      "segmentId": "deborah-cliff",
+      "x": 98,
+      "y": 127,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 485,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 466,
+      "segmentId": "deborah-cliff",
+      "x": 99,
+      "y": 128,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 486,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 467,
+      "segmentId": "deborah-cliff",
+      "x": 99,
+      "y": 130,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 487,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 468,
+      "segmentId": "deborah-cliff",
+      "x": 99,
+      "y": 131,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 488,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 469,
+      "segmentId": "deborah-cliff",
+      "x": 99,
+      "y": 133,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 489,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 470,
+      "segmentId": "deborah-cliff",
+      "x": 99,
+      "y": 135,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 490,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 471,
+      "segmentId": "deborah-cliff",
+      "x": 98,
+      "y": 137,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 491,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 472,
+      "segmentId": "deborah-cliff",
+      "x": 98,
+      "y": 139,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 492,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 473,
+      "segmentId": "deborah-cliff",
+      "x": 97,
+      "y": 141,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 493,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 474,
+      "segmentId": "deborah-cliff",
+      "x": 96,
+      "y": 143,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 494,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 475,
+      "segmentId": "deborah-cliff",
+      "x": 95,
+      "y": 145,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 495,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 476,
+      "segmentId": "deborah-cliff",
+      "x": 94,
+      "y": 147,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 496,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 477,
+      "segmentId": "deborah-cliff",
+      "x": 93,
+      "y": 149,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 497,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 478,
+      "segmentId": "deborah-cliff",
+      "x": 92,
+      "y": 151,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 498,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 479,
+      "segmentId": "deborah-cliff",
+      "x": 90,
+      "y": 153,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 499,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 480,
+      "segmentId": "deborah-cliff",
+      "x": 89,
+      "y": 154,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 500,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 481,
+      "segmentId": "deborah-cliff",
+      "x": 87,
+      "y": 156,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 501,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 482,
+      "segmentId": "deborah-cliff",
+      "x": 85,
+      "y": 158,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 502,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 483,
+      "segmentId": "deborah-cliff",
+      "x": 83,
+      "y": 160,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 503,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 484,
+      "segmentId": "deborah-cliff",
+      "x": 81,
+      "y": 161,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 504,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 485,
+      "segmentId": "deborah-cliff",
+      "x": 78,
+      "y": 163,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 505,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 486,
+      "segmentId": "deborah-cliff",
+      "x": 76,
+      "y": 164,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 506,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 487,
+      "segmentId": "deborah-cliff",
+      "x": 73,
+      "y": 166,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 507,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 488,
+      "segmentId": "deborah-cliff",
+      "x": 71,
+      "y": 167,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 508,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 489,
+      "segmentId": "deborah-cliff",
+      "x": 68,
+      "y": 168,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 509,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 490,
+      "segmentId": "deborah-cliff",
+      "x": 65,
+      "y": 169,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 510,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 491,
+      "segmentId": "deborah-cliff",
+      "x": 63,
+      "y": 170,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 511,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 492,
+      "segmentId": "deborah-cliff",
+      "x": 60,
+      "y": 170,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 512,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 493,
+      "segmentId": "deborah-cliff",
+      "x": 57,
+      "y": 171,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 513,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 494,
+      "segmentId": "deborah-cliff",
+      "x": 54,
+      "y": 171,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 514,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 495,
+      "segmentId": "deborah-cliff",
+      "x": 51,
+      "y": 172,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 515,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 496,
+      "segmentId": "deborah-cliff",
+      "x": 48,
+      "y": 172,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 516,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 497,
+      "segmentId": "deborah-cliff",
+      "x": 45,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 517,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 498,
+      "segmentId": "deborah-cliff",
+      "x": 42,
+      "y": 172,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 518,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 499,
+      "segmentId": "deborah-cliff",
+      "x": 39,
+      "y": 171,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 519,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 500,
+      "segmentId": "deborah-cliff",
+      "x": 36,
+      "y": 171,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 520,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 501,
+      "segmentId": "deborah-cliff",
+      "x": 33,
+      "y": 170,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 521,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 502,
+      "segmentId": "deborah-cliff",
+      "x": 30,
+      "y": 170,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 522,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 503,
+      "segmentId": "deborah-cliff",
+      "x": 28,
+      "y": 169,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 523,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 504,
+      "segmentId": "deborah-cliff",
+      "x": 25,
+      "y": 168,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 524,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 505,
+      "segmentId": "deborah-cliff",
+      "x": 22,
+      "y": 167,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 525,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 506,
+      "segmentId": "deborah-cliff",
+      "x": 20,
+      "y": 165,
+      "facing": 0,
+      "context": "4/1/128",
+      "originalTraceFrame": 526,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 507,
+      "segmentId": "deborah-cliff",
+      "x": 17,
+      "y": 164,
+      "facing": 1,
+      "context": "4/1/128",
+      "originalTraceFrame": 527,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    },
+    {
+      "frame": 508,
+      "segmentId": "deborah-cliff",
+      "x": 15,
+      "y": 162,
+      "facing": 1,
+      "context": "4/1/255",
+      "originalTraceFrame": 528,
+      "presentationSmoothing": "timeline-compressed-after-jam-to-cliff-handoff"
+    }
+  ],
+  "provenance": {
+    "note": "Runtime sprite graphics and broad path come from ROM/runtime evidence. The Jam-to-Cliff screen-wrap handoff is presentation-smoothed and timeline-compressed so the guide animation reads as one continuous curved motion."
+  }
+}

@@ -44,8 +44,8 @@ The current build validates:
 | Enemy-bearing map sections | 54 |
 | Rows using standard night HP doubling | 303 |
 | Rows using fixed mansion/interior HP | 191 |
-| Manual-name matches proven | 9 |
-| Manual-name matches still unproven | 25 |
+| Manual-name matches proven | 21 |
+| Manual-name matches still unproven | 13 |
 
 The row validation currently has one documented position normalization:
 Camilla Cemetery actor `$41` at file offset `$06F42` is raw ROM row
@@ -60,9 +60,9 @@ Most classes expose selector evidence directly from their dispatch routine:
 
 | Status | Class count | Meaning |
 | --- | ---: | --- |
-| `dispatch-routine-selector-proof` | 27 | The static routine scan found one or more selector-stream/direct-selector initializers and decoded their metasprites. |
+| `dispatch-routine-selector-proof` | 26 | The static routine scan found one or more selector-stream/direct-selector initializers and decoded their metasprites. |
 | `partial-static-dispatch-proof` | 1 | Fishman body selector proof is decoded, but water/projectile states still need fuller routine coverage. |
-| `dispatch-routine-local-selector-table-proof` | 1 | The routine writes visible selectors from a local ROM table rather than the shared selector-record helper. |
+| `dispatch-routine-local-selector-table-proof` | 2 | The routine writes visible selectors from a local ROM table rather than the shared selector-record helper. |
 | `direct-selector-state-machine-partial` | 3 | A direct selector and known neutral animation selectors are decoded, but the whole state machine is not yet unfolded. |
 | `direct-selector-partial` | 2 | A direct selector is decoded for a boss/large enemy, but related state/projectile behavior remains out of scope. |
 
@@ -72,12 +72,13 @@ still partial:
 | Actor id | Display name | Status | Note |
 | --- | --- | --- | --- |
 | `$04` | The Fish Man | `partial-static-dispatch-proof` | Body selector record `$06` is decoded; water/projectile behavior still needs fuller routine coverage. |
+| `$15` | The Mud Man | `dispatch-routine-local-selector-table-proof` | Local ROM table at bank `1:$A3E4` writes selectors `$59/$5A/$5B`. |
 | `$18` | Swamp ghoul | `dispatch-routine-local-selector-table-proof` | Local ROM table at bank `1:$AF12` writes selectors `$C0/$C1/$C2`. |
-| `$1F` | Blob | `direct-selector-state-machine-partial` | Direct selector `$3C` and neutral selector `$3D` are decoded. |
-| `$41` | Blob | `direct-selector-state-machine-partial` | Direct selector `$C3` and neutral selector `$C4` are decoded. |
+| `$1F` | Slimey BarSinister | `direct-selector-state-machine-partial` | Direct selector `$3C` and neutral selector `$3D` are decoded. |
+| `$41` | Slimey BarSinister | `direct-selector-state-machine-partial` | Direct selector `$C3` and neutral selector `$C4` are decoded. |
 | `$42` | Camilla | `direct-selector-partial` | Direct selector `$CA` is decoded; boss/projectile states remain separate. |
 | `$44` | Death | `direct-selector-state-machine-partial` | Direct selector `$44` and follow-up selector `$45` are decoded; scythe/projectile behavior remains separate. |
-| `$4A` | Bone dragon | `direct-selector-partial` | Direct selector `$56` is decoded; projectile/spawn behavior remains separate. |
+| `$4A` | Dragon Bones | `direct-selector-partial` | Direct selector `$56` is decoded; projectile/spawn behavior remains separate. |
 
 ## Manual Names
 
@@ -87,14 +88,26 @@ proven manual names are:
 | Actor id | Manual name |
 | --- | --- |
 | `$01` | Raven |
+| `$02` | The Ghastly Leech |
 | `$04` | The Fish Man |
+| `$06` | The Two-Headed Creature |
 | `$08` | Ghostly Eyeball |
 | `$09` | Vampire Bat |
+| `$0A` | Medusa Head |
 | `$0E` | The Spider |
 | `$0F` | The Gargoyle |
 | `$11` | Vampire Bat |
+| `$12` | The Wolf |
 | `$13` | The Wolf Man |
+| `$15` | The Mud Man |
 | `$17` | The Zombie |
+| `$1F` | Slimey BarSinister |
+| `$38` | The Zombie Hand |
+| `$39` | The Pirate Skeleton |
+| `$3A` | The Mummy |
+| `$3F` | Man-Eating Plant |
+| `$41` | Slimey BarSinister |
+| `$4A` | Dragon Bones |
 
 All other manual names remain candidates until their manual illustration/name is
 matched to ROM-rendered sprite evidence. The atlas stores candidates separately

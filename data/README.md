@@ -37,6 +37,12 @@ Current files:
   Interior entry/exit alignment should add targeted probes here before a
   composed interior relationship is treated as final Simon/scroll placement
   truth.
+- `deborah-tornado-path.json`: committed trace-derived path for the Deborah
+  Cliff tornado actor. The ROM routine condition and actor initialization are
+  documented in `docs/guide-secret-reveal-methods.md`; this file preserves the
+  per-frame runtime segment/X/Y positions used by the guide's triggered
+  animation, plus the explicitly labeled guide-presentation smoothing for the
+  Jam-to-Cliff screen-wrap handoff.
 - `guide/source/*.json`: guide scene definitions. Interior sources should point
   at full interior maps only after a generated proof artifact inventories all
   submaps, render recipes, actor/fixture rows, and entry/exit relationships.

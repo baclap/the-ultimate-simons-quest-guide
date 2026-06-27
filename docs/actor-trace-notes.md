@@ -163,10 +163,10 @@ ROM-backed rule:
   becomes day HP `15` and night HP `30`.
 - Camilla Cemetery follows the same standard exterior rule. Full movement
   traces from `out/states/camilla-cemetery-day.mss` and
-  `out/states/camilla-cemetery-night.mss` with `right:30:2600` capture Dead
-  Hand HP writes from PC `$814A`: day writes `$08`, night writes `$10`. Cemetery
-  Blob actor id `$41` is not in the ROM exception list, so its row HP `$08`
-  yields day HP `8` and night HP `16`.
+  `out/states/camilla-cemetery-night.mss` with `right:30:2600` capture The
+  Zombie Hand HP writes from PC `$814A`: day writes `$08`, night writes `$10`.
+  Slimey BarSinister actor id `$41` is not in the ROM exception list, so its row
+  HP `$08` yields day HP `8` and night HP `16`.
 - Town night-only enemies should still use that ROM night-strength result for
   their `night` value; their `day` value remains `null` because the actor is not
   loaded during the day.
@@ -213,11 +213,13 @@ come from the canonical actor-class label, not the source manifest row name. A
 row source name such as "mansion bat" may remain in research artifacts as source
 metadata, but it must not become player-facing UI text.
 
-Actor id `$1F` is the current example. It was first promoted while building
+Actor id `$1F` is the cautionary example. It was first promoted while building
 Berkeley Mansion and temporarily named "Mansion blob", but a whole-ROM actor
-inventory finds the same id in Berkeley, Brahm, and Bodley mansions. Until an
-official manual-name match is proven for that sprite, the guide-facing name is
-"Blob".
+inventory found the same id in Berkeley, Brahm, and Bodley mansions. A later
+manual audit matched the ROM-rendered sprite to "Slimey BarSinister", so the
+guide now uses that manual name everywhere. If the manual match had remained
+unproven, the correct fallback would have been generic "Blob", not a
+location-prefixed name.
 
 The whole-ROM enemy atlas carries proven manual names and unproven manual
 candidates separately. Do not promote a candidate from
@@ -235,18 +237,31 @@ clear enough to claim an official name.
 | Actor id | Guide class | Guide label | Status | Evidence note |
 | --- | --- | --- | --- | --- |
 | `$01` | `crow` | Raven | Manual match | The bird sprite matches the manual's "Raven" illustration. |
+| `$02` | `leech` | The Ghastly Leech | Manual match | The upright curled leech selectors `$61/$62` match the manual's "The Ghastly Leech" illustration. |
 | `$03` | `skeleton` / `mansion-skeleton` | Skeleton | Generic | The guide renders a walking skeleton body; the English manual does not show a plain walking skeleton match clearly enough for a manual name. |
 | `$04` | `fishman` | The Fish Man | Manual match | The amphibious humanoid sprite matches the manual's "The Fish Man". |
+| `$05` | `mansion-spear-knight` | Spear knight | Generic | The spear-bearing mansion enemy is ROM-proven, but the English manual enemy pages do not include a clear spear-knight label. |
+| `$06` | `lizardman` | The Two-Headed Creature | Manual match | The hunched two-headed humanoid sprite matches the manual's "The Two-Headed Creature" illustration. |
 | `$08` | `eyeball` | Ghostly Eyeball | Manual match | The flying eyeball sprite matches the manual's "Ghostly Eyeball". |
 | `$09` | `zigzag-bat` | Vampire Bat | Manual match | The flying bat sprite matches the manual's "Vampire Bat". |
-| `$11` | `mansion-bat` | Vampire Bat | Manual match | The mansion bat actor uses a different ROM actor id/selector context from `$09`, but the rendered bat class matches the same manual "Vampire Bat" enemy name. |
-| `$0E` | `spider` | The Spider | Manual match | The hanging/crawling spider sprite matches the manual's "The Spider". |
-| `$13` | `werewolf` | The Wolf Man | Manual match | The Jova Woods humanoid wolf sprite matches the manual's "The Wolf Man". |
-| `$17` | `zombie` | The Zombie | Manual match | The town night humanoid sprite matches the manual's "The Zombie". |
-| `$05` | `mansion-spear-knight` | Spear knight | Generic | The spear-bearing mansion enemy is ROM-proven, but the English manual enemy pages do not include a clear spear-knight label. |
+| `$0A` | `medusa` | Medusa Head | Manual match | The flying head sprite matches the manual's "Medusa Head" illustration. |
 | `$0D` | `mansion-bone-thrower` | Bone thrower | Generic | The actor behavior is ROM-proven, but the sprite/name relationship needs a fuller projectile and actor-state proof before using a manual-derived name. |
+| `$0E` | `spider` | The Spider | Manual match | The hanging/crawling spider sprite matches the manual's "The Spider". |
 | `$0F` | `mansion-gargoyle` | The Gargoyle | Manual match | The winged mansion sprite matches the manual's "The Gargoyle". |
-| `$1F` | `blob` | Blob | Generic | The sprite is a mansion slime/blob class; neither "Slimey BarSinister" nor another English manual name is proven for this actor yet. |
+| `$11` | `mansion-bat` | Vampire Bat | Manual match | The mansion bat actor uses a different ROM actor id/selector context from `$09`, but the rendered bat class matches the same manual "Vampire Bat" enemy name. |
+| `$12` | `wolf` | The Wolf | Manual match | The quadruped wolf sprite matches the manual's "The Wolf" illustration. |
+| `$13` | `werewolf` | The Wolf Man | Manual match | The Jova Woods humanoid wolf sprite matches the manual's "The Wolf Man". |
+| `$15` | `mudman` | The Mud Man | Manual match | The mud-rising selectors `$59/$5A/$5B` match the manual's "The Mud Man" illustration. |
+| `$16` | `grabber` | Grabber | Generic | The ROM actor class is proven, but the English manual does not show a clear matching label for this rising-arm enemy. |
+| `$17` | `zombie` | The Zombie | Manual match | The town night humanoid sprite matches the manual's "The Zombie". |
+| `$1B` | `eagle` | Eagle | Generic | The ROM actor class is proven, but the English manual does not show a clear eagle/flying-bird label for this sprite. |
+| `$1F` | `blob` | Slimey BarSinister | Manual match | The mansion blob sprite matches the manual's "Slimey BarSinister" illustration; the same actor id appears in multiple mansions, so this is not location-named. |
+| `$38` | `dead-hand` | The Zombie Hand | Manual match | The hand-from-ground sprite matches the manual's "The Zombie Hand" illustration. |
+| `$39` | `ghost` | The Pirate Skeleton | Manual match | The guide-facing skull-in-flame selectors `$E6/$E7` match the manual's "The Pirate Skeleton" illustration. |
+| `$3A` | `mummy` | The Mummy | Manual match | The wrapped humanoid sprite matches the manual's "The Mummy" illustration. |
+| `$3F` | `flower` | Man-Eating Plant | Manual match | The plant sprite matches the manual's "Man-Eating Plant" illustration. |
+| `$41` | `outdoor-blob` | Slimey BarSinister | Manual match | The outdoor blob sprite matches the manual's "Slimey BarSinister" illustration; whole-ROM inventory finds it outside mansions too. |
+| `$4A` | `bone-dragon` | Dragon Bones | Manual match | The composite skull-and-neck sprite matches the manual's "Dragon Bones" illustration. |
 
 ## Berkeley Mansion Interior Promotion
 
@@ -262,7 +277,7 @@ documented `$22` moving-platform control row at ROM file offset `$5AD8`.
 | `$05` | Spear knight | 6 | Berkeley runtime trace observes selectors `$35/$36`; selector record `$13` backs the class. |
 | `$0D` | Bone thrower | 2 | Dispatch entry `$0D` initializes selector record `$05`; rows carry HP `$02`. |
 | `$0F` | The Gargoyle | 4 | Dispatch entry `$0F` initializes selector record `$12`. |
-| `$1F` | Blob | 10 | Direct `$DED0` selector path, not a normal selector-stream record; neutral animation uses selectors `$3C/$3D`. |
+| `$1F` | Slimey BarSinister | 10 | Direct `$DED0` selector path, not a normal selector-stream record; neutral animation uses selectors `$3C/$3D`. |
 | `$27` | Hidden clue book | 3 | Shared hidden-book routine `1:$8335`; selector record `$3B`; text decoded from ROM file offsets; each generated book is linked to the ROM-expanded destructible group at its reveal anchor. |
 | `$AE` | Oak-stake merchant | 1 | High-bit merchant row maps to live id `$2E`; selector record `$0B`; text decoded from ROM file offset `$0D044`. |
 | `$25` | Dracula's Rib orb | 1 | Direct `$DED0` selector path for the orb sequence; pre-stake save-state OAM proves selector `$3B` and the class-specific anchor; text decoded from ROM file offset `$0CF9C`. |
@@ -367,8 +382,8 @@ runtime/static selector proof, and secret-feature proof:
 | Actor id | Guide class | Rows | Evidence expectation |
 | --- | --- | ---: | --- |
 | `$9E` | Secret Merchant | 1 | Promoted through `secretFeatures`, not the ordinary character layer. ROM row `$06F32` maps `$9E` to live actor `$1E`; routine `1:$B1BD` hides the merchant until actor slots `$03-$05` contain transient actor `$09`, then clears hidden bit `$20` from `$03C6,x`. The initialization branch loads selector-record `$0B`, which emits merchant selectors `$1E/$1F`; the reward text pointer `$0CED8` gives the Silver Knife dialog, and PPU pattern-table captures match CHR banks `$04/$05`. |
-| `$38` | Dead Hand | 5 | Camilla day/night traces prove selector record `$17`, selectors `$8E/$8F`, OAM tile pairs `$89/$9F` and `$FB/$FD`, day HP `$08`, night HP `$10`, and PPU pattern-table CHR banks `$04/$05`. |
-| `$41` | Blob | 2 | Dispatch entry `$41` at bank `1:$B119` initializes direct selector `$C3`; the state routine at `1:$B13F` toggles selector RAM `$0300,x` between `$C3/$C4` for neutral animation; Camilla captures prove PPU pattern-table CHR banks `$04/$05`; actor id `$41` is not in the ROM HP initializer exception list, so row HP `$08` uses the standard day `$08` / night `$10` values; raw ROM bytes are used for placement when the manifest row normalizes Y differently. |
+| `$38` | The Zombie Hand | 5 | Camilla day/night traces prove selector record `$17`, selectors `$8E/$8F`, OAM tile pairs `$89/$9F` and `$FB/$FD`, day HP `$08`, night HP `$10`, and PPU pattern-table CHR banks `$04/$05`. |
+| `$41` | Slimey BarSinister | 2 | Dispatch entry `$41` at bank `1:$B119` initializes direct selector `$C3`; the state routine at `1:$B13F` toggles selector RAM `$0300,x` between `$C3/$C4` for neutral animation; Camilla captures prove PPU pattern-table CHR banks `$04/$05`; actor id `$41` is not in the ROM HP initializer exception list, so row HP `$08` uses the standard day `$08` / night `$10` values; raw ROM bytes are used for placement when the manifest row normalizes Y differently. |
 
 Yuba Lake Path contains two `$22` moving-platform control rows not exposed by
 the generic manifest actor list. They are promoted through `secretFeatures`

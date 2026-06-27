@@ -6,9 +6,9 @@ import {
   isCv2DialogRuleLine,
   normalizeCv2DialogText,
   renderCv2DialogFrameToRgba
-} from './dialog.js?v=reset-control';
+} from './dialog.js?v=deborah-tornado-curved';
 
-const CACHE_KEY = 'reset-control';
+const CACHE_KEY = 'deborah-tornado-curved';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
 const OVERWORLD_VIEW_ID = 'overworld';
@@ -22,6 +22,12 @@ const VEROS_CHAIN_WHIP_ROOM_VIEW_ID = 'veros-chain-whip-room';
 const ALJIBA_GARLIC_ROOM_VIEW_ID = 'aljiba-garlic-room';
 const ALJIBA_BOOK_OLD_LADY_ROOM_VIEW_ID = 'aljiba-book-old-lady-room';
 const ALJIBA_LAURELS_ROOM_VIEW_ID = 'aljiba-laurels-room';
+const ALBA_GARLIC_ROOM_VIEW_ID = 'alba-garlic-room';
+const ALBA_CHURCH_VIEW_ID = 'alba-church';
+const ALBA_LAURELS_ROOM_VIEW_ID = 'alba-laurels-room';
+const ONDOL_MORNING_STAR_ROOM_VIEW_ID = 'ondol-morning-star-room';
+const ONDOL_DEATH_STAR_LADY_ROOM_VIEW_ID = 'ondol-death-star-lady-room';
+const ONDOL_LAURELS_ROOM_VIEW_ID = 'ondol-laurels-room';
 const LAUBER_MANSION_VIEW_ID = 'lauber-mansion';
 const VIEW_TRANSITION_MS = 140;
 const VIEW_TRANSITION_HOLD_MS = 40;
@@ -31,6 +37,21 @@ const MOBILE_SPAWN_CAMERA_PADDING = 0.94;
 const DESKTOP_SPAWN_CAMERA_PADDING = 0.47;
 
 const ROUTE_SEGMENT_IDS = [
+  'deborah-cliff',
+  'jam-wasteland',
+  'town-of-ondol',
+  'sadam-woods-part-3',
+  'storigoi-graveyard',
+  'sadam-woods-part-2',
+  'sadam-woods-part-1',
+  'town-of-alba',
+  'vrad-mountain-part-2',
+  'vrad-mountain-part-1',
+  'dead-river-part-2',
+  'dead-river-part-1',
+  'belasco-marsh',
+  'brahm-mansion-door',
+  'dead-river-to-brahm',
   'town-of-jova',
   'jova-woods',
   'south-bridge',
@@ -55,6 +76,18 @@ const ROUTE_SEGMENT_IDS = [
 
 const OVERVIEW_LABEL_SCALE = 0.3;
 const OVERVIEW_LABEL_TEXT = new Map([
+  ['deborah-cliff', 'Deborah Cliff'],
+  ['jam-wasteland', 'Jam Wasteland'],
+  ['sadam-woods-part-3', 'Sadam Woods'],
+  ['storigoi-graveyard', 'Storigoi Graveyard'],
+  ['sadam-woods-part-2', 'Sadam Woods'],
+  ['sadam-woods-part-1', 'Sadam Woods'],
+  ['vrad-mountain-part-2', 'Vrad Mountain'],
+  ['vrad-mountain-part-1', 'Vrad Mountain'],
+  ['dead-river-part-2', 'Dead River'],
+  ['dead-river-part-1', 'Dead River'],
+  ['dead-river-to-brahm', 'Dead River'],
+  ['brahm-mansion-door', "Brahm's Mansion"],
   ['veros-woods-part-1', 'Veros Woods'],
   ['dabis-path-part-1', "Dabi's Path"],
   ['aljiba-woods-part-1', 'Aljiba Woods'],
@@ -64,6 +97,11 @@ const OVERVIEW_LABEL_TEXT = new Map([
   ['lauber-mansion-door', 'Lauber Mansion']
 ]);
 const OVERVIEW_LABEL_HIDDEN_IDS = new Set([
+  'sadam-woods-part-1',
+  'sadam-woods-part-3',
+  'vrad-mountain-part-1',
+  'dead-river-part-1',
+  'dead-river-to-brahm',
   'veros-woods-part-2',
   'dabis-path-part-2',
   'aljiba-woods-part-2',
@@ -71,6 +109,11 @@ const OVERVIEW_LABEL_HIDDEN_IDS = new Set([
   'denis-woods-part-3'
 ]);
 const LABEL_BELOW_SEGMENT_IDS = new Set([
+  'vrad-mountain-part-2',
+  'vrad-mountain-part-1',
+  'storigoi-graveyard',
+  'brahm-mansion-door',
+  'dead-river-to-brahm',
   'town-of-veros',
   'yuba-lake-path',
   'yuba-lake',
@@ -79,6 +122,21 @@ const LABEL_BELOW_SEGMENT_IDS = new Set([
 const LABEL_BOUNDS_SEGMENT_IDS = new Map([
   ['yuba-lake', ['yuba-lake', 'yuba-lake-revealed-route']]
 ]);
+const OVERWORLD_ROUTE_CONNECTORS = [
+  {
+    id: 'dead-river-brahm-route-connector',
+    fromSegmentId: 'dead-river-part-1',
+    toSegmentId: 'dead-river-to-brahm',
+    visibilityLayer: 'secrets',
+    fromAnchorX: 0.5,
+    toAnchorX: 1,
+    toAnchorY: 0.5,
+    bendYRatio: 1
+  }
+];
+const ROUTE_CONNECTOR_DASH_WORLD_PX = 8;
+const ROUTE_CONNECTOR_MIN_SCREEN_PX = 1;
+const ROUTE_CONNECTOR_MIN_DASH_SCREEN_PX = 4;
 const LABEL_COLLISION_PADDING = 6;
 const LABEL_MAP_GAP = 10;
 const LABEL_LEADER_THRESHOLD = 3;
@@ -292,6 +350,60 @@ const MAP_VIEWS = {
     supportsPalette: false,
     fixedVariant: 'day',
     sceneUrl: `./assets/scenes/aljiba-laurels-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [ALBA_GARLIC_ROOM_VIEW_ID]: {
+    id: ALBA_GARLIC_ROOM_VIEW_ID,
+    label: 'Alba Garlic Room',
+    ariaLabel: 'Alba Garlic Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/alba-garlic-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [ALBA_CHURCH_VIEW_ID]: {
+    id: ALBA_CHURCH_VIEW_ID,
+    label: 'Alba Church',
+    ariaLabel: 'Alba Church interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/alba-church/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [ALBA_LAURELS_ROOM_VIEW_ID]: {
+    id: ALBA_LAURELS_ROOM_VIEW_ID,
+    label: 'Alba Laurels Room',
+    ariaLabel: 'Alba Laurels Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/alba-laurels-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [ONDOL_MORNING_STAR_ROOM_VIEW_ID]: {
+    id: ONDOL_MORNING_STAR_ROOM_VIEW_ID,
+    label: 'Ondol Morning Star Room',
+    ariaLabel: 'Ondol Morning Star Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/ondol-morning-star-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [ONDOL_DEATH_STAR_LADY_ROOM_VIEW_ID]: {
+    id: ONDOL_DEATH_STAR_LADY_ROOM_VIEW_ID,
+    label: 'Ondol Death Star Lady Room',
+    ariaLabel: 'Ondol Death Star Lady Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/ondol-death-star-lady-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [ONDOL_LAURELS_ROOM_VIEW_ID]: {
+    id: ONDOL_LAURELS_ROOM_VIEW_ID,
+    label: 'Ondol Laurels Room',
+    ariaLabel: 'Ondol Laurels Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/ondol-laurels-room/slice.json?v=${CACHE_KEY}`,
     renderer: null
   },
   [LAUBER_MANSION_VIEW_ID]: {
@@ -911,7 +1023,10 @@ class SecretFeatureRenderer {
       const frameDurationMs = Number.isFinite(render.frameDurationMs) && render.frameDurationMs > 0
         ? render.frameDurationMs
         : 360;
-      const frameIndex = Math.floor(now / frameDurationMs);
+      const animation = activeSecretAnimation(feature, now);
+      const frameIndex = animation
+        ? Math.floor((now - animation.startedAt) / frameDurationMs)
+        : Math.floor(now / frameDurationMs);
       const frame = render.frames[frameIndex % render.frames.length];
       const position = secretFeatureWorldPosition(feature, now);
       pushSprite(
@@ -920,7 +1035,7 @@ class SecretFeatureRenderer {
         render,
         frame,
         chrSet,
-        displayOffsetForSegment(feature.segmentId)
+        displayOffsetForSegment(position.segmentId || feature.segmentId)
       );
     }
 
@@ -1087,11 +1202,16 @@ class TileRenderer {
   resetCamera(padding = 0.88) {
     if (!this.manifest) return;
     resizeCanvas(this.gl, this.canvas);
-    this.camera.x = this.manifest.world.width / 2;
-    this.camera.y = this.manifest.world.height / 2;
+    const world = this.manifest.world || {};
+    const worldX = Number.isFinite(world.x) ? world.x : 0;
+    const worldY = Number.isFinite(world.y) ? world.y : 0;
+    const worldWidth = Math.max(1, world.width || 1);
+    const worldHeight = Math.max(1, world.height || 1);
+    this.camera.x = worldX + worldWidth / 2;
+    this.camera.y = worldY + worldHeight / 2;
     this.camera.scale = Math.min(
-      this.canvas.width / this.manifest.world.width,
-      this.canvas.height / this.manifest.world.height
+      this.canvas.width / worldWidth,
+      this.canvas.height / worldHeight
     ) * padding;
     this.camera.scale = Math.max(MIN_CAMERA_SCALE, this.camera.scale);
   }
@@ -1225,11 +1345,14 @@ let labelRenderer;
 let itemIconRenderer;
 let activeGuideModel = null;
 let activeInspectorModel = null;
+const activeSecretAnimations = new Map();
 let pendingReturnFocus = null;
 let viewTransitionToken = 0;
 let transitionTargetViewId = null;
 let labels = [];
 let sectionOutlines = [];
+let routeConnectors = [];
+let routeConnectorSvg;
 let hotspots = [];
 let destructibleHotspots = [];
 let actorHotspots = [];
@@ -1508,11 +1631,12 @@ function visibleBounds(segmentIds, renderer = activeRenderer()) {
 
 function manifestBounds(renderer) {
   if (!renderer?.manifest) return undefined;
+  const world = renderer.manifest.world || {};
   return {
-    x: 0,
-    y: 0,
-    width: renderer.manifest.world.width,
-    height: renderer.manifest.world.height
+    x: Number.isFinite(world.x) ? world.x : 0,
+    y: Number.isFinite(world.y) ? world.y : 0,
+    width: world.width,
+    height: world.height
   };
 }
 
@@ -1696,6 +1820,48 @@ function worldRectToScreen(renderer, rect) {
     width: Math.abs(end.x - start.x),
     height: Math.abs(end.y - start.y)
   };
+}
+
+function routeConnectorVisible(connector, renderer) {
+  if (currentView().id !== OVERWORLD_VIEW_ID) {
+    return false;
+  }
+  if (connector.visibilityLayer === 'secrets' && !state.showSecrets) {
+    return false;
+  }
+  return segmentIdVisible(connector.fromSegmentId, renderer)
+    && segmentIdVisible(connector.toSegmentId, renderer);
+}
+
+function routeConnectorWorldPoints(connector, renderer) {
+  const fromSegment = renderer.segmentById.get(connector.fromSegmentId);
+  const toSegment = renderer.segmentById.get(connector.toSegmentId);
+  if (!fromSegment || !toSegment) {
+    return [];
+  }
+
+  const fromRect = segmentDisplayPosition(fromSegment, renderer);
+  const toRect = segmentDisplayPosition(toSegment, renderer);
+  const start = {
+    x: fromRect.x + fromRect.width * connector.fromAnchorX,
+    y: fromRect.y + fromRect.height
+  };
+  const end = {
+    x: toRect.x + toRect.width * connector.toAnchorX,
+    y: toRect.y + toRect.height * (connector.toAnchorY ?? 0)
+  };
+  const bendY = start.y + (end.y - start.y) * connector.bendYRatio;
+
+  const points = [
+    start,
+    { x: start.x, y: bendY },
+    { x: end.x, y: bendY },
+    end
+  ];
+  return points.filter((point, index) => {
+    const previous = points[index - 1];
+    return !previous || previous.x !== point.x || previous.y !== point.y;
+  });
 }
 
 function anchorWorldRect(model) {
@@ -1980,18 +2146,77 @@ function secretFeatureMotionOffset(feature, now = performance.now()) {
   return { x: minX, y: minY + amount * direction };
 }
 
+function activeSecretAnimation(feature, now = performance.now()) {
+  const state = activeSecretAnimations.get(feature.id);
+  if (!state) {
+    return null;
+  }
+  const durationMs = feature.animation?.durationMs;
+  if (Number.isFinite(durationMs) && durationMs > 0 && now - state.startedAt > durationMs) {
+    activeSecretAnimations.delete(feature.id);
+    return null;
+  }
+  return state;
+}
+
+function secretFeatureTracePathPosition(feature, now = performance.now()) {
+  const animation = feature.animation;
+  if (animation?.type !== 'trace-path' || !Array.isArray(animation.points) || animation.points.length === 0) {
+    return null;
+  }
+  const active = activeSecretAnimation(feature, now);
+  if (!active) {
+    return null;
+  }
+  const frameDurationMs = Number.isFinite(animation.frameDurationMs) && animation.frameDurationMs > 0
+    ? animation.frameDurationMs
+    : 1000 / 60;
+  const elapsedFrameExact = (now - active.startedAt) / frameDurationMs;
+  const elapsedFrame = Math.floor(elapsedFrameExact);
+  let low = 0;
+  let high = animation.points.length - 1;
+  while (low < high) {
+    const mid = Math.ceil((low + high) / 2);
+    if (animation.points[mid].frame <= elapsedFrame) {
+      low = mid;
+    } else {
+      high = mid - 1;
+    }
+  }
+  const point = animation.points[low];
+  const nextPoint = animation.interpolate ? animation.points[low + 1] : null;
+  if (nextPoint && nextPoint.frame > point.frame) {
+    const amount = Math.max(0, Math.min(1, (elapsedFrameExact - point.frame) / (nextPoint.frame - point.frame)));
+    return {
+      worldX: point.worldX + (nextPoint.worldX - point.worldX) * amount,
+      worldY: point.worldY + (nextPoint.worldY - point.worldY) * amount,
+      segmentId: amount < 0.5 ? point.segmentId : nextPoint.segmentId
+    };
+  }
+  return {
+    worldX: point.worldX,
+    worldY: point.worldY,
+    segmentId: point.segmentId
+  };
+}
+
 function secretFeatureWorldPosition(feature, now = performance.now()) {
+  const tracePosition = secretFeatureTracePathPosition(feature, now);
+  if (tracePosition) {
+    return tracePosition;
+  }
   const motion = secretFeatureMotionOffset(feature, now);
   return {
     worldX: feature.worldX + motion.x,
-    worldY: feature.worldY + motion.y
+    worldY: feature.worldY + motion.y,
+    segmentId: feature.segmentId
   };
 }
 
 function secretFeatureWorldRect(feature) {
   const renderer = activeRenderer();
-  const offset = segmentDisplayOffset(feature.segmentId, renderer);
   if (feature.bounds) {
+    const offset = segmentDisplayOffset(feature.segmentId, renderer);
     return {
       x: feature.worldX + offset.x,
       y: feature.worldY + offset.y,
@@ -2002,6 +2227,7 @@ function secretFeatureWorldRect(feature) {
   const render = feature.render || {};
   const bounds = render.opaqueBounds || render.bounds;
   const position = secretFeatureWorldPosition(feature);
+  const offset = segmentDisplayOffset(position.segmentId || feature.segmentId, renderer);
   if (bounds) {
     return {
       x: position.worldX + offset.x + bounds.minX,
@@ -2023,6 +2249,25 @@ function actorClassFor(actor) {
   return actor.classId ? activeRenderer()?.actorClassById.get(actor.classId) : null;
 }
 
+function boundsForActorOrientation(actor, bounds) {
+  if (
+    !actor?.flipHorizontal
+    || !bounds
+    || !Number.isFinite(bounds.minX)
+    || !Number.isFinite(bounds.maxX)
+  ) {
+    return bounds;
+  }
+  const minX = -bounds.maxX;
+  const maxX = -bounds.minX;
+  return {
+    ...bounds,
+    minX,
+    maxX,
+    width: maxX - minX
+  };
+}
+
 function actorWorldRect(actor) {
   const renderer = activeRenderer();
   if (actor.visualTileRect && !actorIsSecret(actor)) {
@@ -2040,7 +2285,10 @@ function actorWorldRect(actor) {
   }
 
   const actorClass = actorClassFor(actor);
-  const bounds = actorClass?.previewOpaqueBounds || actorClass?.opaqueBounds || actorClass?.bounds;
+  const bounds = boundsForActorOrientation(
+    actor,
+    actorClass?.previewOpaqueBounds || actorClass?.opaqueBounds || actorClass?.bounds
+  );
   const offset = segmentDisplayOffset(actor.segmentId, renderer);
   if (bounds) {
     return {
@@ -2113,6 +2361,9 @@ function secretFeatureLayerVisible(feature) {
   const visibilityLayer = feature.visibilityLayer || (feature.kind === 'secret' ? 'secrets' : 'always');
   if (visibilityLayer === 'secrets') {
     return state.showSecrets;
+  }
+  if (visibilityLayer === 'triggered') {
+    return state.showSecrets && Boolean(activeSecretAnimation(feature));
   }
   return true;
 }
@@ -2297,6 +2548,7 @@ function buildOverlays() {
   dom.overlay.replaceChildren();
   labels = [];
   sectionOutlines = [];
+  routeConnectors = [];
   hotspots = [];
   destructibleHotspots = [];
   actorHotspots = [];
@@ -2304,7 +2556,9 @@ function buildOverlays() {
   itemBadges = [];
   doorItemBadges = [];
   secretFeatureItemBadges = [];
+  routeConnectorSvg = makeSvgElement('svg', 'route-connectors');
   labelLeaderSvg = makeSvgElement('svg', 'label-leaders');
+  dom.overlay.append(routeConnectorSvg);
   dom.overlay.append(labelLeaderSvg);
 
   for (const segment of renderer.segments) {
@@ -2312,6 +2566,15 @@ function buildOverlays() {
     element.setAttribute('aria-hidden', 'true');
     element.hidden = !state.sectionOutlines;
     sectionOutlines.push({ element, segment: segment.record });
+  }
+
+  if (view.id === OVERWORLD_VIEW_ID) {
+    for (const connector of OVERWORLD_ROUTE_CONNECTORS) {
+      const element = makeSvgElement('polyline', 'route-connector-line');
+      element.setAttribute('aria-hidden', 'true');
+      routeConnectorSvg.append(element);
+      routeConnectors.push({ element, connector });
+    }
   }
 
   const labelSegments = labelSegmentsForView(view, renderer);
@@ -2415,19 +2678,22 @@ function buildOverlays() {
     addGuardedClick(element, () => showActorCard(actor));
     actorHotspots.push({ element, actor });
 
-    if (actor.itemOffer) {
+    const actorBadgeItem = actor.itemOffer || actor.itemReward;
+    if (actorBadgeItem) {
       const badge = makeElement('item-badge is-character-badge', 'button');
       const frameCanvas = document.createElement('canvas');
       const iconCanvas = document.createElement('canvas');
       badge.type = 'button';
-      badge.title = `${actor.itemOffer.itemLabel} details`;
-      badge.setAttribute('aria-label', `${actor.itemOffer.itemLabel} details`);
+      badge.title = `${actorBadgeItem.itemLabel} details`;
+      badge.setAttribute('aria-label', `${actorBadgeItem.itemLabel} details`);
       frameCanvas.className = 'item-badge-frame-canvas';
       iconCanvas.className = 'item-badge-icon-canvas';
       frameCanvas.setAttribute('aria-hidden', 'true');
       iconCanvas.setAttribute('aria-hidden', 'true');
       badge.append(frameCanvas, iconCanvas);
-      addGuardedClick(badge, () => showItemOfferCard(actor));
+      addGuardedClick(badge, () => (
+        actor.itemOffer ? showItemOfferCard(actor) : showActorRewardCard(actor)
+      ));
       itemBadges.push({ element: badge, actor, frameCanvas, iconCanvas, renderedKey: null });
     }
   }
@@ -2498,6 +2764,7 @@ function secretFeatureItemBadgeVisualRect(feature, scale) {
 
 function itemBadgeItemId(item) {
   return item.actor?.itemOffer?.itemId
+    || item.actor?.itemReward?.itemId
     || item.hotspot?.itemReward?.itemId
     || item.feature?.itemReward?.itemId
     || null;
@@ -2657,6 +2924,24 @@ function updateOverlays() {
     item.element.style.height = `${Math.max(0, Math.round(rect.height))}px`;
   }
 
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  const mapCssScale = renderer.camera.scale / dpr;
+  const routeStrokeWidth = Math.max(ROUTE_CONNECTOR_MIN_SCREEN_PX, mapCssScale);
+  const routeDash = Math.max(ROUTE_CONNECTOR_MIN_DASH_SCREEN_PX, ROUTE_CONNECTOR_DASH_WORLD_PX * mapCssScale);
+  for (const item of routeConnectors) {
+    const visible = routeConnectorVisible(item.connector, renderer);
+    item.element.setAttribute('visibility', visible ? 'visible' : 'hidden');
+    if (!visible) {
+      continue;
+    }
+    const screenPoints = routeConnectorWorldPoints(item.connector, renderer)
+      .map((point) => worldToScreen(renderer, point.x, point.y))
+      .map((point) => `${Math.round(point.x)},${Math.round(point.y)}`);
+    item.element.setAttribute('points', screenPoints.join(' '));
+    item.element.setAttribute('stroke-width', routeStrokeWidth.toFixed(3));
+    item.element.setAttribute('stroke-dasharray', `${routeDash.toFixed(3)} ${routeDash.toFixed(3)}`);
+  }
+
   const overviewLabels = view.id === OVERWORLD_VIEW_ID && renderer.camera.scale < OVERVIEW_LABEL_SCALE;
 
   for (const item of labels) {
@@ -2727,7 +3012,7 @@ function updateOverlays() {
   }
 
   for (const item of itemBadges) {
-    const visible = state.labels && Boolean(item.actor.itemOffer) && shouldShowActorHotspot(item.actor);
+    const visible = state.labels && Boolean(item.actor.itemOffer || item.actor.itemReward) && shouldShowActorHotspot(item.actor);
     item.element.hidden = !visible;
     if (!visible) continue;
     const scale = itemBadgeScale(renderer);
@@ -2799,6 +3084,7 @@ class Cv2DialogRenderer {
     this.ensureSurfaceCount(1);
     this.textElement.textContent = '';
     this.box.removeAttribute('aria-label');
+    this.box.classList.remove('is-dialog-separator');
     this.box.parentElement?.classList.remove('is-dialog-bundle');
     this.box.parentElement?.removeAttribute('aria-label');
   }
@@ -3135,6 +3421,7 @@ class Cv2DialogRenderer {
     surface.box.dataset.tileColumns = String(tileColumns);
     surface.box.dataset.tileRows = String(tileRows);
     surface.box.dataset.dialogTone = model.dialogTone || 'game';
+    surface.box.classList.toggle('is-dialog-separator', model.bundleRole === 'separator');
     const paletteOverrides = model.dialogTone === GUIDE_AUTHORED_DIALOG_TONE
       ? { 1: GUIDE_AUTHORED_DIALOG_GREY_BORDER }
       : {};
@@ -3366,6 +3653,9 @@ function renderGuideCard() {
     dom.guideCard.hidden = true;
     return;
   }
+  if (activeGuideModel.refresh) {
+    Object.assign(activeGuideModel, activeGuideModel.refresh());
+  }
   const dialogScale = dialogScaleForMap();
   dialogRenderer.render(activeGuideModel, dialogScale);
   dom.dialogBox.dataset.cssScale = String(dialogScale);
@@ -3428,7 +3718,22 @@ function showDestructibleFixtureCard(fixture) {
   });
 }
 
+function triggerSecretFeatureAnimation(featureId) {
+  if (!featureId) {
+    return;
+  }
+  const feature = activeRenderer()?.manifest?.secretFeatures?.find((candidate) => candidate.id === featureId);
+  if (!feature?.animation) {
+    return;
+  }
+  activeSecretAnimations.set(featureId, {
+    startedAt: performance.now()
+  });
+}
+
 function showSecretFeatureCard(feature) {
+  triggerSecretFeatureAnimation(feature.triggerAnimationFeatureId);
+
   if (Array.isArray(feature.dialogs) && feature.dialogs.length > 0) {
     showGuideCard({
       title: feature.label,
@@ -3504,6 +3809,13 @@ function showItemOfferCard(actor) {
   });
 }
 
+function showActorRewardCard(actor) {
+  showItemDetailsCard({
+    item: actor.itemReward,
+    anchorWorldRect: () => actorWorldRect(actor)
+  });
+}
+
 function showItemRewardCard(hotspot) {
   showItemDetailsCard({
     item: hotspot.itemReward,
@@ -3549,6 +3861,55 @@ function showStackedActorGuideCard(actor) {
   });
 }
 
+function romDialogVariantGuideLine(variant) {
+  if (variant.guideLine) {
+    return variant.guideLine;
+  }
+  return variant.effect
+    ? `${variant.label} has a route effect.`
+    : `${variant.label} is shown normally.`;
+}
+
+function actorRomDialogVariantsModel(actor) {
+  if (!state.showSecrets) {
+    return {
+      title: actor.label,
+      dialogText: actor.text,
+      dialogs: null,
+      anchorWorldRect: () => actorWorldRect(actor)
+    };
+  }
+
+  const [defaultVariant, secretVariant] = actor.romDialogVariants;
+  return {
+    title: actor.label,
+    anchorWorldRect: () => actorWorldRect(actor),
+    dialogs: [
+      {
+        title: `${actor.label} ${defaultVariant.label}`,
+        dialogText: defaultVariant.text
+      },
+      {
+        title: actor.label,
+        dialogText: romDialogVariantGuideLine(secretVariant),
+        dialogTone: GUIDE_AUTHORED_DIALOG_TONE,
+        bundleRole: 'separator'
+      },
+      {
+        title: `${actor.label} ${secretVariant.label}`,
+        dialogText: secretVariant.text
+      }
+    ]
+  };
+}
+
+function showActorRomDialogVariantsCard(actor) {
+  showGuideCard({
+    ...actorRomDialogVariantsModel(actor),
+    refresh: () => actorRomDialogVariantsModel(actor)
+  });
+}
+
 function showActorCard(actor) {
   if (actor.kind === 'secret') {
     showSecretCard(actor);
@@ -3577,6 +3938,11 @@ function showActorCard(actor) {
 
   if (actor.itemOffer && actor.text) {
     showItemMerchantCard(actor);
+    return;
+  }
+
+  if (Array.isArray(actor.romDialogVariants) && actor.romDialogVariants.length > 1) {
+    showActorRomDialogVariantsCard(actor);
     return;
   }
 
@@ -3700,6 +4066,7 @@ function syncLayerStateFromControls() {
 function setActiveView(viewId, { resetCamera = false } = {}) {
   const view = MAP_VIEWS[viewId] || MAP_VIEWS[OVERWORLD_VIEW_ID];
   state.activeViewId = view.id;
+  activeSecretAnimations.clear();
   for (const candidate of Object.values(MAP_VIEWS)) {
     if (!candidate.renderer?.canvas) continue;
     candidate.renderer.canvas.hidden = candidate.id !== view.id;
@@ -4158,6 +4525,7 @@ function attachControls() {
   });
   dom.showSecretsToggle.addEventListener('change', () => {
     state.showSecrets = dom.showSecretsToggle.checked;
+    renderGuideCard();
   });
   dom.highlightCharactersToggle.addEventListener('change', () => {
     state.highlightCharacters = dom.highlightCharactersToggle.checked;

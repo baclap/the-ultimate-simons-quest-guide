@@ -261,6 +261,148 @@ The two Yuba Lake Path platforms are visible moving platforms, not secrets.
 They render regardless of the guide Secrets layer and use ROM-defined
 horizontal ping-pong paths.
 
+## Vrad Mountain Part 1 And Jam Wasteland: Moving Platforms
+
+ROM-backed evidence:
+
+- Vrad Mountain Part 1 has eight raw actor/control rows:
+  `0x06874 = 13 0D 34 20`, `0x06878 = 17 0D 34 20`,
+  `0x0687C = 1B 0D 34 20`, `0x06880 = 1F 0D 34 20`,
+  `0x06884 = 21 0D 34 20`, `0x06888 = 25 0D 34 20`,
+  `0x0688C = 29 0D 34 20`, and `0x06890 = 2D 0D 34 20`.
+- Jam Wasteland has three raw actor/control rows:
+  `0x06899 = 14 0D 34 20`, `0x0689D = 18 0D 34 20`, and
+  `0x068A1 = 1C 0D 34 20`.
+- Actor id `$34` dispatches to bank `1:$854B`, the same shared
+  moving-platform routine used by actor ids `$21` and `$22`.
+- The routine special-cases live actor `$34` and writes direct metasprite
+  selector `$1B`.
+- Selector `$1B` decodes to a 16x16 two-sprite platform using tiles `$F6/$F8`
+  from CHR banks `$06/$07`.
+- Row data `$20` supplies low-nibble motion index `$0`, which selects the
+  vertical setup branch at `1:$8589`, and high nibble `$20`, which is reloaded
+  into the reversal timer by the runtime branch at `1:$85FE`.
+- The vertical branch is the same branch runtime-proven by the Berkeley hidden
+  platform trace at `0.5` px/frame, so `$20` timer frames produce a 16-pixel
+  upward travel from the row anchor before reversal.
+- The rendered guide placement applies the moving-platform visible anchor
+  convention already proven by the Berkeley trace: raw row X is the visible
+  anchor X and visible Y is row Y minus 13 pixels.
+
+Meaning:
+
+These eleven rows are visible outdoor moving platforms, not hidden secrets or
+clickable guide facts. They render regardless of the guide Secrets layer and
+use ROM-defined vertical ping-pong paths.
+
+## Dead River: Ferry Route To Brahm
+
+Player-facing claim:
+
+> Board the Dead River ferry with Dracula's Heart selected to reach Brahm's
+> Mansion.
+
+ROM-backed evidence:
+
+- The ferry interaction branch at `$C6EE-$C70C` special-cases live ferry actor
+  `$3C`. It starts with `Y = $00`, then checks selected item RAM
+  `$004F == $02`, area RAM `$50 == $07`, and submap RAM `$51 & $01 != 0`.
+- If the checks fail, it stores text pointer `$0B` in `$7F` and writes `$00`
+  to RAM `$04EC`.
+- If the checks pass, it stores text pointer `$0C` in `$7F` and writes `$01`
+  to RAM `$04EC`. Pointer `$0C` decodes to `let me show you the way.`
+- The fixed-bank ferry handler scans the live object list for ferry actors
+  `$3C/$3D`, consumes `$04EC`, clears it, and writes area RAM `$50 = $06`.
+- The exterior topology manifest identifies area `obj02-area06-sub00` as
+  `Dead River to Brahm`, with its left boundary leading to
+  `Brahm's Mansion - Door`.
+- The ferry actor row used for the guide hotspot is `0x060A6`:
+  `0E 0C BC 00` in `Dead River - Part 1`. Row id `$BC` resolves to live ferry
+  actor `$3C`.
+- The ferry actor render is a two-actor composite. Routine `1:$A431` initializes
+  live actor `$3C` with selector `$7F`, copies the row data to `$0420,x`, and
+  subtracts 6 pixels from Y RAM `$0324,x`. Its state-0 branch spawns companion
+  live actor `$3D`, whose dispatch target `1:$A4DC` initializes selector `$80`.
+  Row data `$00` places `$3D` at `X + $14, Y + $10`; nonzero row data places it
+  at `X - $14, Y + $10`. The guide keeps the raw row X anchor for this special
+  composite instead of the normal character `+8` X anchor.
+- When row data is nonzero, selector `$80` is mirrored locally before it is
+  placed on the left side. Without that mirror, the boat end-cap tiles touch in
+  the middle of the composite instead of putting the boat middle tiles together.
+  The left-side ferry variant also mirrors selector `$7F` so the ferryman and
+  the boat half beneath him face the correct direction.
+- The ordinary ferry-man dialog is ROM text pointer index `$0B`, not the actor
+  row data byte: `sure, i'll take you to a good place. heh! heh! heh!`
+  Dead River Part 1 can instead show `$0C` when the Dracula's Heart condition
+  above passes. Dead River Part 2 and the Brahm-route ferry use `$0B` because
+  the area/submap checks do not both pass there.
+- The fixed-bank inventory selection path maps Dracula's Heart to selected item
+  `$02`. Red Crystal uses the shared crystal selected-item slot, not `$02`.
+
+Meaning:
+
+The in-game Jova rumor about the ferryman loving garlic is preserved as game
+dialog, but it is not the ROM condition for this route. The guide marks the
+alternate Brahm river path as a Secret and shows the lower Dead River/Brahm
+branch only when the Secrets layer is visible. The same Secrets-gated branch is
+extended left of Brahm's exterior door through Vrad Mountain Part 1 and Vrad
+Mountain Part 2. Its separated lower placement and dashed connector are
+guide-authored presentation, not a ROM geography claim: the topology manifest
+has the Brahm door's left boundary
+targeting `obj04-area00-sub01`, and the submap-order edge places
+`obj04-area00-sub00` immediately left of it. No ordinary boundary edge is
+promoted between Vrad Mountain and Jam Wasteland.
+
+## Deborah Cliff: Red Crystal Tornado
+
+Player-facing claim:
+
+> Kneel at the left edge of Deborah Cliff with Red Crystal selected to summon
+> the tornado to Bodley Mansion.
+
+ROM-backed evidence:
+
+- The reveal detector at bank `1:$A91D-$A929` checks area RAM `$50 == $01`
+  and submap RAM `$51 & $7F == $01`, identifying
+  `obj04-area01-sub01` / Jam Wasteland (Deborah Cliff).
+- The same branch at `1:$A92B-$A936` requires scroll bytes `$53/$54 == 0`
+  and Simon center X RAM `$0348 < $50`. The guide therefore highlights the
+  left 80 pixels of the Jam Wasteland/Deborah Cliff screen rather than a
+  guessed smaller kneel spot.
+- The item/state branch at `1:$A938-$A94B` checks selected item RAM
+  `$004F == $06`, inventory RAM `$0091 & $60 == $60`, and Simon state RAM
+  `$03D8 == $03`. This means the selected item is the shared crystal slot,
+  but the owned crystal tier must be Red Crystal.
+- The spawn branch at `1:$A953-$A991` lets the kneel condition count down for
+  256 frames, changes Simon to state `$0B`, clears flags, and initializes
+  tornado actor `$1C` in slot `$11` with selector `$9C`, screen X `$F0`, and
+  screen Y `$80`.
+- Runtime actor/OAM trace
+  `out/actor-traces/deborah-tornado-sprite-probe` validates the spawned
+  actor path. The committed artifact `data/deborah-tornado-path.json` records
+  the trace-derived per-frame segment/X/Y points used by the guide runtime.
+  It also preserves one explicit guide-presentation smoothing replacement:
+  the raw trace's Jam-to-Cliff screen-wrap handoff flashes at the far left of
+  the wall screen and then holds at the cliff entry point, so the guide
+  replaces frames `305-324` with a short curved boundary bridge and compresses
+  the 20-frame raw hold out of the presentation timeline. The bridge follows
+  the incoming Jam slope, settles into the early Cliff slope, and frame `325`
+  resumes the original cliff-side motion from raw trace frame `345`, so the
+  guide animation reads as one continuous motion.
+- The same OAM trace emits 8x16 sprite tiles `$C5/$C7/$C9/$CB/$CD/$CF` from
+  CHR banks `$06/$07`, with attr `$40` alternating every two NES frames. The
+  guide renders those tiles at runtime from ROM CHR data when the hotspot is
+  clicked.
+
+Meaning:
+
+The kneel region is a normal guide Secret hotspot, controlled by the Secrets
+visibility/highlight options. The tornado itself is not a permanent map object
+and is not independently clickable; it is a triggered animation that replays
+the ROM/runtime path across Jam Wasteland (Deborah Cliff) and the adjacent
+Deborah Cliff wall screen, with the internal screen-wrap handoff window
+smoothed as guide-authored presentation.
+
 ## Yuba Lake: Blue Crystal Kneel Route
 
 Player-facing claim:
@@ -345,3 +487,31 @@ Secrets layer is visible, keeps highlighting on the Secrets highlight option,
 and shows a Silver Knife item badge when Labels are visible. The guide dialog is
 the standard grey/blue stack: grey guide-authored reveal/reward explanation
 above the blue ROM dialog.
+
+## Storigoi Graveyard: Secret Merchant
+
+Player-facing claim:
+
+> Drop Garlic in Storigoi Graveyard to reveal the hidden merchant. He gives
+> Simon the Silk Bag.
+
+ROM-backed evidence:
+
+- Raw ROM row `0x06F88` is `04 0C 9E 02`.
+- The manifest row's high-bit actor id `$9E` maps to live actor id `$1E`, the
+  same hidden-merchant actor family used by the Camilla Cemetery garlic reveal.
+- Text pointer `$CEBE` decodes to the merchant's game dialog:
+  `i'll give you a silk bag.`
+- The reward routine at ROM file `$06E17` runs `A5 92 / 09 01 / 85 92`, setting
+  RAM `$92` bit 0 for the Silk Bag.
+- The fixed-bank start-menu branch at `7:$F199` checks RAM `$92` bit 0; when set,
+  it loads tile `$5C` and draws it through `7:$EB9C`. The guide uses that tile
+  for the merchant's floating Silk Bag item badge.
+
+Meaning:
+
+`obj03-area01-sub00` is the missing Storigoi Graveyard branch that exits right
+into Sadam Woods Part 2. The guide adds the full ROM-rendered strip west of
+Sadam Woods Part 2, promotes its hidden merchant as a Secrets-layer entity, and
+places the strip with guide-authored composition so it aligns to Sadam Woods
+without overlapping Ondol or the Vrad Mountain branch.

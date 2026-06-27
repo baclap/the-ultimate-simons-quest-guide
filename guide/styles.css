@@ -297,12 +297,30 @@ summary:focus-visible,
   position: absolute;
   inset: 0;
   display: block;
+  z-index: 0;
   image-rendering: pixelated;
   pointer-events: none;
 }
 
+.guide-card.is-dialog-bundle .dialog-box:has(+ .dialog-box.is-dialog-separator),
+.guide-card.is-dialog-bundle .dialog-box.is-dialog-separator + .dialog-box {
+  z-index: 3;
+}
+
+.guide-card.is-dialog-bundle .dialog-box.is-dialog-separator {
+  z-index: 1;
+  margin-top: calc(var(--dialog-tile) * -1);
+  margin-bottom: calc(var(--dialog-tile) * -1);
+  box-shadow: none;
+}
+
+.guide-card.is-dialog-bundle .dialog-box.is-dialog-separator + .dialog-box {
+  margin-top: 0;
+}
+
 .dialog-box .dialog-text {
   position: absolute;
+  z-index: 2;
   left: calc(var(--dialog-tile) * 2);
   top: var(--dialog-text-top);
   width: calc(var(--dialog-text-columns) * var(--dialog-tile));
@@ -481,6 +499,25 @@ summary:focus-visible,
   background: transparent;
   filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.9));
   image-rendering: pixelated;
+}
+
+.route-connectors {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.route-connector-line {
+  fill: none;
+  stroke: rgba(255, 254, 255, 0.68);
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.95));
+  shape-rendering: crispEdges;
 }
 
 .label-chip {

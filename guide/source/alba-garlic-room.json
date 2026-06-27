@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "alba-garlic-room",
+  "label": "Alba Garlic Room",
+  "summary": "Town of Alba Garlic merchant room scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "entry-room-chain-horizontal",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "day": "town-day-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "alba-garlic-entry",
+      "locationId": "obj00-area0f-sub00-alba-empty-room-before-garlic",
+      "label": "Alba Garlic Entry",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "alba-garlic-room",
+      "locationId": "obj00-area0f-sub01-alba-garlic-room",
+      "label": "Alba Garlic Room",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 256,
+      "y": 0
+    }
+  ]
+}

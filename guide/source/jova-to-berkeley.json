@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "id": "jova-to-berkeley",
-  "label": "Town of Jova to Camilla Cemetery",
-  "summary": "Guide product slice from the opening town eastward through Veros, Dabi's Path, Aljiba, Camilla Cemetery, and the Berkeley/Lauber branches.",
+  "label": "Deborah Cliff to Camilla Cemetery",
+  "summary": "Guide product slice from Deborah Cliff, Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, Vrad Mountain, and the Dead River west of Jova through Veros, Dabi's Path, Aljiba, Camilla Cemetery, and the Berkeley/Lauber/Brahm branches.",
   "defaultLayout": "branch-continuous",
   "provenance": {
     "pixels": "rom-derived",
@@ -11,6 +11,20 @@
   "actorMaterialization": {
     "source": "manifest-location-actors",
     "includeSegmentIds": [
+      "town-of-alba",
+      "town-of-ondol",
+      "sadam-woods-part-1",
+      "sadam-woods-part-2",
+      "sadam-woods-part-3",
+      "storigoi-graveyard",
+      "jam-wasteland",
+      "vrad-mountain-part-2",
+      "vrad-mountain-part-1",
+      "dead-river-part-2",
+      "dead-river-part-1",
+      "belasco-marsh",
+      "dead-river-to-brahm",
+      "deborah-cliff",
       "town-of-aljiba",
       "yuba-lake-path",
       "camilla-cemetery"
@@ -83,6 +97,42 @@
           "evidence": "The generated Aljiba Laurels Room scene promotes the ROM merchant row with the Laurels sale-table item offer."
         }
       },
+      "obj00-area0f-sub00": {
+        "viewId": "alba-garlic-room",
+        "label": "Enter Alba Garlic Room",
+        "itemReward": {
+          "itemId": "garlic",
+          "evidence": "The generated Alba Garlic Room scene promotes the ROM merchant row with the Garlic sale-table item offer."
+        }
+      },
+      "obj00-area10-sub00": {
+        "viewId": "alba-laurels-room",
+        "label": "Enter Alba Laurels Room",
+        "itemReward": {
+          "itemId": "laurels",
+          "evidence": "The generated Alba Laurels Room scene promotes the ROM merchant row with the Laurels sale-table item offer."
+        }
+      },
+      "obj00-area11-sub00": {
+        "viewId": "ondol-morning-star-room",
+        "label": "Enter Ondol Morning Star Room",
+        "itemReward": {
+          "itemId": "morning-star",
+          "evidence": "The generated Ondol Morning Star Room scene promotes the ROM merchant row with the Morning Star sale-table item offer."
+        }
+      },
+      "obj00-area12-sub00": {
+        "viewId": "ondol-death-star-lady-room",
+        "label": "Enter Ondol Death Star Lady Room"
+      },
+      "obj00-area13-sub00": {
+        "viewId": "ondol-laurels-room",
+        "label": "Enter Ondol Laurels Room",
+        "itemReward": {
+          "itemId": "laurels",
+          "evidence": "The generated Ondol Laurels Room scene promotes the ROM merchant row with the Laurels sale-table item offer."
+        }
+      },
       "obj01-area08-sub00": {
         "viewId": "lauber-mansion",
         "label": "Enter Lauber Mansion",
@@ -117,6 +167,24 @@
         "variants": ["day"],
         "evidence": "Town door targets come from the ROM manifest door table; tile rectangles are derived by matching the town-door signature in the expanded Town of Aljiba background tilemap."
       },
+      "town-of-alba": {
+        "signature": "townDoor",
+        "expectedMatches": 3,
+        "variants": ["day"],
+        "targetViews": {
+          "obj00-area07-sub00": {
+            "viewId": "alba-church",
+            "label": "Enter Alba Church"
+          }
+        },
+        "evidence": "Town door targets come from the ROM manifest door table; tile rectangles are derived by matching the town-door signature in the expanded Town of Alba background tilemap. The church target reuses the shared ROM church interior while opening an Alba-labeled guide scene."
+      },
+      "town-of-ondol": {
+        "signature": "townDoor",
+        "expectedMatches": 3,
+        "variants": ["day"],
+        "evidence": "Town door targets come from the ROM manifest door table; tile rectangles are derived by matching the town-door signature in the expanded Town of Ondol background tilemap."
+      },
       "berkeley-mansion-door": {
         "variants": ["day", "night"],
         "manualTileRects": [
@@ -140,6 +208,127 @@
     }
   },
   "segments": [
+    {
+      "id": "deborah-cliff",
+      "locationId": "obj04-area01-sub00-deborah-cliff-in-tornado",
+      "label": "Deborah Cliff",
+      "x": -6912,
+      "y": 224,
+      "paletteByVariant": { "day": "deborah-cliff-day-sprites", "night": "deborah-cliff-night-sprites" }
+    },
+    {
+      "id": "jam-wasteland",
+      "locationId": "obj04-area01-sub01-jam-wasteland-deborah-cliff",
+      "label": "Jam Wasteland",
+      "x": -6656,
+      "y": 224,
+      "paletteByVariant": { "day": "deborah-cliff-day-sprites", "night": "deborah-cliff-night-sprites" }
+    },
+    {
+      "id": "town-of-ondol",
+      "locationId": "obj00-area04-sub00-town-of-ondol",
+      "label": "Town of Ondol",
+      "x": -5632,
+      "y": -224
+    },
+    {
+      "id": "sadam-woods-part-3",
+      "locationId": "obj03-area04-sub00-sadam-woods-part-3",
+      "label": "Sadam Woods - Part 3",
+      "x": -4608,
+      "y": 224,
+      "paletteByVariant": { "day": "sadam-woods-day-sprites", "night": "sadam-woods-night-sprites" }
+    },
+    {
+      "id": "sadam-woods-part-2",
+      "locationId": "obj03-area02-sub00-sadam-woods-part-2",
+      "label": "Sadam Woods - Part 2",
+      "x": -4096,
+      "y": 224,
+      "paletteByVariant": { "day": "sadam-woods-day-sprites", "night": "sadam-woods-night-sprites" }
+    },
+    {
+      "id": "sadam-woods-part-1",
+      "locationId": "obj03-area02-sub01-sadam-woods-part-1",
+      "label": "Sadam Woods - Part 1",
+      "x": -3584,
+      "y": 224,
+      "paletteByVariant": { "day": "sadam-woods-day-sprites", "night": "sadam-woods-night-sprites" }
+    },
+    {
+      "id": "town-of-alba",
+      "locationId": "obj00-area03-sub00-town-of-alba",
+      "label": "Town of Alba",
+      "x": -3072,
+      "y": -224
+    },
+    {
+      "id": "storigoi-graveyard",
+      "locationId": "obj03-area01-sub00-storigoi-graveyard-blob-boost",
+      "label": "Storigoi Graveyard",
+      "x": -5120,
+      "y": 448,
+      "paletteByVariant": { "day": "sadam-woods-day-sprites", "night": "sadam-woods-night-sprites" }
+    },
+    {
+      "id": "vrad-mountain-part-2",
+      "locationId": "obj04-area00-sub00-vrad-mountain-part-2-diamond-dude",
+      "label": "Vrad Mountain - Part 2",
+      "x": -4864,
+      "y": 1120,
+      "paletteByVariant": { "day": "deborah-cliff-day-sprites", "night": "deborah-cliff-night-sprites" },
+      "visibilityLayer": "secrets"
+    },
+    {
+      "id": "vrad-mountain-part-1",
+      "locationId": "obj04-area00-sub01-vrad-mountain-part-1",
+      "label": "Vrad Mountain - Part 1",
+      "x": -3840,
+      "y": 1120,
+      "paletteByVariant": { "day": "deborah-cliff-day-sprites", "night": "deborah-cliff-night-sprites" },
+      "visibilityLayer": "secrets"
+    },
+    {
+      "id": "dead-river-part-2",
+      "locationId": "obj02-area07-sub00-dead-river-part-2",
+      "label": "Dead River - Part 2",
+      "x": -2048,
+      "y": 224,
+      "paletteByVariant": { "day": "jova-woods-day-sprites", "night": "jova-woods-night-sprites" }
+    },
+    {
+      "id": "dead-river-part-1",
+      "locationId": "obj02-area07-sub01-dead-river-part-1",
+      "label": "Dead River - Part 1",
+      "x": -1536,
+      "y": 224,
+      "paletteByVariant": { "day": "jova-woods-day-sprites", "night": "jova-woods-night-sprites" }
+    },
+    {
+      "id": "belasco-marsh",
+      "locationId": "obj02-area07-sub02-belasco-marsh",
+      "label": "Belasco Marsh",
+      "x": -1024,
+      "y": 224,
+      "paletteByVariant": { "day": "belasco-marsh-day-sprites", "night": "belasco-marsh-night-sprites" }
+    },
+    {
+      "id": "brahm-mansion-door",
+      "locationId": "obj01-area03-sub00-brahm-s-mansion-door",
+      "label": "Brahm's Mansion - Door",
+      "x": -2816,
+      "y": 1120,
+      "visibilityLayer": "secrets"
+    },
+    {
+      "id": "dead-river-to-brahm",
+      "locationId": "obj02-area06-sub00-dead-river-to-brahm",
+      "label": "Dead River to Brahm",
+      "x": -2560,
+      "y": 1120,
+      "paletteByVariant": { "day": "veros-woods-day-sprites", "night": "veros-woods-night-sprites" },
+      "visibilityLayer": "secrets"
+    },
     {
       "id": "town-of-jova",
       "locationId": "obj00-area00-sub00-town-of-jova",
@@ -303,8 +492,23 @@
     {
       "id": "branch-continuous",
       "label": "Branch continuous",
-      "summary": "Keeps Berkeley -> Denis Woods -> Dabi's Path physically continuous while continuing the main eastward route through Aljiba to Camilla Cemetery. The Yuba Lake/Lauber branch is a Secrets-gated presentation of the ROM-backed Blue Crystal kneel reveal.",
+      "summary": "Keeps the west route from Deborah Cliff through Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, and Dead River/Belasco into Jova, Berkeley -> Denis Woods -> Dabi's Path physically continuous, and the main eastward route through Aljiba to Camilla Cemetery. The Yuba Lake/Lauber and Dead River/Brahm/Vrad branches are Secrets-gated presentations of ROM-backed reveal paths.",
       "segments": [
+        { "sourceId": "deborah-cliff", "x": -6912, "y": 224 },
+        { "sourceId": "jam-wasteland", "x": -6656, "y": 224 },
+        { "sourceId": "town-of-ondol", "x": -5632, "y": -224 },
+        { "sourceId": "sadam-woods-part-3", "x": -4608, "y": 224 },
+        { "sourceId": "sadam-woods-part-2", "x": -4096, "y": 224 },
+        { "sourceId": "sadam-woods-part-1", "x": -3584, "y": 224 },
+        { "sourceId": "town-of-alba", "x": -3072, "y": -224 },
+        { "sourceId": "storigoi-graveyard", "x": -5120, "y": 448 },
+        { "sourceId": "vrad-mountain-part-2", "x": -4864, "y": 1120 },
+        { "sourceId": "vrad-mountain-part-1", "x": -3840, "y": 1120 },
+        { "sourceId": "dead-river-part-2", "x": -2048, "y": 224 },
+        { "sourceId": "dead-river-part-1", "x": -1536, "y": 224 },
+        { "sourceId": "belasco-marsh", "x": -1024, "y": 224 },
+        { "sourceId": "brahm-mansion-door", "x": -2816, "y": 1120 },
+        { "sourceId": "dead-river-to-brahm", "x": -2560, "y": 1120 },
         { "sourceId": "town-of-jova", "x": 0, "y": 0 },
         { "sourceId": "jova-woods", "x": 1024, "y": 224 },
         { "sourceId": "south-bridge", "x": 2048, "y": 224 },
