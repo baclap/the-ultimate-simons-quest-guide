@@ -6,9 +6,9 @@ import {
   isCv2DialogRuleLine,
   normalizeCv2DialogText,
   renderCv2DialogFrameToRgba
-} from './dialog.js?v=deborah-tornado-curved';
+} from './dialog.js?v=overlay-core-fix';
 
-const CACHE_KEY = 'deborah-tornado-curved';
+const CACHE_KEY = 'overlay-core-fix';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
 const OVERWORLD_VIEW_ID = 'overworld';
@@ -35,6 +35,8 @@ const NES_SCREEN_WIDTH = 256;
 const NES_SCREEN_HEIGHT = 224;
 const MOBILE_SPAWN_CAMERA_PADDING = 0.94;
 const DESKTOP_SPAWN_CAMERA_PADDING = 0.47;
+const OVERLAY_SCREEN_CULL_MARGIN_PX = 96;
+const LABEL_SCREEN_CULL_MARGIN_PX = 240;
 
 const ROUTE_SEGMENT_IDS = [
   'deborah-cliff',
@@ -1362,6 +1364,8 @@ let doorItemBadges = [];
 let secretFeatureItemBadges = [];
 let labelLeaderSvg;
 const overlayActionByElement = new WeakMap();
+const overlayBoxCache = new WeakMap();
+let lastLabelCollisionSignature = null;
 const floatingProjection = {
   currentX: null,
   lastFrameMs: null,
@@ -2697,23 +2701,84 @@ function buildOverlays() {
       itemBadges.push({ element: badge, actor, frameCanvas, iconCanvas, renderedKey: null });
     }
   }
+  lastLabelCollisionSignature = null;
+}
+
+function setElementHidden(element, hidden) {
+  if (element.hidden !== hidden) {
+    element.hidden = hidden;
+  }
+}
+
+function setStyleValue(element, property, value) {
+  if (element.style.getPropertyValue(property) !== value) {
+    element.style.setProperty(property, value);
+  }
+}
+
+function setStylePx(element, property, value) {
+  const rounded = Number.isInteger(value) ? value : Number(value.toFixed(3));
+  setStyleValue(element, property, `${rounded}px`);
+}
+
+function setSvgVisibility(element, visible) {
+  const value = visible ? 'visible' : 'hidden';
+  if (element.getAttribute('visibility') !== value) {
+    element.setAttribute('visibility', value);
+  }
+}
+
+function screenRectVisible(rect, margin = OVERLAY_SCREEN_CULL_MARGIN_PX) {
+  return rect.left + rect.width >= -margin
+    && rect.left <= window.innerWidth + margin
+    && rect.top + rect.height >= -margin
+    && rect.top <= window.innerHeight + margin;
+}
+
+function screenPointVisible(point, margin = OVERLAY_SCREEN_CULL_MARGIN_PX) {
+  return point.x >= -margin
+    && point.x <= window.innerWidth + margin
+    && point.y >= -margin
+    && point.y <= window.innerHeight + margin;
+}
+
+function setScreenRect(element, rect) {
+  const left = Math.round(rect.left);
+  const top = Math.round(rect.top);
+  const width = Math.max(0, Math.round(rect.width));
+  const height = Math.max(0, Math.round(rect.height));
+  const key = `rect:${left}:${top}:${width}:${height}`;
+  if (overlayBoxCache.get(element) === key) {
+    return;
+  }
+  setStylePx(element, 'left', left);
+  setStylePx(element, 'top', top);
+  setStylePx(element, 'width', width);
+  setStylePx(element, 'height', height);
+  overlayBoxCache.set(element, key);
 }
 
 function setHitRect(element, rect) {
-  const hitWidth = Math.max(44, rect.width);
-  const hitHeight = Math.max(44, rect.height);
-  const left = rect.left + rect.width / 2 - hitWidth / 2;
-  const top = rect.top + rect.height / 2 - hitHeight / 2;
-  const visualX = (hitWidth - rect.width) / 2;
-  const visualY = (hitHeight - rect.height) / 2;
-  element.style.left = `${left}px`;
-  element.style.top = `${top}px`;
-  element.style.width = `${hitWidth}px`;
-  element.style.height = `${hitHeight}px`;
-  element.style.setProperty('--hotspot-x', `${visualX}px`);
-  element.style.setProperty('--hotspot-y', `${visualY}px`);
-  element.style.setProperty('--hotspot-width', `${rect.width}px`);
-  element.style.setProperty('--hotspot-height', `${rect.height}px`);
+  const rectWidth = Math.max(0, Math.round(rect.width));
+  const rectHeight = Math.max(0, Math.round(rect.height));
+  const hitWidth = Math.max(44, rectWidth);
+  const hitHeight = Math.max(44, rectHeight);
+  const left = Math.round(rect.left + rect.width / 2 - hitWidth / 2);
+  const top = Math.round(rect.top + rect.height / 2 - hitHeight / 2);
+  const visualX = Math.round((hitWidth - rectWidth) / 2);
+  const visualY = Math.round((hitHeight - rectHeight) / 2);
+  const key = `hit:${left}:${top}:${hitWidth}:${hitHeight}:${visualX}:${visualY}:${rectWidth}:${rectHeight}`;
+  if (overlayBoxCache.get(element) !== key) {
+    setStylePx(element, 'left', left);
+    setStylePx(element, 'top', top);
+    setStylePx(element, 'width', hitWidth);
+    setStylePx(element, 'height', hitHeight);
+    setStylePx(element, '--hotspot-x', visualX);
+    setStylePx(element, '--hotspot-y', visualY);
+    setStylePx(element, '--hotspot-width', rectWidth);
+    setStylePx(element, '--hotspot-height', rectHeight);
+    overlayBoxCache.set(element, key);
+  }
   return { hitWidth, hitHeight, visualX, visualY };
 }
 
@@ -2775,9 +2840,10 @@ function renderItemBadge(item, scale, placement) {
   if (!dialogRenderer || !itemIconRenderer || !itemId) {
     return;
   }
-  const key = `${itemId}:${scale}`;
-  const frameSize = ITEM_BADGE_TILE_COLUMNS * 8 * scale;
-  const iconSize = 8 * scale;
+  const badgeScale = Math.round(scale * 1000) / 1000;
+  const key = `${itemId}`;
+  const frameSize = ITEM_BADGE_TILE_COLUMNS * 8 * badgeScale;
+  const iconSize = 8 * badgeScale;
   if (item.renderedKey !== key) {
     const rendered = renderCv2DialogFrameToRgba({
       atlas: dialogRenderer.atlas,
@@ -2789,17 +2855,17 @@ function renderItemBadge(item, scale, placement) {
     item.frameCanvas.height = rendered.height;
     context.imageSmoothingEnabled = false;
     context.putImageData(new ImageData(rendered.rgba, rendered.width, rendered.height), 0, 0);
-    item.frameCanvas.style.width = `${frameSize}px`;
-    item.frameCanvas.style.height = `${frameSize}px`;
-    itemIconRenderer.renderIcon(item.iconCanvas, itemId, scale);
+    itemIconRenderer.renderIcon(item.iconCanvas, itemId, 1);
     item.renderedKey = key;
   }
-  item.frameCanvas.style.left = `${placement.visualX}px`;
-  item.frameCanvas.style.top = `${placement.visualY}px`;
-  item.iconCanvas.style.left = `${placement.visualX + 8 * scale}px`;
-  item.iconCanvas.style.top = `${placement.visualY + 8 * scale}px`;
-  item.iconCanvas.style.width = `${iconSize}px`;
-  item.iconCanvas.style.height = `${iconSize}px`;
+  setStylePx(item.frameCanvas, 'left', placement.visualX);
+  setStylePx(item.frameCanvas, 'top', placement.visualY);
+  setStylePx(item.frameCanvas, 'width', frameSize);
+  setStylePx(item.frameCanvas, 'height', frameSize);
+  setStylePx(item.iconCanvas, 'left', placement.visualX + 8 * badgeScale);
+  setStylePx(item.iconCanvas, 'top', placement.visualY + 8 * badgeScale);
+  setStylePx(item.iconCanvas, 'width', iconSize);
+  setStylePx(item.iconCanvas, 'height', iconSize);
 }
 
 function paddedRect(rect, padding) {
@@ -2859,17 +2925,16 @@ function updateLabelLeader(item) {
   const line = item.leader;
   if (!line) return;
   if (item.element.hidden || Math.abs(item.offsetY || 0) < LABEL_LEADER_THRESHOLD) {
-    line.setAttribute('visibility', 'hidden');
+    setSvgVisibility(line, false);
     return;
   }
 
-  const rect = item.element.getBoundingClientRect();
-  const edgeY = item.side === 'above' ? rect.bottom : rect.top;
-  line.setAttribute('x1', `${rect.left + rect.width / 2}`);
-  line.setAttribute('y1', `${edgeY}`);
-  line.setAttribute('x2', `${item.mapAnchor.x}`);
-  line.setAttribute('y2', `${item.mapAnchor.y}`);
-  line.setAttribute('visibility', 'visible');
+  const edgeY = item.labelAnchor.y + (item.offsetY || 0);
+  line.setAttribute('x1', `${Math.round(item.labelAnchor.x)}`);
+  line.setAttribute('y1', `${Math.round(edgeY)}`);
+  line.setAttribute('x2', `${Math.round(item.mapAnchor.x)}`);
+  line.setAttribute('y2', `${Math.round(item.mapAnchor.y)}`);
+  setSvgVisibility(line, true);
 }
 
 function separateOverlappingLabels() {
@@ -2913,15 +2978,18 @@ function updateOverlays() {
   if (!renderer?.manifest) return;
 
   for (const item of sectionOutlines) {
-    item.element.hidden = !state.sectionOutlines || !segmentRecordVisible(item.segment);
-    if (!state.sectionOutlines || !segmentRecordVisible(item.segment)) {
+    const visible = state.sectionOutlines && segmentRecordVisible(item.segment);
+    if (!visible) {
+      setElementHidden(item.element, true);
       continue;
     }
     const rect = worldRectToScreen(renderer, segmentDisplayPosition(item.segment, renderer));
-    item.element.style.left = `${Math.round(rect.left)}px`;
-    item.element.style.top = `${Math.round(rect.top)}px`;
-    item.element.style.width = `${Math.max(0, Math.round(rect.width))}px`;
-    item.element.style.height = `${Math.max(0, Math.round(rect.height))}px`;
+    if (!screenRectVisible(rect)) {
+      setElementHidden(item.element, true);
+      continue;
+    }
+    setElementHidden(item.element, false);
+    setScreenRect(item.element, rect);
   }
 
   const dpr = Math.max(1, window.devicePixelRatio || 1);
@@ -2930,7 +2998,7 @@ function updateOverlays() {
   const routeDash = Math.max(ROUTE_CONNECTOR_MIN_DASH_SCREEN_PX, ROUTE_CONNECTOR_DASH_WORLD_PX * mapCssScale);
   for (const item of routeConnectors) {
     const visible = routeConnectorVisible(item.connector, renderer);
-    item.element.setAttribute('visibility', visible ? 'visible' : 'hidden');
+    setSvgVisibility(item.element, visible);
     if (!visible) {
       continue;
     }
@@ -2943,40 +3011,73 @@ function updateOverlays() {
   }
 
   const overviewLabels = view.id === OVERWORLD_VIEW_ID && renderer.camera.scale < OVERVIEW_LABEL_SCALE;
+  const visibleLabelSignatureParts = [];
 
   for (const item of labels) {
     const hiddenInOverview = overviewLabels && OVERVIEW_LABEL_HIDDEN_IDS.has(item.segment.id);
     const hiddenByLayer = !segmentRecordVisible(item.segment);
-    item.element.hidden = !state.labels || hiddenInOverview || hiddenByLayer;
     if (!state.labels || hiddenInOverview || hiddenByLayer) {
-      item.leader?.setAttribute('visibility', 'hidden');
+      setElementHidden(item.element, true);
+      if (item.leader) setSvgVisibility(item.leader, false);
       continue;
     }
     const labelText = guideLabelText(overviewLabels
       ? OVERVIEW_LABEL_TEXT.get(item.segment.id) || item.segment.label
       : item.segment.label);
-    labelRenderer?.render(item, labelText);
     const placement = labelPlacement(item.segment);
+    const onScreen = screenPointVisible(placement.labelAnchor, LABEL_SCREEN_CULL_MARGIN_PX)
+      || screenPointVisible(placement.mapAnchor, LABEL_SCREEN_CULL_MARGIN_PX);
+    if (!onScreen) {
+      setElementHidden(item.element, true);
+      if (item.leader) setSvgVisibility(item.leader, false);
+      continue;
+    }
+    labelRenderer?.render(item, labelText);
+    setElementHidden(item.element, false);
     item.side = placement.side;
     item.labelAnchor = placement.labelAnchor;
     item.mapAnchor = placement.mapAnchor;
-    item.offsetY = 0;
-    item.element.style.left = `${placement.labelAnchor.x}px`;
-    item.element.style.top = `${placement.labelAnchor.y}px`;
-    item.element.style.transform = labelTransform(placement.side);
+    setStylePx(item.element, 'left', placement.labelAnchor.x);
+    setStylePx(item.element, 'top', placement.labelAnchor.y);
+    setStyleValue(item.element, 'transform', labelTransform(placement.side, item.offsetY || 0));
+    visibleLabelSignatureParts.push(`${item.segment.id}:${placement.side}:${labelText}`);
   }
   if (state.labels) {
-    separateOverlappingLabels();
+    const labelCollisionSignature = [
+      state.activeViewId,
+      overviewLabels ? 'overview' : 'detail',
+      Math.round(renderer.camera.scale * 1000),
+      visibleLabelSignatureParts.join(',')
+    ].join('|');
+    if (labelCollisionSignature !== lastLabelCollisionSignature) {
+      for (const item of labels) {
+        if (item.element.hidden) continue;
+        item.offsetY = 0;
+        setStyleValue(item.element, 'transform', labelTransform(item.side));
+      }
+      separateOverlappingLabels();
+      lastLabelCollisionSignature = labelCollisionSignature;
+    } else {
+      for (const item of labels) {
+        updateLabelLeader(item);
+      }
+    }
+  } else {
+    lastLabelCollisionSignature = null;
   }
 
   for (const item of hotspots) {
     const worldRect = hotspotWorldRect(item.hotspot);
     if (!hotspotMatchesVariant(item.hotspot) || !worldRect) {
-      item.element.hidden = true;
+      setElementHidden(item.element, true);
       continue;
     }
-    item.element.hidden = false;
     const rect = worldRectToScreen(renderer, worldRect);
+    if (!screenRectVisible(rect)) {
+      setElementHidden(item.element, true);
+      continue;
+    }
+    setElementHidden(item.element, false);
     setHitRect(item.element, rect);
     item.element.classList.toggle('is-highlight-hidden', !state.highlightDoors);
   }
@@ -2984,43 +3085,64 @@ function updateOverlays() {
   for (const item of destructibleHotspots) {
     const worldRect = destructibleFixtureWorldRect(item.fixture);
     if (!state.showSecrets || !segmentIdVisible(item.fixture.segmentId) || !worldRect) {
-      item.element.hidden = true;
+      setElementHidden(item.element, true);
       continue;
     }
-    item.element.hidden = false;
-    setHitRect(item.element, worldRectToScreen(renderer, worldRect));
+    const rect = worldRectToScreen(renderer, worldRect);
+    if (!screenRectVisible(rect)) {
+      setElementHidden(item.element, true);
+      continue;
+    }
+    setElementHidden(item.element, false);
+    setHitRect(item.element, rect);
     item.element.classList.toggle('is-highlight-hidden', !state.highlightSecrets);
   }
 
   for (const item of secretFeatureHotspots) {
     const visible = shouldShowSecretFeatureHotspot(item.feature);
     if (!visible) {
-      item.element.hidden = true;
+      setElementHidden(item.element, true);
       continue;
     }
-    item.element.hidden = false;
-    setHitRect(item.element, worldRectToScreen(renderer, secretFeatureWorldRect(item.feature)));
+    const rect = worldRectToScreen(renderer, secretFeatureWorldRect(item.feature));
+    if (!screenRectVisible(rect)) {
+      setElementHidden(item.element, true);
+      continue;
+    }
+    setElementHidden(item.element, false);
+    setHitRect(item.element, rect);
     item.element.classList.toggle('is-highlight-hidden', !secretFeatureHighlightVisible(item.feature));
   }
 
   for (const item of actorHotspots) {
     const visible = shouldShowActorHotspot(item.actor);
-    item.element.hidden = !visible;
-    if (!visible) continue;
-    setHitRect(item.element, worldRectToScreen(renderer, actorWorldRect(item.actor)));
+    if (!visible) {
+      setElementHidden(item.element, true);
+      continue;
+    }
+    const rect = worldRectToScreen(renderer, actorWorldRect(item.actor));
+    if (!screenRectVisible(rect)) {
+      setElementHidden(item.element, true);
+      continue;
+    }
+    setElementHidden(item.element, false);
+    setHitRect(item.element, rect);
     item.element.classList.toggle('is-highlight-hidden', !actorHighlightVisible(item.actor));
   }
 
   for (const item of itemBadges) {
     const visible = state.labels && Boolean(item.actor.itemOffer || item.actor.itemReward) && shouldShowActorHotspot(item.actor);
-    item.element.hidden = !visible;
-    if (!visible) continue;
-    const scale = itemBadgeScale(renderer);
-    const rect = itemBadgeVisualRect(item.actor, scale);
-    if (!rect) {
-      item.element.hidden = true;
+    if (!visible) {
+      setElementHidden(item.element, true);
       continue;
     }
+    const scale = itemBadgeScale(renderer);
+    const rect = itemBadgeVisualRect(item.actor, scale);
+    if (!rect || !screenRectVisible(rect)) {
+      setElementHidden(item.element, true);
+      continue;
+    }
+    setElementHidden(item.element, false);
     const placement = setHitRect(item.element, rect);
     renderItemBadge(item, scale, placement);
     item.element.classList.toggle('is-highlight-hidden', !state.highlightCharacters);
@@ -3028,14 +3150,17 @@ function updateOverlays() {
 
   for (const item of doorItemBadges) {
     const visible = state.labels && Boolean(item.hotspot.itemReward) && hotspotMatchesVariant(item.hotspot);
-    item.element.hidden = !visible;
-    if (!visible) continue;
-    const scale = itemBadgeScale(renderer);
-    const rect = doorItemBadgeVisualRect(item.hotspot, scale);
-    if (!rect) {
-      item.element.hidden = true;
+    if (!visible) {
+      setElementHidden(item.element, true);
       continue;
     }
+    const scale = itemBadgeScale(renderer);
+    const rect = doorItemBadgeVisualRect(item.hotspot, scale);
+    if (!rect || !screenRectVisible(rect)) {
+      setElementHidden(item.element, true);
+      continue;
+    }
+    setElementHidden(item.element, false);
     const placement = setHitRect(item.element, rect);
     renderItemBadge(item, scale, placement);
     item.element.classList.toggle('is-highlight-hidden', !state.highlightDoors);
@@ -3043,14 +3168,17 @@ function updateOverlays() {
 
   for (const item of secretFeatureItemBadges) {
     const visible = state.labels && Boolean(item.feature.itemReward) && shouldShowSecretFeatureHotspot(item.feature);
-    item.element.hidden = !visible;
-    if (!visible) continue;
-    const scale = itemBadgeScale(renderer);
-    const rect = secretFeatureItemBadgeVisualRect(item.feature, scale);
-    if (!rect) {
-      item.element.hidden = true;
+    if (!visible) {
+      setElementHidden(item.element, true);
       continue;
     }
+    const scale = itemBadgeScale(renderer);
+    const rect = secretFeatureItemBadgeVisualRect(item.feature, scale);
+    if (!rect || !screenRectVisible(rect)) {
+      setElementHidden(item.element, true);
+      continue;
+    }
+    setElementHidden(item.element, false);
     const placement = setHitRect(item.element, rect);
     renderItemBadge(item, scale, placement);
     item.element.classList.toggle('is-highlight-hidden', !secretFeatureHighlightVisible(item.feature));
