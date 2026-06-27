@@ -1536,8 +1536,8 @@ const GUIDE_ITEMS = {
     label: 'Blue Crystal',
     aliases: ['Blue Crystal'],
     iconTile: 0x6e,
-    manualText: 'Kneel by Yuba Lake with the Blue Crystal or a stronger crystal to reveal the route to Lauber Mansion.',
-    manualSource: 'Guide-authored from ROM routine at bank 1:$A780: selected item $004F == $06, crystal-tier bits $0091 & $60 >= $40, and Simon kneeling at Yuba Lake.',
+    manualText: 'Offers stronger magical powers than the White Crystal.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Items, page 11.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
@@ -1549,6 +1549,8 @@ const GUIDE_ITEMS = {
     label: 'Red Crystal',
     aliases: ['Red Crystal'],
     iconTile: 0x5f,
+    manualText: 'You must have the Red Crystal before you enter Dracula\'s Castle.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Items, page 11.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE
@@ -1611,7 +1613,7 @@ const GUIDE_ITEMS = {
     label: 'Morning Star',
     aliases: ['Morning Star'],
     iconTile: 0x5b,
-    manualText: 'The Morning Star Whip is stronger than the Chain Whip.',
+    manualText: 'The Morning Star is longer than the Chain Whip.',
     manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Weapons, page 10.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
@@ -1625,7 +1627,7 @@ const GUIDE_ITEMS = {
     aliases: ['Holy Water', 'Magic Potion'],
     iconTile: 0x57,
     manualText: 'Holy Water disintegrates walls and floors which conceal weapons and items.',
-    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Weapons, page 10.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Items, page 11.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
@@ -1638,6 +1640,8 @@ const GUIDE_ITEMS = {
     label: 'Sacred Flame',
     aliases: ['Sacred Flame'],
     iconTile: 0x69,
+    manualText: 'The flame weakens the creatures\' evil powers.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Weapons, page 10.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE
@@ -1678,8 +1682,8 @@ const GUIDE_ITEMS = {
     label: 'Silver Knife',
     aliases: ['Silver Knife'],
     iconTile: 0x55,
-    manualText: 'The Silver Knife can be thrown to kill distant enemy creatures.',
-    manualSource: 'Guide-authored from the ROM reward and knife-family weapon behavior; the committed proof does not attach separate manual copy for the Silver Knife.',
+    manualText: 'The Silver Knife can be thrown farther than the dagger.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Weapons, page 10.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
@@ -1706,8 +1710,8 @@ const GUIDE_ITEMS = {
     label: "Dracula's Heart",
     aliases: ["Dracula's Heart"],
     iconTile: 0x4f,
-    manualText: "Dracula's Heart is one of Count Dracula's five missing body parts.",
-    manualSource: 'Guide-authored summary; start-menu body-part icon order is ROM-derived.',
+    manualText: 'Watch out! The heart attacks.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Count Dracula\'s Missing Pieces, page 9.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
@@ -1720,6 +1724,8 @@ const GUIDE_ITEMS = {
     label: "Dracula's Eyeball",
     aliases: ["Dracula's Eyeball"],
     iconTile: 0x50,
+    manualText: 'When it comes to the most frightening piece, the eyes have it.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Count Dracula\'s Missing Pieces, page 9.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
@@ -1731,6 +1737,8 @@ const GUIDE_ITEMS = {
     label: "Dracula's Nail",
     aliases: ["Dracula's Nail"],
     iconTile: 0x51,
+    manualText: 'The nail is the symbol of evil power.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Count Dracula\'s Missing Pieces, page 9.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
@@ -1742,8 +1750,8 @@ const GUIDE_ITEMS = {
     label: 'Garlic',
     aliases: ['Garlic'],
     iconTile: 0x6d,
-    manualText: 'Use Garlic at certain graveyards to call hidden merchants.',
-    manualSource: 'Guide-authored from ROM NPC/item behavior; the Aljiba sale row and cemetery secret merchant are ROM-backed.',
+    manualText: 'Place the Garlic in front of enemies, and it will weaken them significantly.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Items, page 11.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
@@ -1755,8 +1763,8 @@ const GUIDE_ITEMS = {
     label: 'Laurels',
     aliases: ['Laurels', 'Laurel'],
     iconTile: 0x58,
-    manualText: 'Laurels protect Simon from poisonous marsh damage for a short time.',
-    manualSource: 'Guide-authored from item behavior; the Aljiba sale row is ROM-backed.',
+    manualText: 'Laurel helps make you invincible against enemy attacks. You can purchase Laurel from town merchants.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Items, page 11.',
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,

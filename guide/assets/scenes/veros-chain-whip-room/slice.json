@@ -726,8 +726,8 @@
           "Blue Crystal"
         ],
         "iconTile": "0x6E",
-        "manualText": "Kneel by Yuba Lake with the Blue Crystal or a stronger crystal to reveal the route to Lauber Mansion.",
-        "manualSource": "Guide-authored from ROM routine at bank 1:$A780: selected item $004F == $06, crystal-tier bits $0091 & $60 >= $40, and Simon kneeling at Yuba Lake.",
+        "manualText": "Offers stronger magical powers than the White Crystal.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
@@ -744,7 +744,9 @@
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C."
-        ]
+        ],
+        "manualText": "You must have the Red Crystal before you enter Dracula's Castle.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11."
       },
       "oak-stake": {
         "id": "oak-stake",
@@ -818,7 +820,7 @@
         ],
         "iconTile": "0x57",
         "manualText": "Holy Water disintegrates walls and floors which conceal weapons and items.",
-        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
@@ -836,7 +838,9 @@
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C."
-        ]
+        ],
+        "manualText": "The flame weakens the creatures' evil powers.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10."
       },
       "silver-knife": {
         "id": "silver-knife",
@@ -845,8 +849,8 @@
           "Silver Knife"
         ],
         "iconTile": "0x55",
-        "manualText": "The Silver Knife can be thrown to kill distant enemy creatures.",
-        "manualSource": "Guide-authored from the ROM reward and knife-family weapon behavior; the committed proof does not attach separate manual copy for the Silver Knife.",
+        "manualText": "The Silver Knife can be thrown farther than the dagger.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
@@ -877,8 +881,8 @@
           "Dracula's Heart"
         ],
         "iconTile": "0x4F",
-        "manualText": "Dracula's Heart is one of Count Dracula's five missing body parts.",
-        "manualSource": "Guide-authored summary; start-menu body-part icon order is ROM-derived.",
+        "manualText": "Watch out! The heart attacks.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
@@ -897,7 +901,9 @@
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
           "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring."
-        ]
+        ],
+        "manualText": "When it comes to the most frightening piece, the eyes have it.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9."
       },
       "dracula-nail": {
         "id": "dracula-nail",
@@ -910,7 +916,9 @@
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
           "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring."
-        ]
+        ],
+        "manualText": "The nail is the symbol of evil power.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9."
       },
       "garlic": {
         "id": "garlic",
@@ -919,8 +927,8 @@
           "Garlic"
         ],
         "iconTile": "0x6D",
-        "manualText": "Use Garlic at certain graveyards to call hidden merchants.",
-        "manualSource": "Guide-authored from ROM NPC/item behavior; the Aljiba sale row and cemetery secret merchant are ROM-backed.",
+        "manualText": "Place the Garlic in front of enemies, and it will weaken them significantly.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
@@ -935,8 +943,8 @@
           "Laurel"
         ],
         "iconTile": "0x58",
-        "manualText": "Laurels protect Simon from poisonous marsh damage for a short time.",
-        "manualSource": "Guide-authored from item behavior; the Aljiba sale row is ROM-backed.",
+        "manualText": "Laurel helps make you invincible against enemy attacks. You can purchase Laurel from town merchants.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58 and Garlic tile $6D before drawing through 7:$EB9C.",
