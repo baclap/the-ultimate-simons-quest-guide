@@ -6,9 +6,9 @@ import {
   isCv2DialogRuleLine,
   normalizeCv2DialogText,
   renderCv2DialogFrameToRgba
-} from './dialog.js?v=brahm-label-placement';
+} from './dialog.js?v=garlic-merchant-dialog';
 
-const CACHE_KEY = 'brahm-label-placement';
+const CACHE_KEY = 'garlic-merchant-dialog';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
 const OVERWORLD_VIEW_ID = 'overworld';
@@ -3896,8 +3896,18 @@ function showSecretFeatureCard(feature) {
 function secretGuideDialogText(actor) {
   const secret = actor.secret || {};
   const lines = [actor.label, '----------'];
-  if (secret.action) {
-    lines.push(secret.action);
+  let actionLine = secret.action || null;
+  if (secret.type === 'garlic-revealed-merchant') {
+    const reward = actor.itemReward?.itemLabel || secret.reward;
+    if (reward) {
+      const rewardPhrase = /^the\b/i.test(reward) ? reward : `the ${reward}`;
+      actionLine = actionLine
+        ? `${actionLine} He gives Simon ${rewardPhrase}.`
+        : `He gives Simon ${rewardPhrase}.`;
+    }
+  }
+  if (actionLine) {
+    lines.push(actionLine);
   }
   return lines.join('\n');
 }
