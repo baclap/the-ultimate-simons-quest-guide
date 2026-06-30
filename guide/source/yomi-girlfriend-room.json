@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "yomi-girlfriend-room",
+  "label": "Yomi Girlfriend Room",
+  "summary": "Town of Yomi girlfriend room scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "single-room-town-interior",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "day": "town-day-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "yomi-girlfriend-room",
+      "locationId": "obj00-area17-sub00-yomi-girlfriend-room",
+      "label": "Yomi Girlfriend Room",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

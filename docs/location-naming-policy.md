@@ -7,6 +7,9 @@ legible.
 Source image:
 <https://i.etsystatic.com/63264078/r/il/5f4082/7590914027/il_1588xN.7590914027_ind8.jpg>
 
+Supplemental Nintendo Power scan:
+<https://www.castlevaniacrypt.com/wp-content/img/cv2/np/13.jpg>
+
 The project still preserves `cv2r` names as `sourceName` because those labels
 are the metadata anchor we use to reach ROM contexts. Display names are resolved
 through `data/location-names.json`; aliases record other names encountered in
@@ -24,8 +27,8 @@ published or fan sources.
 
 - Nintendo Power uses `Vrad Graveyard`; Fandom uses `Vlad Graveyard` as primary
   and lists `Vrad Graveyard` as an alternate.
-- Nintendo Power uses `Borgia Mountains`; `cv2r` currently uses
-  `Bordia Mountains`.
+- Nintendo Power uses `Bordia Mountains`; preserve `Borgia Mountains` only as
+  an alias for older project output and secondary references.
 - Nintendo Power uses `Debious Woods`, matching `cv2r`, while Fandom's
   design-map list uses `Devious Woods` with `Debious Woods` as an alternate.
 - Nintendo Power uses `Storigoi Graveyard`, matching `cv2r`, while some

@@ -32,7 +32,7 @@
     "height": 672
   },
   "dataFile": "slice-data.bin",
-  "byteLength": 47024,
+  "byteLength": 64096,
   "chrSets": [
     {
       "id": "chr-08-09",
@@ -69,13 +69,30 @@
       }
     },
     {
+      "id": "chr-04-05",
+      "banks": [
+        "0x04",
+        "0x05"
+      ],
+      "data": {
+        "offset": 22112,
+        "length": 8192
+      },
+      "decodedAtlas": {
+        "width": 128,
+        "height": 256,
+        "tilesPerRow": 16,
+        "tileCount": 512
+      }
+    },
+    {
       "id": "chr-06-07",
       "banks": [
         "0x06",
         "0x07"
       ],
       "data": {
-        "offset": 22112,
+        "offset": 30304,
         "length": 8192
       },
       "decodedAtlas": {
@@ -92,7 +109,7 @@
         "0x03"
       ],
       "data": {
-        "offset": 30304,
+        "offset": 38496,
         "length": 8192
       },
       "decodedAtlas": {
@@ -103,13 +120,30 @@
       }
     },
     {
-      "id": "chr-04-05",
+      "id": "chr-09-0a",
       "banks": [
-        "0x04",
-        "0x05"
+        "0x09",
+        "0x0A"
       ],
       "data": {
-        "offset": 38496,
+        "offset": 46688,
+        "length": 8192
+      },
+      "decodedAtlas": {
+        "width": 128,
+        "height": 256,
+        "tilesPerRow": 16,
+        "tileCount": 512
+      }
+    },
+    {
+      "id": "chr-0b-0c",
+      "banks": [
+        "0x0B",
+        "0x0C"
+      ],
+      "data": {
+        "offset": 54880,
         "length": 8192
       },
       "decodedAtlas": {
@@ -166,7 +200,7 @@
       "label": "Town actor sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F2A..0x9F31",
       "data": {
-        "offset": 46688,
+        "offset": 63072,
         "length": 16
       },
       "bytes": [
@@ -193,7 +227,7 @@
       "label": "Town actor sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 46704,
+        "offset": 63088,
         "length": 16
       },
       "bytes": [
@@ -220,7 +254,7 @@
       "label": "Jova Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 46720,
+        "offset": 63104,
         "length": 16
       },
       "bytes": [
@@ -247,7 +281,7 @@
       "label": "Jova Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 46736,
+        "offset": 63120,
         "length": 16
       },
       "bytes": [
@@ -274,7 +308,7 @@
       "label": "South Bridge sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 46752,
+        "offset": 63136,
         "length": 16
       },
       "bytes": [
@@ -301,7 +335,7 @@
       "label": "South Bridge sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 46768,
+        "offset": 63152,
         "length": 16
       },
       "bytes": [
@@ -328,7 +362,7 @@
       "label": "Veros Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 46784,
+        "offset": 63168,
         "length": 16
       },
       "bytes": [
@@ -355,7 +389,7 @@
       "label": "Veros Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 46800,
+        "offset": 63184,
         "length": 16
       },
       "bytes": [
@@ -382,7 +416,7 @@
       "label": "Denis Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 46816,
+        "offset": 63200,
         "length": 16
       },
       "bytes": [
@@ -409,7 +443,7 @@
       "label": "Denis Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 46832,
+        "offset": 63216,
         "length": 16
       },
       "bytes": [
@@ -436,7 +470,7 @@
       "label": "Dabi's Path sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 46848,
+        "offset": 63232,
         "length": 16
       },
       "bytes": [
@@ -463,7 +497,7 @@
       "label": "Dabi's Path sprites, night (same ROM palette transfer as day)",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 46864,
+        "offset": 63248,
         "length": 16
       },
       "bytes": [
@@ -486,11 +520,119 @@
       ]
     },
     {
+      "id": "denis-aljiba-woods-day-sprites",
+      "label": "Denis/Aljiba Woods sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F7..0x88F8->aux:0x31->rom:0xCB38..0xCB3F",
+      "data": {
+        "offset": 63264,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x17",
+        "0x37",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "denis-aljiba-woods-night-sprites",
+      "label": "Denis/Aljiba Woods sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F7..0x88F8->aux:0x31->rom:0xCB38..0xCB3F",
+      "data": {
+        "offset": 63280,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x17",
+        "0x37",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "yuba-lake-path-day-sprites",
+      "label": "Yuba Lake Path sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F9..0x88FA->aux:0x32->rom:0xCB41..0xCB48",
+      "data": {
+        "offset": 63296,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x14",
+        "0x34",
+        "0x0F",
+        "0x0F",
+        "0x23",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "yuba-lake-path-night-sprites",
+      "label": "Yuba Lake Path sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F9..0x88FA->aux:0x32->rom:0xCB41..0xCB48",
+      "data": {
+        "offset": 63312,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x14",
+        "0x34",
+        "0x0F",
+        "0x0F",
+        "0x23",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
       "id": "belasco-marsh-day-sprites",
       "label": "Belasco Marsh sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB41..0xCB48",
       "data": {
-        "offset": 46880,
+        "offset": 63328,
         "length": 16
       },
       "bytes": [
@@ -517,7 +659,7 @@
       "label": "Belasco Marsh sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB41..0xCB48",
       "data": {
-        "offset": 46896,
+        "offset": 63344,
         "length": 16
       },
       "bytes": [
@@ -544,7 +686,7 @@
       "label": "Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F6F..0x9F76",
       "data": {
-        "offset": 46912,
+        "offset": 63360,
         "length": 16
       },
       "bytes": [
@@ -567,11 +709,119 @@
       ]
     },
     {
+      "id": "lauber-mansion-fixed-sprites",
+      "label": "Lauber Mansion interior sprites, fixed palette",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8927..0x8928->aux:0x49->rom-bank4:0x9F89..0x9F90",
+      "data": {
+        "offset": 63376,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x23",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x13",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "brahm-mansion-fixed-sprites",
+      "label": "Brahm Mansion interior sprites, fixed palette",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8929..0x892A->aux:0x4A->rom-bank4:0x9FA3..0x9FAA",
+      "data": {
+        "offset": 63392,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x14",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x14",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "bodley-mansion-fixed-sprites",
+      "label": "Bodley Mansion interior sprites, fixed palette",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9FBD..0x9FC4",
+      "data": {
+        "offset": 63408,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x12",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "laruba-mansion-fixed-sprites",
+      "label": "Laruba Mansion interior sprites, fixed palette",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F55..0x9F5C",
+      "data": {
+        "offset": 63424,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x21",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
       "id": "camilla-cemetery-day-sprites",
       "label": "Camilla Cemetery sprites, day",
       "source": "out/actor-traces/camilla-cemetery-day-idle/ppu-final-3f00-3f1f-palettes.bin",
       "data": {
-        "offset": 46928,
+        "offset": 63440,
         "length": 16
       },
       "bytes": [
@@ -598,7 +848,7 @@
       "label": "Camilla Cemetery sprites, night",
       "source": "out/actor-traces/camilla-cemetery-night-idle/ppu-final-3f00-3f1f-palettes.bin",
       "data": {
-        "offset": 46944,
+        "offset": 63456,
         "length": 16
       },
       "bytes": [
@@ -621,11 +871,956 @@
       ]
     },
     {
+      "id": "joma-marsh-part-1-day-sprites",
+      "label": "Joma Marsh Part 1 sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FF..0x8900->aux:0x35->rom-bank4:0xA0C5..0xA0CC",
+      "data": {
+        "offset": 63472,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x14",
+        "0x34",
+        "0x0F",
+        "0x0F",
+        "0x26",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "joma-marsh-part-1-night-sprites",
+      "label": "Joma Marsh Part 1 sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FF..0x8900->aux:0x35->rom-bank4:0xA0C5..0xA0CC",
+      "data": {
+        "offset": 63488,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x14",
+        "0x34",
+        "0x0F",
+        "0x0F",
+        "0x26",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "joma-marsh-part-2-day-sprites",
+      "label": "Joma Marsh Part 2 sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8905..0x8906->aux:0x38->rom-bank4:0xA0D7..0xA0DE",
+      "data": {
+        "offset": 63504,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x15",
+        "0x35",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "joma-marsh-part-2-night-sprites",
+      "label": "Joma Marsh Part 2 sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8905..0x8906->aux:0x38->rom-bank4:0xA0D7..0xA0DE",
+      "data": {
+        "offset": 63520,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x15",
+        "0x35",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "joma-marsh-part-3-day-sprites",
+      "label": "Joma Marsh Part 3 sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
+      "data": {
+        "offset": 63536,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1A",
+        "0x2A",
+        "0x0F",
+        "0x0F",
+        "0x03",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "joma-marsh-part-3-night-sprites",
+      "label": "Joma Marsh Part 3 sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
+      "data": {
+        "offset": 63552,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1A",
+        "0x2A",
+        "0x0F",
+        "0x0F",
+        "0x03",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "debious-woods-part-3-day-sprites",
+      "label": "Debious Woods Part 3 sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
+      "data": {
+        "offset": 63568,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1A",
+        "0x2A",
+        "0x0F",
+        "0x0F",
+        "0x03",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "debious-woods-part-3-night-sprites",
+      "label": "Debious Woods Part 3 sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
+      "data": {
+        "offset": 63584,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1A",
+        "0x2A",
+        "0x0F",
+        "0x0F",
+        "0x03",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "debious-woods-part-2-day-sprites",
+      "label": "Debious Woods Part 2 sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
+      "data": {
+        "offset": 63600,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1A",
+        "0x2A",
+        "0x0F",
+        "0x0F",
+        "0x03",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "debious-woods-part-2-night-sprites",
+      "label": "Debious Woods Part 2 sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
+      "data": {
+        "offset": 63616,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1A",
+        "0x2A",
+        "0x0F",
+        "0x0F",
+        "0x03",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "debious-woods-part-1-day-sprites",
+      "label": "Debious Woods Part 1 sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
+      "data": {
+        "offset": 63632,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1A",
+        "0x2A",
+        "0x0F",
+        "0x0F",
+        "0x03",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "debious-woods-part-1-night-sprites",
+      "label": "Debious Woods Part 1 sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
+      "data": {
+        "offset": 63648,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1A",
+        "0x2A",
+        "0x0F",
+        "0x0F",
+        "0x03",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "wicked-ditch-day-sprites",
+      "label": "Wicked Ditch sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x891F..0x8920->aux:0x45->rom-bank4:0xA13E..0xA145",
+      "data": {
+        "offset": 63664,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x31",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "wicked-ditch-night-sprites",
+      "label": "Wicked Ditch sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x891F..0x8920->aux:0x45->rom-bank4:0xA13E..0xA145",
+      "data": {
+        "offset": 63680,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x31",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "town-of-doina-day-sprites",
+      "label": "Town of Doina sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F1..0x88F2->aux:0x2E->rom-bank4:0x9F2A..0x9F31",
+      "data": {
+        "offset": 63696,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "town-of-doina-night-sprites",
+      "label": "Town of Doina sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
+      "data": {
+        "offset": 63712,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1A",
+        "0x2A",
+        "0x0F",
+        "0x0F",
+        "0x03",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "north-bridge-day-sprites",
+      "label": "North Bridge sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
+      "data": {
+        "offset": 63728,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x18",
+        "0x38",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "north-bridge-night-sprites",
+      "label": "North Bridge sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
+      "data": {
+        "offset": 63744,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x18",
+        "0x38",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "dora-woods-part-1-day-sprites",
+      "label": "Dora Woods Part 1 sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
+      "data": {
+        "offset": 63760,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x18",
+        "0x38",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "dora-woods-part-1-night-sprites",
+      "label": "Dora Woods Part 1 sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
+      "data": {
+        "offset": 63776,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x18",
+        "0x38",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "dora-woods-part-2-day-sprites",
+      "label": "Dora Woods Part 2 sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F5..0x88F6->aux:0x30->rom:0xCB2F..0xCB36",
+      "data": {
+        "offset": 63792,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x16",
+        "0x36",
+        "0x0F",
+        "0x0F",
+        "0x23",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "dora-woods-part-2-night-sprites",
+      "label": "Dora Woods Part 2 sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F5..0x88F6->aux:0x30->rom:0xCB2F..0xCB36",
+      "data": {
+        "offset": 63808,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x16",
+        "0x36",
+        "0x0F",
+        "0x0F",
+        "0x23",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "town-of-yomi-day-sprites",
+      "label": "Town of Yomi sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F1..0x88F2->aux:0x2E->rom-bank4:0x9F2A..0x9F31",
+      "data": {
+        "offset": 63824,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "town-of-yomi-night-sprites",
+      "label": "Town of Yomi sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
+      "data": {
+        "offset": 63840,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1A",
+        "0x2A",
+        "0x0F",
+        "0x0F",
+        "0x03",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "vrad-graveyard-day-sprites",
+      "label": "Vrad Graveyard sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
+      "data": {
+        "offset": 63856,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x33",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "vrad-graveyard-night-sprites",
+      "label": "Vrad Graveyard sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
+      "data": {
+        "offset": 63872,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x33",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "castlevania-bridge-day-sprites",
+      "label": "Castlevania Bridge sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
+      "data": {
+        "offset": 63888,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x33",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "castlevania-bridge-night-sprites",
+      "label": "Castlevania Bridge sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
+      "data": {
+        "offset": 63904,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x33",
+        "0x20",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "castlevania-final-sprites",
+      "label": "Castlevania final area sprites",
+      "source": "out/captures/castlevania-final-area/ppu-3f00-3f1f-palettes.bin",
+      "data": {
+        "offset": 63920,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x05",
+        "0x35",
+        "0x0F",
+        "0x0F",
+        "0x00",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "dora-woods-part-3-day-sprites",
+      "label": "Dora Woods Part 3 sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
+      "data": {
+        "offset": 63936,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x18",
+        "0x38",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "dora-woods-part-3-night-sprites",
+      "label": "Dora Woods Part 3 sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
+      "data": {
+        "offset": 63952,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x18",
+        "0x38",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "long-bridge-to-borgia-mountains-day-sprites",
+      "label": "Long Bridge to Bordia Mountains sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F3..0x88F4->aux:0x2F->rom:0xCB26..0xCB2D",
+      "data": {
+        "offset": 63968,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x15",
+        "0x35",
+        "0x0F",
+        "0x0F",
+        "0x21",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "long-bridge-to-borgia-mountains-night-sprites",
+      "label": "Long Bridge to Bordia Mountains sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F3..0x88F4->aux:0x2F->rom:0xCB26..0xCB2D",
+      "data": {
+        "offset": 63984,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x15",
+        "0x35",
+        "0x0F",
+        "0x0F",
+        "0x21",
+        "0x20",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "borgia-mountains-dead-end-swamp-day-sprites",
+      "label": "Bordia Mountains Dead End Swamp sprites, day",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FD..0x88FE->aux:0x34->rom:0xCB53..0xCB5A",
+      "data": {
+        "offset": 64000,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1C",
+        "0x3C",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x37",
+        "0x0F"
+      ]
+    },
+    {
+      "id": "borgia-mountains-dead-end-swamp-night-sprites",
+      "label": "Bordia Mountains Dead End Swamp sprites, night",
+      "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FD..0x88FE->aux:0x34->rom:0xCB53..0xCB5A",
+      "data": {
+        "offset": 64016,
+        "length": 16
+      },
+      "bytes": [
+        "0x0F",
+        "0x0F",
+        "0x16",
+        "0x20",
+        "0x0F",
+        "0x27",
+        "0x20",
+        "0x16",
+        "0x0F",
+        "0x1C",
+        "0x3C",
+        "0x0F",
+        "0x0F",
+        "0x17",
+        "0x37",
+        "0x0F"
+      ]
+    },
+    {
       "id": "sadam-woods-day-sprites",
       "label": "Sadam Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA0CE..0xA0D5",
       "data": {
-        "offset": 46960,
+        "offset": 64032,
         "length": 16
       },
       "bytes": [
@@ -652,7 +1847,7 @@
       "label": "Sadam Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA0CE..0xA0D5",
       "data": {
-        "offset": 46976,
+        "offset": 64048,
         "length": 16
       },
       "bytes": [
@@ -679,7 +1874,7 @@
       "label": "Deborah Cliff sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA135..0xA13C",
       "data": {
-        "offset": 46992,
+        "offset": 64064,
         "length": 16
       },
       "bytes": [
@@ -706,7 +1901,7 @@
       "label": "Deborah Cliff sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA135..0xA13C",
       "data": {
-        "offset": 47008,
+        "offset": 64080,
         "length": 16
       },
       "bytes": [
@@ -743,6 +1938,7 @@
       },
       "sourceId": "berkeley-mansion-part-1",
       "visibilityLayer": null,
+      "presentationBackground": null,
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 32,
@@ -772,6 +1968,7 @@
       "provenance": {
         "pixels": "rom-derived",
         "layout": "rom-layout-space",
+        "presentationBackground": null,
         "binary": "rom-derived-tile-data"
       }
     },
@@ -788,6 +1985,7 @@
       },
       "sourceId": "berkeley-mansion-part-2",
       "visibilityLayer": null,
+      "presentationBackground": null,
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 32,
@@ -817,6 +2015,7 @@
       "provenance": {
         "pixels": "rom-derived",
         "layout": "rom-layout-space",
+        "presentationBackground": null,
         "binary": "rom-derived-tile-data"
       }
     }
@@ -1973,12 +3172,12 @@
           "Red Crystal"
         ],
         "iconTile": "0x5F",
+        "manualText": "You must have the Red Crystal before you enter Dracula's Castle.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C."
-        ],
-        "manualText": "You must have the Red Crystal before you enter Dracula's Castle.",
-        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11."
+        ]
       },
       "oak-stake": {
         "id": "oak-stake",
@@ -2058,6 +3257,24 @@
           "ROM sale table triple at file offset $1ED43 is $5B $02 $00, linking tile $5B to the Morning Star sale row."
         ]
       },
+      "flame-whip": {
+        "id": "flame-whip",
+        "label": "The Flame Whip",
+        "aliases": [
+          "The Flame Whip",
+          "Flame Whip"
+        ],
+        "iconTile": "0x5B",
+        "manualText": "The Flame Whip. Magic changes the Morning Star into the Flame Whip and gives it mysterious powers.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
+        "evidence": [
+          "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+          "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
+          "Debious Woods row $072B1 uses actor id $AF/data $05 and text pointer $CE89, whose decoded game text upgrades Simon's Morning Star.",
+          "Reward routine at ROM file offset $04C86 checks RAM $0434 == $03 and increments it, promoting Morning Star to whip tier $04.",
+          "If RAM $0434 is not $03, the same routine selects text pointer index $75, decoded as \"to break my spell, come back with a powerful weapon.\""
+        ]
+      },
       "holy-water": {
         "id": "holy-water",
         "label": "Holy Water",
@@ -2082,12 +3299,12 @@
           "Sacred Flame"
         ],
         "iconTile": "0x69",
+        "manualText": "The flame weakens the creatures' evil powers.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C."
-        ],
-        "manualText": "The flame weakens the creatures' evil powers.",
-        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10."
+        ]
       },
       "diamond": {
         "id": "diamond",
@@ -2139,6 +3356,24 @@
           "Camilla Cemetery secret merchant row $06F32 decodes text pointer $0CED8 to the Silver Knife reward dialog."
         ]
       },
+      "golden-knife": {
+        "id": "golden-knife",
+        "label": "The Gold Knife",
+        "aliases": [
+          "The Gold Knife",
+          "Gold Knife",
+          "Golden Knife"
+        ],
+        "iconTile": "0x6F",
+        "manualText": "This is your strongest knife, and it has a mysterious power.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
+        "evidence": [
+          "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+          "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
+          "Fixed-bank weapon/crystal start-menu table at file offset $1F048 maps the third weapon slot to tile $6F for the Gold Knife.",
+          "Brahm Mansion Death row $05CDE has text pointer $0DCC0, whose decoded ROM dialog gives Simon the Golden Knife."
+        ]
+      },
       "dracula-rib": {
         "id": "dracula-rib",
         "label": "Dracula's Rib",
@@ -2178,13 +3413,32 @@
           "Dracula's Eyeball"
         ],
         "iconTile": "0x50",
+        "manualText": "When it comes to the most frightening piece, the eyes have it.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
-          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring."
+          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.",
+          "Brahm Mansion actor row $05CE3 uses actor id $25 and text/data $1A for the Dracula's Eyeball orb."
+        ]
+      },
+      "magic-cross": {
+        "id": "magic-cross",
+        "label": "The Cross",
+        "aliases": [
+          "The Cross",
+          "Magic Cross",
+          "Cross"
         ],
-        "manualText": "When it comes to the most frightening piece, the eyes have it.",
-        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9."
+        "iconTile": "0x5A",
+        "manualText": "You must have the Cross to seal Dracula's fate.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Items, page 11.",
+        "evidence": [
+          "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+          "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
+          "The fixed-bank carry-item start-menu table maps the Cross/Magic Cross carry item to tile $5A.",
+          "Laruba Mansion Camilla row $05AC6 has holdsItem set in the ROM manifest and text pointer $D1D7, whose decoded ROM dialog gives Simon the Magic Cross."
+        ]
       },
       "dracula-nail": {
         "id": "dracula-nail",
@@ -2193,13 +3447,31 @@
           "Dracula's Nail"
         ],
         "iconTile": "0x51",
+        "manualText": "The nail is the symbol of evil power.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
-          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring."
+          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.",
+          "Bodley Mansion actor row $05FAB uses actor id $25 and text/data $1B for the Dracula's Nail orb."
+        ]
+      },
+      "dracula-ring": {
+        "id": "dracula-ring",
+        "label": "Dracula's Ring",
+        "aliases": [
+          "Dracula's Ring",
+          "The Ring"
         ],
-        "manualText": "The nail is the symbol of evil power.",
-        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9."
+        "iconTile": "0x52",
+        "manualText": "It's been in the Count's family for hundreds of years. Then again, the Count's also been in his family for hundreds of years.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9.",
+        "evidence": [
+          "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+          "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
+          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.",
+          "Laruba Mansion actor row $05ACB uses actor id $25 and text/data $1C for the Dracula's Ring orb."
+        ]
       },
       "garlic": {
         "id": "garlic",
@@ -2257,6 +3529,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": 360,
+      "blink": null,
       "selectorRecord": null,
       "frames": [
         {
@@ -2520,6 +3793,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x0E",
         "cpuAddress": "0xDDCC",
@@ -2682,6 +3956,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x0D",
         "cpuAddress": "0xDDC9",
@@ -2844,6 +4119,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x0A",
         "cpuAddress": "0xDDC0",
@@ -2988,6 +4264,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x0D",
         "cpuAddress": "0xDDC9",
@@ -3150,6 +4427,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x0B",
         "cpuAddress": "0xDDC3",
@@ -3312,6 +4590,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x0F",
         "cpuAddress": "0xDDCF",
@@ -3474,6 +4753,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x0F",
         "cpuAddress": "0xDDCF",
@@ -3625,6 +4905,169 @@
       "proof": "ROM row id $AF maps through live id $2F to the shared crystal-merchant routine at bank 1:$83CC. Alba row $5135 carries data $04/text pointer $D893, selecting the Red Crystal exchange."
     },
     {
+      "id": "flame-whip-upgrade-merchant",
+      "label": "Flame Whip Merchant",
+      "kind": "npc",
+      "placement": null,
+      "actorId": "0xAF",
+      "chrSet": "chr-04-05",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "blink": null,
+      "selectorRecord": {
+        "index": "0x0B",
+        "cpuAddress": "0xDDC3",
+        "fileOffset": "0x1DDD3",
+        "bytes": [
+          "0x01",
+          "0x1E",
+          "0x0C"
+        ],
+        "selectors": [
+          "0x1E",
+          "0x1F"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x1E",
+          "pointer": "0xB23B",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x6F",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0x71",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0x73",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0x75",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -19,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 32,
+            "centroid": {
+              "x": -1.1940063091482649,
+              "y": -1.5630914826498423
+            },
+            "opaquePixels": 317,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x1F",
+          "pointer": "0xB242",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x6F",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -18
+            },
+            {
+              "tile": "0x71",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -18
+            },
+            {
+              "tile": "0x77",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0x79",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -18,
+            "maxX": 6,
+            "maxY": 13,
+            "width": 13,
+            "height": 31,
+            "centroid": {
+              "x": -1.2564102564102564,
+              "y": -1.25
+            },
+            "opaquePixels": 312,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -7,
+        "minY": -19,
+        "maxX": 7,
+        "maxY": 13,
+        "width": 14,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "Debious Woods row $072B1 uses actor id $AF/data $05 and text pointer $CE89, whose decoded ROM text says \"i'll give your morning star power to burn away evil.\" The shared $AF routine at bank 1:$83CC maps live id $2F through table 1:$83F3 to selector-record $0F, then checks object-set RAM $30; because Debious is object set $03, it overrides $0F to selector-record $0B. Debious supplies CHR banks $04/$05."
+    },
+    {
       "id": "old-gypsy",
       "label": "Old Gypsy",
       "kind": "npc",
@@ -3636,6 +5079,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x0B",
         "cpuAddress": "0xDDC3",
@@ -3798,6 +5242,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": null,
       "frames": [
         {
@@ -3890,6 +5335,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x0C",
         "cpuAddress": "0xDDC6",
@@ -4052,6 +5498,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x08",
         "cpuAddress": "0xDDBA",
@@ -4261,6 +5708,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x05",
         "cpuAddress": "0xDDB1",
@@ -4426,6 +5874,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x06",
         "cpuAddress": "0xDDB4",
@@ -4588,6 +6037,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x1C",
         "cpuAddress": "0xDDF6",
@@ -4714,6 +6164,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x1D",
         "cpuAddress": "0xDDF9",
@@ -4876,6 +6327,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": null,
       "frames": [
         {
@@ -5046,6 +6498,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x1A",
         "cpuAddress": "0xDDF0",
@@ -5229,6 +6682,7 @@
         "offsetY": -18
       },
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": null,
       "frames": [
         {
@@ -5394,6 +6848,7 @@
         "offsetY": -18
       },
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": null,
       "frames": [
         {
@@ -5558,6 +7013,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x39",
         "cpuAddress": "0xDE4D",
@@ -5684,6 +7140,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x3A",
         "cpuAddress": "0xDE50",
@@ -5836,6 +7293,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x23",
         "cpuAddress": "0xDE0B",
@@ -5951,6 +7409,133 @@
       "proof": "ROM actor id $0E dispatches to 1:$8425, which writes selector-stream record $23. The rendered spider sprite matches the English manual enemy \"The Spider\"."
     },
     {
+      "id": "mansion-spider",
+      "label": "The Spider",
+      "kind": "enemy",
+      "placement": null,
+      "actorId": "0x0E",
+      "chrSet": "chr-08-09",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "blink": null,
+      "selectorRecord": {
+        "index": "0x23",
+        "cpuAddress": "0xDE0B",
+        "fileOffset": "0x1DE1B",
+        "bytes": [
+          "0x01",
+          "0x2E",
+          "0x10"
+        ],
+        "selectors": [
+          "0x2E",
+          "0x2F"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x2E",
+          "pointer": "0xB249",
+          "status": "0x02",
+          "sprites": [
+            {
+              "tile": "0x8B",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x8B",
+              "attr": "0x42",
+              "palette": 2,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -8,
+            "maxX": 8,
+            "maxY": 8,
+            "width": 16,
+            "height": 16,
+            "centroid": {
+              "x": 0,
+              "y": 0.09090909090909091
+            },
+            "opaquePixels": 220,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x2F",
+          "pointer": "0xB252",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xBF",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xBF",
+              "attr": "0x42",
+              "palette": 2,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -8,
+            "maxX": 8,
+            "maxY": 8,
+            "width": 16,
+            "height": 16,
+            "centroid": {
+              "x": 0,
+              "y": -0.41346153846153844
+            },
+            "opaquePixels": 208,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 24
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 8,
+        "width": 16,
+        "height": 16,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "ROM actor id $0E dispatches to 1:$8425, which writes selector-stream record $23. Laruba Mansion rows $05A95 and $05A9D use actor id $0E/data $1E in object set $01, so the guide renders the same spider record with mansion CHR banks $08/$09."
+    },
+    {
       "id": "werewolf",
       "label": "The Wolf Man",
       "kind": "enemy",
@@ -5965,6 +7550,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x1E",
         "cpuAddress": "0xDDFC",
@@ -6130,6 +7716,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x37",
         "cpuAddress": "0xDE47",
@@ -6292,6 +7879,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x20",
         "cpuAddress": "0xDE02",
@@ -6404,7 +7992,7 @@
         "source": "chr-nonzero-pixels"
       },
       "selectorSource": "selector-stream-record",
-      "proof": "ROM actor id $26 dispatches through 1:$8335; that routine passes selector-record index $20 to fixed-bank $DED8, which emits metasprites $78/$79 for the sacred-flame reward fixture."
+      "proof": "ROM actor id $26 dispatches through 1:$8335; the routine selects selector-record $20 for non-$27 actors, then clears the $08 hidden flag from $03C6,x when selected item $4F is Dracula's Eyeball. Selector-record $20 emits metasprites $78/$79 for the sacred-flame reward fixture."
     },
     {
       "id": "hidden-book-secret",
@@ -6418,6 +8006,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x3B",
         "cpuAddress": "0xDE53",
@@ -6504,6 +8093,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x3B",
         "cpuAddress": "0xDE53",
@@ -6593,6 +8183,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x05",
         "cpuAddress": "0xDDB1",
@@ -6758,6 +8349,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x13",
         "cpuAddress": "0xDDDB",
@@ -6950,6 +8542,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x05",
         "cpuAddress": "0xDDB1",
@@ -7115,6 +8708,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x12",
         "cpuAddress": "0xDDD8",
@@ -7307,6 +8901,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x07",
         "cpuAddress": "0xDDB7",
@@ -7422,6 +9017,1105 @@
       "proof": "Actor dispatch entry $11 at bank 1:$9934 initializes selector-stream record $07, which expands to selectors $12/$13 in the mansion CHR context; Lauber rows carry HP $04."
     },
     {
+      "id": "death",
+      "label": "Death",
+      "kind": "enemy",
+      "placement": null,
+      "actorId": "0x44",
+      "chrSet": "chr-08-09",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": {
+        "day": 128,
+        "night": 128
+      },
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "blink": null,
+      "selectorRecord": null,
+      "frames": [
+        {
+          "selector": "0x44",
+          "pointer": "0xB58E",
+          "status": "0x0B",
+          "sprites": [
+            {
+              "tile": "0xD3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xD5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xD7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xD9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -20,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xDB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xE1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xE3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xE5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": 8
+            },
+            {
+              "tile": "0xE7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": 8
+            },
+            {
+              "tile": "0xE9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": 8
+            },
+            {
+              "tile": "0xD1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -20,
+              "yOffset": -24
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -20,
+            "minY": -24,
+            "maxX": 12,
+            "maxY": 24,
+            "width": 32,
+            "height": 48,
+            "centroid": {
+              "x": -0.5497560975609757,
+              "y": -2.006341463414634
+            },
+            "opaquePixels": 1025,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x45",
+          "pointer": "0xB5B1",
+          "status": "0x0A",
+          "sprites": [
+            {
+              "tile": "0xEB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xED",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xEF",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xF1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xF3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xF5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xF7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 12,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xE5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -12,
+              "yOffset": 8
+            },
+            {
+              "tile": "0xE7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -4,
+              "yOffset": 8
+            },
+            {
+              "tile": "0xE9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 4,
+              "yOffset": 8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -12,
+            "minY": -24,
+            "maxX": 20,
+            "maxY": 24,
+            "width": 32,
+            "height": 48,
+            "centroid": {
+              "x": 0.9847290640394089,
+              "y": -0.41724137931034483
+            },
+            "opaquePixels": 1015,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -20,
+        "minY": -24,
+        "maxX": 20,
+        "maxY": 24,
+        "width": 40,
+        "height": 48
+      },
+      "opaqueBounds": {
+        "minX": -20,
+        "minY": -24,
+        "maxX": 20,
+        "maxY": 24,
+        "width": 40,
+        "height": 48,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "direct-selector-list",
+      "proof": "Brahm Mansion actor row $05CDE is bytes $08 $08 $44 $80. The whole-ROM enemy atlas proves actor id $44 dispatches to bank 1:$9E1B, initializes direct body selector $44, writes follow-up body selector $45, and uses fixed interior HP 128 from row data $80. Death scythe/projectile behavior is not represented as a separate static guide marker."
+    },
+    {
+      "id": "camilla",
+      "label": "Camilla",
+      "kind": "enemy",
+      "placement": null,
+      "actorId": "0x42",
+      "chrSet": "chr-09-0a",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": {
+        "day": 240,
+        "night": 240
+      },
+      "drawAnchor": null,
+      "frameDurationMs": 16.666666666666668,
+      "blink": null,
+      "paletteCycle": {
+        "values": [
+          3,
+          1,
+          2,
+          3
+        ],
+        "frameDurationMs": 16.666666666666668,
+        "source": "Camilla attack-state path bank 1:$9DCA-$9DCF restores X, increments the attack timer, and jumps to fixed-bank $D9CF, which stores global frame counter $1D & $03 in actor attribute RAM $0312,x. The shared metasprite drawer at bank 0:$AB16-$AB28 uses nonzero $0312 low bits as the OAM palette override; phase 0 leaves selector $CA on its native palette slot $03."
+      },
+      "selectorRecord": null,
+      "frames": [
+        {
+          "selector": "0xCA",
+          "pointer": "0xB561",
+          "status": "0x0A",
+          "sprites": [
+            {
+              "tile": "0xE1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xEB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xED",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xEF",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xF1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 16
+            },
+            {
+              "tile": "0xF3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 16
+            }
+          ],
+          "paletteCycle": {
+            "index": 0,
+            "palette": 3,
+            "source": "Camilla attack-state path bank 1:$9DCA-$9DCF restores X, increments the attack timer, and jumps to fixed-bank $D9CF, which stores global frame counter $1D & $03 in actor attribute RAM $0312,x. The shared metasprite drawer at bank 0:$AB16-$AB28 uses nonzero $0312 low bits as the OAM palette override; phase 0 leaves selector $CA on its native palette slot $03."
+          },
+          "opaqueBounds": {
+            "minX": -15,
+            "minY": -16,
+            "maxX": 15,
+            "maxY": 25,
+            "width": 30,
+            "height": 41,
+            "centroid": {
+              "x": -0.06911447084233262,
+              "y": 2.124190064794816
+            },
+            "opaquePixels": 926,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0xCA",
+          "pointer": "0xB561",
+          "status": "0x0A",
+          "sprites": [
+            {
+              "tile": "0xE1",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE3",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE5",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE7",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE9",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xEB",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xED",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xEF",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xF1",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 16
+            },
+            {
+              "tile": "0xF3",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 16
+            }
+          ],
+          "paletteCycle": {
+            "index": 1,
+            "palette": 1,
+            "source": "Camilla attack-state path bank 1:$9DCA-$9DCF restores X, increments the attack timer, and jumps to fixed-bank $D9CF, which stores global frame counter $1D & $03 in actor attribute RAM $0312,x. The shared metasprite drawer at bank 0:$AB16-$AB28 uses nonzero $0312 low bits as the OAM palette override; phase 0 leaves selector $CA on its native palette slot $03."
+          },
+          "opaqueBounds": {
+            "minX": -15,
+            "minY": -16,
+            "maxX": 15,
+            "maxY": 25,
+            "width": 30,
+            "height": 41,
+            "centroid": {
+              "x": -0.06911447084233262,
+              "y": 2.124190064794816
+            },
+            "opaquePixels": 926,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0xCA",
+          "pointer": "0xB561",
+          "status": "0x0A",
+          "sprites": [
+            {
+              "tile": "0xE1",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE3",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE5",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE7",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE9",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xEB",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xED",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xEF",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xF1",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 16
+            },
+            {
+              "tile": "0xF3",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 16
+            }
+          ],
+          "paletteCycle": {
+            "index": 2,
+            "palette": 2,
+            "source": "Camilla attack-state path bank 1:$9DCA-$9DCF restores X, increments the attack timer, and jumps to fixed-bank $D9CF, which stores global frame counter $1D & $03 in actor attribute RAM $0312,x. The shared metasprite drawer at bank 0:$AB16-$AB28 uses nonzero $0312 low bits as the OAM palette override; phase 0 leaves selector $CA on its native palette slot $03."
+          },
+          "opaqueBounds": {
+            "minX": -15,
+            "minY": -16,
+            "maxX": 15,
+            "maxY": 25,
+            "width": 30,
+            "height": 41,
+            "centroid": {
+              "x": -0.06911447084233262,
+              "y": 2.124190064794816
+            },
+            "opaquePixels": 926,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0xCA",
+          "pointer": "0xB561",
+          "status": "0x0A",
+          "sprites": [
+            {
+              "tile": "0xE1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xE9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xEB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xED",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xEF",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xF1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 16
+            },
+            {
+              "tile": "0xF3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 16
+            }
+          ],
+          "paletteCycle": {
+            "index": 3,
+            "palette": 3,
+            "source": "Camilla attack-state path bank 1:$9DCA-$9DCF restores X, increments the attack timer, and jumps to fixed-bank $D9CF, which stores global frame counter $1D & $03 in actor attribute RAM $0312,x. The shared metasprite drawer at bank 0:$AB16-$AB28 uses nonzero $0312 low bits as the OAM palette override; phase 0 leaves selector $CA on its native palette slot $03."
+          },
+          "opaqueBounds": {
+            "minX": -15,
+            "minY": -16,
+            "maxX": 15,
+            "maxY": 25,
+            "width": 30,
+            "height": 41,
+            "centroid": {
+              "x": -0.06911447084233262,
+              "y": 2.124190064794816
+            },
+            "opaquePixels": 926,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -16,
+        "minY": -16,
+        "maxX": 16,
+        "maxY": 32,
+        "width": 32,
+        "height": 48
+      },
+      "opaqueBounds": {
+        "minX": -15,
+        "minY": -16,
+        "maxX": 15,
+        "maxY": 25,
+        "width": 30,
+        "height": 41,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "direct-selector-list",
+      "proof": "Laruba Mansion actor row $05AC6 is bytes $08 $0A $42 $F0. The whole-ROM enemy atlas proves actor id $42 dispatches to bank 1:$9CD8 and initializes direct selector $CA; row data $F0 supplies fixed mansion HP 240. Camilla uses the boss sprite pattern context $0A, so the decoded $CA 8x16 metasprite must be rendered from sprite CHR banks $09/$0A rather than the generic mansion background CHR pair $08/$09. Selector $CA uses native OAM palette $03; Camilla's attack-state palette blink is produced by bank 1:$9DCA-$9DCF jumping to fixed-bank $D9CF, which stores $1D & $03 into $0312,x for the shared sprite drawer palette override. The guide reproduces that ROM palette-slot cadence; boss projectile/state behavior is not represented as a separate guide marker."
+    },
+    {
+      "id": "dracula",
+      "label": "Dracula",
+      "kind": "enemy",
+      "placement": null,
+      "actorId": "0x47",
+      "chrSet": "chr-0b-0c",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": {
+        "day": 240,
+        "night": 240
+      },
+      "drawAnchor": null,
+      "frameDurationMs": 16.666666666666668,
+      "blink": {
+        "visibleFrames": 2,
+        "hiddenFrames": 2,
+        "source": "The final-room spawn routine blinks Dracula by alternating selector $33 with no visible selector while the boss is being summoned. The guide uses the same presentation cadence as the overworld final-entry preview."
+      },
+      "selectorRecord": null,
+      "frames": [
+        {
+          "selector": "0x33",
+          "pointer": "0xAF7E",
+          "status": "0x1C",
+          "sprites": [
+            {
+              "tile": "0xA1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -48
+            },
+            {
+              "tile": "0xA3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -48
+            },
+            {
+              "tile": "0xA5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -24,
+              "yOffset": -32
+            },
+            {
+              "tile": "0xA7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": -32
+            },
+            {
+              "tile": "0xA9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -32
+            },
+            {
+              "tile": "0xAB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -32
+            },
+            {
+              "tile": "0xAD",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": -32
+            },
+            {
+              "tile": "0xA5",
+              "attr": "0x43",
+              "palette": 3,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": 16,
+              "yOffset": -32
+            },
+            {
+              "tile": "0xAF",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -24,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xB1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xB3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xB5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xB7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xAF",
+              "attr": "0x43",
+              "palette": 3,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": 16,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xB9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -24,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xBB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xBD",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xBF",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xBB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xB9",
+              "attr": "0x43",
+              "palette": 3,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": 16,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xC1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": 16
+            },
+            {
+              "tile": "0xBB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 16
+            },
+            {
+              "tile": "0xBB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 16
+            },
+            {
+              "tile": "0xC1",
+              "attr": "0x43",
+              "palette": 3,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": 16
+            },
+            {
+              "tile": "0xC3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -16,
+              "yOffset": 32
+            },
+            {
+              "tile": "0xC5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 32
+            },
+            {
+              "tile": "0xC5",
+              "attr": "0x43",
+              "palette": 3,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 32
+            },
+            {
+              "tile": "0xC3",
+              "attr": "0x43",
+              "palette": 3,
+              "flipHorizontal": true,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": 32
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -22,
+            "minY": -44,
+            "maxX": 22,
+            "maxY": 48,
+            "width": 44,
+            "height": 92,
+            "centroid": {
+              "x": 0,
+              "y": 1.3662020905923344
+            },
+            "opaquePixels": 2870,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -24,
+        "minY": -48,
+        "maxX": 24,
+        "maxY": 48,
+        "width": 48,
+        "height": 96
+      },
+      "opaqueBounds": {
+        "minX": -22,
+        "minY": -44,
+        "maxX": 22,
+        "maxY": 48,
+        "width": 44,
+        "height": 92,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "direct-selector-list",
+      "proof": "The final-room Dracula spawn initializer at bank 1:$B4FA stores actor id $47 into actor-id RAM $03B4+$06. Bank 1:$B5A9-$B5B0 uses ROM metasprite selector $33 for the visible Dracula frame, and bank 1:$B5B9-$B5BE stores HP $F0 into actor HP RAM $04C2+$06 ($04C8). The shared hit/death routines at bank 1:$8926 and 1:$8A69 check actor id $47 alongside Camilla $42 and Death $44."
+    },
+    {
       "id": "blob",
       "label": "Slimey BarSinister",
       "kind": "enemy",
@@ -7436,6 +10130,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": null,
       "frames": [
         {
@@ -7538,6 +10233,136 @@
       "proof": "Actor dispatch entry $1F initializes through the direct fixed-bank $DED0 selector path with selector $3C, then the $97D3 state machine advances the neutral animation to selector $3D. Whole-ROM actor inventory finds the same actor id in Berkeley, Brahm, and Bodley mansions, so the guide uses a generic name rather than a location-specific label. The rendered blob sprite matches the English manual enemy illustration labeled \"Slimey BarSinister\"."
     },
     {
+      "id": "rock",
+      "label": "Rock",
+      "kind": "enemy",
+      "placement": null,
+      "actorId": "0x3E",
+      "chrSet": "chr-08-09",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": {
+        "day": 0,
+        "night": 0
+      },
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "blink": null,
+      "selectorRecord": {
+        "index": "0x2F",
+        "cpuAddress": "0xDE2F",
+        "fileOffset": "0x1DE3F",
+        "bytes": [
+          "0x01",
+          "0x81",
+          "0x08"
+        ],
+        "selectors": [
+          "0x81",
+          "0x82"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x81",
+          "pointer": "0xB4D6",
+          "status": "0x02",
+          "sprites": [
+            {
+              "tile": "0xD2",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xD4",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -6,
+            "minY": -7,
+            "maxX": 8,
+            "maxY": 7,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": 0.524390243902439,
+              "y": 0.22560975609756098
+            },
+            "opaquePixels": 164,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x82",
+          "pointer": "0xB4DE",
+          "status": "0x02",
+          "sprites": [
+            {
+              "tile": "0xD2",
+              "attr": "0x83",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": true,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xD4",
+              "attr": "0x83",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": true,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -6,
+            "minY": -7,
+            "maxX": 8,
+            "maxY": 7,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": 0.524390243902439,
+              "y": -0.22560975609756098
+            },
+            "opaquePixels": 164,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 24
+      },
+      "opaqueBounds": {
+        "minX": -6,
+        "minY": -7,
+        "maxX": 8,
+        "maxY": 7,
+        "width": 14,
+        "height": 14,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "Whole-ROM enemy atlas decoding proves actor id $3E dispatches to PRG bank 1:$96E1 and initializes selector-record $2F for the Bodley Mansion falling-rock rows. Bodley rows carry HP byte $00."
+    },
+    {
       "id": "mansion-book",
       "label": "Hidden clue book",
       "kind": "secret",
@@ -7549,6 +10374,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x3B",
         "cpuAddress": "0xDE53",
@@ -7635,6 +10461,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x0B",
         "cpuAddress": "0xDDC3",
@@ -7786,6 +10613,169 @@
       "proof": "ROM row id $AE maps through live id $2E to the merchant selector table. The oak-stake merchant row data selects the $0B animation record in the mansion context."
     },
     {
+      "id": "laruba-laurels-giver",
+      "label": "Laurels Giver",
+      "kind": "npc",
+      "placement": null,
+      "actorId": "0xAF",
+      "chrSet": "chr-08-09",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "blink": null,
+      "selectorRecord": {
+        "index": "0x0B",
+        "cpuAddress": "0xDDC3",
+        "fileOffset": "0x1DDD3",
+        "bytes": [
+          "0x01",
+          "0x1E",
+          "0x0C"
+        ],
+        "selectors": [
+          "0x1E",
+          "0x1F"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x1E",
+          "pointer": "0xB23B",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x6F",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0x71",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0x73",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0x75",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -19,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 32,
+            "centroid": {
+              "x": -1.1940063091482649,
+              "y": -1.5630914826498423
+            },
+            "opaquePixels": 317,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x1F",
+          "pointer": "0xB242",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0x6F",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -18
+            },
+            {
+              "tile": "0x71",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -18
+            },
+            {
+              "tile": "0x77",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0x79",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -18,
+            "maxX": 6,
+            "maxY": 13,
+            "width": 13,
+            "height": 31,
+            "centroid": {
+              "x": -1.2564102564102564,
+              "y": -1.25
+            },
+            "opaquePixels": 312,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -7,
+        "minY": -19,
+        "maxX": 7,
+        "maxY": 13,
+        "width": 14,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "Laruba Mansion row $05A65 uses actor id $AF/data $01 and text pointer $DCE2, whose decoded ROM text says \"i beg of you to take these laurels.\" The shared $AF routine at bank 1:$83CC maps live id $2F through table 1:$83F3 to selector-record $0F, then checks object-set RAM $30; because Laruba Mansion is object set $01, it overrides $0F to selector-record $0B. Laruba Mansion supplies CHR banks $08/$09."
+    },
+    {
       "id": "dracula-rib-orb",
       "label": "Dracula's Rib",
       "kind": "secret",
@@ -7801,6 +10791,7 @@
         "source": "out/states/berkeley-mansion-orb.mss OAM proof: pre-stake orb selector $3B renders tiles $EC/$EE at screen x $C8/$D0 from row x $3D."
       },
       "frameDurationMs": 16.666666666666668,
+      "blink": null,
       "paletteCycle": {
         "values": [
           1,
@@ -8026,6 +11017,7 @@
         "source": "Actor id $25 orb visible placement uses the same pre-stake selector $3B draw anchor proven for the Berkeley Rib orb."
       },
       "frameDurationMs": 16.666666666666668,
+      "blink": null,
       "paletteCycle": {
         "values": [
           1,
@@ -8236,6 +11228,684 @@
       "proof": "Lauber Mansion actor row $05C4B uses actor id $25 with text/data $19. Actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence."
     },
     {
+      "id": "dracula-eyeball-orb",
+      "label": "Dracula's Eyeball",
+      "kind": "secret",
+      "placement": null,
+      "actorId": "0x25",
+      "chrSet": "chr-08-09",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": {
+        "offsetX": 0,
+        "offsetY": -12,
+        "source": "Actor id $25 orb visible placement uses the same pre-stake selector $3B draw anchor proven for the Berkeley Rib orb."
+      },
+      "frameDurationMs": 16.666666666666668,
+      "blink": null,
+      "paletteCycle": {
+        "values": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "frameDurationMs": 16.666666666666668,
+        "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Brahm row data/text selects Dracula's Eyeball."
+      },
+      "selectorRecord": null,
+      "frames": [
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 0,
+            "palette": 1,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Brahm row data/text selects Dracula's Eyeball."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 1,
+            "palette": 2,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Brahm row data/text selects Dracula's Eyeball."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 2,
+            "palette": 3,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Brahm row data/text selects Dracula's Eyeball."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 3,
+            "palette": 0,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Brahm row data/text selects Dracula's Eyeball."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -3,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 19
+      },
+      "opaqueBounds": {
+        "minX": -7,
+        "minY": -1,
+        "maxX": 7,
+        "maxY": 13,
+        "width": 14,
+        "height": 14,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "direct-selector-list",
+      "proof": "Brahm Mansion actor row $05CE3 uses actor id $25 with text/data $1A. Text pointer index $1A decodes at ROM file $0CFDE to the Dracula's Eyeball pickup message, and actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence."
+    },
+    {
+      "id": "dracula-nail-orb",
+      "label": "Dracula's Nail",
+      "kind": "secret",
+      "placement": null,
+      "actorId": "0x25",
+      "chrSet": "chr-08-09",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": {
+        "offsetX": 0,
+        "offsetY": -12,
+        "source": "Actor id $25 orb visible placement uses the same pre-stake selector $3B draw anchor proven for the Berkeley Rib orb."
+      },
+      "frameDurationMs": 16.666666666666668,
+      "blink": null,
+      "paletteCycle": {
+        "values": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "frameDurationMs": 16.666666666666668,
+        "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Bodley row data/text selects Dracula's Nail."
+      },
+      "selectorRecord": null,
+      "frames": [
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 0,
+            "palette": 1,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Bodley row data/text selects Dracula's Nail."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 1,
+            "palette": 2,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Bodley row data/text selects Dracula's Nail."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 2,
+            "palette": 3,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Bodley row data/text selects Dracula's Nail."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 3,
+            "palette": 0,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Bodley row data/text selects Dracula's Nail."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -3,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 19
+      },
+      "opaqueBounds": {
+        "minX": -7,
+        "minY": -1,
+        "maxX": 7,
+        "maxY": 13,
+        "width": 14,
+        "height": 14,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "direct-selector-list",
+      "proof": "Bodley Mansion actor row $05FAB uses actor id $25 with text/data $1B. Actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence."
+    },
+    {
+      "id": "dracula-ring-orb",
+      "label": "Dracula's Ring",
+      "kind": "secret",
+      "placement": null,
+      "actorId": "0x25",
+      "chrSet": "chr-08-09",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": {
+        "offsetX": 0,
+        "offsetY": -12,
+        "source": "Actor id $25 orb visible placement uses the same pre-stake selector $3B draw anchor proven for the Berkeley Rib orb."
+      },
+      "frameDurationMs": 16.666666666666668,
+      "blink": null,
+      "paletteCycle": {
+        "values": [
+          1,
+          2,
+          3,
+          0
+        ],
+        "frameDurationMs": 16.666666666666668,
+        "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Laruba row data/text selects Dracula's Ring."
+      },
+      "selectorRecord": null,
+      "frames": [
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 0,
+            "palette": 1,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Laruba row data/text selects Dracula's Ring."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x02",
+              "palette": 2,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 1,
+            "palette": 2,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Laruba row data/text selects Dracula's Ring."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 2,
+            "palette": 3,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Laruba row data/text selects Dracula's Ring."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x3B",
+          "pointer": "0xB4D1",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xEC",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xEE",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "paletteCycle": {
+            "index": 3,
+            "palette": 0,
+            "source": "Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Laruba row data/text selects Dracula's Ring."
+          },
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -1,
+            "maxX": 7,
+            "maxY": 13,
+            "width": 14,
+            "height": 14,
+            "centroid": {
+              "x": -0.58,
+              "y": 5.78
+            },
+            "opaquePixels": 125,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -3,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 19
+      },
+      "opaqueBounds": {
+        "minX": -7,
+        "minY": -1,
+        "maxX": 7,
+        "maxY": 13,
+        "width": 14,
+        "height": 14,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "direct-selector-list",
+      "proof": "Laruba Mansion actor row $05ACB uses actor id $25 with text/data $1C. Actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence."
+    },
+    {
       "id": "secret-merchant",
       "label": "Secret Merchant",
       "kind": "npc",
@@ -8247,6 +11917,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x0B",
         "cpuAddress": "0xDDC3",
@@ -8412,6 +12083,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x17",
         "cpuAddress": "0xDDE7",
@@ -8541,6 +12213,7 @@
       },
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": null,
       "frames": [
         {
@@ -8654,6 +12327,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x05",
         "cpuAddress": "0xDDB1",
@@ -8805,6 +12479,133 @@
       "proof": "Sadam Woods actor rows use actor id $03 in the object-set $03 CHR family. The full enemy atlas proves the shared skeleton dispatch path and row-backed HP, while Sadam palette evidence resolves CHR banks $04/$05."
     },
     {
+      "id": "floating-skull",
+      "label": "Floating skull",
+      "kind": "enemy",
+      "placement": null,
+      "actorId": "0x10",
+      "chrSet": "chr-04-05",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "blink": null,
+      "selectorRecord": {
+        "index": "0x16",
+        "cpuAddress": "0xDDE4",
+        "fileOffset": "0x1DDF4",
+        "bytes": [
+          "0x01",
+          "0x49",
+          "0x08"
+        ],
+        "selectors": [
+          "0x49",
+          "0x4A"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x49",
+          "pointer": "0xB786",
+          "status": "0x02",
+          "sprites": [
+            {
+              "tile": "0xF3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xF5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -8,
+            "maxX": 8,
+            "maxY": 7,
+            "width": 15,
+            "height": 15,
+            "centroid": {
+              "x": -0.24431818181818182,
+              "y": -0.9318181818181818
+            },
+            "opaquePixels": 176,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x4A",
+          "pointer": "0xB78E",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xF7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xF9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -7,
+            "minY": -8,
+            "maxX": 8,
+            "maxY": 7,
+            "width": 15,
+            "height": 15,
+            "centroid": {
+              "x": 0.20238095238095238,
+              "y": -0.8928571428571429
+            },
+            "opaquePixels": 168,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 24
+      },
+      "opaqueBounds": {
+        "minX": -7,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 7,
+        "width": 15,
+        "height": 15,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "Whole-ROM enemy atlas decoding proves actor id $10 dispatches to PRG bank 1:$B2E2 and initializes selector-record $16 for the Joma/Debious floating-skull rows. The same routine later references selector-record $29 for another state; the guide uses the primary dispatch selector-record. Manual-name matching is not yet proven for this class."
+    },
+    {
       "id": "grabber",
       "label": "Grabber",
       "kind": "enemy",
@@ -8816,6 +12617,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x25",
         "cpuAddress": "0xDE11",
@@ -8967,6 +12769,340 @@
       "proof": "Whole-ROM enemy atlas decoding proves actor id $16 dispatches to PRG bank 1:$B092 and initializes selector-record $25, with a later routine branch to selector-record $26. The guide uses the primary selector-record proven at routine entry."
     },
     {
+      "id": "swamp-ghoul",
+      "label": "Swamp ghoul",
+      "kind": "enemy",
+      "placement": null,
+      "actorId": "0x18",
+      "chrSet": "chr-04-05",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "blink": null,
+      "selectorRecord": null,
+      "frames": [
+        {
+          "selector": "0xC0",
+          "pointer": "0xB7C3",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xC1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xC3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": 11,
+            "maxX": 8,
+            "maxY": 16,
+            "width": 16,
+            "height": 5,
+            "centroid": {
+              "x": 0.6724137931034483,
+              "y": 13.948275862068966
+            },
+            "opaquePixels": 58,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0xC1",
+          "pointer": "0xB7C8",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0xC5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xC7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": 3,
+            "maxX": 8,
+            "maxY": 16,
+            "width": 16,
+            "height": 13,
+            "centroid": {
+              "x": 0.16666666666666666,
+              "y": 10.652777777777779
+            },
+            "opaquePixels": 144,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0xC2",
+          "pointer": "0xB7CD",
+          "status": "0x04",
+          "sprites": [
+            {
+              "tile": "0xCD",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xCF",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xC9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xCB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -16
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -6,
+            "minY": -12,
+            "maxX": 8,
+            "maxY": 16,
+            "width": 14,
+            "height": 28,
+            "centroid": {
+              "x": 1.0202952029520296,
+              "y": 2.0682656826568264
+            },
+            "opaquePixels": 271,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -16,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 32
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -12,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 28,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "direct-selector-list",
+      "proof": "Whole-ROM enemy atlas decoding proves actor id $18 dispatches to PRG bank 1:$AE95 and writes visible animation selectors from the local ROM table at bank 1:$AF12 through STA $0300,x. The visible selector sequence is $C0/$C1/$C2, and the guide keeps that ROM-backed animation sequence. Manual-name matching is not yet proven for this class."
+    },
+    {
+      "id": "fire-ghoul",
+      "label": "Fire ghoul",
+      "kind": "enemy",
+      "placement": null,
+      "actorId": "0x1D",
+      "chrSet": "chr-04-05",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "blink": null,
+      "selectorRecord": {
+        "index": "0x29",
+        "cpuAddress": "0xDE1D",
+        "fileOffset": "0x1DE2D",
+        "bytes": [
+          "0x01",
+          "0x9D",
+          "0x10"
+        ],
+        "selectors": [
+          "0x9D",
+          "0x9E"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x9D",
+          "pointer": "0xB831",
+          "status": "0x04",
+          "sprites": [
+            {
+              "tile": "0xA1",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xA3",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xA5",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xA7",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -19,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 16,
+            "height": 32,
+            "centroid": {
+              "x": 0.25080906148867316,
+              "y": -3.94336569579288
+            },
+            "opaquePixels": 309,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x9E",
+          "pointer": "0xB83F",
+          "status": "0x84",
+          "sprites": [
+            {
+              "tile": "0xA9",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xAB",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -19
+            },
+            {
+              "tile": "0xAD",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -3
+            },
+            {
+              "tile": "0xAF",
+              "attr": "0x01",
+              "palette": 1,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -3
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -19,
+            "maxX": 8,
+            "maxY": 13,
+            "width": 16,
+            "height": 32,
+            "centroid": {
+              "x": -0.046546546546546545,
+              "y": -2.6681681681681684
+            },
+            "opaquePixels": 333,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 35
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -19,
+        "maxX": 8,
+        "maxY": 13,
+        "width": 16,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "Whole-ROM enemy atlas decoding proves actor id $1D dispatches to PRG bank 1:$B30A and initializes selector-record $29 for the Joma/Debious fire-ghoul rows. Manual-name matching is not yet proven for this class."
+    },
+    {
       "id": "bone-dragon",
       "label": "Dragon Bones",
       "kind": "enemy",
@@ -8978,6 +13114,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": null,
       "frames": [
         {
@@ -9438,6 +13575,220 @@
       "proof": "Whole-ROM enemy atlas decoding proves actor id $4A dispatches to PRG bank 1:$AFF4. Initialization writes direct metasprite selector $56 for the parent skull, then calls the runtime spawn helper and creates child actor id $19 at the same X and Y+$10. The child actor initializes selector-record $3E, which expands to selectors $E2-$E5 for the animated neck/body, so the guide composes selector $56 with selector-record $3E at offset Y+$10. The rendered bone-dragon composite matches the English manual enemy illustration labeled \"Dragon Bones\"."
     },
     {
+      "id": "high-jump-leech",
+      "label": "High jump leech",
+      "kind": "enemy",
+      "placement": null,
+      "actorId": "0x40",
+      "chrSet": "chr-04-05",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "blink": null,
+      "selectorRecord": {
+        "index": "0x38",
+        "cpuAddress": "0xDE4A",
+        "fileOffset": "0x1DE5A",
+        "bytes": [
+          "0x01",
+          "0x46",
+          "0x10"
+        ],
+        "selectors": [
+          "0x46",
+          "0x47"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x46",
+          "pointer": "0xB7DB",
+          "status": "0x02",
+          "sprites": [
+            {
+              "tile": "0xBD",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -16
+            },
+            {
+              "tile": "0x9A",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            }
+          ],
+          "opaqueBounds": {
+            "minX": 0,
+            "minY": -9,
+            "maxX": 8,
+            "maxY": 15,
+            "width": 8,
+            "height": 24,
+            "centroid": {
+              "x": 3.7837837837837838,
+              "y": 4.635135135135135
+            },
+            "opaquePixels": 148,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x47",
+          "pointer": "0xB7E3",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0x9C",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -16
+            },
+            {
+              "tile": "0x9E",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            }
+          ],
+          "opaqueBounds": {
+            "minX": 0,
+            "minY": -8,
+            "maxX": 8,
+            "maxY": 16,
+            "width": 8,
+            "height": 24,
+            "centroid": {
+              "x": 4.024475524475524,
+              "y": 5.513986013986014
+            },
+            "opaquePixels": 143,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": 0,
+        "minY": -16,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 8,
+        "height": 32
+      },
+      "opaqueBounds": {
+        "minX": 0,
+        "minY": -9,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 8,
+        "height": 25,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "Whole-ROM enemy atlas decoding proves actor id $40 dispatches to PRG bank 1:$AE21 and initializes selector-record $38 for the high-jump leech rows. The same routine later branches to selector-record $17, so the guide uses the primary dispatch selector-record. Manual-name matching is not yet proven for this class."
+    },
+    {
+      "id": "woods-book",
+      "label": "Hidden clue book",
+      "kind": "secret",
+      "placement": null,
+      "actorId": "0x27",
+      "chrSet": "chr-04-05",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "blink": null,
+      "selectorRecord": {
+        "index": "0x3B",
+        "cpuAddress": "0xDE53",
+        "fileOffset": "0x1DE63",
+        "bytes": [
+          "0x00",
+          "0x30",
+          "0x80"
+        ],
+        "selectors": [
+          "0x30"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x30",
+          "pointer": "0xB3B9",
+          "status": "0x82",
+          "sprites": [
+            {
+              "tile": "0x42",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0x44",
+              "attr": "0x00",
+              "palette": 0,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -6,
+            "minY": -8,
+            "maxX": 7,
+            "maxY": 8,
+            "width": 13,
+            "height": 16,
+            "centroid": {
+              "x": 0.47073170731707314,
+              "y": -0.026829268292682926
+            },
+            "opaquePixels": 205,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -8,
+        "maxX": 8,
+        "maxY": 16,
+        "width": 16,
+        "height": 24
+      },
+      "opaqueBounds": {
+        "minX": -6,
+        "minY": -8,
+        "maxX": 7,
+        "maxY": 8,
+        "width": 13,
+        "height": 16,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "ROM actor id $27 dispatches through 1:$8335; that routine initializes selector-record $3B and clears the reveal flag when selected item $4F is Dracula's Eyeball. Joma/Debious rows use object-set $03 CHR banks $04/$05."
+    },
+    {
       "id": "mummy",
       "label": "The Mummy",
       "kind": "enemy",
@@ -9449,6 +13800,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x35",
         "cpuAddress": "0xDE41",
@@ -9647,6 +13999,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x18",
         "cpuAddress": "0xDDEA",
@@ -9773,6 +14126,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x24",
         "cpuAddress": "0xDE0E",
@@ -9964,6 +14318,321 @@
       "proof": "Whole-ROM enemy atlas decoding proves actor id $1B dispatches to PRG bank 1:$AB0C and initializes selector-record $24 for the Vrad Mountain eagle rows. Vrad rows carry HP byte $04, so the ROM night-strength path yields day HP 4 and night HP 8. Manual-name matching is not yet proven for this class."
     },
     {
+      "id": "harpy",
+      "label": "Harpy",
+      "kind": "enemy",
+      "placement": null,
+      "actorId": "0x3B",
+      "chrSet": "chr-06-07",
+      "largeSprites": true,
+      "spriteHeight": 16,
+      "hp": null,
+      "drawAnchor": null,
+      "frameDurationMs": null,
+      "blink": null,
+      "selectorRecord": {
+        "index": "0x27",
+        "cpuAddress": "0xDE17",
+        "fileOffset": "0x1DE27",
+        "bytes": [
+          "0x03",
+          "0x97",
+          "0x08"
+        ],
+        "selectors": [
+          "0x97",
+          "0x98",
+          "0x99",
+          "0x9A"
+        ]
+      },
+      "frames": [
+        {
+          "selector": "0x97",
+          "pointer": "0xB6D6",
+          "status": "0x05",
+          "sprites": [
+            {
+              "tile": "0xA7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xA9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xA1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xA3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xA5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": -16
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -16,
+            "maxX": 14,
+            "maxY": 16,
+            "width": 22,
+            "height": 32,
+            "centroid": {
+              "x": 2.1441048034934496,
+              "y": -1.0829694323144106
+            },
+            "opaquePixels": 458,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x98",
+          "pointer": "0xB6E7",
+          "status": "0x05",
+          "sprites": [
+            {
+              "tile": "0xAB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xAD",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xAF",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xA7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xA9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -12,
+            "maxX": 16,
+            "maxY": 8,
+            "width": 24,
+            "height": 20,
+            "centroid": {
+              "x": 2.509771986970684,
+              "y": -3.252442996742671
+            },
+            "opaquePixels": 307,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x99",
+          "pointer": "0xB6F8",
+          "status": "0x05",
+          "sprites": [
+            {
+              "tile": "0xA7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xB1",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xB3",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xB5",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": 0
+            },
+            {
+              "tile": "0xB7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": 0
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -16,
+            "maxX": 15,
+            "maxY": 8,
+            "width": 23,
+            "height": 24,
+            "centroid": {
+              "x": 4.212166172106825,
+              "y": -4.864985163204747
+            },
+            "opaquePixels": 337,
+            "source": "chr-nonzero-pixels"
+          }
+        },
+        {
+          "selector": "0x9A",
+          "pointer": "0xB6E7",
+          "status": "0x05",
+          "sprites": [
+            {
+              "tile": "0xAB",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xAD",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -24
+            },
+            {
+              "tile": "0xAF",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 8,
+              "yOffset": -16
+            },
+            {
+              "tile": "0xA7",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": -8,
+              "yOffset": -8
+            },
+            {
+              "tile": "0xA9",
+              "attr": "0x03",
+              "palette": 3,
+              "flipHorizontal": false,
+              "flipVertical": false,
+              "xOffset": 0,
+              "yOffset": -8
+            }
+          ],
+          "opaqueBounds": {
+            "minX": -8,
+            "minY": -12,
+            "maxX": 16,
+            "maxY": 8,
+            "width": 24,
+            "height": 20,
+            "centroid": {
+              "x": 2.509771986970684,
+              "y": -3.252442996742671
+            },
+            "opaquePixels": 307,
+            "source": "chr-nonzero-pixels"
+          }
+        }
+      ],
+      "bounds": {
+        "minX": -8,
+        "minY": -24,
+        "maxX": 16,
+        "maxY": 16,
+        "width": 24,
+        "height": 40
+      },
+      "opaqueBounds": {
+        "minX": -8,
+        "minY": -16,
+        "maxX": 16,
+        "maxY": 16,
+        "width": 24,
+        "height": 32,
+        "source": "chr-nonzero-pixels"
+      },
+      "selectorSource": "selector-stream-record",
+      "proof": "Whole-ROM enemy atlas decoding proves actor id $3B dispatches to PRG bank 1:$AC1E and initializes selector-record $27 for the Wicked Ditch harpy rows. The same state-driven routine can later use selector-record $28; the guide uses the primary decoded selector-record. Manual-name matching is not yet proven for this class."
+    },
+    {
       "id": "flower",
       "label": "Man-Eating Plant",
       "kind": "enemy",
@@ -9975,6 +14644,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": null,
       "frames": [
         {
@@ -10178,6 +14848,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x3F",
         "cpuAddress": "0xDE5F",
@@ -10340,6 +15011,7 @@
       "hp": null,
       "drawAnchor": null,
       "frameDurationMs": null,
+      "blink": null,
       "selectorRecord": {
         "index": "0x3B",
         "cpuAddress": "0xDE53",
@@ -13355,8 +18027,8 @@
       "secret": {
         "type": "destructible-clue",
         "reward": "Hidden clue book",
-        "action": "Throw Holy Water at the marked blocks, or equip Dracula's Eyeball, to reveal this hidden clue book.",
-        "reveal": "The clue book appears at the marked spot.",
+        "action": "Dracula's Eyeball lets Simon see this hidden item before uncovering it.",
+        "reveal": "The clue book appears after the marked blocks are opened. Dracula's Eyeball makes the hidden item visible before the blocks are broken.",
         "rewardSelectorRecord": "0x3B",
         "rewardSelectors": [
           "0x30"
@@ -13492,8 +18164,8 @@
       "secret": {
         "type": "destructible-clue",
         "reward": "Hidden clue book",
-        "action": "Throw Holy Water at the marked blocks, or equip Dracula's Eyeball, to reveal this hidden clue book.",
-        "reveal": "The clue book appears at the marked spot.",
+        "action": "Dracula's Eyeball lets Simon see this hidden item before uncovering it.",
+        "reveal": "The clue book appears after the marked blocks are opened. Dracula's Eyeball makes the hidden item visible before the blocks are broken.",
         "rewardSelectorRecord": "0x3B",
         "rewardSelectors": [
           "0x30"
@@ -13612,9 +18284,9 @@
       }
     },
     {
-      "id": "berkeley-mansion-part-2-merchant-5b45",
+      "id": "berkeley-mansion-part-2-oak-stake-merchant-5b45",
       "classId": "oak-stake-merchant",
-      "label": "Merchant",
+      "label": "Oak Stake Merchant",
       "kind": "npc",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -16030,8 +20702,8 @@
       "secret": {
         "type": "destructible-clue",
         "reward": "Hidden clue book",
-        "action": "Throw Holy Water at the marked blocks, or equip Dracula's Eyeball, to reveal this hidden clue book.",
-        "reveal": "The clue book appears at the marked spot.",
+        "action": "Dracula's Eyeball lets Simon see this hidden item before uncovering it.",
+        "reveal": "The clue book appears after the marked blocks are opened. Dracula's Eyeball makes the hidden item visible before the blocks are broken.",
         "rewardSelectorRecord": "0x3B",
         "rewardSelectors": [
           "0x30"
@@ -16220,9 +20892,9 @@
       }
     },
     {
-      "id": "berkeley-mansion-part-2-orb-5b99",
+      "id": "berkeley-mansion-part-2-dracula-rib-orb-5b99",
       "classId": "dracula-rib-orb",
-      "label": "orb",
+      "label": "Dracula's Rib",
       "kind": "secret",
       "segmentId": "berkeley-mansion-part-2",
       "variants": [
@@ -16285,18 +20957,7 @@
       "guideDialog": null,
       "itemOffer": null,
       "itemReward": null,
-      "secret": {
-        "type": "oak-stake-orb",
-        "reward": "Dracula's Rib",
-        "action": "Use an Oak Stake here to reveal Dracula's Rib.",
-        "evidence": [
-          "Actor row 0x05B99: 3D 15 25 18",
-          "The berkeley-mansion-orb save-state captures prove pre-stake selector $3B rendered as OAM tiles $EC/$EE at screen x $C8/$D0.",
-          "Frame-by-frame trace out/actor-traces/berkeley-mansion-orb-cadence proves the orb blink cycles OAM palette bits 1/2/3/0 once per NES frame.",
-          "Actor id 0x25 uses fixed-bank $DED0 direct selector writes for the orb room sequence.",
-          "Text pointer index 0x18 decodes to the Dracula's Rib pickup message."
-        ]
-      },
+      "secret": null,
       "visualTileRect": null,
       "fixtureSignature": null,
       "flipHorizontal": false,
@@ -16339,7 +21000,7 @@
     "movingPlatforms": 1
   },
   "actorSummary": {
-    "classes": 50,
+    "classes": 66,
     "placements": 50,
     "npcs": 1,
     "enemies": 44,
@@ -16363,7 +21024,7 @@
       "byPolicy": {
         "fixed-interior-row-hp": 44
       },
-      "source": "rom-actor-row-data-byte+rom-hp-init-routine+runtime-trace-confirmation"
+      "source": "rom-actor-row-data-byte+rom-hp-init-routine+rom-special-boss-initializer+runtime-trace-confirmation"
     },
     {
       "type": "actor-ground-support",

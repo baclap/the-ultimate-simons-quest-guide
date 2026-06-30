@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "doina-laurels-room",
+  "label": "Doina Laurels Room",
+  "summary": "Town of Doina Laurels merchant room scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "single-room-town-interior",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "day": "town-day-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "doina-laurels-room",
+      "locationId": "obj00-area15-sub00-doina-laurels-room",
+      "label": "Doina Laurels Room",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

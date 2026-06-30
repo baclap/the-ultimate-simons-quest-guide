@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "castlevania",
+  "label": "Castlevania",
+  "summary": "Whole Castlevania final area scene, including the lower-right Dracula fight room, packed as raw CHR, layout, metatile, palette, and ROM-derived presentation sprite data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "rom-final-area-submap-chain",
+    "research": "ROM screen records obj05 area00 sub00/sub01"
+  },
+  "segments": [
+    {
+      "id": "castlevania-main",
+      "locationId": "obj05-area00-sub00-castlevania",
+      "label": "Castlevania",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "castlevania-dracula-fight",
+      "locationId": "obj05-area00-sub01-castlevania-dracula-fight",
+      "label": "Dracula Fight",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 1024,
+      "y": 672
+    }
+  ]
+}

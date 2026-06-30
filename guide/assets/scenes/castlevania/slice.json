@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "aljiba-book-old-lady-room",
-  "label": "Aljiba Book And Old Lady Room",
-  "summary": "Town of Aljiba book and old-lady interior chain, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "id": "castlevania",
+  "label": "Castlevania",
+  "summary": "Whole Castlevania final area scene, including the lower-right Dracula fight room, packed as raw CHR, layout, metatile, palette, and ROM-derived presentation sprite data for WebGL rendering.",
   "layoutSample": null,
   "availableLayouts": [],
   "source": {
-    "sliceConfig": "guide/source/aljiba-book-old-lady-room.json",
+    "sliceConfig": "guide/source/castlevania.json",
     "atlas": "out/render-recipe-atlas/manifest.json",
     "renderer": "rust-wasm-webgl-tilemap-v1",
     "notes": [
@@ -22,18 +22,35 @@
   "provenance": {
     "pixels": "rom-derived",
     "layout": "rom-layout-space",
-    "composition": "entry-room-chain-horizontal",
-    "research": "docs/interior-map-research-standard.md"
+    "composition": "rom-final-area-submap-chain",
+    "research": "ROM screen records obj05 area00 sub00/sub01"
   },
   "world": {
     "x": 0,
     "y": 0,
-    "width": 512,
-    "height": 448
+    "width": 1280,
+    "height": 896
   },
   "dataFile": "slice-data.bin",
-  "byteLength": 62976,
+  "byteLength": 63704,
   "chrSets": [
+    {
+      "id": "chr-0b-0c",
+      "banks": [
+        "0x0B",
+        "0x0C"
+      ],
+      "data": {
+        "offset": 0,
+        "length": 8192
+      },
+      "decodedAtlas": {
+        "width": 128,
+        "height": 256,
+        "tilesPerRow": 16,
+        "tileCount": 512
+      }
+    },
     {
       "id": "chr-00-01",
       "banks": [
@@ -41,7 +58,7 @@
         "0x01"
       ],
       "data": {
-        "offset": 0,
+        "offset": 13528,
         "length": 8192
       },
       "decodedAtlas": {
@@ -58,7 +75,7 @@
         "0x05"
       ],
       "data": {
-        "offset": 12800,
+        "offset": 21720,
         "length": 8192
       },
       "decodedAtlas": {
@@ -75,7 +92,7 @@
         "0x07"
       ],
       "data": {
-        "offset": 20992,
+        "offset": 29912,
         "length": 8192
       },
       "decodedAtlas": {
@@ -92,7 +109,7 @@
         "0x03"
       ],
       "data": {
-        "offset": 29184,
+        "offset": 38104,
         "length": 8192
       },
       "decodedAtlas": {
@@ -109,7 +126,7 @@
         "0x09"
       ],
       "data": {
-        "offset": 37376,
+        "offset": 46296,
         "length": 8192
       },
       "decodedAtlas": {
@@ -126,24 +143,7 @@
         "0x0A"
       ],
       "data": {
-        "offset": 45568,
-        "length": 8192
-      },
-      "decodedAtlas": {
-        "width": 128,
-        "height": 256,
-        "tilesPerRow": 16,
-        "tileCount": 512
-      }
-    },
-    {
-      "id": "chr-0b-0c",
-      "banks": [
-        "0x0B",
-        "0x0C"
-      ],
-      "data": {
-        "offset": 53760,
+        "offset": 54488,
         "length": 8192
       },
       "decodedAtlas": {
@@ -156,10 +156,10 @@
   ],
   "tileSets": [
     {
-      "id": "tiles-4-841d-8461",
+      "id": "tiles-4-9a3f-9a80",
       "tileBank": 4,
-      "tileSetAddress": "0x841D",
-      "tileBaseAddress": "0x8461",
+      "tileSetAddress": "0x9A3F",
+      "tileBaseAddress": "0x9A80",
       "metatileTiles": {
         "offset": 8192,
         "length": 4096
@@ -172,24 +172,24 @@
   ],
   "palettes": [
     {
-      "id": "aljiba-book-entry-day",
-      "segmentId": "aljiba-book-entry",
-      "variant": "day",
-      "paletteAddress": "0x9E91",
+      "id": "castlevania-main-fixed",
+      "segmentId": "castlevania-main",
+      "variant": "fixed",
+      "paletteAddress": "0xA150",
       "paletteBank": 4,
       "data": {
-        "offset": 12656,
+        "offset": 13440,
         "length": 16
       }
     },
     {
-      "id": "aljiba-old-lady-room-day",
-      "segmentId": "aljiba-old-lady-room",
-      "variant": "day",
-      "paletteAddress": "0x9E91",
+      "id": "castlevania-dracula-fight-fixed",
+      "segmentId": "castlevania-dracula-fight",
+      "variant": "fixed",
+      "paletteAddress": "0xA150",
       "paletteBank": 4,
       "data": {
-        "offset": 12784,
+        "offset": 13512,
         "length": 16
       }
     }
@@ -200,7 +200,7 @@
       "label": "Town actor sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F2A..0x9F31",
       "data": {
-        "offset": 61952,
+        "offset": 62680,
         "length": 16
       },
       "bytes": [
@@ -227,7 +227,7 @@
       "label": "Town actor sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 61968,
+        "offset": 62696,
         "length": 16
       },
       "bytes": [
@@ -254,7 +254,7 @@
       "label": "Jova Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 61984,
+        "offset": 62712,
         "length": 16
       },
       "bytes": [
@@ -281,7 +281,7 @@
       "label": "Jova Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 62000,
+        "offset": 62728,
         "length": 16
       },
       "bytes": [
@@ -308,7 +308,7 @@
       "label": "South Bridge sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 62016,
+        "offset": 62744,
         "length": 16
       },
       "bytes": [
@@ -335,7 +335,7 @@
       "label": "South Bridge sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 62032,
+        "offset": 62760,
         "length": 16
       },
       "bytes": [
@@ -362,7 +362,7 @@
       "label": "Veros Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 62048,
+        "offset": 62776,
         "length": 16
       },
       "bytes": [
@@ -389,7 +389,7 @@
       "label": "Veros Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 62064,
+        "offset": 62792,
         "length": 16
       },
       "bytes": [
@@ -416,7 +416,7 @@
       "label": "Denis Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 62080,
+        "offset": 62808,
         "length": 16
       },
       "bytes": [
@@ -443,7 +443,7 @@
       "label": "Denis Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 62096,
+        "offset": 62824,
         "length": 16
       },
       "bytes": [
@@ -470,7 +470,7 @@
       "label": "Dabi's Path sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 62112,
+        "offset": 62840,
         "length": 16
       },
       "bytes": [
@@ -497,7 +497,7 @@
       "label": "Dabi's Path sprites, night (same ROM palette transfer as day)",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 62128,
+        "offset": 62856,
         "length": 16
       },
       "bytes": [
@@ -524,7 +524,7 @@
       "label": "Denis/Aljiba Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F7..0x88F8->aux:0x31->rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 62144,
+        "offset": 62872,
         "length": 16
       },
       "bytes": [
@@ -551,7 +551,7 @@
       "label": "Denis/Aljiba Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F7..0x88F8->aux:0x31->rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 62160,
+        "offset": 62888,
         "length": 16
       },
       "bytes": [
@@ -578,7 +578,7 @@
       "label": "Yuba Lake Path sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F9..0x88FA->aux:0x32->rom:0xCB41..0xCB48",
       "data": {
-        "offset": 62176,
+        "offset": 62904,
         "length": 16
       },
       "bytes": [
@@ -605,7 +605,7 @@
       "label": "Yuba Lake Path sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F9..0x88FA->aux:0x32->rom:0xCB41..0xCB48",
       "data": {
-        "offset": 62192,
+        "offset": 62920,
         "length": 16
       },
       "bytes": [
@@ -632,7 +632,7 @@
       "label": "Belasco Marsh sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB41..0xCB48",
       "data": {
-        "offset": 62208,
+        "offset": 62936,
         "length": 16
       },
       "bytes": [
@@ -659,7 +659,7 @@
       "label": "Belasco Marsh sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB41..0xCB48",
       "data": {
-        "offset": 62224,
+        "offset": 62952,
         "length": 16
       },
       "bytes": [
@@ -686,7 +686,7 @@
       "label": "Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F6F..0x9F76",
       "data": {
-        "offset": 62240,
+        "offset": 62968,
         "length": 16
       },
       "bytes": [
@@ -713,7 +713,7 @@
       "label": "Lauber Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8927..0x8928->aux:0x49->rom-bank4:0x9F89..0x9F90",
       "data": {
-        "offset": 62256,
+        "offset": 62984,
         "length": 16
       },
       "bytes": [
@@ -740,7 +740,7 @@
       "label": "Brahm Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8929..0x892A->aux:0x4A->rom-bank4:0x9FA3..0x9FAA",
       "data": {
-        "offset": 62272,
+        "offset": 63000,
         "length": 16
       },
       "bytes": [
@@ -767,7 +767,7 @@
       "label": "Bodley Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9FBD..0x9FC4",
       "data": {
-        "offset": 62288,
+        "offset": 63016,
         "length": 16
       },
       "bytes": [
@@ -794,7 +794,7 @@
       "label": "Laruba Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F55..0x9F5C",
       "data": {
-        "offset": 62304,
+        "offset": 63032,
         "length": 16
       },
       "bytes": [
@@ -821,7 +821,7 @@
       "label": "Camilla Cemetery sprites, day",
       "source": "out/actor-traces/camilla-cemetery-day-idle/ppu-final-3f00-3f1f-palettes.bin",
       "data": {
-        "offset": 62320,
+        "offset": 63048,
         "length": 16
       },
       "bytes": [
@@ -848,7 +848,7 @@
       "label": "Camilla Cemetery sprites, night",
       "source": "out/actor-traces/camilla-cemetery-night-idle/ppu-final-3f00-3f1f-palettes.bin",
       "data": {
-        "offset": 62336,
+        "offset": 63064,
         "length": 16
       },
       "bytes": [
@@ -875,7 +875,7 @@
       "label": "Joma Marsh Part 1 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FF..0x8900->aux:0x35->rom-bank4:0xA0C5..0xA0CC",
       "data": {
-        "offset": 62352,
+        "offset": 63080,
         "length": 16
       },
       "bytes": [
@@ -902,7 +902,7 @@
       "label": "Joma Marsh Part 1 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FF..0x8900->aux:0x35->rom-bank4:0xA0C5..0xA0CC",
       "data": {
-        "offset": 62368,
+        "offset": 63096,
         "length": 16
       },
       "bytes": [
@@ -929,7 +929,7 @@
       "label": "Joma Marsh Part 2 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8905..0x8906->aux:0x38->rom-bank4:0xA0D7..0xA0DE",
       "data": {
-        "offset": 62384,
+        "offset": 63112,
         "length": 16
       },
       "bytes": [
@@ -956,7 +956,7 @@
       "label": "Joma Marsh Part 2 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8905..0x8906->aux:0x38->rom-bank4:0xA0D7..0xA0DE",
       "data": {
-        "offset": 62400,
+        "offset": 63128,
         "length": 16
       },
       "bytes": [
@@ -983,7 +983,7 @@
       "label": "Joma Marsh Part 3 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 62416,
+        "offset": 63144,
         "length": 16
       },
       "bytes": [
@@ -1010,7 +1010,7 @@
       "label": "Joma Marsh Part 3 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 62432,
+        "offset": 63160,
         "length": 16
       },
       "bytes": [
@@ -1037,7 +1037,7 @@
       "label": "Debious Woods Part 3 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 62448,
+        "offset": 63176,
         "length": 16
       },
       "bytes": [
@@ -1064,7 +1064,7 @@
       "label": "Debious Woods Part 3 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 62464,
+        "offset": 63192,
         "length": 16
       },
       "bytes": [
@@ -1091,7 +1091,7 @@
       "label": "Debious Woods Part 2 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 62480,
+        "offset": 63208,
         "length": 16
       },
       "bytes": [
@@ -1118,7 +1118,7 @@
       "label": "Debious Woods Part 2 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 62496,
+        "offset": 63224,
         "length": 16
       },
       "bytes": [
@@ -1145,7 +1145,7 @@
       "label": "Debious Woods Part 1 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 62512,
+        "offset": 63240,
         "length": 16
       },
       "bytes": [
@@ -1172,7 +1172,7 @@
       "label": "Debious Woods Part 1 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 62528,
+        "offset": 63256,
         "length": 16
       },
       "bytes": [
@@ -1199,7 +1199,7 @@
       "label": "Wicked Ditch sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x891F..0x8920->aux:0x45->rom-bank4:0xA13E..0xA145",
       "data": {
-        "offset": 62544,
+        "offset": 63272,
         "length": 16
       },
       "bytes": [
@@ -1226,7 +1226,7 @@
       "label": "Wicked Ditch sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x891F..0x8920->aux:0x45->rom-bank4:0xA13E..0xA145",
       "data": {
-        "offset": 62560,
+        "offset": 63288,
         "length": 16
       },
       "bytes": [
@@ -1253,7 +1253,7 @@
       "label": "Town of Doina sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F1..0x88F2->aux:0x2E->rom-bank4:0x9F2A..0x9F31",
       "data": {
-        "offset": 62576,
+        "offset": 63304,
         "length": 16
       },
       "bytes": [
@@ -1280,7 +1280,7 @@
       "label": "Town of Doina sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 62592,
+        "offset": 63320,
         "length": 16
       },
       "bytes": [
@@ -1307,7 +1307,7 @@
       "label": "North Bridge sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 62608,
+        "offset": 63336,
         "length": 16
       },
       "bytes": [
@@ -1334,7 +1334,7 @@
       "label": "North Bridge sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 62624,
+        "offset": 63352,
         "length": 16
       },
       "bytes": [
@@ -1361,7 +1361,7 @@
       "label": "Dora Woods Part 1 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 62640,
+        "offset": 63368,
         "length": 16
       },
       "bytes": [
@@ -1388,7 +1388,7 @@
       "label": "Dora Woods Part 1 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 62656,
+        "offset": 63384,
         "length": 16
       },
       "bytes": [
@@ -1415,7 +1415,7 @@
       "label": "Dora Woods Part 2 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F5..0x88F6->aux:0x30->rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 62672,
+        "offset": 63400,
         "length": 16
       },
       "bytes": [
@@ -1442,7 +1442,7 @@
       "label": "Dora Woods Part 2 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F5..0x88F6->aux:0x30->rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 62688,
+        "offset": 63416,
         "length": 16
       },
       "bytes": [
@@ -1469,7 +1469,7 @@
       "label": "Town of Yomi sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F1..0x88F2->aux:0x2E->rom-bank4:0x9F2A..0x9F31",
       "data": {
-        "offset": 62704,
+        "offset": 63432,
         "length": 16
       },
       "bytes": [
@@ -1496,7 +1496,7 @@
       "label": "Town of Yomi sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 62720,
+        "offset": 63448,
         "length": 16
       },
       "bytes": [
@@ -1523,7 +1523,7 @@
       "label": "Vrad Graveyard sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
       "data": {
-        "offset": 62736,
+        "offset": 63464,
         "length": 16
       },
       "bytes": [
@@ -1550,7 +1550,7 @@
       "label": "Vrad Graveyard sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
       "data": {
-        "offset": 62752,
+        "offset": 63480,
         "length": 16
       },
       "bytes": [
@@ -1577,7 +1577,7 @@
       "label": "Castlevania Bridge sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
       "data": {
-        "offset": 62768,
+        "offset": 63496,
         "length": 16
       },
       "bytes": [
@@ -1604,7 +1604,7 @@
       "label": "Castlevania Bridge sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
       "data": {
-        "offset": 62784,
+        "offset": 63512,
         "length": 16
       },
       "bytes": [
@@ -1631,7 +1631,7 @@
       "label": "Castlevania final area sprites",
       "source": "out/captures/castlevania-final-area/ppu-3f00-3f1f-palettes.bin",
       "data": {
-        "offset": 62800,
+        "offset": 63528,
         "length": 16
       },
       "bytes": [
@@ -1658,7 +1658,7 @@
       "label": "Dora Woods Part 3 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 62816,
+        "offset": 63544,
         "length": 16
       },
       "bytes": [
@@ -1685,7 +1685,7 @@
       "label": "Dora Woods Part 3 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 62832,
+        "offset": 63560,
         "length": 16
       },
       "bytes": [
@@ -1712,7 +1712,7 @@
       "label": "Long Bridge to Bordia Mountains sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F3..0x88F4->aux:0x2F->rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 62848,
+        "offset": 63576,
         "length": 16
       },
       "bytes": [
@@ -1739,7 +1739,7 @@
       "label": "Long Bridge to Bordia Mountains sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F3..0x88F4->aux:0x2F->rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 62864,
+        "offset": 63592,
         "length": 16
       },
       "bytes": [
@@ -1766,7 +1766,7 @@
       "label": "Bordia Mountains Dead End Swamp sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FD..0x88FE->aux:0x34->rom:0xCB53..0xCB5A",
       "data": {
-        "offset": 62880,
+        "offset": 63608,
         "length": 16
       },
       "bytes": [
@@ -1793,7 +1793,7 @@
       "label": "Bordia Mountains Dead End Swamp sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FD..0x88FE->aux:0x34->rom:0xCB53..0xCB5A",
       "data": {
-        "offset": 62896,
+        "offset": 63624,
         "length": 16
       },
       "bytes": [
@@ -1820,7 +1820,7 @@
       "label": "Sadam Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA0CE..0xA0D5",
       "data": {
-        "offset": 62912,
+        "offset": 63640,
         "length": 16
       },
       "bytes": [
@@ -1847,7 +1847,7 @@
       "label": "Sadam Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA0CE..0xA0D5",
       "data": {
-        "offset": 62928,
+        "offset": 63656,
         "length": 16
       },
       "bytes": [
@@ -1874,7 +1874,7 @@
       "label": "Deborah Cliff sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA135..0xA13C",
       "data": {
-        "offset": 62944,
+        "offset": 63672,
         "length": 16
       },
       "bytes": [
@@ -1901,7 +1901,7 @@
       "label": "Deborah Cliff sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA135..0xA13C",
       "data": {
-        "offset": 62960,
+        "offset": 63688,
         "length": 16
       },
       "bytes": [
@@ -1926,44 +1926,44 @@
   ],
   "segments": [
     {
-      "id": "aljiba-book-entry",
-      "locationId": "obj00-area0d-sub00-aljiba-book-room-before-old-lady",
-      "label": "Aljiba Book Room",
-      "sourceName": "Aljiba - Book Room Before Old Lady",
+      "id": "castlevania-main",
+      "locationId": "obj05-area00-sub00-castlevania",
+      "label": "Castlevania",
+      "sourceName": "Castlevania",
       "position": {
         "x": 0,
         "y": 0,
-        "width": 256,
-        "height": 448
+        "width": 1024,
+        "height": 896
       },
-      "sourceId": "aljiba-book-entry",
+      "sourceId": "castlevania-main",
       "visibilityLayer": null,
       "presentationBackground": null,
       "blockSize": 32,
       "tileSize": 8,
-      "blockWidth": 8,
-      "blockHeight": 14,
-      "tileWidth": 32,
-      "tileHeight": 56,
+      "blockWidth": 32,
+      "blockHeight": 28,
+      "tileWidth": 128,
+      "tileHeight": 112,
       "crop": null,
-      "chrSet": "chr-00-01",
-      "tileSet": "tiles-4-841d-8461",
+      "chrSet": "chr-0b-0c",
+      "tileSet": "tiles-4-9a3f-9a80",
       "layoutBlocks": {
         "offset": 12544,
-        "length": 112
+        "length": 896
       },
       "variants": [
-        "day"
+        "fixed"
       ],
-      "defaultVariant": "day",
+      "defaultVariant": "fixed",
       "palettes": {
-        "day": "aljiba-book-entry-day"
+        "fixed": "castlevania-main-fixed"
       },
       "atlasEntries": {
-        "day": "obj00-area0d-sub00-aljiba-book-room-before-old-lady-day"
+        "fixed": "obj05-area00-sub00-castlevania-fixed"
       },
       "recipeStatus": {
-        "day": "projected"
+        "fixed": "validated"
       },
       "provenance": {
         "pixels": "rom-derived",
@@ -1973,44 +1973,44 @@
       }
     },
     {
-      "id": "aljiba-old-lady-room",
-      "locationId": "obj00-area0d-sub01-aljiba-old-lady-room",
-      "label": "Aljiba Old Lady Room",
-      "sourceName": "Aljiba - Old Lady Room",
+      "id": "castlevania-dracula-fight",
+      "locationId": "obj05-area00-sub01-castlevania-dracula-fight",
+      "label": "Dracula Fight",
+      "sourceName": "Castlevania - Dracula Fight",
       "position": {
-        "x": 256,
-        "y": 0,
+        "x": 1024,
+        "y": 672,
         "width": 256,
-        "height": 448
+        "height": 224
       },
-      "sourceId": "aljiba-old-lady-room",
+      "sourceId": "castlevania-dracula-fight",
       "visibilityLayer": null,
       "presentationBackground": null,
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 8,
-      "blockHeight": 14,
+      "blockHeight": 7,
       "tileWidth": 32,
-      "tileHeight": 56,
+      "tileHeight": 28,
       "crop": null,
-      "chrSet": "chr-00-01",
-      "tileSet": "tiles-4-841d-8461",
+      "chrSet": "chr-0b-0c",
+      "tileSet": "tiles-4-9a3f-9a80",
       "layoutBlocks": {
-        "offset": 12672,
-        "length": 112
+        "offset": 13456,
+        "length": 56
       },
       "variants": [
-        "day"
+        "fixed"
       ],
-      "defaultVariant": "day",
+      "defaultVariant": "fixed",
       "palettes": {
-        "day": "aljiba-old-lady-room-day"
+        "fixed": "castlevania-dracula-fight-fixed"
       },
       "atlasEntries": {
-        "day": "obj00-area0d-sub01-aljiba-old-lady-room-day"
+        "fixed": "obj05-area00-sub01-castlevania-dracula-fight-fixed"
       },
       "recipeStatus": {
-        "day": "projected"
+        "fixed": "projected"
       },
       "provenance": {
         "pixels": "rom-derived",
@@ -2023,90 +2023,81 @@
   "doorHotspots": [],
   "destructibleFixtures": [
     {
-      "id": "aljiba-book-entry-destructible-8-24-8x2",
+      "id": "castlevania-main-destructible-116-20-8x6",
       "label": "Breakable blocks",
       "kind": "destructible-terrain",
       "role": "breakable-terrain",
-      "segmentId": "aljiba-book-entry",
+      "segmentId": "castlevania-main",
       "tileRect": {
-        "x": 8,
-        "y": 24,
+        "x": 116,
+        "y": 20,
         "width": 8,
-        "height": 2
+        "height": 6
       },
-      "matchCount": 4,
+      "matchCount": 10,
       "matches": [
         {
-          "x": 8,
+          "x": 118,
+          "y": 20,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 120,
+          "y": 20,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 122,
+          "y": 20,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 118,
+          "y": 22,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 120,
+          "y": 22,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 122,
+          "y": 22,
+          "width": 2,
+          "height": 2
+        },
+        {
+          "x": 116,
           "y": 24,
           "width": 2,
           "height": 2
         },
         {
-          "x": 10,
+          "x": 118,
           "y": 24,
           "width": 2,
           "height": 2
         },
         {
-          "x": 12,
+          "x": 120,
           "y": 24,
           "width": 2,
           "height": 2
         },
         {
-          "x": 14,
+          "x": 122,
           "y": 24,
           "width": 2,
           "height": 2
         }
       ],
       "linkedActorId": null,
-      "signatureId": "destructible-block-2x2",
-      "signatureLabel": "Destructible block",
-      "action": "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.",
-      "provenance": {
-        "source": "rom-expanded-background-tilemap",
-        "signatureTiles": [
-          [
-            "0xFB",
-            "0xFD"
-          ],
-          [
-            "0xFC",
-            "0xFE"
-          ]
-        ]
-      }
-    },
-    {
-      "id": "aljiba-book-entry-destructible-4-40-4x2",
-      "label": "Breakable blocks",
-      "kind": "destructible-terrain",
-      "role": "secret-reward",
-      "segmentId": "aljiba-book-entry",
-      "tileRect": {
-        "x": 4,
-        "y": 40,
-        "width": 4,
-        "height": 2
-      },
-      "matchCount": 2,
-      "matches": [
-        {
-          "x": 4,
-          "y": 40,
-          "width": 2,
-          "height": 2
-        },
-        {
-          "x": 6,
-          "y": 40,
-          "width": 2,
-          "height": 2
-        }
-      ],
-      "linkedActorId": "aljiba-book-entry-hidden-clue-book-51f4",
       "signatureId": "destructible-block-2x2",
       "signatureLabel": "Destructible block",
       "action": "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.",
@@ -14094,16 +14085,16 @@
   ],
   "actors": [
     {
-      "id": "aljiba-book-old-lady-room-simon-spawn",
+      "id": "castlevania-main-simon-spawn",
       "classId": "simon-belmont",
       "label": "Simon Belmont",
       "kind": "player",
-      "segmentId": "aljiba-book-entry",
+      "segmentId": "castlevania-main",
       "variants": [
-        "day"
+        "fixed"
       ],
       "paletteByVariant": {
-        "day": "town-day-sprites"
+        "fixed": "castlevania-final-sprites"
       },
       "tileX": 1,
       "tileY": 11,
@@ -14143,8 +14134,8 @@
       "provenance": {
         "source": "rom-runtime-spawn-evidence",
         "evidence": [
-          "Town interior entry code zeroes the interior camera state before jumping to the entry handler; the Aljiba book/old-lady map composes the entry submap first.",
-          "The shared town-interior transition evidence places the standing-frame guide-space selector anchor at (16,177)."
+          "The bridge-to-Castlevania transition probe reaches runtime context 05/00/00 and OAM shows the left-edge standing frame at raw x=8/16 and y=174/190.",
+          "The Castlevania final-area entry is the top screen of obj05 area00 sub00, so the shared guide-space standing-frame anchor is (16,177)."
         ],
         "placement": {
           "pixelX": 16,
@@ -14155,217 +14146,40 @@
       }
     },
     {
-      "id": "aljiba-book-entry-hidden-clue-book-51f4",
-      "classId": "town-book",
-      "label": "Hidden clue book",
-      "kind": "secret",
-      "segmentId": "aljiba-book-entry",
+      "id": "castlevania-dracula-fight-dracula",
+      "classId": "dracula",
+      "label": "Dracula",
+      "kind": "enemy",
+      "segmentId": "castlevania-dracula-fight",
       "variants": [
-        "day"
+        "fixed"
       ],
       "paletteByVariant": {
-        "day": "town-day-sprites"
+        "fixed": "castlevania-final-sprites"
       },
-      "tileX": 3,
-      "tileY": 21,
-      "pixelX": 56,
-      "pixelY": 324,
-      "worldX": 56,
-      "worldY": 324,
-      "actorId": "0x27",
-      "data": "0x5C",
-      "hp": null,
-      "hpEvidence": null,
-      "text": "an old gypsy holds a diamond in front of deborah cliff.",
-      "textEvidence": {
-        "fileOffset": "0x0D99D",
-        "rawBytes": [
-          "0x01",
-          "0x0E",
-          "0x00",
-          "0x0F",
-          "0x0C",
-          "0x04",
-          "0x00",
-          "0x07",
-          "0x19",
-          "0x10",
-          "0x13",
-          "0x19",
-          "0xFE",
-          "0x08",
-          "0x0F",
-          "0x0C",
-          "0x04",
-          "0x13",
-          "0x00",
-          "0x01",
-          "0xFE",
-          "0x04",
-          "0x09",
-          "0x01",
-          "0x0D",
-          "0x0F",
-          "0x0E",
-          "0x04",
-          "0x00",
-          "0x09",
-          "0x0E",
-          "0xFE",
-          "0x06",
-          "0x12",
-          "0x0F",
-          "0x0E",
-          "0x14",
-          "0x00",
-          "0x0F",
-          "0x06",
-          "0x00",
-          "0x04",
-          "0x05",
-          "0x46",
-          "0xFE",
-          "0x02",
-          "0x0F",
-          "0x12",
-          "0x01",
-          "0x08",
-          "0x00",
-          "0x03",
-          "0x0C",
-          "0x09",
-          "0x06",
-          "0x06",
-          "0x1B"
-        ],
-        "decoded": "an old gypsy\nholds a\ndiamond in\nfront of de-\nborah cliff.",
-        "text": "an old gypsy holds a diamond in front of deborah cliff.",
-        "source": "rom-file:0x0D99D"
+      "tileX": 8,
+      "tileY": 6,
+      "pixelX": 128,
+      "pixelY": 110,
+      "worldX": 1152,
+      "worldY": 782,
+      "actorId": "0x47",
+      "data": "0xF0",
+      "hp": {
+        "day": 240,
+        "night": 240
       },
-      "romDialogVariants": null,
-      "guideDialog": null,
-      "itemOffer": null,
-      "itemReward": null,
-      "secret": {
-        "type": "destructible-clue",
-        "reward": "Hidden clue book",
-        "action": "Dracula's Eyeball lets Simon see this hidden item before uncovering it.",
-        "reveal": "The clue book appears after the marked blocks are opened. Dracula's Eyeball makes the hidden item visible before the blocks are broken.",
-        "rewardSelectorRecord": "0x3B",
-        "rewardSelectors": [
-          "0x30"
-        ],
-        "evidence": [
-          "Actor row 0x051F4: 0x03 0x15 0x27 0x5C",
-          "Actor id 0x27 dispatches through bank 1:$8335.",
-          "Routine 1:$8335 initializes selector-record index $3B and later toggles the reveal flag based on selected item $4F.",
-          "Dracula's Eyeball is inventory index 3; the fixed-bank inventory selector maps it to selected item $03.",
-          "When $4F == 03, routine 1:$8335 clears the $08 reveal flag from actor flags $03C6,x.",
-          "ROM-expanded background tilemap groups destructible block signature FB FD / FC FE at tile rect 4,40,4,2 containing reveal anchor 7,40."
-        ],
-        "targetTileRects": [
-          {
-            "x": 4,
-            "y": 40,
-            "width": 4,
-            "height": 2,
-            "signature": "destructibleBlock2x2"
-          }
-        ]
+      "hpEvidence": {
+        "policy": "fixed-special-boss-hp",
+        "baseHp": 240,
+        "rowData": "0xF0",
+        "source": "rom-final-room-special-boss-initializer",
+        "rule": "Dracula is not emitted from a normal room actor row. The final-room spawn routine initializes actor slot X=$06 directly: bank 1:$B4FA stores actor id $47 at $03B4+$06, and bank 1:$B5B9-$B5BE stores #$F0 into HP RAM $04C2+$06 ($04C8).",
+        "slot": "0x06",
+        "rom": "Dracula final-room initializer at bank 1:$B4FA-$B5BE; shared damage/death checks for actor id $47 at bank 1:$8926 and 1:$8A69."
       },
-      "visualTileRect": null,
-      "fixtureSignature": null,
-      "flipHorizontal": false,
-      "runtimeAnchor": {
-        "pixelX": 48,
-        "pixelY": 336,
-        "worldX": 48,
-        "worldY": 336
-      },
-      "drawAnchor": {
-        "offsetX": 8,
-        "offsetY": -12,
-        "source": "rom-row-16px-cell-visual-anchor"
-      },
-      "provenance": {
-        "rowOffset": "0x051F4",
-        "rawBytes": [
-          "0x03",
-          "0x15",
-          "0x27",
-          "0x5C"
-        ],
-        "source": "rom-actor-row"
-      }
-    },
-    {
-      "id": "aljiba-old-lady-room-old-lady-51f9",
-      "classId": "town-old-lady",
-      "label": "Old Lady",
-      "kind": "npc",
-      "segmentId": "aljiba-old-lady-room",
-      "variants": [
-        "day"
-      ],
-      "paletteByVariant": {
-        "day": "town-day-sprites"
-      },
-      "tileX": 12,
-      "tileY": 26,
-      "pixelX": 200,
-      "pixelY": 404,
-      "worldX": 456,
-      "worldY": 404,
-      "actorId": "0xAC",
-      "data": "0x59",
-      "hp": null,
-      "hpEvidence": null,
-      "text": "dracula's eyeball reflects the curse.",
-      "textEvidence": {
-        "fileOffset": "0x0D92B",
-        "rawBytes": [
-          "0x04",
-          "0x12",
-          "0x01",
-          "0x03",
-          "0x15",
-          "0x0C",
-          "0x01",
-          "0x1C",
-          "0x13",
-          "0xFE",
-          "0x05",
-          "0x19",
-          "0x05",
-          "0x02",
-          "0x01",
-          "0x0C",
-          "0x0C",
-          "0xFE",
-          "0x12",
-          "0x05",
-          "0x06",
-          "0x0C",
-          "0x05",
-          "0x03",
-          "0x14",
-          "0x13",
-          "0xFE",
-          "0x14",
-          "0x08",
-          "0x05",
-          "0x00",
-          "0x03",
-          "0x15",
-          "0x12",
-          "0x13",
-          "0x05",
-          "0x1B"
-        ],
-        "decoded": "dracula's\neyeball\nreflects\nthe curse.",
-        "text": "dracula's eyeball reflects the curse.",
-        "source": "rom-file:0x0D92B"
-      },
+      "text": null,
+      "textEvidence": null,
       "romDialogVariants": null,
       "guideDialog": null,
       "itemOffer": null,
@@ -14375,31 +14189,29 @@
       "fixtureSignature": null,
       "flipHorizontal": false,
       "runtimeAnchor": {
-        "pixelX": 192,
-        "pixelY": 416,
-        "worldX": 448,
-        "worldY": 416
+        "pixelX": 128,
+        "pixelY": 110,
+        "worldX": 1152,
+        "worldY": 782
       },
       "drawAnchor": {
-        "offsetX": 8,
-        "offsetY": -12,
-        "source": "rom-row-16px-cell-visual-anchor"
+        "offsetX": 0,
+        "offsetY": 0,
+        "source": "rom-runtime-spawn-selector-anchor"
       },
       "provenance": {
-        "rowOffset": "0x051F9",
-        "rawBytes": [
-          "0x0C",
-          "0x1A",
-          "0xAC",
-          "0x59"
-        ],
-        "source": "rom-actor-row"
+        "placement": {
+          "pixelX": 128,
+          "pixelY": 110,
+          "worldX": 1152,
+          "worldY": 782
+        }
       }
     }
   ],
   "destructibleSummary": {
-    "fixtures": 2,
-    "rewardLinked": 1,
+    "fixtures": 1,
+    "rewardLinked": 0,
     "breakableTerrain": 1,
     "falsePlatforms": 0
   },
@@ -14414,11 +14226,11 @@
   },
   "actorSummary": {
     "classes": 66,
-    "placements": 3,
-    "npcs": 1,
-    "enemies": 0,
+    "placements": 2,
+    "npcs": 0,
+    "enemies": 1,
     "fixtures": 0,
-    "secrets": 1,
+    "secrets": 0,
     "groundSupportChecked": 0,
     "groundSupportSnapped": 0
   },
@@ -14426,34 +14238,18 @@
     {
       "type": "canonical-enemy-labels",
       "status": "ok",
-      "checked": 0,
+      "checked": 1,
       "source": "actor-class-labels",
       "note": "Enemy display names are canonical class labels, not source manifest row names or location-derived labels."
     },
     {
       "type": "enemy-hp-evidence",
       "status": "ok",
-      "checked": 0,
-      "byPolicy": {},
+      "checked": 1,
+      "byPolicy": {
+        "fixed-special-boss-hp": 1
+      },
       "source": "rom-actor-row-data-byte+rom-hp-init-routine+rom-special-boss-initializer+runtime-trace-confirmation"
-    },
-    {
-      "type": "hidden-clue-book-destructible-link",
-      "actorId": "aljiba-book-entry-hidden-clue-book-51f4",
-      "segmentId": "aljiba-book-entry",
-      "status": "linked",
-      "anchorTile": {
-        "x": 7,
-        "y": 40
-      },
-      "targetTileRect": {
-        "x": 4,
-        "y": 40,
-        "width": 4,
-        "height": 2
-      },
-      "matchCount": 2,
-      "source": "rom-expanded-background-tilemap"
     }
   ]
 }

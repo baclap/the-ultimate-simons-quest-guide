@@ -693,11 +693,63 @@ summary:focus-visible,
   outline-color: var(--secret);
 }
 
+.secret-feature-hotspot.is-trap::before {
+  outline-color: var(--red);
+}
+
 .secret-feature-hotspot:hover::before,
 .secret-feature-hotspot:active::before,
 .secret-feature-hotspot:focus-visible::before {
   outline-color: #b6ffc7;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.92), 0 0 12px rgba(57, 255, 106, 0.46);
+}
+
+.secret-feature-hotspot.is-trap:hover::before,
+.secret-feature-hotspot.is-trap:active::before,
+.secret-feature-hotspot.is-trap:focus-visible::before {
+  outline-color: #ffb0aa;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.92), 0 0 12px rgba(255, 107, 98, 0.46);
+}
+
+.secret-feature-hotspot.has-highlight-shape::before,
+.secret-feature-hotspot.has-highlight-shape:hover::before,
+.secret-feature-hotspot.has-highlight-shape:active::before,
+.secret-feature-hotspot.has-highlight-shape:focus-visible::before {
+  outline-color: transparent;
+  box-shadow: none;
+}
+
+.secret-feature-highlight-shape {
+  position: absolute;
+  left: var(--hotspot-x, 0);
+  top: var(--hotspot-y, 0);
+  width: var(--hotspot-width, 100%);
+  height: var(--hotspot-height, 100%);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.secret-feature-highlight-shape path {
+  fill: none;
+  stroke: var(--secret);
+  stroke-width: 2;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  vector-effect: non-scaling-stroke;
+  shape-rendering: crispEdges;
+}
+
+.secret-feature-hotspot.has-highlight-shape:hover .secret-feature-highlight-shape-outline,
+.secret-feature-hotspot.has-highlight-shape:active .secret-feature-highlight-shape-outline,
+.secret-feature-hotspot.has-highlight-shape:focus-visible .secret-feature-highlight-shape-outline {
+  stroke: #b6ffc7;
+  filter: drop-shadow(0 0 6px rgba(57, 255, 106, 0.46));
+}
+
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden .secret-feature-highlight-shape,
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden:hover .secret-feature-highlight-shape,
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden:active .secret-feature-highlight-shape {
+  opacity: 0;
 }
 
 .secret-feature-hotspot.is-highlight-hidden::before,

@@ -78,6 +78,7 @@
     "guide:scene:ondol-laurels-room": "node src/index.js build-guide-slice --rom roms/cv2.nes --slice guide/source/ondol-laurels-room.json --atlas out/render-recipe-atlas/manifest.json --out guide/assets/scenes/ondol-laurels-room",
     "guide:scene:lauber-mansion": "node src/index.js build-guide-slice --rom roms/cv2.nes --slice guide/source/lauber-mansion.json --atlas out/render-recipe-atlas/manifest.json --out guide/assets/scenes/lauber-mansion",
     "guide:scene:brahm-mansion": "node src/index.js build-guide-slice --rom roms/cv2.nes --slice guide/source/brahm-mansion.json --atlas out/render-recipe-atlas/manifest.json --out guide/assets/scenes/brahm-mansion",
+    "guide:scene:castlevania": "node src/index.js build-guide-slice --rom roms/cv2.nes --slice guide/source/castlevania.json --atlas out/render-recipe-atlas/manifest.json --out guide/assets/scenes/castlevania",
     "guide:scenes:aljiba": "npm run guide:scene:aljiba-garlic-room && npm run guide:scene:aljiba-book-old-lady-room && npm run guide:scene:aljiba-laurels-room",
     "guide:scenes:alba": "npm run guide:scene:alba-garlic-room && npm run guide:scene:alba-church && npm run guide:scene:alba-laurels-room",
     "guide:scenes:ondol": "npm run guide:scene:ondol-morning-star-room && npm run guide:scene:ondol-death-star-lady-room && npm run guide:scene:ondol-laurels-room",

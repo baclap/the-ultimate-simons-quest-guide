@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "id": "jova-to-berkeley",
-  "label": "Deborah Cliff to Camilla Cemetery",
-  "summary": "Guide product slice from Deborah Cliff, Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, Vrad Mountain, and the Dead River west of Jova through Veros, Dabi's Path, Aljiba, Camilla Cemetery, and the Berkeley/Lauber/Brahm branches.",
+  "label": "Deborah Cliff to Castlevania",
+  "summary": "Guide product slice from Deborah Cliff, Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, Vrad Mountain, and the Dead River west of Jova through Veros, Dabi's Path, Aljiba, Camilla Cemetery, Joma Marsh, Debious Woods, Doina, Dora Woods, Yomi, Vrad Graveyard, Castlevania, and the Berkeley/Lauber/Brahm/Bordia branches.",
   "defaultLayout": "branch-continuous",
   "provenance": {
     "pixels": "rom-derived",
@@ -27,7 +27,25 @@
       "deborah-cliff",
       "town-of-aljiba",
       "yuba-lake-path",
-      "camilla-cemetery"
+      "camilla-cemetery",
+      "joma-marsh-part-1",
+      "joma-marsh-part-2",
+      "joma-marsh-part-3",
+      "debious-woods-part-3",
+      "debious-woods-part-2",
+      "debious-woods-part-1",
+      "wicked-ditch",
+      "town-of-doina",
+      "north-bridge",
+      "dora-woods-part-1",
+      "dora-woods-part-2",
+      "dora-woods-part-3",
+      "long-bridge-to-borgia-mountains",
+      "borgia-mountains-dead-end-swamp",
+      "town-of-yomi",
+      "vrad-graveyard",
+      "castlevania-bridge",
+      "castlevania"
     ]
   },
   "doorHotspotMaterialization": {
@@ -148,8 +166,64 @@
           "itemId": "dracula-heart",
           "evidence": "The generated Lauber Mansion scene promotes Dracula's Heart orb from ROM actor row $05C4B."
         }
+      },
+      "obj00-area14-sub00": {
+        "viewId": "doina-get-back-lady-room",
+        "label": "Enter Doina GET BACK! Lady Room"
+      },
+      "obj00-area15-sub00": {
+        "viewId": "doina-laurels-room",
+        "label": "Enter Doina Laurels Room",
+        "itemReward": {
+          "itemId": "laurels",
+          "evidence": "The generated Doina Laurels Room scene promotes the ROM merchant row with the Laurels sale-table item offer."
+        }
+      },
+      "obj00-area16-sub00": {
+        "viewId": "yomi-empty-room",
+        "label": "Enter Yomi Empty Room"
+      },
+      "obj00-area17-sub00": {
+        "viewId": "yomi-girlfriend-room",
+        "label": "Enter Yomi Girlfriend Room"
+      },
+      "obj01-area06-sub00": {
+        "viewId": "laruba-mansion",
+        "label": "Enter Laruba Mansion",
+        "itemRewards": [
+          {
+            "itemId": "magic-cross",
+            "evidence": "The generated Laruba Mansion scene promotes Camilla's Magic Cross reward from ROM actor row $05AC6."
+          },
+          {
+            "itemId": "dracula-ring",
+            "evidence": "The generated Laruba Mansion scene promotes Dracula's Ring orb from ROM actor row $05ACB."
+          }
+        ]
+      },
+      "obj01-area0a-sub00": {
+        "viewId": "bodley-mansion",
+        "label": "Enter Bodley Mansion",
+        "itemReward": {
+          "itemId": "dracula-nail",
+          "evidence": "The generated Bodley Mansion scene promotes Dracula's Nail orb from ROM actor row $05FAB."
+        }
       }
     },
+    "guideAuthoredHotspots": [
+      {
+        "id": "castlevania-final-entry-hotspot",
+        "segmentId": "castlevania",
+        "label": "Enter Castlevania",
+        "tileRect": { "x": 0, "y": 0, "width": 32, "height": 28 },
+        "opensView": "castlevania",
+        "variants": ["day", "night", "fixed"],
+        "provenance": {
+          "source": "guide-authored-final-area-entry",
+          "evidence": "Castlevania is represented on the overworld as a ROM-rendered one-screen Dracula fight preview; the hotspot intentionally uses the existing door highlight layer so users can enter the full Castlevania final-area scene without introducing a new guide overlay category."
+        }
+      }
+    ],
     "segmentPolicies": {
       "town-of-jova": {
         "signature": "townDoor",
@@ -193,6 +267,24 @@
         "variants": ["day"],
         "evidence": "Town door targets come from the ROM manifest door table; tile rectangles are derived by matching the town-door signature in the expanded Town of Ondol background tilemap."
       },
+      "town-of-doina": {
+        "signature": "townDoor",
+        "expectedMatches": 3,
+        "variants": ["day"],
+        "targetViews": {
+          "obj00-area07-sub00": {
+            "viewId": "jova-church",
+            "label": "Enter Doina Church"
+          }
+        },
+        "evidence": "Town door targets come from the ROM manifest door table; tile rectangles are derived by matching the town-door signature in the expanded Town of Doina background tilemap. The church target reuses the shared ROM church interior while opening a Doina-labeled guide door."
+      },
+      "town-of-yomi": {
+        "signature": "townDoor",
+        "expectedMatches": 2,
+        "variants": ["day"],
+        "evidence": "Town door targets come from the ROM manifest door table; tile rectangles are derived by matching the town-door signature in the expanded Town of Yomi background tilemap."
+      },
       "berkeley-mansion-door": {
         "variants": ["day", "night"],
         "manualTileRects": [
@@ -210,6 +302,26 @@
             "target": "obj01-area08-sub00",
             "tileRect": { "x": 13, "y": 16, "width": 6, "height": 8 },
             "evidence": "Lauber mansion door uses the same mansion-door tile hitbox signature as the validated Berkeley exterior mansion door, applied to the ROM-rendered Lauber door segment."
+          }
+        ]
+      },
+      "laruba-mansion-door": {
+        "variants": ["day", "night"],
+        "manualTileRects": [
+          {
+            "target": "obj01-area06-sub00",
+            "tileRect": { "x": 13, "y": 16, "width": 6, "height": 8 },
+            "evidence": "Laruba mansion door uses the same mansion-door tile hitbox signature as the validated Berkeley exterior mansion door, applied to the ROM-rendered Laruba door segment."
+          }
+        ]
+      },
+      "bodley-mansion-door": {
+        "variants": ["day", "night"],
+        "manualTileRects": [
+          {
+            "target": "obj01-area0a-sub00",
+            "tileRect": { "x": 13, "y": 16, "width": 6, "height": 8 },
+            "evidence": "Bodley mansion door uses the same mansion-door tile hitbox signature as the validated Berkeley exterior mansion door, applied to the ROM-rendered Bodley door segment."
           }
         ]
       },
@@ -408,21 +520,24 @@
       "locationId": "obj02-area03-sub02-aljiba-woods-part-1",
       "label": "Aljiba Woods - Part 1",
       "x": 7168,
-      "y": 224
+      "y": 224,
+      "paletteByVariant": { "day": "denis-aljiba-woods-day-sprites", "night": "denis-aljiba-woods-night-sprites" }
     },
     {
       "id": "aljiba-woods-part-2",
       "locationId": "obj02-area03-sub03-aljiba-woods-part-2",
       "label": "Aljiba Woods - Part 2",
       "x": 7680,
-      "y": 224
+      "y": 224,
+      "paletteByVariant": { "day": "denis-aljiba-woods-day-sprites", "night": "denis-aljiba-woods-night-sprites" }
     },
     {
       "id": "aljiba-woods-part-3",
       "locationId": "obj02-area02-sub00-aljiba-woods-part-3",
       "label": "Aljiba Woods - Part 3",
       "x": 8192,
-      "y": 224
+      "y": 224,
+      "paletteByVariant": { "day": "denis-aljiba-woods-day-sprites", "night": "denis-aljiba-woods-night-sprites" }
     },
     {
       "id": "town-of-aljiba",
@@ -439,11 +554,172 @@
       "y": 224
     },
     {
+      "id": "joma-marsh-part-1",
+      "locationId": "obj03-area00-sub01-joma-marsh-part-1",
+      "label": "Joma Marsh - Part 1",
+      "x": 10752,
+      "y": 224,
+      "paletteByVariant": { "day": "joma-marsh-part-1-day-sprites", "night": "joma-marsh-part-1-night-sprites" }
+    },
+    {
+      "id": "laruba-mansion-door",
+      "locationId": "obj01-area00-sub00-laruba-mansion-door",
+      "label": "Laruba Mansion - Door",
+      "x": 11776,
+      "y": 224
+    },
+    {
+      "id": "joma-marsh-part-2",
+      "locationId": "obj03-area03-sub00-joma-marsh-part-2",
+      "label": "Joma Marsh - Part 2",
+      "x": 12032,
+      "y": 224,
+      "paletteByVariant": { "day": "joma-marsh-part-2-day-sprites", "night": "joma-marsh-part-2-night-sprites" }
+    },
+    {
+      "id": "joma-marsh-part-3",
+      "locationId": "obj03-area03-sub01-joma-marsh-part-3-fire-and-skulls",
+      "label": "Joma Marsh - Part 3",
+      "x": 13056,
+      "y": 224,
+      "paletteByVariant": { "day": "joma-marsh-part-3-day-sprites", "night": "joma-marsh-part-3-night-sprites" }
+    },
+    {
+      "id": "debious-woods-part-3",
+      "locationId": "obj03-area03-sub02-debious-woods-part-3",
+      "label": "Debious Woods - Part 3",
+      "x": 14080,
+      "y": -224,
+      "paletteByVariant": { "day": "debious-woods-part-3-day-sprites", "night": "debious-woods-part-3-night-sprites" }
+    },
+    {
+      "id": "debious-woods-part-2",
+      "locationId": "obj03-area03-sub03-debious-woods-part-2",
+      "label": "Debious Woods - Part 2",
+      "x": 15104,
+      "y": 0,
+      "paletteByVariant": { "day": "debious-woods-part-2-day-sprites", "night": "debious-woods-part-2-night-sprites" }
+    },
+    {
+      "id": "debious-woods-part-1",
+      "locationId": "obj03-area03-sub04-debious-woods-part-1",
+      "label": "Debious Woods - Part 1",
+      "x": 15360,
+      "y": 0,
+      "paletteByVariant": { "day": "debious-woods-part-1-day-sprites", "night": "debious-woods-part-1-night-sprites" }
+    },
+    {
+      "id": "bodley-mansion-door",
+      "locationId": "obj01-area04-sub00-bodley-mansion-door",
+      "label": "Bodley Mansion - Door",
+      "x": 15616,
+      "y": 0
+    },
+    {
+      "id": "wicked-ditch",
+      "locationId": "obj04-area02-sub00-wicked-ditch",
+      "label": "Wicked Ditch",
+      "x": 15872,
+      "y": 0,
+      "paletteByVariant": { "day": "wicked-ditch-day-sprites", "night": "wicked-ditch-night-sprites" }
+    },
+    {
+      "id": "town-of-doina",
+      "locationId": "obj00-area05-sub00-town-of-doina",
+      "label": "Town of Doina",
+      "x": 16896,
+      "y": 0,
+      "paletteByVariant": { "day": "town-of-doina-day-sprites", "night": "town-of-doina-night-sprites" }
+    },
+    {
+      "id": "north-bridge",
+      "locationId": "obj02-area08-sub00-north-bridge",
+      "label": "North Bridge",
+      "x": 17920,
+      "y": 0,
+      "paletteByVariant": { "day": "north-bridge-day-sprites", "night": "north-bridge-night-sprites" }
+    },
+    {
+      "id": "dora-woods-part-1",
+      "locationId": "obj02-area08-sub01-dora-woods-part-1",
+      "label": "Dora Woods - Part 1",
+      "x": 18944,
+      "y": 0,
+      "paletteByVariant": { "day": "dora-woods-part-1-day-sprites", "night": "dora-woods-part-1-night-sprites" }
+    },
+    {
+      "id": "dora-woods-part-2",
+      "locationId": "obj02-area08-sub02-dora-woods-part-2",
+      "label": "Dora Woods - Part 2",
+      "x": 19456,
+      "y": 0,
+      "paletteByVariant": { "day": "dora-woods-part-2-day-sprites", "night": "dora-woods-part-2-night-sprites" }
+    },
+    {
+      "id": "town-of-yomi",
+      "locationId": "obj00-area06-sub00-town-of-yomi",
+      "label": "Town of Yomi",
+      "x": 19968,
+      "y": 224,
+      "paletteByVariant": { "day": "town-of-yomi-day-sprites", "night": "town-of-yomi-night-sprites" }
+    },
+    {
+      "id": "vrad-graveyard",
+      "locationId": "obj04-area03-sub00-vrad-graveyard",
+      "label": "Vrad Graveyard",
+      "x": 20992,
+      "y": 224,
+      "paletteByVariant": { "day": "vrad-graveyard-day-sprites", "night": "vrad-graveyard-night-sprites" }
+    },
+    {
+      "id": "castlevania-bridge",
+      "locationId": "obj04-area03-sub01-castlevania-bridge",
+      "label": "Castlevania Bridge",
+      "x": 22016,
+      "y": 224,
+      "paletteByVariant": { "day": "castlevania-bridge-day-sprites", "night": "castlevania-bridge-night-sprites" }
+    },
+    {
+      "id": "castlevania",
+      "locationId": "obj05-area00-sub01-castlevania-dracula-fight",
+      "label": "Castlevania",
+      "x": 23040,
+      "y": 224,
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "presentationBackground": "black"
+    },
+    {
+      "id": "dora-woods-part-3",
+      "locationId": "obj02-area09-sub00-dora-woods-part-3",
+      "label": "Dora Woods - Part 3",
+      "x": 19968,
+      "y": 0,
+      "paletteByVariant": { "day": "dora-woods-part-3-day-sprites", "night": "dora-woods-part-3-night-sprites" }
+    },
+    {
+      "id": "long-bridge-to-borgia-mountains",
+      "locationId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp",
+      "label": "Long Bridge to Bordia Mountains",
+      "x": 20480,
+      "y": 0,
+      "paletteByVariant": { "day": "long-bridge-to-borgia-mountains-day-sprites", "night": "long-bridge-to-borgia-mountains-night-sprites" }
+    },
+    {
+      "id": "borgia-mountains-dead-end-swamp",
+      "locationId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp",
+      "label": "Bordia Mountains",
+      "x": 21504,
+      "y": 0,
+      "paletteByVariant": { "day": "borgia-mountains-dead-end-swamp-day-sprites", "night": "borgia-mountains-dead-end-swamp-night-sprites" }
+    },
+    {
       "id": "yuba-lake-path",
       "locationId": "obj02-area05-sub00-yuba-lake-path",
       "label": "Yuba Lake Path",
       "x": 8192,
-      "y": 448
+      "y": 448,
+      "paletteByVariant": { "day": "yuba-lake-path-day-sprites", "night": "yuba-lake-path-night-sprites" }
     },
     {
       "id": "yuba-lake",
@@ -496,21 +772,23 @@
       "locationId": "obj02-area04-sub00-denis-woods-part-2",
       "label": "Denis Woods - Part 2",
       "x": 4864,
-      "y": 224
+      "y": 224,
+      "paletteByVariant": { "day": "denis-aljiba-woods-day-sprites", "night": "denis-aljiba-woods-night-sprites" }
     },
     {
       "id": "denis-woods-part-3",
       "locationId": "obj02-area04-sub01-denis-woods-part-3",
       "label": "Denis Woods - Part 3",
       "x": 5632,
-      "y": 224
+      "y": 224,
+      "paletteByVariant": { "day": "denis-aljiba-woods-day-sprites", "night": "denis-aljiba-woods-night-sprites" }
     }
   ],
   "layoutSamples": [
     {
       "id": "branch-continuous",
       "label": "Branch continuous",
-      "summary": "Keeps the west route from Deborah Cliff through Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, and Dead River/Belasco into Jova, Berkeley -> Denis Woods -> Dabi's Path physically continuous, and the main eastward route through Aljiba to Camilla Cemetery. The Yuba Lake/Lauber and Dead River/Brahm/Vrad branches are Secrets-gated presentations of ROM-backed reveal paths.",
+      "summary": "Keeps the west route from Deborah Cliff through Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, and Dead River/Belasco into Jova, Berkeley -> Denis Woods -> Dabi's Path physically continuous, and the main eastward route through Aljiba, Camilla Cemetery, Joma Marsh, Debious Woods, Doina, Dora Woods, Yomi, Vrad Graveyard, and Castlevania. The Yuba Lake/Lauber, Dead River/Brahm/Vrad, and Dora/Bordia branches are ROM-backed side paths.",
       "segments": [
         { "sourceId": "deborah-cliff", "x": -6912, "y": 224 },
         { "sourceId": "jam-wasteland", "x": -6656, "y": 224 },
@@ -544,6 +822,26 @@
         { "sourceId": "aljiba-woods-part-3", "x": 8192, "y": 224 },
         { "sourceId": "town-of-aljiba", "x": 8704, "y": 0 },
         { "sourceId": "camilla-cemetery", "x": 9728, "y": 224 },
+        { "sourceId": "joma-marsh-part-1", "x": 10752, "y": 224 },
+        { "sourceId": "laruba-mansion-door", "x": 11776, "y": 224 },
+        { "sourceId": "joma-marsh-part-2", "x": 12032, "y": 224 },
+        { "sourceId": "joma-marsh-part-3", "x": 13056, "y": 224 },
+        { "sourceId": "debious-woods-part-3", "x": 14080, "y": -224 },
+        { "sourceId": "debious-woods-part-2", "x": 15104, "y": 0 },
+        { "sourceId": "debious-woods-part-1", "x": 15360, "y": 0 },
+        { "sourceId": "bodley-mansion-door", "x": 15616, "y": 0 },
+        { "sourceId": "wicked-ditch", "x": 15872, "y": 0 },
+        { "sourceId": "town-of-doina", "x": 16896, "y": 0 },
+        { "sourceId": "north-bridge", "x": 17920, "y": 0 },
+        { "sourceId": "dora-woods-part-1", "x": 18944, "y": 0 },
+        { "sourceId": "dora-woods-part-2", "x": 19456, "y": 0 },
+        { "sourceId": "town-of-yomi", "x": 19968, "y": 224 },
+        { "sourceId": "vrad-graveyard", "x": 20992, "y": 224 },
+        { "sourceId": "castlevania-bridge", "x": 22016, "y": 224 },
+        { "sourceId": "castlevania", "x": 23040, "y": 224 },
+        { "sourceId": "dora-woods-part-3", "x": 19968, "y": 0 },
+        { "sourceId": "long-bridge-to-borgia-mountains", "x": 20480, "y": 0 },
+        { "sourceId": "borgia-mountains-dead-end-swamp", "x": 21504, "y": 0 },
         { "sourceId": "yuba-lake-path", "x": 8192, "y": 448 },
         { "sourceId": "yuba-lake", "x": 9216, "y": 448 },
         { "sourceId": "yuba-lake-revealed-route", "x": 9216, "y": 672 },

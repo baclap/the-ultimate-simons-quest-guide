@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "bodley-mansion",
+  "label": "Bodley Mansion",
+  "summary": "Whole Bodley Mansion interior scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "rom-entry-room-chain",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "fixed": "bodley-mansion-fixed-sprites"
+    }
+  },
+  "destructibleFixtureMerges": [
+    {
+      "id": "bodley-mansion-top-right-false-wall",
+      "label": "False wall",
+      "kind": "false-platform",
+      "role": "false-platform",
+      "segmentId": "bodley-mansion-part-1",
+      "tileRect": { "x": 126, "y": 4, "width": 4, "height": 4 },
+      "sourceFixtureIds": [
+        "bodley-mansion-part-1-false-platform-126-4-2x4",
+        "bodley-mansion-part-2-false-platform-0-4-2x4"
+      ],
+      "evidence": "Bodley Mansion 1 has ROM false-wall metatile $33 at block (31, 1), and Bodley Mansion 2 has ROM false-wall metatile $32 at block (0, 1). The guide composition places those segments side by side, so the two half-width decoded fixtures form one continuous 2x2-metatile false wall."
+    }
+  ],
+  "segments": [
+    {
+      "id": "bodley-mansion-part-1",
+      "locationId": "obj01-area0a-sub00-bodley-mansion-part-1",
+      "label": "Bodley Mansion 1",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "bodley-mansion-part-2",
+      "locationId": "obj01-area0a-sub01-bodley-mansion-part-2",
+      "label": "Bodley Mansion 2",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 1024,
+      "y": 0
+    }
+  ]
+}

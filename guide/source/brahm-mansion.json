@@ -12,7 +12,7 @@
   "actorMaterialization": {
     "source": "manifest-location-actors",
     "paletteByVariant": {
-      "fixed": "mansion-fixed-sprites"
+      "fixed": "brahm-mansion-fixed-sprites"
     }
   },
   "segments": [

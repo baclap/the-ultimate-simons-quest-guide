@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "laruba-mansion",
+  "label": "Laruba Mansion",
+  "summary": "Whole Laruba Mansion interior scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "rom-entry-room-chain",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "fixed": "laruba-mansion-fixed-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "laruba-mansion-part-1",
+      "locationId": "obj01-area06-sub00-laruba-mansion-part-1",
+      "label": "Laruba Mansion 1",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 0,
+      "y": 224
+    },
+    {
+      "id": "laruba-mansion-part-2",
+      "locationId": "obj01-area06-sub01-laruba-mansion-part-2",
+      "label": "Laruba Mansion 2",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 1024,
+      "y": 0
+    },
+    {
+      "id": "laruba-mansion-camilla-fight",
+      "locationId": "obj01-area06-sub02-laruba-mansion-camilla-fight",
+      "label": "Laruba Mansion Camilla Fight",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 1792,
+      "y": 672
+    },
+    {
+      "id": "laruba-mansion-orb-room",
+      "locationId": "obj01-area06-sub03-laruba-mansion-orb-room",
+      "label": "Laruba Mansion Orb Room",
+      "variants": ["fixed"],
+      "defaultVariant": "fixed",
+      "x": 2048,
+      "y": 672
+    }
+  ]
+}

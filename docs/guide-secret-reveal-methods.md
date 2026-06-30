@@ -75,14 +75,21 @@ D9 DB 00 00
 DA DC 00 00
 D9 DB 00 00
 DA DC 00 00
+
+Metatile $33, false wall:
+00 00 D9 DB
+00 00 DA DC
+00 00 D9 DB
+00 00 DA DC
 ```
 
 CHR tiles `$D9/$DB/$DA/$DC` are pixel-identical to `$F6/$F8/$F7/$F9` in the
 mansion CHR banks, and both metatiles use palette attribute `$00`. The guide
 therefore highlights only the visible top two tile rows of each `$3B` block and
-the visible left two tile columns of each `$32` block. Adjacent matches are
-grouped into guide fixtures, share the same Secrets visibility and Secrets
-Highlight controls as breakable terrain, and show a grey guide dialog.
+the visible two-tile wall half of each `$32` or `$33` block. `$32` carries the
+left wall half; `$33` carries the right wall half. Adjacent matches are grouped
+into guide fixtures, share the same Secrets visibility and Secrets Highlight
+controls as breakable terrain, and show a grey guide dialog.
 
 The current whole-Berkeley scene emits 6 grouped false-terrain fixtures:
 
@@ -92,12 +99,29 @@ The current whole-Berkeley scene emits 6 grouped false-terrain fixtures:
   `x=32,y=68,width=4,height=2`.
 - Berkeley Mansion 2 false wall: tile rect `x=96,y=68,width=2,height=4`.
 
-The current whole-Lauber scene emits 4 grouped false-terrain fixtures:
+The current whole-Lauber scene emits 5 grouped false-terrain fixtures:
 
-- Lauber Mansion 1 false wall: tile rect `x=80,y=72,width=2,height=8`.
+- Lauber Mansion 1 false walls: tile rects `x=82,y=36,width=2,height=4`
+  and `x=80,y=72,width=2,height=8`.
 - Lauber Mansion 2 false platforms: tile rects
   `x=100,y=68,width=4,height=2`, `x=108,y=68,width=4,height=2`, and
   `x=116,y=68,width=4,height=2`.
+
+The current whole-Brahm scene emits 2 grouped false-terrain fixtures:
+
+- Brahm Mansion 1 false wall: tile rect `x=18,y=20,width=2,height=4`.
+- Brahm Mansion 1 false platform: tile rect `x=16,y=96,width=4,height=2`.
+
+The current whole-Bodley scene emits 7 grouped false-terrain fixtures:
+
+- Bodley Mansion 1 false platforms: tile rects `x=44,y=36,width=4,height=2`
+  and `x=36,y=52,width=4,height=2`.
+- Bodley Mansion 1 false walls: tile rects `x=126,y=4,width=2,height=4`
+  and `x=62,y=72,width=4,height=4`. The wider lower passage is a grouped
+  `$33 + $32` pair.
+- Bodley Mansion 2 false walls: tile rects `x=0,y=4,width=2,height=4` and
+  `x=96,y=72,width=2,height=4`.
+- Bodley Mansion 2 false platform: tile rect `x=36,y=84,width=8,height=2`.
 
 ROM-backed evidence:
 
@@ -115,6 +139,8 @@ ROM-backed evidence:
   which classify as terrain value `2`.
 - False-wall metatile `$32` uses visible tiles `$D9/$DB/$DA/$DC`, which render
   the same pixels in the visible half but classify as terrain value `0`.
+- False-wall metatile `$33` is the right-half companion to `$32`; it also uses
+  `$D9/$DB/$DA/$DC` pixels and classifies as terrain value `0`.
 
 Meaning:
 
@@ -126,17 +152,24 @@ hand-authored rectangles.
 
 Player-facing claim:
 
-> Throw Holy Water at the marked stacked blocks, or equip Dracula's Nail and
-> whip them, to reveal the Sacred Flame.
+> Dracula's Eyeball lets Simon see this hidden item before uncovering it.
+
+The linked breakable-block hotspot separately carries the block-opening path:
+Holy Water breaks the stacked blocks, and Dracula's Nail lets Simon whip them.
 
 ROM-backed evidence:
 
 - Actor row `0x066B0` is `01 0C 26 76`.
 - Actor id `0x26` is the Sacred Flame fixture. It dispatches through bank
   `1:$8335`.
-- Routine `1:$8335` passes selector-record index `$20` to the fixed-bank sprite
-  setup path at `$DED8`; selector record `$20` expands to reward metasprite
-  selectors `$78/$79`.
+- Routine `1:$8335` selects the sprite record by actor id: actor `$27` uses
+  selector-record `$3B`, while every other actor through this routine, including
+  Sacred Flame actor `$26`, uses selector-record `$20`.
+- Selector-record `$20` expands to reward metasprite selectors `$78/$79`.
+- The same `1:$8335` update path clears hidden flag bit `$08` from actor flags
+  `$03C6,x`, checks selected item RAM `$004F`, and only re-sets that hidden flag
+  when `$004F != $03`. The fixed-bank inventory selection path maps Dracula's
+  Eyeball to selected item `$03`, so Dracula's Eyeball reveals actor `$26`.
 - Text pointer index `$76` decodes to the Sacred Flame pickup message.
 - Holy Water is weapon index `4`. The fixed-bank menu selection path
   `7:$F237-$F2D2` selects `$4A` bit `$08`, and the fixed-bank weapon-use path
@@ -148,21 +181,51 @@ ROM-backed evidence:
 
 Meaning:
 
-Holy Water reveals the flame through the weapon/projectile interaction. Dracula's
-Nail reveals it by letting Simon break the blocks with the whip while the Nail
-is equipped.
+Sacred Flame has two ROM-backed visibility paths. The stacked-block path makes it
+visible when the terrain is opened by Holy Water or by a Dracula's Nail whip hit.
+Independently, Dracula's Eyeball makes the actor visible before the blocks are
+opened by clearing the same hidden-flag bit used by hidden clue books. The
+actor-id check in `1:$8335` changes only the metasprite selector (`$20` for
+Sacred Flame, `$3B` for clue books); it does not limit the Eyeball branch to
+`$27`.
+
+Relevant `1:$8335` disassembly from PRG bank 1:
+
+```asm
+8335  BD D8 03  LDA $03D8,X
+8338  D0 1A     BNE $8354
+833A  A9 04     LDA #$04
+833C  9D D8 03  STA $03D8,X
+833F  A9 08     LDA #$08
+8341  9D C6 03  STA $03C6,X
+8344  BD B4 03  LDA $03B4,X
+8347  C9 27     CMP #$27
+8349  F0 04     BEQ $834F
+834B  A9 20     LDA #$20
+834D  D0 02     BNE $8351
+834F  A9 3B     LDA #$3B
+8351  4C D8 DE  JMP $DED8
+8354  BD 44 04  LDA $0444,X
+8357  D0 10     BNE $8369
+8359  BD C6 03  LDA $03C6,X
+835C  29 F7     AND #$F7
+835E  A4 4F     LDY $4F
+8360  C0 03     CPY #$03
+8362  F0 02     BEQ $8366
+8364  09 08     ORA #$08
+8366  9D C6 03  STA $03C6,X
+8369  4C 2A DD  JMP $DD2A
+```
 
 ## Hidden Clue Books
 
-Player-facing claim for guide books with an attached destructible group:
+Player-facing claim:
 
-> Throw Holy Water at the marked blocks, or equip Dracula's Eyeball, to reveal
-> this hidden clue book.
+> Dracula's Eyeball lets Simon see this hidden item before uncovering it.
 
-Fallback player-facing claim when a future `$27` row has no ROM-expanded
-destructible group at its reveal anchor:
-
-> Equip Dracula's Eyeball to reveal this hidden clue book.
+When a book's reveal anchor also has a linked destructible group, the linked
+breakable-block hotspot separately carries the Holy Water/Nail block-opening
+path.
 
 ROM-backed evidence:
 
@@ -191,11 +254,11 @@ ROM-backed evidence:
 
 Meaning:
 
-Actor `$27` is the ROM's hidden clue-book actor. Dracula's Eyeball reveals these
-books directly as a visibility effect. The same ROM-expanded destructible terrain
-scan links books to their breakable-block reveal path when the block group is
-present at the reveal anchor; those linked books get the extra Holy Water copy in
-the grey guide dialog.
+Actor `$27` is the ROM's hidden clue-book actor. Dracula's Eyeball makes these
+books visible before their blocks are broken. The same ROM-expanded destructible
+terrain scan links books to their breakable-block reveal path when the block
+group is present at the reveal anchor, but the grey book dialog keeps only the
+non-redundant Eyeball visibility claim.
 
 ## Berkeley Mansion Part 1: Hidden Moving Platform
 
@@ -259,9 +322,10 @@ Meaning:
 
 The two Yuba Lake Path platforms are visible moving platforms, not secrets.
 They render regardless of the guide Secrets layer and use ROM-defined
-horizontal ping-pong paths.
+horizontal ping-pong paths. The left platform starts from its row anchor moving
+right; the right platform starts from its row anchor moving left.
 
-## Vrad Mountain Part 1 And Jam Wasteland: Moving Platforms
+## Outdoor `$20` Vertical Moving Platforms
 
 ROM-backed evidence:
 
@@ -273,25 +337,55 @@ ROM-backed evidence:
 - Jam Wasteland has three raw actor/control rows:
   `0x06899 = 14 0D 34 20`, `0x0689D = 18 0D 34 20`, and
   `0x068A1 = 1C 0D 34 20`.
-- Actor id `$34` dispatches to bank `1:$854B`, the same shared
-  moving-platform routine used by actor ids `$21` and `$22`.
-- The routine special-cases live actor `$34` and writes direct metasprite
-  selector `$1B`.
-- Selector `$1B` decodes to a 16x16 two-sprite platform using tiles `$F6/$F8`
-  from CHR banks `$06/$07`.
-- Row data `$20` supplies low-nibble motion index `$0`, which selects the
-  vertical setup branch at `1:$8589`, and high nibble `$20`, which is reloaded
-  into the reversal timer by the runtime branch at `1:$85FE`.
-- The vertical branch is the same branch runtime-proven by the Berkeley hidden
-  platform trace at `0.5` px/frame, so `$20` timer frames produce a 16-pixel
-  upward travel from the row anchor before reversal.
+- Joma Marsh Part 3 has four raw actor/control rows:
+  `0x0726C = 24 0C 34 20`, `0x07270 = 27 0C 34 20`,
+  `0x07274 = 2A 0C 34 20`, and `0x07278 = 2D 0C 34 20`.
+- Debious Woods Part 3 has four raw actor/control rows:
+  `0x072BD = 21 28 22 20`, `0x072C9 = 25 28 22 20`,
+  `0x072D5 = 29 28 22 20`, and `0x072D9 = 2D 28 22 20`.
+- Actor ids `$22` and `$34` dispatch to the shared moving-platform routine at
+  bank `1:$854B`.
+- The routine writes metasprite selector `$43` for actor id `$22`, while actor
+  id `$34` is special-cased to direct metasprite selector `$1B`.
+- Selector `$43` decodes to the larger `$22` platform metasprite. Selector
+  `$1B` decodes to the 16x16 two-sprite platform using tiles `$F6/$F8`.
+- Row data `$20` supplies low-nibble motion index `$0`, selecting setup branch
+  `1:$8589`, and high nibble `$20`, reloaded by runtime branch `1:$85BB`.
+- Setup branch `1:$8589` stores a 0.5 px/frame vertical velocity through
+  fixed-bank `$E076`; runtime branch `1:$85BB` reloads timer RAM `$0456` from
+  the row-data high nibble and calls fixed-bank `$E03B` at reversal. `$20`
+  timer frames therefore produce a 16-pixel upward travel from the row anchor
+  before reversal.
+- These rows do not carry an explicit per-platform phase byte. Their relative
+  phase comes from the live actor loader at `1:$8055-$8188`, which materializes
+  actor rows only after their row X position enters the live screen window.
+  Under normal rightward scrolling, the camera advances one pixel per frame once
+  Simon is held near the screen center; existing walking traces show the coarse
+  PPU scroll cell advancing one tile every eight frames. With a 64-frame `$20`
+  platform cycle, four-cell spacing preserves phase and shorter spacing shifts
+  phase:
+  - Vrad Mountain Part 1 rows `$13/$17/$1B/$1F` are four cells apart and remain
+    in phase; the next row is `$21`, only two cells after `$1F`, so rows
+    `$21/$25/$29/$2D` are a half-cycle out with renderer phase `32`.
+  - Jam Wasteland rows are four cells apart, so they remain in phase.
+  - Joma Marsh Part 3 rows are three cells apart, so later platforms load 48
+    frames after the previous one and use renderer phases `0,16,32,48`.
+  - Debious Woods Part 3 rows are four cells apart, so they remain in phase.
 - The rendered guide placement applies the moving-platform visible anchor
   convention already proven by the Berkeley trace: raw row X is the visible
   anchor X and visible Y is row Y minus 13 pixels.
+- CHR/palette context remains section-specific: Vrad/Jam use object-set `$04`
+  CHR `$06/$07`, Joma/Debious use object-set `$03` CHR `$04/$05`, and each row
+  uses the sprite palette resolved for its map section.
+- Actor id `$43` rows with data `$00` in Dora Woods and Bordia Mountains are not
+  platforms. Existing selector-stream evidence classifies `$43` as a
+  transparent sprite-mask/rendering-control row that parks blank tile `$FF`
+  sprites to consume scanline sprite slots, so those rows are intentionally not
+  promoted as guide features.
 
 Meaning:
 
-These eleven rows are visible outdoor moving platforms, not hidden secrets or
+These nineteen rows are visible outdoor moving platforms, not hidden secrets or
 clickable guide facts. They render regardless of the guide Secrets layer and
 use ROM-defined vertical ping-pong paths.
 
@@ -357,8 +451,8 @@ promoted between Vrad Mountain and Jam Wasteland.
 
 Player-facing claim:
 
-> Kneel at the left edge of Deborah Cliff with Red Crystal selected to summon
-> the tornado to Bodley Mansion.
+> Kneel at Deborah Cliff with the Red Crystal to summon the tornado to Bodley
+> Mansion.
 
 ROM-backed evidence:
 
@@ -407,8 +501,8 @@ smoothed as guide-authored presentation.
 
 Player-facing claim:
 
-> Kneel by Yuba Lake with Blue Crystal or better to reveal the Lauber Mansion
-> route.
+> Kneel by Yuba Lake with the Blue Crystal or a better crystal to reveal the
+> route to Lauber Mansion.
 
 ROM-backed evidence:
 

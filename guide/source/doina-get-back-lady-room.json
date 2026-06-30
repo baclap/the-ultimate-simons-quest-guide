@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "doina-get-back-lady-room",
+  "label": "Doina GET BACK! Lady Room",
+  "summary": "Town of Doina GET BACK! lady room scene, packed as raw CHR, layout, metatile, palette, and promoted actor data for WebGL rendering.",
+  "provenance": {
+    "pixels": "rom-derived",
+    "layout": "rom-layout-space",
+    "composition": "single-room-town-interior",
+    "research": "docs/interior-map-research-standard.md"
+  },
+  "actorMaterialization": {
+    "source": "manifest-location-actors",
+    "paletteByVariant": {
+      "day": "town-day-sprites"
+    }
+  },
+  "segments": [
+    {
+      "id": "doina-get-back-lady-room",
+      "locationId": "obj00-area14-sub00-doina-get-back-lady-room",
+      "label": "Doina GET BACK! Lady Room",
+      "variants": ["day"],
+      "defaultVariant": "day",
+      "x": 0,
+      "y": 0
+    }
+  ]
+}

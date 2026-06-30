@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { readPrgByte } = require('./background');
+const { readPrgByte, readPrgWord } = require('./background');
 const { BACKGROUND_TABLE_BANK } = require('./background-context');
 const { decodeMetaspriteSelector, decodeSelectorRecordAt } = require('./actor-selector-streams');
 const { renderLayoutSegment } = require('./layout-segments');
@@ -28,6 +28,8 @@ const SPRITE_PALETTE_BYTES = 16;
 const COMMON_SPRITE_PALETTE_ADDRESS = 0xcaae;
 const COMMON_SPRITE_PALETTE_LENGTH = 8;
 const VARIANT_SPRITE_PALETTE_LENGTH = 8;
+const SPRITE_TRANSFER_POINTER_TABLE = 0x8895;
+const SPRITE_TRANSFER_POINTER_TABLE_BANK = 7;
 const SPRITE_HEIGHT = 16;
 const ACTOR_CELL_SIZE = 16;
 // Actor rows store the runtime anchor on a 16px grid; the guide draws at the visual spawn-cell anchor.
@@ -156,6 +158,17 @@ const FALSE_PLATFORM_METATILE_SIGNATURES = [
     action: 'These blocks look solid, but Simon can walk through them.',
     dialogText: 'False wall\n----------\nThese blocks look solid, but Simon can walk through them.',
     source: 'rom-layout-metatile-and-terrain-thresholds'
+  },
+  {
+    id: 'mansion-false-wall-33',
+    label: 'False wall',
+    tileSetAddress: 0x8891,
+    metatile: 0x33,
+    visualReferenceMetatile: 0x40,
+    visibleTileRect: { x: 2, y: 0, width: 2, height: 4 },
+    action: 'These blocks look solid, but Simon can walk through them.',
+    dialogText: 'False wall\n----------\nThese blocks look solid, but Simon can walk through them.',
+    source: 'rom-layout-metatile-and-terrain-thresholds'
   }
 ];
 
@@ -234,6 +247,30 @@ const ACTOR_PALETTE_SOURCES = [
     variantAddress: 0xcb38
   },
   {
+    id: 'denis-aljiba-woods-day-sprites',
+    label: 'Denis/Aljiba Woods sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x31
+  },
+  {
+    id: 'denis-aljiba-woods-night-sprites',
+    label: 'Denis/Aljiba Woods sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x31
+  },
+  {
+    id: 'yuba-lake-path-day-sprites',
+    label: 'Yuba Lake Path sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x32
+  },
+  {
+    id: 'yuba-lake-path-night-sprites',
+    label: 'Yuba Lake Path sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x32
+  },
+  {
     id: 'belasco-marsh-day-sprites',
     label: 'Belasco Marsh sprites, day',
     type: 'rom-sprite-palette',
@@ -253,6 +290,32 @@ const ACTOR_PALETTE_SOURCES = [
     variantBank: 4
   },
   {
+    id: 'lauber-mansion-fixed-sprites',
+    label: 'Lauber Mansion interior sprites, fixed palette',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x49
+  },
+  {
+    id: 'brahm-mansion-fixed-sprites',
+    label: 'Brahm Mansion interior sprites, fixed palette',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x4a
+  },
+  {
+    id: 'bodley-mansion-fixed-sprites',
+    label: 'Bodley Mansion interior sprites, fixed palette',
+    type: 'rom-sprite-palette',
+    variantAddress: 0x9fbd,
+    variantBank: 4
+  },
+  {
+    id: 'laruba-mansion-fixed-sprites',
+    label: 'Laruba Mansion interior sprites, fixed palette',
+    type: 'rom-sprite-palette',
+    variantAddress: 0x9f55,
+    variantBank: 4
+  },
+  {
     id: 'camilla-cemetery-day-sprites',
     label: 'Camilla Cemetery sprites, day',
     type: 'palette-capture',
@@ -263,6 +326,216 @@ const ACTOR_PALETTE_SOURCES = [
     label: 'Camilla Cemetery sprites, night',
     type: 'palette-capture',
     file: 'out/actor-traces/camilla-cemetery-night-idle/ppu-final-3f00-3f1f-palettes.bin'
+  },
+  {
+    id: 'joma-marsh-part-1-day-sprites',
+    label: 'Joma Marsh Part 1 sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x35
+  },
+  {
+    id: 'joma-marsh-part-1-night-sprites',
+    label: 'Joma Marsh Part 1 sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x35
+  },
+  {
+    id: 'joma-marsh-part-2-day-sprites',
+    label: 'Joma Marsh Part 2 sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x38
+  },
+  {
+    id: 'joma-marsh-part-2-night-sprites',
+    label: 'Joma Marsh Part 2 sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x38
+  },
+  {
+    id: 'joma-marsh-part-3-day-sprites',
+    label: 'Joma Marsh Part 3 sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x37
+  },
+  {
+    id: 'joma-marsh-part-3-night-sprites',
+    label: 'Joma Marsh Part 3 sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x37
+  },
+  {
+    id: 'debious-woods-part-3-day-sprites',
+    label: 'Debious Woods Part 3 sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x37
+  },
+  {
+    id: 'debious-woods-part-3-night-sprites',
+    label: 'Debious Woods Part 3 sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x37
+  },
+  {
+    id: 'debious-woods-part-2-day-sprites',
+    label: 'Debious Woods Part 2 sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x37
+  },
+  {
+    id: 'debious-woods-part-2-night-sprites',
+    label: 'Debious Woods Part 2 sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x37
+  },
+  {
+    id: 'debious-woods-part-1-day-sprites',
+    label: 'Debious Woods Part 1 sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x37
+  },
+  {
+    id: 'debious-woods-part-1-night-sprites',
+    label: 'Debious Woods Part 1 sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x37
+  },
+  {
+    id: 'wicked-ditch-day-sprites',
+    label: 'Wicked Ditch sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x45
+  },
+  {
+    id: 'wicked-ditch-night-sprites',
+    label: 'Wicked Ditch sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x45
+  },
+  {
+    id: 'town-of-doina-day-sprites',
+    label: 'Town of Doina sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x2e
+  },
+  {
+    id: 'town-of-doina-night-sprites',
+    label: 'Town of Doina sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x37
+  },
+  {
+    id: 'north-bridge-day-sprites',
+    label: 'North Bridge sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x33
+  },
+  {
+    id: 'north-bridge-night-sprites',
+    label: 'North Bridge sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x33
+  },
+  {
+    id: 'dora-woods-part-1-day-sprites',
+    label: 'Dora Woods Part 1 sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x33
+  },
+  {
+    id: 'dora-woods-part-1-night-sprites',
+    label: 'Dora Woods Part 1 sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x33
+  },
+  {
+    id: 'dora-woods-part-2-day-sprites',
+    label: 'Dora Woods Part 2 sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x30
+  },
+  {
+    id: 'dora-woods-part-2-night-sprites',
+    label: 'Dora Woods Part 2 sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x30
+  },
+  {
+    id: 'town-of-yomi-day-sprites',
+    label: 'Town of Yomi sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x2e
+  },
+  {
+    id: 'town-of-yomi-night-sprites',
+    label: 'Town of Yomi sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x37
+  },
+  {
+    id: 'vrad-graveyard-day-sprites',
+    label: 'Vrad Graveyard sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x46
+  },
+  {
+    id: 'vrad-graveyard-night-sprites',
+    label: 'Vrad Graveyard sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x46
+  },
+  {
+    id: 'castlevania-bridge-day-sprites',
+    label: 'Castlevania Bridge sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x46
+  },
+  {
+    id: 'castlevania-bridge-night-sprites',
+    label: 'Castlevania Bridge sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x46
+  },
+  {
+    id: 'castlevania-final-sprites',
+    label: 'Castlevania final area sprites',
+    type: 'palette-capture',
+    file: 'out/captures/castlevania-final-area/ppu-3f00-3f1f-palettes.bin'
+  },
+  {
+    id: 'dora-woods-part-3-day-sprites',
+    label: 'Dora Woods Part 3 sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x33
+  },
+  {
+    id: 'dora-woods-part-3-night-sprites',
+    label: 'Dora Woods Part 3 sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x33
+  },
+  {
+    id: 'long-bridge-to-borgia-mountains-day-sprites',
+    label: 'Long Bridge to Bordia Mountains sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x2f
+  },
+  {
+    id: 'long-bridge-to-borgia-mountains-night-sprites',
+    label: 'Long Bridge to Bordia Mountains sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x2f
+  },
+  {
+    id: 'borgia-mountains-dead-end-swamp-day-sprites',
+    label: 'Bordia Mountains Dead End Swamp sprites, day',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x34
+  },
+  {
+    id: 'borgia-mountains-dead-end-swamp-night-sprites',
+    label: 'Bordia Mountains Dead End Swamp sprites, night',
+    type: 'rom-sprite-palette',
+    auxiliaryTransferId: 0x34
   },
   {
     id: 'sadam-woods-day-sprites',
@@ -414,6 +687,15 @@ const ACTOR_CLASSES = [
     selectorRecordIndex: 0x0f,
     chrBanks: [0x00, 0x01],
     proof: 'ROM row id $AF maps through live id $2F to the shared crystal-merchant routine at bank 1:$83CC. Alba row $5135 carries data $04/text pointer $D893, selecting the Red Crystal exchange.'
+  },
+  {
+    id: 'flame-whip-upgrade-merchant',
+    label: 'Flame Whip Merchant',
+    kind: 'npc',
+    actorId: 0xaf,
+    selectorRecordIndex: 0x0b,
+    chrBanks: [0x04, 0x05],
+    proof: "Debious Woods row $072B1 uses actor id $AF/data $05 and text pointer $CE89, whose decoded ROM text says \"i'll give your morning star power to burn away evil.\" The shared $AF routine at bank 1:$83CC maps live id $2F through table 1:$83F3 to selector-record $0F, then checks object-set RAM $30; because Debious is object set $03, it overrides $0F to selector-record $0B. Debious supplies CHR banks $04/$05."
   },
   {
     id: 'old-gypsy',
@@ -578,6 +860,15 @@ const ACTOR_CLASSES = [
     proof: 'ROM actor id $0E dispatches to 1:$8425, which writes selector-stream record $23. The rendered spider sprite matches the English manual enemy "The Spider".'
   },
   {
+    id: 'mansion-spider',
+    label: 'The Spider',
+    kind: 'enemy',
+    actorId: 0x0e,
+    selectorRecordIndex: 0x23,
+    chrBanks: [0x08, 0x09],
+    proof: 'ROM actor id $0E dispatches to 1:$8425, which writes selector-stream record $23. Laruba Mansion rows $05A95 and $05A9D use actor id $0E/data $1E in object set $01, so the guide renders the same spider record with mansion CHR banks $08/$09.'
+  },
+  {
     id: 'werewolf',
     label: 'The Wolf Man',
     kind: 'enemy',
@@ -606,7 +897,7 @@ const ACTOR_CLASSES = [
     actorId: 0x26,
     selectorRecordIndex: 0x20,
     chrBanks: [0x02, 0x03],
-    proof: 'ROM actor id $26 dispatches through 1:$8335; that routine passes selector-record index $20 to fixed-bank $DED8, which emits metasprites $78/$79 for the sacred-flame reward fixture.'
+    proof: "ROM actor id $26 dispatches through 1:$8335; the routine selects selector-record $20 for non-$27 actors, then clears the $08 hidden flag from $03C6,x when selected item $4F is Dracula's Eyeball. Selector-record $20 emits metasprites $78/$79 for the sacred-flame reward fixture."
   },
   {
     id: 'hidden-book-secret',
@@ -689,6 +980,37 @@ const ACTOR_CLASSES = [
     proof: 'Brahm Mansion actor row $05CDE is bytes $08 $08 $44 $80. The whole-ROM enemy atlas proves actor id $44 dispatches to bank 1:$9E1B, initializes direct body selector $44, writes follow-up body selector $45, and uses fixed interior HP 128 from row data $80. Death scythe/projectile behavior is not represented as a separate static guide marker.'
   },
   {
+    id: 'camilla',
+    label: 'Camilla',
+    kind: 'enemy',
+    actorId: 0x42,
+    selectors: [0xca],
+    chrBanks: [0x09, 0x0a],
+    hp: { day: 240, night: 240 },
+    paletteCycle: {
+      values: [3, 1, 2, 3],
+      frameDurationMs: 1000 / 60,
+      source: 'Camilla attack-state path bank 1:$9DCA-$9DCF restores X, increments the attack timer, and jumps to fixed-bank $D9CF, which stores global frame counter $1D & $03 in actor attribute RAM $0312,x. The shared metasprite drawer at bank 0:$AB16-$AB28 uses nonzero $0312 low bits as the OAM palette override; phase 0 leaves selector $CA on its native palette slot $03.'
+    },
+    proof: 'Laruba Mansion actor row $05AC6 is bytes $08 $0A $42 $F0. The whole-ROM enemy atlas proves actor id $42 dispatches to bank 1:$9CD8 and initializes direct selector $CA; row data $F0 supplies fixed mansion HP 240. Camilla uses the boss sprite pattern context $0A, so the decoded $CA 8x16 metasprite must be rendered from sprite CHR banks $09/$0A rather than the generic mansion background CHR pair $08/$09. Selector $CA uses native OAM palette $03; Camilla\'s attack-state palette blink is produced by bank 1:$9DCA-$9DCF jumping to fixed-bank $D9CF, which stores $1D & $03 into $0312,x for the shared sprite drawer palette override. The guide reproduces that ROM palette-slot cadence; boss projectile/state behavior is not represented as a separate guide marker.'
+  },
+  {
+    id: 'dracula',
+    label: 'Dracula',
+    kind: 'enemy',
+    actorId: 0x47,
+    selectors: [0x33],
+    chrBanks: [0x0b, 0x0c],
+    hp: { day: 240, night: 240 },
+    frameDurationMs: 1000 / 60,
+    blink: {
+      visibleFrames: 2,
+      hiddenFrames: 2,
+      source: 'The final-room spawn routine blinks Dracula by alternating selector $33 with no visible selector while the boss is being summoned. The guide uses the same presentation cadence as the overworld final-entry preview.'
+    },
+    proof: 'The final-room Dracula spawn initializer at bank 1:$B4FA stores actor id $47 into actor-id RAM $03B4+$06. Bank 1:$B5A9-$B5B0 uses ROM metasprite selector $33 for the visible Dracula frame, and bank 1:$B5B9-$B5BE stores HP $F0 into actor HP RAM $04C2+$06 ($04C8). The shared hit/death routines at bank 1:$8926 and 1:$8A69 check actor id $47 alongside Camilla $42 and Death $44.'
+  },
+  {
     id: 'blob',
     label: 'Slimey BarSinister',
     kind: 'enemy',
@@ -697,6 +1019,16 @@ const ACTOR_CLASSES = [
     chrBanks: [0x08, 0x09],
     hp: { day: 1, night: 1 },
     proof: 'Actor dispatch entry $1F initializes through the direct fixed-bank $DED0 selector path with selector $3C, then the $97D3 state machine advances the neutral animation to selector $3D. Whole-ROM actor inventory finds the same actor id in Berkeley, Brahm, and Bodley mansions, so the guide uses a generic name rather than a location-specific label. The rendered blob sprite matches the English manual enemy illustration labeled "Slimey BarSinister".'
+  },
+  {
+    id: 'rock',
+    label: 'Rock',
+    kind: 'enemy',
+    actorId: 0x3e,
+    selectorRecordIndex: 0x2f,
+    chrBanks: [0x08, 0x09],
+    hp: { day: 0, night: 0 },
+    proof: 'Whole-ROM enemy atlas decoding proves actor id $3E dispatches to PRG bank 1:$96E1 and initializes selector-record $2F for the Bodley Mansion falling-rock rows. Bodley rows carry HP byte $00.'
   },
   {
     id: 'mansion-book',
@@ -715,6 +1047,15 @@ const ACTOR_CLASSES = [
     selectorRecordIndex: 0x0b,
     chrBanks: [0x08, 0x09],
     proof: 'ROM row id $AE maps through live id $2E to the merchant selector table. The oak-stake merchant row data selects the $0B animation record in the mansion context.'
+  },
+  {
+    id: 'laruba-laurels-giver',
+    label: 'Laurels Giver',
+    kind: 'npc',
+    actorId: 0xaf,
+    selectorRecordIndex: 0x0b,
+    chrBanks: [0x08, 0x09],
+    proof: 'Laruba Mansion row $05A65 uses actor id $AF/data $01 and text pointer $DCE2, whose decoded ROM text says "i beg of you to take these laurels." The shared $AF routine at bank 1:$83CC maps live id $2F through table 1:$83F3 to selector-record $0F, then checks object-set RAM $30; because Laruba Mansion is object set $01, it overrides $0F to selector-record $0B. Laruba Mansion supplies CHR banks $08/$09.'
   },
   {
     id: 'dracula-rib-orb',
@@ -774,6 +1115,44 @@ const ACTOR_CLASSES = [
     proof: 'Brahm Mansion actor row $05CE3 uses actor id $25 with text/data $1A. Text pointer index $1A decodes at ROM file $0CFDE to the Dracula\'s Eyeball pickup message, and actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence.'
   },
   {
+    id: 'dracula-nail-orb',
+    label: "Dracula's Nail",
+    kind: 'secret',
+    actorId: 0x25,
+    selectors: [0x3b],
+    chrBanks: [0x08, 0x09],
+    paletteCycle: {
+      values: [1, 2, 3, 0],
+      frameDurationMs: 1000 / 60,
+      source: 'Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Bodley row data/text selects Dracula\'s Nail.'
+    },
+    drawAnchor: {
+      offsetX: 0,
+      offsetY: -12,
+      source: 'Actor id $25 orb visible placement uses the same pre-stake selector $3B draw anchor proven for the Berkeley Rib orb.'
+    },
+    proof: 'Bodley Mansion actor row $05FAB uses actor id $25 with text/data $1B. Actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence.'
+  },
+  {
+    id: 'dracula-ring-orb',
+    label: "Dracula's Ring",
+    kind: 'secret',
+    actorId: 0x25,
+    selectors: [0x3b],
+    chrBanks: [0x08, 0x09],
+    paletteCycle: {
+      values: [1, 2, 3, 0],
+      frameDurationMs: 1000 / 60,
+      source: 'Same actor id $25 direct-selector orb routine as the Berkeley Rib; the Laruba row data/text selects Dracula\'s Ring.'
+    },
+    drawAnchor: {
+      offsetX: 0,
+      offsetY: -12,
+      source: 'Actor id $25 orb visible placement uses the same pre-stake selector $3B draw anchor proven for the Berkeley Rib orb.'
+    },
+    proof: 'Laruba Mansion actor row $05ACB uses actor id $25 with text/data $1C. Actor id $25 uses the fixed-bank $DED0 direct selector path with selector $3B for the pre-stake orb sequence.'
+  },
+  {
     id: 'secret-merchant',
     label: 'Secret Merchant',
     kind: 'npc',
@@ -813,6 +1192,15 @@ const ACTOR_CLASSES = [
     proof: 'Sadam Woods actor rows use actor id $03 in the object-set $03 CHR family. The full enemy atlas proves the shared skeleton dispatch path and row-backed HP, while Sadam palette evidence resolves CHR banks $04/$05.'
   },
   {
+    id: 'floating-skull',
+    label: 'Floating skull',
+    kind: 'enemy',
+    actorId: 0x10,
+    selectorRecordIndex: 0x16,
+    chrBanks: [0x04, 0x05],
+    proof: 'Whole-ROM enemy atlas decoding proves actor id $10 dispatches to PRG bank 1:$B2E2 and initializes selector-record $16 for the Joma/Debious floating-skull rows. The same routine later references selector-record $29 for another state; the guide uses the primary dispatch selector-record. Manual-name matching is not yet proven for this class.'
+  },
+  {
     id: 'grabber',
     label: 'Grabber',
     kind: 'enemy',
@@ -821,6 +1209,24 @@ const ACTOR_CLASSES = [
     selectorRecordIndex: 0x25,
     chrBanks: [0x04, 0x05],
     proof: 'Whole-ROM enemy atlas decoding proves actor id $16 dispatches to PRG bank 1:$B092 and initializes selector-record $25, with a later routine branch to selector-record $26. The guide uses the primary selector-record proven at routine entry.'
+  },
+  {
+    id: 'swamp-ghoul',
+    label: 'Swamp ghoul',
+    kind: 'enemy',
+    actorId: 0x18,
+    selectors: [0xc0, 0xc1, 0xc2],
+    chrBanks: [0x04, 0x05],
+    proof: 'Whole-ROM enemy atlas decoding proves actor id $18 dispatches to PRG bank 1:$AE95 and writes visible animation selectors from the local ROM table at bank 1:$AF12 through STA $0300,x. The visible selector sequence is $C0/$C1/$C2, and the guide keeps that ROM-backed animation sequence. Manual-name matching is not yet proven for this class.'
+  },
+  {
+    id: 'fire-ghoul',
+    label: 'Fire ghoul',
+    kind: 'enemy',
+    actorId: 0x1d,
+    selectorRecordIndex: 0x29,
+    chrBanks: [0x04, 0x05],
+    proof: 'Whole-ROM enemy atlas decoding proves actor id $1D dispatches to PRG bank 1:$B30A and initializes selector-record $29 for the Joma/Debious fire-ghoul rows. Manual-name matching is not yet proven for this class.'
   },
   {
     id: 'bone-dragon',
@@ -833,6 +1239,24 @@ const ACTOR_CLASSES = [
     ],
     chrBanks: [0x04, 0x05],
     proof: 'Whole-ROM enemy atlas decoding proves actor id $4A dispatches to PRG bank 1:$AFF4. Initialization writes direct metasprite selector $56 for the parent skull, then calls the runtime spawn helper and creates child actor id $19 at the same X and Y+$10. The child actor initializes selector-record $3E, which expands to selectors $E2-$E5 for the animated neck/body, so the guide composes selector $56 with selector-record $3E at offset Y+$10. The rendered bone-dragon composite matches the English manual enemy illustration labeled "Dragon Bones".'
+  },
+  {
+    id: 'high-jump-leech',
+    label: 'High jump leech',
+    kind: 'enemy',
+    actorId: 0x40,
+    selectorRecordIndex: 0x38,
+    chrBanks: [0x04, 0x05],
+    proof: 'Whole-ROM enemy atlas decoding proves actor id $40 dispatches to PRG bank 1:$AE21 and initializes selector-record $38 for the high-jump leech rows. The same routine later branches to selector-record $17, so the guide uses the primary dispatch selector-record. Manual-name matching is not yet proven for this class.'
+  },
+  {
+    id: 'woods-book',
+    label: 'Hidden clue book',
+    kind: 'secret',
+    actorId: 0x27,
+    selectorRecordIndex: 0x3b,
+    chrBanks: [0x04, 0x05],
+    proof: "ROM actor id $27 dispatches through 1:$8335; that routine initializes selector-record $3B and clears the reveal flag when selected item $4F is Dracula's Eyeball. Joma/Debious rows use object-set $03 CHR banks $04/$05."
   },
   {
     id: 'mummy',
@@ -861,6 +1285,15 @@ const ACTOR_CLASSES = [
     selectorRecordIndex: 0x24,
     chrBanks: [0x06, 0x07],
     proof: 'Whole-ROM enemy atlas decoding proves actor id $1B dispatches to PRG bank 1:$AB0C and initializes selector-record $24 for the Vrad Mountain eagle rows. Vrad rows carry HP byte $04, so the ROM night-strength path yields day HP 4 and night HP 8. Manual-name matching is not yet proven for this class.'
+  },
+  {
+    id: 'harpy',
+    label: 'Harpy',
+    kind: 'enemy',
+    actorId: 0x3b,
+    selectorRecordIndex: 0x27,
+    chrBanks: [0x06, 0x07],
+    proof: 'Whole-ROM enemy atlas decoding proves actor id $3B dispatches to PRG bank 1:$AC1E and initializes selector-record $27 for the Wicked Ditch harpy rows. The same state-driven routine can later use selector-record $28; the guide uses the primary decoded selector-record. Manual-name matching is not yet proven for this class.'
   },
   {
     id: 'flower',
@@ -895,13 +1328,17 @@ const MANSION_ACTOR_CLASS_BY_ID = new Map([
   [0x03, 'mansion-skeleton'],
   [0x05, 'mansion-spear-knight'],
   [0x0d, 'mansion-bone-thrower'],
+  [0x0e, 'mansion-spider'],
   [0x0f, 'mansion-gargoyle'],
   [0x11, 'mansion-bat'],
   [0x1f, 'blob'],
   [0x25, 'dracula-rib-orb'],
   [0x27, 'mansion-book'],
+  [0x3e, 'rock'],
+  [0x42, 'camilla'],
   [0x44, 'death'],
-  [0xae, 'oak-stake-merchant']
+  [0xae, 'oak-stake-merchant'],
+  [0xaf, 'laruba-laurels-giver']
 ]);
 
 const BERKELEY_SECRET_ACTOR_IDS = new Set([0x25, 0x27]);
@@ -915,6 +1352,7 @@ const TOWN_INTERIOR_ACTOR_CLASS_BY_ID = new Map([
 
 const TOWN_EXTERIOR_ACTOR_CLASS_BY_ID = new Map([
   [0xa4, null],
+  [0x01, 'crow'],
   [0xa9, 'town-woman'],
   [0xaa, 'jova-man'],
   [0xaf, 'blue-crystal-merchant'],
@@ -945,6 +1383,12 @@ function mansionOrbClassIdForData(data) {
   if (data === 0x1a) {
     return 'dracula-eyeball-orb';
   }
+  if (data === 0x1b) {
+    return 'dracula-nail-orb';
+  }
+  if (data === 0x1c) {
+    return 'dracula-ring-orb';
+  }
   return 'dracula-rib-orb';
 }
 
@@ -955,15 +1399,27 @@ function mansionOrbLabelForData(data) {
   if (data === 0x1a) {
     return "Dracula's Eyeball";
   }
+  if (data === 0x1b) {
+    return "Dracula's Nail";
+  }
+  if (data === 0x1c) {
+    return "Dracula's Ring";
+  }
   return null;
 }
 
 const OUTDOOR_OBJSET3_ACTOR_CLASS_BY_ID = new Map([
   [0x03, 'skeleton-objset3'],
+  [0x10, 'floating-skull'],
   [0x16, 'grabber'],
+  [0x18, 'swamp-ghoul'],
+  [0x1d, 'fire-ghoul'],
+  [0x27, 'woods-book'],
   [0x38, 'dead-hand'],
+  [0x40, 'high-jump-leech'],
   [0x41, 'outdoor-blob'],
   [0x4a, 'bone-dragon'],
+  [0xaf, 'flame-whip-upgrade-merchant'],
   [0x9e, 'secret-merchant']
 ]);
 
@@ -973,11 +1429,17 @@ const OUTDOOR_OBJSET4_ACTOR_CLASS_BY_ID = new Map([
   [0x27, 'mountain-book'],
   [0x39, 'ghost'],
   [0x3a, 'mummy'],
+  [0x3b, 'harpy'],
   [0x3f, 'flower'],
   [0xaf, 'old-gypsy']
 ]);
 
 const TOWN_INTERIOR_ACTOR_LABEL_BY_ITEM_TYPE = new Map([
+  ['oakRib', 'Oak Stake Merchant'],
+  ['oakHeart', 'Oak Stake Merchant'],
+  ['oakNail', 'Oak Stake Merchant'],
+  ['oakRing', 'Oak Stake Merchant'],
+  ['oakStake', 'Oak Stake Merchant'],
   ['thorn', 'Thorn Whip Merchant'],
   ['holyWater', 'Holy Water Merchant'],
   ['whiteCrystal', 'White Crystal Merchant'],
@@ -988,7 +1450,10 @@ const TOWN_INTERIOR_ACTOR_LABEL_BY_ITEM_TYPE = new Map([
   ['laurelsAljiba', 'Laurels Merchant'],
   ['laurelsAlba', 'Laurels Merchant'],
   ['laurelsOndol', 'Laurels Merchant'],
+  ['laurelsDoina', 'Laurels Merchant'],
+  ['laurelsLaruba', 'Laurels Giver'],
   ['morningStar', 'Morning Star Merchant'],
+  ['flameWhip', 'Flame Whip Merchant'],
   ['blueCrystal', 'Blue Crystal Merchant'],
   ['redCrystal', 'Red Crystal Merchant']
 ]);
@@ -1049,8 +1514,8 @@ const SECRET_DETAILS = {
   'dabis-2-sacred-flame-66b0': {
     type: 'destructible-reward',
     reward: 'Sacred Flame',
-    action: "Throw Holy Water at the marked stacked blocks, or equip Dracula's Nail and whip them, to reveal the Sacred Flame.",
-    reveal: 'The Sacred Flame appears after the stacked blocks are opened.',
+    action: "Dracula's Eyeball lets Simon see this hidden item before uncovering it.",
+    reveal: 'The Sacred Flame appears after the stacked blocks are opened. Dracula\'s Eyeball makes the hidden item visible before the blocks are broken.',
     targetTileRects: [
       { x: 2, y: 20, width: 2, height: 4, signature: 'destructibleBlock2x4' }
     ],
@@ -1058,8 +1523,10 @@ const SECRET_DETAILS = {
     rewardSelectors: ['0x78', '0x79'],
     evidence: [
       'Actor row 0x066B0: 01 0C 26 76',
-      'Actor id 0x26 uses item/fixture dispatch 1:$8335 and selector-record index $20.',
+      'Actor id 0x26 uses item/fixture dispatch 1:$8335.',
+      'Routine 1:$8335 selects selector-record $20 for non-$27 actors, and only actor id $27 takes the selector-record $3B hidden-book branch.',
       'Selector-record $20 expands to metasprite selectors $78/$79.',
+      "The shared 1:$8335 update path clears the $08 hidden flag from actor flags $03C6,x, checks selected item RAM $004F, and leaves the flag clear when $4F == $03. The fixed-bank inventory selector maps Dracula's Eyeball to selected item $03.",
       "Holy Water is weapon index 4: fixed-bank 7:$F237-$F2D2 selects $4A bit $08, and 7:$D8C0 spawns projectile actor $33 for that selected weapon.",
       "Dracula's Nail is inventory index 4: fixed-bank 7:$F275 maps $91 bit $08 to selected item $04, and 7:$D623 gates the block-hit routine on $4F == 04 before calling 7:$D3AC.",
       'Text pointer index 0x76 decodes to the Sacred Flame pickup message.'
@@ -1068,8 +1535,8 @@ const SECRET_DETAILS = {
   'aljiba-1-book-66d5': {
     type: 'destructible-clue',
     reward: 'Hidden clue book',
-    action: "Throw Holy Water at the marked blocks, or equip Dracula's Eyeball, to reveal this hidden clue book.",
-    reveal: 'The clue book appears at the marked spot.',
+    action: "Dracula's Eyeball lets Simon see this hidden item before uncovering it.",
+    reveal: 'The clue book appears after the blocks are opened. Dracula\'s Eyeball makes the hidden item visible before the blocks are broken.',
     targetTileRects: [
       { x: 10, y: 24, width: 2, height: 2, signature: 'destructibleBlock2x2' }
     ],
@@ -1115,11 +1582,31 @@ const SECRET_DETAILS = {
       'Actor id 0x25 uses fixed-bank $DED0 direct selector writes for the orb room sequence.',
       'Text pointer index 0x1A decodes at ROM file $0CFDE to the Dracula\'s Eyeball pickup message.'
     ]
+  },
+  'bodley-mansion-part-2-dracula-s-nail-5fab': {
+    type: 'oak-stake-orb',
+    reward: "Dracula's Nail",
+    action: "Use an Oak Stake here to reveal Dracula's Nail.",
+    evidence: [
+      'Actor row 0x05FAB: 08 0B 25 1B',
+      'Actor id 0x25 uses fixed-bank $DED0 direct selector writes for the orb room sequence.',
+      'Text pointer index 0x1B selects the Dracula\'s Nail pickup message.'
+    ]
+  },
+  'laruba-mansion-orb-room-dracula-s-ring-5acb': {
+    type: 'oak-stake-orb',
+    reward: "Dracula's Ring",
+    action: "Use an Oak Stake here to reveal Dracula's Ring.",
+    evidence: [
+      'Actor row 0x05ACB: 0D 07 25 1C',
+      'Actor id 0x25 uses fixed-bank $DED0 direct selector writes for the orb room sequence.',
+      'Text pointer index 0x1C selects the Dracula\'s Ring pickup message.'
+    ]
   }
 };
 
-const DEFAULT_HIDDEN_CLUE_BOOK_ACTION = "Equip Dracula's Eyeball to reveal this hidden clue book.";
-const HIDDEN_CLUE_BOOK_DESTRUCTIBLE_ACTION = "Throw Holy Water at the marked blocks, or equip Dracula's Eyeball, to reveal this hidden clue book.";
+const DEFAULT_HIDDEN_CLUE_BOOK_ACTION = "Dracula's Eyeball lets Simon see this hidden item before uncovering it.";
+const HIDDEN_CLUE_BOOK_DESTRUCTIBLE_ACTION = DEFAULT_HIDDEN_CLUE_BOOK_ACTION;
 
 function defaultSecretDetailsForActor(actor, bytes) {
   if (!bytes) {
@@ -1146,7 +1633,7 @@ function defaultSecretDetailsForActor(actor, bytes) {
     type: 'hidden-clue-book',
     reward: 'Hidden clue book',
     action: DEFAULT_HIDDEN_CLUE_BOOK_ACTION,
-    reveal: 'The clue book appears when Dracula\'s Eyeball is equipped.',
+    reveal: 'The clue book appears after the blocks are opened. Dracula\'s Eyeball makes the hidden item visible before the blocks are broken.',
     rewardSelectorRecord: '0x3B',
     rewardSelectors: ['0x30'],
     evidence: [
@@ -1164,16 +1651,37 @@ const MOUNTAIN_VERTICAL_PLATFORM_ROWS = [
   { id: 'vrad-mountain-part-1-moving-platform-6878', segmentId: 'vrad-mountain-part-1', offset: 0x6878, bytes: [0x17, 0x0d, 0x34, 0x20] },
   { id: 'vrad-mountain-part-1-moving-platform-687c', segmentId: 'vrad-mountain-part-1', offset: 0x687c, bytes: [0x1b, 0x0d, 0x34, 0x20] },
   { id: 'vrad-mountain-part-1-moving-platform-6880', segmentId: 'vrad-mountain-part-1', offset: 0x6880, bytes: [0x1f, 0x0d, 0x34, 0x20] },
-  { id: 'vrad-mountain-part-1-moving-platform-6884', segmentId: 'vrad-mountain-part-1', offset: 0x6884, bytes: [0x21, 0x0d, 0x34, 0x20] },
-  { id: 'vrad-mountain-part-1-moving-platform-6888', segmentId: 'vrad-mountain-part-1', offset: 0x6888, bytes: [0x25, 0x0d, 0x34, 0x20] },
-  { id: 'vrad-mountain-part-1-moving-platform-688c', segmentId: 'vrad-mountain-part-1', offset: 0x688c, bytes: [0x29, 0x0d, 0x34, 0x20] },
-  { id: 'vrad-mountain-part-1-moving-platform-6890', segmentId: 'vrad-mountain-part-1', offset: 0x6890, bytes: [0x2d, 0x0d, 0x34, 0x20] },
+  { id: 'vrad-mountain-part-1-moving-platform-6884', segmentId: 'vrad-mountain-part-1', offset: 0x6884, bytes: [0x21, 0x0d, 0x34, 0x20], phaseFrames: 32 },
+  { id: 'vrad-mountain-part-1-moving-platform-6888', segmentId: 'vrad-mountain-part-1', offset: 0x6888, bytes: [0x25, 0x0d, 0x34, 0x20], phaseFrames: 32 },
+  { id: 'vrad-mountain-part-1-moving-platform-688c', segmentId: 'vrad-mountain-part-1', offset: 0x688c, bytes: [0x29, 0x0d, 0x34, 0x20], phaseFrames: 32 },
+  { id: 'vrad-mountain-part-1-moving-platform-6890', segmentId: 'vrad-mountain-part-1', offset: 0x6890, bytes: [0x2d, 0x0d, 0x34, 0x20], phaseFrames: 32 },
   { id: 'jam-wasteland-moving-platform-6899', segmentId: 'jam-wasteland', offset: 0x6899, bytes: [0x14, 0x0d, 0x34, 0x20] },
   { id: 'jam-wasteland-moving-platform-689d', segmentId: 'jam-wasteland', offset: 0x689d, bytes: [0x18, 0x0d, 0x34, 0x20] },
-  { id: 'jam-wasteland-moving-platform-68a1', segmentId: 'jam-wasteland', offset: 0x68a1, bytes: [0x1c, 0x0d, 0x34, 0x20] }
+  { id: 'jam-wasteland-moving-platform-68a1', segmentId: 'jam-wasteland', offset: 0x68a1, bytes: [0x1c, 0x0d, 0x34, 0x20] },
+  { id: 'joma-marsh-part-3-moving-platform-726c', segmentId: 'joma-marsh-part-3', offset: 0x726c, bytes: [0x24, 0x0c, 0x34, 0x20], phaseFrames: 0, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
+  { id: 'joma-marsh-part-3-moving-platform-7270', segmentId: 'joma-marsh-part-3', offset: 0x7270, bytes: [0x27, 0x0c, 0x34, 0x20], phaseFrames: 16, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
+  { id: 'joma-marsh-part-3-moving-platform-7274', segmentId: 'joma-marsh-part-3', offset: 0x7274, bytes: [0x2a, 0x0c, 0x34, 0x20], phaseFrames: 32, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
+  { id: 'joma-marsh-part-3-moving-platform-7278', segmentId: 'joma-marsh-part-3', offset: 0x7278, bytes: [0x2d, 0x0c, 0x34, 0x20], phaseFrames: 48, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
+  { id: 'debious-woods-part-3-moving-platform-72bd', segmentId: 'debious-woods-part-3', offset: 0x72bd, bytes: [0x21, 0x28, 0x22, 0x20], selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } },
+  { id: 'debious-woods-part-3-moving-platform-72c9', segmentId: 'debious-woods-part-3', offset: 0x72c9, bytes: [0x25, 0x28, 0x22, 0x20], selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } },
+  { id: 'debious-woods-part-3-moving-platform-72d5', segmentId: 'debious-woods-part-3', offset: 0x72d5, bytes: [0x29, 0x28, 0x22, 0x20], selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } },
+  { id: 'debious-woods-part-3-moving-platform-72d9', segmentId: 'debious-woods-part-3', offset: 0x72d9, bytes: [0x2d, 0x28, 0x22, 0x20], selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } }
 ];
 
 function mountainVerticalPlatformFeature(row) {
+  const actorId = row.bytes[2];
+  const actorIdText = dollarHex(actorId, 2);
+  const selector = row.selector ?? (actorId === 0x34 ? 0x1b : 0x43);
+  const selectorText = dollarHex(selector, 2);
+  const chrBanks = row.chrBanks || [0x06, 0x07];
+  const paletteByVariant = row.paletteByVariant || { day: 'deborah-cliff-day-sprites', night: 'deborah-cliff-night-sprites' };
+  const selectorSource = actorId === 0x34
+    ? 'The routine special-cases actor id $34 and writes direct metasprite selector $1B.'
+    : `Actor id ${actorIdText} uses the platform-family metasprite selector ${selectorText}.`;
+  const phaseFrames = Number.isInteger(row.phaseFrames) ? row.phaseFrames : 0;
+  const phaseSource = Number.isInteger(row.phaseFrames)
+    ? ` The guide applies a ${phaseFrames}-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing for same-segment platform rows.`
+    : '';
   return {
     id: row.id,
     label: 'Moving platform',
@@ -1185,15 +1693,15 @@ function mountainVerticalPlatformFeature(row) {
     segmentId: row.segmentId,
     offset: row.offset,
     bytes: row.bytes,
-    selector: 0x1b,
-    chrBanks: [0x06, 0x07],
+    selector,
+    chrBanks,
     variants: ['day', 'night'],
-    paletteByVariant: { day: 'deborah-cliff-day-sprites', night: 'deborah-cliff-night-sprites' },
+    paletteByVariant,
     placement: {
       type: 'rom-row-anchor-with-platform-visible-anchor',
       offsetX: 0,
       offsetY: -13,
-      source: `ROM row ${hex(row.offset, 5)} is ${publicBytes(row.bytes).join(' ')}. Actor id $34 shares the moving-platform routine proven for $21/$22 but writes metasprite selector $1B. The guide uses the same visible Y anchor correction proven for the platform family: raw row X is the visible anchor X and visible Y is row Y minus 13 pixels.`
+      source: `ROM row ${hex(row.offset, 5)} is ${publicBytes(row.bytes).join(' ')}. Actor id ${actorIdText} dispatches to the shared moving-platform routine at bank 1:$854B. ${selectorSource} The guide uses the same visible Y anchor correction proven for the platform family: raw row X is the visible anchor X and visible Y is row Y minus 13 pixels.`
     },
     motion: {
       type: 'linear-ping-pong',
@@ -1205,19 +1713,208 @@ function mountainVerticalPlatformFeature(row) {
       speedPixelsPerFrame: 0.5,
       frameDurationMs: 1000 / 60,
       reversalFrames: 32,
-      source: 'Actor id $34 dispatches to bank 1:$854B. That routine special-cases live actor $34 and writes selector $1B. Row data $20 selects the vertical setup branch at 1:$8589 and supplies high nibble $20 to the reversal timer; the same vertical branch was runtime-proven for Berkeley at 0.5 px/frame, so these rows travel 16 pixels upward from the row anchor before reversing.'
+      ...(Number.isInteger(row.phaseFrames) ? { phaseFrames } : {}),
+      source: `Actor id ${actorIdText} dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing.${phaseSource}`
     },
     dialog: null,
     provenance: {
       row: 'rom-actor-control-row',
-      routine: 'bank 1:$854B, setup branch 1:$8589, motion branch 1:$85FE',
-      selector: 'metasprite selector $1B',
+      routine: 'bank 1:$854B, setup branch 1:$8589, timer branch 1:$85BB',
+      selector: `metasprite selector ${selectorText}`,
       motion: 'row data $20: vertical platform setup index $0 with $20-frame reversal timer'
     }
   };
 }
 
+const BODLEY_FALLING_ROCK_ROWS = [
+  { offset: 0x5f16, bytes: [0x09, 0x0c, 0x3e, 0x00], phaseFrames: 0 },
+  { offset: 0x5f1a, bytes: [0x0a, 0x0c, 0x3e, 0x00], phaseFrames: 18 },
+  { offset: 0x5f1e, bytes: [0x0b, 0x0c, 0x3e, 0x00], phaseFrames: 36 },
+  { offset: 0x5f22, bytes: [0x0c, 0x0c, 0x3e, 0x00], phaseFrames: 54 },
+  { offset: 0x5f26, bytes: [0x0d, 0x0c, 0x3e, 0x00], phaseFrames: 72 },
+  { offset: 0x5f2a, bytes: [0x0e, 0x0c, 0x3e, 0x00], phaseFrames: 90 },
+  { offset: 0x5f2e, bytes: [0x0f, 0x0c, 0x3e, 0x00], phaseFrames: 108 }
+];
+const BODLEY_FALLING_ROCK_SELECTOR_FRAME_INTERVAL = 9;
+const BODLEY_FALLING_ROCK_POST_CONTACT_FRAMES = 0x38;
+const BODLEY_FALLING_ROCK_MAX_PHASE_FRAMES = Math.max(...BODLEY_FALLING_ROCK_ROWS.map((row) => row.phaseFrames || 0));
+const BODLEY_FALLING_ROCK_VERTICAL_VELOCITY = -1;
+const BODLEY_FALLING_ROCK_HORIZONTAL_VELOCITY = 0.5;
+const BODLEY_FALLING_ROCK_GRAVITY = 0.125;
+
+function bodleyFallingRockAnchor(row) {
+  const floorContactY = row.bytes[1] * ACTOR_CELL_SIZE;
+  return {
+    x: row.bytes[0] * ACTOR_CELL_SIZE + ACTOR_CELL_SIZE / 2,
+    startY: 0x10,
+    floorContactY,
+    floorY: floorContactY - 8
+  };
+}
+
+function bodleyFallingRockPath(row) {
+  const anchor = bodleyFallingRockAnchor(row);
+  const points = [];
+  let velocityY = BODLEY_FALLING_ROCK_VERTICAL_VELOCITY;
+  let y = anchor.startY;
+  points.push({ frame: 0, segmentId: 'bodley-mansion-part-1', x: anchor.x, y });
+
+  for (let frame = 1; frame <= 72; frame += 1) {
+    y += velocityY;
+    velocityY += BODLEY_FALLING_ROCK_GRAVITY;
+    if (y >= anchor.floorY) {
+      const contactFrame = frame;
+      const lastVisibleFrame = contactFrame + BODLEY_FALLING_ROCK_POST_CONTACT_FRAMES;
+      const hiddenFrame = lastVisibleFrame + 1;
+      let postContactY = anchor.floorY;
+      let postContactX = anchor.x;
+      let postContactVelocityY = BODLEY_FALLING_ROCK_VERTICAL_VELOCITY;
+      points.push({ frame: contactFrame, segmentId: 'bodley-mansion-part-1', x: anchor.x, y: anchor.floorY });
+      for (let postFrame = 1; postFrame <= BODLEY_FALLING_ROCK_POST_CONTACT_FRAMES; postFrame += 1) {
+        postContactX += BODLEY_FALLING_ROCK_HORIZONTAL_VELOCITY;
+        postContactY += postContactVelocityY;
+        postContactVelocityY += BODLEY_FALLING_ROCK_GRAVITY;
+        points.push({
+          frame: contactFrame + postFrame,
+          segmentId: 'bodley-mansion-part-1',
+          x: Math.round(postContactX * 1000) / 1000,
+          y: Math.round(postContactY * 1000) / 1000
+        });
+      }
+      points.push({ frame: hiddenFrame, segmentId: 'bodley-mansion-part-1', x: postContactX, y: postContactY, hidden: true });
+      points.push({ frame: hiddenFrame + BODLEY_FALLING_ROCK_MAX_PHASE_FRAMES, segmentId: 'bodley-mansion-part-1', x: anchor.x, y: anchor.startY, hidden: true });
+      return points;
+    }
+    points.push({ frame, segmentId: 'bodley-mansion-part-1', x: anchor.x, y: Math.round(y * 1000) / 1000 });
+  }
+
+  points.push({ frame: 72, segmentId: 'bodley-mansion-part-1', x: anchor.x, y: anchor.floorY });
+  points.push({ frame: 73, segmentId: 'bodley-mansion-part-1', x: anchor.x, y: anchor.floorY, hidden: true });
+  points.push({ frame: 73 + BODLEY_FALLING_ROCK_MAX_PHASE_FRAMES, segmentId: 'bodley-mansion-part-1', x: anchor.x, y: anchor.startY, hidden: true });
+  return points;
+}
+
+function bodleyFallingRockFeature(row) {
+  const actorIdText = dollarHex(row.bytes[2], 2);
+  const rowText = hex(row.offset, 5);
+  const anchor = bodleyFallingRockAnchor(row);
+  return {
+    id: `bodley-mansion-falling-rock-${Number(row.offset).toString(16)}`,
+    label: 'Falling rock',
+    kind: 'trap',
+    interactive: false,
+    visibilityLayer: 'characters',
+    highlightLayer: 'none',
+    effect: 'presentation-metasprite',
+    segmentId: 'bodley-mansion-part-1',
+    selectorRecordIndex: 0x2f,
+    chrBanks: [0x08, 0x09],
+    variants: ['fixed'],
+    paletteByVariant: { fixed: 'bodley-mansion-fixed-sprites' },
+    frameDurationMs: BODLEY_FALLING_ROCK_SELECTOR_FRAME_INTERVAL * 1000 / 60,
+    placement: {
+      type: 'decoded-runtime-falling-rock-start-anchor',
+      pixelX: anchor.x,
+      pixelY: anchor.startY,
+      source: `ROM row ${rowText} is ${publicBytes(row.bytes).join(' ')}. Actor id ${actorIdText} dispatches to bank 1:$96E1. Initialization writes selector-record $2F and forces actor Y RAM $0324,x to $10, so the guide renders the rock from that runtime start anchor instead of the raw row Y. During the first falling state, the terrain probe uses offset Y+$08; the guide therefore uses row floor Y minus 8 pixels as the state-transition contact anchor.`
+    },
+    animation: {
+      type: 'trace-path',
+      frameDurationMs: 1000 / 60,
+      autoLoop: true,
+      phaseFrames: row.phaseFrames,
+      interpolate: true,
+      frameIntervalFrames: BODLEY_FALLING_ROCK_SELECTOR_FRAME_INTERVAL,
+      activeFrameStart: 1,
+      points: bodleyFallingRockPath(row),
+      source: `Actor id ${actorIdText} routine bank 1:$96E1-$975C waits until abs(rockX-SimonX)<$10, writes vertical velocity $FF:$00 through fixed-bank $E076, applies gravity by adding $20 to the 8.8 Y velocity each frame through fixed-bank $DFE4, and probes terrain below with offset Y+$08 through fixed-bank $E2AF. On contact, state 2 resets vertical velocity to $FF:$00, writes horizontal velocity $00:$80 through fixed-bank $DE6F/$E04F, stops probing terrain, and removes the actor when timer RAM $048C,x reaches $38. The guide therefore shows the rock make the small post-contact arc and continue down through the floor before disappearing, rather than landing or rolling on the platform. States 1 and 2 call fixed-bank $DD2A, so selector-record $2F alternates selectors $81/$82 with sidecar delay $08. The guide loops this decoded fall-through path with a hidden reset and presentation phase offset; early rocks remain hidden until the furthest-behind phased rock has completed instead of restarting immediately.`
+    },
+    provenance: {
+      row: 'rom-actor-row-promoted-as-grouped-trap-render',
+      rowOffset: rowText,
+      rawBytes: publicBytes(row.bytes),
+      routine: 'bank 1:$96E1-$975C',
+      selector: 'selector-record $2F bytes $01 $81 $08, metasprite selectors $81/$82',
+      runtimePlacement: 'initialization stores $10 into actor Y RAM $0324,x; raw row Y $0C is retained as the terrain contact provenance anchor, and the guide uses contact Y minus the routine probe offset $08 as the state-transition anchor',
+      motion: 'trigger proximity abs(rockX-SimonX)<$10; state-1 vertical velocity $FF:$00; gravity +$20 fractional per frame; terrain probe at Y+$08; state-2 vertical velocity reset $FF:$00 plus horizontal velocity $00:$80 without further terrain probes until timer $048C,x reaches $38',
+      presentationLoop: 'the guide hides the reset from the offscreen fall-through position back to the ceiling start anchor rather than interpolating a non-ROM upward lift; early phased rocks remain hidden until the full grouped trap sequence can restart',
+      palette: 'Bodley runtime capture proves sprite palette bytes from bank 4:$9FBD; the trap uses bodley-mansion-fixed-sprites instead of the generic mansion sprite palette'
+    }
+  };
+}
+
+function bodleyFallingRockTrapHotspot() {
+  return {
+    id: 'bodley-mansion-falling-rock-trap',
+    label: 'Falling rocks',
+    kind: 'trap',
+    effect: 'guide-hotspot',
+    segmentId: 'bodley-mansion-part-1',
+    variants: ['fixed'],
+    bounds: { x: 144, y: 1, width: 128, height: 207 },
+    visibilityLayer: 'characters',
+    highlightLayer: 'characters',
+    condition: {
+      playerFacing: 'Walk beneath these ceiling rocks to trigger the falling-rock trap.'
+    },
+    dialog: {
+      tone: 'guide-authored',
+      text: 'Falling rocks\n----------\nWatch out!!'
+    },
+    provenance: {
+      source: 'rom-actor-routine-and-row-grouping',
+      rows: BODLEY_FALLING_ROCK_ROWS.map((row) => ({
+        rowOffset: hex(row.offset, 5),
+        rawBytes: publicBytes(row.bytes)
+      })),
+      evidence: [
+        'Bodley Mansion Part 1 has seven adjacent actor id $3E rows at ROM file offsets $05F16-$05F2E.',
+        'Actor id $3E dispatches to bank 1:$96E1, initializes selector-record $2F, and stores $10 to actor Y RAM $0324,x.',
+        'Selector-record $2F is bytes $01 $81 $08, so the active rock animation alternates selectors $81/$82 with sidecar delay $08.',
+        'State 0 compares rock X against Simon X and triggers when the absolute distance is less than $10.',
+        'State 1 applies vertical gravity through fixed-bank $DFE4 and probes terrain below with offset Y+$08 through fixed-bank $E2AF.',
+        'On contact, the routine enters state 2, resets vertical velocity to $FF:$00, and writes horizontal velocity $00:$80 through fixed-bank $DE6F/$E04F.',
+        'State 2 does not call the terrain probe again; it removes the actor when timer RAM $048C,x reaches $38, so each rock falls through the floor and disappears independently.'
+      ]
+    }
+  };
+}
+
 const SECRET_FEATURE_DEFINITIONS = [
+  {
+    id: 'castlevania-preview-dracula-presentation',
+    label: 'Dracula',
+    kind: 'presentation',
+    interactive: false,
+    visibilityLayer: 'always',
+    highlightLayer: 'none',
+    effect: 'presentation-metasprite',
+    segmentId: 'castlevania',
+    selectors: [0x33],
+    chrBanks: [0x0b, 0x0c],
+    variants: ['day', 'night', 'fixed'],
+    paletteByVariant: { fixed: 'castlevania-final-sprites' },
+    frameDurationMs: 1000 / 60,
+    blink: {
+      visibleFrames: 2,
+      hiddenFrames: 2,
+      source: 'Guide-authored final-entry presentation blink. Selector $33 and palette data are ROM-derived; exact Dracula fight spawn cadence should be verified from a fight-start runtime trace or save state before treating this timing as ROM-perfect.'
+    },
+    placement: {
+      type: 'guide-authored-final-entry-preview-anchor',
+      pixelX: 128,
+      pixelY: 110,
+      source: 'The overworld Castlevania entry uses a guide-authored black one-screen final-area preview. The Dracula metasprite is ROM selector $33 placed guide-authored at the screen center, using the ROM nonzero-pixel bounds to center it vertically in the one-screen highlight box.'
+    },
+    provenance: {
+      source: 'guide-authored-presentation-over-rom-selector',
+      selectors: ['selector $33'],
+      chrBanks: ['CHR bank $0B', 'CHR bank $0C'],
+      palette: 'out/captures/castlevania-final-area/ppu-3f00-3f1f-palettes.bin'
+    }
+  },
+  ...BODLEY_FALLING_ROCK_ROWS.map(bodleyFallingRockFeature),
+  bodleyFallingRockTrapHotspot(),
   {
     id: 'camilla-cemetery-secret-merchant-6f32',
     label: 'Secret Merchant',
@@ -1344,7 +2041,7 @@ const SECRET_FEATURE_DEFINITIONS = [
     selector: 0x51,
     chrBanks: [0x08, 0x09],
     variants: ['fixed'],
-    paletteByVariant: { fixed: 'mansion-fixed-sprites' },
+    paletteByVariant: { fixed: 'lauber-mansion-fixed-sprites' },
     placement: {
       type: 'rom-row-anchor-with-platform-visible-anchor',
       offsetX: 0,
@@ -1383,11 +2080,11 @@ const SECRET_FEATURE_DEFINITIONS = [
     highlightLayer: 'secrets',
     triggerAnimationFeatureId: 'deborah-cliff-tornado-effect',
     condition: {
-      playerFacing: 'Kneel at the left edge of Deborah Cliff with Red Crystal selected.'
+      playerFacing: 'Kneel at Deborah Cliff with the Red Crystal to summon the tornado to Bodley Mansion.'
     },
     dialog: {
       tone: 'guide-authored',
-      text: 'Deborah Cliff tornado\n----------\nKneel here with Red Crystal selected.'
+      text: 'Deborah Cliff tornado\n----------\nKneel at Deborah Cliff with the Red Crystal to summon the tornado to Bodley Mansion.'
     },
     provenance: {
       source: 'rom-routine-and-runtime-trace',
@@ -1397,7 +2094,8 @@ const SECRET_FEATURE_DEFINITIONS = [
         'Bank 1:$A91D-$A929 checks area RAM $50 == $01 and submap RAM $51 & $7F == $01, identifying Jam Wasteland (Deborah Cliff).',
         'Bank 1:$A92B-$A936 requires scroll bytes $53/$54 == 0 and Simon center X RAM $0348 < $50.',
         'Bank 1:$A938-$A94B checks selected item RAM $004F == $06, inventory RAM $0091 & $60 == $60, and Simon state RAM $03D8 == $03.',
-        'Bank 1:$A953-$A991 runs the countdown and initializes tornado actor id $1C in slot $11 with selector $9C.'
+        'Bank 1:$A953-$A991 runs the countdown and initializes tornado actor id $1C in slot $11 with selector $9C.',
+        'Transition probe data/transition-probes.json records Deborah Cliff tornado transport settling at objset $01, area $04, submap $00, the Bodley Mansion door segment.'
       ]
     }
   },
@@ -1441,11 +2139,11 @@ const SECRET_FEATURE_DEFINITIONS = [
     visibilityLayer: 'secrets',
     highlightLayer: 'secrets',
     condition: {
-      playerFacing: 'Kneel on the Yuba Lake screen with Blue Crystal or Red Crystal selected.'
+      playerFacing: 'Kneel by Yuba Lake with the Blue Crystal or a better crystal to reveal the route to Lauber Mansion.'
     },
     dialog: {
       tone: 'guide-authored',
-      text: 'Yuba Lake reveal\n----------\nKneel on this screen with Blue Crystal or Red Crystal selected.'
+      text: 'Yuba Lake reveal\n----------\nKneel by Yuba Lake with the Blue Crystal or a better crystal to reveal the route to Lauber Mansion.'
     },
     provenance: {
       source: 'rom-routine',
@@ -1454,6 +2152,36 @@ const SECRET_FEATURE_DEFINITIONS = [
         'Bank 1:$A76B-$A779 checks area RAM $50 == $05 and submap RAM $51 & $7F == $01, identifying Yuba Lake.',
         'Bank 1:$A789-$A7A0 checks selected item RAM $004F == $06, inventory RAM $0091 & $60 >= $40, and Simon state RAM $03D8 == $03 before setting route state RAM $56 = $01.',
         'The routine does not check Simon X/Y within the submap, so the guide highlights the Yuba Lake screen rather than a guessed smaller kneeling spot.'
+      ]
+    }
+  },
+  {
+    id: 'bordia-mountains-hidden-staircase',
+    label: 'Hidden staircase',
+    kind: 'secret',
+    effect: 'guide-hotspot',
+    segmentId: 'borgia-mountains-dead-end-swamp',
+    variants: ['day', 'night'],
+    bounds: { x: 880, y: 96, width: 96, height: 96 },
+    highlightShape: 'hidden-staircase',
+    visibilityLayer: 'secrets',
+    highlightLayer: 'secrets',
+    condition: {
+      playerFacing: 'Press Up at the far-right wall to climb the hidden staircase.'
+    },
+    dialog: {
+      tone: 'guide-authored',
+      text: 'Hidden staircase\n----------\nThere are steps where no steps can be seen.'
+    },
+    provenance: {
+      source: 'runtime-trace-and-rom-layout-check',
+      routine: 'bank 2:$D4E2, bank 3:$DECF/$8AB5',
+      evidence: [
+        'Save state out/states/bordia-stairs.mss captures objset $02, area $09, submap $02, camera high byte $54=$03, with Simon at screen X $C8 and Y $BD.',
+        'Trace out/actor-traces/bordia-hidden-stairs-entry starts pressing Up after settle; slot 0 changes from state $00 to $07 at PRG bank 2:$D4E2, then to $08 and stair-stepping state $0A at PRG bank 3:$DECF. The same trace sets stair-kind RAM $04C2 to $01.',
+        'Trace out/player-stair-trace/bordia-up walks Simon up-left along the hidden path from segment-local about (968,189) toward (912,133); out/player-stair-trace/bordia-down never enters stair states $09/$0A.',
+        'The highlight footprint mirrors the visible left-side Bordia staircase: ROM layout metatiles $05,$05,$03 at block cells (2,5), (3,4), and (4,3), using the same 8-pixel stair cadence within the 96x96 pixel stair area. The 16-pixel left offset aligns the guide path with the traced top-of-stair position instead of the right edge of the landing.',
+        'The ROM-derived Bordia layout block grid has normal stair metatiles $03/$05 only on the visible left-side staircase. The far-right wall area has no $02/$03/$04/$05 stair metatile, so this is represented as a hidden special staircase rather than visible terrain.'
       ]
     }
   },
@@ -1501,7 +2229,7 @@ const SECRET_FEATURE_DEFINITIONS = [
     selector: 0x43,
     chrBanks: [0x02, 0x03],
     variants: ['day', 'night'],
-    paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' },
+    paletteByVariant: { day: 'yuba-lake-path-day-sprites', night: 'yuba-lake-path-night-sprites' },
     placement: {
       type: 'rom-row-anchor-with-platform-visible-anchor',
       offsetX: 0,
@@ -1542,7 +2270,7 @@ const SECRET_FEATURE_DEFINITIONS = [
     selector: 0x43,
     chrBanks: [0x02, 0x03],
     variants: ['day', 'night'],
-    paletteByVariant: { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' },
+    paletteByVariant: { day: 'yuba-lake-path-day-sprites', night: 'yuba-lake-path-night-sprites' },
     placement: {
       type: 'rom-row-anchor-with-platform-visible-anchor',
       offsetX: 0,
@@ -1552,8 +2280,8 @@ const SECRET_FEATURE_DEFINITIONS = [
     motion: {
       type: 'linear-ping-pong',
       axis: 'x',
-      minOffsetX: -64,
-      maxOffsetX: 0,
+      minOffsetX: 0,
+      maxOffsetX: -64,
       minOffsetY: 0,
       maxOffsetY: 0,
       speedPixelsPerFrame: 1,
@@ -1679,6 +2407,21 @@ const GUIDE_ITEMS = {
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
       'ROM sale table triple at file offset $1ED43 is $5B $02 $00, linking tile $5B to the Morning Star sale row.'
+    ]
+  },
+  'flame-whip': {
+    id: 'flame-whip',
+    label: 'The Flame Whip',
+    aliases: ['The Flame Whip', 'Flame Whip'],
+    iconTile: 0x5b,
+    manualText: 'The Flame Whip. Magic changes the Morning Star into the Flame Whip and gives it mysterious powers.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Weapons, page 10.',
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      "Debious Woods row $072B1 uses actor id $AF/data $05 and text pointer $CE89, whose decoded game text upgrades Simon's Morning Star.",
+      'Reward routine at ROM file offset $04C86 checks RAM $0434 == $03 and increments it, promoting Morning Star to whip tier $04.',
+      'If RAM $0434 is not $03, the same routine selects text pointer index $75, decoded as "to break my spell, come back with a powerful weapon."'
     ]
   },
   'holy-water': {
@@ -1807,6 +2550,20 @@ const GUIDE_ITEMS = {
       'Brahm Mansion actor row $05CE3 uses actor id $25 and text/data $1A for the Dracula\'s Eyeball orb.'
     ]
   },
+  'magic-cross': {
+    id: 'magic-cross',
+    label: 'The Cross',
+    aliases: ['The Cross', 'Magic Cross', 'Cross'],
+    iconTile: 0x5a,
+    manualText: 'You must have the Cross to seal Dracula\'s fate.',
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Magic Items, page 11.',
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'The fixed-bank carry-item start-menu table maps the Cross/Magic Cross carry item to tile $5A.',
+      'Laruba Mansion Camilla row $05AC6 has holdsItem set in the ROM manifest and text pointer $D1D7, whose decoded ROM dialog gives Simon the Magic Cross.'
+    ]
+  },
   'dracula-nail': {
     id: 'dracula-nail',
     label: "Dracula's Nail",
@@ -1817,7 +2574,22 @@ const GUIDE_ITEMS = {
     evidence: [
       MENU_ITEM_CAPTURE_EVIDENCE,
       MENU_ITEM_ICON_TABLE_EVIDENCE,
-      'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.'
+      'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.',
+      'Bodley Mansion actor row $05FAB uses actor id $25 and text/data $1B for the Dracula\'s Nail orb.'
+    ]
+  },
+  'dracula-ring': {
+    id: 'dracula-ring',
+    label: "Dracula's Ring",
+    aliases: ["Dracula's Ring", 'The Ring'],
+    iconTile: 0x52,
+    manualText: "It's been in the Count's family for hundreds of years. Then again, the Count's also been in his family for hundreds of years.",
+    manualSource: 'Nintendo Castlevania II: Simon\'s Quest instruction manual, Count Dracula\'s Missing Pieces, page 9.',
+    evidence: [
+      MENU_ITEM_CAPTURE_EVIDENCE,
+      MENU_ITEM_ICON_TABLE_EVIDENCE,
+      'The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.',
+      'Laruba Mansion actor row $05ACB uses actor id $25 and text/data $1C for the Dracula\'s Ring orb.'
     ]
   },
   garlic: {
@@ -1983,6 +2755,23 @@ function publicItemReward(reward) {
   };
 }
 
+function publicItemRewards(rewards) {
+  if (!Array.isArray(rewards)) {
+    return [];
+  }
+  const seen = new Set();
+  const out = [];
+  for (const reward of rewards) {
+    const publicReward = publicItemReward(reward);
+    if (!publicReward || seen.has(publicReward.itemId)) {
+      continue;
+    }
+    seen.add(publicReward.itemId);
+    out.push(publicReward);
+  }
+  return out;
+}
+
 function crystalItemTypeForManifestRow(row) {
   if (row.id !== 0xaf) {
     return null;
@@ -1993,6 +2782,12 @@ function crystalItemTypeForManifestRow(row) {
   if (row.data === 0x04) {
     return 'redCrystal';
   }
+  if (row.data === 0x05) {
+    return 'flameWhip';
+  }
+  if (row.data === 0x01) {
+    return 'laurelsLaruba';
+  }
   return null;
 }
 
@@ -2000,10 +2795,14 @@ function inferredItemOffer(actor) {
   if (actor.itemOffer) {
     return publicItemOffer(actor.itemOffer);
   }
-  if (actor.classId === 'oak-stake-merchant' || actor.itemType === 'oakRib' || actor.itemType === 'oakStake') {
-    return publicItemOffer(GUIDE_ITEM_OFFERS['oak-stake']);
-  }
-  if (actor.itemType === 'oakHeart') {
+  if (
+    actor.classId === 'oak-stake-merchant'
+    || actor.itemType === 'oakRib'
+    || actor.itemType === 'oakHeart'
+    || actor.itemType === 'oakNail'
+    || actor.itemType === 'oakRing'
+    || actor.itemType === 'oakStake'
+  ) {
     return publicItemOffer(GUIDE_ITEM_OFFERS['oak-stake']);
   }
   if (actor.classId === 'blue-crystal-merchant' || actor.itemType === 'blueCrystal') {
@@ -2033,7 +2832,12 @@ function inferredItemOffer(actor) {
   if (actor.itemType === 'garlicAljiba' || actor.itemType === 'garlicAlba') {
     return publicItemOffer(GUIDE_ITEM_OFFERS.garlic);
   }
-  if (actor.itemType === 'laurelsAljiba' || actor.itemType === 'laurelsAlba' || actor.itemType === 'laurelsOndol') {
+  if (
+    actor.itemType === 'laurelsAljiba'
+    || actor.itemType === 'laurelsAlba'
+    || actor.itemType === 'laurelsOndol'
+    || actor.itemType === 'laurelsDoina'
+  ) {
     return publicItemOffer(GUIDE_ITEM_OFFERS.laurels);
   }
   return null;
@@ -2286,20 +3090,150 @@ const GUIDE_SIMON_SPAWNS = [
     ]
   }),
   simonSpawn({
+    id: 'doina-get-back-lady-room-simon-spawn',
+    segmentId: 'doina-get-back-lady-room',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry transition evidence places the standing-frame guide-space selector anchor at (16,177) for shared town-interior room entries.'
+    ]
+  }),
+  simonSpawn({
+    id: 'doina-laurels-room-simon-spawn',
+    segmentId: 'doina-laurels-room',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry code zeroes the interior camera state before jumping to the entry handler.',
+      'The shared town-interior transition evidence places the standing-frame guide-space selector anchor at (16,177).'
+    ]
+  }),
+  simonSpawn({
+    id: 'yomi-empty-room-simon-spawn',
+    segmentId: 'yomi-empty-room',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry transition evidence places the standing-frame guide-space selector anchor at (16,177) for shared town-interior room entries.'
+    ]
+  }),
+  simonSpawn({
+    id: 'yomi-girlfriend-room-simon-spawn',
+    segmentId: 'yomi-girlfriend-room',
+    paletteByVariant: { day: 'town-day-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'Town interior entry transition evidence places the standing-frame guide-space selector anchor at (16,177) for shared town-interior room entries.'
+    ]
+  }),
+  simonSpawn({
     id: 'lauber-mansion-simon-spawn',
     segmentId: 'lauber-mansion-part-1',
     variants: ['fixed'],
-    paletteByVariant: { fixed: 'mansion-fixed-sprites' },
+    paletteByVariant: { fixed: 'lauber-mansion-fixed-sprites' },
     pixelX: 16,
     pixelY: 625,
     evidence: [
       'Mansion entry transition code uses the same left-edge standing-frame entry anchor family as Berkeley Mansion.',
       'Lauber Part 1 is rendered in the same full-height mansion guide-space convention as Berkeley, so the entry marker is placed at the left edge of the lower entry floor.'
     ]
+  }),
+  simonSpawn({
+    id: 'laruba-mansion-simon-spawn',
+    segmentId: 'laruba-mansion-part-1',
+    variants: ['fixed'],
+    paletteByVariant: { fixed: 'laruba-mansion-fixed-sprites' },
+    pixelX: 16,
+    pixelY: 401,
+    evidence: [
+      'The mansion entry routine indexes fixed-bank table 7:$F7A6 by area-$06; Laruba area $06 reads byte $01, placing the initial camera on the second 224 px vertical screen.',
+      'The shared mansion entry standing-frame screen anchor is (16,190), so the segment-local guide-space anchor is (16,401).'
+    ]
+  }),
+  simonSpawn({
+    id: 'brahm-mansion-simon-spawn',
+    segmentId: 'brahm-mansion-part-1',
+    variants: ['fixed'],
+    paletteByVariant: { fixed: 'brahm-mansion-fixed-sprites' },
+    pixelX: 16,
+    pixelY: 849,
+    evidence: [
+      'The mansion entry routine indexes fixed-bank table 7:$F7A6 by area-$06; Brahm area $09 reads byte $03, placing the initial camera on the fourth 224 px vertical screen.',
+      'The shared mansion entry standing-frame screen anchor is (16,190), so the full-map guide-space anchor is (16,849).'
+    ]
+  }),
+  simonSpawn({
+    id: 'bodley-mansion-simon-spawn',
+    segmentId: 'bodley-mansion-part-1',
+    variants: ['fixed'],
+    paletteByVariant: { fixed: 'bodley-mansion-fixed-sprites' },
+    pixelX: 16,
+    pixelY: 625,
+    evidence: [
+      'The mansion entry routine indexes fixed-bank table 7:$F7A6 by area-$06; Bodley area $0A reads byte $02, placing the initial camera on the third 224 px vertical screen.',
+      'The shared mansion entry standing-frame screen anchor is (16,190), so the full-map guide-space anchor is (16,625).'
+    ]
+  }),
+  simonSpawn({
+    id: 'castlevania-main-simon-spawn',
+    segmentId: 'castlevania-main',
+    variants: ['fixed'],
+    paletteByVariant: { fixed: 'castlevania-final-sprites' },
+    pixelX: 16,
+    pixelY: 177,
+    evidence: [
+      'The bridge-to-Castlevania transition probe reaches runtime context 05/00/00 and OAM shows the left-edge standing frame at raw x=8/16 and y=174/190.',
+      'The Castlevania final-area entry is the top screen of obj05 area00 sub00, so the shared guide-space standing-frame anchor is (16,177).'
+    ]
   })
 ];
 
+const DENIS_ALJIBA_WOODS_PALETTE_BY_VARIANT = {
+  day: 'denis-aljiba-woods-day-sprites',
+  night: 'denis-aljiba-woods-night-sprites'
+};
+
+const GUIDE_ACTOR_PALETTE_BY_SEGMENT = {
+  'aljiba-woods-part-1': DENIS_ALJIBA_WOODS_PALETTE_BY_VARIANT,
+  'aljiba-woods-part-2': DENIS_ALJIBA_WOODS_PALETTE_BY_VARIANT,
+  'aljiba-woods-part-3': DENIS_ALJIBA_WOODS_PALETTE_BY_VARIANT,
+  'denis-woods-part-2': DENIS_ALJIBA_WOODS_PALETTE_BY_VARIANT,
+  'denis-woods-part-3': DENIS_ALJIBA_WOODS_PALETTE_BY_VARIANT
+};
+
+function paletteByVariantForGuideActor(actor) {
+  return GUIDE_ACTOR_PALETTE_BY_SEGMENT[actor.segmentId] || actor.paletteByVariant || {};
+}
+
 const GUIDE_ACTORS = [
+  {
+    id: 'castlevania-dracula-fight-dracula',
+    classId: 'dracula',
+    segmentId: 'castlevania-dracula-fight',
+    actorId: 0x47,
+    data: 0xf0,
+    variants: ['fixed'],
+    paletteByVariant: { fixed: 'castlevania-final-sprites' },
+    placement: {
+      pixelX: 128,
+      pixelY: 110,
+      source: 'Guide-authored final-room preview anchor, matching the centered overworld Castlevania Dracula preview while using ROM selector $33.'
+    },
+    hp: { day: 240, night: 240 },
+    hpEvidence: {
+      policy: 'fixed-special-boss-hp',
+      baseHp: 0xf0,
+      rowData: '0xF0',
+      source: 'rom-final-room-special-boss-initializer',
+      rule: 'Dracula is not emitted from a normal room actor row. The final-room spawn routine initializes actor slot X=$06 directly: bank 1:$B4FA stores actor id $47 at $03B4+$06, and bank 1:$B5B9-$B5BE stores #$F0 into HP RAM $04C2+$06 ($04C8).',
+      slot: '0x06',
+      rom: 'Dracula final-room initializer at bank 1:$B4FA-$B5BE; shared damage/death checks for actor id $47 at bank 1:$8926 and 1:$8A69.'
+    }
+  },
   { id: 'jova-shepherd-50bc', classId: 'jova-shepherd', segmentId: 'town-of-jova', offset: 0x50bc, bytes: [0x04, 0x0c, 0xb5, 0x38], variants: ['day'], text: 'first thing to do in this town is buy a white crystal.', paletteByVariant: { day: 'town-day-sprites' } },
   { id: 'jova-shepherd-50c0', classId: 'jova-shepherd', segmentId: 'town-of-jova', offset: 0x50c0, bytes: [0x04, 0x1a, 0xb5, 0x3d], variants: ['day'], text: 'you have a friend in the town of aldra. go and see him.', paletteByVariant: { day: 'town-day-sprites' } },
   { id: 'jova-shepherd-50c4', classId: 'jova-shepherd', segmentId: 'town-of-jova', offset: 0x50c4, bytes: [0x08, 0x12, 0xb5, 0x3e], variants: ['day'], text: "13 clues will solve dracula's riddle.", paletteByVariant: { day: 'town-day-sprites' } },
@@ -2540,11 +3474,11 @@ function materializeManifestActors(sliceConfig, rom) {
 
   function variantsForManifestRow(context, row, segment) {
     if (context.objset === 0 && context.area < 0x07) {
-      if (row.id === 0x17) {
-        return ['night'];
-      }
       if (row.id === 0xa4) {
         return ['day', 'night'];
+      }
+      if (row.kind === 'enemy') {
+        return ['night'];
       }
       return ['day'];
     }
@@ -2561,14 +3495,14 @@ function materializeManifestActors(sliceConfig, rom) {
     if (config.paletteByVariant) {
       return config.paletteByVariant;
     }
+    if (segment.paletteByVariant) {
+      return segment.paletteByVariant;
+    }
     if (context.objset === 0) {
       return { day: 'town-day-sprites', night: 'town-night-sprites' };
     }
     if (context.objset === 1) {
       return { fixed: 'mansion-fixed-sprites' };
-    }
-    if (segment.paletteByVariant) {
-      return segment.paletteByVariant;
     }
     if (context.objset === 2) {
       return { day: 'denis-woods-day-sprites', night: 'denis-woods-night-sprites' };
@@ -2633,6 +3567,20 @@ function materializeManifestActors(sliceConfig, rom) {
         source: 'guide-authored-vrad-diamond-reward-summary'
       };
     }
+    if (row.id === 0xaf && row.data === 0x01) {
+      return {
+        text: 'Laurels Giver\n----------\nGives Simon the Laurels.',
+        tone: 'guide-authored',
+        source: 'guide-authored-laruba-laurels-reward-summary; ROM row $05A65 uses text pointer $DCE2, and reward code at ROM file $0535B sets RAM $92 bit $04.'
+      };
+    }
+    if (row.id === 0xaf && row.data === 0x05) {
+      return {
+        text: "Flame Whip Merchant\n----------\nUpgrades Simon's Morning Star into The Flame Whip. Simon must have the Morning Star first.",
+        tone: 'guide-authored',
+        source: 'guide-authored-flame-whip-upgrade-summary; ROM file $04C86 checks RAM $0434 == $03 before promoting whip tier $04, otherwise text pointer index $75 is shown.'
+      };
+    }
     if (row.id === 0xad) {
       return {
         text: "Priest\n----------\nRefills Simon's health meter to full health.",
@@ -2641,6 +3589,14 @@ function materializeManifestActors(sliceConfig, rom) {
       };
     }
     return null;
+  }
+
+  function isBodleyFallingRockRow(context, row) {
+    return context.objset === 0x01
+      && context.area === 0x0a
+      && context.submap === 0x00
+      && row.id === 0x3e
+      && row.data === 0x00;
   }
 
   function isDeadRiverSecretRouteFerry(context, row) {
@@ -2709,6 +3665,9 @@ function materializeManifestActors(sliceConfig, rom) {
       if (context.objset === 3 && context.area === 0x00 && context.submap === 0x00 && row.id === 0x9e) {
         continue;
       }
+      if (isBodleyFallingRockRow(context, row)) {
+        continue;
+      }
       const rowBytes = Number.isInteger(row.pointer)
         ? Array.from(rom.subarray(row.pointer, row.pointer + 4))
         : [row.x, row.y, row.id, row.data];
@@ -2731,6 +3690,16 @@ function materializeManifestActors(sliceConfig, rom) {
           itemId: 'diamond',
           evidence: "Vrad Mountain row $0684F uses actor id $AF/data $00 and text pointer $CF38, whose decoded game text says \"i'll give you a diamond.\""
         };
+      } else if (row.id === 0xaf && row.data === 0x01) {
+        rowItemReward = {
+          itemId: 'laurels',
+          evidence: 'Laruba Mansion row $05A65 uses actor id $AF/data $01 and text pointer $DCE2, whose decoded ROM text says "i beg of you to take these laurels." The reward code is annotated at ROM file $0535B.'
+        };
+      } else if (row.id === 0xaf && row.data === 0x05) {
+        rowItemReward = {
+          itemId: 'flame-whip',
+          evidence: "Debious Woods row $072B1 uses actor id $AF/data $05 and text pointer $CE89, whose decoded game text says \"i'll give your morning star power to burn away evil.\" The reward routine at ROM file offset $04C86 checks RAM $0434 == $03 and increments it to whip tier $04."
+        };
       } else if (row.id === 0x9e && segment.id === 'storigoi-graveyard') {
         rowItemReward = {
           itemId: 'silk-bag',
@@ -2740,6 +3709,21 @@ function materializeManifestActors(sliceConfig, rom) {
         rowItemReward = {
           itemId: 'golden-knife',
           evidence: 'Brahm Mansion Death row $05CDE has holdsItem set in the ROM manifest and text pointer $0DCC0 decodes to "you now possess the golden knife."'
+        };
+      } else if (context.objset === 1 && context.area === 0x06 && row.id === 0x42 && row.holdsItem) {
+        rowItemReward = {
+          itemId: 'magic-cross',
+          evidence: 'Laruba Mansion Camilla row $05AC6 has holdsItem set in the ROM manifest and text pointer $D1D7, whose decoded ROM dialog gives Simon the Magic Cross.'
+        };
+      } else if (context.objset === 1 && row.id === 0x25 && row.data === 0x1b && row.holdsItem) {
+        rowItemReward = {
+          itemId: 'dracula-nail',
+          evidence: 'Bodley Mansion orb row $05FAB has holdsItem set in the ROM manifest and text/data $1B, selecting Dracula\'s Nail.'
+        };
+      } else if (context.objset === 1 && row.id === 0x25 && row.data === 0x1c && row.holdsItem) {
+        rowItemReward = {
+          itemId: 'dracula-ring',
+          evidence: 'Laruba Mansion orb row $05ACB has holdsItem set in the ROM manifest and text/data $1C, selecting Dracula\'s Ring.'
         };
       }
       const variants = variantsForManifestRow(context, row, segment);
@@ -2835,6 +3819,7 @@ function buildDoorHotspots(sliceConfig, segments, segmentTilemapsById) {
   const policies = config.segmentPolicies || {};
   const targetViews = config.targetViews || {};
   const hotspots = [];
+  const segmentById = new Map(segments.map((segment) => [segment.id, segment]));
 
   for (const segment of segments) {
     const policy = policies[segment.id];
@@ -2901,6 +3886,11 @@ function buildDoorHotspots(sliceConfig, segments, segmentTilemapsById) {
       if (!rectRecord?.tileRect) {
         throw new Error(`${segment.id} has no tileRect for door ${door.name}`);
       }
+      const itemRewards = publicItemRewards(target.itemRewards);
+      const itemReward = publicItemReward(target.itemReward);
+      if (itemReward && !itemRewards.some((reward) => reward.itemId === itemReward.itemId)) {
+        itemRewards.push(itemReward);
+      }
 
       hotspots.push({
         id: `${segment.id}-door-${slugForId(door.name || door.targetId)}`,
@@ -2910,7 +3900,8 @@ function buildDoorHotspots(sliceConfig, segments, segmentTilemapsById) {
         label: target.label || `Enter ${door.name || door.targetId}`,
         tileRect: rectRecord.tileRect,
         opensView: target.viewId,
-        itemReward: publicItemReward(target.itemReward),
+        itemReward: itemRewards[0] || null,
+        itemRewards,
         variants: policy.variants || segment.variants || ['day', 'night'],
         note: target.note || null,
         provenance: {
@@ -2925,6 +3916,42 @@ function buildDoorHotspots(sliceConfig, segments, segmentTilemapsById) {
         }
       });
     }
+  }
+
+  for (const manual of config.guideAuthoredHotspots || []) {
+    if (!manual?.id) {
+      throw new Error('guide-authored door hotspot requires an id');
+    }
+    if (!segmentById.has(manual.segmentId)) {
+      throw new Error(`guide-authored door hotspot ${manual.id} references unknown segment ${manual.segmentId}`);
+    }
+    if (!manual.tileRect) {
+      throw new Error(`guide-authored door hotspot ${manual.id} requires a tileRect`);
+    }
+    const itemRewards = publicItemRewards(manual.itemRewards);
+    const itemReward = publicItemReward(manual.itemReward);
+    if (itemReward && !itemRewards.some((reward) => reward.itemId === itemReward.itemId)) {
+      itemRewards.push(itemReward);
+    }
+    hotspots.push({
+      id: manual.id,
+      type: manual.type || 'door',
+      kind: manual.kind || 'door',
+      segmentId: manual.segmentId,
+      label: manual.label || 'Enter',
+      tileRect: manual.tileRect,
+      opensView: manual.opensView || null,
+      itemReward: itemRewards[0] || null,
+      itemRewards,
+      variants: manual.variants || segmentById.get(manual.segmentId).variants || ['day', 'night'],
+      note: manual.note || null,
+      provenance: {
+        source: 'guide-authored-door-hotspot',
+        sourceSegment: manual.segmentId,
+        evidence: manual.evidence || manual.provenance?.evidence || null,
+        ...(manual.provenance || {})
+      }
+    });
   }
 
   return hotspots;
@@ -2947,6 +3974,13 @@ function hex(value, width = 2) {
     return null;
   }
   return `0x${Number(value).toString(16).toUpperCase().padStart(width, '0')}`;
+}
+
+function dollarHex(value, width = 2) {
+  if (value == null || Number.isNaN(Number(value))) {
+    return null;
+  }
+  return `$${Number(value).toString(16).toUpperCase().padStart(width, '0')}`;
 }
 
 function publicBytes(bytes) {
@@ -3498,7 +4532,7 @@ function applyHiddenClueBookDestructibleLinks(actors, segmentTilemapsById) {
       ...actor.secret,
       type: 'destructible-clue',
       action: HIDDEN_CLUE_BOOK_DESTRUCTIBLE_ACTION,
-      reveal: 'The clue book appears at the marked spot.',
+      reveal: 'The clue book appears after the marked blocks are opened. Dracula\'s Eyeball makes the hidden item visible before the blocks are broken.',
       targetTileRects: [
         {
           ...group.rect,
@@ -3687,7 +4721,77 @@ function findFalsePlatformMetatileCandidates(expandedTilemap) {
   return candidates;
 }
 
-function buildDestructibleFixtures(segments, segmentTilemapsById, actors) {
+function uniqueRecordsByJson(records) {
+  return Array.from(new Map(records.map((record) => [JSON.stringify(record), record])).values());
+}
+
+function applyDestructibleFixtureMerges(sliceConfig, fixtures) {
+  const merges = sliceConfig.destructibleFixtureMerges || [];
+  if (merges.length === 0) {
+    return fixtures;
+  }
+
+  const fixtureById = new Map(fixtures.map((fixture) => [fixture.id, fixture]));
+  const consumedFixtureIds = new Set();
+  const mergedFixtures = [];
+
+  for (const merge of merges) {
+    if (!merge.id) {
+      throw new Error(`${sliceConfig.id} destructible fixture merge requires an id`);
+    }
+    if (!Array.isArray(merge.sourceFixtureIds) || merge.sourceFixtureIds.length === 0) {
+      throw new Error(`${merge.id} destructible fixture merge requires sourceFixtureIds`);
+    }
+    if (!merge.segmentId || !merge.tileRect) {
+      throw new Error(`${merge.id} destructible fixture merge requires segmentId and tileRect`);
+    }
+
+    const sourceFixtures = merge.sourceFixtureIds.map((fixtureId) => {
+      const fixture = fixtureById.get(fixtureId);
+      if (!fixture) {
+        throw new Error(`${merge.id} references missing destructible fixture ${fixtureId}`);
+      }
+      return fixture;
+    });
+    const primaryFixture = sourceFixtures[0];
+    const signatureIds = uniqueRecordsByJson(sourceFixtures.flatMap((fixture) => fixture.signatureIds || (fixture.signatureId ? [fixture.signatureId] : [])))
+      .sort();
+    const metatileProofs = uniqueRecordsByJson(sourceFixtures.flatMap((fixture) => fixture.provenance?.metatileProofs || []));
+
+    sourceFixtures.forEach((fixture) => consumedFixtureIds.add(fixture.id));
+    mergedFixtures.push({
+      ...primaryFixture,
+      id: merge.id,
+      label: merge.label || primaryFixture.label,
+      kind: merge.kind || primaryFixture.kind,
+      role: merge.role || primaryFixture.role,
+      segmentId: merge.segmentId,
+      tileRect: merge.tileRect,
+      matchCount: sourceFixtures.reduce((count, fixture) => count + (fixture.matchCount || 0), 0),
+      matches: sourceFixtures.flatMap((fixture) => (fixture.matches || [])
+        .map((match) => ({ ...match, segmentId: fixture.segmentId }))),
+      blocks: sourceFixtures.flatMap((fixture) => (fixture.blocks || [])
+        .map((block) => ({ ...block, segmentId: fixture.segmentId }))),
+      signatureIds,
+      action: merge.action || primaryFixture.action,
+      dialogText: merge.dialogText || primaryFixture.dialogText || null,
+      provenance: {
+        ...primaryFixture.provenance,
+        source: 'rom-layout-metatile-and-terrain-thresholds+guide-authored-cross-segment-merge',
+        sourceFixtureIds: merge.sourceFixtureIds,
+        mergeEvidence: merge.evidence || null,
+        metatileProofs
+      }
+    });
+  }
+
+  return [
+    ...fixtures.filter((fixture) => !consumedFixtureIds.has(fixture.id)),
+    ...mergedFixtures
+  ];
+}
+
+function buildDestructibleFixtures(sliceConfig, segments, segmentTilemapsById, actors) {
   const signature = FIXTURE_TILE_SIGNATURES.destructibleBlock2x2;
   const fixtures = [];
 
@@ -3778,7 +4882,7 @@ function buildDestructibleFixtures(segments, segmentTilemapsById, actors) {
     }
   }
 
-  return fixtures;
+  return applyDestructibleFixtureMerges(sliceConfig, fixtures);
 }
 
 function validateFixtureVisualRects(actors, segmentTilemapsById) {
@@ -4234,8 +5338,36 @@ function readActorPaletteFragment(rom, info, cpuAddress, length, bank) {
   );
 }
 
+function actorSpritePaletteVariantBank(address) {
+  return address < 0xc000 ? 4 : undefined;
+}
+
 function readActorPaletteMemory(rom, info, source) {
   if (source.type === 'rom-sprite-palette') {
+    let variantAddress = source.variantAddress;
+    let variantBank = source.variantBank;
+    let variantSource;
+    if (source.auxiliaryTransferId != null) {
+      const transferPointerAddress = SPRITE_TRANSFER_POINTER_TABLE + source.auxiliaryTransferId * 2;
+      variantAddress = readPrgWord(rom, info, transferPointerAddress, {
+        bank: SPRITE_TRANSFER_POINTER_TABLE_BANK
+      });
+      variantBank = actorSpritePaletteVariantBank(variantAddress);
+      variantSource = [
+        `rom-bank${SPRITE_TRANSFER_POINTER_TABLE_BANK}:${hex(transferPointerAddress, 4)}..${hex(transferPointerAddress + 1, 4)}`,
+        `aux:${hex(source.auxiliaryTransferId, 2)}`,
+        variantBank == null
+          ? `rom:${hex(variantAddress, 4)}..${hex(variantAddress + VARIANT_SPRITE_PALETTE_LENGTH - 1, 4)}`
+          : `rom-bank${variantBank}:${hex(variantAddress, 4)}..${hex(variantAddress + VARIANT_SPRITE_PALETTE_LENGTH - 1, 4)}`
+      ].join('->');
+    } else {
+      variantSource = source.variantBank == null
+        ? `rom:${hex(source.variantAddress, 4)}..${hex(source.variantAddress + VARIANT_SPRITE_PALETTE_LENGTH - 1, 4)}`
+        : `rom-bank${source.variantBank}:${hex(source.variantAddress, 4)}..${hex(source.variantAddress + VARIANT_SPRITE_PALETTE_LENGTH - 1, 4)}`;
+    }
+    if (variantAddress == null) {
+      throw new Error(`Actor sprite palette source ${source.id} must provide variantAddress or auxiliaryTransferId`);
+    }
     const common = readActorPaletteFragment(
       rom,
       info,
@@ -4245,17 +5377,15 @@ function readActorPaletteMemory(rom, info, source) {
     const variant = readActorPaletteFragment(
       rom,
       info,
-      source.variantAddress,
+      variantAddress,
       VARIANT_SPRITE_PALETTE_LENGTH,
-      source.variantBank
+      variantBank
     );
     return {
       bytes: Buffer.concat([common, variant]),
       source: [
         `rom:${hex(COMMON_SPRITE_PALETTE_ADDRESS, 4)}..${hex(COMMON_SPRITE_PALETTE_ADDRESS + COMMON_SPRITE_PALETTE_LENGTH - 1, 4)}`,
-        source.variantBank == null
-          ? `rom:${hex(source.variantAddress, 4)}..${hex(source.variantAddress + VARIANT_SPRITE_PALETTE_LENGTH - 1, 4)}`
-          : `rom-bank${source.variantBank}:${hex(source.variantAddress, 4)}..${hex(source.variantAddress + VARIANT_SPRITE_PALETTE_LENGTH - 1, 4)}`
+        variantSource
       ].join('+')
     };
   }
@@ -4478,6 +5608,24 @@ function buildStaticPreview(actorClass, frameOpaqueBounds, frames) {
     return null;
   }
 
+  if (config.mode === 'single-selector') {
+    const selector = hex(parseHex(config.selector), 2);
+    const frameIndex = frames.findIndex((frame) => frame.selector === selector);
+    if (frameIndex === -1) {
+      throw new Error(`static preview selector ${selector} is not in actor class ${actorClass.id}`);
+    }
+    return {
+      ...config,
+      selector,
+      frameIndex,
+      anchor: 'selector-frame',
+      axes: [],
+      frameOffsets: frameOpaqueBounds.map(() => ({ x: 0, y: 0 })),
+      previewFrameIndexes: [frameIndex],
+      source: 'rom-selector-presentation-policy'
+    };
+  }
+
   if (config.mode === 'flight-body-frame-offsets') {
     const frameOffsets = frameOpaqueBounds.map((_, index) => {
       const selector = frames[index]?.selector;
@@ -4521,6 +5669,14 @@ function buildStaticPreview(actorClass, frameOpaqueBounds, frames) {
     target: targets,
     source: 'chr-nonzero-pixels'
   };
+}
+
+function staticPreviewOpaqueBounds(staticPreview, frameOpaqueBounds, previewOffsets) {
+  const frameIndexes = staticPreview.previewFrameIndexes || frameOpaqueBounds.map((_, index) => index);
+  return actorOpaqueUnion(
+    frameIndexes.map((index) => frameOpaqueBounds[index]),
+    frameIndexes.map((index) => previewOffsets[index])
+  );
 }
 
 function publicSprite(sprite) {
@@ -4756,6 +5912,7 @@ function buildActorClass(rom, info, addChrSet, actorClass) {
     hp: actorClass.hp || null,
     drawAnchor: actorClass.drawAnchor || null,
     frameDurationMs: actorClass.frameDurationMs || actorClass.paletteCycle?.frameDurationMs || null,
+    blink: actorClass.blink || null,
     ...(actorClass.paletteCycle ? {
       paletteCycle: {
         values: actorClass.paletteCycle.values,
@@ -4778,11 +5935,13 @@ function buildActorClass(rom, info, addChrSet, actorClass) {
         mode: staticPreview.mode,
         anchor: staticPreview.anchor,
         axes: staticPreview.axes,
+        ...(staticPreview.selector ? { selector: staticPreview.selector } : {}),
+        ...(Number.isInteger(staticPreview.frameIndex) ? { frameIndex: staticPreview.frameIndex } : {}),
         target: staticPreview.target,
         reason: staticPreview.reason,
         source: staticPreview.source
       },
-      previewOpaqueBounds: actorOpaqueUnion(frameOpaqueBounds, previewOffsets)
+      previewOpaqueBounds: staticPreviewOpaqueBounds(staticPreview, frameOpaqueBounds, previewOffsets)
     } : {}),
     selectorSource: selectorSource.source,
     proof: actorClass.proof
@@ -4805,7 +5964,9 @@ function buildTracePathAnimation(animation, segmentById) {
       y: point.y,
       worldX: pointSegment.position.x + point.x,
       worldY: pointSegment.position.y + point.y,
-      facing: point.facing
+      facing: point.facing,
+      ...(point.hidden === true ? { hidden: true } : {}),
+      ...(Number.isInteger(point.frameIndex) ? { frameIndex: point.frameIndex } : {})
     };
   });
   const frameDurationMs = Number.isFinite(animation.frameDurationMs) && animation.frameDurationMs > 0
@@ -4818,6 +5979,14 @@ function buildTracePathAnimation(animation, segmentById) {
     durationMs: (lastFrame + 1) * frameDurationMs,
     source: animation.source,
     interpolate: Boolean(animation.interpolate),
+    autoLoop: Boolean(animation.autoLoop),
+    phaseFrames: Number.isFinite(animation.phaseFrames) ? animation.phaseFrames : 0,
+    ...(Number.isFinite(animation.frameIntervalFrames) && animation.frameIntervalFrames > 0
+      ? { frameIntervalFrames: animation.frameIntervalFrames }
+      : {}),
+    ...(Number.isFinite(animation.activeFrameStart)
+      ? { activeFrameStart: animation.activeFrameStart }
+      : {}),
     presentation: animation.presentation || null,
     points
   };
@@ -4879,6 +6048,82 @@ function buildTriggeredSecretFeature(rom, info, addChrSet, segmentById, segment,
   };
 }
 
+function buildPresentationMetaspriteFeature(rom, info, addChrSet, segmentById, segment, definition) {
+  const selectorSource = actorClassSelectors(rom, info, definition);
+  const decodedFrames = buildActorClassFrames(rom, info, definition, selectorSource);
+  const frames = applyPaletteCycle(decodedFrames, definition.paletteCycle);
+  const chrSet = addChrSet(definition.chrBanks);
+  const patterns = readChrPair(rom, info, definition.chrBanks);
+  const frameOpaqueBounds = frames.map((frame) => actorFrameOpaqueBounds(frame, patterns));
+  const publicFrames = frames.map((frame, index) => ({
+    ...frame,
+    opaqueBounds: frameOpaqueBounds[index]
+  }));
+  const bounds = actorFrameBounds(frames);
+  const opaqueBounds = actorOpaqueUnion(frameOpaqueBounds);
+  const animation = buildTracePathAnimation(definition.animation, segmentById);
+  const firstPoint = animation?.points?.[0];
+  const placement = definition.placement || {};
+  const pixelX = Number.isFinite(placement.worldX)
+    ? placement.worldX - segment.position.x
+    : (Number.isFinite(placement.pixelX) ? placement.pixelX : firstPoint?.x);
+  const pixelY = Number.isFinite(placement.worldY)
+    ? placement.worldY - segment.position.y
+    : (Number.isFinite(placement.pixelY) ? placement.pixelY : firstPoint?.y);
+  if (!Number.isFinite(pixelX) || !Number.isFinite(pixelY)) {
+    throw new Error(`presentation metasprite ${definition.id} requires placement.pixelX/pixelY or placement.worldX/worldY`);
+  }
+
+  return {
+    id: definition.id,
+    label: definition.label,
+    kind: definition.kind || 'presentation',
+    interactive: definition.interactive !== false,
+    effect: definition.effect,
+    segmentId: definition.segmentId,
+    variants: definition.variants || ['day', 'night'],
+    pixelX,
+    pixelY,
+    worldX: segment.position.x + pixelX,
+    worldY: segment.position.y + pixelY,
+    condition: definition.condition || null,
+    motion: definition.motion || null,
+    animation,
+    dialog: definition.dialog || null,
+    dialogs: definition.dialogs || null,
+    itemReward: publicItemReward(definition.itemReward),
+    visibilityLayer: definition.visibilityLayer || 'always',
+    highlightLayer: definition.highlightLayer || 'none',
+    render: {
+      type: 'presentation-metasprite',
+      selector: definition.selector != null ? hex(definition.selector, 2) : null,
+      selectorRecord: selectorSource.selectorRecord ? {
+        index: hex(definition.selectorRecordIndex, 2),
+        cpuAddress: hex(selectorSource.selectorRecord.cpuAddress, 4),
+        fileOffset: hex(selectorSource.selectorRecord.fileOffset, 5),
+        bytes: publicBytes(selectorSource.selectorRecord.bytes),
+        selectors: selectorSource.selectorRecord.selectors.map((selector) => hex(selector, 2))
+      } : null,
+      selectorSource: selectorSource.source,
+      chrSet: chrSet.id,
+      largeSprites: true,
+      spriteHeight: SPRITE_HEIGHT,
+      paletteByVariant: definition.paletteByVariant || {},
+      frameDurationMs: definition.frameDurationMs || definition.paletteCycle?.frameDurationMs || null,
+      blink: definition.blink || null,
+      frames: publicFrames,
+      bounds,
+      opaqueBounds
+    },
+    provenance: {
+      placement: definition.placement,
+      selectors: selectorSource.selectors.map((selector) => hex(selector, 2)),
+      selectorSource: selectorSource.source,
+      ...definition.provenance
+    }
+  };
+}
+
 function buildSecretFeature(rom, info, addChrSet, segmentById, definition) {
   const segment = segmentById.get(definition.segmentId);
   if (!segment) {
@@ -4887,6 +6132,10 @@ function buildSecretFeature(rom, info, addChrSet, segmentById, definition) {
 
   if (definition.effect === 'triggered-animation') {
     return buildTriggeredSecretFeature(rom, info, addChrSet, segmentById, segment, definition);
+  }
+
+  if (definition.effect === 'presentation-metasprite') {
+    return buildPresentationMetaspriteFeature(rom, info, addChrSet, segmentById, segment, definition);
   }
 
   if (definition.effect === 'guide-hotspot') {
@@ -4911,6 +6160,7 @@ function buildSecretFeature(rom, info, addChrSet, segmentById, definition) {
       triggerAnimationFeatureId: definition.triggerAnimationFeatureId || null,
       visibilityLayer: definition.visibilityLayer || (definition.kind === 'secret' ? 'secrets' : 'always'),
       highlightLayer: definition.highlightLayer || (definition.kind === 'secret' ? 'secrets' : 'none'),
+      highlightShape: definition.highlightShape || null,
       render: null,
       provenance: definition.provenance || null
     };
@@ -5100,6 +6350,9 @@ function expectedHpForEvidence(actor) {
   if (evidence.policy === 'fixed-interior-row-hp') {
     return fixedEnemyHp(evidence.baseHp);
   }
+  if (evidence.policy === 'fixed-special-boss-hp') {
+    return fixedEnemyHp(evidence.baseHp);
+  }
   return null;
 }
 
@@ -5139,7 +6392,7 @@ function validateEnemyHpEvidence(actors) {
     status: 'ok',
     checked: checked.length,
     byPolicy,
-    source: 'rom-actor-row-data-byte+rom-hp-init-routine+runtime-trace-confirmation'
+    source: 'rom-actor-row-data-byte+rom-hp-init-routine+rom-special-boss-initializer+runtime-trace-confirmation'
   }];
 }
 
@@ -5205,7 +6458,7 @@ function buildActorPlacement(rom, info, classById, segmentById, actor) {
     kind,
     segmentId: actor.segmentId,
     variants: actor.variants || ['day', 'night'],
-    paletteByVariant: actor.paletteByVariant || {},
+    paletteByVariant: paletteByVariantForGuideActor(actor),
     tileX: bytes ? bytes[0] : Math.floor(runtimePixelX / ACTOR_CELL_SIZE),
     tileY: bytes ? bytes[1] : Math.floor(runtimePixelY / ACTOR_CELL_SIZE),
     pixelX: drawPixelX,
@@ -5433,6 +6686,7 @@ function addPalette(segmentId, variant, entry) {
       sourceId: segmentConfig.sourceId || segmentConfig.id,
       sameLocationAs: segmentConfig.sameLocationAs,
       visibilityLayer: segmentConfig.visibilityLayer || null,
+      presentationBackground: segmentConfig.presentationBackground || null,
       blockSize: BLOCK_SIZE,
       tileSize: TILE_SIZE,
       blockWidth: blockMatrix.blockWidth,
@@ -5451,6 +6705,7 @@ function addPalette(segmentId, variant, entry) {
       provenance: {
         pixels: sliceConfig.provenance?.pixels || 'rom-derived',
         layout: sliceConfig.provenance?.layout || 'presentation-authored',
+        presentationBackground: segmentConfig.presentationBackground || null,
         binary: 'rom-derived-tile-data'
       }
     });
@@ -5482,7 +6737,7 @@ function addPalette(segmentId, variant, entry) {
   validations.push(...applyFixtureSignatureSnaps(actors, segmentTilemapsById));
   validations.push(...validateFixtureVisualRects(actors, segmentTilemapsById));
   validations.push(...applyHiddenClueBookDestructibleLinks(actors, segmentTilemapsById));
-  const destructibleFixtures = buildDestructibleFixtures(segments, segmentTilemapsById, actors);
+  const destructibleFixtures = buildDestructibleFixtures(sliceConfig, segments, segmentTilemapsById, actors);
   const doorHotspots = buildDoorHotspots(sliceConfig, segments, segmentTilemapsById);
 
   const world = segments.reduce((bounds, segment) => {

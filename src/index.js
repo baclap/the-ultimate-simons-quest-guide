@@ -42,6 +42,7 @@ const {
   analyzeInteriorMap,
   writeInteriorMapResearch
 } = require('./interior-map-research');
+const { auditGuideSpritePalettes } = require('./guide-sprite-palette-audit');
 const { runTransitionProbes } = require('./transition-probes');
 const {
   createRuntimeContextResolver,
@@ -136,6 +137,7 @@ function usage() {
     '  node src/index.js analyze-interior-map --rom roms/cv2.nes --id berkeley-mansion --objset 0x01 --area 0x07 --atlas out/render-recipe-atlas/manifest.json --out out/interior-map-research/berkeley-mansion.json',
     '  node src/index.js analyze-interior-map --rom roms/cv2.nes --id jova-interiors --objset 0x00 --areas 0x07,0x08,0x09 --atlas out/render-recipe-atlas/manifest.json --out out/interior-map-research/jova-interiors.json',
     '  node src/index.js analyze-interior-map --rom roms/cv2.nes --id veros-interiors --objset 0x00 --areas 0x07,0x0A,0x0B --atlas out/render-recipe-atlas/manifest.json --out out/interior-map-research/veros-interiors.json',
+    '  node src/index.js audit-guide-sprite-palettes --rom roms/cv2.nes --atlas out/render-recipe-atlas/manifest.json --out out/guide-sprite-palette-audit',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-day --descriptor-file data/background-descriptors.json',
     '  node src/index.js render-background-native --rom roms/cv2.nes --descriptor jova-woods-day --compare out/captures/jova-woods-day/ppu-2000-2fff-nametables.bin --out out/decoder/jova-woods-native-nametables.bin',
     '',
@@ -175,6 +177,7 @@ function usage() {
     '  audit-render-recipes  Audit live capture evidence against ROM-derived render recipe tables.',
     '  render-recipe-atlas  Render validated/projected atlas variants from audited render recipes.',
     '  analyze-interior-map  Inventory and validate an interior map before guide scene generation.',
+    '  audit-guide-sprite-palettes  Compare generated guide sprite palette assignments to ROM palette transfers.',
     '  render-jova-native  Alias for render-background-native --descriptor jova-day.',
     '  render-jova-woods-native  Alias for render-background-native --descriptor jova-woods-day.'
   ].join('\n');
@@ -859,6 +862,31 @@ function analyzeInteriorMapCommand(args) {
   });
 }
 
+function auditGuideSpritePalettesCommand(args) {
+  const romPath = required(args, 'rom');
+  const outDir = args.out ? String(args.out) : path.join('out', 'guide-sprite-palette-audit');
+  const manifestFiles = args.manifests
+    ? String(args.manifests).split(',').map((value) => value.trim()).filter(Boolean)
+    : undefined;
+  const { buffer, info } = readRom(romPath);
+  const audit = auditGuideSpritePalettes(buffer, info, {
+    atlasFile: args.atlas ? String(args.atlas) : undefined,
+    guideAssetsDir: args['guide-assets'] ? String(args['guide-assets']) : undefined,
+    manifestFiles,
+    outDir
+  });
+  printJson({
+    rom: describeRom(info),
+    guideSpritePaletteAudit: {
+      output: path.resolve(outDir),
+      summary: audit.summary
+    }
+  });
+  if (audit.summary.mismatches > 0 && !args['allow-mismatches']) {
+    process.exitCode = 1;
+  }
+}
+
 function buildGuideSliceCommand(args) {
   const romPath = required(args, 'rom');
   const sliceFile = required(args, 'slice');
@@ -1139,6 +1167,11 @@ function main() {
 
   if (command === 'analyze-interior-map') {
     analyzeInteriorMapCommand(args);
+    return;
+  }
+
+  if (command === 'audit-guide-sprite-palettes') {
+    auditGuideSpritePalettesCommand(args);
     return;
   }
 

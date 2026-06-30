@@ -394,6 +394,10 @@ function isInteriorCandidate(loc) {
   return false;
 }
 
+function isFinalAreaAtlasCandidate(loc) {
+  return loc.objset === 5;
+}
+
 function interiorVariantsForLocation(loc) {
   if (loc.objset === 0) {
     return ['day'];
@@ -427,6 +431,27 @@ function buildRecipeInputs(manifest, auditEvidence) {
       source: 'exterior-atlas-candidate'
     })));
 
+  const seenExteriorContexts = new Set(exteriorInputs.map((input) => (
+    contextKey(input.layoutContext, input.variant)
+  )));
+  const finalAreaManifestInputs = manifest.locations
+    .filter(isFinalAreaAtlasCandidate)
+    .flatMap((loc) => exteriorVariantsForLocation(loc).map((variant) => ({
+      id: `${locationId(loc)}-${variant}`,
+      locationId: locationId(loc),
+      name: loc.name,
+      loc,
+      layoutContext: {
+        objset: loc.objset,
+        area: loc.area,
+        submap: loc.submap || 0
+      },
+      access: accessForLocation(loc),
+      variant,
+      source: 'final-area-manifest-candidate'
+    })))
+    .filter((input) => !seenExteriorContexts.has(contextKey(input.layoutContext, input.variant)));
+
   const interiorManifestInputs = manifest.locations
     .filter(isInteriorCandidate)
     .flatMap((loc) => interiorVariantsForLocation(loc).map((variant) => ({
@@ -445,7 +470,7 @@ function buildRecipeInputs(manifest, auditEvidence) {
     })));
 
   const interiorInputs = [];
-  const seen = new Set([...exteriorInputs, ...interiorManifestInputs].map((input) => contextKey(input.layoutContext, input.variant)));
+  const seen = new Set([...exteriorInputs, ...finalAreaManifestInputs, ...interiorManifestInputs].map((input) => contextKey(input.layoutContext, input.variant)));
   for (const fixture of auditEvidence.fixtures) {
     if (!['town-interior', 'mansion-interior'].includes(fixture.access)) {
       continue;
@@ -489,7 +514,7 @@ function buildRecipeInputs(manifest, auditEvidence) {
     });
   }
 
-  return [...exteriorInputs, ...interiorManifestInputs, ...interiorInputs];
+  return [...exteriorInputs, ...finalAreaManifestInputs, ...interiorManifestInputs, ...interiorInputs];
 }
 
 function resolvedPaletteContextForInput(input, runtimeContextResolver) {

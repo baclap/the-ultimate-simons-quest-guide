@@ -6,9 +6,9 @@ import {
   isCv2DialogRuleLine,
   normalizeCv2DialogText,
   renderCv2DialogFrameToRgba
-} from './dialog.js?v=garlic-merchant-dialog';
+} from './dialog.js?v=right-of-camilla-map';
 
-const CACHE_KEY = 'garlic-merchant-dialog';
+const CACHE_KEY = 'interior-hash-no-overworld-flash';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
 const OVERWORLD_VIEW_ID = 'overworld';
@@ -30,6 +30,13 @@ const ONDOL_MORNING_STAR_ROOM_VIEW_ID = 'ondol-morning-star-room';
 const ONDOL_DEATH_STAR_LADY_ROOM_VIEW_ID = 'ondol-death-star-lady-room';
 const ONDOL_LAURELS_ROOM_VIEW_ID = 'ondol-laurels-room';
 const LAUBER_MANSION_VIEW_ID = 'lauber-mansion';
+const DOINA_GET_BACK_LADY_ROOM_VIEW_ID = 'doina-get-back-lady-room';
+const DOINA_LAURELS_ROOM_VIEW_ID = 'doina-laurels-room';
+const YOMI_EMPTY_ROOM_VIEW_ID = 'yomi-empty-room';
+const YOMI_GIRLFRIEND_ROOM_VIEW_ID = 'yomi-girlfriend-room';
+const LARUBA_MANSION_VIEW_ID = 'laruba-mansion';
+const BODLEY_MANSION_VIEW_ID = 'bodley-mansion';
+const CASTLEVANIA_VIEW_ID = 'castlevania';
 const VIEW_TRANSITION_MS = 140;
 const VIEW_TRANSITION_HOLD_MS = 40;
 const NES_SCREEN_WIDTH = 256;
@@ -68,6 +75,26 @@ const ROUTE_SEGMENT_IDS = [
   'aljiba-woods-part-3',
   'town-of-aljiba',
   'camilla-cemetery',
+  'joma-marsh-part-1',
+  'laruba-mansion-door',
+  'joma-marsh-part-2',
+  'joma-marsh-part-3',
+  'debious-woods-part-3',
+  'debious-woods-part-2',
+  'debious-woods-part-1',
+  'bodley-mansion-door',
+  'wicked-ditch',
+  'town-of-doina',
+  'north-bridge',
+  'dora-woods-part-1',
+  'dora-woods-part-2',
+  'town-of-yomi',
+  'vrad-graveyard',
+  'castlevania-bridge',
+  'castlevania',
+  'dora-woods-part-3',
+  'long-bridge-to-borgia-mountains',
+  'borgia-mountains-dead-end-swamp',
   'yuba-lake-path',
   'yuba-lake',
   'lauber-mansion-door',
@@ -97,7 +124,24 @@ const OVERVIEW_LABEL_TEXT = new Map([
   ['denis-woods-part-1', 'Denis Woods'],
   ['denis-woods-part-2', 'Denis Woods'],
   ['berkeley-mansion-door', 'Berkeley Mansion'],
-  ['lauber-mansion-door', 'Lauber Mansion']
+  ['lauber-mansion-door', 'Lauber Mansion'],
+  ['joma-marsh-part-1', 'Joma Marsh'],
+  ['joma-marsh-part-2', 'Joma Marsh'],
+  ['joma-marsh-part-3', 'Joma Marsh'],
+  ['laruba-mansion-door', 'Laruba Mansion'],
+  ['debious-woods-part-3', 'Debious Woods'],
+  ['debious-woods-part-2', 'Debious Woods'],
+  ['debious-woods-part-1', 'Debious Woods'],
+  ['bodley-mansion-door', 'Bodley Mansion'],
+  ['wicked-ditch', 'Wicked Ditch'],
+  ['north-bridge', 'North Bridge'],
+  ['dora-woods-part-1', 'Dora Woods'],
+  ['dora-woods-part-2', 'Dora Woods'],
+  ['dora-woods-part-3', 'Dora Woods'],
+  ['long-bridge-to-borgia-mountains', 'Long Bridge'],
+  ['borgia-mountains-dead-end-swamp', 'Bordia Mountains'],
+  ['vrad-graveyard', 'Vrad Graveyard'],
+  ['castlevania-bridge', 'Castlevania Bridge']
 ]);
 const OVERVIEW_LABEL_HIDDEN_IDS = new Set([
   'sadam-woods-part-1',
@@ -109,7 +153,13 @@ const OVERVIEW_LABEL_HIDDEN_IDS = new Set([
   'dabis-path-part-2',
   'aljiba-woods-part-2',
   'aljiba-woods-part-3',
-  'denis-woods-part-3'
+  'denis-woods-part-3',
+  'joma-marsh-part-2',
+  'joma-marsh-part-3',
+  'debious-woods-part-2',
+  'debious-woods-part-1',
+  'dora-woods-part-2',
+  'dora-woods-part-3'
 ]);
 const LABEL_BELOW_SEGMENT_IDS = new Set([
   'vrad-mountain-part-2',
@@ -118,11 +168,19 @@ const LABEL_BELOW_SEGMENT_IDS = new Set([
   'brahm-mansion-door',
   'brahm-mansion-death-fight',
   'brahm-mansion-orb-room',
+  'laruba-mansion-camilla-fight',
+  'laruba-mansion-orb-room',
   'dead-river-to-brahm',
   'town-of-veros',
   'yuba-lake-path',
   'yuba-lake',
-  'lauber-mansion-door'
+  'lauber-mansion-door',
+  'laruba-mansion-door',
+  'bodley-mansion-door',
+  'debious-woods-part-2',
+  'town-of-yomi',
+  'vrad-graveyard',
+  'castlevania-bridge'
 ]);
 const LABEL_BOUNDS_SEGMENT_IDS = new Map([
   ['yuba-lake', ['yuba-lake', 'yuba-lake-revealed-route']]
@@ -137,6 +195,18 @@ const OVERWORLD_ROUTE_CONNECTORS = [
     toAnchorX: 1,
     toAnchorY: 0.5,
     bendYRatio: 1
+  },
+  {
+    id: 'deborah-cliff-bodley-route-connector',
+    fromFeatureId: 'deborah-cliff-red-crystal-kneel-tornado',
+    toSegmentId: 'bodley-mansion-door',
+    visibilityLayer: 'secrets',
+    fromAnchorX: 0.5,
+    fromAnchorY: 0,
+    toAnchorX: 0.5,
+    toAnchorY: 0,
+    bendDistanceConnectorId: 'dead-river-brahm-route-connector',
+    bendDirection: 'up'
   }
 ];
 const ROUTE_CONNECTOR_DASH_WORLD_PX = 8;
@@ -427,6 +497,69 @@ const MAP_VIEWS = {
     supportsPalette: false,
     fixedVariant: 'fixed',
     sceneUrl: `./assets/scenes/lauber-mansion/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [DOINA_GET_BACK_LADY_ROOM_VIEW_ID]: {
+    id: DOINA_GET_BACK_LADY_ROOM_VIEW_ID,
+    label: 'Doina GET BACK! Lady Room',
+    ariaLabel: 'Doina GET BACK! Lady interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/doina-get-back-lady-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [DOINA_LAURELS_ROOM_VIEW_ID]: {
+    id: DOINA_LAURELS_ROOM_VIEW_ID,
+    label: 'Doina Laurels Room',
+    ariaLabel: 'Doina Laurels Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/doina-laurels-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [YOMI_EMPTY_ROOM_VIEW_ID]: {
+    id: YOMI_EMPTY_ROOM_VIEW_ID,
+    label: 'Yomi Empty Room',
+    ariaLabel: 'Yomi Empty Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/yomi-empty-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [YOMI_GIRLFRIEND_ROOM_VIEW_ID]: {
+    id: YOMI_GIRLFRIEND_ROOM_VIEW_ID,
+    label: 'Yomi Girlfriend Room',
+    ariaLabel: 'Yomi Girlfriend Room interior map',
+    supportsPalette: false,
+    fixedVariant: 'day',
+    sceneUrl: `./assets/scenes/yomi-girlfriend-room/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [LARUBA_MANSION_VIEW_ID]: {
+    id: LARUBA_MANSION_VIEW_ID,
+    label: 'Laruba Mansion',
+    ariaLabel: 'Laruba Mansion interior map',
+    supportsPalette: false,
+    fixedVariant: 'fixed',
+    sceneUrl: `./assets/scenes/laruba-mansion/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [BODLEY_MANSION_VIEW_ID]: {
+    id: BODLEY_MANSION_VIEW_ID,
+    label: 'Bodley Mansion',
+    ariaLabel: 'Bodley Mansion interior map',
+    supportsPalette: false,
+    fixedVariant: 'fixed',
+    sceneUrl: `./assets/scenes/bodley-mansion/slice.json?v=${CACHE_KEY}`,
+    renderer: null
+  },
+  [CASTLEVANIA_VIEW_ID]: {
+    id: CASTLEVANIA_VIEW_ID,
+    label: 'Castlevania',
+    ariaLabel: 'Castlevania interior map',
+    supportsPalette: false,
+    fixedVariant: 'fixed',
+    sceneUrl: `./assets/scenes/castlevania/slice.json?v=${CACHE_KEY}`,
     renderer: null
   }
 };
@@ -813,7 +946,10 @@ function pushSpriteQuad(vertices, x, y, tileIndex, paletteIndex, flipHorizontal,
 function pushSprite(vertices, actor, actorClass, frame, chrSet, displayOffset = { x: 0, y: 0 }) {
   const spriteHeight = actorClass.largeSprites ? 16 : 8;
   const staticOffset = frame.staticPreviewOffset || { x: 0, y: 0 };
-  for (const sprite of frame.sprites || []) {
+  const sprites = frame.sprites || [];
+  // NES sprite-overlap priority favors lower OAM indexes, so draw later entries first.
+  for (let spriteIndex = sprites.length - 1; spriteIndex >= 0; spriteIndex -= 1) {
+    const sprite = sprites[spriteIndex];
     const tile = numericByte(sprite.tile);
     const palette = Number.isFinite(sprite.palette) ? sprite.palette : numericByte(sprite.attr) & 0x03;
     const flipHorizontal = actor.flipHorizontal ? !sprite.flipHorizontal : sprite.flipHorizontal;
@@ -860,6 +996,24 @@ function pushSprite(vertices, actor, actorClass, frame, chrSet, displayOffset = 
       chrSet
     );
   }
+}
+
+function actorClassStaticPreviewFrame(actorClass) {
+  const staticPreview = actorClass.staticPreview;
+  if (!staticPreview || staticPreview.mode !== 'single-selector') {
+    return null;
+  }
+
+  if (Number.isInteger(staticPreview.frameIndex)) {
+    return actorClass.frames[staticPreview.frameIndex] || null;
+  }
+
+  if (staticPreview.selector != null) {
+    const selector = numericByte(staticPreview.selector);
+    return actorClass.frames.find((frame) => numericByte(frame.selector) === selector) || null;
+  }
+
+  return null;
 }
 
 class ActorRenderer {
@@ -917,6 +1071,24 @@ class ActorRenderer {
         continue;
       }
 
+      const frameDurationMs = Number.isFinite(actorClass.frameDurationMs) && actorClass.frameDurationMs > 0
+        ? actorClass.frameDurationMs
+        : 360;
+      const blink = actorClass.blink;
+      if (blink) {
+        const visibleFrames = Number.isFinite(blink.visibleFrames) && blink.visibleFrames > 0
+          ? Math.floor(blink.visibleFrames)
+          : 1;
+        const hiddenFrames = Number.isFinite(blink.hiddenFrames) && blink.hiddenFrames > 0
+          ? Math.floor(blink.hiddenFrames)
+          : 1;
+        const blinkCycleFrames = visibleFrames + hiddenFrames;
+        const blinkFrame = Math.floor(now / frameDurationMs) % blinkCycleFrames;
+        if (blinkFrame >= visibleFrames) {
+          continue;
+        }
+      }
+
       const key = `${actorClass.chrSet}\0${paletteId}`;
       if (!batches.has(key)) {
         batches.set(key, {
@@ -925,11 +1097,9 @@ class ActorRenderer {
           paletteTexture
         });
       }
-      const frameDurationMs = Number.isFinite(actorClass.frameDurationMs) && actorClass.frameDurationMs > 0
-        ? actorClass.frameDurationMs
-        : 360;
       const frameIndex = Math.floor(now / frameDurationMs);
-      const frame = actorClass.frames[frameIndex % actorClass.frames.length];
+      const frame = actorClassStaticPreviewFrame(actorClass)
+        || actorClass.frames[frameIndex % actorClass.frames.length];
       pushSprite(
         batches.get(key).vertices,
         actor,
@@ -1037,12 +1207,43 @@ class SecretFeatureRenderer {
       const frameDurationMs = Number.isFinite(render.frameDurationMs) && render.frameDurationMs > 0
         ? render.frameDurationMs
         : 360;
-      const animation = activeSecretAnimation(feature, now);
-      const frameIndex = animation
-        ? Math.floor((now - animation.startedAt) / frameDurationMs)
-        : Math.floor(now / frameDurationMs);
-      const frame = render.frames[frameIndex % render.frames.length];
+      const blink = render.blink;
+      if (blink) {
+        const visibleFrames = Number.isFinite(blink.visibleFrames) && blink.visibleFrames > 0
+          ? Math.floor(blink.visibleFrames)
+          : 1;
+        const hiddenFrames = Number.isFinite(blink.hiddenFrames) && blink.hiddenFrames > 0
+          ? Math.floor(blink.hiddenFrames)
+          : 1;
+        const blinkCycleFrames = visibleFrames + hiddenFrames;
+        const blinkFrame = Math.floor(now / frameDurationMs) % blinkCycleFrames;
+        if (blinkFrame >= visibleFrames) {
+          continue;
+        }
+      }
       const position = secretFeatureWorldPosition(feature, now);
+      if (position.hidden) {
+        continue;
+      }
+      const activeAnimation = activeSecretAnimation(feature, now);
+      let frameIndex = activeAnimation
+        ? Math.floor((now - activeAnimation.startedAt) / frameDurationMs)
+        : Math.floor(now / frameDurationMs);
+      const traceAnimation = feature.animation?.type === 'trace-path' ? feature.animation : null;
+      if (
+        traceAnimation
+        && Number.isFinite(position.elapsedFrameExact)
+        && Number.isFinite(traceAnimation.frameIntervalFrames)
+        && traceAnimation.frameIntervalFrames > 0
+      ) {
+        const activeFrameStart = Number.isFinite(traceAnimation.activeFrameStart)
+          ? traceAnimation.activeFrameStart
+          : 0;
+        frameIndex = position.elapsedFrameExact < activeFrameStart
+          ? 0
+          : Math.floor((position.elapsedFrameExact - activeFrameStart) / traceAnimation.frameIntervalFrames);
+      }
+      const frame = render.frames[frameIndex % render.frames.length];
       pushSprite(
         batches.get(key).vertices,
         position,
@@ -1255,6 +1456,9 @@ class TileRenderer {
 
     for (const segment of this.segments) {
       if (!shouldRenderSegment(segment.record)) {
+        continue;
+      }
+      if (segment.record.presentationBackground === 'black') {
         continue;
       }
       const preferredVariant = segment.paletteTextures[variant]
@@ -1845,28 +2049,129 @@ function routeConnectorVisible(connector, renderer) {
   if (connector.visibilityLayer === 'secrets' && !state.showSecrets) {
     return false;
   }
-  return segmentIdVisible(connector.fromSegmentId, renderer)
+  const fromSegmentId = routeConnectorFromSegmentId(connector, renderer);
+  return fromSegmentId
+    && segmentIdVisible(fromSegmentId, renderer)
     && segmentIdVisible(connector.toSegmentId, renderer);
 }
 
-function routeConnectorWorldPoints(connector, renderer) {
+function routeConnectorFeature(connector, renderer) {
+  if (!connector.fromFeatureId) {
+    return null;
+  }
+  return (renderer.manifest.secretFeatures || [])
+    .find((feature) => feature.id === connector.fromFeatureId) || null;
+}
+
+function routeConnectorFromSegmentId(connector, renderer) {
+  if (connector.fromSegmentId) {
+    return connector.fromSegmentId;
+  }
+  return routeConnectorFeature(connector, renderer)?.segmentId || null;
+}
+
+function routeConnectorAnchorPoint(rect, anchorX, anchorY) {
+  return {
+    x: rect.x + rect.width * anchorX,
+    y: rect.y + rect.height * anchorY
+  };
+}
+
+function routeConnectorSourceRect(connector, renderer) {
+  const feature = routeConnectorFeature(connector, renderer);
+  if (feature) {
+    return secretFeatureWorldRect(feature, renderer);
+  }
   const fromSegment = renderer.segmentById.get(connector.fromSegmentId);
+  return fromSegment ? segmentDisplayPosition(fromSegment, renderer) : null;
+}
+
+function routeConnectorEndpointPoints(connector, renderer) {
   const toSegment = renderer.segmentById.get(connector.toSegmentId);
-  if (!fromSegment || !toSegment) {
+  const fromRect = routeConnectorSourceRect(connector, renderer);
+  if (!fromRect || !toSegment) {
+    return null;
+  }
+
+  const toRect = segmentDisplayPosition(toSegment, renderer);
+  return {
+    start: routeConnectorAnchorPoint(
+      fromRect,
+      connector.fromAnchorX ?? 0.5,
+      connector.fromAnchorY ?? (connector.fromFeatureId ? 0.5 : 1)
+    ),
+    end: routeConnectorAnchorPoint(
+      toRect,
+      connector.toAnchorX ?? 0.5,
+      connector.toAnchorY ?? 0
+    )
+  };
+}
+
+function routeConnectorClearanceBendY(connector, renderer, start, end) {
+  if (connector.bendClearance !== 'above-segments') {
+    return null;
+  }
+
+  const left = Math.min(start.x, end.x);
+  const right = Math.max(start.x, end.x);
+  const crossedRects = renderer.segments
+    .map((segment) => segmentDisplayPosition(segment.record, renderer))
+    .filter((rect) => rect.x < right && rect.x + rect.width > left);
+  if (crossedRects.length === 0) {
+    return null;
+  }
+
+  const top = Math.min(...crossedRects.map((rect) => rect.y));
+  const sectionHeights = crossedRects
+    .map((rect) => rect.height)
+    .filter((height) => Number.isFinite(height) && height > 0);
+  if (sectionHeights.length === 0) {
+    return null;
+  }
+  const sectionHeight = Math.min(...sectionHeights);
+  const clearance = sectionHeight * (connector.bendClearanceSegmentHeights ?? 0.5);
+  return top - clearance;
+}
+
+function routeConnectorMatchedDistanceBendY(connector, renderer, start) {
+  if (!connector.bendDistanceConnectorId) {
+    return null;
+  }
+
+  const reference = OVERWORLD_ROUTE_CONNECTORS
+    .find((candidate) => candidate.id === connector.bendDistanceConnectorId);
+  if (!reference || reference === connector) {
+    return null;
+  }
+
+  const referencePoints = routeConnectorEndpointPoints(reference, renderer);
+  if (!referencePoints) {
+    return null;
+  }
+
+  const referenceBendY = routeConnectorClearanceBendY(
+    reference,
+    renderer,
+    referencePoints.start,
+    referencePoints.end
+  ) ?? referencePoints.start.y
+    + (referencePoints.end.y - referencePoints.start.y) * (reference.bendYRatio ?? 1);
+  const referenceDistance = Math.abs(referenceBendY - referencePoints.start.y);
+  const direction = connector.bendDirection === 'up' ? -1 : 1;
+  return start.y + referenceDistance * direction;
+}
+
+function routeConnectorWorldPoints(connector, renderer) {
+  const endpoints = routeConnectorEndpointPoints(connector, renderer);
+  if (!endpoints) {
     return [];
   }
 
-  const fromRect = segmentDisplayPosition(fromSegment, renderer);
-  const toRect = segmentDisplayPosition(toSegment, renderer);
-  const start = {
-    x: fromRect.x + fromRect.width * connector.fromAnchorX,
-    y: fromRect.y + fromRect.height
-  };
-  const end = {
-    x: toRect.x + toRect.width * connector.toAnchorX,
-    y: toRect.y + toRect.height * (connector.toAnchorY ?? 0)
-  };
-  const bendY = start.y + (end.y - start.y) * connector.bendYRatio;
+  const { start, end } = endpoints;
+  const bendY = routeConnectorMatchedDistanceBendY(connector, renderer, start)
+    ?? routeConnectorClearanceBendY(connector, renderer, start, end)
+    ?? start.y + (end.y - start.y) * (connector.bendYRatio ?? 1);
 
   const points = [
     start,
@@ -2181,13 +2486,23 @@ function secretFeatureTracePathPosition(feature, now = performance.now()) {
     return null;
   }
   const active = activeSecretAnimation(feature, now);
-  if (!active) {
+  const autoLoop = animation.autoLoop === true || animation.presentation?.autoLoop === true;
+  if (!active && !autoLoop) {
     return null;
   }
   const frameDurationMs = Number.isFinite(animation.frameDurationMs) && animation.frameDurationMs > 0
     ? animation.frameDurationMs
     : 1000 / 60;
-  const elapsedFrameExact = (now - active.startedAt) / frameDurationMs;
+  const phaseFrames = Number.isFinite(animation.phaseFrames)
+    ? animation.phaseFrames
+    : (Number.isFinite(animation.presentation?.phaseFrames) ? animation.presentation.phaseFrames : 0);
+  const durationFrames = Number.isFinite(animation.durationMs) && animation.durationMs > 0
+    ? animation.durationMs / frameDurationMs
+    : 0;
+  let elapsedFrameExact = (active ? (now - active.startedAt) / frameDurationMs : now / frameDurationMs) + phaseFrames;
+  if (autoLoop && durationFrames > 0) {
+    elapsedFrameExact = ((elapsedFrameExact % durationFrames) + durationFrames) % durationFrames;
+  }
   const elapsedFrame = Math.floor(elapsedFrameExact);
   let low = 0;
   let high = animation.points.length - 1;
@@ -2200,19 +2515,38 @@ function secretFeatureTracePathPosition(feature, now = performance.now()) {
     }
   }
   const point = animation.points[low];
+  if (point.hidden === true) {
+    return {
+      worldX: point.worldX,
+      worldY: point.worldY,
+      segmentId: point.segmentId,
+      hidden: true,
+      elapsedFrameExact
+    };
+  }
   const nextPoint = animation.interpolate ? animation.points[low + 1] : null;
   if (nextPoint && nextPoint.frame > point.frame) {
+    if (nextPoint.hidden === true) {
+      return {
+        worldX: point.worldX,
+        worldY: point.worldY,
+        segmentId: point.segmentId,
+        elapsedFrameExact
+      };
+    }
     const amount = Math.max(0, Math.min(1, (elapsedFrameExact - point.frame) / (nextPoint.frame - point.frame)));
     return {
       worldX: point.worldX + (nextPoint.worldX - point.worldX) * amount,
       worldY: point.worldY + (nextPoint.worldY - point.worldY) * amount,
-      segmentId: amount < 0.5 ? point.segmentId : nextPoint.segmentId
+      segmentId: amount < 0.5 ? point.segmentId : nextPoint.segmentId,
+      elapsedFrameExact
     };
   }
   return {
     worldX: point.worldX,
     worldY: point.worldY,
-    segmentId: point.segmentId
+    segmentId: point.segmentId,
+    elapsedFrameExact
   };
 }
 
@@ -2229,8 +2563,7 @@ function secretFeatureWorldPosition(feature, now = performance.now()) {
   };
 }
 
-function secretFeatureWorldRect(feature) {
-  const renderer = activeRenderer();
+function secretFeatureWorldRect(feature, renderer = activeRenderer()) {
   if (feature.bounds) {
     const offset = segmentDisplayOffset(feature.segmentId, renderer);
     return {
@@ -2378,6 +2711,12 @@ function secretFeatureLayerVisible(feature) {
   if (visibilityLayer === 'secrets') {
     return state.showSecrets;
   }
+  if (visibilityLayer === 'characters') {
+    return state.showCharacters;
+  }
+  if (visibilityLayer === 'mapObjects') {
+    return true;
+  }
   if (visibilityLayer === 'triggered') {
     return state.showSecrets && Boolean(activeSecretAnimation(feature));
   }
@@ -2388,6 +2727,12 @@ function secretFeatureHighlightVisible(feature) {
   const highlightLayer = feature.highlightLayer || (feature.kind === 'secret' ? 'secrets' : 'none');
   if (highlightLayer === 'secrets') {
     return state.highlightSecrets;
+  }
+  if (highlightLayer === 'characters') {
+    return state.highlightCharacters;
+  }
+  if (highlightLayer === 'mapObjects') {
+    return state.highlightMapObjects;
   }
   return false;
 }
@@ -2409,6 +2754,7 @@ function shouldShowSecretFeatureHotspot(feature) {
 function makeElement(className, tag = 'div') {
   const element = document.createElement(tag);
   element.className = className;
+  element.hidden = true;
   dom.overlay.append(element);
   return element;
 }
@@ -2419,6 +2765,41 @@ function makeSvgElement(tagName, className) {
     element.setAttribute('class', className);
   }
   return element;
+}
+
+function makeSecretFeatureHighlightShape(feature) {
+  if (feature.highlightShape !== 'hidden-staircase') {
+    return null;
+  }
+
+  const svg = makeSvgElement('svg', 'secret-feature-highlight-shape');
+  svg.setAttribute('viewBox', '0 0 96 96');
+  svg.setAttribute('preserveAspectRatio', 'none');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('focusable', 'false');
+
+  const outlinePath = makeSvgElement('path', 'secret-feature-highlight-shape-outline');
+  outlinePath.setAttribute(
+    'd',
+    [
+      'M -8 0',
+      'H 0',
+      'V 8 H 8',
+      'V 16 H 16',
+      'V 24 H 24',
+      'V 32 H 32',
+      'V 40 H 40',
+      'V 48 H 48',
+      'V 56 H 56',
+      'V 64 H 64',
+      'V 72 H 72',
+      'V 80 H 80',
+      'V 88 H 88',
+      'V 96'
+    ].join(' ')
+  );
+  svg.append(outlinePath);
+  return svg;
 }
 
 function cssPixelValue(value, fallback = 0) {
@@ -2612,7 +2993,8 @@ function buildOverlays() {
   const viewHotspots = view.hasDoorHotspots ? (renderer.manifest.doorHotspots || []) : [];
   for (const hotspot of viewHotspots) {
     const element = makeElement(`hotspot is-${hotspot.type}`, 'button');
-    const itemLabel = hotspot.itemReward?.itemLabel;
+    const itemRewards = hotspotItemRewards(hotspot);
+    const itemLabel = joinedItemLabels(itemRewards);
     const accessibleLabel = itemLabel ? `${hotspot.label}; contains ${itemLabel}` : hotspot.label;
     element.type = 'button';
     element.title = itemLabel ? `${hotspot.label} (${itemLabel})` : hotspot.label;
@@ -2632,21 +3014,30 @@ function buildOverlays() {
     }
     hotspots.push({ element, hotspot });
 
-    if (hotspot.itemReward) {
+    itemRewards.forEach((itemReward, rewardIndex) => {
       const badge = makeElement('item-badge is-door-badge', 'button');
       const frameCanvas = document.createElement('canvas');
       const iconCanvas = document.createElement('canvas');
       badge.type = 'button';
-      badge.title = `${hotspot.itemReward.itemLabel} in ${hotspot.label.replace(/^Enter\s+/i, '')}`;
-      badge.setAttribute('aria-label', `${hotspot.itemReward.itemLabel} details`);
+      badge.title = `${itemReward.itemLabel} in ${hotspot.label.replace(/^Enter\s+/i, '')}`;
+      badge.setAttribute('aria-label', `${itemReward.itemLabel} details`);
       frameCanvas.className = 'item-badge-frame-canvas';
       iconCanvas.className = 'item-badge-icon-canvas';
       frameCanvas.setAttribute('aria-hidden', 'true');
       iconCanvas.setAttribute('aria-hidden', 'true');
       badge.append(frameCanvas, iconCanvas);
-      addGuardedClick(badge, () => showItemRewardCard(hotspot));
-      doorItemBadges.push({ element: badge, hotspot, frameCanvas, iconCanvas, renderedKey: null });
-    }
+      addGuardedClick(badge, () => showItemRewardCard(hotspot, itemReward));
+      doorItemBadges.push({
+        element: badge,
+        hotspot,
+        itemReward,
+        rewardIndex,
+        rewardCount: itemRewards.length,
+        frameCanvas,
+        iconCanvas,
+        renderedKey: null
+      });
+    });
   }
 
   for (const fixture of renderer.manifest.destructibleFixtures || []) {
@@ -2659,10 +3050,18 @@ function buildOverlays() {
   }
 
   for (const feature of renderer.manifest.secretFeatures || []) {
-    const element = makeElement('secret-feature-hotspot', 'button');
+    if (feature.interactive === false) {
+      continue;
+    }
+    const highlightShape = makeSecretFeatureHighlightShape(feature);
+    const kindClass = feature.kind ? ` is-${feature.kind}` : '';
+    const element = makeElement(`secret-feature-hotspot${kindClass}${highlightShape ? ' has-highlight-shape' : ''}`, 'button');
     element.type = 'button';
     element.title = feature.label;
     element.setAttribute('aria-label', feature.label);
+    if (highlightShape) {
+      element.append(highlightShape);
+    }
     addGuardedClick(element, () => showSecretFeatureCard(feature));
     secretFeatureHotspots.push({ element, feature });
 
@@ -2821,13 +3220,18 @@ function itemBadgeRectForAnchor(anchorRect, scale) {
   };
 }
 
-function doorItemBadgeVisualRect(hotspot, scale) {
+function doorItemBadgeVisualRect(item, scale) {
   const renderer = activeRenderer();
-  const worldRect = hotspotWorldRect(hotspot);
+  const worldRect = hotspotWorldRect(item.hotspot);
   if (!renderer || !worldRect) {
     return null;
   }
-  return itemBadgeRectForAnchor(worldRectToScreen(renderer, worldRect), scale);
+  const rect = itemBadgeRectForAnchor(worldRectToScreen(renderer, worldRect), scale);
+  if (item.rewardCount > 1) {
+    const spacing = rect.width + 2 * scale;
+    rect.left += (item.rewardIndex - (item.rewardCount - 1) / 2) * spacing;
+  }
+  return rect;
 }
 
 function secretFeatureItemBadgeVisualRect(feature, scale) {
@@ -2842,9 +3246,27 @@ function secretFeatureItemBadgeVisualRect(feature, scale) {
 function itemBadgeItemId(item) {
   return item.actor?.itemOffer?.itemId
     || item.actor?.itemReward?.itemId
-    || item.hotspot?.itemReward?.itemId
+    || item.itemReward?.itemId
     || item.feature?.itemReward?.itemId
     || null;
+}
+
+function hotspotItemRewards(hotspot) {
+  if (Array.isArray(hotspot.itemRewards) && hotspot.itemRewards.length > 0) {
+    return hotspot.itemRewards;
+  }
+  return hotspot.itemReward ? [hotspot.itemReward] : [];
+}
+
+function joinedItemLabels(items) {
+  const labels = items.map((item) => item.itemLabel).filter(Boolean);
+  if (labels.length <= 1) {
+    return labels[0] || '';
+  }
+  if (labels.length === 2) {
+    return `${labels[0]} and ${labels[1]}`;
+  }
+  return `${labels.slice(0, -1).join(', ')}, and ${labels[labels.length - 1]}`;
 }
 
 function renderItemBadge(item, scale, placement) {
@@ -3163,13 +3585,13 @@ function updateOverlays() {
   }
 
   for (const item of doorItemBadges) {
-    const visible = state.labels && Boolean(item.hotspot.itemReward) && hotspotMatchesVariant(item.hotspot);
+    const visible = state.labels && Boolean(item.itemReward) && hotspotMatchesVariant(item.hotspot);
     if (!visible) {
       setElementHidden(item.element, true);
       continue;
     }
     const scale = itemBadgeScale(renderer);
-    const rect = doorItemBadgeVisualRect(item.hotspot, scale);
+    const rect = doorItemBadgeVisualRect(item, scale);
     if (!rect || !screenRectVisible(rect)) {
       setElementHidden(item.element, true);
       continue;
@@ -3968,9 +4390,9 @@ function showActorRewardCard(actor) {
   });
 }
 
-function showItemRewardCard(hotspot) {
+function showItemRewardCard(hotspot, itemReward = hotspot.itemReward) {
   showItemDetailsCard({
-    item: hotspot.itemReward,
+    item: itemReward,
     anchorWorldRect: () => hotspotWorldRect(hotspot)
   });
 }
@@ -4320,7 +4742,6 @@ async function initializeActiveViewFromUrl() {
   const urlState = parseUrlViewState();
   state.activeViewId = OVERWORLD_VIEW_ID;
   await ensureViewLoaded(OVERWORLD_VIEW_ID);
-  setActiveView(OVERWORLD_VIEW_ID, { resetCamera: true });
 
   if (urlState) {
     if (urlState.variant) {
@@ -4333,6 +4754,8 @@ async function initializeActiveViewFromUrl() {
     applyUrlCameraState(activeRenderer(), urlState.camera);
     syncControls();
     updateOverlays();
+  } else {
+    setActiveView(OVERWORLD_VIEW_ID, { resetCamera: true });
   }
 
   primeUrlViewStateTracking();
