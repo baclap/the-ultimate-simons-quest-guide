@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Castlevania II Perfect Guide Prototype</title>
-    <link rel="stylesheet" href="styles.css?v=uta-lower-road-secret-route">
+    <link rel="stylesheet" href="styles.css?v=loader-compact-180">
   </head>
   <body>
     <main id="app" class="guide-shell">
@@ -15,6 +15,13 @@
       <canvas id="scene-canvas" class="map-surface" tabindex="0" aria-label="Berkeley Mansion interior map" hidden></canvas>
       <div id="overlay-layer" class="overlay-layer" aria-hidden="false"></div>
       <div id="view-transition" class="view-transition" aria-hidden="true"></div>
+      <div id="loading-overlay" class="loading-overlay is-active" role="status" aria-live="polite" aria-label="Loading Castlevania II guide">
+        <div class="loading-panel">
+          <div id="loading-meter" class="loading-meter" role="progressbar" aria-label="Loading Castlevania II guide" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="loading-meter-fill" class="loading-meter-fill"></div>
+          </div>
+        </div>
+      </div>
 
       <div class="map-chrome" role="toolbar" aria-label="Guide controls">
         <button id="palette-toggle" type="button" class="chrome-button" aria-pressed="false" aria-label="Switch to night palette" title="Switch to night palette">
@@ -73,6 +80,6 @@
 
     </main>
 
-    <script type="module" src="app.js?v=uta-lower-road-secret-route"></script>
+    <script type="module" src="app.js?v=loader-compact-180"></script>
   </body>
 </html>

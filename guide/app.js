@@ -8,7 +8,7 @@ import {
   renderCv2DialogFrameToRgba
 } from './dialog.js?v=right-of-camilla-map';
 
-const CACHE_KEY = 'uta-lower-road-secret-route';
+const CACHE_KEY = 'loader-compact-180';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
 const OVERWORLD_VIEW_ID = 'overworld';
@@ -39,6 +39,10 @@ const BODLEY_MANSION_VIEW_ID = 'bodley-mansion';
 const CASTLEVANIA_VIEW_ID = 'castlevania';
 const VIEW_TRANSITION_MS = 140;
 const VIEW_TRANSITION_HOLD_MS = 40;
+const STARTUP_LOAD_OVERWORLD_START = 0.1;
+const STARTUP_LOAD_OVERWORLD_END = 0.82;
+const STARTUP_LOAD_SCENE_START = 0.9;
+const STARTUP_LOAD_SCENE_END = 0.98;
 const NES_SCREEN_WIDTH = 256;
 const NES_SCREEN_HEIGHT = 224;
 const MOBILE_SPAWN_CAMERA_PADDING = 0.94;
@@ -599,6 +603,9 @@ const dom = {
   sceneCanvas: document.querySelector('#scene-canvas'),
   overlay: document.querySelector('#overlay-layer'),
   viewTransition: document.querySelector('#view-transition'),
+  loadingOverlay: document.querySelector('#loading-overlay'),
+  loadingMeter: document.querySelector('#loading-meter'),
+  loadingMeterFill: document.querySelector('#loading-meter-fill'),
   status: document.querySelector('#status'),
   guideCard: document.querySelector('#guide-card'),
   dialogBox: document.querySelector('#dialog-box'),
@@ -636,6 +643,59 @@ for (const [name, element] of Object.entries(dom)) {
 
 function setStatus(message) {
   dom.status.textContent = message;
+}
+
+function setLoadingState({
+  active = true,
+  title = 'LOADING',
+  label = 'STARTING',
+  progress = 0,
+  error = false
+} = {}) {
+  const clampedProgress = clamp(progress, 0, 1);
+  const percent = Math.round(clampedProgress * 100);
+  const wasActive = dom.loadingOverlay.classList.contains('is-active');
+  const resetsFromHidden = active && !wasActive && clampedProgress <= 0.001;
+  if (resetsFromHidden) {
+    dom.loadingMeterFill.style.transition = 'none';
+  }
+  dom.loadingOverlay.classList.toggle('is-active', active);
+  dom.loadingOverlay.classList.toggle('is-error', Boolean(error));
+  dom.loadingOverlay.setAttribute('aria-label', error ? `${title}: ${label}` : `Loading Castlevania II guide, ${percent}%`);
+  dom.loadingMeter.setAttribute('aria-valuenow', String(percent));
+  dom.loadingMeter.setAttribute('aria-valuetext', label ? `${percent}% ${label}` : `${percent}%`);
+  dom.loadingMeterFill.style.transform = `scaleX(${clampedProgress.toFixed(4)})`;
+  if (resetsFromHidden) {
+    dom.loadingMeterFill.getBoundingClientRect();
+    requestAnimationFrame(() => {
+      dom.loadingMeterFill.style.transition = '';
+    });
+  }
+}
+
+function hideLoadingState() {
+  setLoadingState({ active: false, progress: 1, label: 'READY' });
+}
+
+function scaledProgressReporter(start, end, labelPrefix = '') {
+  return ({ progress = 0, label = '' } = {}) => {
+    const scaled = start + clamp(progress, 0, 1) * (end - start);
+    const stageLabel = [labelPrefix, label].filter(Boolean).join(' - ');
+    setLoadingState({ active: true, label: stageLabel || 'LOADING', progress: scaled });
+  };
+}
+
+function nextPaint() {
+  return new Promise((resolve) => {
+    let resolved = false;
+    const finish = () => {
+      if (resolved) return;
+      resolved = true;
+      resolve();
+    };
+    requestAnimationFrame(finish);
+    setTimeout(finish, 50);
+  });
 }
 
 function assertGl(value, label) {
@@ -918,6 +978,56 @@ function loadDataUrl(manifestUrl, dataFile) {
   const dataUrl = new URL(dataFile, manifest);
   dataUrl.search = manifest.search;
   return dataUrl.toString();
+}
+
+async function fetchArrayBufferWithProgress(url, {
+  cache = 'no-store',
+  onProgress = null,
+  start = 0,
+  end = 1,
+  label = 'Loading data'
+} = {}) {
+  const response = await fetch(url, { cache });
+  if (!response.ok) {
+    throw new Error(`Unable to load ${url}`);
+  }
+
+  const contentLength = Number.parseInt(response.headers.get('content-length') || '', 10);
+  if (!response.body || !Number.isFinite(contentLength) || contentLength <= 0) {
+    const buffer = await response.arrayBuffer();
+    onProgress?.({ progress: end, label });
+    return buffer;
+  }
+
+  const reader = response.body.getReader();
+  const chunks = [];
+  let received = 0;
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    received += value.byteLength;
+    const loadedProgress = received / contentLength;
+    onProgress?.({
+      progress: start + clamp(loadedProgress, 0, 1) * (end - start),
+      label
+    });
+  }
+
+  const bytes = new Uint8Array(received);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  onProgress?.({ progress: end, label });
+  return bytes.buffer;
+}
+
+async function fetchJsonWithProgress(url, options = {}) {
+  const buffer = await fetchArrayBufferWithProgress(url, options);
+  return JSON.parse(new TextDecoder().decode(buffer));
 }
 
 function numericByte(value) {
@@ -1345,28 +1455,59 @@ class TileRenderer {
     this.camera = { x: 0, y: 0, scale: 1 };
   }
 
-  async load(manifestUrl) {
-    const manifestResponse = await fetch(manifestUrl, { cache: 'no-store' });
-    if (!manifestResponse.ok) {
-      throw new Error(`Unable to load ${manifestUrl}`);
-    }
-    const manifest = await manifestResponse.json();
-    const dataResponse = await fetch(loadDataUrl(manifestUrl, manifest.dataFile), { cache: 'no-store' });
-    if (!dataResponse.ok) {
-      throw new Error(`Unable to load ${manifest.dataFile}`);
-    }
-    const data = await dataResponse.arrayBuffer();
-    this.prepare(manifest, data);
+  async load(manifestUrl, { onProgress = null } = {}) {
+    onProgress?.({ progress: 0.02, label: 'Loading manifest' });
+    const manifest = await fetchJsonWithProgress(manifestUrl, {
+      cache: 'no-store',
+      onProgress,
+      start: 0.02,
+      end: 0.14,
+      label: 'Loading manifest'
+    });
+    const data = await fetchArrayBufferWithProgress(loadDataUrl(manifestUrl, manifest.dataFile), {
+      cache: 'no-store',
+      onProgress,
+      start: 0.16,
+      end: 0.64,
+      label: 'Loading map data'
+    });
+    await this.prepare(manifest, data, {
+      onProgress: ({ progress, label }) => {
+        onProgress?.({
+          progress: 0.66 + clamp(progress, 0, 1) * 0.32,
+          label
+        });
+      }
+    });
+    onProgress?.({ progress: 1, label: 'Ready' });
     return manifest;
   }
 
-  prepare(manifest, data) {
+  async prepare(manifest, data, { onProgress = null } = {}) {
     const gl = this.gl;
     const chrTextures = new Map();
     const chrSetById = new Map((manifest.chrSets || []).map((chrSet) => [chrSet.id, chrSet]));
     const tileSetById = new Map((manifest.tileSets || []).map((tileSet) => [tileSet.id, tileSet]));
     const paletteById = new Map((manifest.palettes || []).map((palette) => [palette.id, palette]));
     const spritePaletteTextures = new Map();
+    this.decodedChrAtlases = new Map();
+    this.segmentById = new Map();
+    this.segmentDisplayOffsets = new Map();
+    this.projectionRects = [];
+    const workTotal = Math.max(
+      1,
+      (manifest.chrSets || []).length
+        + (manifest.spritePalettes || []).length
+        + (manifest.segments || []).length
+    );
+    let workDone = 0;
+    const reportPreparedWork = async (label) => {
+      workDone += 1;
+      onProgress?.({ progress: workDone / workTotal, label });
+      if (workDone % 4 === 0 || workDone === workTotal) {
+        await nextPaint();
+      }
+    };
 
     for (const chrSet of manifest.chrSets || []) {
       const decoded = decode_chr_atlas(rangeView(data, chrSet.data));
@@ -1384,17 +1525,20 @@ class TileRenderer {
         gl.RED,
         decoded
       ));
+      await reportPreparedWork('Decoding CHR');
     }
 
     for (const palette of manifest.spritePalettes || []) {
       spritePaletteTextures.set(palette.id, paletteTexture(gl, rangeView(data, palette.data)));
+      await reportPreparedWork('Preparing sprite palettes');
     }
 
     this.manifest = manifest;
     this.chrTextures = chrTextures;
     this.spritePaletteTextures = spritePaletteTextures;
     this.actorClassById = new Map((manifest.actorClasses || []).map((actorClass) => [actorClass.id, actorClass]));
-    this.segments = (manifest.segments || []).map((record) => {
+    this.segments = [];
+    for (const record of manifest.segments || []) {
       const tileSet = tileSetById.get(record.tileSet);
       const chrSet = chrSetById.get(record.chrSet);
       if (!tileSet || !chrSet) {
@@ -1423,8 +1567,9 @@ class TileRenderer {
         paletteTextures
       };
       this.segmentById.set(record.id, record);
-      return renderSegment;
-    });
+      this.segments.push(renderSegment);
+      await reportPreparedWork('Building map tiles');
+    }
     this.actorRenderer.prepare(manifest, chrTextures, spritePaletteTextures);
     this.secretFeatureRenderer.prepare(manifest, chrTextures, spritePaletteTextures);
   }
@@ -1802,7 +1947,12 @@ function primeUrlViewStateTracking() {
   urlStateTrackingReady = true;
 }
 
-async function ensureViewLoaded(viewId) {
+function viewNeedsLoad(view) {
+  return Boolean(view?.sceneUrl)
+    && !(loadedSceneViewId === view.id && view.renderer === sceneRenderer);
+}
+
+async function ensureViewLoaded(viewId, { onProgress = null } = {}) {
   const view = MAP_VIEWS[viewId] || MAP_VIEWS[OVERWORLD_VIEW_ID];
   if (view.id === OVERWORLD_VIEW_ID) {
     return mapRenderer;
@@ -1814,7 +1964,7 @@ async function ensureViewLoaded(viewId) {
     return sceneRenderer;
   }
   if (!sceneLoadPromises.has(view.id)) {
-    const loadPromise = sceneRenderer.load(view.sceneUrl).then(() => {
+    const loadPromise = sceneRenderer.load(view.sceneUrl, { onProgress }).then(() => {
       for (const candidate of Object.values(MAP_VIEWS)) {
         if (candidate.id !== OVERWORLD_VIEW_ID) {
           candidate.renderer = null;
@@ -4697,6 +4847,7 @@ async function transitionToView(viewId, { resetCamera = false, focusTarget = nul
   if (state.transitioning && transitionTargetViewId === view.id) {
     return;
   }
+  const needsLoader = viewNeedsLoad(view);
   const token = ++viewTransitionToken;
   state.transitioning = true;
   transitionTargetViewId = view.id;
@@ -4706,9 +4857,32 @@ async function transitionToView(viewId, { resetCamera = false, focusTarget = nul
   dom.viewTransition.classList.add('is-active');
   await wait(VIEW_TRANSITION_MS);
   if (token !== viewTransitionToken) return;
-  await ensureViewLoaded(view.id);
-  if (token !== viewTransitionToken) return;
+  if (needsLoader) {
+    setLoadingState({
+      active: true,
+      label: `${view.label} - LOADING MANIFEST`,
+      progress: 0
+    });
+  }
+  await ensureViewLoaded(view.id, {
+    onProgress: needsLoader
+      ? ({ progress, label }) => setLoadingState({
+        active: true,
+        label: `${view.label} - ${label}`,
+        progress
+      })
+      : null
+  });
+  if (token !== viewTransitionToken) {
+    if (needsLoader) {
+      hideLoadingState();
+    }
+    return;
+  }
   setActiveView(view.id, { resetCamera });
+  if (needsLoader) {
+    hideLoadingState();
+  }
   await wait(VIEW_TRANSITION_HOLD_MS);
   if (token !== viewTransitionToken) return;
   dom.viewTransition.classList.remove('is-active');
@@ -4777,7 +4951,7 @@ async function resetGuideToDefault() {
   clearUrlViewState();
 }
 
-async function initializeActiveViewFromUrl() {
+async function initializeActiveViewFromUrl({ onSceneLoadProgress = null } = {}) {
   const urlState = parseUrlViewState();
   state.activeViewId = OVERWORLD_VIEW_ID;
   await ensureViewLoaded(OVERWORLD_VIEW_ID);
@@ -4788,7 +4962,7 @@ async function initializeActiveViewFromUrl() {
     }
     applyUrlViewOptions(urlState.options);
     applyUrlCameraState(mapRenderer, urlState.overworldCamera);
-    await ensureViewLoaded(urlState.viewId);
+    await ensureViewLoaded(urlState.viewId, { onProgress: onSceneLoadProgress });
     setActiveView(urlState.viewId, { resetCamera: !urlState.camera });
     applyUrlCameraState(activeRenderer(), urlState.camera);
     syncControls();
@@ -5211,16 +5385,27 @@ function renderLoop() {
 }
 
 async function main() {
+  setLoadingState({ active: true, label: 'INITIALIZING', progress: 0.02 });
   await initWasm();
+  setLoadingState({ active: true, label: 'CREATING RENDERERS', progress: 0.08 });
   mapRenderer = new TileRenderer(dom.mapCanvas);
   sceneRenderer = new TileRenderer(dom.sceneCanvas);
-  await mapRenderer.load(SLICE_URL);
+  await mapRenderer.load(SLICE_URL, {
+    onProgress: scaledProgressReporter(
+      STARTUP_LOAD_OVERWORLD_START,
+      STARTUP_LOAD_OVERWORLD_END,
+      'OVERWORLD'
+    )
+  });
   MAP_VIEWS[OVERWORLD_VIEW_ID].renderer = mapRenderer;
-  const fontResponse = await fetch(FONT_URL, { cache: 'no-store' });
-  if (!fontResponse.ok) {
-    throw new Error(`Unable to load ${FONT_URL}`);
-  }
-  const fontManifest = await fontResponse.json();
+  const fontManifest = await fetchJsonWithProgress(FONT_URL, {
+    cache: 'no-store',
+    onProgress: scaledProgressReporter(0.83, 0.88, 'DIALOG'),
+    start: 0,
+    end: 1,
+    label: 'Loading font'
+  });
+  setLoadingState({ active: true, label: 'PREPARING DIALOGS', progress: 0.89 });
   const glyphs = createGlyphMap(fontManifest);
   const dialogAtlas = mapRenderer.decodedChrAtlases.get('chr-00-01')
     || mapRenderer.decodedChrAtlases.values().next().value;
@@ -5242,15 +5427,31 @@ async function main() {
     itemIconRenderer
   );
   labelRenderer = new Cv2LabelRenderer(glyphs, dialogAtlas);
-  await initializeActiveViewFromUrl();
+  await initializeActiveViewFromUrl({
+    onSceneLoadProgress: scaledProgressReporter(
+      STARTUP_LOAD_SCENE_START,
+      STARTUP_LOAD_SCENE_END,
+      'INTERIOR'
+    )
+  });
+  setLoadingState({ active: true, label: 'READY', progress: 0.99 });
   attachInput();
   attachControls();
   setStatus('');
   renderLoop();
+  setLoadingState({ active: true, label: 'READY', progress: 1 });
+  requestAnimationFrame(() => hideLoadingState());
 }
 
 main().catch((error) => {
   const message = error instanceof Error ? error.message : String(error);
   setStatus(message);
+  setLoadingState({
+    active: true,
+    title: 'LOAD FAILED',
+    label: message,
+    progress: 1,
+    error: true
+  });
   throw error;
 });
