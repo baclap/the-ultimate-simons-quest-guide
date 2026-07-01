@@ -739,6 +739,12 @@ summary:focus-visible,
   shape-rendering: crispEdges;
 }
 
+.secret-feature-highlight-shape .secret-feature-highlight-shape-guide {
+  opacity: 0;
+  stroke: rgba(255, 254, 255, 0.68);
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.95));
+}
+
 .secret-feature-hotspot.has-highlight-shape:hover .secret-feature-highlight-shape-outline,
 .secret-feature-hotspot.has-highlight-shape:active .secret-feature-highlight-shape-outline,
 .secret-feature-hotspot.has-highlight-shape:focus-visible .secret-feature-highlight-shape-outline {
@@ -746,10 +752,22 @@ summary:focus-visible,
   filter: drop-shadow(0 0 6px rgba(57, 255, 106, 0.46));
 }
 
-.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden .secret-feature-highlight-shape,
-.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden:hover .secret-feature-highlight-shape,
-.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden:active .secret-feature-highlight-shape {
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden .secret-feature-highlight-shape-outline,
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden:hover .secret-feature-highlight-shape-outline,
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden:active .secret-feature-highlight-shape-outline {
   opacity: 0;
+}
+
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden .secret-feature-highlight-shape-guide,
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden:hover .secret-feature-highlight-shape-guide,
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden:active .secret-feature-highlight-shape-guide {
+  opacity: 0.72;
+}
+
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden:hover .secret-feature-highlight-shape-guide,
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden:active .secret-feature-highlight-shape-guide,
+.secret-feature-hotspot.has-highlight-shape.is-highlight-hidden:focus-visible .secret-feature-highlight-shape-guide {
+  opacity: 1;
 }
 
 .secret-feature-hotspot.is-highlight-hidden::before,
@@ -781,7 +799,7 @@ summary:focus-visible,
 }
 
 .actor-hotspot.is-npc {
-  z-index: 18;
+  z-index: 21;
 }
 
 .actor-hotspot.is-enemy {

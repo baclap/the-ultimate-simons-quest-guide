@@ -354,23 +354,29 @@ ROM-backed evidence:
 - Setup branch `1:$8589` stores a 0.5 px/frame vertical velocity through
   fixed-bank `$E076`; runtime branch `1:$85BB` reloads timer RAM `$0456` from
   the row-data high nibble and calls fixed-bank `$E03B` at reversal. `$20`
-  timer frames therefore produce a 16-pixel upward travel from the row anchor
-  before reversal.
+  timer frames therefore produce a 16-pixel travel from the row anchor before
+  reversal.
+- Runtime branch `1:$85BB` does not move the actor on the same frame where it
+  reloads `$0456` and reverses vertical velocity. The visible motion therefore
+  holds one frame at each endpoint: 32 movement frames upward/downward plus two
+  reversal frames, for a 66-frame effective cycle.
 - These rows do not carry an explicit per-platform phase byte. Their relative
   phase comes from the live actor loader at `1:$8055-$8188`, which materializes
   actor rows only after their row X position enters the live screen window.
   Under normal rightward scrolling, the camera advances one pixel per frame once
   Simon is held near the screen center; existing walking traces show the coarse
-  PPU scroll cell advancing one tile every eight frames. With a 64-frame `$20`
-  platform cycle, four-cell spacing preserves phase and shorter spacing shifts
-  phase:
-  - Vrad Mountain Part 1 rows `$13/$17/$1B/$1F` are four cells apart and remain
-    in phase; the next row is `$21`, only two cells after `$1F`, so rows
-    `$21/$25/$29/$2D` are a half-cycle out with renderer phase `32`.
-  - Jam Wasteland rows are four cells apart, so they remain in phase.
+  PPU scroll cell advancing one tile every eight frames. Because the effective
+  platform cycle is 66 frames, four-cell spacing is a 64-frame load delta and
+  does not quite preserve phase:
+  - Vrad Mountain Part 1 rows `$13/$17/$1B/$1F` use renderer phases
+    `0,2,4,6`; rows `$21/$25/$29/$2D`, loaded 224/288/352/416 frames after
+    `$13`, use phases `40,42,44,46`.
+  - Jam Wasteland rows use renderer phases `0,2,4`.
   - Joma Marsh Part 3 rows are three cells apart, so later platforms load 48
-    frames after the previous one and use renderer phases `0,16,32,48`.
-  - Debious Woods Part 3 rows are four cells apart, so they remain in phase.
+    frames after the previous one and use renderer phases `0,18,36,54`.
+  - Debious Woods Part 3 rows are four cells apart, so their 64-frame load
+    deltas against the 66-frame cycle use renderer phases `0,2,4,6` rather than
+    moving in unison.
 - The rendered guide placement applies the moving-platform visible anchor
   convention already proven by the Berkeley trace: raw row X is the visible
   anchor X and visible Y is row Y minus 13 pixels.
@@ -501,8 +507,8 @@ smoothed as guide-authored presentation.
 
 Player-facing claim:
 
-> Kneel by Yuba Lake with the Blue Crystal or a better crystal to reveal the
-> route to Lauber Mansion.
+> Kneel by Yuba Lake with the Blue Crystal or better to reveal the route to
+> Lauber Mansion.
 
 ROM-backed evidence:
 
@@ -537,6 +543,40 @@ authored guide layout aligns Yuba Lake Path to the lower-right exit band of
 `obj02-area03-sub03` (`aljiba-woods-part-2`) at `y=448`, renders Yuba Lake as
 two ROM-derived crops, and aligns the Lauber Mansion Door segment to the bottom
 Yuba Lake screen at `y=672`.
+
+## Uta Lower Road 1: Blue Crystal Kneel Lower Path
+
+Player-facing claim:
+
+> Kneel on Uta Lower Road with the Blue Crystal or better to reveal the lower
+> path.
+
+ROM-backed evidence:
+
+- The reveal detector at bank `1:$AD96` checks area RAM `$50 == $03` and
+  submap RAM `$51 & $7F == $03`, identifying Uta Lower Road 1
+  (`obj03-area03-sub03`).
+- The follow-up branch at bank `1:$ADBC` checks selected item RAM
+  `$004F == $06`, the shared crystal selected-item slot.
+- The same branch checks inventory RAM `$0091 & $60 >= $40`, so Blue Crystal
+  and Red Crystal qualify. White Crystal alone does not satisfy this route.
+- The branch also checks Simon state RAM `$03D8 == $03`, the kneeling/ducking
+  state, before setting route state RAM `$56 = $01`.
+- Bank `1:$ADD6-$ADE4` sets `$56 = $01`, clears route latch RAM `$0195` and
+  action state RAM `$4B`, then plays sound `$2B`.
+- The routine does not check Simon's X/Y position within the Uta Lower Road 1
+  submap. The guide therefore highlights the upper Uta Lower Road 1 screen as
+  the kneel interaction zone rather than guessing a smaller spot.
+- The guide does not simulate equipment state. Uta Lower Road 2 remains a
+  normal visible section. Uta Lower Road 1 is split into two ROM-derived crops:
+  the upper screen remains visible normally, and only the lower screen is tagged
+  `visibilityLayer: "secrets"`.
+
+Meaning:
+
+The lower half of Uta Lower Road 1 is a real ROM-gated reveal. The guide
+presents only that lower half as Secrets-controlled geography; Uta Lower Road 2
+is not treated as part of this secret.
 
 ## Camilla Cemetery: Secret Merchant
 

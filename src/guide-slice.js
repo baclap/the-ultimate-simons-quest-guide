@@ -1217,7 +1217,12 @@ const ACTOR_CLASSES = [
     actorId: 0x18,
     selectors: [0xc0, 0xc1, 0xc2],
     chrBanks: [0x04, 0x05],
-    proof: 'Whole-ROM enemy atlas decoding proves actor id $18 dispatches to PRG bank 1:$AE95 and writes visible animation selectors from the local ROM table at bank 1:$AF12 through STA $0300,x. The visible selector sequence is $C0/$C1/$C2, and the guide keeps that ROM-backed animation sequence. Manual-name matching is not yet proven for this class.'
+    drawAnchor: {
+      offsetX: 0,
+      offsetY: ACTOR_DRAW_ANCHOR_OFFSET_Y,
+      source: 'Actor loader bank 1:$8055-$8188 writes row X/Y directly to runtime screen anchor RAM $0348/$0324 after scroll subtraction. Actor id $18 routine bank 1:$AE95-$AF11 does not adjust those coordinates; it only changes selector RAM $0300,x through the local $AF12 table. Selectors $C0/$C1/$C2 carry their own metasprite offsets, so Swamp Ghoul keeps the raw runtime X anchor while using the normal row-backed sprite Y presentation anchor.'
+    },
+    proof: 'Whole-ROM enemy atlas decoding proves actor id $18 dispatches to PRG bank 1:$AE95 and writes visible animation selectors from the local ROM table at bank 1:$AF12 through STA $0300,x. The visible selector sequence is $C0/$C1/$C2, and the guide keeps that ROM-backed animation sequence. Manual-name matching is not yet proven for this class. Static ROM decode of bank 1:$AE95-$AF11 proves this actor does not mutate its own X/Y anchor; its rise/idle/sink behavior is selector-driven, so the guide preserves the row-backed Y presentation anchor while avoiding the generic +8 X cell-centering offset.'
   },
   {
     id: 'fire-ghoul',
@@ -1551,7 +1556,7 @@ const SECRET_DETAILS = {
       'Text pointer index 0x0D decodes to the blue-crystal lake clue.'
     ]
   },
-  'berkeley-mansion-part-2-orb-5b99': {
+  'berkeley-mansion-part-2-dracula-rib-orb-5b99': {
     type: 'oak-stake-orb',
     reward: "Dracula's Rib",
     action: "Use an Oak Stake here to reveal Dracula's Rib.",
@@ -1647,25 +1652,25 @@ function defaultSecretDetailsForActor(actor, bytes) {
 }
 
 const MOUNTAIN_VERTICAL_PLATFORM_ROWS = [
-  { id: 'vrad-mountain-part-1-moving-platform-6874', segmentId: 'vrad-mountain-part-1', offset: 0x6874, bytes: [0x13, 0x0d, 0x34, 0x20] },
-  { id: 'vrad-mountain-part-1-moving-platform-6878', segmentId: 'vrad-mountain-part-1', offset: 0x6878, bytes: [0x17, 0x0d, 0x34, 0x20] },
-  { id: 'vrad-mountain-part-1-moving-platform-687c', segmentId: 'vrad-mountain-part-1', offset: 0x687c, bytes: [0x1b, 0x0d, 0x34, 0x20] },
-  { id: 'vrad-mountain-part-1-moving-platform-6880', segmentId: 'vrad-mountain-part-1', offset: 0x6880, bytes: [0x1f, 0x0d, 0x34, 0x20] },
-  { id: 'vrad-mountain-part-1-moving-platform-6884', segmentId: 'vrad-mountain-part-1', offset: 0x6884, bytes: [0x21, 0x0d, 0x34, 0x20], phaseFrames: 32 },
-  { id: 'vrad-mountain-part-1-moving-platform-6888', segmentId: 'vrad-mountain-part-1', offset: 0x6888, bytes: [0x25, 0x0d, 0x34, 0x20], phaseFrames: 32 },
-  { id: 'vrad-mountain-part-1-moving-platform-688c', segmentId: 'vrad-mountain-part-1', offset: 0x688c, bytes: [0x29, 0x0d, 0x34, 0x20], phaseFrames: 32 },
-  { id: 'vrad-mountain-part-1-moving-platform-6890', segmentId: 'vrad-mountain-part-1', offset: 0x6890, bytes: [0x2d, 0x0d, 0x34, 0x20], phaseFrames: 32 },
-  { id: 'jam-wasteland-moving-platform-6899', segmentId: 'jam-wasteland', offset: 0x6899, bytes: [0x14, 0x0d, 0x34, 0x20] },
-  { id: 'jam-wasteland-moving-platform-689d', segmentId: 'jam-wasteland', offset: 0x689d, bytes: [0x18, 0x0d, 0x34, 0x20] },
-  { id: 'jam-wasteland-moving-platform-68a1', segmentId: 'jam-wasteland', offset: 0x68a1, bytes: [0x1c, 0x0d, 0x34, 0x20] },
-  { id: 'joma-marsh-part-3-moving-platform-726c', segmentId: 'joma-marsh-part-3', offset: 0x726c, bytes: [0x24, 0x0c, 0x34, 0x20], phaseFrames: 0, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
-  { id: 'joma-marsh-part-3-moving-platform-7270', segmentId: 'joma-marsh-part-3', offset: 0x7270, bytes: [0x27, 0x0c, 0x34, 0x20], phaseFrames: 16, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
-  { id: 'joma-marsh-part-3-moving-platform-7274', segmentId: 'joma-marsh-part-3', offset: 0x7274, bytes: [0x2a, 0x0c, 0x34, 0x20], phaseFrames: 32, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
-  { id: 'joma-marsh-part-3-moving-platform-7278', segmentId: 'joma-marsh-part-3', offset: 0x7278, bytes: [0x2d, 0x0c, 0x34, 0x20], phaseFrames: 48, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
-  { id: 'debious-woods-part-3-moving-platform-72bd', segmentId: 'debious-woods-part-3', offset: 0x72bd, bytes: [0x21, 0x28, 0x22, 0x20], selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } },
-  { id: 'debious-woods-part-3-moving-platform-72c9', segmentId: 'debious-woods-part-3', offset: 0x72c9, bytes: [0x25, 0x28, 0x22, 0x20], selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } },
-  { id: 'debious-woods-part-3-moving-platform-72d5', segmentId: 'debious-woods-part-3', offset: 0x72d5, bytes: [0x29, 0x28, 0x22, 0x20], selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } },
-  { id: 'debious-woods-part-3-moving-platform-72d9', segmentId: 'debious-woods-part-3', offset: 0x72d9, bytes: [0x2d, 0x28, 0x22, 0x20], selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } }
+  { id: 'vrad-mountain-part-1-moving-platform-6874', segmentId: 'vrad-mountain-part-1', offset: 0x6874, bytes: [0x13, 0x0d, 0x34, 0x20], phaseFrames: 0 },
+  { id: 'vrad-mountain-part-1-moving-platform-6878', segmentId: 'vrad-mountain-part-1', offset: 0x6878, bytes: [0x17, 0x0d, 0x34, 0x20], phaseFrames: 2 },
+  { id: 'vrad-mountain-part-1-moving-platform-687c', segmentId: 'vrad-mountain-part-1', offset: 0x687c, bytes: [0x1b, 0x0d, 0x34, 0x20], phaseFrames: 4 },
+  { id: 'vrad-mountain-part-1-moving-platform-6880', segmentId: 'vrad-mountain-part-1', offset: 0x6880, bytes: [0x1f, 0x0d, 0x34, 0x20], phaseFrames: 6 },
+  { id: 'vrad-mountain-part-1-moving-platform-6884', segmentId: 'vrad-mountain-part-1', offset: 0x6884, bytes: [0x21, 0x0d, 0x34, 0x20], phaseFrames: 40 },
+  { id: 'vrad-mountain-part-1-moving-platform-6888', segmentId: 'vrad-mountain-part-1', offset: 0x6888, bytes: [0x25, 0x0d, 0x34, 0x20], phaseFrames: 42 },
+  { id: 'vrad-mountain-part-1-moving-platform-688c', segmentId: 'vrad-mountain-part-1', offset: 0x688c, bytes: [0x29, 0x0d, 0x34, 0x20], phaseFrames: 44 },
+  { id: 'vrad-mountain-part-1-moving-platform-6890', segmentId: 'vrad-mountain-part-1', offset: 0x6890, bytes: [0x2d, 0x0d, 0x34, 0x20], phaseFrames: 46 },
+  { id: 'jam-wasteland-moving-platform-6899', segmentId: 'jam-wasteland', offset: 0x6899, bytes: [0x14, 0x0d, 0x34, 0x20], phaseFrames: 0 },
+  { id: 'jam-wasteland-moving-platform-689d', segmentId: 'jam-wasteland', offset: 0x689d, bytes: [0x18, 0x0d, 0x34, 0x20], phaseFrames: 2 },
+  { id: 'jam-wasteland-moving-platform-68a1', segmentId: 'jam-wasteland', offset: 0x68a1, bytes: [0x1c, 0x0d, 0x34, 0x20], phaseFrames: 4 },
+  { id: 'debious-woods-moving-platform-726c', segmentId: 'debious-woods', offset: 0x726c, bytes: [0x24, 0x0c, 0x34, 0x20], phaseFrames: 0, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
+  { id: 'debious-woods-moving-platform-7270', segmentId: 'debious-woods', offset: 0x7270, bytes: [0x27, 0x0c, 0x34, 0x20], phaseFrames: 18, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
+  { id: 'debious-woods-moving-platform-7274', segmentId: 'debious-woods', offset: 0x7274, bytes: [0x2a, 0x0c, 0x34, 0x20], phaseFrames: 36, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
+  { id: 'debious-woods-moving-platform-7278', segmentId: 'debious-woods', offset: 0x7278, bytes: [0x2d, 0x0c, 0x34, 0x20], phaseFrames: 54, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'joma-marsh-part-3-day-sprites', night: 'joma-marsh-part-3-night-sprites' } },
+  { id: 'uta-lower-road-2-moving-platform-72bd', segmentId: 'uta-lower-road-2', offset: 0x72bd, bytes: [0x21, 0x28, 0x22, 0x20], phaseFrames: 0, selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } },
+  { id: 'uta-lower-road-2-moving-platform-72c9', segmentId: 'uta-lower-road-2', offset: 0x72c9, bytes: [0x25, 0x28, 0x22, 0x20], phaseFrames: 2, selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } },
+  { id: 'uta-lower-road-2-moving-platform-72d5', segmentId: 'uta-lower-road-2', offset: 0x72d5, bytes: [0x29, 0x28, 0x22, 0x20], phaseFrames: 4, selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } },
+  { id: 'uta-lower-road-2-moving-platform-72d9', segmentId: 'uta-lower-road-2', offset: 0x72d9, bytes: [0x2d, 0x28, 0x22, 0x20], phaseFrames: 6, selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } }
 ];
 
 function mountainVerticalPlatformFeature(row) {
@@ -1680,7 +1685,7 @@ function mountainVerticalPlatformFeature(row) {
     : `Actor id ${actorIdText} uses the platform-family metasprite selector ${selectorText}.`;
   const phaseFrames = Number.isInteger(row.phaseFrames) ? row.phaseFrames : 0;
   const phaseSource = Number.isInteger(row.phaseFrames)
-    ? ` The guide applies a ${phaseFrames}-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing for same-segment platform rows.`
+    ? ` The guide applies a ${phaseFrames}-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle.`
     : '';
   return {
     id: row.id,
@@ -1713,8 +1718,9 @@ function mountainVerticalPlatformFeature(row) {
       speedPixelsPerFrame: 0.5,
       frameDurationMs: 1000 / 60,
       reversalFrames: 32,
+      endpointHoldFrames: 1,
       ...(Number.isInteger(row.phaseFrames) ? { phaseFrames } : {}),
-      source: `Actor id ${actorIdText} dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing.${phaseSource}`
+      source: `Actor id ${actorIdText} dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint.${phaseSource}`
     },
     dialog: null,
     provenance: {
@@ -2139,11 +2145,11 @@ const SECRET_FEATURE_DEFINITIONS = [
     visibilityLayer: 'secrets',
     highlightLayer: 'secrets',
     condition: {
-      playerFacing: 'Kneel by Yuba Lake with the Blue Crystal or a better crystal to reveal the route to Lauber Mansion.'
+      playerFacing: 'Kneel by Yuba Lake with the Blue Crystal or better to reveal the route to Lauber Mansion.'
     },
     dialog: {
       tone: 'guide-authored',
-      text: 'Yuba Lake reveal\n----------\nKneel by Yuba Lake with the Blue Crystal or a better crystal to reveal the route to Lauber Mansion.'
+      text: 'Yuba Lake reveal\n----------\nKneel by Yuba Lake with the Blue Crystal or better to reveal the route to Lauber Mansion.'
     },
     provenance: {
       source: 'rom-routine',
@@ -2156,11 +2162,39 @@ const SECRET_FEATURE_DEFINITIONS = [
     }
   },
   {
-    id: 'bordia-mountains-hidden-staircase',
+    id: 'uta-lower-road-blue-crystal-kneel-route',
+    label: 'Uta Lower Road reveal',
+    kind: 'secret',
+    effect: 'guide-hotspot',
+    segmentId: 'uta-lower-road-1',
+    variants: ['day', 'night'],
+    bounds: { x: 0, y: 0, width: 256, height: 224 },
+    visibilityLayer: 'secrets',
+    highlightLayer: 'secrets',
+    condition: {
+      playerFacing: 'Kneel on Uta Lower Road with the Blue Crystal or better to reveal the lower path.'
+    },
+    dialog: {
+      tone: 'guide-authored',
+      text: 'Uta Lower Road reveal\n----------\nKneel on Uta Lower Road with the Blue Crystal or better to reveal the lower path.'
+    },
+    provenance: {
+      source: 'rom-routine',
+      routine: 'bank 1:$AD96-$ADE6',
+      evidence: [
+        'Bank 1:$AD9A-$ADA8 checks area RAM $50 == $03 and submap RAM $51 & $7F == $03, identifying Uta Lower Road 1.',
+        'Bank 1:$ADBC-$ADD3 checks selected item RAM $004F == $06, inventory RAM $0091 & $60 >= $40, and Simon state RAM $03D8 == $03.',
+        'Bank 1:$ADD6-$ADE4 sets route state RAM $56 = $01, clears route latch RAM $0195 and action state RAM $4B, then plays sound $2B.',
+        'The routine does not check Simon X/Y within the submap, so the guide highlights the upper Uta Lower Road 1 screen rather than a guessed smaller kneeling spot.'
+      ]
+    }
+  },
+  {
+    id: 'denis-marsh-hidden-staircase',
     label: 'Hidden staircase',
     kind: 'secret',
     effect: 'guide-hotspot',
-    segmentId: 'borgia-mountains-dead-end-swamp',
+    segmentId: 'denis-marsh',
     variants: ['day', 'night'],
     bounds: { x: 880, y: 96, width: 96, height: 96 },
     highlightShape: 'hidden-staircase',
@@ -2216,14 +2250,14 @@ const SECRET_FEATURE_DEFINITIONS = [
     }
   },
   {
-    id: 'yuba-lake-path-left-moving-platform-6765',
+    id: 'lower-road-left-moving-platform-6765',
     label: 'Moving platform',
     kind: 'platform',
     interactive: false,
     visibilityLayer: 'always',
     highlightLayer: 'none',
     effect: 'moving-platform',
-    segmentId: 'yuba-lake-path',
+    segmentId: 'lower-road',
     offset: 0x6765,
     bytes: [0x29, 0x0d, 0x22, 0x45],
     selector: 0x43,
@@ -2257,14 +2291,14 @@ const SECRET_FEATURE_DEFINITIONS = [
     }
   },
   {
-    id: 'yuba-lake-path-right-moving-platform-676d',
+    id: 'lower-road-right-moving-platform-676d',
     label: 'Moving platform',
     kind: 'platform',
     interactive: false,
     visibilityLayer: 'always',
     highlightLayer: 'none',
     effect: 'moving-platform',
-    segmentId: 'yuba-lake-path',
+    segmentId: 'lower-road',
     offset: 0x676d,
     bytes: [0x37, 0x0d, 0x22, 0x46],
     selector: 0x43,

@@ -80,6 +80,21 @@ still partial:
 | `$44` | Death | `direct-selector-state-machine-partial` | Direct selector `$44` and follow-up selector `$45` are decoded; scythe/projectile behavior remains separate. |
 | `$4A` | Dragon Bones | `direct-selector-partial` | Direct selector `$56` is decoded; projectile/spawn behavior remains separate. |
 
+## Swamp Ghoul Placement
+
+Swamp Ghoul actor rows use actor id `$18`, which dispatches to PRG bank
+`1:$AE95`. The shared actor loader at bank `1:$8055-$8188` writes row X/Y to
+runtime screen anchor RAM `$0348/$0324` after scroll subtraction. The `$18`
+routine does not adjust either coordinate; its state machine changes selector
+RAM `$0300,x` through the local table at `1:$AF12` (`$00/$C0/$C1/$C2`) to make
+the ghoul rise, wait, and sink.
+
+Because the `$C0-$C2` metasprites already carry their own OAM X offsets from
+that runtime anchor, Swamp Ghoul guide placement uses the raw row X anchor
+rather than the generic `+8` spawn-cell center used for normal upright enemy
+markers. It still uses the normal row-backed sprite Y presentation offset, so
+the ghoul is not drawn too low in the marsh.
+
 ## Manual Names
 
 The atlas preserves the manual's leading `The` when a match is proven. Current

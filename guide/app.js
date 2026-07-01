@@ -8,7 +8,7 @@ import {
   renderCv2DialogFrameToRgba
 } from './dialog.js?v=right-of-camilla-map';
 
-const CACHE_KEY = 'interior-hash-no-overworld-flash';
+const CACHE_KEY = 'uta-lower-road-secret-route';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
 const OVERWORLD_VIEW_ID = 'overworld';
@@ -78,10 +78,10 @@ const ROUTE_SEGMENT_IDS = [
   'joma-marsh-part-1',
   'laruba-mansion-door',
   'joma-marsh-part-2',
-  'joma-marsh-part-3',
-  'debious-woods-part-3',
-  'debious-woods-part-2',
-  'debious-woods-part-1',
+  'debious-woods',
+  'uta-lower-road-2',
+  'uta-lower-road-1',
+  'uta-road',
   'bodley-mansion-door',
   'wicked-ditch',
   'town-of-doina',
@@ -90,12 +90,12 @@ const ROUTE_SEGMENT_IDS = [
   'dora-woods-part-2',
   'town-of-yomi',
   'vrad-graveyard',
-  'castlevania-bridge',
+  'west-bridge',
   'castlevania',
   'dora-woods-part-3',
-  'long-bridge-to-borgia-mountains',
-  'borgia-mountains-dead-end-swamp',
-  'yuba-lake-path',
+  'east-bridge',
+  'denis-marsh',
+  'lower-road',
   'yuba-lake',
   'lauber-mansion-door',
   'denis-woods-part-1',
@@ -127,21 +127,21 @@ const OVERVIEW_LABEL_TEXT = new Map([
   ['lauber-mansion-door', 'Lauber Mansion'],
   ['joma-marsh-part-1', 'Joma Marsh'],
   ['joma-marsh-part-2', 'Joma Marsh'],
-  ['joma-marsh-part-3', 'Joma Marsh'],
+  ['debious-woods', 'Debious Woods'],
   ['laruba-mansion-door', 'Laruba Mansion'],
-  ['debious-woods-part-3', 'Debious Woods'],
-  ['debious-woods-part-2', 'Debious Woods'],
-  ['debious-woods-part-1', 'Debious Woods'],
+  ['uta-lower-road-2', 'Uta Lower Road'],
+  ['uta-lower-road-1', 'Uta Lower Road'],
+  ['uta-road', 'Wicked Ditch'],
   ['bodley-mansion-door', 'Bodley Mansion'],
   ['wicked-ditch', 'Wicked Ditch'],
   ['north-bridge', 'North Bridge'],
   ['dora-woods-part-1', 'Dora Woods'],
   ['dora-woods-part-2', 'Dora Woods'],
   ['dora-woods-part-3', 'Dora Woods'],
-  ['long-bridge-to-borgia-mountains', 'Long Bridge'],
-  ['borgia-mountains-dead-end-swamp', 'Bordia Mountains'],
+  ['east-bridge', 'East Bridge'],
+  ['denis-marsh', 'Denis Marsh'],
   ['vrad-graveyard', 'Vrad Graveyard'],
-  ['castlevania-bridge', 'Castlevania Bridge']
+  ['west-bridge', 'West Bridge']
 ]);
 const OVERVIEW_LABEL_HIDDEN_IDS = new Set([
   'sadam-woods-part-1',
@@ -153,11 +153,11 @@ const OVERVIEW_LABEL_HIDDEN_IDS = new Set([
   'dabis-path-part-2',
   'aljiba-woods-part-2',
   'aljiba-woods-part-3',
+  'denis-woods-part-2',
   'denis-woods-part-3',
   'joma-marsh-part-2',
-  'joma-marsh-part-3',
-  'debious-woods-part-2',
-  'debious-woods-part-1',
+  'uta-lower-road-1',
+  'uta-road',
   'dora-woods-part-2',
   'dora-woods-part-3'
 ]);
@@ -172,17 +172,31 @@ const LABEL_BELOW_SEGMENT_IDS = new Set([
   'laruba-mansion-orb-room',
   'dead-river-to-brahm',
   'town-of-veros',
-  'yuba-lake-path',
+  'lower-road',
   'yuba-lake',
   'lauber-mansion-door',
   'laruba-mansion-door',
   'bodley-mansion-door',
-  'debious-woods-part-2',
+  'uta-lower-road-1',
   'town-of-yomi',
   'vrad-graveyard',
-  'castlevania-bridge'
+  'west-bridge'
 ]);
 const LABEL_BOUNDS_SEGMENT_IDS = new Map([
+  ['uta-lower-road-1', ['uta-lower-road-1', 'uta-lower-road-1-revealed-route']],
+  ['yuba-lake', ['yuba-lake', 'yuba-lake-revealed-route']]
+]);
+const OVERVIEW_LABEL_BOUNDS_SEGMENT_IDS = new Map([
+  ['sadam-woods-part-2', ['sadam-woods-part-3', 'sadam-woods-part-2', 'sadam-woods-part-1']],
+  ['vrad-mountain-part-2', ['vrad-mountain-part-2', 'vrad-mountain-part-1']],
+  ['dead-river-part-2', ['dead-river-part-2', 'dead-river-part-1', 'dead-river-to-brahm']],
+  ['veros-woods-part-1', ['veros-woods-part-1', 'veros-woods-part-2']],
+  ['dabis-path-part-1', ['dabis-path-part-1', 'dabis-path-part-2']],
+  ['aljiba-woods-part-1', ['aljiba-woods-part-1', 'aljiba-woods-part-2', 'aljiba-woods-part-3']],
+  ['denis-woods-part-1', ['denis-woods-part-1', 'denis-woods-part-2', 'denis-woods-part-3']],
+  ['joma-marsh-part-1', ['joma-marsh-part-1', 'joma-marsh-part-2']],
+  ['uta-lower-road-2', ['uta-lower-road-2', 'uta-lower-road-1', 'uta-lower-road-1-revealed-route']],
+  ['dora-woods-part-1', ['dora-woods-part-1', 'dora-woods-part-2', 'dora-woods-part-3']],
   ['yuba-lake', ['yuba-lake', 'yuba-lake-revealed-route']]
 ]);
 const OVERWORLD_ROUTE_CONNECTORS = [
@@ -212,6 +226,7 @@ const OVERWORLD_ROUTE_CONNECTORS = [
 const ROUTE_CONNECTOR_DASH_WORLD_PX = 8;
 const ROUTE_CONNECTOR_MIN_SCREEN_PX = 1;
 const ROUTE_CONNECTOR_MIN_DASH_SCREEN_PX = 4;
+const SECRET_FEATURE_HIGHLIGHT_SHAPE_VIEWBOX_SIZE = 96;
 const LABEL_COLLISION_PADDING = 6;
 const LABEL_MAP_GAP = 10;
 const LABEL_LEADER_THRESHOLD = 3;
@@ -2296,8 +2311,9 @@ function segmentRecordVisible(segment) {
   return true;
 }
 
-function labelDisplayPosition(segment, renderer = activeRenderer()) {
-  const groupIds = LABEL_BOUNDS_SEGMENT_IDS.get(segment.id);
+function labelDisplayPosition(segment, renderer = activeRenderer(), overviewLabels = false) {
+  const groupMap = overviewLabels ? OVERVIEW_LABEL_BOUNDS_SEGMENT_IDS : LABEL_BOUNDS_SEGMENT_IDS;
+  const groupIds = groupMap.get(segment.id);
   if (!groupIds?.length || !renderer) {
     return segmentDisplayPosition(segment, renderer);
   }
@@ -2453,10 +2469,21 @@ function secretFeatureMotionOffset(feature, now = performance.now()) {
   const halfFrames = Number.isFinite(motion.reversalFrames) && motion.reversalFrames > 0
     ? motion.reversalFrames
     : Math.max(1, Math.round(travel / speed));
-  const periodFrames = halfFrames * 2;
+  const endpointHoldFrames = Number.isFinite(motion.endpointHoldFrames) && motion.endpointHoldFrames > 0
+    ? Math.floor(motion.endpointHoldFrames)
+    : 0;
+  const periodFrames = halfFrames * 2 + endpointHoldFrames * 2;
   const elapsedFrame = Math.floor(now / frameDurationMs + (motion.phaseFrames || 0));
   const cycleFrame = ((elapsedFrame % periodFrames) + periodFrames) % periodFrames;
-  const legFrame = cycleFrame <= halfFrames ? cycleFrame : periodFrames - cycleFrame;
+  let legFrame;
+  if (endpointHoldFrames > 0 && cycleFrame > halfFrames) {
+    const returnFrame = cycleFrame - halfFrames - endpointHoldFrames;
+    legFrame = returnFrame <= 0
+      ? halfFrames
+      : Math.max(0, halfFrames - returnFrame);
+  } else {
+    legFrame = cycleFrame <= halfFrames ? cycleFrame : periodFrames - cycleFrame;
+  }
   const amount = Math.min(travel, legFrame * speed);
 
   if (motion.axis === 'x') {
@@ -2773,32 +2800,32 @@ function makeSecretFeatureHighlightShape(feature) {
   }
 
   const svg = makeSvgElement('svg', 'secret-feature-highlight-shape');
-  svg.setAttribute('viewBox', '0 0 96 96');
+  svg.setAttribute('viewBox', `0 0 ${SECRET_FEATURE_HIGHLIGHT_SHAPE_VIEWBOX_SIZE} ${SECRET_FEATURE_HIGHLIGHT_SHAPE_VIEWBOX_SIZE}`);
   svg.setAttribute('preserveAspectRatio', 'none');
   svg.setAttribute('aria-hidden', 'true');
   svg.setAttribute('focusable', 'false');
 
+  const stairPath = [
+    'M -8 0',
+    'H 0',
+    'V 8 H 8',
+    'V 16 H 16',
+    'V 24 H 24',
+    'V 32 H 32',
+    'V 40 H 40',
+    'V 48 H 48',
+    'V 56 H 56',
+    'V 64 H 64',
+    'V 72 H 72',
+    'V 80 H 80',
+    'V 88 H 88',
+    'V 96'
+  ].join(' ');
+  const guidePath = makeSvgElement('path', 'secret-feature-highlight-shape-guide');
+  guidePath.setAttribute('d', stairPath);
   const outlinePath = makeSvgElement('path', 'secret-feature-highlight-shape-outline');
-  outlinePath.setAttribute(
-    'd',
-    [
-      'M -8 0',
-      'H 0',
-      'V 8 H 8',
-      'V 16 H 16',
-      'V 24 H 24',
-      'V 32 H 32',
-      'V 40 H 40',
-      'V 48 H 48',
-      'V 56 H 56',
-      'V 64 H 64',
-      'V 72 H 72',
-      'V 80 H 80',
-      'V 88 H 88',
-      'V 96'
-    ].join(' ')
-  );
-  svg.append(outlinePath);
+  outlinePath.setAttribute('d', stairPath);
+  svg.append(guidePath, outlinePath);
   return svg;
 }
 
@@ -2850,11 +2877,11 @@ function overlayPriority(element) {
   if (element.classList.contains('item-badge')) {
     return 70;
   }
+  if (element.classList.contains('actor-hotspot') && element.classList.contains('is-npc')) {
+    return 65;
+  }
   if (element.classList.contains('hotspot') && element.classList.contains('is-clickable')) {
     return 60;
-  }
-  if (element.classList.contains('actor-hotspot') && element.classList.contains('is-npc')) {
-    return 50;
   }
   if (element.classList.contains('actor-hotspot') && element.classList.contains('is-secret')) {
     return 32;
@@ -3321,9 +3348,9 @@ function labelSide(segment) {
     : 'above';
 }
 
-function labelPlacement(segment) {
+function labelPlacement(segment, overviewLabels = false) {
   const renderer = activeRenderer();
-  const position = labelDisplayPosition(segment, renderer);
+  const position = labelDisplayPosition(segment, renderer, overviewLabels);
   const side = labelSide(segment);
   const centerX = position.x + position.width / 2;
   const mapY = side === 'above' ? position.y : position.y + position.height;
@@ -3460,7 +3487,7 @@ function updateOverlays() {
     const labelText = guideLabelText(overviewLabels
       ? OVERVIEW_LABEL_TEXT.get(item.segment.id) || item.segment.label
       : item.segment.label);
-    const placement = labelPlacement(item.segment);
+    const placement = labelPlacement(item.segment, overviewLabels);
     const onScreen = screenPointVisible(placement.labelAnchor, LABEL_SCREEN_CULL_MARGIN_PX)
       || screenPointVisible(placement.mapAnchor, LABEL_SCREEN_CULL_MARGIN_PX);
     if (!onScreen) {
@@ -4267,8 +4294,20 @@ function hpDialogValue(value) {
   return value == null ? 'none' : String(value);
 }
 
+function isInteriorEnemyDialogContext() {
+  const view = currentView();
+  return view.id !== OVERWORLD_VIEW_ID && view.supportsPalette === false;
+}
+
+function singleHpDialogValue(hp) {
+  return hp.day ?? hp.night;
+}
+
 function enemyDialogText(actor) {
   const hp = actor.hp || {};
+  if (isInteriorEnemyDialogContext()) {
+    return `${actor.label}\n----------\nHP - ${hpDialogValue(singleHpDialogValue(hp))}`;
+  }
   return `${actor.label}\n----------\nDay HP - ${hpDialogValue(hp.day)}\nNight HP - ${hpDialogValue(hp.night)}`;
 }
 

@@ -2,18 +2,18 @@
   "schemaVersion": 1,
   "id": "jova-to-berkeley-branch-continuous",
   "label": "Deborah Cliff to Castlevania",
-  "summary": "Keeps the west route from Deborah Cliff through Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, and Dead River/Belasco into Jova, Berkeley -> Denis Woods -> Dabi's Path physically continuous, and the main eastward route through Aljiba, Camilla Cemetery, Joma Marsh, Debious Woods, Doina, Dora Woods, Yomi, Vrad Graveyard, and Castlevania. The Yuba Lake/Lauber, Dead River/Brahm/Vrad, and Dora/Bordia branches are ROM-backed side paths.",
+  "summary": "Keeps the west route from Deborah Cliff through Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, and Dead River/Belasco into Jova, Berkeley -> Denis Woods -> Dabi's Path physically continuous, and the main eastward route through Aljiba, Camilla Cemetery, Joma Marsh, Debious Woods, Uta Lower Road, Uta Road, Wicked Ditch, Doina, Dora Woods, Yomi, Vrad Graveyard, West Bridge, and Castlevania. The Yuba Lake/Lauber, Dead River/Brahm/Vrad, and Dora/East Bridge/Denis Marsh branches are ROM-backed side paths.",
   "layoutSample": {
     "id": "branch-continuous",
     "label": "Branch continuous",
-    "summary": "Keeps the west route from Deborah Cliff through Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, and Dead River/Belasco into Jova, Berkeley -> Denis Woods -> Dabi's Path physically continuous, and the main eastward route through Aljiba, Camilla Cemetery, Joma Marsh, Debious Woods, Doina, Dora Woods, Yomi, Vrad Graveyard, and Castlevania. The Yuba Lake/Lauber, Dead River/Brahm/Vrad, and Dora/Bordia branches are ROM-backed side paths.",
+    "summary": "Keeps the west route from Deborah Cliff through Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, and Dead River/Belasco into Jova, Berkeley -> Denis Woods -> Dabi's Path physically continuous, and the main eastward route through Aljiba, Camilla Cemetery, Joma Marsh, Debious Woods, Uta Lower Road, Uta Road, Wicked Ditch, Doina, Dora Woods, Yomi, Vrad Graveyard, West Bridge, and Castlevania. The Yuba Lake/Lauber, Dead River/Brahm/Vrad, and Dora/East Bridge/Denis Marsh branches are ROM-backed side paths.",
     "markers": []
   },
   "availableLayouts": [
     {
       "id": "branch-continuous",
       "label": "Branch continuous",
-      "summary": "Keeps the west route from Deborah Cliff through Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, and Dead River/Belasco into Jova, Berkeley -> Denis Woods -> Dabi's Path physically continuous, and the main eastward route through Aljiba, Camilla Cemetery, Joma Marsh, Debious Woods, Doina, Dora Woods, Yomi, Vrad Graveyard, and Castlevania. The Yuba Lake/Lauber, Dead River/Brahm/Vrad, and Dora/Bordia branches are ROM-backed side paths."
+      "summary": "Keeps the west route from Deborah Cliff through Jam Wasteland, Ondol, Sadam Woods, Storigoi Graveyard, Alba, and Dead River/Belasco into Jova, Berkeley -> Denis Woods -> Dabi's Path physically continuous, and the main eastward route through Aljiba, Camilla Cemetery, Joma Marsh, Debious Woods, Uta Lower Road, Uta Road, Wicked Ditch, Doina, Dora Woods, Yomi, Vrad Graveyard, West Bridge, and Castlevania. The Yuba Lake/Lauber, Dead River/Brahm/Vrad, and Dora/East Bridge/Denis Marsh branches are ROM-backed side paths."
     }
   ],
   "source": {
@@ -41,7 +41,7 @@
     "height": 1568
   },
   "dataFile": "slice-data.bin",
-  "byteLength": 97288,
+  "byteLength": 97320,
   "chrSets": [
     {
       "id": "chr-06-07",
@@ -135,7 +135,7 @@
         "0x0C"
       ],
       "data": {
-        "offset": 74280,
+        "offset": 74312,
         "length": 8192
       },
       "decodedAtlas": {
@@ -152,7 +152,7 @@
         "0x0A"
       ],
       "data": {
-        "offset": 88072,
+        "offset": 88104,
         "length": 8192
       },
       "decodedAtlas": {
@@ -240,11 +240,11 @@
       "tileSetAddress": "0x9A3F",
       "tileBaseAddress": "0x9A80",
       "metatileTiles": {
-        "offset": 82472,
+        "offset": 82504,
         "length": 4096
       },
       "metatileAttributes": {
-        "offset": 86568,
+        "offset": 86600,
         "length": 256
       }
     }
@@ -1011,8 +1011,8 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-day",
-      "segmentId": "joma-marsh-part-3",
+      "id": "debious-woods-day",
+      "segmentId": "debious-woods",
       "variant": "day",
       "paletteAddress": "0xA092",
       "paletteBank": 4,
@@ -1022,8 +1022,8 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-night",
-      "segmentId": "joma-marsh-part-3",
+      "id": "debious-woods-night",
+      "segmentId": "debious-woods",
       "variant": "night",
       "paletteAddress": "0xA0A3",
       "paletteBank": 4,
@@ -1033,8 +1033,8 @@
       }
     },
     {
-      "id": "debious-woods-part-3-day",
-      "segmentId": "debious-woods-part-3",
+      "id": "uta-lower-road-2-day",
+      "segmentId": "uta-lower-road-2",
       "variant": "day",
       "paletteAddress": "0xA0B4",
       "paletteBank": 4,
@@ -1044,8 +1044,8 @@
       }
     },
     {
-      "id": "debious-woods-part-3-night",
-      "segmentId": "debious-woods-part-3",
+      "id": "uta-lower-road-2-night",
+      "segmentId": "uta-lower-road-2",
       "variant": "night",
       "paletteAddress": "0xA0B4",
       "paletteBank": 4,
@@ -1055,42 +1055,62 @@
       }
     },
     {
-      "id": "debious-woods-part-2-day",
-      "segmentId": "debious-woods-part-2",
+      "id": "uta-lower-road-1-day",
+      "segmentId": "uta-lower-road-1",
       "variant": "day",
       "paletteAddress": "0xCB04",
       "data": {
-        "offset": 72136,
+        "offset": 72080,
         "length": 16
       }
     },
     {
-      "id": "debious-woods-part-2-night",
-      "segmentId": "debious-woods-part-2",
+      "id": "uta-lower-road-1-night",
+      "segmentId": "uta-lower-road-1",
       "variant": "night",
       "paletteAddress": "0xCB15",
       "data": {
-        "offset": 72152,
+        "offset": 72096,
         "length": 16
       }
     },
     {
-      "id": "debious-woods-part-1-day",
-      "segmentId": "debious-woods-part-1",
+      "id": "uta-lower-road-1-revealed-route-day",
+      "segmentId": "uta-lower-road-1-revealed-route",
       "variant": "day",
       "paletteAddress": "0xCB04",
       "data": {
-        "offset": 72224,
+        "offset": 72168,
         "length": 16
       }
     },
     {
-      "id": "debious-woods-part-1-night",
-      "segmentId": "debious-woods-part-1",
+      "id": "uta-lower-road-1-revealed-route-night",
+      "segmentId": "uta-lower-road-1-revealed-route",
       "variant": "night",
       "paletteAddress": "0xCB15",
       "data": {
-        "offset": 72240,
+        "offset": 72184,
+        "length": 16
+      }
+    },
+    {
+      "id": "uta-road-day",
+      "segmentId": "uta-road",
+      "variant": "day",
+      "paletteAddress": "0xCB04",
+      "data": {
+        "offset": 72256,
+        "length": 16
+      }
+    },
+    {
+      "id": "uta-road-night",
+      "segmentId": "uta-road",
+      "variant": "night",
+      "paletteAddress": "0xCB15",
+      "data": {
+        "offset": 72272,
         "length": 16
       }
     },
@@ -1101,7 +1121,7 @@
       "paletteAddress": "0x9FAC",
       "paletteBank": 4,
       "data": {
-        "offset": 72312,
+        "offset": 72344,
         "length": 16
       }
     },
@@ -1112,7 +1132,7 @@
       "paletteAddress": "0x9F33",
       "paletteBank": 4,
       "data": {
-        "offset": 72328,
+        "offset": 72360,
         "length": 16
       }
     },
@@ -1123,7 +1143,7 @@
       "paletteAddress": "0xA0F1",
       "paletteBank": 4,
       "data": {
-        "offset": 72568,
+        "offset": 72600,
         "length": 16
       }
     },
@@ -1134,7 +1154,7 @@
       "paletteAddress": "0xA102",
       "paletteBank": 4,
       "data": {
-        "offset": 72584,
+        "offset": 72616,
         "length": 16
       }
     },
@@ -1145,7 +1165,7 @@
       "paletteAddress": "0x9EF7",
       "paletteBank": 4,
       "data": {
-        "offset": 72824,
+        "offset": 72856,
         "length": 16
       }
     },
@@ -1156,7 +1176,7 @@
       "paletteAddress": "0x9E80",
       "paletteBank": 4,
       "data": {
-        "offset": 72840,
+        "offset": 72872,
         "length": 16
       }
     },
@@ -1166,7 +1186,7 @@
       "variant": "day",
       "paletteAddress": "0xCB04",
       "data": {
-        "offset": 73080,
+        "offset": 73112,
         "length": 16
       }
     },
@@ -1176,7 +1196,7 @@
       "variant": "night",
       "paletteAddress": "0xCB15",
       "data": {
-        "offset": 73096,
+        "offset": 73128,
         "length": 16
       }
     },
@@ -1187,7 +1207,7 @@
       "paletteAddress": "0x9FE8",
       "paletteBank": 4,
       "data": {
-        "offset": 73224,
+        "offset": 73256,
         "length": 16
       }
     },
@@ -1198,7 +1218,7 @@
       "paletteAddress": "0x9FF9",
       "paletteBank": 4,
       "data": {
-        "offset": 73240,
+        "offset": 73272,
         "length": 16
       }
     },
@@ -1209,7 +1229,7 @@
       "paletteAddress": "0x9FD7",
       "paletteBank": 4,
       "data": {
-        "offset": 73480,
+        "offset": 73512,
         "length": 16
       }
     },
@@ -1220,7 +1240,7 @@
       "paletteAddress": "0x9FF9",
       "paletteBank": 4,
       "data": {
-        "offset": 73496,
+        "offset": 73528,
         "length": 16
       }
     },
@@ -1231,7 +1251,7 @@
       "paletteAddress": "0x9F08",
       "paletteBank": 4,
       "data": {
-        "offset": 73736,
+        "offset": 73768,
         "length": 16
       }
     },
@@ -1242,7 +1262,7 @@
       "paletteAddress": "0x9E80",
       "paletteBank": 4,
       "data": {
-        "offset": 73752,
+        "offset": 73784,
         "length": 16
       }
     },
@@ -1253,7 +1273,7 @@
       "paletteAddress": "0xA113",
       "paletteBank": 4,
       "data": {
-        "offset": 73992,
+        "offset": 74024,
         "length": 16
       }
     },
@@ -1264,27 +1284,27 @@
       "paletteAddress": "0xA124",
       "paletteBank": 4,
       "data": {
-        "offset": 74008,
+        "offset": 74040,
         "length": 16
       }
     },
     {
-      "id": "castlevania-bridge-day",
-      "segmentId": "castlevania-bridge",
+      "id": "west-bridge-day",
+      "segmentId": "west-bridge",
       "variant": "day",
       "paletteAddress": "0xCB04",
       "data": {
-        "offset": 74248,
+        "offset": 74280,
         "length": 16
       }
     },
     {
-      "id": "castlevania-bridge-night",
-      "segmentId": "castlevania-bridge",
+      "id": "west-bridge-night",
+      "segmentId": "west-bridge",
       "variant": "night",
       "paletteAddress": "0xCB15",
       "data": {
-        "offset": 74264,
+        "offset": 74296,
         "length": 16
       }
     },
@@ -1295,7 +1315,7 @@
       "paletteAddress": "0xA150",
       "paletteBank": 4,
       "data": {
-        "offset": 86880,
+        "offset": 86912,
         "length": 16
       }
     },
@@ -1306,7 +1326,7 @@
       "paletteAddress": "0x9FE8",
       "paletteBank": 4,
       "data": {
-        "offset": 87008,
+        "offset": 87040,
         "length": 16
       }
     },
@@ -1317,71 +1337,71 @@
       "paletteAddress": "0x9FF9",
       "paletteBank": 4,
       "data": {
-        "offset": 87024,
+        "offset": 87056,
         "length": 16
       }
     },
     {
-      "id": "long-bridge-to-borgia-mountains-day",
-      "segmentId": "long-bridge-to-borgia-mountains",
+      "id": "east-bridge-day",
+      "segmentId": "east-bridge",
       "variant": "day",
       "paletteAddress": "0xCAF3",
       "data": {
-        "offset": 87264,
+        "offset": 87296,
         "length": 16
       }
     },
     {
-      "id": "long-bridge-to-borgia-mountains-night",
-      "segmentId": "long-bridge-to-borgia-mountains",
+      "id": "east-bridge-night",
+      "segmentId": "east-bridge",
       "variant": "night",
       "paletteAddress": "0xCB15",
       "data": {
-        "offset": 87280,
+        "offset": 87312,
         "length": 16
       }
     },
     {
-      "id": "borgia-mountains-dead-end-swamp-day",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "id": "denis-marsh-day",
+      "segmentId": "denis-marsh",
       "variant": "day",
       "paletteAddress": "0xA01B",
       "paletteBank": 4,
       "data": {
-        "offset": 87520,
+        "offset": 87552,
         "length": 16
       }
     },
     {
-      "id": "borgia-mountains-dead-end-swamp-night",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "id": "denis-marsh-night",
+      "segmentId": "denis-marsh",
       "variant": "night",
       "paletteAddress": "0xA02C",
       "paletteBank": 4,
       "data": {
-        "offset": 87536,
+        "offset": 87568,
         "length": 16
       }
     },
     {
-      "id": "yuba-lake-path-day",
-      "segmentId": "yuba-lake-path",
+      "id": "lower-road-day",
+      "segmentId": "lower-road",
       "variant": "day",
       "paletteAddress": "0xA00A",
       "paletteBank": 4,
       "data": {
-        "offset": 87776,
+        "offset": 87808,
         "length": 16
       }
     },
     {
-      "id": "yuba-lake-path-night",
-      "segmentId": "yuba-lake-path",
+      "id": "lower-road-night",
+      "segmentId": "lower-road",
       "variant": "night",
       "paletteAddress": "0xA00A",
       "paletteBank": 4,
       "data": {
-        "offset": 87792,
+        "offset": 87824,
         "length": 16
       }
     },
@@ -1391,7 +1411,7 @@
       "variant": "day",
       "paletteAddress": "0xCAF3",
       "data": {
-        "offset": 87864,
+        "offset": 87896,
         "length": 16
       }
     },
@@ -1401,7 +1421,7 @@
       "variant": "night",
       "paletteAddress": "0xCB15",
       "data": {
-        "offset": 87880,
+        "offset": 87912,
         "length": 16
       }
     },
@@ -1411,7 +1431,7 @@
       "variant": "day",
       "paletteAddress": "0xCAF3",
       "data": {
-        "offset": 87952,
+        "offset": 87984,
         "length": 16
       }
     },
@@ -1421,7 +1441,7 @@
       "variant": "night",
       "paletteAddress": "0xCB15",
       "data": {
-        "offset": 87968,
+        "offset": 88000,
         "length": 16
       }
     },
@@ -1432,7 +1452,7 @@
       "paletteAddress": "0x9F78",
       "paletteBank": 4,
       "data": {
-        "offset": 88040,
+        "offset": 88072,
         "length": 16
       }
     },
@@ -1443,7 +1463,7 @@
       "paletteAddress": "0x9F33",
       "paletteBank": 4,
       "data": {
-        "offset": 88056,
+        "offset": 88088,
         "length": 16
       }
     }
@@ -1454,7 +1474,7 @@
       "label": "Town actor sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F2A..0x9F31",
       "data": {
-        "offset": 96264,
+        "offset": 96296,
         "length": 16
       },
       "bytes": [
@@ -1481,7 +1501,7 @@
       "label": "Town actor sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 96280,
+        "offset": 96312,
         "length": 16
       },
       "bytes": [
@@ -1508,7 +1528,7 @@
       "label": "Jova Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 96296,
+        "offset": 96328,
         "length": 16
       },
       "bytes": [
@@ -1535,7 +1555,7 @@
       "label": "Jova Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 96312,
+        "offset": 96344,
         "length": 16
       },
       "bytes": [
@@ -1562,7 +1582,7 @@
       "label": "South Bridge sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 96328,
+        "offset": 96360,
         "length": 16
       },
       "bytes": [
@@ -1589,7 +1609,7 @@
       "label": "South Bridge sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 96344,
+        "offset": 96376,
         "length": 16
       },
       "bytes": [
@@ -1616,7 +1636,7 @@
       "label": "Veros Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 96360,
+        "offset": 96392,
         "length": 16
       },
       "bytes": [
@@ -1643,7 +1663,7 @@
       "label": "Veros Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 96376,
+        "offset": 96408,
         "length": 16
       },
       "bytes": [
@@ -1670,7 +1690,7 @@
       "label": "Denis Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 96392,
+        "offset": 96424,
         "length": 16
       },
       "bytes": [
@@ -1697,7 +1717,7 @@
       "label": "Denis Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 96408,
+        "offset": 96440,
         "length": 16
       },
       "bytes": [
@@ -1724,7 +1744,7 @@
       "label": "Dabi's Path sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 96424,
+        "offset": 96456,
         "length": 16
       },
       "bytes": [
@@ -1751,7 +1771,7 @@
       "label": "Dabi's Path sprites, night (same ROM palette transfer as day)",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 96440,
+        "offset": 96472,
         "length": 16
       },
       "bytes": [
@@ -1778,7 +1798,7 @@
       "label": "Denis/Aljiba Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F7..0x88F8->aux:0x31->rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 96456,
+        "offset": 96488,
         "length": 16
       },
       "bytes": [
@@ -1805,7 +1825,7 @@
       "label": "Denis/Aljiba Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F7..0x88F8->aux:0x31->rom:0xCB38..0xCB3F",
       "data": {
-        "offset": 96472,
+        "offset": 96504,
         "length": 16
       },
       "bytes": [
@@ -1832,7 +1852,7 @@
       "label": "Yuba Lake Path sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F9..0x88FA->aux:0x32->rom:0xCB41..0xCB48",
       "data": {
-        "offset": 96488,
+        "offset": 96520,
         "length": 16
       },
       "bytes": [
@@ -1859,7 +1879,7 @@
       "label": "Yuba Lake Path sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F9..0x88FA->aux:0x32->rom:0xCB41..0xCB48",
       "data": {
-        "offset": 96504,
+        "offset": 96536,
         "length": 16
       },
       "bytes": [
@@ -1886,7 +1906,7 @@
       "label": "Belasco Marsh sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB41..0xCB48",
       "data": {
-        "offset": 96520,
+        "offset": 96552,
         "length": 16
       },
       "bytes": [
@@ -1913,7 +1933,7 @@
       "label": "Belasco Marsh sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom:0xCB41..0xCB48",
       "data": {
-        "offset": 96536,
+        "offset": 96568,
         "length": 16
       },
       "bytes": [
@@ -1940,7 +1960,7 @@
       "label": "Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F6F..0x9F76",
       "data": {
-        "offset": 96552,
+        "offset": 96584,
         "length": 16
       },
       "bytes": [
@@ -1967,7 +1987,7 @@
       "label": "Lauber Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8927..0x8928->aux:0x49->rom-bank4:0x9F89..0x9F90",
       "data": {
-        "offset": 96568,
+        "offset": 96600,
         "length": 16
       },
       "bytes": [
@@ -1994,7 +2014,7 @@
       "label": "Brahm Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8929..0x892A->aux:0x4A->rom-bank4:0x9FA3..0x9FAA",
       "data": {
-        "offset": 96584,
+        "offset": 96616,
         "length": 16
       },
       "bytes": [
@@ -2021,7 +2041,7 @@
       "label": "Bodley Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9FBD..0x9FC4",
       "data": {
-        "offset": 96600,
+        "offset": 96632,
         "length": 16
       },
       "bytes": [
@@ -2048,7 +2068,7 @@
       "label": "Laruba Mansion interior sprites, fixed palette",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0x9F55..0x9F5C",
       "data": {
-        "offset": 96616,
+        "offset": 96648,
         "length": 16
       },
       "bytes": [
@@ -2075,7 +2095,7 @@
       "label": "Camilla Cemetery sprites, day",
       "source": "out/actor-traces/camilla-cemetery-day-idle/ppu-final-3f00-3f1f-palettes.bin",
       "data": {
-        "offset": 96632,
+        "offset": 96664,
         "length": 16
       },
       "bytes": [
@@ -2102,7 +2122,7 @@
       "label": "Camilla Cemetery sprites, night",
       "source": "out/actor-traces/camilla-cemetery-night-idle/ppu-final-3f00-3f1f-palettes.bin",
       "data": {
-        "offset": 96648,
+        "offset": 96680,
         "length": 16
       },
       "bytes": [
@@ -2129,7 +2149,7 @@
       "label": "Joma Marsh Part 1 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FF..0x8900->aux:0x35->rom-bank4:0xA0C5..0xA0CC",
       "data": {
-        "offset": 96664,
+        "offset": 96696,
         "length": 16
       },
       "bytes": [
@@ -2156,7 +2176,7 @@
       "label": "Joma Marsh Part 1 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FF..0x8900->aux:0x35->rom-bank4:0xA0C5..0xA0CC",
       "data": {
-        "offset": 96680,
+        "offset": 96712,
         "length": 16
       },
       "bytes": [
@@ -2183,7 +2203,7 @@
       "label": "Joma Marsh Part 2 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8905..0x8906->aux:0x38->rom-bank4:0xA0D7..0xA0DE",
       "data": {
-        "offset": 96696,
+        "offset": 96728,
         "length": 16
       },
       "bytes": [
@@ -2210,7 +2230,7 @@
       "label": "Joma Marsh Part 2 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8905..0x8906->aux:0x38->rom-bank4:0xA0D7..0xA0DE",
       "data": {
-        "offset": 96712,
+        "offset": 96744,
         "length": 16
       },
       "bytes": [
@@ -2237,7 +2257,7 @@
       "label": "Joma Marsh Part 3 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 96728,
+        "offset": 96760,
         "length": 16
       },
       "bytes": [
@@ -2264,7 +2284,7 @@
       "label": "Joma Marsh Part 3 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 96744,
+        "offset": 96776,
         "length": 16
       },
       "bytes": [
@@ -2291,7 +2311,7 @@
       "label": "Debious Woods Part 3 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 96760,
+        "offset": 96792,
         "length": 16
       },
       "bytes": [
@@ -2318,7 +2338,7 @@
       "label": "Debious Woods Part 3 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 96776,
+        "offset": 96808,
         "length": 16
       },
       "bytes": [
@@ -2345,7 +2365,7 @@
       "label": "Debious Woods Part 2 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 96792,
+        "offset": 96824,
         "length": 16
       },
       "bytes": [
@@ -2372,7 +2392,7 @@
       "label": "Debious Woods Part 2 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 96808,
+        "offset": 96840,
         "length": 16
       },
       "bytes": [
@@ -2399,7 +2419,7 @@
       "label": "Debious Woods Part 1 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 96824,
+        "offset": 96856,
         "length": 16
       },
       "bytes": [
@@ -2426,7 +2446,7 @@
       "label": "Debious Woods Part 1 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 96840,
+        "offset": 96872,
         "length": 16
       },
       "bytes": [
@@ -2453,7 +2473,7 @@
       "label": "Wicked Ditch sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x891F..0x8920->aux:0x45->rom-bank4:0xA13E..0xA145",
       "data": {
-        "offset": 96856,
+        "offset": 96888,
         "length": 16
       },
       "bytes": [
@@ -2480,7 +2500,7 @@
       "label": "Wicked Ditch sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x891F..0x8920->aux:0x45->rom-bank4:0xA13E..0xA145",
       "data": {
-        "offset": 96872,
+        "offset": 96904,
         "length": 16
       },
       "bytes": [
@@ -2507,7 +2527,7 @@
       "label": "Town of Doina sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F1..0x88F2->aux:0x2E->rom-bank4:0x9F2A..0x9F31",
       "data": {
-        "offset": 96888,
+        "offset": 96920,
         "length": 16
       },
       "bytes": [
@@ -2534,7 +2554,7 @@
       "label": "Town of Doina sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 96904,
+        "offset": 96936,
         "length": 16
       },
       "bytes": [
@@ -2561,7 +2581,7 @@
       "label": "North Bridge sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 96920,
+        "offset": 96952,
         "length": 16
       },
       "bytes": [
@@ -2588,7 +2608,7 @@
       "label": "North Bridge sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 96936,
+        "offset": 96968,
         "length": 16
       },
       "bytes": [
@@ -2615,7 +2635,7 @@
       "label": "Dora Woods Part 1 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 96952,
+        "offset": 96984,
         "length": 16
       },
       "bytes": [
@@ -2642,7 +2662,7 @@
       "label": "Dora Woods Part 1 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 96968,
+        "offset": 97000,
         "length": 16
       },
       "bytes": [
@@ -2669,7 +2689,7 @@
       "label": "Dora Woods Part 2 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F5..0x88F6->aux:0x30->rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 96984,
+        "offset": 97016,
         "length": 16
       },
       "bytes": [
@@ -2696,7 +2716,7 @@
       "label": "Dora Woods Part 2 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F5..0x88F6->aux:0x30->rom:0xCB2F..0xCB36",
       "data": {
-        "offset": 97000,
+        "offset": 97032,
         "length": 16
       },
       "bytes": [
@@ -2723,7 +2743,7 @@
       "label": "Town of Yomi sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F1..0x88F2->aux:0x2E->rom-bank4:0x9F2A..0x9F31",
       "data": {
-        "offset": 97016,
+        "offset": 97048,
         "length": 16
       },
       "bytes": [
@@ -2750,7 +2770,7 @@
       "label": "Town of Yomi sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8903..0x8904->aux:0x37->rom:0xCB5C..0xCB63",
       "data": {
-        "offset": 97032,
+        "offset": 97064,
         "length": 16
       },
       "bytes": [
@@ -2777,7 +2797,7 @@
       "label": "Vrad Graveyard sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
       "data": {
-        "offset": 97048,
+        "offset": 97080,
         "length": 16
       },
       "bytes": [
@@ -2804,7 +2824,7 @@
       "label": "Vrad Graveyard sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
       "data": {
-        "offset": 97064,
+        "offset": 97096,
         "length": 16
       },
       "bytes": [
@@ -2831,7 +2851,7 @@
       "label": "Castlevania Bridge sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
       "data": {
-        "offset": 97080,
+        "offset": 97112,
         "length": 16
       },
       "bytes": [
@@ -2858,7 +2878,7 @@
       "label": "Castlevania Bridge sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x8921..0x8922->aux:0x46->rom-bank4:0xA147..0xA14E",
       "data": {
-        "offset": 97096,
+        "offset": 97128,
         "length": 16
       },
       "bytes": [
@@ -2885,7 +2905,7 @@
       "label": "Castlevania final area sprites",
       "source": "out/captures/castlevania-final-area/ppu-3f00-3f1f-palettes.bin",
       "data": {
-        "offset": 97112,
+        "offset": 97144,
         "length": 16
       },
       "bytes": [
@@ -2912,7 +2932,7 @@
       "label": "Dora Woods Part 3 sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 97128,
+        "offset": 97160,
         "length": 16
       },
       "bytes": [
@@ -2939,7 +2959,7 @@
       "label": "Dora Woods Part 3 sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FB..0x88FC->aux:0x33->rom:0xCB4A..0xCB51",
       "data": {
-        "offset": 97144,
+        "offset": 97176,
         "length": 16
       },
       "bytes": [
@@ -2966,7 +2986,7 @@
       "label": "Long Bridge to Bordia Mountains sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F3..0x88F4->aux:0x2F->rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 97160,
+        "offset": 97192,
         "length": 16
       },
       "bytes": [
@@ -2993,7 +3013,7 @@
       "label": "Long Bridge to Bordia Mountains sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88F3..0x88F4->aux:0x2F->rom:0xCB26..0xCB2D",
       "data": {
-        "offset": 97176,
+        "offset": 97208,
         "length": 16
       },
       "bytes": [
@@ -3020,7 +3040,7 @@
       "label": "Bordia Mountains Dead End Swamp sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FD..0x88FE->aux:0x34->rom:0xCB53..0xCB5A",
       "data": {
-        "offset": 97192,
+        "offset": 97224,
         "length": 16
       },
       "bytes": [
@@ -3047,7 +3067,7 @@
       "label": "Bordia Mountains Dead End Swamp sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank7:0x88FD..0x88FE->aux:0x34->rom:0xCB53..0xCB5A",
       "data": {
-        "offset": 97208,
+        "offset": 97240,
         "length": 16
       },
       "bytes": [
@@ -3074,7 +3094,7 @@
       "label": "Sadam Woods sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA0CE..0xA0D5",
       "data": {
-        "offset": 97224,
+        "offset": 97256,
         "length": 16
       },
       "bytes": [
@@ -3101,7 +3121,7 @@
       "label": "Sadam Woods sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA0CE..0xA0D5",
       "data": {
-        "offset": 97240,
+        "offset": 97272,
         "length": 16
       },
       "bytes": [
@@ -3128,7 +3148,7 @@
       "label": "Deborah Cliff sprites, day",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA135..0xA13C",
       "data": {
-        "offset": 97256,
+        "offset": 97288,
         "length": 16
       },
       "bytes": [
@@ -3155,7 +3175,7 @@
       "label": "Deborah Cliff sprites, night",
       "source": "rom:0xCAAE..0xCAB5+rom-bank4:0xA135..0xA13C",
       "data": {
-        "offset": 97272,
+        "offset": 97304,
         "length": 16
       },
       "bytes": [
@@ -4965,9 +4985,9 @@
       }
     },
     {
-      "id": "joma-marsh-part-3",
+      "id": "debious-woods",
       "locationId": "obj03-area03-sub01-joma-marsh-part-3-fire-and-skulls",
-      "label": "Joma Marsh - Part 3",
+      "label": "Debious Woods",
       "sourceName": "Joma Marsh - Part 3 (Fire and Skulls)",
       "position": {
         "x": 13056,
@@ -4975,7 +4995,7 @@
         "width": 1024,
         "height": 224
       },
-      "sourceId": "joma-marsh-part-3",
+      "sourceId": "debious-woods",
       "visibilityLayer": null,
       "presentationBackground": null,
       "blockSize": 32,
@@ -4997,8 +5017,8 @@
       ],
       "defaultVariant": "day",
       "palettes": {
-        "day": "joma-marsh-part-3-day",
-        "night": "joma-marsh-part-3-night"
+        "day": "debious-woods-day",
+        "night": "debious-woods-night"
       },
       "atlasEntries": {
         "day": "obj03-area03-sub01-joma-marsh-part-3-fire-and-skulls-day",
@@ -5016,9 +5036,9 @@
       }
     },
     {
-      "id": "debious-woods-part-3",
+      "id": "uta-lower-road-2",
       "locationId": "obj03-area03-sub02-debious-woods-part-3",
-      "label": "Debious Woods - Part 3",
+      "label": "Uta Lower Road 2",
       "sourceName": "Debious Woods - Part 3",
       "position": {
         "x": 14080,
@@ -5026,7 +5046,7 @@
         "width": 1024,
         "height": 672
       },
-      "sourceId": "debious-woods-part-3",
+      "sourceId": "uta-lower-road-2",
       "visibilityLayer": null,
       "presentationBackground": null,
       "blockSize": 32,
@@ -5048,8 +5068,8 @@
       ],
       "defaultVariant": "day",
       "palettes": {
-        "day": "debious-woods-part-3-day",
-        "night": "debious-woods-part-3-night"
+        "day": "uta-lower-road-2-day",
+        "night": "uta-lower-road-2-night"
       },
       "atlasEntries": {
         "day": "obj03-area03-sub02-debious-woods-part-3-day",
@@ -5067,31 +5087,36 @@
       }
     },
     {
-      "id": "debious-woods-part-2",
+      "id": "uta-lower-road-1",
       "locationId": "obj03-area03-sub03-debious-woods-part-2",
-      "label": "Debious Woods - Part 2",
+      "label": "Uta Lower Road 1",
       "sourceName": "Debious Woods - Part 2",
       "position": {
         "x": 15104,
         "y": 0,
         "width": 256,
-        "height": 448
+        "height": 224
       },
-      "sourceId": "debious-woods-part-2",
+      "sourceId": "uta-lower-road-1",
       "visibilityLayer": null,
       "presentationBackground": null,
       "blockSize": 32,
       "tileSize": 8,
       "blockWidth": 8,
-      "blockHeight": 14,
+      "blockHeight": 7,
       "tileWidth": 32,
-      "tileHeight": 56,
-      "crop": null,
+      "tileHeight": 28,
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 256,
+        "height": 224
+      },
       "chrSet": "chr-04-05",
       "tileSet": "tiles-4-918a-91d0",
       "layoutBlocks": {
         "offset": 72024,
-        "length": 112
+        "length": 56
       },
       "variants": [
         "day",
@@ -5099,8 +5124,8 @@
       ],
       "defaultVariant": "day",
       "palettes": {
-        "day": "debious-woods-part-2-day",
-        "night": "debious-woods-part-2-night"
+        "day": "uta-lower-road-1-day",
+        "night": "uta-lower-road-1-night"
       },
       "atlasEntries": {
         "day": "obj03-area03-sub03-debious-woods-part-2-day",
@@ -5118,9 +5143,65 @@
       }
     },
     {
-      "id": "debious-woods-part-1",
+      "id": "uta-lower-road-1-revealed-route",
+      "locationId": "obj03-area03-sub03-debious-woods-part-2",
+      "label": "Uta Lower Road 1 revealed route",
+      "sourceName": "Debious Woods - Part 2",
+      "position": {
+        "x": 15104,
+        "y": 224,
+        "width": 256,
+        "height": 224
+      },
+      "sourceId": "uta-lower-road-1-revealed-route",
+      "visibilityLayer": "secrets",
+      "presentationBackground": null,
+      "blockSize": 32,
+      "tileSize": 8,
+      "blockWidth": 8,
+      "blockHeight": 7,
+      "tileWidth": 32,
+      "tileHeight": 28,
+      "crop": {
+        "x": 0,
+        "y": 224,
+        "width": 256,
+        "height": 224
+      },
+      "chrSet": "chr-04-05",
+      "tileSet": "tiles-4-918a-91d0",
+      "layoutBlocks": {
+        "offset": 72112,
+        "length": 56
+      },
+      "variants": [
+        "day",
+        "night"
+      ],
+      "defaultVariant": "day",
+      "palettes": {
+        "day": "uta-lower-road-1-revealed-route-day",
+        "night": "uta-lower-road-1-revealed-route-night"
+      },
+      "atlasEntries": {
+        "day": "obj03-area03-sub03-debious-woods-part-2-day",
+        "night": "obj03-area03-sub03-debious-woods-part-2-night"
+      },
+      "recipeStatus": {
+        "day": "projected",
+        "night": "projected"
+      },
+      "provenance": {
+        "pixels": "rom-derived",
+        "layout": "presentation-authored",
+        "presentationBackground": null,
+        "binary": "rom-derived-tile-data"
+      }
+    },
+    {
+      "id": "uta-road",
       "locationId": "obj03-area03-sub04-debious-woods-part-1",
-      "label": "Debious Woods - Part 1",
+      "label": "Uta Road",
       "sourceName": "Debious Woods - Part 1",
       "position": {
         "x": 15360,
@@ -5128,7 +5209,7 @@
         "width": 256,
         "height": 224
       },
-      "sourceId": "debious-woods-part-1",
+      "sourceId": "uta-road",
       "visibilityLayer": null,
       "presentationBackground": null,
       "blockSize": 32,
@@ -5141,7 +5222,7 @@
       "chrSet": "chr-04-05",
       "tileSet": "tiles-4-918a-91d0",
       "layoutBlocks": {
-        "offset": 72168,
+        "offset": 72200,
         "length": 56
       },
       "variants": [
@@ -5150,8 +5231,8 @@
       ],
       "defaultVariant": "day",
       "palettes": {
-        "day": "debious-woods-part-1-day",
-        "night": "debious-woods-part-1-night"
+        "day": "uta-road-day",
+        "night": "uta-road-night"
       },
       "atlasEntries": {
         "day": "obj03-area03-sub04-debious-woods-part-1-day",
@@ -5192,7 +5273,7 @@
       "chrSet": "chr-08-09",
       "tileSet": "tiles-4-8891-88d4",
       "layoutBlocks": {
-        "offset": 72256,
+        "offset": 72288,
         "length": 56
       },
       "variants": [
@@ -5243,7 +5324,7 @@
       "chrSet": "chr-06-07",
       "tileSet": "tiles-4-9620-965f",
       "layoutBlocks": {
-        "offset": 72344,
+        "offset": 72376,
         "length": 224
       },
       "variants": [
@@ -5294,7 +5375,7 @@
       "chrSet": "chr-00-01",
       "tileSet": "tiles-4-841d-8461",
       "layoutBlocks": {
-        "offset": 72600,
+        "offset": 72632,
         "length": 224
       },
       "variants": [
@@ -5345,7 +5426,7 @@
       "chrSet": "chr-02-03",
       "tileSet": "tiles-4-8cf4-8d3a",
       "layoutBlocks": {
-        "offset": 72856,
+        "offset": 72888,
         "length": 224
       },
       "variants": [
@@ -5396,7 +5477,7 @@
       "chrSet": "chr-02-03",
       "tileSet": "tiles-4-8cf4-8d3a",
       "layoutBlocks": {
-        "offset": 73112,
+        "offset": 73144,
         "length": 112
       },
       "variants": [
@@ -5447,7 +5528,7 @@
       "chrSet": "chr-02-03",
       "tileSet": "tiles-4-8cf4-8d3a",
       "layoutBlocks": {
-        "offset": 73256,
+        "offset": 73288,
         "length": 224
       },
       "variants": [
@@ -5498,7 +5579,7 @@
       "chrSet": "chr-00-01",
       "tileSet": "tiles-4-841d-8461",
       "layoutBlocks": {
-        "offset": 73512,
+        "offset": 73544,
         "length": 224
       },
       "variants": [
@@ -5549,7 +5630,7 @@
       "chrSet": "chr-06-07",
       "tileSet": "tiles-4-9620-965f",
       "layoutBlocks": {
-        "offset": 73768,
+        "offset": 73800,
         "length": 224
       },
       "variants": [
@@ -5577,9 +5658,9 @@
       }
     },
     {
-      "id": "castlevania-bridge",
+      "id": "west-bridge",
       "locationId": "obj04-area03-sub01-castlevania-bridge",
-      "label": "Castlevania Bridge",
+      "label": "West Bridge",
       "sourceName": "Castlevania Bridge",
       "position": {
         "x": 22016,
@@ -5587,7 +5668,7 @@
         "width": 1024,
         "height": 224
       },
-      "sourceId": "castlevania-bridge",
+      "sourceId": "west-bridge",
       "visibilityLayer": null,
       "presentationBackground": null,
       "blockSize": 32,
@@ -5600,7 +5681,7 @@
       "chrSet": "chr-06-07",
       "tileSet": "tiles-4-9620-965f",
       "layoutBlocks": {
-        "offset": 74024,
+        "offset": 74056,
         "length": 224
       },
       "variants": [
@@ -5609,8 +5690,8 @@
       ],
       "defaultVariant": "day",
       "palettes": {
-        "day": "castlevania-bridge-day",
-        "night": "castlevania-bridge-night"
+        "day": "west-bridge-day",
+        "night": "west-bridge-night"
       },
       "atlasEntries": {
         "day": "obj04-area03-sub01-castlevania-bridge-day",
@@ -5651,7 +5732,7 @@
       "chrSet": "chr-0b-0c",
       "tileSet": "tiles-4-9a3f-9a80",
       "layoutBlocks": {
-        "offset": 86824,
+        "offset": 86856,
         "length": 56
       },
       "variants": [
@@ -5698,7 +5779,7 @@
       "chrSet": "chr-02-03",
       "tileSet": "tiles-4-8cf4-8d3a",
       "layoutBlocks": {
-        "offset": 86896,
+        "offset": 86928,
         "length": 112
       },
       "variants": [
@@ -5726,9 +5807,9 @@
       }
     },
     {
-      "id": "long-bridge-to-borgia-mountains",
+      "id": "east-bridge",
       "locationId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp",
-      "label": "Long Bridge to Bordia Mountains",
+      "label": "East Bridge",
       "sourceName": "Long Bridge to Bordia Mountains (Dead End Swamp)",
       "position": {
         "x": 20480,
@@ -5736,7 +5817,7 @@
         "width": 1024,
         "height": 224
       },
-      "sourceId": "long-bridge-to-borgia-mountains",
+      "sourceId": "east-bridge",
       "visibilityLayer": null,
       "presentationBackground": null,
       "blockSize": 32,
@@ -5749,7 +5830,7 @@
       "chrSet": "chr-02-03",
       "tileSet": "tiles-4-8cf4-8d3a",
       "layoutBlocks": {
-        "offset": 87040,
+        "offset": 87072,
         "length": 224
       },
       "variants": [
@@ -5758,8 +5839,8 @@
       ],
       "defaultVariant": "day",
       "palettes": {
-        "day": "long-bridge-to-borgia-mountains-day",
-        "night": "long-bridge-to-borgia-mountains-night"
+        "day": "east-bridge-day",
+        "night": "east-bridge-night"
       },
       "atlasEntries": {
         "day": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-day",
@@ -5777,9 +5858,9 @@
       }
     },
     {
-      "id": "borgia-mountains-dead-end-swamp",
+      "id": "denis-marsh",
       "locationId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp",
-      "label": "Bordia Mountains",
+      "label": "Denis Marsh",
       "sourceName": "Bordia Mountains (Dead End Swamp)",
       "position": {
         "x": 21504,
@@ -5787,7 +5868,7 @@
         "width": 1024,
         "height": 224
       },
-      "sourceId": "borgia-mountains-dead-end-swamp",
+      "sourceId": "denis-marsh",
       "visibilityLayer": null,
       "presentationBackground": null,
       "blockSize": 32,
@@ -5800,7 +5881,7 @@
       "chrSet": "chr-02-03",
       "tileSet": "tiles-4-8cf4-8d3a",
       "layoutBlocks": {
-        "offset": 87296,
+        "offset": 87328,
         "length": 224
       },
       "variants": [
@@ -5809,8 +5890,8 @@
       ],
       "defaultVariant": "day",
       "palettes": {
-        "day": "borgia-mountains-dead-end-swamp-day",
-        "night": "borgia-mountains-dead-end-swamp-night"
+        "day": "denis-marsh-day",
+        "night": "denis-marsh-night"
       },
       "atlasEntries": {
         "day": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-day",
@@ -5828,9 +5909,9 @@
       }
     },
     {
-      "id": "yuba-lake-path",
+      "id": "lower-road",
       "locationId": "obj02-area05-sub00-yuba-lake-path",
-      "label": "Yuba Lake Path",
+      "label": "Lower Road",
       "sourceName": "Yuba Lake Path",
       "position": {
         "x": 8192,
@@ -5838,7 +5919,7 @@
         "width": 1024,
         "height": 224
       },
-      "sourceId": "yuba-lake-path",
+      "sourceId": "lower-road",
       "visibilityLayer": null,
       "presentationBackground": null,
       "blockSize": 32,
@@ -5851,7 +5932,7 @@
       "chrSet": "chr-02-03",
       "tileSet": "tiles-4-8cf4-8d3a",
       "layoutBlocks": {
-        "offset": 87552,
+        "offset": 87584,
         "length": 224
       },
       "variants": [
@@ -5860,8 +5941,8 @@
       ],
       "defaultVariant": "day",
       "palettes": {
-        "day": "yuba-lake-path-day",
-        "night": "yuba-lake-path-night"
+        "day": "lower-road-day",
+        "night": "lower-road-night"
       },
       "atlasEntries": {
         "day": "obj02-area05-sub00-yuba-lake-path-day",
@@ -5907,7 +5988,7 @@
       "chrSet": "chr-02-03",
       "tileSet": "tiles-4-8cf4-8d3a",
       "layoutBlocks": {
-        "offset": 87808,
+        "offset": 87840,
         "length": 56
       },
       "variants": [
@@ -5963,7 +6044,7 @@
       "chrSet": "chr-02-03",
       "tileSet": "tiles-4-8cf4-8d3a",
       "layoutBlocks": {
-        "offset": 87896,
+        "offset": 87928,
         "length": 56
       },
       "variants": [
@@ -6014,7 +6095,7 @@
       "chrSet": "chr-08-09",
       "tileSet": "tiles-4-8891-88d4",
       "layoutBlocks": {
-        "offset": 87984,
+        "offset": 88016,
         "length": 56
       },
       "variants": [
@@ -7628,11 +7709,11 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-destructible-116-24-2x2",
+      "id": "debious-woods-destructible-116-24-2x2",
       "label": "Breakable blocks",
       "kind": "destructible-terrain",
       "role": "secret-reward",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "tileRect": {
         "x": 116,
         "y": 24,
@@ -7648,7 +7729,7 @@
           "height": 2
         }
       ],
-      "linkedActorId": "joma-marsh-part-3-hidden-clue-book-7284",
+      "linkedActorId": "debious-woods-hidden-clue-book-7284",
       "signatureId": "destructible-block-2x2",
       "signatureLabel": "Destructible block",
       "action": "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.",
@@ -7667,11 +7748,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-destructible-102-56-2x8",
+      "id": "uta-lower-road-2-destructible-102-56-2x8",
       "label": "Breakable blocks",
       "kind": "destructible-terrain",
       "role": "breakable-terrain",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "tileRect": {
         "x": 102,
         "y": 56,
@@ -7724,11 +7805,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-destructible-62-72-2x8",
+      "id": "uta-lower-road-2-destructible-62-72-2x8",
       "label": "Breakable blocks",
       "kind": "destructible-terrain",
       "role": "breakable-terrain",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "tileRect": {
         "x": 62,
         "y": 72,
@@ -7781,11 +7862,11 @@
       }
     },
     {
-      "id": "castlevania-bridge-destructible-8-16-2x4",
+      "id": "west-bridge-destructible-8-16-2x4",
       "label": "Breakable blocks",
       "kind": "destructible-terrain",
       "role": "breakable-terrain",
-      "segmentId": "castlevania-bridge",
+      "segmentId": "west-bridge",
       "tileRect": {
         "x": 8,
         "y": 16,
@@ -13627,11 +13708,11 @@
         "height": 224
       },
       "condition": {
-        "playerFacing": "Kneel by Yuba Lake with the Blue Crystal or a better crystal to reveal the route to Lauber Mansion."
+        "playerFacing": "Kneel by Yuba Lake with the Blue Crystal or better to reveal the route to Lauber Mansion."
       },
       "dialog": {
         "tone": "guide-authored",
-        "text": "Yuba Lake reveal\n----------\nKneel by Yuba Lake with the Blue Crystal or a better crystal to reveal the route to Lauber Mansion."
+        "text": "Yuba Lake reveal\n----------\nKneel by Yuba Lake with the Blue Crystal or better to reveal the route to Lauber Mansion."
       },
       "dialogs": null,
       "itemReward": null,
@@ -13651,12 +13732,58 @@
       }
     },
     {
-      "id": "bordia-mountains-hidden-staircase",
+      "id": "uta-lower-road-blue-crystal-kneel-route",
+      "label": "Uta Lower Road reveal",
+      "kind": "secret",
+      "interactive": true,
+      "effect": "guide-hotspot",
+      "segmentId": "uta-lower-road-1",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "pixelX": 0,
+      "pixelY": 0,
+      "worldX": 15104,
+      "worldY": 0,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 256,
+        "height": 224
+      },
+      "condition": {
+        "playerFacing": "Kneel on Uta Lower Road with the Blue Crystal or better to reveal the lower path."
+      },
+      "dialog": {
+        "tone": "guide-authored",
+        "text": "Uta Lower Road reveal\n----------\nKneel on Uta Lower Road with the Blue Crystal or better to reveal the lower path."
+      },
+      "dialogs": null,
+      "itemReward": null,
+      "triggerAnimationFeatureId": null,
+      "visibilityLayer": "secrets",
+      "highlightLayer": "secrets",
+      "highlightShape": null,
+      "render": null,
+      "provenance": {
+        "source": "rom-routine",
+        "routine": "bank 1:$AD96-$ADE6",
+        "evidence": [
+          "Bank 1:$AD9A-$ADA8 checks area RAM $50 == $03 and submap RAM $51 & $7F == $03, identifying Uta Lower Road 1.",
+          "Bank 1:$ADBC-$ADD3 checks selected item RAM $004F == $06, inventory RAM $0091 & $60 >= $40, and Simon state RAM $03D8 == $03.",
+          "Bank 1:$ADD6-$ADE4 sets route state RAM $56 = $01, clears route latch RAM $0195 and action state RAM $4B, then plays sound $2B.",
+          "The routine does not check Simon X/Y within the submap, so the guide highlights the upper Uta Lower Road 1 screen rather than a guessed smaller kneeling spot."
+        ]
+      }
+    },
+    {
+      "id": "denis-marsh-hidden-staircase",
       "label": "Hidden staircase",
       "kind": "secret",
       "interactive": true,
       "effect": "guide-hotspot",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "variants": [
         "day",
         "night"
@@ -13746,12 +13873,12 @@
       }
     },
     {
-      "id": "yuba-lake-path-left-moving-platform-6765",
+      "id": "lower-road-left-moving-platform-6765",
       "label": "Moving platform",
       "kind": "platform",
       "interactive": false,
       "effect": "moving-platform",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "variants": [
         "day",
         "night"
@@ -13899,12 +14026,12 @@
       }
     },
     {
-      "id": "yuba-lake-path-right-moving-platform-676d",
+      "id": "lower-road-right-moving-platform-676d",
       "label": "Moving platform",
       "kind": "platform",
       "interactive": false,
       "effect": "moving-platform",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "variants": [
         "day",
         "night"
@@ -14080,7 +14207,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 0,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 0-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -14215,7 +14344,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 2,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 2-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -14350,7 +14481,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 4,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 4-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -14485,7 +14618,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 6,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 6-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -14620,8 +14755,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "phaseFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing. The guide applies a 32-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing for same-segment platform rows."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 40,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 40-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -14756,8 +14892,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "phaseFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing. The guide applies a 32-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing for same-segment platform rows."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 42,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 42-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -14892,8 +15029,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "phaseFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing. The guide applies a 32-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing for same-segment platform rows."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 44,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 44-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -15028,8 +15166,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "phaseFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing. The guide applies a 32-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing for same-segment platform rows."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 46,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 46-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -15164,7 +15303,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 0,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 0-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -15299,7 +15440,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 2,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 2-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -15434,7 +15577,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 4,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 4-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -15541,12 +15686,12 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-moving-platform-726c",
+      "id": "debious-woods-moving-platform-726c",
       "label": "Moving platform",
       "kind": "platform",
       "interactive": false,
       "effect": "moving-platform",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -15569,8 +15714,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
+        "endpointHoldFrames": 1,
         "phaseFrames": 0,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing. The guide applies a 0-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing for same-segment platform rows."
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 0-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -15677,12 +15823,12 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-moving-platform-7270",
+      "id": "debious-woods-moving-platform-7270",
       "label": "Moving platform",
       "kind": "platform",
       "interactive": false,
       "effect": "moving-platform",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -15705,8 +15851,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "phaseFrames": 16,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing. The guide applies a 16-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing for same-segment platform rows."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 18,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 18-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -15813,12 +15960,12 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-moving-platform-7274",
+      "id": "debious-woods-moving-platform-7274",
       "label": "Moving platform",
       "kind": "platform",
       "interactive": false,
       "effect": "moving-platform",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -15841,8 +15988,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "phaseFrames": 32,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing. The guide applies a 32-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing for same-segment platform rows."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 36,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 36-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -15949,12 +16097,12 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-moving-platform-7278",
+      "id": "debious-woods-moving-platform-7278",
       "label": "Moving platform",
       "kind": "platform",
       "interactive": false,
       "effect": "moving-platform",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -15977,8 +16125,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "phaseFrames": 48,
-        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing. The guide applies a 48-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing for same-segment platform rows."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 54,
+        "source": "Actor id $34 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 54-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -16085,12 +16234,12 @@
       }
     },
     {
-      "id": "debious-woods-part-3-moving-platform-72bd",
+      "id": "uta-lower-road-2-moving-platform-72bd",
       "label": "Moving platform",
       "kind": "platform",
       "interactive": false,
       "effect": "moving-platform",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -16113,7 +16262,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "source": "Actor id $22 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 0,
+        "source": "Actor id $22 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 0-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -16238,12 +16389,12 @@
       }
     },
     {
-      "id": "debious-woods-part-3-moving-platform-72c9",
+      "id": "uta-lower-road-2-moving-platform-72c9",
       "label": "Moving platform",
       "kind": "platform",
       "interactive": false,
       "effect": "moving-platform",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -16266,7 +16417,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "source": "Actor id $22 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 2,
+        "source": "Actor id $22 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 2-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -16391,12 +16544,12 @@
       }
     },
     {
-      "id": "debious-woods-part-3-moving-platform-72d5",
+      "id": "uta-lower-road-2-moving-platform-72d5",
       "label": "Moving platform",
       "kind": "platform",
       "interactive": false,
       "effect": "moving-platform",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -16419,7 +16572,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "source": "Actor id $22 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 4,
+        "source": "Actor id $22 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 4-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -16544,12 +16699,12 @@
       }
     },
     {
-      "id": "debious-woods-part-3-moving-platform-72d9",
+      "id": "uta-lower-road-2-moving-platform-72d9",
       "label": "Moving platform",
       "kind": "platform",
       "interactive": false,
       "effect": "moving-platform",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -16572,7 +16727,9 @@
         "speedPixelsPerFrame": 0.5,
         "frameDurationMs": 16.666666666666668,
         "reversalFrames": 32,
-        "source": "Actor id $22 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal, so these rows travel 16 pixels upward from the row anchor before reversing."
+        "endpointHoldFrames": 1,
+        "phaseFrames": 6,
+        "source": "Actor id $22 dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint. The guide applies a 6-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle."
       },
       "dialog": null,
       "dialogs": null,
@@ -26354,7 +26511,11 @@
       "largeSprites": true,
       "spriteHeight": 16,
       "hp": null,
-      "drawAnchor": null,
+      "drawAnchor": {
+        "offsetX": 0,
+        "offsetY": -12,
+        "source": "Actor loader bank 1:$8055-$8188 writes row X/Y directly to runtime screen anchor RAM $0348/$0324 after scroll subtraction. Actor id $18 routine bank 1:$AE95-$AF11 does not adjust those coordinates; it only changes selector RAM $0300,x through the local $AF12 table. Selectors $C0/$C1/$C2 carry their own metasprite offsets, so Swamp Ghoul keeps the raw runtime X anchor while using the normal row-backed sprite Y presentation anchor."
+      },
       "frameDurationMs": null,
       "blink": null,
       "selectorRecord": null,
@@ -26513,7 +26674,7 @@
         "source": "chr-nonzero-pixels"
       },
       "selectorSource": "direct-selector-list",
-      "proof": "Whole-ROM enemy atlas decoding proves actor id $18 dispatches to PRG bank 1:$AE95 and writes visible animation selectors from the local ROM table at bank 1:$AF12 through STA $0300,x. The visible selector sequence is $C0/$C1/$C2, and the guide keeps that ROM-backed animation sequence. Manual-name matching is not yet proven for this class."
+      "proof": "Whole-ROM enemy atlas decoding proves actor id $18 dispatches to PRG bank 1:$AE95 and writes visible animation selectors from the local ROM table at bank 1:$AF12 through STA $0300,x. The visible selector sequence is $C0/$C1/$C2, and the guide keeps that ROM-backed animation sequence. Manual-name matching is not yet proven for this class. Static ROM decode of bank 1:$AE95-$AF11 proves this actor does not mutate its own X/Y anchor; its rise/idle/sink behavior is selector-driven, so the guide preserves the row-backed Y presentation anchor while avoiding the generic +8 X cell-centering offset."
     },
     {
       "id": "fire-ghoul",
@@ -55749,9 +55910,9 @@
       },
       "tileX": 20,
       "tileY": 12,
-      "pixelX": 328,
+      "pixelX": 320,
       "pixelY": 180,
-      "worldX": 11080,
+      "worldX": 11072,
       "worldY": 404,
       "actorId": "0x18",
       "data": "0x0F",
@@ -55790,9 +55951,9 @@
         "worldY": 416
       },
       "drawAnchor": {
-        "offsetX": 8,
+        "offsetX": 0,
         "offsetY": -12,
-        "source": "rom-row-16px-cell-visual-anchor"
+        "source": "Actor loader bank 1:$8055-$8188 writes row X/Y directly to runtime screen anchor RAM $0348/$0324 after scroll subtraction. Actor id $18 routine bank 1:$AE95-$AF11 does not adjust those coordinates; it only changes selector RAM $0300,x through the local $AF12 table. Selectors $C0/$C1/$C2 carry their own metasprite offsets, so Swamp Ghoul keeps the raw runtime X anchor while using the normal row-backed sprite Y presentation anchor."
       },
       "provenance": {
         "rowOffset": "0x06F67",
@@ -55965,9 +56126,9 @@
       },
       "tileX": 44,
       "tileY": 12,
-      "pixelX": 712,
+      "pixelX": 704,
       "pixelY": 180,
-      "worldX": 11464,
+      "worldX": 11456,
       "worldY": 404,
       "actorId": "0x18",
       "data": "0x0F",
@@ -56006,9 +56167,9 @@
         "worldY": 416
       },
       "drawAnchor": {
-        "offsetX": 8,
+        "offsetX": 0,
         "offsetY": -12,
-        "source": "rom-row-16px-cell-visual-anchor"
+        "source": "Actor loader bank 1:$8055-$8188 writes row X/Y directly to runtime screen anchor RAM $0348/$0324 after scroll subtraction. Actor id $18 routine bank 1:$AE95-$AF11 does not adjust those coordinates; it only changes selector RAM $0300,x through the local $AF12 table. Selectors $C0/$C1/$C2 carry their own metasprite offsets, so Swamp Ghoul keeps the raw runtime X anchor while using the normal row-backed sprite Y presentation anchor."
       },
       "provenance": {
         "rowOffset": "0x06F7B",
@@ -56181,9 +56342,9 @@
       },
       "tileX": 20,
       "tileY": 12,
-      "pixelX": 328,
+      "pixelX": 320,
       "pixelY": 180,
-      "worldX": 12360,
+      "worldX": 12352,
       "worldY": 404,
       "actorId": "0x18",
       "data": "0x0F",
@@ -56222,9 +56383,9 @@
         "worldY": 416
       },
       "drawAnchor": {
-        "offsetX": 8,
+        "offsetX": 0,
         "offsetY": -12,
-        "source": "rom-row-16px-cell-visual-anchor"
+        "source": "Actor loader bank 1:$8055-$8188 writes row X/Y directly to runtime screen anchor RAM $0348/$0324 after scroll subtraction. Actor id $18 routine bank 1:$AE95-$AF11 does not adjust those coordinates; it only changes selector RAM $0300,x through the local $AF12 table. Selectors $C0/$C1/$C2 carry their own metasprite offsets, so Swamp Ghoul keeps the raw runtime X anchor while using the normal row-backed sprite Y presentation anchor."
       },
       "provenance": {
         "rowOffset": "0x07233",
@@ -56397,9 +56558,9 @@
       },
       "tileX": 44,
       "tileY": 12,
-      "pixelX": 712,
+      "pixelX": 704,
       "pixelY": 180,
-      "worldX": 12744,
+      "worldX": 12736,
       "worldY": 404,
       "actorId": "0x18",
       "data": "0x0F",
@@ -56438,9 +56599,9 @@
         "worldY": 416
       },
       "drawAnchor": {
-        "offsetX": 8,
+        "offsetX": 0,
         "offsetY": -12,
-        "source": "rom-row-16px-cell-visual-anchor"
+        "source": "Actor loader bank 1:$8055-$8188 writes row X/Y directly to runtime screen anchor RAM $0348/$0324 after scroll subtraction. Actor id $18 routine bank 1:$AE95-$AF11 does not adjust those coordinates; it only changes selector RAM $0300,x through the local $AF12 table. Selectors $C0/$C1/$C2 carry their own metasprite offsets, so Swamp Ghoul keeps the raw runtime X anchor while using the normal row-backed sprite Y presentation anchor."
       },
       "provenance": {
         "rowOffset": "0x07247",
@@ -56526,11 +56687,11 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-fire-ghoul-7254",
+      "id": "debious-woods-fire-ghoul-7254",
       "classId": "fire-ghoul",
       "label": "Fire ghoul",
       "kind": "enemy",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -56598,11 +56759,11 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-floating-skull-7258",
+      "id": "debious-woods-floating-skull-7258",
       "classId": "floating-skull",
       "label": "Floating skull",
       "kind": "enemy",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -56670,11 +56831,11 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-fire-ghoul-725c",
+      "id": "debious-woods-fire-ghoul-725c",
       "classId": "fire-ghoul",
       "label": "Fire ghoul",
       "kind": "enemy",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -56742,11 +56903,11 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-floating-skull-7260",
+      "id": "debious-woods-floating-skull-7260",
       "classId": "floating-skull",
       "label": "Floating skull",
       "kind": "enemy",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -56814,11 +56975,11 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-fire-ghoul-7264",
+      "id": "debious-woods-fire-ghoul-7264",
       "classId": "fire-ghoul",
       "label": "Fire ghoul",
       "kind": "enemy",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -56886,11 +57047,11 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-floating-skull-7268",
+      "id": "debious-woods-floating-skull-7268",
       "classId": "floating-skull",
       "label": "Floating skull",
       "kind": "enemy",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -56958,11 +57119,11 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-floating-skull-727c",
+      "id": "debious-woods-floating-skull-727c",
       "classId": "floating-skull",
       "label": "Floating skull",
       "kind": "enemy",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -57030,11 +57191,11 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-fire-ghoul-7280",
+      "id": "debious-woods-fire-ghoul-7280",
       "classId": "fire-ghoul",
       "label": "Fire ghoul",
       "kind": "enemy",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -57102,11 +57263,11 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-hidden-clue-book-7284",
+      "id": "debious-woods-hidden-clue-book-7284",
       "classId": "woods-book",
       "label": "Hidden clue book",
       "kind": "secret",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -57235,11 +57396,11 @@
       }
     },
     {
-      "id": "joma-marsh-part-3-floating-skull-7288",
+      "id": "debious-woods-floating-skull-7288",
       "classId": "floating-skull",
       "label": "Floating skull",
       "kind": "enemy",
-      "segmentId": "joma-marsh-part-3",
+      "segmentId": "debious-woods",
       "variants": [
         "day",
         "night"
@@ -57307,11 +57468,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-728d",
+      "id": "uta-lower-road-2-skeleton-objset3-728d",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -57447,11 +57608,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-7291",
+      "id": "uta-lower-road-2-skeleton-objset3-7291",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -57587,11 +57748,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-7295",
+      "id": "uta-lower-road-2-skeleton-objset3-7295",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -57727,11 +57888,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-7299",
+      "id": "uta-lower-road-2-skeleton-objset3-7299",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -57867,11 +58028,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-floating-skull-729d",
+      "id": "uta-lower-road-2-floating-skull-729d",
       "classId": "floating-skull",
       "label": "Floating skull",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -57939,11 +58100,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72a1",
+      "id": "uta-lower-road-2-skeleton-objset3-72a1",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -58079,11 +58240,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72a5",
+      "id": "uta-lower-road-2-skeleton-objset3-72a5",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -58219,11 +58380,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72a9",
+      "id": "uta-lower-road-2-skeleton-objset3-72a9",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -58359,11 +58520,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-floating-skull-72ad",
+      "id": "uta-lower-road-2-floating-skull-72ad",
       "classId": "floating-skull",
       "label": "Floating skull",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -58431,11 +58592,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-flame-whip-merchant-72b1",
+      "id": "uta-lower-road-2-flame-whip-merchant-72b1",
       "classId": "flame-whip-upgrade-merchant",
       "label": "Flame Whip Merchant",
       "kind": "npc",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -58564,11 +58725,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72b5",
+      "id": "uta-lower-road-2-skeleton-objset3-72b5",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -58704,11 +58865,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72b9",
+      "id": "uta-lower-road-2-skeleton-objset3-72b9",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -58844,11 +59005,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72c1",
+      "id": "uta-lower-road-2-skeleton-objset3-72c1",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -58984,11 +59145,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-floating-skull-72c5",
+      "id": "uta-lower-road-2-floating-skull-72c5",
       "classId": "floating-skull",
       "label": "Floating skull",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -59056,11 +59217,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72cd",
+      "id": "uta-lower-road-2-skeleton-objset3-72cd",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -59196,11 +59357,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-floating-skull-72d1",
+      "id": "uta-lower-road-2-floating-skull-72d1",
       "classId": "floating-skull",
       "label": "Floating skull",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -59268,11 +59429,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72dd",
+      "id": "uta-lower-road-2-skeleton-objset3-72dd",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -59408,11 +59569,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72e1",
+      "id": "uta-lower-road-2-skeleton-objset3-72e1",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -59548,11 +59709,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72e5",
+      "id": "uta-lower-road-2-skeleton-objset3-72e5",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -59688,11 +59849,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72e9",
+      "id": "uta-lower-road-2-skeleton-objset3-72e9",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -59828,11 +59989,11 @@
       }
     },
     {
-      "id": "debious-woods-part-3-skeleton-objset3-72ed",
+      "id": "uta-lower-road-2-skeleton-objset3-72ed",
       "classId": "skeleton-objset3",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "variants": [
         "day",
         "night"
@@ -65995,11 +66156,11 @@
       }
     },
     {
-      "id": "long-bridge-to-borgia-mountains-fishman-6143",
+      "id": "east-bridge-fishman-6143",
       "classId": "fishman",
       "label": "The Fish Man",
       "kind": "enemy",
-      "segmentId": "long-bridge-to-borgia-mountains",
+      "segmentId": "east-bridge",
       "variants": [
         "day",
         "night"
@@ -66067,11 +66228,11 @@
       }
     },
     {
-      "id": "long-bridge-to-borgia-mountains-fishman-6147",
+      "id": "east-bridge-fishman-6147",
       "classId": "fishman",
       "label": "The Fish Man",
       "kind": "enemy",
-      "segmentId": "long-bridge-to-borgia-mountains",
+      "segmentId": "east-bridge",
       "variants": [
         "day",
         "night"
@@ -66139,11 +66300,11 @@
       }
     },
     {
-      "id": "long-bridge-to-borgia-mountains-fishman-614b",
+      "id": "east-bridge-fishman-614b",
       "classId": "fishman",
       "label": "The Fish Man",
       "kind": "enemy",
-      "segmentId": "long-bridge-to-borgia-mountains",
+      "segmentId": "east-bridge",
       "variants": [
         "day",
         "night"
@@ -66211,11 +66372,11 @@
       }
     },
     {
-      "id": "long-bridge-to-borgia-mountains-fishman-614f",
+      "id": "east-bridge-fishman-614f",
       "classId": "fishman",
       "label": "The Fish Man",
       "kind": "enemy",
-      "segmentId": "long-bridge-to-borgia-mountains",
+      "segmentId": "east-bridge",
       "variants": [
         "day",
         "night"
@@ -66283,11 +66444,11 @@
       }
     },
     {
-      "id": "long-bridge-to-borgia-mountains-fishman-6153",
+      "id": "east-bridge-fishman-6153",
       "classId": "fishman",
       "label": "The Fish Man",
       "kind": "enemy",
-      "segmentId": "long-bridge-to-borgia-mountains",
+      "segmentId": "east-bridge",
       "variants": [
         "day",
         "night"
@@ -66355,11 +66516,11 @@
       }
     },
     {
-      "id": "long-bridge-to-borgia-mountains-fishman-6157",
+      "id": "east-bridge-fishman-6157",
       "classId": "fishman",
       "label": "The Fish Man",
       "kind": "enemy",
-      "segmentId": "long-bridge-to-borgia-mountains",
+      "segmentId": "east-bridge",
       "variants": [
         "day",
         "night"
@@ -66427,11 +66588,11 @@
       }
     },
     {
-      "id": "long-bridge-to-borgia-mountains-fishman-615b",
+      "id": "east-bridge-fishman-615b",
       "classId": "fishman",
       "label": "The Fish Man",
       "kind": "enemy",
-      "segmentId": "long-bridge-to-borgia-mountains",
+      "segmentId": "east-bridge",
       "variants": [
         "day",
         "night"
@@ -66499,11 +66660,11 @@
       }
     },
     {
-      "id": "long-bridge-to-borgia-mountains-fishman-615f",
+      "id": "east-bridge-fishman-615f",
       "classId": "fishman",
       "label": "The Fish Man",
       "kind": "enemy",
-      "segmentId": "long-bridge-to-borgia-mountains",
+      "segmentId": "east-bridge",
       "variants": [
         "day",
         "night"
@@ -66571,11 +66732,11 @@
       }
     },
     {
-      "id": "borgia-mountains-dead-end-swamp-skeleton-6164",
+      "id": "denis-marsh-skeleton-6164",
       "classId": "skeleton",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "variants": [
         "day",
         "night"
@@ -66711,11 +66872,11 @@
       }
     },
     {
-      "id": "borgia-mountains-dead-end-swamp-skeleton-6168",
+      "id": "denis-marsh-skeleton-6168",
       "classId": "skeleton",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "variants": [
         "day",
         "night"
@@ -66851,11 +67012,11 @@
       }
     },
     {
-      "id": "borgia-mountains-dead-end-swamp-mudman-6170",
+      "id": "denis-marsh-mudman-6170",
       "classId": "mudman",
       "label": "The Mud Man",
       "kind": "enemy",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "variants": [
         "day",
         "night"
@@ -66923,11 +67084,11 @@
       }
     },
     {
-      "id": "borgia-mountains-dead-end-swamp-skeleton-6174",
+      "id": "denis-marsh-skeleton-6174",
       "classId": "skeleton",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "variants": [
         "day",
         "night"
@@ -67063,11 +67224,11 @@
       }
     },
     {
-      "id": "borgia-mountains-dead-end-swamp-mudman-617c",
+      "id": "denis-marsh-mudman-617c",
       "classId": "mudman",
       "label": "The Mud Man",
       "kind": "enemy",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "variants": [
         "day",
         "night"
@@ -67135,11 +67296,11 @@
       }
     },
     {
-      "id": "borgia-mountains-dead-end-swamp-skeleton-6180",
+      "id": "denis-marsh-skeleton-6180",
       "classId": "skeleton",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "variants": [
         "day",
         "night"
@@ -67275,11 +67436,11 @@
       }
     },
     {
-      "id": "borgia-mountains-dead-end-swamp-mudman-6188",
+      "id": "denis-marsh-mudman-6188",
       "classId": "mudman",
       "label": "The Mud Man",
       "kind": "enemy",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "variants": [
         "day",
         "night"
@@ -67347,11 +67508,11 @@
       }
     },
     {
-      "id": "borgia-mountains-dead-end-swamp-mudman-6190",
+      "id": "denis-marsh-mudman-6190",
       "classId": "mudman",
       "label": "The Mud Man",
       "kind": "enemy",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "variants": [
         "day",
         "night"
@@ -67419,11 +67580,11 @@
       }
     },
     {
-      "id": "yuba-lake-path-skeleton-6749",
+      "id": "lower-road-skeleton-6749",
       "classId": "skeleton",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "variants": [
         "day",
         "night"
@@ -67561,11 +67722,11 @@
       }
     },
     {
-      "id": "yuba-lake-path-skeleton-674d",
+      "id": "lower-road-skeleton-674d",
       "classId": "skeleton",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "variants": [
         "day",
         "night"
@@ -67701,11 +67862,11 @@
       }
     },
     {
-      "id": "yuba-lake-path-eyeball-6751",
+      "id": "lower-road-eyeball-6751",
       "classId": "eyeball",
       "label": "Ghostly Eyeball",
       "kind": "enemy",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "variants": [
         "day",
         "night"
@@ -67773,11 +67934,11 @@
       }
     },
     {
-      "id": "yuba-lake-path-skeleton-6755",
+      "id": "lower-road-skeleton-6755",
       "classId": "skeleton",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "variants": [
         "day",
         "night"
@@ -67913,11 +68074,11 @@
       }
     },
     {
-      "id": "yuba-lake-path-skeleton-6759",
+      "id": "lower-road-skeleton-6759",
       "classId": "skeleton",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "variants": [
         "day",
         "night"
@@ -68053,11 +68214,11 @@
       }
     },
     {
-      "id": "yuba-lake-path-eyeball-675d",
+      "id": "lower-road-eyeball-675d",
       "classId": "eyeball",
       "label": "Ghostly Eyeball",
       "kind": "enemy",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "variants": [
         "day",
         "night"
@@ -68125,11 +68286,11 @@
       }
     },
     {
-      "id": "yuba-lake-path-skeleton-6761",
+      "id": "lower-road-skeleton-6761",
       "classId": "skeleton",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "variants": [
         "day",
         "night"
@@ -68265,11 +68426,11 @@
       }
     },
     {
-      "id": "yuba-lake-path-skeleton-6769",
+      "id": "lower-road-skeleton-6769",
       "classId": "skeleton",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "variants": [
         "day",
         "night"
@@ -68405,11 +68566,11 @@
       }
     },
     {
-      "id": "yuba-lake-path-skeleton-6771",
+      "id": "lower-road-skeleton-6771",
       "classId": "skeleton",
       "label": "Skeleton",
       "kind": "enemy",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "variants": [
         "day",
         "night"
@@ -68557,7 +68718,7 @@
     "dayOnly": 20
   },
   "secretFeatureSummary": {
-    "features": 28,
+    "features": 29,
     "movingPlatforms": 21
   },
   "actorSummary": {
@@ -78697,9 +78858,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-728d",
+      "actorId": "uta-lower-road-2-skeleton-objset3-728d",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -78768,9 +78929,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-7291",
+      "actorId": "uta-lower-road-2-skeleton-objset3-7291",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -78839,9 +79000,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-7295",
+      "actorId": "uta-lower-road-2-skeleton-objset3-7295",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -78910,9 +79071,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-7299",
+      "actorId": "uta-lower-road-2-skeleton-objset3-7299",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -78981,9 +79142,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72a1",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72a1",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -79052,9 +79213,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72a5",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72a5",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -79123,9 +79284,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72a9",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72a9",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -79194,9 +79355,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72b5",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72b5",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -79265,9 +79426,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72b9",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72b9",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -79336,9 +79497,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72c1",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72c1",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -79407,9 +79568,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72cd",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72cd",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -79478,9 +79639,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72dd",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72dd",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -79549,9 +79710,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72e1",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72e1",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -79620,9 +79781,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72e5",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72e5",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -79691,9 +79852,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72e9",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72e9",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -79762,9 +79923,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "debious-woods-part-3-skeleton-objset3-72ed",
+      "actorId": "uta-lower-road-2-skeleton-objset3-72ed",
       "actorClassId": "skeleton-objset3",
-      "segmentId": "debious-woods-part-3",
+      "segmentId": "uta-lower-road-2",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -83477,9 +83638,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "borgia-mountains-dead-end-swamp-skeleton-6164",
+      "actorId": "denis-marsh-skeleton-6164",
       "actorClassId": "skeleton",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -83548,9 +83709,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "borgia-mountains-dead-end-swamp-skeleton-6168",
+      "actorId": "denis-marsh-skeleton-6168",
       "actorClassId": "skeleton",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -83619,9 +83780,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "borgia-mountains-dead-end-swamp-skeleton-6174",
+      "actorId": "denis-marsh-skeleton-6174",
       "actorClassId": "skeleton",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -83690,9 +83851,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "borgia-mountains-dead-end-swamp-skeleton-6180",
+      "actorId": "denis-marsh-skeleton-6180",
       "actorClassId": "skeleton",
-      "segmentId": "borgia-mountains-dead-end-swamp",
+      "segmentId": "denis-marsh",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -83761,9 +83922,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "yuba-lake-path-skeleton-6749",
+      "actorId": "lower-road-skeleton-6749",
       "actorClassId": "skeleton",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "status": "snapped",
       "selectedOffsetX": -16,
       "source": "rom-expanded-background-tilemap",
@@ -84095,9 +84256,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "yuba-lake-path-skeleton-674d",
+      "actorId": "lower-road-skeleton-674d",
       "actorClassId": "skeleton",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -84166,9 +84327,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "yuba-lake-path-skeleton-6755",
+      "actorId": "lower-road-skeleton-6755",
       "actorClassId": "skeleton",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -84237,9 +84398,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "yuba-lake-path-skeleton-6759",
+      "actorId": "lower-road-skeleton-6759",
       "actorClassId": "skeleton",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -84308,9 +84469,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "yuba-lake-path-skeleton-6761",
+      "actorId": "lower-road-skeleton-6761",
       "actorClassId": "skeleton",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -84379,9 +84540,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "yuba-lake-path-skeleton-6769",
+      "actorId": "lower-road-skeleton-6769",
       "actorClassId": "skeleton",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -84450,9 +84611,9 @@
     },
     {
       "type": "actor-ground-support",
-      "actorId": "yuba-lake-path-skeleton-6771",
+      "actorId": "lower-road-skeleton-6771",
       "actorClassId": "skeleton",
-      "segmentId": "yuba-lake-path",
+      "segmentId": "lower-road",
       "status": "supported",
       "selectedOffsetX": 0,
       "source": "rom-expanded-background-tilemap",
@@ -84876,8 +85037,8 @@
     },
     {
       "type": "hidden-clue-book-destructible-link",
-      "actorId": "joma-marsh-part-3-hidden-clue-book-7284",
-      "segmentId": "joma-marsh-part-3",
+      "actorId": "debious-woods-hidden-clue-book-7284",
+      "segmentId": "debious-woods",
       "status": "linked",
       "anchorTile": {
         "x": 117,

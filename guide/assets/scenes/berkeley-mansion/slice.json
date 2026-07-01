@@ -12778,7 +12778,11 @@
       "largeSprites": true,
       "spriteHeight": 16,
       "hp": null,
-      "drawAnchor": null,
+      "drawAnchor": {
+        "offsetX": 0,
+        "offsetY": -12,
+        "source": "Actor loader bank 1:$8055-$8188 writes row X/Y directly to runtime screen anchor RAM $0348/$0324 after scroll subtraction. Actor id $18 routine bank 1:$AE95-$AF11 does not adjust those coordinates; it only changes selector RAM $0300,x through the local $AF12 table. Selectors $C0/$C1/$C2 carry their own metasprite offsets, so Swamp Ghoul keeps the raw runtime X anchor while using the normal row-backed sprite Y presentation anchor."
+      },
       "frameDurationMs": null,
       "blink": null,
       "selectorRecord": null,
@@ -12937,7 +12941,7 @@
         "source": "chr-nonzero-pixels"
       },
       "selectorSource": "direct-selector-list",
-      "proof": "Whole-ROM enemy atlas decoding proves actor id $18 dispatches to PRG bank 1:$AE95 and writes visible animation selectors from the local ROM table at bank 1:$AF12 through STA $0300,x. The visible selector sequence is $C0/$C1/$C2, and the guide keeps that ROM-backed animation sequence. Manual-name matching is not yet proven for this class."
+      "proof": "Whole-ROM enemy atlas decoding proves actor id $18 dispatches to PRG bank 1:$AE95 and writes visible animation selectors from the local ROM table at bank 1:$AF12 through STA $0300,x. The visible selector sequence is $C0/$C1/$C2, and the guide keeps that ROM-backed animation sequence. Manual-name matching is not yet proven for this class. Static ROM decode of bank 1:$AE95-$AF11 proves this actor does not mutate its own X/Y anchor; its rise/idle/sink behavior is selector-driven, so the guide preserves the row-backed Y presentation anchor while avoiding the generic +8 X cell-centering offset."
     },
     {
       "id": "fire-ghoul",
@@ -20957,7 +20961,18 @@
       "guideDialog": null,
       "itemOffer": null,
       "itemReward": null,
-      "secret": null,
+      "secret": {
+        "type": "oak-stake-orb",
+        "reward": "Dracula's Rib",
+        "action": "Use an Oak Stake here to reveal Dracula's Rib.",
+        "evidence": [
+          "Actor row 0x05B99: 3D 15 25 18",
+          "The berkeley-mansion-orb save-state captures prove pre-stake selector $3B rendered as OAM tiles $EC/$EE at screen x $C8/$D0.",
+          "Frame-by-frame trace out/actor-traces/berkeley-mansion-orb-cadence proves the orb blink cycles OAM palette bits 1/2/3/0 once per NES frame.",
+          "Actor id 0x25 uses fixed-bank $DED0 direct selector writes for the orb room sequence.",
+          "Text pointer index 0x18 decodes to the Dracula's Rib pickup message."
+        ]
+      },
       "visualTileRect": null,
       "fixtureSignature": null,
       "flipHorizontal": false,
