@@ -37,6 +37,16 @@ const ACTOR_DRAW_ANCHOR_OFFSET_X = ACTOR_CELL_SIZE / 2;
 const ACTOR_DRAW_ANCHOR_OFFSET_Y = -12;
 const GROUND_SUPPORT_PALETTES = new Set([0, 1]);
 const GROUND_SUPPORT_SNAP_CANDIDATE_OFFSETS_X = [-32, -24, -16, -8, 0, 8, 16, 24, 32];
+const BODLEY_APPROACH_RIGHT_FACING_ENEMY_SEGMENT_IDS = new Set([
+  'camilla-cemetery',
+  'joma-marsh-part-1',
+  'joma-marsh-part-2',
+  'debious-woods',
+  'uta-lower-road-2',
+  'uta-lower-road-1',
+  'uta-lower-road-1-revealed-route',
+  'uta-road'
+]);
 
 const DEBORAH_TORNADO_FRAMES = [
   {
@@ -3671,6 +3681,9 @@ function materializeManifestActors(sliceConfig, rom) {
   }
 
   function actorShouldFaceRightInWestRoute(segment, kind, classId) {
+    if (kind === 'enemy' && BODLEY_APPROACH_RIGHT_FACING_ENEMY_SEGMENT_IDS.has(segment.id)) {
+      return true;
+    }
     if (!Number.isFinite(segment.x) || segment.x >= 0) {
       return false;
     }
@@ -3748,6 +3761,21 @@ function materializeManifestActors(sliceConfig, rom) {
         rowItemReward = {
           itemId: 'magic-cross',
           evidence: 'Laruba Mansion Camilla row $05AC6 has holdsItem set in the ROM manifest and text pointer $D1D7, whose decoded ROM dialog gives Simon the Magic Cross.'
+        };
+      } else if (context.objset === 1 && row.id === 0x25 && row.data === 0x18 && row.holdsItem) {
+        rowItemReward = {
+          itemId: 'dracula-rib',
+          evidence: 'Berkeley Mansion orb row $05B99 has holdsItem set in the ROM manifest and text/data $18, selecting Dracula\'s Rib.'
+        };
+      } else if (context.objset === 1 && row.id === 0x25 && row.data === 0x19 && row.holdsItem) {
+        rowItemReward = {
+          itemId: 'dracula-heart',
+          evidence: 'Lauber Mansion orb row $05C4B has holdsItem set in the ROM manifest and text/data $19, selecting Dracula\'s Heart.'
+        };
+      } else if (context.objset === 1 && row.id === 0x25 && row.data === 0x1a && row.holdsItem) {
+        rowItemReward = {
+          itemId: 'dracula-eyeball',
+          evidence: 'Brahm Mansion orb row $05CE3 has holdsItem set in the ROM manifest and text/data $1A, selecting Dracula\'s Eyeball.'
         };
       } else if (context.objset === 1 && row.id === 0x25 && row.data === 0x1b && row.holdsItem) {
         rowItemReward = {

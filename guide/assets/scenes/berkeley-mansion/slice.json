@@ -20960,7 +20960,20 @@
       "romDialogVariants": null,
       "guideDialog": null,
       "itemOffer": null,
-      "itemReward": null,
+      "itemReward": {
+        "itemId": "dracula-rib",
+        "itemLabel": "Dracula's Rib",
+        "iconTile": "0x4E",
+        "manualText": "The rib bone will make the ordinary hero feel like a spineless coward.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9.",
+        "evidence": [
+          "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+          "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
+          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.",
+          "The Jova NPC clue text decodes to \"a rib can shield you from evil.\"",
+          "Berkeley Mansion orb row $05B99 has holdsItem set in the ROM manifest and text/data $18, selecting Dracula's Rib."
+        ]
+      },
       "secret": {
         "type": "oak-stake-orb",
         "reward": "Dracula's Rib",

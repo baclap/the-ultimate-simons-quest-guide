@@ -8,7 +8,7 @@ import {
   renderCv2DialogFrameToRgba
 } from './dialog.js?v=right-of-camilla-map';
 
-const CACHE_KEY = 'guide-music-5';
+const CACHE_KEY = 'bodley-approach-facing-1';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
 const MUSIC_DATA_URL = `./assets/audio/cv2-music-data.js?v=${CACHE_KEY}`;
