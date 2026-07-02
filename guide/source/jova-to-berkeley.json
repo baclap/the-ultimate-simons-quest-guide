@@ -98,10 +98,16 @@
       "obj01-area09-sub00": {
         "viewId": "brahm-mansion",
         "label": "Enter Brahm's Mansion",
-        "itemReward": {
-          "itemId": "dracula-eyeball",
-          "evidence": "The generated Brahm's Mansion scene promotes Dracula's Eyeball orb from ROM actor row $05CE3."
-        }
+        "itemRewards": [
+          {
+            "itemId": "golden-knife",
+            "evidence": "The generated Brahm's Mansion scene promotes the Golden Knife Death reward from ROM actor row $05CDE."
+          },
+          {
+            "itemId": "dracula-eyeball",
+            "evidence": "The generated Brahm's Mansion scene promotes Dracula's Eyeball orb from ROM actor row $05CE3."
+          }
+        ]
       },
       "obj00-area0c-sub00": {
         "viewId": "aljiba-garlic-room",

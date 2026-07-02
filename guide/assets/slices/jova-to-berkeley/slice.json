@@ -6452,20 +6452,34 @@
       },
       "opensView": "brahm-mansion",
       "itemReward": {
-        "itemId": "dracula-eyeball",
-        "itemLabel": "Dracula's Eyeball",
-        "iconTile": "0x50",
-        "manualText": "When it comes to the most frightening piece, the eyes have it.",
-        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Count Dracula's Missing Pieces, page 9.",
+        "itemId": "golden-knife",
+        "itemLabel": "The Gold Knife",
+        "iconTile": "0x6F",
+        "manualText": "This is your strongest knife, and it has a mysterious power.",
+        "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
         "evidence": [
           "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
           "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
-          "The fixed-bank start-menu body-part table orders Dracula part icons as Rib, Heart, Eyeball, Nail, Ring.",
-          "Brahm Mansion actor row $05CE3 uses actor id $25 and text/data $1A for the Dracula's Eyeball orb.",
-          "The generated Brahm's Mansion scene promotes Dracula's Eyeball orb from ROM actor row $05CE3."
+          "Fixed-bank weapon/crystal start-menu table at file offset $1F048 maps the third weapon slot to tile $6F for the Gold Knife.",
+          "Brahm Mansion Death row $05CDE has text pointer $0DCC0, whose decoded ROM dialog gives Simon the Golden Knife.",
+          "The generated Brahm's Mansion scene promotes the Golden Knife Death reward from ROM actor row $05CDE."
         ]
       },
       "itemRewards": [
+        {
+          "itemId": "golden-knife",
+          "itemLabel": "The Gold Knife",
+          "iconTile": "0x6F",
+          "manualText": "This is your strongest knife, and it has a mysterious power.",
+          "manualSource": "Nintendo Castlevania II: Simon's Quest instruction manual, Magic Weapons, page 10.",
+          "evidence": [
+            "Start-menu PPU capture out/captures/game-menu-jova-woods-start shows item/menu tiles rendered from CHR banks $00/$01 with background palette slot 3.",
+            "Fixed-bank start-menu drawing tables: body-part icons at 7:$F033 and weapon/crystal icons at 7:$F038; carry-item branches load Laurels tile $58, Silk Bag tile $5C, and Garlic tile $6D before drawing through 7:$EB9C.",
+            "Fixed-bank weapon/crystal start-menu table at file offset $1F048 maps the third weapon slot to tile $6F for the Gold Knife.",
+            "Brahm Mansion Death row $05CDE has text pointer $0DCC0, whose decoded ROM dialog gives Simon the Golden Knife.",
+            "The generated Brahm's Mansion scene promotes the Golden Knife Death reward from ROM actor row $05CDE."
+          ]
+        },
         {
           "itemId": "dracula-eyeball",
           "itemLabel": "Dracula's Eyeball",
