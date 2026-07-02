@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Castlevania II Perfect Guide Prototype</title>
-    <link rel="stylesheet" href="styles.css?v=loader-compact-180">
+    <link rel="stylesheet" href="styles.css?v=guide-music-5">
   </head>
   <body>
     <main id="app" class="guide-shell">
@@ -24,6 +24,9 @@
       </div>
 
       <div class="map-chrome" role="toolbar" aria-label="Guide controls">
+        <button id="audio-toggle" type="button" class="chrome-button" aria-pressed="false" aria-label="Unmute guide music" title="Unmute guide music">
+          <canvas id="audio-toggle-icon" class="chrome-icon" width="16" height="16" aria-hidden="true"></canvas>
+        </button>
         <button id="palette-toggle" type="button" class="chrome-button" aria-pressed="false" aria-label="Switch to night palette" title="Switch to night palette">
           <canvas id="palette-toggle-icon" class="chrome-icon" width="16" height="16" aria-hidden="true"></canvas>
         </button>
@@ -80,6 +83,6 @@
 
     </main>
 
-    <script type="module" src="app.js?v=loader-compact-180"></script>
+    <script type="module" src="app.js?v=guide-music-5"></script>
   </body>
 </html>

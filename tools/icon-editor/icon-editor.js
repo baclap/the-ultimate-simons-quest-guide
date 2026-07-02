@@ -407,13 +407,60 @@ const OPTIONS = {
         '................'
       ]
     }
+  ],
+  audio: [
+    {
+      id: 'audio-on-current',
+      label: 'Audio On Current',
+      rows: [
+        '................',
+        '................',
+        '.........WW.....',
+        '........WWW.....',
+        '.......WWWW.....',
+        '.....WWWWWW...W.',
+        '....WWWWWWW.W..W',
+        '....WWWWWWW..W.W',
+        '....WWWWWWW..W.W',
+        '....WWWWWWW.W..W',
+        '.....WWWWWW...W.',
+        '.......WWWW.....',
+        '........WWW.....',
+        '.........WW.....',
+        '................',
+        '................'
+      ]
+    },
+    {
+      id: 'audio-off-current',
+      label: 'Audio Off Current',
+      rows: [
+        '................',
+        '................',
+        '.........WW.....',
+        '........WWW..W..',
+        '.......WWWW.W...',
+        '.....WWWWWWW....',
+        '....WWWWWWW.....',
+        '....WWWWWW......',
+        '....WWWWW.W.....',
+        '....WWWW.WW.....',
+        '.....WW.WWW.....',
+        '.....W.WWWW.....',
+        '....W...WWW.....',
+        '...W.....WW.....',
+        '................',
+        '................'
+      ]
+    }
   ]
 };
 
 const selected = {
   moon: 'moon-b',
   sun: 'sun-d',
-  layers: 'layers-a'
+  layers: 'layers-a',
+  audio: 'audio-off-current'
 };
 const editor = {
   paint: 'W',
@@ -632,7 +679,9 @@ function renderPreview() {
   const previewItems = [
     ['Night active', selected.moon],
     ['Day active', selected.sun],
-    ['Layers', selected.layers]
+    ['Layers', selected.layers],
+    ['Audio muted', 'audio-off-current'],
+    ['Audio unmuted', 'audio-on-current']
   ];
 
   for (const [label, iconId] of previewItems) {

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Castlevania II ROM-Derived Music Player</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="player" aria-label="ROM-derived music player">
+        <div class="screen">
+          <div class="meter" aria-hidden="true">
+            <span class="meter-bar" id="pulse-one-meter"></span>
+            <span class="meter-bar" id="pulse-two-meter"></span>
+            <span class="meter-bar" id="triangle-meter"></span>
+            <span class="meter-bar" id="noise-meter"></span>
+          </div>
+          <canvas id="scope" class="scope" width="512" height="128" aria-label="Audio register activity scope"></canvas>
+          <div class="timeline" aria-label="Song timeline">
+            <span id="timeline-fill" class="timeline-fill"></span>
+            <span id="timeline-loop" class="timeline-loop"></span>
+            <span id="timeline-playhead" class="timeline-playhead"></span>
+          </div>
+          <div class="timeline-readout">
+            <span id="position-readout">00:00.00 / 00:00.00</span>
+            <span id="loop-readout">Loop 0</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <label class="field">
+            <span>Track</span>
+            <select id="track-select" disabled></select>
+          </label>
+
+          <div class="buttons">
+            <button id="play-button" type="button" disabled>Play</button>
+            <button id="stop-button" type="button" disabled>Stop</button>
+          </div>
+        </div>
+
+        <p id="status" class="status">Loading generated music data...</p>
+
+        <dl class="evidence">
+          <div>
+            <dt>Driver Trigger</dt>
+            <dd><code>$A29B</code></dd>
+          </div>
+          <div>
+            <dt>Frame Update</dt>
+            <dd><code>$967D</code></dd>
+          </div>
+          <div>
+            <dt>APU Writes</dt>
+            <dd id="write-count">0</dd>
+          </div>
+          <div>
+            <dt>Source ROM SHA-256</dt>
+            <dd id="source-hash">-</dd>
+          </div>
+        </dl>
+      </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

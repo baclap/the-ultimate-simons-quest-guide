@@ -8,9 +8,11 @@ import {
   renderCv2DialogFrameToRgba
 } from './dialog.js?v=right-of-camilla-map';
 
-const CACHE_KEY = 'loader-compact-180';
+const CACHE_KEY = 'guide-music-5';
 const SLICE_URL = `./assets/slices/jova-to-berkeley/slice.json?v=${CACHE_KEY}`;
 const FONT_URL = `./assets/fonts/cv2-dialog.json?v=${CACHE_KEY}`;
+const MUSIC_DATA_URL = `./assets/audio/cv2-music-data.js?v=${CACHE_KEY}`;
+const MUSIC_WORKLET_URL = `./assets/audio/cv2-apu-worklet.js?v=${CACHE_KEY}`;
 const OVERWORLD_VIEW_ID = 'overworld';
 const BERKELEY_MANSION_VIEW_ID = 'berkeley-mansion';
 const BRAHM_MANSION_VIEW_ID = 'brahm-mansion';
@@ -37,6 +39,32 @@ const YOMI_GIRLFRIEND_ROOM_VIEW_ID = 'yomi-girlfriend-room';
 const LARUBA_MANSION_VIEW_ID = 'laruba-mansion';
 const BODLEY_MANSION_VIEW_ID = 'bodley-mansion';
 const CASTLEVANIA_VIEW_ID = 'castlevania';
+const MUSIC_TRACK_IDS = {
+  daytimeTown: 0x39,
+  bloodyTears: 0x3d,
+  nighttime: 0x41,
+  mansion: 0x45,
+  castlevania: 0x49,
+  draculaBattle: 0x4d
+};
+const DEFAULT_MUSIC_SEGMENT_ID = 'town-of-jova';
+const DRACULA_MUSIC_ACTOR_URL_CODE = 'dracula';
+const TOWN_SEGMENT_IDS = new Set([
+  'town-of-ondol',
+  'town-of-alba',
+  'town-of-jova',
+  'town-of-veros',
+  'town-of-aljiba',
+  'town-of-doina',
+  'town-of-yomi'
+]);
+const MANSION_VIEW_IDS = new Set([
+  BERKELEY_MANSION_VIEW_ID,
+  BRAHM_MANSION_VIEW_ID,
+  LAUBER_MANSION_VIEW_ID,
+  LARUBA_MANSION_VIEW_ID,
+  BODLEY_MANSION_VIEW_ID
+]);
 const VIEW_TRANSITION_MS = 140;
 const VIEW_TRANSITION_HOLD_MS = 40;
 const STARTUP_LOAD_OVERWORLD_START = 0.1;
@@ -107,6 +135,7 @@ const ROUTE_SEGMENT_IDS = [
   'denis-woods-part-2',
   'denis-woods-part-3'
 ];
+const ROUTE_SEGMENT_ID_SET = new Set(ROUTE_SEGMENT_IDS);
 
 const OVERVIEW_LABEL_SCALE = 0.3;
 const OVERVIEW_LABEL_TEXT = new Map([
@@ -341,6 +370,42 @@ const CHROME_ICONS = {
     '...W........W...',
     '....WW....WW....',
     '......WWWW......'
+  ],
+  audioOn: [
+    '................',
+    '................',
+    '.........WW.....',
+    '........WWW.....',
+    '.......WWWW.....',
+    '.....WWWWWW...W.',
+    '....WWWWWWW.W..W',
+    '....WWWWWWW..W.W',
+    '....WWWWWWW..W.W',
+    '....WWWWWWW.W..W',
+    '.....WWWWWW...W.',
+    '.......WWWW.....',
+    '........WWW.....',
+    '.........WW.....',
+    '................',
+    '................'
+  ],
+  audioOff: [
+    '................',
+    '................',
+    '.........WW.....',
+    '........WWW..W..',
+    '.......WWWW.W...',
+    '.....WWWWWWW....',
+    '....WWWWWWW.....',
+    '....WWWWWW......',
+    '....WWWWW.W.....',
+    '....WWWW.WW.....',
+    '.....WW.WWW.....',
+    '.....W.WWWW.....',
+    '....W...WWW.....',
+    '...W.....WW.....',
+    '................',
+    '................'
   ]
 };
 
@@ -618,6 +683,8 @@ const dom = {
   guideInspectorSummary: document.querySelector('#guide-inspector-summary'),
   guideInspectorList: document.querySelector('#guide-inspector-list'),
   guideInspectorClose: document.querySelector('#guide-inspector-close'),
+  audioToggle: document.querySelector('#audio-toggle'),
+  audioToggleIcon: document.querySelector('#audio-toggle-icon'),
   paletteToggle: document.querySelector('#palette-toggle'),
   paletteToggleIcon: document.querySelector('#palette-toggle-icon'),
   resetToggle: document.querySelector('#reset-toggle'),
@@ -1755,6 +1822,19 @@ const panInertia = {
   vx: 0,
   vy: 0
 };
+let guideMusicTracksById = null;
+let guideMusicDataPromise = null;
+const expandedGuideMusicTracks = new Map();
+let guideMusicAudioContext = null;
+let guideMusicNode = null;
+let guideMusicReadyPromise = null;
+let guideMusicMuted = true;
+let guideMusicCurrentTrackId = null;
+let guideMusicDesiredTrackId = MUSIC_TRACK_IDS.daytimeTown;
+let guideMusicLastSegmentId = DEFAULT_MUSIC_SEGMENT_ID;
+let guideMusicLastActorClassId = null;
+let guideMusicLastActorId = null;
+let guideMusicPlayToken = 0;
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -1770,6 +1850,245 @@ function viewForRenderer(renderer) {
 
 function activeRenderer() {
   return currentView().renderer;
+}
+
+function isGuideMusicDraculaActor(actor) {
+  return actor?.classId === 'dracula'
+    || actor?.id === 'castlevania-dracula-fight-dracula'
+    || actor?.label === 'Dracula';
+}
+
+function isDraculaMusicContext() {
+  return guideMusicLastActorClassId === 'dracula'
+    || guideMusicLastActorId === 'castlevania-dracula-fight-dracula';
+}
+
+async function ensureGuideMusicTracks() {
+  if (guideMusicTracksById) {
+    return guideMusicTracksById;
+  }
+  if (!guideMusicDataPromise) {
+    guideMusicDataPromise = import(MUSIC_DATA_URL).then(({ GUIDE_MUSIC_DATA: data }) => {
+      guideMusicTracksById = new Map(data.tracks.map((track) => [track.soundId, track]));
+      return guideMusicTracksById;
+    });
+  }
+  return guideMusicDataPromise;
+}
+
+function expandGuideMusicTrack(track) {
+  if (expandedGuideMusicTracks.has(track.soundId)) {
+    return expandedGuideMusicTracks.get(track.soundId);
+  }
+  const frames = Array.from({ length: track.frameCount }, () => []);
+  let frameIndex = 0;
+  for (let index = 0; index < track.events.length; index += 3) {
+    frameIndex += track.events[index];
+    const register = track.events[index + 1];
+    const value = track.events[index + 2];
+    if (frames[frameIndex]) {
+      frames[frameIndex].push(register, value);
+    }
+  }
+  expandedGuideMusicTracks.set(track.soundId, frames);
+  return frames;
+}
+
+function guideMusicTrackIdForState() {
+  const view = currentView();
+  if (view.id === CASTLEVANIA_VIEW_ID) {
+    return isDraculaMusicContext()
+      ? MUSIC_TRACK_IDS.draculaBattle
+      : MUSIC_TRACK_IDS.castlevania;
+  }
+  if (MANSION_VIEW_IDS.has(view.id)) {
+    return MUSIC_TRACK_IDS.mansion;
+  }
+  if (view.id !== OVERWORLD_VIEW_ID) {
+    return MUSIC_TRACK_IDS.daytimeTown;
+  }
+  if (state.variant === 'night') {
+    return MUSIC_TRACK_IDS.nighttime;
+  }
+  return TOWN_SEGMENT_IDS.has(guideMusicLastSegmentId)
+    ? MUSIC_TRACK_IDS.daytimeTown
+    : MUSIC_TRACK_IDS.bloodyTears;
+}
+
+function guideMusicTrackIdForViewIntent(viewId) {
+  const view = MAP_VIEWS[viewId] || MAP_VIEWS[OVERWORLD_VIEW_ID];
+  if (view.id === CASTLEVANIA_VIEW_ID) {
+    return MUSIC_TRACK_IDS.castlevania;
+  }
+  if (MANSION_VIEW_IDS.has(view.id)) {
+    return MUSIC_TRACK_IDS.mansion;
+  }
+  if (view.id !== OVERWORLD_VIEW_ID) {
+    return MUSIC_TRACK_IDS.daytimeTown;
+  }
+  return guideMusicTrackIdForState();
+}
+
+function updateGuideMusicControl() {
+  const label = guideMusicMuted ? 'Unmute guide music' : 'Mute guide music';
+  drawChromeIcon(dom.audioToggleIcon, guideMusicMuted ? CHROME_ICONS.audioOff : CHROME_ICONS.audioOn);
+  dom.audioToggle.setAttribute('aria-label', label);
+  dom.audioToggle.title = label;
+  dom.audioToggle.setAttribute('aria-pressed', guideMusicMuted ? 'false' : 'true');
+}
+
+async function ensureGuideMusicAudio() {
+  if (guideMusicAudioContext && guideMusicNode) {
+    if (guideMusicAudioContext.state === 'suspended') {
+      await guideMusicAudioContext.resume();
+    }
+    return guideMusicNode;
+  }
+  if (guideMusicReadyPromise) {
+    await guideMusicReadyPromise;
+    return guideMusicNode;
+  }
+
+  guideMusicReadyPromise = (async () => {
+    const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextConstructor) {
+      throw new Error('Web Audio is not available in this browser.');
+    }
+    guideMusicAudioContext = new AudioContextConstructor({ latencyHint: 'interactive' });
+    if (!guideMusicAudioContext.audioWorklet) {
+      throw new Error('AudioWorklet is not available. Use the HTTPS guide URL for music playback.');
+    }
+    await guideMusicAudioContext.audioWorklet.addModule(MUSIC_WORKLET_URL);
+    guideMusicNode = new AudioWorkletNode(guideMusicAudioContext, 'cv2-apu', {
+      numberOfInputs: 0,
+      numberOfOutputs: 1,
+      outputChannelCount: [2]
+    });
+    guideMusicNode.connect(guideMusicAudioContext.destination);
+    await guideMusicAudioContext.resume();
+  })();
+
+  try {
+    await guideMusicReadyPromise;
+  } finally {
+    guideMusicReadyPromise = null;
+  }
+  return guideMusicNode;
+}
+
+async function playGuideMusicTrack(trackId) {
+  guideMusicDesiredTrackId = trackId;
+  if (guideMusicMuted) {
+    return;
+  }
+  if (guideMusicCurrentTrackId === trackId) {
+    if (guideMusicAudioContext?.state === 'suspended') {
+      await guideMusicAudioContext.resume();
+    }
+    return;
+  }
+  const tracksById = await ensureGuideMusicTracks();
+  const track = tracksById.get(trackId);
+  if (!track) {
+    return;
+  }
+
+  const token = ++guideMusicPlayToken;
+  const node = await ensureGuideMusicAudio();
+  if (token !== guideMusicPlayToken || guideMusicMuted) {
+    return;
+  }
+
+  node.port.postMessage({ type: 'reset' });
+  node.port.postMessage({
+    type: 'track',
+    frames: expandGuideMusicTrack(track),
+    startFrame: 0,
+    endFrame: track.loop?.endFrame || track.frameCount,
+    loopStartFrame: track.loop?.startFrame || 0,
+    loopEndFrame: track.loop?.endFrame || track.frameCount,
+    canLoop: true
+  });
+  node.port.postMessage({ type: 'play' });
+  guideMusicCurrentTrackId = trackId;
+}
+
+function stopGuideMusic() {
+  guideMusicPlayToken += 1;
+  guideMusicCurrentTrackId = null;
+  guideMusicNode?.port.postMessage({ type: 'stop' });
+}
+
+function syncGuideMusicToTrack(trackId) {
+  guideMusicDesiredTrackId = trackId;
+  if (!guideMusicMuted) {
+    playGuideMusicTrack(guideMusicDesiredTrackId).catch((error) => {
+      guideMusicMuted = true;
+      stopGuideMusic();
+      updateGuideMusicControl();
+      setStatus(error instanceof Error ? error.message : String(error));
+    });
+  }
+}
+
+function syncGuideMusic() {
+  syncGuideMusicToTrack(guideMusicTrackIdForState());
+}
+
+function saveGuideMusicUrlStateNow() {
+  if (urlStateTrackingReady) {
+    saveUrlViewStateNow();
+  }
+}
+
+function noteGuideMusicViewChange(viewId, previousViewId = null) {
+  if (viewId !== CASTLEVANIA_VIEW_ID || previousViewId !== CASTLEVANIA_VIEW_ID) {
+    guideMusicLastActorClassId = null;
+    guideMusicLastActorId = null;
+  }
+  syncGuideMusic();
+}
+
+function noteGuideMusicViewIntent(viewId, { segmentId = null } = {}) {
+  if (segmentId) {
+    guideMusicLastSegmentId = segmentId;
+  }
+  guideMusicLastActorClassId = null;
+  guideMusicLastActorId = null;
+  syncGuideMusicToTrack(guideMusicTrackIdForViewIntent(viewId));
+}
+
+function noteGuideMusicInteraction({ segmentId = null, actor = null } = {}) {
+  if (segmentId) {
+    guideMusicLastSegmentId = segmentId;
+  }
+  if (actor) {
+    guideMusicLastActorClassId = isGuideMusicDraculaActor(actor) ? 'dracula' : actor.classId || null;
+    guideMusicLastActorId = actor.id || null;
+  } else {
+    guideMusicLastActorClassId = null;
+    guideMusicLastActorId = null;
+  }
+  syncGuideMusic();
+  saveGuideMusicUrlStateNow();
+}
+
+async function toggleGuideMusicMute() {
+  guideMusicMuted = !guideMusicMuted;
+  updateGuideMusicControl();
+  if (guideMusicMuted) {
+    stopGuideMusic();
+    return;
+  }
+
+  try {
+    await playGuideMusicTrack(guideMusicDesiredTrackId);
+  } catch (error) {
+    guideMusicMuted = true;
+    stopGuideMusic();
+    updateGuideMusicControl();
+    setStatus(error instanceof Error ? error.message : String(error));
+  }
 }
 
 function formatUrlNumber(value, digits) {
@@ -1820,13 +2139,46 @@ function currentViewOptionCodes() {
     .map((definition) => definition.code);
 }
 
+function parseUrlMusicState(params) {
+  const segmentId = params.get('music');
+  const actorCode = params.get('musicActor');
+  return {
+    segmentId: ROUTE_SEGMENT_ID_SET.has(segmentId) ? segmentId : null,
+    actorClassId: actorCode === DRACULA_MUSIC_ACTOR_URL_CODE ? 'dracula' : null,
+    actorId: actorCode === DRACULA_MUSIC_ACTOR_URL_CODE ? 'castlevania-dracula-fight-dracula' : null
+  };
+}
+
+function applyUrlMusicState(music) {
+  if (!music) {
+    return;
+  }
+  if (music.segmentId) {
+    guideMusicLastSegmentId = music.segmentId;
+  }
+  guideMusicLastActorClassId = music.actorClassId;
+  guideMusicLastActorId = music.actorId;
+  syncGuideMusic();
+}
+
+function musicStateUrlEntries() {
+  const segmentId = ROUTE_SEGMENT_ID_SET.has(guideMusicLastSegmentId)
+    ? guideMusicLastSegmentId
+    : DEFAULT_MUSIC_SEGMENT_ID;
+  const entries = [['music', segmentId]];
+  if (isDraculaMusicContext()) {
+    entries.push(['musicActor', DRACULA_MUSIC_ACTOR_URL_CODE]);
+  }
+  return entries;
+}
+
 function parseUrlViewState() {
   const rawHash = window.location.hash.replace(/^#/, '');
   if (!rawHash || !rawHash.includes('=')) {
     return null;
   }
   const params = new URLSearchParams(rawHash);
-  const knownKeys = ['view', 'x', 'y', 'z', 'scale', 'owx', 'owy', 'owz', 'owscale', 'palette', 'variant', 'opts'];
+  const knownKeys = ['view', 'x', 'y', 'z', 'scale', 'owx', 'owy', 'owz', 'owscale', 'palette', 'variant', 'opts', 'music', 'musicActor'];
   if (!knownKeys.some((key) => params.has(key))) {
     return null;
   }
@@ -1843,7 +2195,8 @@ function parseUrlViewState() {
     camera: cameraStateFromParams(params),
     overworldCamera: cameraStateFromParams(params, 'ow'),
     variant: palette === 'day' || palette === 'night' ? palette : null,
-    options: opts
+    options: opts,
+    music: parseUrlMusicState(params)
   };
 }
 
@@ -1871,7 +2224,8 @@ function encodeUrlViewState() {
     ['view', state.activeViewId],
     ...cameraStateUrlEntries('', cameraStateFromRenderer(renderer)),
     ['palette', state.variant],
-    ['opts', currentViewOptionCodes().join('.')]
+    ['opts', currentViewOptionCodes().join('.')],
+    ...musicStateUrlEntries()
   ];
   if (state.activeViewId !== OVERWORLD_VIEW_ID) {
     params.push(...cameraStateUrlEntries('ow', cameraStateFromRenderer(mapRenderer)));
@@ -3178,16 +3532,22 @@ function buildOverlays() {
     element.setAttribute('aria-label', accessibleLabel);
     if (hotspot.opensView) {
       element.classList.add('is-clickable');
-      addGuardedClick(element, () => enterView(hotspot.opensView, {
-        sourceElement: element
-      }));
+      addGuardedClick(element, () => {
+        noteGuideMusicViewIntent(hotspot.opensView, { segmentId: hotspot.segmentId });
+        enterView(hotspot.opensView, {
+          sourceElement: element
+        });
+      });
     } else {
-      addGuardedClick(element, () => showGuideInspector({
-        title: hotspot.label,
-        summary: hotspot.note,
-        anchorWorldRect: () => hotspotWorldRect(hotspot),
-        details: [{ label: 'Relationship', value: 'Guide-authored door link for this proof slice.' }]
-      }));
+      addGuardedClick(element, () => {
+        noteGuideMusicInteraction({ segmentId: hotspot.segmentId });
+        showGuideInspector({
+          title: hotspot.label,
+          summary: hotspot.note,
+          anchorWorldRect: () => hotspotWorldRect(hotspot),
+          details: [{ label: 'Relationship', value: 'Guide-authored door link for this proof slice.' }]
+        });
+      });
     }
     hotspots.push({ element, hotspot });
 
@@ -3203,7 +3563,10 @@ function buildOverlays() {
       frameCanvas.setAttribute('aria-hidden', 'true');
       iconCanvas.setAttribute('aria-hidden', 'true');
       badge.append(frameCanvas, iconCanvas);
-      addGuardedClick(badge, () => showItemRewardCard(hotspot, itemReward));
+      addGuardedClick(badge, () => {
+        noteGuideMusicInteraction({ segmentId: hotspot.segmentId });
+        showItemRewardCard(hotspot, itemReward);
+      });
       doorItemBadges.push({
         element: badge,
         hotspot,
@@ -3254,10 +3617,13 @@ function buildOverlays() {
       frameCanvas.setAttribute('aria-hidden', 'true');
       iconCanvas.setAttribute('aria-hidden', 'true');
       badge.append(frameCanvas, iconCanvas);
-      addGuardedClick(badge, () => showItemDetailsCard({
-        item: feature.itemReward,
-        anchorWorldRect: () => secretFeatureWorldRect(feature)
-      }));
+      addGuardedClick(badge, () => {
+        noteGuideMusicInteraction({ segmentId: feature.segmentId });
+        showItemDetailsCard({
+          item: feature.itemReward,
+          anchorWorldRect: () => secretFeatureWorldRect(feature)
+        });
+      });
       secretFeatureItemBadges.push({ element: badge, feature, frameCanvas, iconCanvas, renderedKey: null });
     }
   }
@@ -4462,6 +4828,7 @@ function enemyDialogText(actor) {
 }
 
 function showDestructibleFixtureCard(fixture) {
+  noteGuideMusicInteraction({ segmentId: fixture.segmentId });
   const action = fixture.action || "Break these blocks with Holy Water, or equip Dracula's Nail and whip them.";
   showGuideCard({
     title: fixture.label,
@@ -4485,6 +4852,7 @@ function triggerSecretFeatureAnimation(featureId) {
 }
 
 function showSecretFeatureCard(feature) {
+  noteGuideMusicInteraction({ segmentId: feature.segmentId });
   triggerSecretFeatureAnimation(feature.triggerAnimationFeatureId);
 
   if (Array.isArray(feature.dialogs) && feature.dialogs.length > 0) {
@@ -4566,6 +4934,7 @@ function showItemDetailsCard({ item, anchorWorldRect }) {
 }
 
 function showItemOfferCard(actor) {
+  noteGuideMusicInteraction({ segmentId: actor.segmentId, actor });
   showItemDetailsCard({
     item: actor.itemOffer,
     anchorWorldRect: () => actorWorldRect(actor)
@@ -4573,6 +4942,7 @@ function showItemOfferCard(actor) {
 }
 
 function showActorRewardCard(actor) {
+  noteGuideMusicInteraction({ segmentId: actor.segmentId, actor });
   showItemDetailsCard({
     item: actor.itemReward,
     anchorWorldRect: () => actorWorldRect(actor)
@@ -4580,6 +4950,7 @@ function showActorRewardCard(actor) {
 }
 
 function showItemRewardCard(hotspot, itemReward = hotspot.itemReward) {
+  noteGuideMusicInteraction({ segmentId: hotspot.segmentId });
   showItemDetailsCard({
     item: itemReward,
     anchorWorldRect: () => hotspotWorldRect(hotspot)
@@ -4587,6 +4958,7 @@ function showItemRewardCard(hotspot, itemReward = hotspot.itemReward) {
 }
 
 function showItemMerchantCard(actor) {
+  noteGuideMusicInteraction({ segmentId: actor.segmentId, actor });
   const offer = actor.itemOffer;
   showGuideCard({
     title: offer.roleLabel,
@@ -4607,6 +4979,7 @@ function showItemMerchantCard(actor) {
 }
 
 function showStackedActorGuideCard(actor) {
+  noteGuideMusicInteraction({ segmentId: actor.segmentId, actor });
   showGuideCard({
     title: actor.label,
     anchorWorldRect: () => actorWorldRect(actor),
@@ -4667,6 +5040,7 @@ function actorRomDialogVariantsModel(actor) {
 }
 
 function showActorRomDialogVariantsCard(actor) {
+  noteGuideMusicInteraction({ segmentId: actor.segmentId, actor });
   showGuideCard({
     ...actorRomDialogVariantsModel(actor),
     refresh: () => actorRomDialogVariantsModel(actor)
@@ -4674,6 +5048,7 @@ function showActorRomDialogVariantsCard(actor) {
 }
 
 function showActorCard(actor) {
+  noteGuideMusicInteraction({ segmentId: actor.segmentId, actor });
   if (actor.kind === 'secret') {
     showSecretCard(actor);
     return;
@@ -4782,6 +5157,7 @@ function showSecretCard(actor) {
 
 function syncControls() {
   const view = currentView();
+  updateGuideMusicControl();
   dom.labelsToggle.checked = state.labels;
   dom.sectionOutlinesToggle.checked = state.sectionOutlines;
   dom.highlightDoorsToggle.checked = state.highlightDoors;
@@ -4828,6 +5204,7 @@ function syncLayerStateFromControls() {
 
 function setActiveView(viewId, { resetCamera = false } = {}) {
   const view = MAP_VIEWS[viewId] || MAP_VIEWS[OVERWORLD_VIEW_ID];
+  const previousViewId = state.activeViewId;
   state.activeViewId = view.id;
   activeSecretAnimations.clear();
   for (const candidate of Object.values(MAP_VIEWS)) {
@@ -4839,6 +5216,7 @@ function setActiveView(viewId, { resetCamera = false } = {}) {
     focusActiveView({ reset: true, view });
   }
   buildOverlays();
+  noteGuideMusicViewChange(view.id, previousViewId);
   syncControls();
 }
 
@@ -4934,6 +5312,9 @@ async function resetGuideToDefault() {
   dom.optionsPanel.hidden = true;
   pendingReturnFocus = null;
   restoreDefaultGuideState();
+  guideMusicLastSegmentId = DEFAULT_MUSIC_SEGMENT_ID;
+  guideMusicLastActorClassId = null;
+  guideMusicLastActorId = null;
   syncControls();
 
   if (state.activeViewId === OVERWORLD_VIEW_ID) {
@@ -4948,6 +5329,7 @@ async function resetGuideToDefault() {
 
   syncControls();
   updateOverlays();
+  syncGuideMusic();
   clearUrlViewState();
 }
 
@@ -4965,6 +5347,7 @@ async function initializeActiveViewFromUrl({ onSceneLoadProgress = null } = {}) 
     await ensureViewLoaded(urlState.viewId, { onProgress: onSceneLoadProgress });
     setActiveView(urlState.viewId, { resetCamera: !urlState.camera });
     applyUrlCameraState(activeRenderer(), urlState.camera);
+    applyUrlMusicState(urlState.music);
     syncControls();
     updateOverlays();
   } else {
@@ -5282,10 +5665,15 @@ function attachInput() {
 }
 
 function attachControls() {
+  dom.audioToggle.addEventListener('click', () => {
+    toggleGuideMusicMute();
+  });
   dom.paletteToggle.addEventListener('click', () => {
     if (currentView().supportsPalette) {
       state.variant = state.variant === 'day' ? 'night' : 'day';
       syncControls();
+      syncGuideMusic();
+      saveUrlViewStateNow();
       updateOverlays();
       renderGuideInspector();
     } else {
