@@ -8,8 +8,9 @@ const {
   resolveLocationName
 } = require('./location-names');
 
-const CV2R_ROOT = path.join(__dirname, '..', 'third_party', 'cv2r');
-const CV2R_CORE = path.join(CV2R_ROOT, 'lib', 'core.js');
+const CV2R_METADATA_SOURCE = 'data/vendor/cv2r/locations.json';
+const CV2R_METADATA_FILE = path.join(__dirname, '..', CV2R_METADATA_SOURCE);
+const LOCATION_NAMES_SOURCE = 'data/location-names.json';
 const BASE_PATTERN_POINTER = 0x7730;
 const OBJ_OFFSET = 0x30;
 const MAP_SIZE_BY_OBJSET = [2, 4, 4, 5, 2, 2];
@@ -97,17 +98,17 @@ function summarizeDoor(door) {
   };
 }
 
-function loadCore() {
+function loadCv2rLocations() {
   try {
-    delete require.cache[require.resolve(CV2R_CORE)];
-    return require(CV2R_CORE);
+    const metadata = JSON.parse(fs.readFileSync(CV2R_METADATA_FILE, 'utf8'));
+    return metadata.locations || [];
   } catch (error) {
-    throw new Error(`failed to load cv2r metadata from ${CV2R_CORE}: ${error.message}`);
+    throw new Error(`failed to load extracted cv2r metadata from ${CV2R_METADATA_FILE}: ${error.message}`);
   }
 }
 
 function buildManifest() {
-  const core = loadCore();
+  const core = loadCv2rLocations();
   const locationNames = loadLocationNames();
   let actorCount = 0;
   let doorCount = 0;
@@ -151,9 +152,8 @@ function buildManifest() {
   return {
     source: {
       name: 'tonylukasavage/cv2r',
-      localPath: CV2R_ROOT,
-      coreFile: CV2R_CORE,
-      locationNamesFile: DEFAULT_LOCATION_NAMES_FILE,
+      metadataFile: CV2R_METADATA_SOURCE,
+      locationNamesFile: LOCATION_NAMES_SOURCE,
       displayNamePolicy: locationNames.policy
     },
     summary: {

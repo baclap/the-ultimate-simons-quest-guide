@@ -79,7 +79,7 @@ tiles for guide text:
 - total tile height is `line count * 2 + 2`;
 - text lines containing only three or more hyphens reserve a text row and render
   a Start-menu-style `$48` rule across the interior columns;
-- text is display-normalized against `guide/assets/fonts/cv2-dialog.json`.
+- text is display-normalized against `guide/public/assets/fonts/cv2-dialog.json`.
 
 Dialogs intentionally do not paginate for short viewports. The box should render
 all wrapped lines in one game-style frame and rely on anchored placement,

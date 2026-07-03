@@ -1,4 +1,18 @@
 {
+  "name": "the-ultimate-simons-quest-guide",
   "private": true,
-  "type": "module"
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build:music": "node scripts/build-guide-music-data.js",
+    "dev": "npm run build:music && node scripts/build-asset-manifest.js --root public --out public/asset-manifest.json && vite --host 0.0.0.0",
+    "dev:https": "node scripts/dev-https.js",
+    "build": "npm run build:music && node scripts/build-asset-manifest.js --root public --out public/asset-manifest.json && vite build && node scripts/build-asset-manifest.js --root dist --out dist/asset-manifest.json",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.5.0",
+    "vite": "^7.0.0"
+  },
+  "devDependencies": {}
 }

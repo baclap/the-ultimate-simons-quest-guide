@@ -1,4 +1,8 @@
-# Project Demos
+# Project Demos Archive
+
+These demos are historical milestone artifacts from the reverse-engineering
+journey that led to the production guide in `guide/`. They remain useful context
+and evidence, but they are not the production surface.
 
 This directory stores self-contained project demos. Each demo should live in a
 dated subdirectory with its own HTML, styles, scripts, and generated assets so

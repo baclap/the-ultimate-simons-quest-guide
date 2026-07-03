@@ -4,9 +4,9 @@ This is a portrait-only control lab for motion, gesture, and tap inputs. It
 renders the Berkeley Mansion guide scene from the existing ROM-derived guide
 pack:
 
-- `guide/assets/scenes/berkeley-mansion/slice.json`
-- `guide/assets/scenes/berkeley-mansion/slice-data.bin`
-- `guide/vendor/guide-map-wasm/guide_map_wasm.js`
+- `guide/public/assets/scenes/berkeley-mansion/slice.json`
+- `guide/public/assets/scenes/berkeley-mansion/slice-data.bin`
+- `guide/src/vendor/guide-map-wasm/guide_map_wasm.js`
 
 The visible game pixels are decoded in the browser from packed CHR, layout,
 metatile, and palette data. Simon's standing/walking frames come from the

@@ -1,12 +1,12 @@
 import initWasm, {
   decode_chr_atlas,
   expand_segment_tilemap
-} from '../../guide/vendor/guide-map-wasm/guide_map_wasm.js';
-import { NES_PALETTE } from '../../guide/dialog.js?v=mobile-control-demo';
+} from '../../guide/src/vendor/guide-map-wasm/guide_map_wasm.js';
+import { NES_PALETTE } from '../../guide/src/dialog.js?v=mobile-control-demo';
 
 const BUILD_LABEL = 'v22-corner-guard';
 const CACHE_KEY = 'mobile-control-demo-rom-physics-v22-corner-guard';
-const SCENE_URL = `../../guide/assets/scenes/berkeley-mansion/slice.json?v=${CACHE_KEY}`;
+const SCENE_URL = `../../guide/public/assets/scenes/berkeley-mansion/slice.json?v=${CACHE_KEY}`;
 const SETTINGS_STORAGE_KEY = 'mobile-control-demo-control-settings-v2';
 const VARIANT = 'fixed';
 const URL_PARAMS = new URLSearchParams(window.location.search);

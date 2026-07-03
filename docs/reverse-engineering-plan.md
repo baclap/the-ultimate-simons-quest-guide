@@ -7,7 +7,7 @@ The repository now has a zero-dependency Node CLI that can:
 - parse the ROM's iNES/NES 2.0 header
 - verify PRG/CHR boundaries and SHA-256
 - render all 16 CHR ROM banks into PNG tile sheets
-- generate a `cv2r`-derived manifest of locations, actors, and doors
+- generate a [`cv2r`](https://github.com/tonylukasavage/cv2r)-derived manifest of locations, actors, and doors
 - capture deterministic Mesen fixtures with screenshot, PPU memory, CPU RAM, and OAM
 - load local Mesen `.mss` save states as representative fixture starting points
 - reconstruct a captured screen from PPU/OAM artifacts
@@ -19,7 +19,7 @@ The repository now has a zero-dependency Node CLI that can:
 - organize ROM-native screens into a route-ordered viewport catalog with validated and inferred status metadata
 - render a continuous Jova Woods layout-space segment from adjacent ROM layout column groups
 - render the full outdoor Jova-to-Veros route as connected layout-space segments
-- render an exterior atlas of 55 candidates from `cv2r` metadata plus ROM layout, tile, CHR, and palette data
+- render an exterior atlas of 55 candidates from [`cv2r`](https://github.com/tonylukasavage/cv2r) metadata plus ROM layout, tile, CHR, and palette data
 - decode layout headers as two-dimensional grids and render full multi-section atlas entries
 - validate Dora Woods - Part 2 against a Mesen save-state fixture and render it with its ROM palette at `4:$9FD7`
 - decode the runtime background palette selector path through bank `2:$F7C5` and fixed-bank transfer table `7:$C895`
@@ -54,7 +54,7 @@ Committed reference data is intentionally tracked:
 - PRG ROM: 8 banks, 131072 bytes.
 - CHR ROM: 16 banks, 131072 bytes.
 - CHR starts at file offset `0x20010`.
-- The vendored `cv2r` metadata yields 96 locations, 588 actors, and 25 doors.
+- The vendored [`cv2r`](https://github.com/tonylukasavage/cv2r) metadata yields 96 locations, 588 actors, and 25 doors.
 - The Jova gameplay background is built through the NMI PPU update buffer, not only through a full-screen transfer stream.
 - Replaying the traced Jova `$0700` buffer reproduces nametable page 0 and its mirror exactly against the Mesen capture.
 - The stable Jova block layout comes from PRG bank `2:$8497`; tile definitions come from PRG bank `4:$8461`; attributes come from PRG bank `4:$841E`.
@@ -70,7 +70,7 @@ Committed reference data is intentionally tracked:
 - Special exterior screen-record markers `FD`/`FE` are now preserved in metadata and decoded by using byte `1` as the effective layout index for the current five known exterior cases.
 - Layout header byte `0` is the horizontal column-group count and byte `1` is the vertical section count. The atlas now renders all sections for 13 multi-section layouts, including Jova `4x2`, Dora Woods - Part 2 `2x2`, Dabi's Path - Part 1 `2x2`, and Castlevania `4x4`.
 - Day background palettes are now resolved from the ROM's runtime selector path where the selected transfer stream is raw palette data. The manifest records the palette index table, transfer id, transfer pointer, and final palette address.
-- Dora Woods - Part 2 exposes an important context-alias gap: its `cv2r` layout candidate is `2:8:2`, but the validated live palette selector context is `2:0:3`. CPU RAM confirms this through `$30=02`, `$50=00`, `$51=83`.
+- Dora Woods - Part 2 exposes an important context-alias gap: its [`cv2r`](https://github.com/tonylukasavage/cv2r) layout candidate is `2:8:2`, but the validated live palette selector context is `2:0:3`. CPU RAM confirms this through `$30=02`, `$50=00`, `$51=83`.
 - Runtime context bytes are now tracked as `$30` object set, `$50` area, and
   `$51` raw submap/flags. The renderer consumes fixture-backed aliases from
   `data/runtime-context-fixtures.json`.
@@ -91,7 +91,7 @@ Committed reference data is intentionally tracked:
   `0B/0C` and palette transfer `$57 -> 4:$A150`; this area is fixed-palette,
   not a day/night exterior.
 - Human-facing names now follow the Nintendo Power Transylvania map where the
-  scan is legible, while `cv2r` labels remain preserved as source names.
+  scan is legible, while [`cv2r`](https://github.com/tonylukasavage/cv2r) labels remain preserved as source names.
 
 ## Strategy
 
@@ -128,7 +128,7 @@ Work items:
 
 5. Generalize runtime palette contexts.
    - The selector mechanism is decoded, but aliases like Dora show that every
-     `cv2r` layout tuple is not always the runtime palette tuple.
+     [`cv2r`](https://github.com/tonylukasavage/cv2r) layout tuple is not always the runtime palette tuple.
    - Decode the transition parser around fixed-bank `7:$D0B0`, which writes
      `$30/$50/$51` from route transition table bytes.
    - Preserve day and night palette variants as first-class render options.
@@ -139,7 +139,7 @@ Work items:
    - Compare generated output with pixel diffs.
 
 7. Scale out.
-   - Generate descriptors for all locations from the `cv2r` manifest and the ROM tables.
+   - Generate descriptors for all locations from the [`cv2r`](https://github.com/tonylukasavage/cv2r) manifest and the ROM tables.
    - Generate full-map PNGs plus optional actor/door overlays.
 
 ## Emulator Note

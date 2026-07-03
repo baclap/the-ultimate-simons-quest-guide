@@ -1,7 +1,0 @@
-module.exports = {
-	patch: [
-		{ offset: 0x4167, bytes: [ 0xA9, 0x00 ] },
-		{ offset: 0xC7B8, bytes: [ 0xC9, 0x00 ] },
-		{ offset: 0xC7BC, bytes: [ 0xC9, 0x24 ] }
-	]
-};

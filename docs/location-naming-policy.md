@@ -10,7 +10,7 @@ Source image:
 Supplemental Nintendo Power scan:
 <https://www.castlevaniacrypt.com/wp-content/img/cv2/np/13.jpg>
 
-The project still preserves `cv2r` names as `sourceName` because those labels
+The project still preserves [`cv2r`](https://github.com/tonylukasavage/cv2r) names as `sourceName` because those labels
 are the metadata anchor we use to reach ROM contexts. Display names are resolved
 through `data/location-names.json`; aliases record other names encountered in
 published or fan sources.
@@ -19,7 +19,7 @@ published or fan sources.
 
 - Use Nintendo Power names for demos, manifests, docs, and save-state fixture
   labels where the map text is readable.
-- Preserve `tonylukasavage/cv2r` labels in `sourceName`.
+- Preserve [`tonylukasavage/cv2r`](https://github.com/tonylukasavage/cv2r) labels in `sourceName`.
 - Treat Fandom/design-map names as aliases unless they match Nintendo Power.
 - Keep ambiguous labels unresolved instead of inventing precision.
 
@@ -29,11 +29,11 @@ published or fan sources.
   and lists `Vrad Graveyard` as an alternate.
 - Nintendo Power uses `Bordia Mountains`; preserve `Borgia Mountains` only as
   an alias for older project output and secondary references.
-- Nintendo Power uses `Debious Woods`, matching `cv2r`, while Fandom's
+- Nintendo Power uses `Debious Woods`, matching [`cv2r`](https://github.com/tonylukasavage/cv2r), while Fandom's
   design-map list uses `Devious Woods` with `Debious Woods` as an alternate.
-- Nintendo Power uses `Storigoi Graveyard`, matching `cv2r`, while some
+- Nintendo Power uses `Storigoi Graveyard`, matching [`cv2r`](https://github.com/tonylukasavage/cv2r), while some
   sources use `Strigoi Graveyard`.
-- Nintendo Power uses `Lauber Mansion`; `cv2r` currently uses `Rover Mansion`.
+- Nintendo Power uses `Lauber Mansion`; [`cv2r`](https://github.com/tonylukasavage/cv2r) currently uses `Rover Mansion`.
 - Nintendo Power uses `Town of Alba`; some later references use
   `Town of Aldra`.
 - The bridge label near Castlevania is not legible enough in the current scan to

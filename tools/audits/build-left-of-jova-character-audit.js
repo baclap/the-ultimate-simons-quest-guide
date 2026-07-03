@@ -30,12 +30,12 @@ const LEFT_SEGMENT_IDS = new Set([
 ]);
 
 const SCENE_PATHS = [
-  'guide/assets/scenes/alba-garlic-room/slice.json',
-  'guide/assets/scenes/alba-church/slice.json',
-  'guide/assets/scenes/alba-laurels-room/slice.json',
-  'guide/assets/scenes/ondol-morning-star-room/slice.json',
-  'guide/assets/scenes/ondol-death-star-lady-room/slice.json',
-  'guide/assets/scenes/ondol-laurels-room/slice.json'
+  'guide/public/assets/scenes/alba-garlic-room/slice.json',
+  'guide/public/assets/scenes/alba-church/slice.json',
+  'guide/public/assets/scenes/alba-laurels-room/slice.json',
+  'guide/public/assets/scenes/ondol-morning-star-room/slice.json',
+  'guide/public/assets/scenes/ondol-death-star-lady-room/slice.json',
+  'guide/public/assets/scenes/ondol-laurels-room/slice.json'
 ];
 
 function readJson(relativePath) {
@@ -375,8 +375,8 @@ function main() {
   fs.rmSync(SPRITE_DIR, { recursive: true, force: true });
   fs.mkdirSync(SPRITE_DIR, { recursive: true });
   const atlas = readJson('data/enemy-atlas.json');
-  const exterior = readJson('guide/assets/slices/jova-to-berkeley/slice.json');
-  const exteriorData = fs.readFileSync(path.join(ROOT, 'guide/assets/slices/jova-to-berkeley/slice-data.bin'));
+  const exterior = readJson('guide/public/assets/slices/jova-to-berkeley/slice.json');
+  const exteriorData = fs.readFileSync(path.join(ROOT, 'guide/public/assets/slices/jova-to-berkeley/slice-data.bin'));
   const scenes = SCENE_PATHS.map((relativePath) => {
     const manifest = readJson(relativePath);
     const dataPath = path.join(path.dirname(path.join(ROOT, relativePath)), manifest.dataFile);

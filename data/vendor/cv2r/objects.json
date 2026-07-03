@@ -1,0 +1,314 @@
+{
+  "provenance": {
+    "name": "tonylukasavage/cv2r",
+    "packageName": "cv2r",
+    "packageLicense": "ISC",
+    "extractedFrom": "third_party/cv2r",
+    "note": "Extracted from cv2r build-time metadata so this guide repository does not need to vendor the full randomizer project."
+  },
+  "constants": {
+    "POS_AIR": 1,
+    "POS_GROUND": 2,
+    "POS_BELOW": 3,
+    "POS_DEADHAND": 4
+  },
+  "fixtures": [
+    {
+      "id": 37,
+      "name": ""
+    },
+    {
+      "id": 38,
+      "name": ""
+    },
+    {
+      "id": 39,
+      "name": ""
+    },
+    {
+      "id": 164,
+      "name": ""
+    }
+  ],
+  "npcs": [
+    {
+      "id": 158,
+      "name": ""
+    },
+    {
+      "id": 169,
+      "name": ""
+    },
+    {
+      "id": 170,
+      "name": ""
+    },
+    {
+      "id": 172,
+      "name": ""
+    },
+    {
+      "id": 173,
+      "name": ""
+    },
+    {
+      "id": 174,
+      "name": ""
+    },
+    {
+      "id": 175,
+      "name": ""
+    },
+    {
+      "id": 181,
+      "name": ""
+    },
+    {
+      "id": 188,
+      "name": ""
+    }
+  ],
+  "enemies": [
+    {
+      "name": "bat",
+      "id": 1,
+      "pos": 1,
+      "sprite": 1
+    },
+    {
+      "name": "blob",
+      "id": 65,
+      "pos": 2,
+      "sprite": 5
+    },
+    {
+      "name": "bone dragon",
+      "id": 74,
+      "pos": 2,
+      "sprite": 5,
+      "projectile": true,
+      "immobile": true
+    },
+    {
+      "name": "bone thrower",
+      "id": 13,
+      "pos": 2,
+      "sprite": 10,
+      "projectile": true
+    },
+    {
+      "name": "Camilla",
+      "id": 66,
+      "pos": 1,
+      "sprite": 10,
+      "boss": true,
+      "holdsItem": true,
+      "projectile": true
+    },
+    {
+      "name": "dead hand",
+      "id": 56,
+      "pos": 4,
+      "sprite": 5,
+      "immobile": true
+    },
+    {
+      "name": "Death",
+      "id": 68,
+      "pos": 1,
+      "sprite": 9,
+      "boss": true,
+      "holdsItem": true,
+      "projectile": true
+    },
+    {
+      "name": "Dracula",
+      "id": 71,
+      "pos": 1,
+      "sprite": 12,
+      "boss": true,
+      "projectile": true
+    },
+    {
+      "name": "eagle",
+      "id": 27,
+      "pos": 1,
+      "sprite": 7
+    },
+    {
+      "name": "eyeball",
+      "id": 8,
+      "pos": 1,
+      "sprite": 3
+    },
+    {
+      "name": "fire ghoul",
+      "id": 29,
+      "pos": 2,
+      "sprite": 5,
+      "projectile": true
+    },
+    {
+      "name": "fishman",
+      "id": 4,
+      "pos": 3,
+      "sprite": 3,
+      "projectile": true
+    },
+    {
+      "name": "floating skull",
+      "id": 16,
+      "pos": 1,
+      "sprite": 5
+    },
+    {
+      "name": "flower",
+      "id": 63,
+      "pos": 2,
+      "sprite": 7,
+      "projectile": true,
+      "immobile": true
+    },
+    {
+      "name": "gargoyle",
+      "id": 15,
+      "pos": 2,
+      "sprite": 10,
+      "projectile": true
+    },
+    {
+      "name": "ghost",
+      "id": 57,
+      "pos": 1,
+      "sprite": 7
+    },
+    {
+      "name": "grabber",
+      "id": 22,
+      "pos": 2,
+      "sprite": 5
+    },
+    {
+      "name": "harpy",
+      "id": 59,
+      "pos": 1,
+      "sprite": 7,
+      "projectile": true
+    },
+    {
+      "name": "high jump leech",
+      "id": 64,
+      "pos": 3,
+      "sprite": 5
+    },
+    {
+      "name": "leech",
+      "id": 2,
+      "pos": 3,
+      "sprite": 3
+    },
+    {
+      "name": "lizardman",
+      "id": 6,
+      "pos": 2,
+      "sprite": 3,
+      "projectile": true
+    },
+    {
+      "name": "mansion bat",
+      "id": 17,
+      "pos": 1,
+      "sprite": 10
+    },
+    {
+      "name": "mansion blob",
+      "id": 31,
+      "pos": 2,
+      "sprite": 10
+    },
+    {
+      "name": "medusa",
+      "id": 10,
+      "pos": 1,
+      "sprite": 7
+    },
+    {
+      "name": "mudman",
+      "id": 21,
+      "pos": 2,
+      "sprite": 3,
+      "projectile": true,
+      "immobile": true
+    },
+    {
+      "name": "mummy",
+      "id": 58,
+      "pos": 2,
+      "sprite": 7
+    },
+    {
+      "name": "rock",
+      "id": 62,
+      "pos": 1,
+      "sprite": 10
+    },
+    {
+      "name": "skeleton",
+      "id": 3,
+      "pos": 2,
+      "sprite": [
+        3,
+        5,
+        10
+      ]
+    },
+    {
+      "name": "spear knight",
+      "id": 5,
+      "pos": 2,
+      "sprite": 10
+    },
+    {
+      "name": "spider",
+      "id": 14,
+      "pos": 1,
+      "sprite": [
+        3,
+        10
+      ],
+      "projectile": true
+    },
+    {
+      "name": "swamp ghoul",
+      "id": 24,
+      "pos": 2,
+      "sprite": 5,
+      "projectile": true,
+      "immobile": true
+    },
+    {
+      "name": "werewolf",
+      "id": 19,
+      "pos": 2,
+      "sprite": 3
+    },
+    {
+      "name": "wolf",
+      "id": 18,
+      "pos": 2,
+      "sprite": 3
+    },
+    {
+      "name": "zigzag bat",
+      "id": 9,
+      "pos": 1,
+      "sprite": 3
+    },
+    {
+      "name": "zombie",
+      "id": 23,
+      "pos": 2,
+      "sprite": 1
+    }
+  ]
+}

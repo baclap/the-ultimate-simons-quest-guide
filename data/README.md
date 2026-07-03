@@ -49,9 +49,12 @@ Current files:
   Door target view mappings belong in guide source, but the target contexts
   should come from ROM door tables and the visible hit locations should come
   from ROM-expanded tile signatures or documented validation artifacts.
+- `data/vendor/cv2r/*.json`: extracted metadata from `cv2r` used by the
+  manifest and enemy-atlas builders. The production repo no longer requires the
+  vendored `cv2r` checkout.
 
-The exterior atlas is generated from `cv2r` metadata plus ROM table reads rather
-than maintained as a hand-authored `data/` JSON file. Run
+The exterior atlas is generated from extracted `cv2r` metadata plus ROM table
+reads rather than maintained as a hand-authored `data/` JSON file. Run
 `npm run render:atlas:exterior` to create `out/exterior-atlas/manifest.json`;
 the current demo also commits a self-contained generated atlas manifest under
 `demos/2026-05-17-exterior-atlas-demo/assets/exterior-atlas/`.

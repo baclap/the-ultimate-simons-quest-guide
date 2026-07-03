@@ -6,7 +6,8 @@ const { readPrgByte, readPrgWord } = require('./background');
 const { decodeMetaspriteSelector, decodeSelectorRecordAt } = require('./actor-selector-streams');
 const { buildManifest } = require('./manifest');
 
-const CV2R_OBJECTS = require('../third_party/cv2r/lib/object');
+const CV2R_OBJECTS = require('../data/vendor/cv2r/objects.json');
+const CV2R_ENEMY_BY_ID = new Map((CV2R_OBJECTS.enemies || []).map((enemy) => [enemy.id, enemy]));
 
 const ACTOR_DISPATCH_TABLE = 0x81d3;
 const ACTOR_ROUTINE_BANK = 1;
@@ -324,12 +325,14 @@ function relativePath(filePath) {
 }
 
 function publicManifestSource(source) {
-  return {
+  const manifestSource = {
     ...source,
-    localPath: relativePath(source.localPath),
-    coreFile: relativePath(source.coreFile),
+    metadataFile: relativePath(source.metadataFile),
     locationNamesFile: relativePath(source.locationNamesFile)
   };
+  delete manifestSource.localPath;
+  delete manifestSource.coreFile;
+  return manifestSource;
 }
 
 function publicBytes(bytes) {
@@ -749,7 +752,7 @@ function manualNameForActor(actorId) {
   }
 
   return {
-    displayName: fallbackName || titleCaseName(CV2R_OBJECTS.enemy[actorId]?.name),
+    displayName: fallbackName || titleCaseName(CV2R_ENEMY_BY_ID.get(actorId)?.name),
     manualName: null,
     status: 'manual-match-unproven',
     evidence: 'No manual name is applied until the manual illustration/name is matched to this ROM actor class with sprite evidence.',
@@ -758,7 +761,7 @@ function manualNameForActor(actorId) {
 }
 
 function cv2rEnemyInfo(actorId) {
-  const info = CV2R_OBJECTS.enemies.find((enemy) => enemy.id === actorId);
+  const info = CV2R_ENEMY_BY_ID.get(actorId);
   if (!info) {
     return null;
   }

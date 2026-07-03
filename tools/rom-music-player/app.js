@@ -188,7 +188,8 @@ async function play() {
     endFrame: trackEndFrame(currentTrack),
     loopStartFrame: currentTrack.loop.startFrame,
     loopEndFrame: currentTrack.loop.endFrame,
-    canLoop: currentTrack.canLoop !== false
+    canLoop: currentTrack.canLoop !== false,
+    dmcSamples: MUSIC_DATA.dmcSamples || []
   });
   apuNode.port.postMessage({ type: 'play' });
   dom.stopButton.disabled = false;

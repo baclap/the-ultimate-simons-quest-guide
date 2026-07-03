@@ -2,7 +2,7 @@
 
 The exterior atlas renderer is the first broad pass over the game's exterior
 map inventory. It is intentionally an atlas, not a final stitched world map:
-each output image is a layout-space segment for one `cv2r` location candidate.
+each output image is a layout-space segment for one [`cv2r`](https://github.com/tonylukasavage/cv2r) location candidate.
 
 ## Command
 
@@ -24,7 +24,7 @@ node src/index.js render-exterior-atlas --rom roms/cv2.nes --out demos/2026-05-1
 
 ## Inventory Rules
 
-The atlas starts from the vendored `cv2r` manifest and includes:
+The atlas starts from the vendored [`cv2r`](https://github.com/tonylukasavage/cv2r) manifest and includes:
 
 - town exteriors from objset `0`, areas `0..6`
 - mansion door exteriors from objset `1`
@@ -166,7 +166,7 @@ Representative day fixtures:
 | Dora Woods - Part 2 | `2:0:3` fixture alias for layout candidate `2:8:2` | `2:$A1C0` | `$23` | `4:$9FD7` |
 | Dabi's Path | `2:3:0` / `2:3:1` | `2:$A6EB` | `$26` | `4:$A00A` |
 
-Dora Woods - Part 2 is the first evidence that a `cv2r` layout candidate tuple
+Dora Woods - Part 2 is the first evidence that a [`cv2r`](https://github.com/tonylukasavage/cv2r) layout candidate tuple
 can differ from the live runtime palette selector context. The renderer now
 derives that alias from the ROM: candidate `2:8:2` starts at special screen
 record `2:$A1AB` (`$FE $0D`), which is nested inside the same-marker special

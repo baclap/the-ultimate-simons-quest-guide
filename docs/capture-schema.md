@@ -146,7 +146,7 @@ node src/index.js inspect-runtime-context --capture out/captures/dora-woods-part
 ## Next Work
 
 1. Capture representative outdoor day/night palette fixtures.
-2. Capture route-alias fixtures near Dora-like transitions to generalize cv2r
+2. Capture route-alias fixtures near Dora-like transitions to generalize [`cv2r`](https://github.com/tonylukasavage/cv2r)
    layout context to runtime palette context.
 3. Capture one mansion/interior-style screen.
 4. Add more named save-state fixtures for representative outdoor areas.

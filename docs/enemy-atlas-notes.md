@@ -15,8 +15,9 @@ rendered in the guide.
 
 The atlas combines these evidence paths:
 
-- `third_party/cv2r/lib/core.js` and `src/manifest.js` provide the raw enemy row
-  inventory, file offsets, location contexts, and source names.
+- `data/vendor/cv2r/locations.json`, `data/vendor/cv2r/objects.json`, and
+  `src/manifest.js` provide the raw enemy row inventory, file offsets, location
+  contexts, and source names.
 - The ROM file bytes at each manifest row pointer are read back and checked.
   The row id and row data byte must match the manifest for the occurrence to
   validate.

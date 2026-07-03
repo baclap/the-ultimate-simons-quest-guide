@@ -4,7 +4,7 @@ import path from 'node:path';
 import {
   createGlyphMap,
   renderCv2DialogToRgba
-} from '../guide/dialog.js';
+} from '../guide/src/dialog.js';
 
 const require = createRequire(import.meta.url);
 const { readPng, writePng } = require('../src/png.js');
@@ -12,7 +12,7 @@ const { readPng, writePng } = require('../src/png.js');
 const captureDir = path.resolve('out/captures/jova-dialog-box');
 const patternsPath = path.join(captureDir, 'ppu-0000-1fff-patterns.bin');
 const screenshotPath = path.join(captureDir, 'screenshot.png');
-const fontPath = path.resolve('guide/assets/fonts/cv2-dialog.json');
+const fontPath = path.resolve('guide/public/assets/fonts/cv2-dialog.json');
 const diffPath = path.join(captureDir, 'dialog-renderer.diff.png');
 
 function decodePatternAtlas(patterns) {

@@ -122,7 +122,7 @@ function usage() {
     '  node src/index.js render-exterior-topology --rom roms/cv2.nes --out out/exterior-topology',
     '  node src/index.js render-exterior-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --out out/exterior-composition',
     '  node src/index.js render-exterior-world-composition --rom roms/cv2.nes --topology out/exterior-topology/topology.json --atlas out/render-recipe-atlas/manifest.json --transition-rules out/transition-routine/decoder.json --out out/exterior-world-composition',
-    '  node src/index.js build-guide-slice --rom roms/cv2.nes --slice data/guide-slices/dead-river-1-to-berkeley.json --atlas out/render-recipe-atlas/manifest.json --out web/guide-map/public/assets/slices/dead-river-1-to-berkeley',
+    '  node src/index.js build-guide-slice --rom roms/cv2.nes --slice guide/source/jova-to-berkeley.json --atlas out/render-recipe-atlas/manifest.json --out guide/public/assets/slices/jova-to-berkeley',
     '  node src/index.js run-actor-traces --rom roms/cv2.nes --fixtures data/actor-trace-fixtures.json --out out/actor-traces',
     '  node src/index.js analyze-actor-traces --fixtures data/actor-trace-fixtures.json --out out/actor-traces',
     '  node src/index.js decode-actor-selector-streams --rom roms/cv2.nes --fixtures data/actor-trace-fixtures.json --traces out/actor-traces --out out/actor-selector-streams',
@@ -899,7 +899,8 @@ function buildGuideSliceCommand(args) {
       sliceFile,
       atlasFile,
       outDir,
-      layout: args.layout ? String(args.layout) : undefined
+      layout: args.layout ? String(args.layout) : undefined,
+      manifestProfile: args['manifest-profile'] ? String(args['manifest-profile']) : undefined
     })
   });
 }

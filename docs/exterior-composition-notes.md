@@ -74,7 +74,7 @@ The one inferred row break occurs on
 `obj04-area01-sub00 -> obj01-area04-sub00`: Deborah Cliff (In Tornado) to
 Bodley Mansion - Door. The endpoint still comes from the ROM transition tuple
 `$FF $01 $04`; the connector-only interpretation is based on the
-reverse-engineered `cv2r` location name until the actual tornado routine is
+reverse-engineered [`cv2r`](https://github.com/tonylukasavage/cv2r) location name until the actual tornado routine is
 decoded.
 
 ## Limits

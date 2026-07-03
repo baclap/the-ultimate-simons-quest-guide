@@ -108,7 +108,7 @@ def parse_args() -> argparse.Namespace:
         description="Build a CSS-ready web font from Castlevania II CHR tiles."
     )
     parser.add_argument("--rom", default="roms/cv2.nes", help="source NES ROM")
-    parser.add_argument("--out", default="web/fonts", help="output directory")
+    parser.add_argument("--out", default="tools/font-assets/fonts", help="output directory")
     parser.add_argument("--family", default=DEFAULT_FAMILY, help="CSS font family")
     parser.add_argument("--basename", default=DEFAULT_BASENAME, help="output basename")
     parser.add_argument(

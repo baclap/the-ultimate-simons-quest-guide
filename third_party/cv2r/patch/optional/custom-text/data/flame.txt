@@ -1,3 +1,0 @@
-You got a slightly burned <%= item %>
-No wall meat here, just <%= indef %><%= item %>
-Bet you didn't think you'd find <%= indef %><%= item %> here

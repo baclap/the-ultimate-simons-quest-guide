@@ -16,13 +16,13 @@ does not give us final coordinates for the transport event.
 
 | Class | Placement mode | Source |
 | --- | --- | --- |
-| `same-area-submap-sequence` | `ordinary-adjacency` | `cv2r` submap order. |
+| `same-area-submap-sequence` | `ordinary-adjacency` | [`cv2r`](https://github.com/tonylukasavage/cv2r) submap order. |
 | `object-set-boundary` | `ordinary-adjacency` | ROM transition marker `$FF`. |
 | `object-set-load-boundary` | `ordinary-adjacency` | ROM transition marker `$FC`. |
 | `same-object-set-boundary` | `ordinary-adjacency` | ROM transition marker other than known control markers. |
 | `same-object-set-load-boundary` | `ordinary-adjacency` | ROM transition marker `$FA`. |
 | `explicit-submap-boundary` | `ordinary-adjacency` | ROM transition marker `$FB`. |
-| `special-transport-candidate` | `connector-only` | ROM endpoint plus `cv2r` tornado location metadata. |
+| `special-transport-candidate` | `connector-only` | ROM endpoint plus [`cv2r`](https://github.com/tonylukasavage/cv2r) tornado location metadata. |
 | `unresolved-target` | `unresolved` | ROM endpoint is not currently in the exterior atlas. |
 
 ## Deborah Cliff

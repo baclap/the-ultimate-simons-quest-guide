@@ -477,6 +477,20 @@ ROM-backed evidence:
   256 frames, changes Simon to state `$0B`, clears flags, and initializes
   tornado actor `$1C` in slot `$11` with selector `$9C`, screen X `$F0`, and
   screen Y `$80`.
+- After the tornado setup, bank `1:$A991-$A996` calls the helper at `$C0E7`,
+  loads sound id `$28`, and jumps to the sound trigger helper `$C118`. The
+  helper writes immediate APU silence/reset values to the pulse, triangle, and
+  noise channels before the tornado sound starts, so the tornado event replaces
+  the current music instead of layering over it.
+- The game does not let that isolated `$28` sound table play to its far end.
+  Bank `1:$A999-$A9C8` detects the tornado/Simon overlap 266 frames after the
+  tornado actor appears, advances the tornado state, and triggers sound id
+  `$2D`; bank `1:$AA3A-$AA44` then sets the transport/event state with
+  `$4A |= $10` and `$7F = $12`. The guide therefore uses synthetic event track
+  `$128`, generated from `$C0E7`, `$28`, and the mid-animation `$2D` trigger,
+  and cuts it at the end of the visible tornado animation instead of playing
+  the unused `$28` tail that appears only when the sound is rendered in
+  isolation.
 - Runtime actor/OAM trace
   `out/actor-traces/deborah-tornado-sprite-probe` validates the spawned
   actor path. The committed artifact `data/deborah-tornado-path.json` records

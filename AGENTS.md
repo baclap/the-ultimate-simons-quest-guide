@@ -21,15 +21,15 @@ supports it.
   ROM-derived data at runtime.
 - `guide/source/`: authored guide slice definitions and presentation layout
   inputs.
-- `guide/assets/`: generated guide slice packs consumed by the runtime app.
+- `guide/public/assets/`: generated guide slice packs consumed by the runtime app.
 - `docs/`: durable reverse-engineering notes, proof writeups, schemas, and
   technical explanations.
 - `demos/`: sprint-demo slideshows and milestone artifacts for review.
 - `out/`: generated research/build outputs. Treat as evidence/output, not source
   truth unless explicitly committed for a demo or guide asset.
 - `roms/`: local ROM inputs. Do not commit ROM files.
-- `web/`: older WASM/WebGL webapp work. Do not touch unless the task explicitly
-  calls for it.
+- `tools/font-assets/`: font extraction and inspection tools retained from the
+  older web workspace.
 
 ## Where To Put Work
 

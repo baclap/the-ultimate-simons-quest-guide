@@ -17,7 +17,7 @@ The documented rule in `docs/location-naming-policy.md` is:
 
 - Use Nintendo Power names for human-facing labels where the scanned map text is
   readable.
-- Preserve `tonylukasavage/cv2r` names as `sourceName`.
+- Preserve [`tonylukasavage/cv2r`](https://github.com/tonylukasavage/cv2r) names as `sourceName`.
 - Treat Fandom/design-map names as aliases unless they match Nintendo Power.
 - Keep ambiguous labels unresolved instead of inventing precision.
 

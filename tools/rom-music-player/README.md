@@ -18,8 +18,8 @@ node tools/rom-music-player/build-music-data.cjs --rom roms/cv2.nes
 
 This writes `tools/rom-music-player/music-data.js`. That file contains the
 sound-driver-derived per-frame writes to `$4000-$4017`, along with loop metadata,
-driver addresses, sound table evidence, and the source ROM SHA-256 used to build
-the data.
+driver addresses, sound table evidence, DMC sample bytes referenced by the
+driver's `$4012/$4013` writes, and the source ROM SHA-256 used to build the data.
 
 ## Run
 
@@ -45,7 +45,8 @@ load `roms/cv2.nes` in the browser.
 - Driver trigger: CPU `$A29B`, called with the selected sound ID in `A`.
 - Driver update: CPU `$967D`, called once per NTSC frame.
 - Mapping: bank 0 at `$8000-$BFFF`, last PRG bank fixed at `$C000-$FFFF`.
-- Audio evidence: generated per-frame writes to `$4000-$4017`.
+- Audio evidence: generated per-frame writes to `$4000-$4017` plus ROM-extracted
+  DMC sample bytes.
 
 The current milestone proves a no-runtime-ROM pipeline and plausible NES APU
 recreation. A later hardening pass should name the tracks, verify unresolved

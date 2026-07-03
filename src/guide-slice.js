@@ -10,6 +10,7 @@ const { buildManifest } = require('./manifest');
 const { readBackgroundPalette, CHR_4KB_BANK_SIZE } = require('./native-image');
 const { readPng } = require('./png');
 const DEBORAH_TORNADO_PATH = require('../data/deborah-tornado-path.json');
+const DEBORAH_TORNADO_EVENT_TRACK_ID = 0x128;
 
 const BLOCK_SIZE = 32;
 const BLOCK_TILES = 4;
@@ -47,6 +48,42 @@ const BODLEY_APPROACH_RIGHT_FACING_ENEMY_SEGMENT_IDS = new Set([
   'uta-lower-road-1-revealed-route',
   'uta-road'
 ]);
+
+const RUNTIME_MANIFEST_STRIP_KEYS = new Set([
+  'source',
+  'provenance',
+  'evidence',
+  'validations',
+  'byteLength',
+  'notes',
+  'bytes',
+  'rawBytes',
+  'hpEvidence',
+  'manualNameEvidence',
+  'paletteEvidence',
+  'selectorEvidence',
+  'placementEvidence',
+  'proof',
+  'note',
+  'method'
+]);
+
+function slimRuntimeManifest(value) {
+  if (Array.isArray(value)) {
+    return value.map((item) => slimRuntimeManifest(item));
+  }
+  if (!value || typeof value !== 'object') {
+    return value;
+  }
+  const slim = {};
+  for (const [key, nested] of Object.entries(value)) {
+    if (RUNTIME_MANIFEST_STRIP_KEYS.has(key)) {
+      continue;
+    }
+    slim[key] = slimRuntimeManifest(nested);
+  }
+  return slim;
+}
 
 const DEBORAH_TORNADO_FRAMES = [
   {
@@ -2095,6 +2132,8 @@ const SECRET_FEATURE_DEFINITIONS = [
     visibilityLayer: 'secrets',
     highlightLayer: 'secrets',
     triggerAnimationFeatureId: 'deborah-cliff-tornado-effect',
+    soundEffectTrackId: DEBORAH_TORNADO_EVENT_TRACK_ID,
+    soundEffectReplacesMusic: true,
     condition: {
       playerFacing: 'Kneel at Deborah Cliff with the Red Crystal to summon the tornado to Bodley Mansion.'
     },
@@ -2111,6 +2150,8 @@ const SECRET_FEATURE_DEFINITIONS = [
         'Bank 1:$A92B-$A936 requires scroll bytes $53/$54 == 0 and Simon center X RAM $0348 < $50.',
         'Bank 1:$A938-$A94B checks selected item RAM $004F == $06, inventory RAM $0091 & $60 == $60, and Simon state RAM $03D8 == $03.',
         'Bank 1:$A953-$A991 runs the countdown and initializes tornado actor id $1C in slot $11 with selector $9C.',
+        'Bank 1:$A991-$A996 calls the helper at $C0E7, then loads sound id $28 and jumps to the sound trigger helper $C118. The guide renders this as synthetic event track $128 so the same sequence can replace normal music.',
+        'Bank 1:$A999-$A9C8 detects the tornado/Simon overlap 266 frames after the tornado actor appears, advances the tornado state, and triggers sound id $2D; bank 1:$AA3A-$AA44 then sets transport/event state RAM $4A bit $10 and $7F = $12, so sound id $28 is interrupted by the capture flow rather than played to its isolated table ending.',
         'Transition probe data/transition-probes.json records Deborah Cliff tornado transport settling at objset $01, area $04, submap $00, the Bodley Mansion door segment.'
       ]
     }
@@ -6220,6 +6261,8 @@ function buildSecretFeature(rom, info, addChrSet, segmentById, definition) {
       dialogs: definition.dialogs || null,
       itemReward: publicItemReward(definition.itemReward),
       triggerAnimationFeatureId: definition.triggerAnimationFeatureId || null,
+      soundEffectTrackId: definition.soundEffectTrackId || null,
+      soundEffectReplacesMusic: definition.soundEffectReplacesMusic === true,
       visibilityLayer: definition.visibilityLayer || (definition.kind === 'secret' ? 'secrets' : 'always'),
       highlightLayer: definition.highlightLayer || (definition.kind === 'secret' ? 'secrets' : 'none'),
       highlightShape: definition.highlightShape || null,
@@ -6887,14 +6930,19 @@ function addPalette(segmentId, variant, entry) {
     },
     validations
   };
+  const manifestProfile = opts.manifestProfile || 'full';
+  const manifestForRuntime = manifestProfile === 'runtime'
+    ? slimRuntimeManifest(manifest)
+    : manifest;
   const manifestPath = path.join(outDir, 'slice.json');
-  fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+  fs.writeFileSync(manifestPath, `${JSON.stringify(manifestForRuntime, null, 2)}\n`);
 
   return {
     output: outDir,
     manifest: manifestPath,
     dataFile,
     byteLength: data.length,
+    manifestProfile,
     summary: {
       segments: segments.length,
       chrSets: chrSets.length,

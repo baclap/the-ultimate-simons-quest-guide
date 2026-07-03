@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-27T00:29:26.824Z",
+  "generatedAt": "2026-07-02T21:59:03.077Z",
   "source": {
     "rom": {
       "file": "roms/cv2.nes",
@@ -8,8 +8,7 @@
     },
     "manifest": {
       "name": "tonylukasavage/cv2r",
-      "localPath": "third_party/cv2r",
-      "coreFile": "third_party/cv2r/lib/core.js",
+      "metadataFile": "data/vendor/cv2r/locations.json",
       "locationNamesFile": "data/location-names.json",
       "displayNamePolicy": {
         "primarySource": "Nintendo Power Castlevania II: Simon's Quest Transylvania map",
@@ -20,7 +19,7 @@
     "renderRecipeAtlas": {
       "path": "out/render-recipe-atlas/manifest.json",
       "schemaVersion": 1,
-      "entries": 149
+      "entries": 150
     },
     "manual": {
       "title": "Castlevania II: Simon's Quest English NES manual",
@@ -993,7 +992,7 @@
         },
         {
           "id": "obj02-area09-sub02",
-          "name": "Borgia Mountains (Dead End Swamp)",
+          "name": "Bordia Mountains (Dead End Swamp)",
           "sourceName": "Bordia Mountains (Dead End Swamp)",
           "objset": 2,
           "objsetHex": "0x02",
@@ -1694,7 +1693,7 @@
         },
         {
           "id": "obj02-area09-sub01",
-          "name": "Long Bridge to Borgia Mountains (Dead End Swamp)",
+          "name": "Long Bridge to Bordia Mountains (Dead End Swamp)",
           "sourceName": "Long Bridge to Bordia Mountains (Dead End Swamp)",
           "objset": 2,
           "objsetHex": "0x02",
@@ -6169,7 +6168,7 @@
         },
         {
           "id": "obj02-area09-sub02",
-          "name": "Borgia Mountains (Dead End Swamp)",
+          "name": "Bordia Mountains (Dead End Swamp)",
           "sourceName": "Bordia Mountains (Dead End Swamp)",
           "objset": 2,
           "objsetHex": "0x02",
@@ -87871,7 +87870,7 @@
       "sourceName": "fishman",
       "location": {
         "id": "obj02-area09-sub01",
-        "name": "Long Bridge to Borgia Mountains (Dead End Swamp)",
+        "name": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "sourceName": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -87986,7 +87985,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -88043,7 +88042,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -88055,7 +88054,7 @@
       "sourceName": "fishman",
       "location": {
         "id": "obj02-area09-sub01",
-        "name": "Long Bridge to Borgia Mountains (Dead End Swamp)",
+        "name": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "sourceName": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -88170,7 +88169,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -88227,7 +88226,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -88239,7 +88238,7 @@
       "sourceName": "fishman",
       "location": {
         "id": "obj02-area09-sub01",
-        "name": "Long Bridge to Borgia Mountains (Dead End Swamp)",
+        "name": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "sourceName": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -88354,7 +88353,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -88411,7 +88410,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -88423,7 +88422,7 @@
       "sourceName": "fishman",
       "location": {
         "id": "obj02-area09-sub01",
-        "name": "Long Bridge to Borgia Mountains (Dead End Swamp)",
+        "name": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "sourceName": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -88538,7 +88537,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -88595,7 +88594,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -88607,7 +88606,7 @@
       "sourceName": "fishman",
       "location": {
         "id": "obj02-area09-sub01",
-        "name": "Long Bridge to Borgia Mountains (Dead End Swamp)",
+        "name": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "sourceName": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -88722,7 +88721,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -88779,7 +88778,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -88791,7 +88790,7 @@
       "sourceName": "fishman",
       "location": {
         "id": "obj02-area09-sub01",
-        "name": "Long Bridge to Borgia Mountains (Dead End Swamp)",
+        "name": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "sourceName": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -88906,7 +88905,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -88963,7 +88962,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -88975,7 +88974,7 @@
       "sourceName": "fishman",
       "location": {
         "id": "obj02-area09-sub01",
-        "name": "Long Bridge to Borgia Mountains (Dead End Swamp)",
+        "name": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "sourceName": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -89090,7 +89089,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -89147,7 +89146,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -89159,7 +89158,7 @@
       "sourceName": "fishman",
       "location": {
         "id": "obj02-area09-sub01",
-        "name": "Long Bridge to Borgia Mountains (Dead End Swamp)",
+        "name": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "sourceName": "Long Bridge to Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -89274,7 +89273,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -89331,7 +89330,7 @@
               "0x20",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub01-long-bridge-to-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -89343,7 +89342,7 @@
       "sourceName": "skeleton",
       "location": {
         "id": "obj02-area09-sub02",
-        "name": "Borgia Mountains (Dead End Swamp)",
+        "name": "Bordia Mountains (Dead End Swamp)",
         "sourceName": "Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -89458,7 +89457,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -89515,7 +89514,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -89527,7 +89526,7 @@
       "sourceName": "skeleton",
       "location": {
         "id": "obj02-area09-sub02",
-        "name": "Borgia Mountains (Dead End Swamp)",
+        "name": "Bordia Mountains (Dead End Swamp)",
         "sourceName": "Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -89642,7 +89641,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -89699,7 +89698,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -89711,7 +89710,7 @@
       "sourceName": "mudman",
       "location": {
         "id": "obj02-area09-sub02",
-        "name": "Borgia Mountains (Dead End Swamp)",
+        "name": "Bordia Mountains (Dead End Swamp)",
         "sourceName": "Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -89826,7 +89825,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -89883,7 +89882,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -89895,7 +89894,7 @@
       "sourceName": "skeleton",
       "location": {
         "id": "obj02-area09-sub02",
-        "name": "Borgia Mountains (Dead End Swamp)",
+        "name": "Bordia Mountains (Dead End Swamp)",
         "sourceName": "Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -90010,7 +90009,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -90067,7 +90066,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -90079,7 +90078,7 @@
       "sourceName": "mudman",
       "location": {
         "id": "obj02-area09-sub02",
-        "name": "Borgia Mountains (Dead End Swamp)",
+        "name": "Bordia Mountains (Dead End Swamp)",
         "sourceName": "Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -90194,7 +90193,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -90251,7 +90250,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -90263,7 +90262,7 @@
       "sourceName": "skeleton",
       "location": {
         "id": "obj02-area09-sub02",
-        "name": "Borgia Mountains (Dead End Swamp)",
+        "name": "Bordia Mountains (Dead End Swamp)",
         "sourceName": "Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -90378,7 +90377,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -90435,7 +90434,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -90447,7 +90446,7 @@
       "sourceName": "mudman",
       "location": {
         "id": "obj02-area09-sub02",
-        "name": "Borgia Mountains (Dead End Swamp)",
+        "name": "Bordia Mountains (Dead End Swamp)",
         "sourceName": "Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -90562,7 +90561,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -90619,7 +90618,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }
@@ -90631,7 +90630,7 @@
       "sourceName": "mudman",
       "location": {
         "id": "obj02-area09-sub02",
-        "name": "Borgia Mountains (Dead End Swamp)",
+        "name": "Bordia Mountains (Dead End Swamp)",
         "sourceName": "Bordia Mountains (Dead End Swamp)",
         "objset": 2,
         "objsetHex": "0x02",
@@ -90746,7 +90745,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-day",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-day",
             "atlasRecipeStatus": "projected"
           }
         },
@@ -90803,7 +90802,7 @@
               "0x37",
               "0x0F"
             ],
-            "atlasEntryId": "obj02-area09-sub02-borgia-mountains-dead-end-swamp-night",
+            "atlasEntryId": "obj02-area09-sub02-bordia-mountains-dead-end-swamp-night",
             "atlasRecipeStatus": "projected"
           }
         }

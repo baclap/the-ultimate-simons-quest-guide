@@ -51,7 +51,7 @@ This writes:
 ## What Is ROM-Derived
 
 - Area and submap inventory comes from the exterior topology pass.
-- Submap relative ordering comes from the `cv2r` submap order preserved in
+- Submap relative ordering comes from the [`cv2r`](https://github.com/tonylukasavage/cv2r) submap order preserved in
   topology edges.
 - Boundary transition endpoints come from decoded ROM transition bytes.
 - Segment pixels and dimensions come from the recipe atlas.

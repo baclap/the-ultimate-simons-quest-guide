@@ -19,7 +19,7 @@ entry/exit relationships from ROM or runtime evidence.
 6. Generate the guide scene only after the proof artifact has no silent
    omissions.
 
-`cv2r`, screenshots, memory, maps, and external guides are useful leads. Committed
+[`cv2r`](https://github.com/tonylukasavage/cv2r), screenshots, memory, maps, and external guides are useful leads. Committed
 guide facts must come from ROM decoding, emulator traces, generated manifests,
 or validation artifacts.
 

@@ -32,7 +32,7 @@ There are two edge families:
 
 | Edge type | Source | Meaning |
 | --- | --- | --- |
-| `submap-sequence` | `cv2r` submap order inside one area record | Adjacent map sections within the same area. |
+| `submap-sequence` | [`cv2r`](https://github.com/tonylukasavage/cv2r) submap order inside one area record | Adjacent map sections within the same area. |
 | `boundary-transition` | ROM area-record bytes at offsets `3..8` | Left/right exits between areas. |
 
 Each `boundary-transition` preserves its raw three-byte transition tuple and
@@ -99,7 +99,7 @@ Transition semantics currently classify:
 The connector-only edge is
 `obj04-area01-sub00 -> obj01-area04-sub00`: Deborah Cliff (In Tornado) to
 Bodley Mansion - Door. The ROM transition bytes still identify the endpoint,
-but `cv2r` location metadata marks the source as a tornado submap, so the
+but [`cv2r`](https://github.com/tonylukasavage/cv2r) location metadata marks the source as a tornado submap, so the
 composition pass treats it as a connector until the transport coordinates are
 decoded.
 

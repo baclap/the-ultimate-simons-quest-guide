@@ -54,7 +54,7 @@ That rule currently finds one exterior alias:
 This matches the committed Mesen fixture exactly, so fixtures are now
 validation evidence rather than the primary source of the alias. If the ROM rule
 does not find an alias, the renderer still falls back to the fixture-backed
-alias table, and then to the direct `cv2r` context.
+alias table, and then to the direct [`cv2r`](https://github.com/tonylukasavage/cv2r) context.
 
 Use this command to inspect the current resolver report:
 

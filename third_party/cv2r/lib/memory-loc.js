@@ -1,3 +1,0 @@
-// This will get populated by the memory locations of various data, subroutines, etc...
-
-module.exports = {};

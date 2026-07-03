@@ -3,11 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta http-equiv="Cache-Control" content="no-store">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>Castlevania II Perfect Guide Prototype</title>
-    <link rel="stylesheet" href="styles.css?v=bodley-approach-facing-1">
+    <meta name="theme-color" content="#050505">
+    <title>The Ultimate Simon's Quest Guide</title>
   </head>
   <body>
     <main id="app" class="guide-shell">
@@ -18,7 +15,7 @@
       <div id="loading-overlay" class="loading-overlay is-active" role="status" aria-live="polite" aria-label="Loading Castlevania II guide">
         <div class="loading-panel">
           <div id="loading-meter" class="loading-meter" role="progressbar" aria-label="Loading Castlevania II guide" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <div id="loading-meter-fill" class="loading-meter-fill"></div>
+            <div id="loading-meter-fill" class="loading-meter-fill" style="transform: scaleX(0); transform-origin: left center; transition: none;"></div>
           </div>
         </div>
       </div>
@@ -57,6 +54,10 @@
           <label><input id="toggle-highlight-map-objects" type="checkbox" checked> Map objects</label>
           <label><input id="toggle-highlight-secrets" type="checkbox" checked> Secrets</label>
         </fieldset>
+        <div class="panel-meta">
+          <span id="guide-version"></span>
+          <a id="repo-link" class="panel-info-link" href="https://github.com/baclap/the-ultimate-simons-quest-guide" target="_blank" rel="noopener noreferrer" aria-label="Open project README" title="Open project README">i</a>
+        </div>
       </aside>
 
       <section id="guide-card" class="guide-card" aria-live="polite" hidden>
@@ -83,6 +84,6 @@
 
     </main>
 
-    <script type="module" src="app.js?v=bodley-approach-facing-1"></script>
+    <script type="module" src="/src/app.js?dev-sw-bypass=1"></script>
   </body>
 </html>
