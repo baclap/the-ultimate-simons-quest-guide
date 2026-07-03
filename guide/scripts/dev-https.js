@@ -106,6 +106,7 @@ function run(command, args, options = {}) {
 const lanAddress = findLanAddress();
 ensureCertificate(lanAddress);
 run(process.execPath, ['scripts/build-guide-music-data.js']);
+run(process.execPath, ['scripts/build-icons.js']);
 run(process.execPath, ['scripts/build-asset-manifest.js', '--root', 'public', '--out', 'public/asset-manifest.json']);
 
 console.log('');

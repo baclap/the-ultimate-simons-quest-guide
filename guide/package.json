@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "build:music": "node scripts/build-guide-music-data.js",
-    "dev": "npm run build:music && node scripts/build-asset-manifest.js --root public --out public/asset-manifest.json && vite --host 0.0.0.0",
+    "build:icons": "node scripts/build-icons.js",
+    "dev": "npm run build:music && npm run build:icons && node scripts/build-asset-manifest.js --root public --out public/asset-manifest.json && vite --host 0.0.0.0",
     "dev:https": "node scripts/dev-https.js",
-    "build": "npm run build:music && node scripts/build-asset-manifest.js --root public --out public/asset-manifest.json && vite build && node scripts/build-asset-manifest.js --root dist --out dist/asset-manifest.json",
+    "build": "npm run build:music && npm run build:icons && node scripts/build-asset-manifest.js --root public --out public/asset-manifest.json && vite build && node scripts/build-asset-manifest.js --root dist --out dist/asset-manifest.json",
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
