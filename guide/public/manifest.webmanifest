@@ -1,7 +1,7 @@
 {
   "name": "The Ultimate Simon’s Quest Guide",
   "short_name": "The Ultimate Simon’s Quest Guide",
-  "description": "A ROM-faithful interactive guide for Castlevania II: Simon’s Quest.",
+  "description": "Explore Castlevania II: Simon’s Quest through an interactive guide to its secrets, hidden paths, and peculiar charm.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
