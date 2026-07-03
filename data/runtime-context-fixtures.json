@@ -33,7 +33,8 @@
       "id": "dora-woods-part-2-day",
       "label": "Dora Woods - Part 2, day",
       "capture": "out/captures/dora-woods-part-2-day",
-      "status": "validated-palette-context-alias",
+      "status": "superseded-transition-context-capture",
+      "useForPaletteContext": false,
       "atlasContext": {
         "objset": "0x02",
         "area": "0x08",
@@ -48,7 +49,7 @@
         "actorPointer": "0xA04F",
         "tileSetPointer": "0x8CF4"
       },
-      "note": "The Dora layout candidate is 2:8:2, but Mesen CPU RAM has $30=02, $50=00, and $51=83. The palette selector masks $51 to submap 03 and resolves transfer $23 -> 4:$9FD7."
+      "note": "This capture records a transitional CPU RAM context of 2:0:3, raw $51=83. It is retained as superseded evidence only and must not drive Dora Woods - Part 2 palette selection. The direct ROM selector context 2:8:2 resolves day transfer $24, auxiliary $33, and palette 4:$9FE8, matching Dora Woods - Part 1 and Part 3."
     },
     {
       "id": "dabis-path-day",

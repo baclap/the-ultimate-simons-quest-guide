@@ -43,7 +43,7 @@ const FALLBACK_FAMILY_RECIPES = {
     widthBlocks: 8,
     heightBlocks: 7,
     confidence: 'projected',
-    note: 'Objset 2 route family is validated by Jova Woods, Dora, and Dabi probes.'
+    note: 'Objset 2 route family is validated by Jova Woods and Dabi probes.'
   },
   3: {
     chrBanks: [0x04, 0x05],

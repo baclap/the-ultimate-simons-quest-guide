@@ -640,7 +640,7 @@ function buildExteriorAtlas(rom, info) {
       paletteIndexPointers: hex(PALETTE_INDEX_POINTERS, 4),
       bank7TransferPointerTable: hex(BANK_7_TRANSFER_POINTER_TABLE, 4),
       runtimeContextFixtures: 'data/runtime-context-fixtures.json',
-      runtimeContextResolver: 'rom-special-screen-record-alias'
+      runtimeContextResolver: 'direct-runtime-context'
     },
     templates: Object.values(TEMPLATE_BY_OBJSET).map(publicTemplate),
     candidates: locations

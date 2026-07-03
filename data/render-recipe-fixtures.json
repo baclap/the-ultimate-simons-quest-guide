@@ -66,21 +66,6 @@
       "reason": "Normal objset 2 night palette probe."
     },
     {
-      "id": "dora-woods-part-2-day",
-      "label": "Dora Woods - Part 2, day",
-      "location": "Dora Woods - Part 2",
-      "variant": "day",
-      "access": "outdoor",
-      "state": "out/states/dora-woods-part-2.mss",
-      "capture": "out/captures/dora-woods-part-2-day",
-      "atlasContext": {
-        "objset": "0x02",
-        "area": "0x08",
-        "submap": "0x02"
-      },
-      "reason": "Known special runtime palette-context alias."
-    },
-    {
       "id": "dabis-path-day",
       "label": "Dabi's Path, day",
       "location": "Dabi's Path",

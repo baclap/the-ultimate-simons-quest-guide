@@ -1207,7 +1207,7 @@
       "id": "dora-woods-part-2-day",
       "segmentId": "dora-woods-part-2",
       "variant": "day",
-      "paletteAddress": "0x9FD7",
+      "paletteAddress": "0x9FE8",
       "paletteBank": 4,
       "data": {
         "offset": 73512,
@@ -4040,7 +4040,7 @@
         "night": "obj02-area08-sub02-dora-woods-part-2-night"
       },
       "recipeStatus": {
-        "day": "validated",
+        "day": "projected",
         "night": "projected"
       }
     },
@@ -11627,6 +11627,258 @@
         "paletteByVariant": {
           "day": "yuba-lake-path-day-sprites",
           "night": "yuba-lake-path-night-sprites"
+        },
+        "frameDurationMs": null,
+        "frames": [
+          {
+            "selector": "0x43",
+            "pointer": "0xB376",
+            "status": "0x04",
+            "sprites": [
+              {
+                "tile": "0xF6",
+                "attr": "0x03",
+                "palette": 3,
+                "flipHorizontal": false,
+                "flipVertical": false,
+                "xOffset": -16,
+                "yOffset": -3
+              },
+              {
+                "tile": "0xF8",
+                "attr": "0x03",
+                "palette": 3,
+                "flipHorizontal": false,
+                "flipVertical": false,
+                "xOffset": -8,
+                "yOffset": -3
+              },
+              {
+                "tile": "0xF6",
+                "attr": "0x03",
+                "palette": 3,
+                "flipHorizontal": false,
+                "flipVertical": false,
+                "xOffset": -1,
+                "yOffset": -3
+              },
+              {
+                "tile": "0xF8",
+                "attr": "0x03",
+                "palette": 3,
+                "flipHorizontal": false,
+                "flipVertical": false,
+                "xOffset": 7,
+                "yOffset": -3
+              }
+            ],
+            "opaqueBounds": {
+              "minX": -15,
+              "minY": -2,
+              "maxX": 15,
+              "maxY": 13,
+              "width": 30,
+              "height": 15,
+              "centroid": {
+                "x": 0,
+                "y": 5.5
+              },
+              "opaquePixels": 442
+            }
+          }
+        ],
+        "bounds": {
+          "minX": -16,
+          "minY": -3,
+          "maxX": 15,
+          "maxY": 16,
+          "width": 31,
+          "height": 19
+        },
+        "opaqueBounds": {
+          "minX": -15,
+          "minY": -2,
+          "maxX": 15,
+          "maxY": 13,
+          "width": 30,
+          "height": 15
+        }
+      }
+    },
+    {
+      "id": "north-bridge-moving-platform-60f0",
+      "label": "Moving platform",
+      "kind": "platform",
+      "interactive": false,
+      "effect": "moving-platform",
+      "segmentId": "north-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "tileX": 24,
+      "tileY": 11,
+      "pixelX": 384,
+      "pixelY": 163,
+      "worldX": 18304,
+      "worldY": 163,
+      "actorId": "0x22",
+      "data": "0x41",
+      "motion": {
+        "type": "linear-ping-pong",
+        "axis": "y",
+        "minOffsetX": 0,
+        "maxOffsetX": 0,
+        "minOffsetY": -32,
+        "maxOffsetY": 0,
+        "speedPixelsPerFrame": 0.5,
+        "frameDurationMs": 16.666666666666668,
+        "reversalFrames": 64,
+        "endpointHoldFrames": 1,
+        "phaseFrames": 0
+      },
+      "dialog": null,
+      "dialogs": null,
+      "itemReward": null,
+      "visibilityLayer": "always",
+      "highlightLayer": "none",
+      "render": {
+        "type": "metasprite-selector",
+        "selector": "0x43",
+        "selectorRecord": null,
+        "selectorSource": "direct-selector",
+        "chrSet": "chr-02-03",
+        "largeSprites": true,
+        "spriteHeight": 16,
+        "paletteByVariant": {
+          "day": "north-bridge-day-sprites",
+          "night": "north-bridge-night-sprites"
+        },
+        "frameDurationMs": null,
+        "frames": [
+          {
+            "selector": "0x43",
+            "pointer": "0xB376",
+            "status": "0x04",
+            "sprites": [
+              {
+                "tile": "0xF6",
+                "attr": "0x03",
+                "palette": 3,
+                "flipHorizontal": false,
+                "flipVertical": false,
+                "xOffset": -16,
+                "yOffset": -3
+              },
+              {
+                "tile": "0xF8",
+                "attr": "0x03",
+                "palette": 3,
+                "flipHorizontal": false,
+                "flipVertical": false,
+                "xOffset": -8,
+                "yOffset": -3
+              },
+              {
+                "tile": "0xF6",
+                "attr": "0x03",
+                "palette": 3,
+                "flipHorizontal": false,
+                "flipVertical": false,
+                "xOffset": -1,
+                "yOffset": -3
+              },
+              {
+                "tile": "0xF8",
+                "attr": "0x03",
+                "palette": 3,
+                "flipHorizontal": false,
+                "flipVertical": false,
+                "xOffset": 7,
+                "yOffset": -3
+              }
+            ],
+            "opaqueBounds": {
+              "minX": -15,
+              "minY": -2,
+              "maxX": 15,
+              "maxY": 13,
+              "width": 30,
+              "height": 15,
+              "centroid": {
+                "x": 0,
+                "y": 5.5
+              },
+              "opaquePixels": 442
+            }
+          }
+        ],
+        "bounds": {
+          "minX": -16,
+          "minY": -3,
+          "maxX": 15,
+          "maxY": 16,
+          "width": 31,
+          "height": 19
+        },
+        "opaqueBounds": {
+          "minX": -15,
+          "minY": -2,
+          "maxX": 15,
+          "maxY": 13,
+          "width": 30,
+          "height": 15
+        }
+      }
+    },
+    {
+      "id": "north-bridge-moving-platform-60fc",
+      "label": "Moving platform",
+      "kind": "platform",
+      "interactive": false,
+      "effect": "moving-platform",
+      "segmentId": "north-bridge",
+      "variants": [
+        "day",
+        "night"
+      ],
+      "tileX": 40,
+      "tileY": 11,
+      "pixelX": 640,
+      "pixelY": 163,
+      "worldX": 18560,
+      "worldY": 163,
+      "actorId": "0x22",
+      "data": "0x41",
+      "motion": {
+        "type": "linear-ping-pong",
+        "axis": "y",
+        "minOffsetX": 0,
+        "maxOffsetX": 0,
+        "minOffsetY": -32,
+        "maxOffsetY": 0,
+        "speedPixelsPerFrame": 0.5,
+        "frameDurationMs": 16.666666666666668,
+        "reversalFrames": 64,
+        "endpointHoldFrames": 1,
+        "phaseFrames": 4
+      },
+      "dialog": null,
+      "dialogs": null,
+      "itemReward": null,
+      "visibilityLayer": "always",
+      "highlightLayer": "none",
+      "render": {
+        "type": "metasprite-selector",
+        "selector": "0x43",
+        "selectorRecord": null,
+        "selectorSource": "direct-selector",
+        "chrSet": "chr-02-03",
+        "largeSprites": true,
+        "spriteHeight": 16,
+        "paletteByVariant": {
+          "day": "north-bridge-day-sprites",
+          "night": "north-bridge-night-sprites"
         },
         "frameDurationMs": null,
         "frames": [
@@ -53775,8 +54027,8 @@
     "dayOnly": 20
   },
   "secretFeatureSummary": {
-    "features": 29,
-    "movingPlatforms": 21
+    "features": 31,
+    "movingPlatforms": 23
   },
   "actorSummary": {
     "classes": 66,

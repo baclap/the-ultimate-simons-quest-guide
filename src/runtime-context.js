@@ -26,6 +26,7 @@ const RUNTIME_CONTEXT_ADDRESSES = {
 const DEFAULT_FIXTURE_FILE = path.join(__dirname, '..', 'data', 'runtime-context-fixtures.json');
 const SPECIAL_SCREEN_RECORD_MARKERS = new Set([0xfd, 0xfe]);
 const MAX_SPECIAL_ALIAS_DISTANCE = 0x20;
+const ENABLE_SPECIAL_SCREEN_RECORD_PALETTE_ALIASES = false;
 
 function hex(value, width = 2) {
   if (value == null) {
@@ -251,10 +252,12 @@ function createRuntimeContextResolver(rom, info, locations) {
   const byKey = new Map(entries.map((entry) => [entry.key, entry]));
   const aliasByKey = new Map();
 
-  for (const entry of entries) {
-    const alias = findSpecialScreenRecordAlias(entry, entries);
-    if (alias) {
-      aliasByKey.set(entry.key, alias);
+  if (ENABLE_SPECIAL_SCREEN_RECORD_PALETTE_ALIASES) {
+    for (const entry of entries) {
+      const alias = findSpecialScreenRecordAlias(entry, entries);
+      if (alias) {
+        aliasByKey.set(entry.key, alias);
+      }
     }
   }
 
@@ -293,11 +296,14 @@ function createRuntimeContextResolver(rom, info, locations) {
     }
 
     return {
-      source: 'rom-special-screen-record-alias',
+      source: ENABLE_SPECIAL_SCREEN_RECORD_PALETTE_ALIASES
+        ? 'rom-special-screen-record-alias'
+        : 'direct-runtime-context',
       constants: {
         areaTablePointers: hex(AREA_TABLE_POINTERS, 4),
         screenRecordPointersOffset: hex(SCREEN_RECORD_POINTERS_OFFSET, 2),
-        maxSpecialAliasDistance: hex(MAX_SPECIAL_ALIAS_DISTANCE, 2)
+        maxSpecialAliasDistance: hex(MAX_SPECIAL_ALIAS_DISTANCE, 2),
+        specialScreenRecordPaletteAliasesEnabled: ENABLE_SPECIAL_SCREEN_RECORD_PALETTE_ALIASES
       },
       candidates: entries.length,
       specialScreenRecords: entries

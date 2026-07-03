@@ -24,7 +24,6 @@ The current fixture manifest covers:
 
 - Jova town day and night
 - Jova Woods day and night
-- Dora Woods - Part 2 day
 - Dabi's Path day
 - Camilla Cemetery day and night
 - Berkeley Mansion door day
@@ -44,7 +43,7 @@ There are currently no deferred probes in the fixture manifest.
 
 ## Findings
 
-All 23 captured probes now have exact CHR ROM fingerprints and exact ROM
+All 22 captured probes now have exact CHR ROM fingerprints and exact ROM
 palette selector matches.
 
 | Probe | Runtime context | CHR banks | Palette transfer | Palette address |
@@ -53,7 +52,6 @@ palette selector matches.
 | Jova town, night | `0:0:$80` | `00/01` | `$14` | `4:$9E80` |
 | Jova Woods, day | `2:0:$00` | `02/03` | `$22` | `4:$9FC6` |
 | Jova Woods, night | `2:0:$00` | `02/03` | `$25` | `4:$9FF9` |
-| Dora Woods - Part 2, day | `2:0:$83` | `02/03` | `$23` | `4:$9FD7` |
 | Dabi's Path, day | `2:3:$00` | `02/03` | `$26` | `4:$A00A` |
 | Camilla Cemetery, day | `3:0:$00` | `04/05` | `$29` | `4:$A03D` |
 | Camilla Cemetery, night | `3:0:$00` | `04/05` | `$2B` | `4:$A05F` |

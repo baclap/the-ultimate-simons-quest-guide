@@ -498,13 +498,13 @@ const ACTOR_PALETTE_SOURCES = [
     id: 'dora-woods-part-2-day-sprites',
     label: 'Dora Woods Part 2 sprites, day',
     type: 'rom-sprite-palette',
-    auxiliaryTransferId: 0x30
+    auxiliaryTransferId: 0x33
   },
   {
     id: 'dora-woods-part-2-night-sprites',
     label: 'Dora Woods Part 2 sprites, night',
     type: 'rom-sprite-palette',
-    auxiliaryTransferId: 0x30
+    auxiliaryTransferId: 0x33
   },
   {
     id: 'town-of-yomi-day-sprites',
@@ -1698,7 +1698,9 @@ function defaultSecretDetailsForActor(actor, bytes) {
   };
 }
 
-const MOUNTAIN_VERTICAL_PLATFORM_ROWS = [
+const OUTDOOR_VERTICAL_PLATFORM_ROWS = [
+  { id: 'north-bridge-moving-platform-60f0', segmentId: 'north-bridge', offset: 0x60f0, bytes: [0x18, 0x0b, 0x22, 0x41], phaseFrames: 0, chrBanks: [0x02, 0x03], paletteByVariant: { day: 'north-bridge-day-sprites', night: 'north-bridge-night-sprites' } },
+  { id: 'north-bridge-moving-platform-60fc', segmentId: 'north-bridge', offset: 0x60fc, bytes: [0x28, 0x0b, 0x22, 0x41], phaseFrames: 4, chrBanks: [0x02, 0x03], paletteByVariant: { day: 'north-bridge-day-sprites', night: 'north-bridge-night-sprites' } },
   { id: 'vrad-mountain-part-1-moving-platform-6874', segmentId: 'vrad-mountain-part-1', offset: 0x6874, bytes: [0x13, 0x0d, 0x34, 0x20], phaseFrames: 0 },
   { id: 'vrad-mountain-part-1-moving-platform-6878', segmentId: 'vrad-mountain-part-1', offset: 0x6878, bytes: [0x17, 0x0d, 0x34, 0x20], phaseFrames: 2 },
   { id: 'vrad-mountain-part-1-moving-platform-687c', segmentId: 'vrad-mountain-part-1', offset: 0x687c, bytes: [0x1b, 0x0d, 0x34, 0x20], phaseFrames: 4 },
@@ -1720,19 +1722,26 @@ const MOUNTAIN_VERTICAL_PLATFORM_ROWS = [
   { id: 'uta-lower-road-2-moving-platform-72d9', segmentId: 'uta-lower-road-2', offset: 0x72d9, bytes: [0x2d, 0x28, 0x22, 0x20], phaseFrames: 6, selector: 0x43, chrBanks: [0x04, 0x05], paletteByVariant: { day: 'debious-woods-part-3-day-sprites', night: 'debious-woods-part-3-night-sprites' } }
 ];
 
-function mountainVerticalPlatformFeature(row) {
+function outdoorVerticalPlatformFeature(row) {
   const actorId = row.bytes[2];
   const actorIdText = dollarHex(actorId, 2);
   const selector = row.selector ?? (actorId === 0x34 ? 0x1b : 0x43);
   const selectorText = dollarHex(selector, 2);
   const chrBanks = row.chrBanks || [0x06, 0x07];
   const paletteByVariant = row.paletteByVariant || { day: 'deborah-cliff-day-sprites', night: 'deborah-cliff-night-sprites' };
+  const rowData = row.bytes[3];
+  const rowDataText = dollarHex(rowData, 2);
+  const setupIndex = rowData & 0x0f;
+  const setupIndexText = dollarHex(setupIndex, 1);
+  const reversalFrames = rowData & 0xf0;
+  const travelPixels = reversalFrames / 2;
+  const effectiveCycleFrames = reversalFrames * 2 + 2;
   const selectorSource = actorId === 0x34
     ? 'The routine special-cases actor id $34 and writes direct metasprite selector $1B.'
     : `Actor id ${actorIdText} uses the platform-family metasprite selector ${selectorText}.`;
   const phaseFrames = Number.isInteger(row.phaseFrames) ? row.phaseFrames : 0;
   const phaseSource = Number.isInteger(row.phaseFrames)
-    ? ` The guide applies a ${phaseFrames}-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's 66-frame effective cycle.`
+    ? ` The guide applies a ${phaseFrames}-frame renderer phase offset for this row, derived from the ROM actor loader's screen-window materialization timing against the $85BB branch's ${effectiveCycleFrames}-frame effective cycle.`
     : '';
   return {
     id: row.id,
@@ -1760,21 +1769,21 @@ function mountainVerticalPlatformFeature(row) {
       axis: 'y',
       minOffsetX: 0,
       maxOffsetX: 0,
-      minOffsetY: -16,
+      minOffsetY: -travelPixels,
       maxOffsetY: 0,
       speedPixelsPerFrame: 0.5,
       frameDurationMs: 1000 / 60,
-      reversalFrames: 32,
+      reversalFrames,
       endpointHoldFrames: 1,
       ...(Number.isInteger(row.phaseFrames) ? { phaseFrames } : {}),
-      source: `Actor id ${actorIdText} dispatches to bank 1:$854B. Row data $20 selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble $20 into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so these rows travel 16 pixels from the row anchor before reversing and hold one frame at each endpoint.${phaseSource}`
+      source: `Actor id ${actorIdText} dispatches to bank 1:$854B. Row data ${rowDataText} low nibble ${setupIndexText} selects the vertical setup branch at 1:$8589 and runtime timer branch 1:$85BB. Branch 1:$8589 stores a 0.5 px/frame vertical velocity through fixed-bank $E076; branch 1:$85BB reloads high nibble ${dollarHex(reversalFrames, 2)} into timer RAM $0456 and calls fixed-bank $E03B at reversal before the next movement frame, so this row travels ${travelPixels} pixels from the row anchor before reversing and holds one frame at each endpoint.${phaseSource}`
     },
     dialog: null,
     provenance: {
       row: 'rom-actor-control-row',
       routine: 'bank 1:$854B, setup branch 1:$8589, timer branch 1:$85BB',
       selector: `metasprite selector ${selectorText}`,
-      motion: 'row data $20: vertical platform setup index $0 with $20-frame reversal timer'
+      motion: `row data ${rowDataText}: vertical platform setup index ${setupIndexText} with ${dollarHex(reversalFrames, 2)}-frame reversal timer`
     }
   };
 }
@@ -2382,7 +2391,7 @@ const SECRET_FEATURE_DEFINITIONS = [
       motion: 'fixed-bank $E04F stores velocity; fixed-bank $E027 reverses horizontal velocity; fixed-bank $E0F4 applies actor movement'
     }
   },
-  ...MOUNTAIN_VERTICAL_PLATFORM_ROWS.map(mountainVerticalPlatformFeature)
+  ...OUTDOOR_VERTICAL_PLATFORM_ROWS.map(outdoorVerticalPlatformFeature)
 ];
 
 const MENU_ITEM_ICON_CHR_BANKS = [0x00, 0x01];

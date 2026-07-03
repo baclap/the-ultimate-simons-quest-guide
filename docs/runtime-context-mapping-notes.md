@@ -30,31 +30,27 @@ The durable evidence lives in `data/runtime-context-fixtures.json`.
 | Fixture | Atlas context | Runtime context | Result |
 | --- | --- | --- | --- |
 | Jova Woods | `2:0:0` | `2:0:0`, raw `$51=00` | Direct match. |
-| Dora Woods - Part 2 | `2:8:2` | `2:0:3`, raw `$51=83` | Validated alias. |
+| Dora Woods - Part 2 | `2:8:2` | `2:0:3`, raw `$51=83` | Superseded transition-context capture; not a palette source. |
 | Dabi's Path | `2:3:0` | `2:3:0`, raw `$51=00` | Direct match. |
 
-Dora is the important clue: the map layout candidate remains `2:8:2`, but the
-palette-selector context in RAM is `$30=02`, `$50=00`, `$51=83`. Since the
-routine masks `$51 & $7F`, the palette context is `2:0:3`, resolving transfer
-`$23` and palette `4:$9FD7`.
+Dora is the important cautionary capture: the saved state records RAM as
+`$30=02`, `$50=00`, `$51=83`, but that value represents a transitional live
+context and should not be used to palette Dora Woods - Part 2. The direct ROM
+selector context `2:8:2` resolves day transfer `$24`, auxiliary transfer `$33`,
+and palette `4:$9FE8`, matching Dora Woods - Part 1 (`2:8:1`) and Dora Woods -
+Part 3 (`2:9:0`).
 
 ## Current Renderer Rule
 
-`src/runtime-context.js` now builds a ROM-derived resolver over the atlas
-candidates. It reads each candidate's area record, screen-record pointer, and
-first screen-record byte. For special screen records (`$FD`/`$FE`), it looks
-for a prior same-marker special stream in the same object set.
+`src/runtime-context.js` now uses the direct [`cv2r`](https://github.com/tonylukasavage/cv2r)
+location context for palette selection. It still exposes special screen-record
+metadata for inspection, but same-marker special screen-record containment is
+not treated as a palette alias. That inference incorrectly mapped Dora Woods -
+Part 2 (`2:8:2`) through Veros Woods - Part 2 (`2:0:3`) and produced the wrong
+Dora 2 day palette.
 
-That rule currently finds one exterior alias:
-
-| Atlas candidate | Screen record | Alias source | Runtime selector context |
-| --- | --- | --- | --- |
-| Dora Woods - Part 2, `2:8:2` | `2:$A1AB`, starts `$FE $0D` | Veros Woods - Part 2, `2:0:3`, stream `2:$A1A3`, starts `$FE $06` | `2:0:3`, raw `$51=$83` |
-
-This matches the committed Mesen fixture exactly, so fixtures are now
-validation evidence rather than the primary source of the alias. If the ROM rule
-does not find an alias, the renderer still falls back to the fixture-backed
-alias table, and then to the direct [`cv2r`](https://github.com/tonylukasavage/cv2r) context.
+Fixture-backed palette aliases are also disabled per fixture with
+`useForPaletteContext: false` where evidence has been superseded.
 
 Use this command to inspect the current resolver report:
 
@@ -64,8 +60,7 @@ npm run inspect:runtime-context-map
 
 ## Remaining Gap
 
-The resolver now closes the known Dora alias without location-specific logic.
 The remaining research step is broader transition semantics: decode all table
 paths that set `$30`, `$50`, and `$51`, especially around the fixed-bank parser
-near `7:$D0B2`, so the project can explain every possible runtime context
-transition and not only aliases visible in current atlas records.
+near `7:$D0B2`, so the project can explain transitional contexts without using
+them as final palette selectors.

@@ -153,25 +153,23 @@ transfers:
 
 The atlas manifest records this selector chain under
 `template.paletteSelector` for each candidate when the selected transfer stream
-starts with a raw background palette byte (`$0F`). Runtime context aliases are
-now resolved from ROM screen-record structure first, with
-`data/runtime-context-fixtures.json` retained as validation evidence and a
-fallback alias source.
+starts with a raw background palette byte (`$0F`). Palette selection now uses
+the direct location context. Transitional runtime captures are retained as
+evidence only when marked with `useForPaletteContext: false`.
 
 Representative day fixtures:
 
 | Location | Selector context | Index list | Transfer id | Palette |
 | --- | --- | --- | ---: | --- |
 | Jova Woods | `2:0:0` | `2:$A1C0` | `$22` | `4:$9FC6` |
-| Dora Woods - Part 2 | `2:0:3` fixture alias for layout candidate `2:8:2` | `2:$A1C0` | `$23` | `4:$9FD7` |
+| Dora Woods - Part 2 | `2:8:2` | `2:$A1CE` | `$24` | `4:$9FE8` |
 | Dabi's Path | `2:3:0` / `2:3:1` | `2:$A6EB` | `$26` | `4:$A00A` |
 
-Dora Woods - Part 2 is the first evidence that a [`cv2r`](https://github.com/tonylukasavage/cv2r) layout candidate tuple
-can differ from the live runtime palette selector context. The renderer now
-derives that alias from the ROM: candidate `2:8:2` starts at special screen
-record `2:$A1AB` (`$FE $0D`), which is nested inside the same-marker special
-stream for `2:0:3` at `2:$A1A3` (`$FE $06`). The derived raw runtime submap is
-`$83`, matching the Mesen fixture.
+Dora Woods - Part 2 previously appeared to differ from its direct
+[`cv2r`](https://github.com/tonylukasavage/cv2r) layout tuple because a saved
+state captured transitional CPU RAM values (`2:0:3`, raw `$51=$83`). Treating
+special screen-record containment as a palette alias was incorrect: the direct
+selector context `2:8:2` yields the same Dora day palette as Part 1 and Part 3.
 
 ## Dora Palette Fixture
 
@@ -183,13 +181,10 @@ shows the day background palette in PPU RAM as:
 0F 00 10 0A 0F 16 1C 06 0F 22 19 1C 0F 11 20 15
 ```
 
-Those 16 bytes are present in PRG bank `4` at `$9FD7`. The decoded selector
-path reaches it through runtime context `2:0:3`, transfer id `$23`, and bank
-`7:$88DB`. Rendering the full Dora Woods - Part 2 layout with palette
-`4:$9FD7`, then cropping at the captured scroll position
-`x=144, y=48`, matches the emulator background render with `0` differing
-pixels. CPU RAM provides the alias evidence: `$30=02`, `$50=00`, `$51=83`;
-the palette routine masks `$51 & $7F`, giving submap `3`.
+Those 16 bytes are present in PRG bank `4` at `$9FD7`, but this capture is now
+classified as transitional evidence rather than the final map palette source.
+Dora Woods - Part 2 renders from direct selector context `2:8:2`, transfer id
+`$24`, auxiliary transfer `$33`, and palette `4:$9FE8`.
 
 ## Dabi Palette Fixture
 

@@ -343,6 +343,8 @@ ROM-backed evidence:
 - Debious Woods Part 3 has four raw actor/control rows:
   `0x072BD = 21 28 22 20`, `0x072C9 = 25 28 22 20`,
   `0x072D5 = 29 28 22 20`, and `0x072D9 = 2D 28 22 20`.
+- North Bridge has two raw actor/control rows omitted from the vendor enemy list:
+  `0x060F0 = 18 0B 22 41` and `0x060FC = 28 0B 22 41`.
 - Actor ids `$22` and `$34` dispatch to the shared moving-platform routine at
   bank `1:$854B`.
 - The routine writes metasprite selector `$43` for actor id `$22`, while actor
@@ -351,15 +353,19 @@ ROM-backed evidence:
   `$1B` decodes to the 16x16 two-sprite platform using tiles `$F6/$F8`.
 - Row data `$20` supplies low-nibble motion index `$0`, selecting setup branch
   `1:$8589`, and high nibble `$20`, reloaded by runtime branch `1:$85BB`.
+  North Bridge row data `$41` supplies low-nibble motion index `$1`, which uses
+  the same setup and runtime branches, and high nibble `$40`.
 - Setup branch `1:$8589` stores a 0.5 px/frame vertical velocity through
   fixed-bank `$E076`; runtime branch `1:$85BB` reloads timer RAM `$0456` from
   the row-data high nibble and calls fixed-bank `$E03B` at reversal. `$20`
   timer frames therefore produce a 16-pixel travel from the row anchor before
-  reversal.
+  reversal; `$40` timer frames produce a 32-pixel travel.
 - Runtime branch `1:$85BB` does not move the actor on the same frame where it
   reloads `$0456` and reverses vertical velocity. The visible motion therefore
-  holds one frame at each endpoint: 32 movement frames upward/downward plus two
-  reversal frames, for a 66-frame effective cycle.
+  holds one frame at each endpoint: `$20` rows use 32 movement frames
+  upward/downward plus two reversal frames, for a 66-frame effective cycle;
+  `$40` rows use 64 movement frames upward/downward plus two reversal frames,
+  for a 130-frame effective cycle.
 - These rows do not carry an explicit per-platform phase byte. Their relative
   phase comes from the live actor loader at `1:$8055-$8188`, which materializes
   actor rows only after their row X position enters the live screen window.
@@ -377,12 +383,16 @@ ROM-backed evidence:
   - Debious Woods Part 3 rows are four cells apart, so their 64-frame load
     deltas against the 66-frame cycle use renderer phases `0,2,4,6` rather than
     moving in unison.
+  - North Bridge rows are sixteen cells apart, so the second row loads 256
+    frames after the first. Against the `$41` row's 130-frame effective cycle,
+    the renderer phases are `0,4`.
 - The rendered guide placement applies the moving-platform visible anchor
   convention already proven by the Berkeley trace: raw row X is the visible
   anchor X and visible Y is row Y minus 13 pixels.
 - CHR/palette context remains section-specific: Vrad/Jam use object-set `$04`
   CHR `$06/$07`, Joma/Debious use object-set `$03` CHR `$04/$05`, and each row
-  uses the sprite palette resolved for its map section.
+  uses the sprite palette resolved for its map section. North Bridge uses object
+  set `$02` CHR `$02/$03` and its own day/night sprite palettes.
 - Actor id `$43` rows with data `$00` in Dora Woods and Bordia Mountains are not
   platforms. Existing selector-stream evidence classifies `$43` as a
   transparent sprite-mask/rendering-control row that parks blank tile `$FF`
@@ -391,7 +401,7 @@ ROM-backed evidence:
 
 Meaning:
 
-These nineteen rows are visible outdoor moving platforms, not hidden secrets or
+These twenty-one rows are visible outdoor moving platforms, not hidden secrets or
 clickable guide facts. They render regardless of the guide Secrets layer and
 use ROM-defined vertical ping-pong paths.
 
