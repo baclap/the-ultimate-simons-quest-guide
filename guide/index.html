@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#050505">
-    <meta name="description" content="Explore Castlevania II: Simon’s Quest through an interactive guide to its secrets, hidden paths, and peculiar charm.">
+    <meta name="description" content="Explore Castlevania II: Simon’s Quest through an interactive map, a guide to its secrets, hidden paths, and peculiar charm.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <meta name="application-name" content="The Ultimate Simon’s Quest Guide">
     <meta name="apple-mobile-web-app-title" content="The Ultimate Simon’s Quest Guide">
@@ -19,8 +19,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/app-icon-180.png">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Ultimate Simon’s Quest Guide">
-    <meta property="og:title" content="The Ultimate Simon’s Quest Guide">
-    <meta property="og:description" content="Explore Castlevania II: Simon’s Quest through an interactive guide to its secrets, hidden paths, and peculiar charm.">
+    <meta property="og:title" content="The Ultimate Simon’s Quest Guide — An interactive Castlevania II map">
+    <meta property="og:description" content="Explore Castlevania II: Simon’s Quest through an interactive map, a guide to its secrets, hidden paths, and peculiar charm.">
     <meta property="og:url" content="https://theultimatesimonsquestguide.com/">
     <meta property="og:image" content="https://theultimatesimonsquestguide.com/social-card.png">
     <meta property="og:image:type" content="image/png">
@@ -29,15 +29,47 @@
     <meta property="og:image:alt" content="A preview of The Ultimate Simon’s Quest Guide showing Castlevania II map sections and guide controls.">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="The Ultimate Simon’s Quest Guide">
-    <meta name="twitter:description" content="Explore Castlevania II: Simon’s Quest through an interactive guide to its secrets, hidden paths, and peculiar charm.">
+    <meta name="twitter:title" content="The Ultimate Simon’s Quest Guide — An interactive Castlevania II map">
+    <meta name="twitter:description" content="Explore Castlevania II: Simon’s Quest through an interactive map, a guide to its secrets, hidden paths, and peculiar charm.">
     <meta name="twitter:image" content="https://theultimatesimonsquestguide.com/social-card.png">
     <meta name="twitter:image:alt" content="A preview of The Ultimate Simon’s Quest Guide showing Castlevania II map sections and guide controls.">
-    <title>The Ultimate Simon’s Quest Guide</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://theultimatesimonsquestguide.com/#website",
+            "url": "https://theultimatesimonsquestguide.com/",
+            "name": "The Ultimate Simon’s Quest Guide",
+            "alternateName": "Castlevania II: Simon’s Quest Interactive Map",
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://theultimatesimonsquestguide.com/#webpage",
+            "url": "https://theultimatesimonsquestguide.com/",
+            "name": "The Ultimate Simon’s Quest Guide — An interactive Castlevania II map",
+            "description": "Explore Castlevania II: Simon’s Quest through an interactive map, a guide to its secrets, hidden paths, and peculiar charm.",
+            "isPartOf": {
+              "@id": "https://theultimatesimonsquestguide.com/#website"
+            },
+            "about": {
+              "@type": "VideoGame",
+              "name": "Castlevania II: Simon’s Quest",
+              "alternateName": "Castlevania 2",
+              "gamePlatform": "Nintendo Entertainment System"
+            },
+            "inLanguage": "en-US"
+          }
+        ]
+      }
+    </script>
+    <title>The Ultimate Simon’s Quest Guide — An interactive Castlevania II map</title>
   </head>
   <body>
     <main id="app" class="guide-shell">
-      <canvas id="map-canvas" class="map-surface" tabindex="0" aria-label="Castlevania II guide map"></canvas>
+      <canvas id="map-canvas" class="map-surface" tabindex="0" aria-label="Castlevania II: Simon’s Quest interactive map and guide"></canvas>
       <canvas id="scene-canvas" class="map-surface" tabindex="0" aria-label="Berkeley Mansion interior map" hidden></canvas>
       <div id="overlay-layer" class="overlay-layer" aria-hidden="false"></div>
       <div id="view-transition" class="view-transition" aria-hidden="true"></div>
